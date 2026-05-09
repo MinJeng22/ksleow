@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
@@ -125,100 +125,30 @@ function BulletList({ items }) {
 }
 
 /* ══════════════════════════════════════════════════════════════
- * VideoGuide — dual-buffer crossfade player
+ * VideoGuide — single-video player with prev/next arrows
  *
- * Uses two <video> elements layered on top of each other.
- * While segment N is playing, segment N+1 is silently preloaded
- * in the background. On transition, we crossfade opacity so the
- * viewer never sees a black frame between segments.
+ * Uses one <video> element with `key={idx}` so React fully remounts
+ * on segment change. Auto-plays muted, advances on `ended`. The
+ * 0.25 s opacity fade on `onLoadedData` masks the brief swap moment.
  * ══════════════════════════════════════════════════════════════ */
 function VideoGuide() {
-  const [idx,     setIdx]     = useState(0);
-  const [swap,    setSwap]    = useState(false);   // false → A on top, true → B on top
-  const [textIn,  setTextIn]  = useState(true);
+  const [idx,    setIdx]    = useState(0);
+  const [textIn, setTextIn] = useState(true);
+  const videoRef = useRef(null);
 
-  const aRef = useRef(null);
-  const bRef = useRef(null);
-  /* Mutable refs — kept in sync with state — for use inside callbacks
-   * without stale-closure issues. */
-  const idxRef  = useRef(0);
-  const swapRef = useRef(false);
-  idxRef.current  = idx;
-  swapRef.current = swap;
-
-  const topRef    = () => swapRef.current ? bRef : aRef;   // currently visible
-  const bottomRef = () => swapRef.current ? aRef : bRef;   // preloading / hidden
-
-  /* Load a segment index into a video element (without playing). */
-  const preloadInto = useCallback((videoEl, segIdx) => {
-    if (!videoEl) return;
-    if (videoEl._loadedSeg === segIdx) return;      // already loaded
-    videoEl.src    = VIDEO_SEGMENTS[segIdx].src;
-    videoEl.preload = "auto";
-    videoEl.load();
-    videoEl._loadedSeg = segIdx;
-  }, []);
-
-  /* Initial mount: A plays seg 0; after 800 ms preload seg 1 into B. */
+  /* Trigger short text re-fade whenever idx changes. */
   useEffect(() => {
-    const a = aRef.current;
-    const b = bRef.current;
-    if (!a) return;
-    a.src    = VIDEO_SEGMENTS[0].src;
-    a.preload = "auto";
-    a.load();
-    a._loadedSeg = 0;
-    a.play().catch(() => {});
-    const t = setTimeout(() => preloadInto(b, 1), 800);
+    setTextIn(false);
+    const t = setTimeout(() => setTextIn(true), 80);
     return () => clearTimeout(t);
-  }, [preloadInto]);
+  }, [idx]);
 
-  /* Transition to segment toIdx with a crossfade. */
-  const goTo = useCallback((toIdx) => {
-    const nextVid = bottomRef().current;
-    if (!nextVid) return;
-
-    /* Ensure the target segment is loaded. */
-    if (nextVid._loadedSeg !== toIdx) preloadInto(nextVid, toIdx);
-
-    let fired = false;
-    const doSwap = () => {
-      if (fired) return;
-      fired = true;
-      clearTimeout(fallback);
-      /* Reset to start and play. */
-      nextVid.currentTime = 0;
-      nextVid.play().catch(() => {});
-      /* Crossfade. */
-      setSwap(s => !s);
-      setIdx(toIdx);
-      /* Text fade-in. */
-      setTextIn(false);
-      setTimeout(() => setTextIn(true), 90);
-      /* 600 ms after swap, preload the next-next segment on the now-idle slot.
-       * By then swapRef.current has been updated by the re-render. */
-      setTimeout(() => {
-        const nextNextIdx = (toIdx + 1) % VIDEO_SEGMENTS.length;
-        const idle = swapRef.current ? aRef.current : bRef.current;
-        preloadInto(idle, nextNextIdx);
-      }, 600);
-    };
-
-    /* If first frame is ready — swap immediately. Otherwise wait for it. */
-    if (nextVid.readyState >= 2 /* HAVE_CURRENT_DATA */) {
-      doSwap();
-    } else {
-      nextVid.addEventListener("canplay", doSwap, { once: true });
-    }
-    const fallback = setTimeout(doSwap, 1200);  // safety net
-  }, [preloadInto]); // eslint-disable-line
-
-  /* onEnded — only react if the event comes from the active slot. */
-  const onEnded = useCallback((fromA) => {
-    const activeIsA = !swapRef.current;
-    if (fromA !== activeIsA) return;
-    goTo((idxRef.current + 1) % VIDEO_SEGMENTS.length);
-  }, [goTo]);
+  const goTo = (i) => {
+    const next = ((i % VIDEO_SEGMENTS.length) + VIDEO_SEGMENTS.length) % VIDEO_SEGMENTS.length;
+    setIdx(next);
+  };
+  const goPrev = () => goTo(idx - 1);
+  const goNext = () => goTo(idx + 1);
 
   const seg = VIDEO_SEGMENTS[idx];
 
@@ -230,6 +160,21 @@ function VideoGuide() {
         .vg-text { transition: opacity 0.28s ease, transform 0.28s ease; }
         .vg-in   { opacity: 1; transform: translateY(0); }
         .vg-out  { opacity: 0; transform: translateY(5px); }
+        .vg-arrow {
+          position: absolute; top: 50%; transform: translateY(-50%);
+          width: 42px; height: 42px; border-radius: 50%;
+          background: rgba(0,0,0,0.45); color: #fff;
+          border: none; cursor: pointer;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 22px; font-weight: 600; line-height: 1;
+          transition: background 0.2s, transform 0.2s;
+          z-index: 5;
+        }
+        .vg-arrow:hover { background: rgba(0,0,0,0.7); transform: translateY(-50%) scale(1.05); }
+        .vg-arrow.left  { left: 12px; }
+        .vg-arrow.right { right: 12px; }
+        .vg-video-fade { animation: vgFadeIn 0.32s ease; }
+        @keyframes vgFadeIn { from { opacity: 0 } to { opacity: 1 } }
       `}</style>
 
       {/* Group tabs */}
@@ -253,22 +198,23 @@ function VideoGuide() {
       </div>
 
       <div className="vg-grid">
-        {/* ── Left: dual-buffer video ── */}
+        {/* ── Left: video with arrows ── */}
         <div>
           {/* 16 : 9 container */}
           <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%", height: 0, background: "#000", borderRadius: 14, overflow: "hidden", boxShadow: "0 12px 36px rgba(47,49,90,0.18)" }}>
-            {/* Slot A */}
             <video
-              ref={aRef} muted playsInline
-              onEnded={() => onEnded(true)}
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", opacity: swap ? 0 : 1, transition: "opacity 0.4s ease" }}
+              key={idx}
+              ref={videoRef}
+              src={seg.src}
+              autoPlay muted playsInline
+              onEnded={goNext}
+              className="vg-video-fade"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }}
             />
-            {/* Slot B */}
-            <video
-              ref={bRef} muted playsInline
-              onEnded={() => onEnded(false)}
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", opacity: swap ? 1 : 0, transition: "opacity 0.4s ease" }}
-            />
+
+            {/* Prev / Next arrows */}
+            <button className="vg-arrow left"  onClick={goPrev} aria-label="Previous video">‹</button>
+            <button className="vg-arrow right" onClick={goNext} aria-label="Next video">›</button>
           </div>
 
           {/* Segment dot indicators */}
@@ -378,10 +324,7 @@ export default function Sales2DOPage({ onContact }) {
           </p>
 
           <div style={{ ...S.label, marginBottom: "0.5rem" }}>Video Tutorial</div>
-          <h3 style={{ ...S.h3, fontSize: "1.2rem", marginBottom: "0.5rem" }}>See It In Action</h3>
-          <p style={{ ...S.body, color: "#6b6f91", maxWidth: 600, marginBottom: "1.75rem" }}>
-            Videos play automatically and advance to the next segment — no controls needed.
-          </p>
+          <h3 style={{ ...S.h3, fontSize: "1.2rem", marginBottom: "1.5rem" }}>See It In Action</h3>
           <VideoGuide />
         </div>
       </div>
