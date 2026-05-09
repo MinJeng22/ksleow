@@ -141,7 +141,6 @@ function BulletList({ items }) {
 function VideoGuide() {
   const [idx,    setIdx]    = useState(0);
   const [active, setActive] = useState("a");   // which slot is visible
-  const [textIn, setTextIn] = useState(true);
 
   const aRef = useRef(null);
   const bRef = useRef(null);
@@ -177,13 +176,6 @@ function VideoGuide() {
       ensureSrc(b, VIDEO_SEGMENTS[1].src);
     }
   }, []);
-
-  /* Refade text on idx change. */
-  useEffect(() => {
-    setTextIn(false);
-    const t = setTimeout(() => setTextIn(true), 80);
-    return () => clearTimeout(t);
-  }, [idx]);
 
   /* Transition to a target segment with crossfade. */
   const transitionTo = (rawIdx) => {
@@ -264,12 +256,9 @@ function VideoGuide() {
       <style>{`
         .vg-grid { display: grid; grid-template-columns: 58% 1fr; gap: 2.5rem; align-items: start; }
         @media (max-width: 760px) { .vg-grid { grid-template-columns: 1fr; gap: 1.25rem; } }
-        /* Pure opacity fade — no transform — to avoid layout jitter. */
+        /* Lock the right-column height so segment changes don't shift layout. */
         .vg-text-wrap { min-height: 360px; }
         @media (max-width: 760px) { .vg-text-wrap { min-height: 0; } }
-        .vg-text { transition: opacity 0.22s ease; }
-        .vg-in   { opacity: 1; }
-        .vg-out  { opacity: 0; }
         .vg-arrow {
           position: absolute; top: 50%; transform: translateY(-50%);
           width: 42px; height: 42px; border-radius: 50%;
@@ -355,25 +344,24 @@ function VideoGuide() {
           </div>
         </div>
 
-        {/* ── Right: text description (min-height locked to prevent layout jitter) ── */}
+        {/* ── Right: text description (min-height locked to prevent layout jitter,
+             no animations — content swaps instantly with the video) ── */}
         <div className="vg-text-wrap" style={{ paddingTop: "0.25rem" }}>
-          <div className={`vg-text ${textIn ? "vg-in" : "vg-out"}`}>
-            <div style={{ ...S.label, marginBottom: "0.35rem" }}>{seg.group}</div>
-            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2f315a", lineHeight: 1.3, marginBottom: "0.6rem" }}>{seg.title}</h3>
-            <p style={{ ...S.body, color: "#6b6f91", fontStyle: "italic", marginBottom: "1.1rem" }}>{seg.desc}</p>
-            {seg.steps.map((step, i) => (
-              <div key={i} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", marginBottom: "0.8rem" }}>
-                <StepNum n={i + 1} color="#c9a84c" />
-                <div style={{ ...S.body, paddingTop: 4, flex: 1 }}>{step}</div>
-              </div>
-            ))}
-            <div style={{ marginTop: "1.25rem", fontSize: "0.7rem", color: "#a8abcc", fontWeight: 500 }}>
-              {idx + 1} / {VIDEO_SEGMENTS.length}
-              {idx < VIDEO_SEGMENTS.length - 1
-                ? <span style={{ marginLeft: 6 }}>— Next: {VIDEO_SEGMENTS[idx + 1].title}</span>
-                : <span style={{ marginLeft: 6 }}>— End of guide</span>
-              }
+          <div style={{ ...S.label, marginBottom: "0.35rem" }}>{seg.group}</div>
+          <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2f315a", lineHeight: 1.3, marginBottom: "0.6rem" }}>{seg.title}</h3>
+          <p style={{ ...S.body, color: "#6b6f91", fontStyle: "italic", marginBottom: "1.1rem" }}>{seg.desc}</p>
+          {seg.steps.map((step, i) => (
+            <div key={i} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", marginBottom: "0.8rem" }}>
+              <StepNum n={i + 1} color="#c9a84c" />
+              <div style={{ ...S.body, paddingTop: 4, flex: 1 }}>{step}</div>
             </div>
+          ))}
+          <div style={{ marginTop: "1.25rem", fontSize: "0.7rem", color: "#a8abcc", fontWeight: 500 }}>
+            {idx + 1} / {VIDEO_SEGMENTS.length}
+            {idx < VIDEO_SEGMENTS.length - 1
+              ? <span style={{ marginLeft: 6 }}>— Next: {VIDEO_SEGMENTS[idx + 1].title}</span>
+              : <span style={{ marginLeft: 6 }}>— End of guide</span>
+            }
           </div>
         </div>
       </div>
@@ -445,12 +433,7 @@ export default function Sales2DOPage({ onContact }) {
           <div style={S.label}>Overview</div>
           <h2 style={S.h2}>Plugin Purpose</h2>
           <p style={{ ...S.body, maxWidth: 780, marginBottom: "3rem" }}>
-            In AutoCount Accounting's standard business workflow, the process typically flows from{" "}
-            <strong>Delivery Orders (DO)</strong> to <strong>Sales</strong> (Invoices or Cash Sales).
-            However, for companies that operate with a <strong>Sales-to-DO workflow</strong>, the
-            Sales2DO plugin bridges this gap. It enables users to generate a DO directly from existing
-            Invoices or Cash Sales via integrated <em>"Copy to DO"</em> and{" "}
-            <em>"Copy from Invoice / Cash Sale"</em> functions.
+            Bridges the gap for companies operating with a Sales-to-DO workflow. Generate Delivery Orders directly from existing Invoices or Cash Sales.
           </p>
 
           <div style={{ ...S.label, marginBottom: "0.5rem" }}>Video Tutorial</div>
