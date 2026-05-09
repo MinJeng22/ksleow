@@ -63,6 +63,8 @@ export default function Careers() {
   const line2Start = line1Dur + 250;
   const line2Dur = line2.split(" ").length * HEADING_STEP;
   const bodyStart = line2Start + line2Dur + 300;
+  const bodyDur = (careers.body || "").split(" ").length * BODY_STEP;
+  const buttonsStart = bodyStart + bodyDur + 200;
 
   return (
     <div style={{
@@ -118,7 +120,16 @@ export default function Careers() {
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "0.85rem", flexWrap: "wrap" }}>
+        <div
+          className="careers-btns"
+          style={{
+            display: "flex", gap: "0.85rem", flexWrap: "wrap",
+            opacity: visible ? 1 : 0,
+            transform: visible ? "translateY(0)" : "translateY(8px)",
+            transition: "opacity 0.5s ease, transform 0.5s ease",
+            transitionDelay: visible ? `${buttonsStart}ms` : "0ms",
+          }}
+        >
           {/* Primary — career enquiry */}
           <a
             href={`mailto:${CONTACT.email}?subject=Career Enquiry`}
