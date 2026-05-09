@@ -125,62 +125,137 @@ function BulletList({ items }) {
 }
 
 /* ══════════════════════════════════════════════════════════════
- * VideoGuide — seamless transitions via "freeze-frame" overlay
+ * VideoGuide — seamless dual-video crossfade
  *
- * Trick: just before changing the video src, draw the current video
- * frame onto a <canvas> overlay positioned exactly on top of the
- * <video>. The canvas keeps showing the old frame while the new
- * video loads. Once requestVideoFrameCallback confirms the new
- * video has actually painted its first frame, the canvas fades out.
- * Result: viewer never sees a black gap.
+ * Two <video> elements stay mounted permanently. The active one is
+ * visible (opacity 1); the inactive one preloads the next segment in
+ * the background (opacity 0). When ready to transition we:
+ *   1. Seek inactive video to 0 and call play()
+ *   2. Wait for requestVideoFrameCallback to confirm an actual painted
+ *      first frame on the inactive video
+ *   3. Flip the `active` state — both videos stay on screen during the
+ *      0.3s opacity crossfade, so the viewer never sees a black gap
+ *      (the previous video keeps showing its last frame until faded out)
+ *   4. After fade, pause the now-idle slot and preload the next-next seg
  * ══════════════════════════════════════════════════════════════ */
 function VideoGuide() {
-  const [idx,         setIdx]         = useState(0);
-  const [textIn,      setTextIn]      = useState(true);
-  const [showOverlay, setShowOverlay] = useState(false);
-  const videoRef  = useRef(null);
-  const canvasRef = useRef(null);
+  const [idx,    setIdx]    = useState(0);
+  const [active, setActive] = useState("a");   // which slot is visible
+  const [textIn, setTextIn] = useState(true);
 
-  /* Trigger short text re-fade whenever idx changes. */
+  const aRef = useRef(null);
+  const bRef = useRef(null);
+  /* Mutable mirrors for stale-closure-free callback access. */
+  const idxRef    = useRef(0);
+  const activeRef = useRef("a");
+  const busyRef   = useRef(false);
+  idxRef.current    = idx;
+  activeRef.current = active;
+
+  /* Helper: assign a src to a video if not already set, and load(). */
+  const ensureSrc = (vid, src) => {
+    if (!vid) return;
+    const want = new URL(src, window.location.href).href;
+    if (vid.src !== want) {
+      vid.src = src;
+      vid.preload = "auto";
+      vid.load();
+    }
+  };
+
+  /* Initial mount: A plays seg 0; B preloads seg 1. */
+  useEffect(() => {
+    const a = aRef.current;
+    const b = bRef.current;
+    if (a) {
+      a.muted = true; a.playsInline = true;
+      ensureSrc(a, VIDEO_SEGMENTS[0].src);
+      a.play().catch(() => {});
+    }
+    if (b && VIDEO_SEGMENTS.length > 1) {
+      b.muted = true; b.playsInline = true;
+      ensureSrc(b, VIDEO_SEGMENTS[1].src);
+    }
+  }, []);
+
+  /* Refade text on idx change. */
   useEffect(() => {
     setTextIn(false);
     const t = setTimeout(() => setTextIn(true), 80);
     return () => clearTimeout(t);
   }, [idx]);
 
-  /* Draw current video frame to the canvas. Returns true on success. */
-  const captureFrame = () => {
-    const v = videoRef.current;
-    const c = canvasRef.current;
-    if (!v || !c) return false;
-    const w = v.videoWidth, h = v.videoHeight;
-    if (!w || !h) return false;
-    c.width = w; c.height = h;
-    try { c.getContext("2d").drawImage(v, 0, 0, w, h); return true; }
-    catch { return false; }
-  };
+  /* Transition to a target segment with crossfade. */
+  const transitionTo = (rawIdx) => {
+    const N = VIDEO_SEGMENTS.length;
+    const toIdx = ((rawIdx % N) + N) % N;
+    if (toIdx === idxRef.current) return;
+    if (busyRef.current) return;
+    busyRef.current = true;
 
-  /* When the freshly-mounted video has actually painted a frame, fade overlay. */
-  const handleLoadedData = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    const hide = () => setShowOverlay(false);
-    if (typeof v.requestVideoFrameCallback === "function") {
-      v.requestVideoFrameCallback(() => requestAnimationFrame(hide));
+    const fromSlot = activeRef.current;
+    const toSlot   = fromSlot === "a" ? "b" : "a";
+    const fromVid  = fromSlot === "a" ? aRef.current : bRef.current;
+    const toVid    = toSlot   === "a" ? aRef.current : bRef.current;
+    if (!fromVid || !toVid) { busyRef.current = false; return; }
+
+    const targetSrc = VIDEO_SEGMENTS[toIdx].src;
+
+    /* Once toVid has its target loaded — start playback then crossfade. */
+    const playAndSwap = () => {
+      try { toVid.currentTime = 0; } catch { /* ignore */ }
+      const playPromise = toVid.play();
+
+      const fireSwap = () => {
+        setActive(toSlot);
+        setIdx(toIdx);
+        /* After CSS opacity transition (0.3s), pause the old slot and
+         * preload the next-next segment into it for the next swap. */
+        setTimeout(() => {
+          try { fromVid.pause(); } catch { /* ignore */ }
+          const nextNext = (toIdx + 1) % N;
+          ensureSrc(fromVid, VIDEO_SEGMENTS[nextNext].src);
+          busyRef.current = false;
+        }, 380);
+      };
+
+      /* Wait until the inactive video has actually painted a frame. */
+      if (typeof toVid.requestVideoFrameCallback === "function") {
+        toVid.requestVideoFrameCallback(() => requestAnimationFrame(fireSwap));
+      } else if (playPromise && typeof playPromise.then === "function") {
+        playPromise.then(() => requestAnimationFrame(fireSwap))
+                   .catch(() => fireSwap());
+      } else {
+        setTimeout(fireSwap, 80);
+      }
+    };
+
+    /* Make sure toVid is loaded with the target source. */
+    const wantHref = new URL(targetSrc, window.location.href).href;
+    if (toVid.src === wantHref && toVid.readyState >= 2) {
+      playAndSwap();
     } else {
-      setTimeout(hide, 60);
+      const onLoaded = () => {
+        toVid.removeEventListener("loadeddata", onLoaded);
+        playAndSwap();
+      };
+      toVid.addEventListener("loadeddata", onLoaded);
+      ensureSrc(toVid, targetSrc);
+      /* Safety net in case loadeddata never fires (unlikely). */
+      setTimeout(() => {
+        toVid.removeEventListener("loadeddata", onLoaded);
+        if (busyRef.current) playAndSwap();
+      }, 1500);
     }
   };
 
-  const goTo = (i) => {
-    const next = ((i % VIDEO_SEGMENTS.length) + VIDEO_SEGMENTS.length) % VIDEO_SEGMENTS.length;
-    if (next === idx) return;
-    /* Freeze the current frame on the canvas before swapping src. */
-    if (captureFrame()) setShowOverlay(true);
-    setIdx(next);
-  };
-  const goPrev = () => goTo(idx - 1);
-  const goNext = () => goTo(idx + 1);
+  const goTo   = (i) => transitionTo(i);
+  const goPrev = () => transitionTo(idxRef.current - 1);
+  const goNext = () => transitionTo(idxRef.current + 1);
+
+  /* Per-slot ended handlers — only react if event is from active slot. */
+  const onEndedA = () => { if (activeRef.current === "a") transitionTo(idxRef.current + 1); };
+  const onEndedB = () => { if (activeRef.current === "b") transitionTo(idxRef.current + 1); };
 
   const seg = VIDEO_SEGMENTS[idx];
 
@@ -203,8 +278,8 @@ function VideoGuide() {
           z-index: 5;
         }
         .vg-arrow:hover { background: rgba(0,0,0,0.7); transform: translateY(-50%) scale(1.05); }
-        .vg-arrow.left  { left: 12px; z-index: 3; }
-        .vg-arrow.right { right: 12px; z-index: 3; }
+        .vg-arrow.left  { left: 12px; }
+        .vg-arrow.right { right: 12px; }
       `}</style>
 
       {/* Group tabs */}
@@ -213,12 +288,12 @@ function VideoGuide() {
           { label: "3 Ways to Copy a Sales Document", start: 0 },
           { label: "AI Assistant and Feedback",       start: 3 },
         ].map(({ label, start }) => {
-          const active = start === 0 ? idx <= 2 : idx === 3;
+          const isActive = start === 0 ? idx <= 2 : idx === 3;
           return (
             <button key={label} onClick={() => goTo(start)} style={{
               padding: "0.45rem 1.2rem", borderRadius: 50, border: "none",
-              background: active ? "#2f315a" : "rgba(47,49,90,0.08)",
-              color: active ? "#fff" : "#6b6f91",
+              background: isActive ? "#2f315a" : "rgba(47,49,90,0.08)",
+              color: isActive ? "#fff" : "#6b6f91",
               fontSize: "0.82rem", fontWeight: 600,
               cursor: "pointer", fontFamily: "inherit",
               transition: "background 0.2s, color 0.2s",
@@ -228,32 +303,36 @@ function VideoGuide() {
       </div>
 
       <div className="vg-grid">
-        {/* ── Left: video with arrows ── */}
+        {/* ── Left: dual-video crossfade ── */}
         <div>
           {/* 16 : 9 container */}
           <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%", height: 0, background: "#000", borderRadius: 14, overflow: "hidden", boxShadow: "0 12px 36px rgba(47,49,90,0.18)" }}>
+            {/* Slot A */}
             <video
-              key={idx}
-              ref={videoRef}
-              src={seg.src}
-              autoPlay muted playsInline
-              onEnded={goNext}
-              onLoadedData={handleLoadedData}
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }}
-            />
-
-            {/* Freeze-frame overlay — keeps the previous frame visible
-                until the next video has painted its first frame */}
-            <canvas
-              ref={canvasRef}
+              ref={aRef}
+              muted playsInline
+              onEnded={onEndedA}
               style={{
                 position: "absolute", inset: 0,
                 width: "100%", height: "100%",
                 objectFit: "contain",
-                pointerEvents: "none",
-                opacity: showOverlay ? 1 : 0,
-                transition: "opacity 0.25s ease",
-                zIndex: 2,
+                opacity: active === "a" ? 1 : 0,
+                transition: "opacity 0.3s ease",
+                zIndex: active === "a" ? 2 : 1,
+              }}
+            />
+            {/* Slot B */}
+            <video
+              ref={bRef}
+              muted playsInline
+              onEnded={onEndedB}
+              style={{
+                position: "absolute", inset: 0,
+                width: "100%", height: "100%",
+                objectFit: "contain",
+                opacity: active === "b" ? 1 : 0,
+                transition: "opacity 0.3s ease",
+                zIndex: active === "b" ? 2 : 1,
               }}
             />
 
