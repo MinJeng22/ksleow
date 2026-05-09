@@ -60,6 +60,8 @@ body {
   .product-hero-image { display: none !important; }
   /* Release note: stack New Features / Bug Fixes vertically on tablet & mobile */
   .release-detail-grid { grid-template-columns: 1fr !important; }
+  /* Product hero: shrink body line-height on small tablet to save space */
+  .product-hero-body { font-size: 0.94rem !important; line-height: 1.6 !important; }
 }
 
 /* ── Mobile (< 640) ── */
@@ -109,6 +111,30 @@ body {
     text-align: center;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
+  }
+
+  /* ── Careers buttons: side-by-side on mobile ── */
+  .careers-btns { flex-wrap: nowrap !important; gap: 0.55rem !important; }
+  .careers-btns > * {
+    flex: 1 1 0; min-width: 0; text-align: center;
+    padding: 0.7rem 0.9rem !important;
+    font-size: 0.78rem !important;
+  }
+
+  /* ── Product page hero (Sales2DO, AutoCount Accounting) — compact mobile layout ── */
+  .product-hero            { padding-top: 1.75rem !important; padding-bottom: 1.75rem !important; }
+  .product-hero-row        { gap: 1rem !important; }
+  .product-hero-textgroup  { gap: 1rem !important; align-items: center !important; }
+  .product-hero-icon       { width: 54px !important; height: 54px !important; border-radius: 12px !important; font-size: 1.55rem !important; }
+  .product-hero-eyebrow    { font-size: 0.62rem !important; margin-bottom: 0.4rem !important; }
+  .product-hero-title      { font-size: 1.55rem !important; line-height: 1.2 !important; margin-bottom: 0.55rem !important; }
+  .product-hero-body       { font-size: 0.86rem !important; line-height: 1.55 !important; margin-bottom: 1rem !important; }
+  .product-hero-btns       { gap: 0.55rem !important; flex-wrap: nowrap !important; }
+  .product-hero-btns > * {
+    flex: 1 1 0; min-width: 0;
+    padding: 0.6rem 0.85rem !important;
+    font-size: 0.78rem !important;
+    white-space: nowrap;
   }
 }
 

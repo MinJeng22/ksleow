@@ -1222,7 +1222,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       <SectionSidebar items={AC_SIDEBAR_ITEMS} />
 
       {/* ── Hero banner ── */}
-      <div style={{ background: "#2f315a", paddingTop: "3rem", paddingBottom: "3rem" }}>
+      <div className="product-hero" style={{ background: "#2f315a", paddingTop: "3rem", paddingBottom: "3rem" }}>
         <div className="content-wrap">
           <button
             onClick={() => navigate("/")}
@@ -1233,32 +1233,32 @@ export default function AutoCountAccountingPage({ onContact }) {
             ← Back
           </button>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "2.5rem", flexWrap: "wrap" }}>
+          <div className="product-hero-row" style={{ display: "flex", alignItems: "center", gap: "2.5rem", flexWrap: "wrap" }}>
             {/* Left: icon + copy + buttons */}
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "2rem", flex: 1, minWidth: 280 }}>
+            <div className="product-hero-textgroup" style={{ display: "flex", alignItems: "flex-start", gap: "2rem", flex: 1, minWidth: 280 }}>
               {/* icon — replace via src/assets/images/products/autocount-accounting-icon.png */}
-              <div style={{ width: 80, height: 80, borderRadius: 18, background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "2.2rem", flexShrink: 0, overflow: "hidden" }}>
+              <div className="product-hero-icon" style={{ width: 80, height: 80, borderRadius: 18, background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "2.2rem", flexShrink: 0, overflow: "hidden" }}>
                 {PRODUCT_IMAGES.autocountAccountingIcon
                   ? <img src={PRODUCT_IMAGES.autocountAccountingIcon} alt="AutoCount Accounting" style={{ width: "100%", height: "100%", objectFit: "contain", padding: 8 }} />
                   : <span>🧾</span>
                 }
               </div>
               <div style={{ flex: 1, minWidth: 240 }}>
-                <div style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.5rem" }}>
+                <div className="product-hero-eyebrow" style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.5rem" }}>
                   Software We Specialize In
                 </div>
-                <h1 style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", fontWeight: 700, color: "#ffffff", lineHeight: 1.15, marginBottom: "1rem" }}>
+                <h1 className="product-hero-title" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", fontWeight: 700, color: "#ffffff", lineHeight: 1.15, marginBottom: "1rem" }}>
                   AutoCount Accounting 2.2
                 </h1>
-                <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.78, maxWidth: 600, marginBottom: "1.5rem" }}>
+                <p className="product-hero-body" style={{ fontSize: "1rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.78, maxWidth: 600, marginBottom: "1.5rem" }}>
                   Malaysia's leading SME accounting software — cloud-connected, SST & e-Invoice compliant,
                   and deeply integrated with AutoCount POS and Payroll. As an authorized dealer,
                   KSL Business Solutions provides full installation, configuration, training, and ongoing support.
                 </p>
-                <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                <div className="product-hero-btns" style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
                   <button
                     onClick={() => setDownloadOpen(true)}
-                    style={{ background: "#c9a84c", color: "#1e2040", padding: "0.75rem 2rem", borderRadius: 50, fontSize: "0.9rem", fontWeight: 700, border: "none", cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.2s", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}
+                    style={{ background: "#c9a84c", color: "#1e2040", padding: "0.75rem 2rem", borderRadius: 50, fontSize: "0.9rem", fontWeight: 700, border: "none", cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.2s", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
                     onMouseOver={e => e.currentTarget.style.opacity = "0.85"}
                     onMouseOut={e => e.currentTarget.style.opacity = "1"}
                   >
@@ -1271,7 +1271,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                   </button>
                   <a
                     href={WA_LINK} target="_blank" rel="noreferrer"
-                    style={{ background: "rgba(255,255,255,0.1)", color: "#ffffff", border: "1px solid rgba(255,255,255,0.25)", padding: "0.75rem 2rem", borderRadius: 50, fontSize: "0.9rem", fontWeight: 500, textDecoration: "none", transition: "background 0.2s" }}
+                    style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: "rgba(255,255,255,0.1)", color: "#ffffff", border: "1px solid rgba(255,255,255,0.25)", padding: "0.75rem 2rem", borderRadius: 50, fontSize: "0.9rem", fontWeight: 500, textDecoration: "none", transition: "background 0.2s" }}
                     onMouseOver={e => e.currentTarget.style.background = "rgba(255,255,255,0.18)"}
                     onMouseOut={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
                   >
