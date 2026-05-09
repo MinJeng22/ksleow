@@ -86,14 +86,14 @@ export default function Careers() {
             {careers.eyebrow}
           </div>
 
-          {/* Two-line stylised quote, second line indented like a pull-quote */}
+          {/* Two-line layout (opening quote, line 1, indented line 2, closing quote)
+              — keeps the original heading style: same size / weight / colour. */}
           <h2 style={{
-            fontSize: "clamp(1.5rem, 3.2vw, 2.4rem)",
-            fontWeight: 600,
-            color: "#1a1a1a",
-            lineHeight: 1.45,
-            letterSpacing: "-0.005em",
-            marginBottom: "1.75rem",
+            fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)",
+            fontWeight: 700,
+            color: "#2f315a",
+            lineHeight: 1.4,
+            marginBottom: "0.9rem",
           }}>
             <span aria-hidden="true" style={{
               opacity: visible ? 1 : 0,
@@ -101,7 +101,7 @@ export default function Careers() {
             }}>“</span>
             <AnimatedWords text={line1} startDelay={0} stepMs={HEADING_STEP} visible={visible} />
             <br />
-            <span style={{ display: "inline-block", marginLeft: "clamp(2rem, 8vw, 5rem)" }}>
+            <span style={{ display: "inline-block", marginLeft: "clamp(1.5rem, 6vw, 4rem)" }}>
               <AnimatedWords text={line2} startDelay={line2Start} stepMs={HEADING_STEP} visible={visible} />
               <span aria-hidden="true" style={{
                 marginLeft: "0.1em",
