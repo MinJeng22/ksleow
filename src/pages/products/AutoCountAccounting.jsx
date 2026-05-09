@@ -1109,8 +1109,21 @@ function EditionMarker({ value }) {
   return <span style={{ color: "#9aa", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>−</span>;
 }
 
-function EditionsTable() {
+function EditionsTable({ selected = null, diffOnly = false }) {
+  /* selected: optional array of edition names to render (otherwise all 5).
+     diffOnly: when true (compare mode), hide rows whose values are identical
+     across the selected editions. */
   const cellPad = "0.7rem 0.85rem";
+  const cols = (selected && selected.length > 0) ? selected : EDITIONS;
+  const colIdx = cols.map(c => EDITIONS.indexOf(c));
+
+  /* Pick subset of values for visible columns, optionally filter equal rows. */
+  const filterRow = (values) => colIdx.map(i => values[i]);
+  const rowDiffers = (values) => {
+    const subset = filterRow(values);
+    return !subset.every(v => v === subset[0]);
+  };
+
   return (
     <div style={{ background: "#ffffff", borderRadius: 14, border: "1px solid rgba(47,49,90,0.08)", overflow: "hidden", boxShadow: "0 4px 20px rgba(47,49,90,0.05)" }}>
       <div style={{ overflowX: "auto" }}>
@@ -1118,37 +1131,46 @@ function EditionsTable() {
           <thead>
             <tr style={{ background: "#7AB317" }}>
               <th style={{ padding: cellPad, textAlign: "left", color: "#ffffff", fontWeight: 600, minWidth: 220 }}></th>
-              {EDITIONS.map(e => (
+              {cols.map(e => (
                 <th key={e} style={{ padding: cellPad, color: "#ffffff", fontWeight: 700, textAlign: "center", minWidth: 110 }}>{e}</th>
               ))}
             </tr>
             <tr style={{ background: "#fafafb", borderBottom: "1px solid rgba(47,49,90,0.08)" }}>
               <td style={{ padding: cellPad, color: "#2f315a", fontWeight: 500 }}>Default Account Book</td>
-              {EDITION_TABLE.defaultAccountBook.map((v, i) => (
+              {filterRow(EDITION_TABLE.defaultAccountBook).map((v, i) => (
                 <td key={i} style={{ padding: cellPad, color: "#2f315a", fontWeight: 600, textAlign: "center" }}>{v}</td>
               ))}
             </tr>
           </thead>
           <tbody>
-            {EDITION_TABLE.sections.map((section, si) => (
-              <React.Fragment key={section.name}>
-                <tr style={{ background: "#eaeaef" }}>
-                  <td colSpan={EDITIONS.length + 1} style={{ padding: "0.55rem 0.85rem", color: "#6b6f91", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                    {section.name}
-                  </td>
-                </tr>
-                {section.rows.map(([rowName, values], ri) => (
-                  <tr key={rowName} style={{ background: ri % 2 === 0 ? "#ffffff" : "#fafafb", borderBottom: "1px solid rgba(47,49,90,0.05)" }}>
-                    <td style={{ padding: cellPad, color: "#2f315a" }}>{rowName}</td>
-                    {values.map((v, vi) => (
-                      <td key={vi} style={{ padding: cellPad, textAlign: "center" }}>
-                        <EditionMarker value={v} />
-                      </td>
-                    ))}
+            {EDITION_TABLE.sections.map((section) => {
+              const rows = diffOnly
+                ? section.rows.filter(([, values]) => rowDiffers(values))
+                : section.rows;
+              if (rows.length === 0) return null;
+              return (
+                <React.Fragment key={section.name}>
+                  <tr style={{ background: "#eaeaef" }}>
+                    <td colSpan={cols.length + 1} style={{ padding: "0.55rem 0.85rem", color: "#6b6f91", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                      {section.name}
+                    </td>
                   </tr>
-                ))}
-              </React.Fragment>
-            ))}
+                  {rows.map(([rowName, values], ri) => {
+                    const visibleVals = filterRow(values);
+                    return (
+                      <tr key={rowName} style={{ background: ri % 2 === 0 ? "#ffffff" : "#fafafb", borderBottom: "1px solid rgba(47,49,90,0.05)" }}>
+                        <td style={{ padding: cellPad, color: "#2f315a" }}>{rowName}</td>
+                        {visibleVals.map((v, vi) => (
+                          <td key={vi} style={{ padding: cellPad, textAlign: "center" }}>
+                            <EditionMarker value={v} />
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </React.Fragment>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -1177,6 +1199,11 @@ export default function AutoCountAccountingPage({ onContact }) {
   const [compareA, setCompareA] = useState(RELEASES[RELEASES.length - 1].version); /* oldest */
   const [compareB, setCompareB] = useState(RELEASES[0].version);                   /* newest */
   const [downloadOpen, setDownloadOpen] = useState(false);
+  /* Edition compare mode — same Browse/Compare pattern as Release Notes */
+  const [editionCompareMode, setEditionCompareMode] = useState(false);
+  const [editionA, setEditionA] = useState(EDITIONS[0]);                  /* Account Plus */
+  const [editionB, setEditionB] = useState(EDITIONS[EDITIONS.length - 1]); /* Premium */
+  const [editionDiffOnly, setEditionDiffOnly] = useState(false);
 
   const filtered = RELEASES.filter(r => {
     if (!search) return true;
@@ -1364,7 +1391,7 @@ export default function AutoCountAccountingPage({ onContact }) {
        * ══════════════════════════════════════════════════════════ */}
       <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0", borderBottom: "0.5px solid rgba(47,49,90,0.08)", scrollMarginTop: 24 }}>
         <div className="content-wrap">
-          <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
             <div style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7AB317", marginBottom: "0.6rem" }}>
               Modules Available in Each Edition
             </div>
@@ -1387,7 +1414,70 @@ export default function AutoCountAccountingPage({ onContact }) {
             </div>
           </div>
 
-          <EditionsTable />
+          {/* Mode toggle — Browse All / Compare Editions */}
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.75rem" }}>
+            <div style={{ display: "flex", background: "#ffffff", borderRadius: 50, padding: 4, gap: 2, border: "1px solid rgba(47,49,90,0.08)" }}>
+              {[["browse", "Browse All Editions"], ["compare", "Compare Editions"]].map(([mode, label]) => (
+                <button key={mode}
+                  onClick={() => setEditionCompareMode(mode === "compare")}
+                  style={{
+                    fontSize: "0.78rem", fontWeight: 600,
+                    padding: "0.45rem 1.2rem", borderRadius: 50, border: "none",
+                    cursor: "pointer", fontFamily: "inherit",
+                    background: (editionCompareMode ? "compare" : "browse") === mode ? "#2f315a" : "transparent",
+                    color: (editionCompareMode ? "compare" : "browse") === mode ? "#ffffff" : "#6b6f91",
+                    transition: "background 0.2s, color 0.2s",
+                  }}
+                >{label}</button>
+              ))}
+            </div>
+          </div>
+
+          {/* Compare-mode controls: 2 dropdowns + diff-only toggle */}
+          {editionCompareMode && (
+            <div style={{ maxWidth: 720, margin: "0 auto 1.5rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "1rem", alignItems: "center" }}>
+                <div>
+                  <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>Edition A</label>
+                  <select value={editionA} onChange={e => setEditionA(e.target.value)}
+                    style={{ width: "100%", height: 40, borderRadius: 10, border: "1px solid rgba(47,49,90,0.2)", padding: "0 0.85rem", fontSize: "0.88rem", fontFamily: "inherit", color: "#2f315a", background: "#ffffff", cursor: "pointer" }}>
+                    {EDITIONS.map(e => <option key={e} value={e}>{e}</option>)}
+                  </select>
+                </div>
+                <div style={{ textAlign: "center", fontSize: "1.1rem", fontWeight: 700, color: "#c9a84c", marginTop: "1.2rem" }}>VS</div>
+                <div>
+                  <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>Edition B</label>
+                  <select value={editionB} onChange={e => setEditionB(e.target.value)}
+                    style={{ width: "100%", height: 40, borderRadius: 10, border: "1px solid rgba(47,49,90,0.2)", padding: "0 0.85rem", fontSize: "0.88rem", fontFamily: "inherit", color: "#2f315a", background: "#ffffff", cursor: "pointer" }}>
+                    {EDITIONS.map(e => <option key={e} value={e}>{e}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              {editionA === editionB && (
+                <p style={{ fontSize: "0.78rem", color: "#c9a84c", textAlign: "center", marginTop: "0.65rem" }}>
+                  Pick two different editions to see how they differ.
+                </p>
+              )}
+
+              <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
+                <label style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "#6b6f91", cursor: "pointer", userSelect: "none" }}>
+                  <input
+                    type="checkbox"
+                    checked={editionDiffOnly}
+                    onChange={e => setEditionDiffOnly(e.target.checked)}
+                    style={{ accentColor: "#2f315a", cursor: "pointer" }}
+                  />
+                  Show only rows where the two editions differ
+                </label>
+              </div>
+            </div>
+          )}
+
+          <EditionsTable
+            selected={editionCompareMode ? [editionA, editionB] : null}
+            diffOnly={editionCompareMode && editionA !== editionB && editionDiffOnly}
+          />
         </div>
       </div>
 
