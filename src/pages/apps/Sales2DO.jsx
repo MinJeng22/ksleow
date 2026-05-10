@@ -13,6 +13,7 @@ import imgLicenseOffline from "../../assets/images/apps/sales2do/license-offline
 /* Sales2DO sidebar anchor items */
 const S2D_SIDEBAR_ITEMS = [
   { id: "overview",    label: "Overview"       },
+  { id: "preset",      label: "Preset"         },
   { id: "outstanding", label: "Outstanding DO" },
   { id: "settings",    label: "Settings"       },
   { id: "license",     label: "License"        },
@@ -24,11 +25,11 @@ const VIDEO_SEGMENTS = [
     src: "/videos/sales2do/copy-to-do-method1.mp4",
     group: "3 Ways to Copy a Sales Document",
     title: "Method 1 — Via Right-Click Menu",
-    desc: "The quickest method when working in the listing screen.",
+    desc: "The fastest method for processing single documents.",
     steps: [
-      <span key="a">Go to <strong>Sales → Invoice</strong> or <strong>Sales → Cash Sale</strong> to open the listing screen.</span>,
-      <span key="b">Locate the document you wish to copy.</span>,
-      <span key="c">Right-click on the row and select <strong>"Copy to a new Delivery Order"</strong>.</span>,
+      <span key="a">Navigate to <strong>Sales → Invoice</strong> or <strong>Cash Sale</strong> to open the document listing.</span>,
+      <span key="b">Right-click on the specific row you wish to copy and select <strong>"Copy to a new Delivery Order"</strong>.</span>,
+      <span key="c"><em>Note: this option is only visible for <strong>Approved</strong> documents — not Draft or Voided entries.</em></span>,
       <span key="d">A new Delivery Order entry screen opens with all details pre-filled.</span>,
     ],
   },
@@ -36,36 +37,45 @@ const VIDEO_SEGMENTS = [
     src: "/videos/sales2do/copy-to-do-method2.mp4",
     group: "3 Ways to Copy a Sales Document",
     title: 'Method 2 — Via the "Copy To" Icon',
-    desc: "Works when you already have a document open in View Mode.",
+    desc: "Ideal when you are already reviewing a document.",
     steps: [
-      <span key="a">Open any Invoice or Cash Sale document in <strong>View Mode</strong>.</span>,
-      <span key="b">On the top ribbon under the <strong>Home</strong> tab, find the <strong>Copy</strong> group.</span>,
-      <span key="c">Click <strong>"Copy to a new Delivery Order"</strong>.</span>,
-      <span key="d">A Delivery Order is generated and pre-filled from the viewed document.</span>,
+      <span key="a">Open any Invoice or Cash Sale in <strong>View Mode</strong>.</span>,
+      <span key="b">On the top ribbon under the <strong>Home</strong> tab, click the <strong>"Copy to a new Delivery Order"</strong> button.</span>,
+      <span key="c">A new Delivery Order will be generated based on the viewed document.</span>,
     ],
   },
   {
     src: "/videos/sales2do/copy-to-do-method3.mp4",
     group: "3 Ways to Copy a Sales Document",
     title: 'Method 3 — Via "Copy From" in DO Entry',
-    desc: "Start a new Delivery Order first, then pull in items from a sales document.",
+    desc: "The best way to combine multiple sales documents into a single Delivery Order.",
     steps: [
-      <span key="a">Go to <strong>Sales → Delivery Order</strong> and create a new entry.</span>,
-      <span key="b">On the top ribbon, click <strong>"Copy from Invoice"</strong> or <strong>"Copy from Cash Sale"</strong>.</span>,
-      <span key="c">A search window appears — select the source document(s) and click <strong>OK</strong>.</span>,
-      <span key="d">Items are automatically populated into the Delivery Order.</span>,
+      <span key="a">Go to <strong>Sales → Delivery Order</strong> and create a <strong>New</strong> entry.</span>,
+      <span key="b">On the top ribbon under the <strong>Home</strong> tab, click <strong>"Copy from Invoice"</strong> or <strong>"Copy from Cash Sale"</strong>.</span>,
+      <span key="c">A search window will appear. Select the desired source document(s) and click <strong>OK</strong>. <em>(Search results only include Approved invoices by default.)</em></span>,
+      <span key="d">All items from the selected documents will automatically populate the Delivery Order.</span>,
     ],
   },
   {
     src: "/videos/sales2do/ks-omni.mp4",
     group: "AI Assistant and Feedback",
-    title: "KS-Omni — Built-in AI Support Portal",
-    desc: "Get instant technical assistance or send feedback directly to the KSL team.",
+    title: "KS-Omni — 24-Hour AI Support & Feedback",
+    desc: "Access 24-hour AI support or send feedback directly to the KSL developer team.",
     steps: [
-      <span key="a">Navigate to <strong>Sales2DO → AI Assistant and Feedback</strong> from the top navigation bar.</span>,
-      <span key="b">The KS-Omni portal opens in your browser.</span>,
-      <span key="c">Ask the AI any question — error messages, configuration steps, usage tips.</span>,
-      <span key="d">Use the <strong>Feedback</strong> tab to submit suggestions or bug reports to the KSL team.</span>,
+      <span key="a">Navigate to <strong>Sales2DO → AI Assistant and Feedback</strong>.</span>,
+      <span key="b">The AI <strong>Chatbot</strong> will open.</span>,
+      <span key="c"><strong>Support:</strong> Ask questions or upload images / screenshots for troubleshooting.</span>,
+      <span key="d"><strong>Feedback:</strong> Submit bug reports or feature suggestions directly to the <strong>KSL Development Team</strong>.</span>,
+    ],
+  },
+  {
+    src: "/videos/sales2do/smart-quantity-control.mp4",
+    group: "Smart Quantity Control",
+    title: "Smart Quantity Control — Partial Copy & Full Copy Warning",
+    desc: "Prevents accidental over-delivery when copying partially or fully fulfilled documents.",
+    steps: [
+      <span key="a"><strong>Partial Copy:</strong> When copying a partially fulfilled document, the system calculates the remaining balance and only loads the <strong>Outstanding Quantity</strong>.</span>,
+      <span key="b"><strong>Full Copy Warning:</strong> If a document is already fully fulfilled, the system will prompt a warning to prevent accidental over-delivery.</span>,
     ],
   },
 ];
@@ -121,6 +131,26 @@ function BulletList({ items }) {
     <ul style={{ paddingLeft: "1.1rem", margin: "0.5rem 0" }}>
       {items.map((item, i) => <li key={i} style={{ ...S.body, marginBottom: "0.4rem" }}>{item}</li>)}
     </ul>
+  );
+}
+
+/* ── Two-column layout: image on the LEFT, text on the RIGHT ──
+ * Used by Outstanding DO, Preset Delivery, and Plugin Settings sections.
+ * Collapses to single column at <760px (image first, then text). */
+function SectionRow({ image, alt, caption, children, sticky = true }) {
+  return (
+    <>
+      <style>{`
+        .sr-grid { display: grid; grid-template-columns: 44% 1fr; gap: 2.5rem; align-items: start; margin-top: 1.5rem; }
+        @media (max-width: 760px) { .sr-grid { grid-template-columns: 1fr; gap: 1.25rem; } }
+      `}</style>
+      <div className="sr-grid">
+        <div style={sticky ? { position: "sticky", top: 90 } : undefined}>
+          <ImgSlot src={image} alt={alt} caption={caption} maxWidth={520} />
+        </div>
+        <div>{children}</div>
+      </div>
+    </>
   );
 }
 
@@ -287,20 +317,27 @@ function VideoGuide() {
   return (
     <>
       <style>{`
-        .vg-grid { display: grid; grid-template-columns: 58% 1fr; gap: 2.5rem; align-items: start; }
+        /* Text on the LEFT (1fr), video on the RIGHT (58%) */
+        .vg-grid { display: grid; grid-template-columns: 1fr 58%; gap: 2.5rem; align-items: start; }
         @media (max-width: 760px) { .vg-grid { grid-template-columns: 1fr; gap: 1.25rem; } }
-        /* Lock the right-column height so segment changes don't shift layout. */
+        /* Lock the left-column height so segment changes don't shift layout. */
         .vg-text-wrap { min-height: 360px; }
         @media (max-width: 760px) { .vg-text-wrap { min-height: 0; } }
+        /* On mobile, show video first (above the text) */
+        @media (max-width: 760px) {
+          .vg-video-col { order: 0; }
+          .vg-text-wrap { order: 1; }
+        }
       `}</style>
 
       {/* Group tabs */}
       <div style={{ display: "flex", gap: "0.55rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
         {[
-          { label: "3 Ways to Copy a Sales Document", start: 0 },
-          { label: "AI Assistant and Feedback",       start: 3 },
-        ].map(({ label, start }) => {
-          const isActive = start === 0 ? idx <= 2 : idx === 3;
+          { label: "3 Ways to Copy a Sales Document", start: 0, range: [0, 2] },
+          { label: "AI Assistant and Feedback",       start: 3, range: [3, 3] },
+          { label: "Smart Quantity Control",          start: 4, range: [4, 4] },
+        ].map(({ label, start, range }) => {
+          const isActive = idx >= range[0] && idx <= range[1];
           return (
             <button key={label} onClick={() => goTo(start)} style={{
               padding: "0.45rem 1.2rem", borderRadius: 50, border: "none",
@@ -315,8 +352,28 @@ function VideoGuide() {
       </div>
 
       <div className="vg-grid">
-        {/* ── Left: dual-video crossfade ── */}
-        <div>
+        {/* ── Left: text description (min-height locked to prevent layout jitter) ── */}
+        <div className="vg-text-wrap" style={{ paddingTop: "0.25rem" }}>
+          <div style={{ ...S.label, marginBottom: "0.35rem" }}>{seg.group}</div>
+          <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2f315a", lineHeight: 1.3, marginBottom: "0.6rem" }}>{seg.title}</h3>
+          <p style={{ ...S.body, color: "#6b6f91", fontStyle: "italic", marginBottom: "1.1rem" }}>{seg.desc}</p>
+          {seg.steps.map((step, i) => (
+            <div key={i} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", marginBottom: "0.8rem" }}>
+              <StepNum n={i + 1} color="#c9a84c" />
+              <div style={{ ...S.body, paddingTop: 4, flex: 1 }}>{step}</div>
+            </div>
+          ))}
+          <div style={{ marginTop: "1.25rem", fontSize: "0.7rem", color: "#a8abcc", fontWeight: 500 }}>
+            {idx + 1} / {VIDEO_SEGMENTS.length}
+            {idx < VIDEO_SEGMENTS.length - 1
+              ? <span style={{ marginLeft: 6 }}>— Next: {VIDEO_SEGMENTS[idx + 1].title}</span>
+              : <span style={{ marginLeft: 6 }}>— End of guide</span>
+            }
+          </div>
+        </div>
+
+        {/* ── Right: dual-video crossfade ── */}
+        <div className="vg-video-col">
           {/* 16 : 9 container — swipe left/right to navigate */}
           <div
             onTouchStart={onTouchStart}
@@ -387,26 +444,6 @@ function VideoGuide() {
           </div>
         </div>
 
-        {/* ── Right: text description (min-height locked to prevent layout jitter,
-             no animations — content swaps instantly with the video) ── */}
-        <div className="vg-text-wrap" style={{ paddingTop: "0.25rem" }}>
-          <div style={{ ...S.label, marginBottom: "0.35rem" }}>{seg.group}</div>
-          <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2f315a", lineHeight: 1.3, marginBottom: "0.6rem" }}>{seg.title}</h3>
-          <p style={{ ...S.body, color: "#6b6f91", fontStyle: "italic", marginBottom: "1.1rem" }}>{seg.desc}</p>
-          {seg.steps.map((step, i) => (
-            <div key={i} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", marginBottom: "0.8rem" }}>
-              <StepNum n={i + 1} color="#c9a84c" />
-              <div style={{ ...S.body, paddingTop: 4, flex: 1 }}>{step}</div>
-            </div>
-          ))}
-          <div style={{ marginTop: "1.25rem", fontSize: "0.7rem", color: "#a8abcc", fontWeight: 500 }}>
-            {idx + 1} / {VIDEO_SEGMENTS.length}
-            {idx < VIDEO_SEGMENTS.length - 1
-              ? <span style={{ marginLeft: 6 }}>— Next: {VIDEO_SEGMENTS[idx + 1].title}</span>
-              : <span style={{ marginLeft: 6 }}>— End of guide</span>
-            }
-          </div>
-        </div>
       </div>
     </>
   );
@@ -479,87 +516,124 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
+      {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
+      <div id="preset" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
+        <div className="content-wrap">
+          <div style={S.label}>Item Configuration</div>
+          <h2 style={S.h2}>Preset "Delivery?" in Stock Item Maintenance</h2>
+
+          <SectionRow image={null} alt="Stock Item Maintenance — Delivery? checkbox" caption='User Defined Field — "Delivery?" checkbox'>
+            <p style={{ ...S.body, marginBottom: "1rem" }}>
+              By presetting the <strong>"Delivery?"</strong> status, the plugin automatically determines which items
+              should be delivered and tracked in the <strong>Outstanding Delivery Order</strong> dashboard.
+            </p>
+            <Step n={1}>Navigate to <strong>Stock → Stock Item Maintenance</strong>.</Step>
+            <Step n={2}>Open a stock item in <strong>Edit</strong> mode.</Step>
+            <Step n={3}>Click the <strong>User Defined Field</strong> tab and locate the <strong>Delivery?</strong> checkbox.</Step>
+            <BulletList items={[
+              <><strong>Ticked:</strong> Item requires a Delivery Order and will be tracked for outstanding quantity.</>,
+              <><strong>Unticked:</strong> Item is treated as a service or non-physical good and will be ignored by the tracking dashboard.</>,
+            ]} />
+            <div style={{ marginTop: "1rem", padding: "0.85rem 1.1rem", borderRadius: 10, background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.25)" }}>
+              <p style={{ fontSize: "0.83rem", color: "#6b6f91", lineHeight: 1.65, margin: 0 }}>
+                💡 Upon installing <strong>Sales2DO</strong>, the <strong>Delivery?</strong> checkbox for all
+                existing items will be automatically ticked.
+              </p>
+            </div>
+          </SectionRow>
+        </div>
+      </div>
+
       {/* ── Outstanding Delivery Order ── */}
-      <div id="outstanding" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
+      <div id="outstanding" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>Monitoring</div>
           <h2 style={S.h2}>Outstanding Delivery Order</h2>
-          <ImgSlot src={imgOutstanding} alt="Outstanding Delivery Order dashboard" caption="Outstanding Delivery Order — 3-tier drill-down dashboard" />
-          <p style={{ ...S.body, margin: "1.25rem 0 1rem" }}>
-            To monitor which Invoices or Cash Sales have been transferred to Delivery Orders, and to
-            track exact outstanding balances (dynamically adjusted by Credit Notes and Delivery Returns),
-            utilize the <strong>Outstanding Delivery Order</strong> dashboard.
-          </p>
 
-          <h3 style={{ ...S.h3, marginTop: "1.5rem" }}>How to Use the Dashboard</h3>
-          <Step n={1}>Navigate to <strong>Sales2DO → Outstanding Delivery Order</strong> from the top navigation bar.</Step>
-          <Step n={2}>Use the <strong>Date Range</strong> and <strong>Keyword</strong> filters to locate specific documents quickly.</Step>
-          <Step n={3}>Toggle the checkboxes at the top to filter between Invoices or Cash Sales.</Step>
-          <Step n={4}>Uncheck <strong>"Show Completed Delivery Order"</strong> to hide fully delivered sales and focus on pending items.</Step>
+          <SectionRow image={imgOutstanding} alt="Outstanding Delivery Order dashboard" caption="3-tier drill-down dashboard">
+            <p style={{ ...S.body, marginBottom: "1rem" }}>
+              The <strong>Outstanding Delivery Order</strong> dashboard provides a real-time, centralized view
+              of all sales documents that require physical fulfillment.
+            </p>
 
-          <h3 style={{ ...S.h3, marginTop: "1.75rem" }}>The 3-Tier Drill-Down Grid</h3>
-          <p style={{ ...S.body, marginBottom: "1rem" }}>
-            Expand the <strong>+</strong> icon on any row to dive deeper into the fulfillment process.
-          </p>
-          {[
-            { tier: "Tier 1", color: "#2f315a", title: "Master Document (Overview)", items: [
-              "Displays the source Invoice or Cash Sale and its overall Delivery Status (Pending, Partial Delivery, or Full Delivery).",
-              "Double-click any row to instantly open the source document.",
-            ]},
-            { tier: "Tier 2", color: "#4a5090", title: "Item Codes (Quantity Breakdown)", items: [
-              "Original Qty — The initial quantity billed in the sales document.",
-              "CN Returned Qty — Quantity credited or cancelled via Credit Notes.",
-              "Net Original Qty — Actual required delivery quantity (Original Qty − CN Returned Qty).",
-              "Delivered Qty — Quantity already transferred to Delivery Orders.",
-              "DR Returned Qty — Quantity returned by the customer via Delivery Returns.",
-              "Outstanding Qty — Final remaining balance pending delivery.",
-            ]},
-            { tier: "Tier 3", color: "#6b6f91", title: "Copied History (Delivery Orders)", items: [
-              "Shows the specific Delivery Orders generated for each item — DO Number, DO Date, Delivered Qty, and DR Returned Qty.",
-              "Double-click any record to instantly open the target Delivery Order document.",
-            ]},
-          ].map(({ tier, title, color, items }) => (
-            <div key={tier} style={{ background: "#fff", borderRadius: 14, padding: "1.25rem 1.4rem", marginBottom: "0.85rem", border: "1px solid rgba(47,49,90,0.09)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "0.65rem" }}>
-                <span style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", background: color, color: "#fff", padding: "0.2rem 0.65rem", borderRadius: 50 }}>{tier}</span>
-                <h3 style={{ ...S.h3, marginBottom: 0 }}>{title}</h3>
+            <h3 style={{ ...S.h3, marginTop: "1.5rem" }}>Filter Options</h3>
+            <BulletList items={[
+              <><strong>Date Range:</strong> Filter documents by their creation date.</>,
+              <><strong>Document Type:</strong> Choose to view <strong>Invoices</strong>, <strong>Cash Sales</strong>, or both simultaneously.</>,
+              <><strong>Status Tabs:</strong> Instantly categorize your view into <strong>Pending</strong>, <strong>Partial Delivery</strong>, or <strong>Full Delivery</strong> status.</>,
+            ]} />
+
+            <h3 style={{ ...S.h3, marginTop: "1.75rem" }}>The 3-Tier Drill-Down Grid</h3>
+            <p style={{ ...S.body, marginBottom: "1rem" }}>
+              Expand the <strong>+</strong> icon on any row to dive deeper.
+            </p>
+            {[
+              { tier: "Tier 1", color: "#2f315a", title: "Master Document (Overview)", items: [
+                "Displays the source document and its overall Delivery Status.",
+                "Drill-Down: Double-click any row to open the source Invoice or Cash Sale.",
+              ]},
+              { tier: "Tier 2", color: "#4a5090", title: "Item Codes (Quantity Breakdown)", items: [
+                <><strong>Net Original Qty:</strong> Original Qty − CN Returned Qty.</>,
+                <><strong>Net Delivered Qty:</strong> DO Copied Qty − DR Returned Qty.</>,
+                <><strong>Outstanding Qty:</strong> The final balance pending delivery (Net Original − Net Delivered).</>,
+              ]},
+              { tier: "Tier 3", color: "#6b6f91", title: "Copied History (Delivery Orders)", items: [
+                "Expand an item row to see specific Delivery Orders linked to it, including DO Number, Date, and quantities.",
+                "Drill-Down: Double-click any record here to open the target Delivery Order.",
+              ]},
+            ].map(({ tier, title, color, items }) => (
+              <div key={tier} style={{ background: "#f5f5f8", borderRadius: 14, padding: "1rem 1.2rem", marginBottom: "0.7rem", border: "1px solid rgba(47,49,90,0.09)" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "0.5rem", flexWrap: "wrap" }}>
+                  <span style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", background: color, color: "#fff", padding: "0.2rem 0.65rem", borderRadius: 50 }}>{tier}</span>
+                  <h3 style={{ ...S.h3, marginBottom: 0, fontSize: "0.95rem" }}>{title}</h3>
+                </div>
+                <BulletList items={items} />
               </div>
-              <BulletList items={items} />
-            </div>
-          ))}
+            ))}
+          </SectionRow>
         </div>
       </div>
 
       {/* ── Plugin Settings ── */}
-      <div id="settings" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
+      <div id="settings" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>Configuration</div>
           <h2 style={S.h2}>Sales2DO Plugin Settings</h2>
-          <p style={{ ...S.body, marginBottom: "1.5rem" }}>To configure, go to <strong>Sales2DO → Plugin Settings</strong>.</p>
-          <ImgSlot src={imgSettings} alt="Plugin Settings screen" caption="Sales2DO → Plugin Settings" />
+          <p style={{ ...S.body }}>To configure, go to <strong>Sales2DO → Plugin Settings</strong>.</p>
 
-          <div style={{ marginTop: "2rem", marginBottom: "1.75rem" }}>
-            <h3 style={S.h3}>Insert Doc No. in Sales and Delivery Order</h3>
-            <p style={{ ...S.body, marginBottom: "0.9rem" }}>Flexible settings to match your company's referencing preferences.</p>
+          <SectionRow image={imgSettings} alt="Plugin Settings screen" caption="Sales2DO → Plugin Settings">
+            <h3 style={{ ...S.h3, marginBottom: "0.4rem" }}>Transfer Document Remark</h3>
+            <p style={{ ...S.body, marginBottom: "0.9rem" }}>
+              Automate the cross-referencing of document numbers for a clear audit trail.
+            </p>
             <BulletList items={[
-              'Sales Prefix / Prefix Text — Define the text that precedes the document number (e.g., "Copy To " results in "Copy To DO-00001").',
-              "Sales Master/Detail Target — Select the UDF or standard field in the Invoice/Cash Sale where the resulting DO number will be saved.",
-              "DO Master/Detail Target — Select the UDF or standard field in the Delivery Order where the source Invoice/Cash Sale number will be saved.",
+              <><strong>Insert DO No. in Sales (Reverse Trace):</strong> Automatically writes the generated Delivery Order number back to the source Invoice or Cash Sale.</>,
+              <><strong>Insert Sales No. in DO (Forward Trace):</strong> Copies the original Invoice or Cash Sale number into the newly created Delivery Order.</>,
+              <><strong>Target Field Configuration:</strong> Choose whether to insert these numbers into the <strong>Master</strong> (Documents) or <strong>Details</strong> (Item Details) fields (e.g., Remark or Description).</>,
+              <><strong>Prefix Text:</strong> Add custom prefix text (e.g., "Ref:" or "From:") to label the inserted numbers.</>,
             ]} />
-          </div>
+            <div style={{ marginTop: "0.5rem", marginBottom: "1.75rem", padding: "0.85rem 1.1rem", borderRadius: 10, background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.25)" }}>
+              <p style={{ fontSize: "0.83rem", color: "#6b6f91", lineHeight: 1.65, margin: 0 }}>
+                💡 Upon installing <strong>Sales2DO</strong>, the system automatically creates the
+                <strong> "Copy To"</strong> (for Sales) and <strong>"Copy From"</strong> (for DO) User Defined
+                Fields (UDFs). These are set as the default target fields automatically.
+              </p>
+            </div>
 
-          <div>
-            <h3 style={S.h3}>Enable Smart Copy Control</h3>
-            <p style={{ ...S.body, marginBottom: "0.9rem" }}>This core feature prevents accidental over-delivery.</p>
-            <Step n={1}>Check <strong>"Enable Smart Copy Control"</strong> in the settings.</Step>
-            <Step n={2}>When copying a partially copied document, the system calculates the remaining balance and <strong>only loads the outstanding quantity</strong> into the new Delivery Order.</Step>
-            <Step n={3}>If a document has already been fully copied, the system will prompt a warning asking if you still intend to proceed.</Step>
-          </div>
+            <h3 style={{ ...S.h3, marginBottom: "0.4rem" }}>Invoice &amp; Cash Sale Delivery Settings</h3>
+            <p style={{ ...S.body, marginBottom: "0.9rem" }}>
+              Set the default behavior for the <strong>"Delivery?"</strong> checkbox during data entry.
+            </p>
+            <BulletList items={[
+              <><strong>Default "Delivery?" to unchecked:</strong> New lines default to "No Delivery", best for "Cash &amp; Carry" workflows.</>,
+              <><strong>Default "Delivery?" based on Stock Item Preset:</strong> Inherits the preset defined in <strong>Stock Item Maintenance</strong>. Recommended for businesses selling both services and physical goods.</>,
+            ]} />
+          </SectionRow>
         </div>
       </div>
 
       {/* ── Activate Plugin License ── */}
-      <div id="license" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
+      <div id="license" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>Activation</div>
           <h2 style={S.h2}>Activate Plugin License</h2>
