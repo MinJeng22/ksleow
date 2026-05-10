@@ -141,6 +141,7 @@ function BulletList({ items }) {
 function VideoGuide() {
   const [idx,    setIdx]    = useState(0);
   const [active, setActive] = useState("a");   // which slot is visible
+  const [paused, setPaused] = useState(false); // play/pause toggle
 
   const aRef = useRef(null);
   const bRef = useRef(null);
@@ -245,6 +246,19 @@ function VideoGuide() {
   const goPrev = () => transitionTo(idxRef.current - 1);
   const goNext = () => transitionTo(idxRef.current + 1);
 
+  /* ── Play / pause toggle ── */
+  const togglePlay = () => {
+    const vid = (activeRef.current === "a" ? aRef.current : bRef.current);
+    if (!vid) return;
+    if (vid.paused) {
+      vid.play().catch(() => {});
+      setPaused(false);
+    } else {
+      vid.pause();
+      setPaused(true);
+    }
+  };
+
   /* ── Touch-swipe handlers — swipe left = next, swipe right = previous ── */
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
@@ -338,6 +352,29 @@ function VideoGuide() {
                 zIndex: active === "b" ? 2 : 1,
               }}
             />
+
+            {/* ── Play / Pause toggle (bottom-right, same look as Hero pause) ── */}
+            <button
+              onClick={togglePlay}
+              title={paused ? "Play" : "Pause"}
+              aria-label={paused ? "Play video" : "Pause video"}
+              style={{
+                position: "absolute", bottom: 12, right: 12, zIndex: 4,
+                width: 36, height: 36, borderRadius: "50%",
+                background: "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.25)",
+                color: "#ffffff", cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "background 0.2s",
+              }}
+              onMouseOver={e => e.currentTarget.style.background = "rgba(255,255,255,0.22)"}
+              onMouseOut={e => e.currentTarget.style.background = "rgba(255,255,255,0.12)"}
+            >
+              {paused
+                ? <svg width="11" height="13" viewBox="0 0 12 14" fill="white"><polygon points="0,0 12,7 0,14"/></svg>
+                : <svg width="11" height="13" viewBox="0 0 12 14" fill="white"><rect x="0" y="0" width="4" height="14"/><rect x="8" y="0" width="4" height="14"/></svg>
+              }
+            </button>
           </div>
 
           {/* Segment dot indicators */}
