@@ -129,7 +129,7 @@ export default function AIChatbot({ app }) {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      text: "Hello! I'm the exclusive assistant for the Sales2DO plugin by KSL Business Solutions. Ask me anything about installation, features, pricing, or licensing. 😊",
+      text: "Hello, how can I help you today?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -275,11 +275,11 @@ export default function AIChatbot({ app }) {
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#ffffff", lineHeight: 1.2 }}>
-                AutoCount Plugin Assistant
+                KS Omni
               </div>
               <div style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.55)", display: "flex", alignItems: "center", gap: 5 }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4ade80", display: "inline-block" }} />
-                Powered by Gemini AI
+                K.S. Leow Group AI Assistant
               </div>
             </div>
             <button
@@ -308,14 +308,15 @@ export default function AIChatbot({ app }) {
             display: "flex", alignItems: "flex-end", gap: "0.5rem",
             flexShrink: 0,
           }}>
-            {/* Text input */}
+            {/* Text input — locked while AI is composing a reply */}
             <textarea
               ref={inputRef}
               value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKey}
-              placeholder="Ask about Sales2DO…"
+              onChange={e => { if (!loading) setInput(e.target.value); }}
+              onKeyDown={e => { if (loading) { e.preventDefault(); return; } handleKey(e); }}
+              placeholder={loading ? "Waiting for AI reply…" : "How can I help you today?"}
               disabled={loading}
+              readOnly={loading}
               rows={1}
               style={{
                 flex: 1,

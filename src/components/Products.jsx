@@ -73,9 +73,11 @@ export default function Products({ onContact }) {
                   <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.5rem" }}>{p.name}</h3>
                   <p style={{ fontSize: "0.82rem", color: "#6b6f91", lineHeight: 1.66 }}>{p.desc}</p>
                   {clickable && (
-                    <span style={{ display: "inline-block", marginTop: "0.75rem", fontSize: "0.78rem", fontWeight: 600, color: "#c9a84c", letterSpacing: "0.04em" }}>
-                      Learn more →
-                    </span>
+                    <div style={{ marginTop: "0.75rem", textAlign: "right" }}>
+                      <span style={{ fontSize: "0.78rem", fontWeight: 600, color: "#c9a84c", letterSpacing: "0.04em" }}>
+                        Learn more →
+                      </span>
+                    </div>
                   )}
                 </div>
               </div>

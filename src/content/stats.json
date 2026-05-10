@@ -1,6 +1,6 @@
 {
   "items": [
-    { "num": "500+", "label": "Businesses Served", "animate": true },
+    { "num": "1000+", "label": "Businesses Served", "animate": true },
     { "num": "40+",  "label": "Years in Pahang",   "animate": true },
     { "num": "6",    "label": "Service Pillars",   "animate": false },
     { "num": "100%", "label": "Authorized Dealer", "animate": false }

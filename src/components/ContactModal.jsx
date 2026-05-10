@@ -1,8 +1,8 @@
-import { LOGO_NAV } from "../assets/assets.js";
 import branding from "../content/branding.json";
 import { CONTACT, WA_LINK } from "../constants/contact.js";
 
-const NAV_LOGO_SRC = branding.navLogo || LOGO_NAV;
+/* Use the same small icon as the service-card backs */
+const HEADER_LOGO_SRC = "/favicon.png";
 const CARD_BACK_BG = branding.serviceCardBack || "/service-card-back.png";
 
 /* ── Inline SVG icons ── */
@@ -144,10 +144,10 @@ export default function ContactModal({ open, onClose }) {
           <CloseIcon />
         </button>
 
-        {/* ── Header strip — same pattern as card back: small logo + tagline + name ── */}
-        <div style={{ position: "relative", zIndex: 1, padding: "1.4rem 1.6rem 0.8rem", display: "flex", alignItems: "center", gap: "0.8rem" }}>
-          <div style={{ width: 46, height: 46, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            <img src={NAV_LOGO_SRC} alt="KSL" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+        {/* ── Header strip — same compact pattern as card back ── */}
+        <div style={{ position: "relative", zIndex: 1, padding: "1.5rem 1.6rem 1rem", display: "flex", alignItems: "center", gap: "0.8rem" }}>
+          <div style={{ width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <img src={HEADER_LOGO_SRC} alt="KSL" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
           </div>
           <div style={{ minWidth: 0 }}>
             <div style={{
@@ -162,23 +162,6 @@ export default function ContactModal({ open, onClose }) {
           </div>
         </div>
 
-        {/* ── Title block ── */}
-        <div style={{ position: "relative", zIndex: 1, padding: "0 1.6rem 1.1rem" }}>
-          <h2 style={{
-            fontSize: "1.6rem", fontWeight: 700,
-            color: "#ffffff", marginBottom: "0.45rem",
-            lineHeight: 1.2,
-          }}>
-            Get in Touch
-          </h2>
-          <p style={{
-            fontSize: "0.85rem", color: "rgba(255,255,255,0.7)",
-            lineHeight: 1.55,
-          }}>
-            Reach out and our team will get back to you as soon as possible.
-          </p>
-        </div>
-
         {/* ── Contact rows — gold-chip icons, same as card back ── */}
         <div style={{ position: "relative", zIndex: 1, padding: "0 1.6rem 1.4rem", display: "flex", flexDirection: "column", gap: "0.7rem" }}>
           <ContactLine icon={<PhoneIcon />} label={CONTACT.phone} href={telHref} />
@@ -186,7 +169,7 @@ export default function ContactModal({ open, onClose }) {
           <ContactLine icon={<PinIcon />} label={CONTACT.address} />
         </div>
 
-        {/* ── Bottom CTA buttons — gold pill + ghost outlines, same as card back ── */}
+        {/* ── Bottom CTA buttons — WhatsApp + Email only ── */}
         <div style={{
           position: "relative", zIndex: 1,
           padding: "0.4rem 1.6rem 1.5rem",
@@ -210,45 +193,25 @@ export default function ContactModal({ open, onClose }) {
             WhatsApp Us
           </a>
 
-          {/* Email + Facebook — ghost outlines side by side */}
-          <div style={{ display: "flex", gap: "0.5rem" }}>
-            <a
-              href={mailHref}
-              style={{
-                flex: 1, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.45rem",
-                background: "rgba(255,255,255,0.06)", color: "#ffffff",
-                border: "1px solid rgba(255,255,255,0.22)",
-                borderRadius: 50, padding: "0.65rem 1rem",
-                fontSize: "0.8rem", fontWeight: 600,
-                textDecoration: "none",
-                fontFamily: "inherit",
-                transition: "background 0.2s, border-color 0.2s",
-              }}
-              onMouseOver={e => { e.currentTarget.style.background = "rgba(255,255,255,0.14)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)"; }}
-              onMouseOut={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.22)"; }}
-            >
-              <MailIcon />
-              <span style={{ color: "#ffffff" }}>Email</span>
-            </a>
-            <a
-              href={CONTACT.facebook} target="_blank" rel="noreferrer"
-              style={{
-                flex: 1, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.45rem",
-                background: "rgba(255,255,255,0.06)", color: "#ffffff",
-                border: "1px solid rgba(255,255,255,0.22)",
-                borderRadius: 50, padding: "0.65rem 1rem",
-                fontSize: "0.8rem", fontWeight: 600,
-                textDecoration: "none",
-                fontFamily: "inherit",
-                transition: "background 0.2s, border-color 0.2s",
-              }}
-              onMouseOver={e => { e.currentTarget.style.background = "rgba(255,255,255,0.14)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)"; }}
-              onMouseOut={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.22)"; }}
-            >
-              <FacebookIcon />
-              Facebook
-            </a>
-          </div>
+          {/* Email — ghost outline */}
+          <a
+            href={mailHref}
+            style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.45rem",
+              background: "rgba(255,255,255,0.06)", color: "#ffffff",
+              border: "1px solid rgba(255,255,255,0.22)",
+              borderRadius: 50, padding: "0.65rem 1rem",
+              fontSize: "0.8rem", fontWeight: 600,
+              textDecoration: "none",
+              fontFamily: "inherit",
+              transition: "background 0.2s, border-color 0.2s",
+            }}
+            onMouseOver={e => { e.currentTarget.style.background = "rgba(255,255,255,0.14)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)"; }}
+            onMouseOut={e => { e.currentTarget.style.background = "rgba(255,255,255,0.06)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.22)"; }}
+          >
+            <MailIcon />
+            <span style={{ color: "#ffffff" }}>Email</span>
+          </a>
         </div>
       </div>
     </div>
