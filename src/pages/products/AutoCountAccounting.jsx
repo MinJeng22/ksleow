@@ -852,7 +852,7 @@ const RELEASES = [
 /* ── Feature pill colours by type ── */
 const TAG = {
   feature: { bg: "rgba(47,49,90,0.08)", color: "#2f315a", label: "New" },
-  fix: { bg: "rgba(201,168,76,0.12)", color: "#8a6a10", label: "Fix" },
+  fix: { bg: "rgba(122,179,23,0.12)", color: "#4a6e0e", label: "Fix" },
 };
 
 /* ── Copy release notes to clipboard (WhatsApp format) ── */
@@ -902,11 +902,11 @@ function CopyBtn({ onClick, gold }) {
       title="Copy for WhatsApp"
       style={{
         display: "inline-flex", alignItems: "center", gap: "0.3rem",
-        background: copied ? (gold ? "rgba(201,168,76,0.2)" : "rgba(47,49,90,0.12)") : "transparent",
-        border: `1px solid ${gold ? "rgba(201,168,76,0.35)" : "rgba(47,49,90,0.18)"}`,
+        background: copied ? (gold ? "rgba(122,179,23,0.2)" : "rgba(47,49,90,0.12)") : "transparent",
+        border: `1px solid ${gold ? "rgba(122,179,23,0.35)" : "rgba(47,49,90,0.18)"}`,
         borderRadius: 50, padding: "0.2rem 0.6rem",
         fontSize: "0.62rem", fontWeight: 600,
-        color: copied ? (gold ? "#8a6a10" : "#2f315a") : "#a8abcc",
+        color: copied ? (gold ? "#4a6e0e" : "#2f315a") : "#a8abcc",
         cursor: "pointer", fontFamily: "inherit",
         transition: "all 0.2s",
       }}
@@ -950,7 +950,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
             <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "#2f315a" }}>{r.version}</span>
             <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "#a8abcc", letterSpacing: "0.04em" }}>{r.rev}</span>
             {isLatest && (
-              <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", background: "#2f315a", color: "#c9a84c", padding: "0.18rem 0.6rem", borderRadius: 50 }}>
+              <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", background: "#2f315a", color: "#7AB317", padding: "0.18rem 0.6rem", borderRadius: 50 }}>
                 Latest
               </span>
             )}
@@ -962,7 +962,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
         {/* counts */}
         <div style={{ display: "flex", gap: "0.75rem", flexShrink: 0 }}>
           <span style={{ fontSize: "0.72rem", color: "#2f315a", fontWeight: 600 }}>✦ {r.features.length} New</span>
-          <span style={{ fontSize: "0.72rem", color: "#8a6a10", fontWeight: 600 }}>⬡ {r.fixes.length} Fix</span>
+          <span style={{ fontSize: "0.72rem", color: "#4a6e0e", fontWeight: 600 }}>⬡ {r.fixes.length} Fix</span>
         </div>
         {/* chevron */}
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a8abcc" strokeWidth="2"
@@ -993,7 +993,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
             {/* Bug Fixes */}
             <div>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.65rem" }}>
-                <div style={{ fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#8a6a10" }}>
+                <div style={{ fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#4a6e0e" }}>
                   Bug Fixes
                 </div>
                 <CopyBtn onClick={() => copyToClipboard(r, "fixes")} gold />
@@ -1245,7 +1245,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                 }
               </div>
               <div style={{ flex: 1, minWidth: 240 }}>
-                <div className="product-hero-eyebrow" style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.5rem" }}>
+                <div className="product-hero-eyebrow" style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7AB317", marginBottom: "0.5rem" }}>
                   Software We Specialize In
                 </div>
                 <h1 className="product-hero-title" style={{ fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", fontWeight: 700, color: "#ffffff", lineHeight: 1.15, marginBottom: "1rem" }}>
@@ -1259,7 +1259,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                 <div className="product-hero-btns" style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
                   <button
                     onClick={() => setDownloadOpen(true)}
-                    style={{ background: "#c9a84c", color: "#1e2040", padding: "0.75rem 2rem", borderRadius: 50, fontSize: "0.9rem", fontWeight: 700, border: "none", cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.2s", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
+                    style={{ background: "#7AB317", color: "#1e2040", padding: "0.75rem 2rem", borderRadius: 50, fontSize: "0.9rem", fontWeight: 700, border: "none", cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.2s", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
                     onMouseOver={e => e.currentTarget.style.opacity = "0.85"}
                     onMouseOut={e => e.currentTarget.style.opacity = "1"}
                   >
@@ -1268,7 +1268,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                       <polyline points="7 10 12 15 17 10" />
                       <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
-                    Download AutoCount
+                    Download Now
                   </button>
                   <a
                     href={WA_LINK} target="_blank" rel="noreferrer"
@@ -1323,7 +1323,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
             <div style={{
               fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em",
-              textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.6rem",
+              textTransform: "uppercase", color: "#7AB317", marginBottom: "0.6rem",
             }}>
               Free Training
             </div>
@@ -1445,7 +1445,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                     {EDITIONS.map(e => <option key={e} value={e}>{e}</option>)}
                   </select>
                 </div>
-                <div style={{ textAlign: "center", fontSize: "1.1rem", fontWeight: 700, color: "#c9a84c", marginTop: "1.2rem" }}>VS</div>
+                <div style={{ textAlign: "center", fontSize: "1.1rem", fontWeight: 700, color: "#7AB317", marginTop: "1.2rem" }}>VS</div>
                 <div>
                   <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>Edition B</label>
                   <select value={editionB} onChange={e => setEditionB(e.target.value)}
@@ -1456,7 +1456,7 @@ export default function AutoCountAccountingPage({ onContact }) {
               </div>
 
               {editionA === editionB && (
-                <p style={{ fontSize: "0.78rem", color: "#c9a84c", textAlign: "center", marginTop: "0.65rem" }}>
+                <p style={{ fontSize: "0.78rem", color: "#7AB317", textAlign: "center", marginTop: "0.65rem" }}>
                   Pick two different editions to see how they differ.
                 </p>
               )}
@@ -1489,7 +1489,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           {/* ── Title + tab switcher ── */}
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
             <div>
-              <div style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.5rem" }}>
+              <div style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7AB317", marginBottom: "0.5rem" }}>
                 Changelog
               </div>
               <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontWeight: 700, color: "#2f315a" }}>
@@ -1542,7 +1542,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                       {RELEASES.slice().reverse().map(r => <option key={r.version} value={r.version}>{r.version} ({r.rev})</option>)}
                     </select>
                   </div>
-                  <div style={{ textAlign: "center", fontSize: "1.3rem", color: "#c9a84c", marginTop: "1.2rem" }}>→</div>
+                  <div style={{ textAlign: "center", fontSize: "1.3rem", color: "#7AB317", marginTop: "1.2rem" }}>→</div>
                   <div>
                     <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>To version</label>
                     <select value={compareB} onChange={e => setCompareB(e.target.value)}
@@ -1557,7 +1557,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                   {[
                     { label: "Revisions covered", val: between.length, bg: "rgba(47,49,90,0.06)", col: "#2f315a" },
                     { label: "New features", val: allFeatures.length, bg: "rgba(47,49,90,0.06)", col: "#2f315a" },
-                    { label: "Bug fixes", val: allFixes.length, bg: "rgba(201,168,76,0.1)", col: "#8a6a10" },
+                    { label: "Bug fixes", val: allFixes.length, bg: "rgba(122,179,23,0.1)", col: "#4a6e0e" },
                   ].map(s => (
                     <div key={s.label} style={{ flex: 1, minWidth: 120, background: s.bg, borderRadius: 12, padding: "1rem 1.25rem" }}>
                       <div style={{ fontSize: "1.6rem", fontWeight: 700, color: s.col, lineHeight: 1 }}>{s.val}</div>
@@ -1583,13 +1583,13 @@ export default function AutoCountAccountingPage({ onContact }) {
                   </div>
                   <div style={{ background: "#ffffff", borderRadius: 14, padding: "1.4rem", border: "1px solid rgba(47,49,90,0.1)" }}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
-                      <div style={{ fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#8a6a10" }}>Bug Fixes ({allFixes.length})</div>
+                      <div style={{ fontSize: "0.68rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#4a6e0e" }}>Bug Fixes ({allFixes.length})</div>
                       {allFixes.length > 0 && <CopyBtn onClick={() => copyCompare(allFixes, compareA, compareB, "fixes")} gold />}
                     </div>
                     {allFixes.length === 0 && <div style={{ fontSize: "0.82rem", color: "#a8abcc" }}>No bug fixes in this range.</div>}
                     {allFixes.map((f, i) => (
                       <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
-                        <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(201,168,76,0.12)", color: "#8a6a10", flexShrink: 0, marginTop: 2 }}>{f.rev}</span>
+                        <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(122,179,23,0.12)", color: "#4a6e0e", flexShrink: 0, marginTop: 2 }}>{f.rev}</span>
                         <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{f.text}</span>
                       </div>
                     ))}
@@ -1669,7 +1669,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           </p>
           <button
             onClick={onContact}
-            style={{ background: "#c9a84c", color: "#1e2040", padding: "0.85rem 2.5rem", borderRadius: 50, fontSize: "0.95rem", fontWeight: 700, border: "none", cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.2s" }}
+            style={{ background: "#7AB317", color: "#1e2040", padding: "0.85rem 2.5rem", borderRadius: 50, fontSize: "0.95rem", fontWeight: 700, border: "none", cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.2s" }}
             onMouseOver={e => e.currentTarget.style.opacity = "0.85"}
             onMouseOut={e => e.currentTarget.style.opacity = "1"}
           >

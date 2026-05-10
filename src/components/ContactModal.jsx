@@ -1,5 +1,9 @@
-import { LOGO_NAV as LOGO } from "../assets/assets.js";
+import { LOGO_NAV } from "../assets/assets.js";
+import branding from "../content/branding.json";
 import { CONTACT, WA_LINK } from "../constants/contact.js";
+
+/* Use the exact same logo as the navigation bar (CMS override or bundled) */
+const NAV_LOGO_SRC = branding.navLogo || LOGO_NAV;
 
 /* ── Inline SVG icons ── */
 const PinIcon = () => (
@@ -59,10 +63,6 @@ export default function ContactModal({ open, onClose }) {
           from { opacity: 0; transform: translateY(24px) scale(0.94) }
           to   { opacity: 1; transform: translateY(0) scale(1) }
         }
-        @keyframes accentSweep {
-          from { transform: translateX(-100%) }
-          to   { transform: translateX(0) }
-        }
       `}</style>
 
       <div
@@ -70,21 +70,13 @@ export default function ContactModal({ open, onClose }) {
         style={{
           position: "relative",
           background: "#ffffff", borderRadius: 24,
-          padding: "2.75rem 2.25rem 2rem",
+          padding: "2.25rem 2.25rem 2rem",
           maxWidth: 440, width: "100%",
           boxShadow: "0 32px 80px rgba(10,11,20,0.4), 0 4px 20px rgba(10,11,20,0.15)",
           animation: "modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1)",
           overflow: "hidden",
         }}
       >
-        {/* ── Top accent bar — brand gradient ── */}
-        <div style={{
-          position: "absolute", top: 0, left: 0, right: 0,
-          height: 4,
-          background: "linear-gradient(90deg, #2f315a 0%, #c9a84c 50%, #2f315a 100%)",
-          animation: "accentSweep 0.8s ease",
-        }} />
-
         {/* ── Close button (top-right) ── */}
         <button
           onClick={onClose}
@@ -104,12 +96,12 @@ export default function ContactModal({ open, onClose }) {
           <CloseIcon />
         </button>
 
-        {/* ── Logo (centred, large) ── */}
+        {/* ── Logo — same source/treatment as nav bar, centred ── */}
         <div style={{ textAlign: "center", marginBottom: "1.4rem" }}>
           <img
-            src={LOGO}
+            src={NAV_LOGO_SRC}
             alt="KSL Business Solutions"
-            style={{ height: 78, maxWidth: "82%", objectFit: "contain", display: "inline-block" }}
+            style={{ height: 48, objectFit: "contain", display: "inline-block" }}
           />
         </div>
 

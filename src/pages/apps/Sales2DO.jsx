@@ -245,6 +245,25 @@ function VideoGuide() {
   const goPrev = () => transitionTo(idxRef.current - 1);
   const goNext = () => transitionTo(idxRef.current + 1);
 
+  /* ── Touch-swipe handlers — swipe left = next, swipe right = previous ── */
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+  const onTouchStart = (e) => {
+    const t = e.touches[0];
+    touchStartX.current = t.clientX;
+    touchStartY.current = t.clientY;
+  };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - touchStartX.current;
+    const dy = t.clientY - touchStartY.current;
+    touchStartX.current = null;
+    /* require horizontal-dominant swipe of at least 50px */
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx > 0) goPrev(); else goNext();
+  };
+
   /* Per-slot ended handlers — only react if event is from active slot. */
   const onEndedA = () => { if (activeRef.current === "a") transitionTo(idxRef.current + 1); };
   const onEndedB = () => { if (activeRef.current === "b") transitionTo(idxRef.current + 1); };
@@ -259,19 +278,6 @@ function VideoGuide() {
         /* Lock the right-column height so segment changes don't shift layout. */
         .vg-text-wrap { min-height: 360px; }
         @media (max-width: 760px) { .vg-text-wrap { min-height: 0; } }
-        .vg-arrow {
-          position: absolute; top: 50%; transform: translateY(-50%);
-          width: 42px; height: 42px; border-radius: 50%;
-          background: rgba(0,0,0,0.45); color: #fff;
-          border: none; cursor: pointer;
-          display: flex; align-items: center; justify-content: center;
-          font-size: 22px; font-weight: 600; line-height: 1;
-          transition: background 0.2s, transform 0.2s;
-          z-index: 5;
-        }
-        .vg-arrow:hover { background: rgba(0,0,0,0.7); transform: translateY(-50%) scale(1.05); }
-        .vg-arrow.left  { left: 12px; }
-        .vg-arrow.right { right: 12px; }
       `}</style>
 
       {/* Group tabs */}
@@ -297,8 +303,12 @@ function VideoGuide() {
       <div className="vg-grid">
         {/* ── Left: dual-video crossfade ── */}
         <div>
-          {/* 16 : 9 container */}
-          <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%", height: 0, background: "#000", borderRadius: 14, overflow: "hidden", boxShadow: "0 12px 36px rgba(47,49,90,0.18)" }}>
+          {/* 16 : 9 container — swipe left/right to navigate */}
+          <div
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            style={{ position: "relative", width: "100%", paddingBottom: "56.25%", height: 0, background: "#000", borderRadius: 14, overflow: "hidden", boxShadow: "0 12px 36px rgba(47,49,90,0.18)", touchAction: "pan-y" }}
+          >
             {/* Slot A — instant z-index/opacity swap (no fade) so we never
                 blend two videos against the black backdrop. requestVideoFrameCallback
                 guarantees the new slot has painted before the swap, so the cut is
@@ -328,10 +338,6 @@ function VideoGuide() {
                 zIndex: active === "b" ? 2 : 1,
               }}
             />
-
-            {/* Prev / Next arrows */}
-            <button className="vg-arrow left"  onClick={goPrev} aria-label="Previous video">‹</button>
-            <button className="vg-arrow right" onClick={goNext} aria-label="Next video">›</button>
           </div>
 
           {/* Segment dot indicators */}
@@ -587,7 +593,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       <Footer />
-      <AIChatbot />
+      <AIChatbot app="Sales2DO" />
     </div>
   );
 }

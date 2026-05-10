@@ -18,8 +18,10 @@ import { useState, useRef, useEffect } from "react";
 
 /* ── CONFIG — set your Cloudflare Worker URL here ── */
 const WORKER_URL = "https://ksl-omni.chiaminjeng.workers.dev";
-/* On tablet/mobile (≤ 1024 px) the FAB opens this URL instead of the inline panel */
-const OMNI_PAGE_URL = "https://ksl-omni.chiaminjeng.workers.dev";
+/* On tablet/mobile (≤ 1024 px) the FAB opens the KSOmni web page instead of
+ * the inline chat panel. The `app` prop appends `?app=<name>` so the omni
+ * portal can scope itself to that product context. */
+const OMNI_PAGE_BASE = "https://ksleow.vercel.app/omni";
 /* ── Icons ── */
 const SendIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -105,7 +107,12 @@ function Message({ msg }) {
 }
 
 /* ── Main chatbot component ── */
-export default function AIChatbot() {
+export default function AIChatbot({ app }) {
+  /* Build the omni page URL — appends ?app=<name> when caller passes a context */
+  const omniHref = app
+    ? `${OMNI_PAGE_BASE}?app=${encodeURIComponent(app)}`
+    : OMNI_PAGE_BASE;
+
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -350,8 +357,9 @@ export default function AIChatbot() {
       <button
         onClick={() => {
           if (window.innerWidth <= 1024) {
-            /* Tablet & mobile: open the omni portal directly in a new tab */
-            window.open(OMNI_PAGE_URL, "_blank", "noopener,noreferrer");
+            /* Tablet & mobile: open the KSOmni portal in a new tab,
+               passing the current app context as a query param */
+            window.open(omniHref, "_blank", "noopener,noreferrer");
           } else {
             setOpen(o => !o);
           }
