@@ -1260,11 +1260,14 @@ export default function AutoCountAccountingPage({ onContact }) {
                   KSL Business Solutions provides full installation, configuration, training, and ongoing support.
                 </p>
                 <div className="product-hero-btns" style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+                  {/* Download Now — intentionally inert for now (no handler).
+                   * Will be wired up once the AutoCount installer hosting / EULA
+                   * flow is ready. Keep the button visible so the layout stays
+                   * the same; just don't show a pointer cursor on hover. */}
                   <button
-                    onClick={() => setDownloadOpen(true)}
-                    style={{ background: "#c9a84c", color: "#1e2040", padding: "0.75rem 2rem", borderRadius: 50, fontSize: "0.9rem", fontWeight: 700, border: "none", cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.2s", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
-                    onMouseOver={e => e.currentTarget.style.opacity = "0.85"}
-                    onMouseOut={e => e.currentTarget.style.opacity = "1"}
+                    type="button"
+                    aria-disabled="true"
+                    style={{ background: "#c9a84c", color: "#1e2040", padding: "0.75rem 2rem", borderRadius: 50, fontSize: "0.9rem", fontWeight: 700, border: "none", cursor: "default", fontFamily: "inherit", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
