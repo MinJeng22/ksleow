@@ -11,8 +11,16 @@
       "badgeType": "certified",
       "badgeLabel": "Certified By",
       "logos": [
-        { "src": "/cert-taxation-1.png", "alt": "Cert 1", "h": 60 },
-        { "src": "/cert-taxation-2.png", "alt": "Cert 2", "h": 60 }
+        {
+          "src": "/uploads/services/lhdn-logo.png",
+          "alt": "Cert 1",
+          "h": 60
+        },
+        {
+          "src": "/cert-taxation-2.png",
+          "alt": "Cert 2",
+          "h": 60
+        }
       ]
     },
     {
@@ -23,8 +31,16 @@
       "badgeType": "certified",
       "badgeLabel": "Certified By",
       "logos": [
-        { "src": "/cert-secretarial-1.png", "alt": "Cert 1", "h": 60 },
-        { "src": "/cert-secretarial-2.png", "alt": "Cert 2", "h": 60 }
+        {
+          "src": "/uploads/services/ssm-logo.png",
+          "alt": "Cert 1",
+          "h": 60
+        },
+        {
+          "src": "/uploads/services/maicsa-logo.png",
+          "alt": "Cert 2",
+          "h": 60
+        }
       ]
     },
     {
@@ -35,8 +51,16 @@
       "badgeType": "certified",
       "badgeLabel": "Certified By",
       "logos": [
-        { "src": "/cert-auditing-1.png", "alt": "Cert 1", "h": 60 },
-        { "src": "/cert-auditing-2.png", "alt": "Cert 2", "h": 60 }
+        {
+          "src": "/uploads/services/mia-logo.jpg",
+          "alt": "Cert 1",
+          "h": 60
+        },
+        {
+          "src": "/uploads/services/mof-logo.png",
+          "alt": "Cert 2",
+          "h": 60
+        }
       ]
     },
     {
@@ -47,8 +71,16 @@
       "badgeType": "dealer",
       "badgeLabel": "Authorized Dealer",
       "logos": [
-        { "src": "/sunmi-logo.png", "alt": "Sunmi", "h": 64 },
-        { "src": "/mdot-logo.png",  "alt": "Mdot",  "h": 56 }
+        {
+          "src": "/sunmi-logo.png",
+          "alt": "Sunmi",
+          "h": 64
+        },
+        {
+          "src": "/mdot-logo.png",
+          "alt": "Mdot",
+          "h": 56
+        }
       ]
     },
     {
@@ -59,8 +91,16 @@
       "badgeType": "dealer",
       "badgeLabel": "Authorized Dealer",
       "logos": [
-        { "src": "/autocount-logo.png", "alt": "AutoCount", "h": 60 },
-        { "src": "/feedme-logo.png",    "alt": "FeedMe",    "h": 60 }
+        {
+          "src": "/autocount-logo.png",
+          "alt": "AutoCount",
+          "h": 60
+        },
+        {
+          "src": "/feedme-logo.png",
+          "alt": "FeedMe",
+          "h": 60
+        }
       ]
     },
     {
@@ -71,8 +111,16 @@
       "badgeType": "dealer",
       "badgeLabel": "Authorized Dealer",
       "logos": [
-        { "src": "/cert-webinar-1.png", "alt": "Partner 1", "h": 60 },
-        { "src": "/cert-webinar-2.png", "alt": "Partner 2", "h": 60 }
+        {
+          "src": "/cert-webinar-1.png",
+          "alt": "Partner 1",
+          "h": 60
+        },
+        {
+          "src": "/cert-webinar-2.png",
+          "alt": "Partner 2",
+          "h": 60
+        }
       ]
     }
   ]
