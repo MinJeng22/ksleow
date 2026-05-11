@@ -182,8 +182,9 @@ function VideoGuide() {
   const [active, setActive] = useState("a");   // which slot is visible
   const [paused, setPaused] = useState(false); // play/pause toggle
 
-  const aRef = useRef(null);
-  const bRef = useRef(null);
+  const aRef         = useRef(null);
+  const bRef         = useRef(null);
+  const containerRef = useRef(null);  // wraps both videos — what we send fullscreen
   /* Mutable mirrors for stale-closure-free callback access. */
   const idxRef    = useRef(0);
   const activeRef = useRef("a");
@@ -289,6 +290,34 @@ function VideoGuide() {
   const goPrev = () => transitionTo(idxRef.current - 1);
   const goNext = () => transitionTo(idxRef.current + 1);
 
+  /* ── Fullscreen toggle — targets the container so the play/pause
+   * overlay stays reachable while fullscreen. Safari uses the webkit
+   * vendor-prefixed APIs (different element + Element method names),
+   * so handle both branches. ── */
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  useEffect(() => {
+    const onChange = () => {
+      const el = document.fullscreenElement || document.webkitFullscreenElement;
+      setIsFullscreen(!!el && el === containerRef.current);
+    };
+    document.addEventListener("fullscreenchange",       onChange);
+    document.addEventListener("webkitfullscreenchange", onChange);
+    return () => {
+      document.removeEventListener("fullscreenchange",       onChange);
+      document.removeEventListener("webkitfullscreenchange", onChange);
+    };
+  }, []);
+  const toggleFullscreen = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    const inFS = document.fullscreenElement || document.webkitFullscreenElement;
+    if (inFS) {
+      (document.exitFullscreen || document.webkitExitFullscreen)?.call(document);
+    } else {
+      (el.requestFullscreen || el.webkitRequestFullscreen)?.call(el);
+    }
+  };
+
   /* ── Play / pause toggle ── */
   const togglePlay = () => {
     const vid = (activeRef.current === "a" ? aRef.current : bRef.current);
@@ -387,11 +416,13 @@ function VideoGuide() {
 
         {/* ── Right: dual-video crossfade ── */}
         <div className="vg-video-col">
-          {/* 16 : 9 container — swipe left/right to navigate */}
+          {/* 16 : 9 container — swipe left/right to navigate. Also the
+              element we send fullscreen so the overlay buttons stay visible. */}
           <div
+            ref={containerRef}
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
-            style={{ position: "relative", width: "100%", paddingBottom: "56.25%", height: 0, background: "#000", borderRadius: 14, overflow: "hidden", boxShadow: "0 12px 36px rgba(47,49,90,0.18)", touchAction: "pan-y" }}
+            style={{ position: "relative", width: "100%", paddingBottom: isFullscreen ? 0 : "56.25%", height: isFullscreen ? "100%" : 0, background: "#000", borderRadius: isFullscreen ? 0 : 14, overflow: "hidden", boxShadow: "0 12px 36px rgba(47,49,90,0.18)", touchAction: "pan-y" }}
           >
             {/* Slot A — instant z-index/opacity swap (no fade) so we never
                 blend two videos against the black backdrop. requestVideoFrameCallback
@@ -422,6 +453,36 @@ function VideoGuide() {
                 zIndex: active === "b" ? 2 : 1,
               }}
             />
+
+            {/* ── Fullscreen toggle (bottom-left, mirrors play/pause style) ── */}
+            <button
+              onClick={toggleFullscreen}
+              title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+              aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+              style={{
+                position: "absolute", bottom: 12, left: 12, zIndex: 4,
+                width: 36, height: 36, borderRadius: "50%",
+                background: "rgba(0,0,0,0.45)",
+                border: "1px solid rgba(0,0,0,0.6)",
+                color: "#ffffff", cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "background 0.2s",
+              }}
+              onMouseOver={e => e.currentTarget.style.background = "rgba(0,0,0,0.65)"}
+              onMouseOut={e => e.currentTarget.style.background = "rgba(0,0,0,0.45)"}
+            >
+              {isFullscreen ? (
+                /* exit-fullscreen — inward-facing corner brackets */
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 3v3a2 2 0 0 1-2 2H4M15 3v3a2 2 0 0 0 2 2h3M9 21v-3a2 2 0 0 0-2-2H4M15 21v-3a2 2 0 0 1 2-2h3"/>
+                </svg>
+              ) : (
+                /* enter-fullscreen — outward-facing corner brackets */
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 9V5a2 2 0 0 1 2-2h4M21 9V5a2 2 0 0 0-2-2h-4M3 15v4a2 2 0 0 0 2 2h4M21 15v4a2 2 0 0 1-2 2h-4"/>
+                </svg>
+              )}
+            </button>
 
             {/* ── Play / Pause toggle (bottom-right, same look as Hero pause) ── */}
             <button
