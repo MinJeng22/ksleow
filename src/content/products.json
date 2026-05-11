@@ -16,7 +16,7 @@
       "desc": "POS integrated with AutoCount Accounting. Real-time inventory and sales reporting.",
       "image": "/uploads/products/autocountpos.png",
       "placeholder": "🖥️",
-      "gradient": "linear-gradient(135deg, rgb(255, 234, 198) 0%, rgb(252, 196, 120) 100%)",
+      "gradient": "rgb(252, 196, 120)",
       "route": ""
     },
     {
@@ -24,7 +24,7 @@
       "desc": "Automated payroll compliant with EPF, SOCSO, PCB, and EIS. Payslips in minutes.",
       "image": "/uploads/products/hrms-logo-2024_white-1024x288.png",
       "placeholder": "☁️",
-      "gradient": "linear-gradient(135deg, rgb(229, 240, 251) 0%, rgb(168, 198, 232) 100%)",
+      "gradient": "rgb(168, 198, 232)",
       "route": ""
     },
     {
