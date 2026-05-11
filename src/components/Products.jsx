@@ -5,10 +5,11 @@ import productsContent from "../content/products.json";
 const PRODUCTS = (productsContent.items || []).map(p => ({
   name:        p.name,
   desc:        p.desc,
-  img:         p.image  || null,
+  img:         p.image      || null,
+  background:  p.background || null,   /* lifestyle photo behind the logo */
   placeholder: p.placeholder,
   gradient:    p.gradient,
-  route:       p.route   || null,
+  route:       p.route      || null,
 }));
 
 export default function Products({ onContact }) {
@@ -46,12 +47,27 @@ export default function Products({ onContact }) {
                   cursor: clickable ? "pointer" : "default",
                 }}
               >
-                {/* image / placeholder */}
+                {/* 3-layer composition:
+                 *   1. base — gradient/flat color (fallback when no background photo)
+                 *   2. lifestyle background photo (object-fit: cover)
+                 *   3. semi-transparent black overlay so the logo on top
+                 *      reads cleanly regardless of the photo's contrast
+                 *   4. logo image (or emoji placeholder) on top, zIndex 2
+                 */}
                 <div style={{ background: p.gradient, paddingBottom: "56%", position: "relative",
-                  outline: p.img ? "none" : "2px dashed rgba(255,255,255,0.15)", outlineOffset: -6 }}>
+                  outline: (p.img || p.background) ? "none" : "2px dashed rgba(255,255,255,0.15)", outlineOffset: -6 }}>
+                  {p.background && (
+                    <>
+                      <img src={p.background} alt=""
+                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                      <div aria-hidden="true"
+                        style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.55)" }} />
+                    </>
+                  )}
                   {p.img
-                    ? <img src={p.img} alt={p.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", padding: "12%" }} />
-                    : <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                    ? <img src={p.img} alt={p.name}
+                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain", padding: "12%", zIndex: 2 }} />
+                    : <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, zIndex: 2 }}>
                         <span style={{ fontSize: "2.6rem", opacity: 0.75 }}>{p.placeholder}</span>
                         <span style={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.3)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Upload logo</span>
                       </div>

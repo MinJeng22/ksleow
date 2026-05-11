@@ -147,8 +147,9 @@ collections:
             fields:
               - { name: name,        label: Product name,           widget: string }
               - { name: desc,        label: Description,            widget: text }
-              - { name: image,       label: Product image (optional), widget: image, required: false }
-              - { name: placeholder, label: Emoji placeholder (used when no image), widget: string, default: "📦" }
+              - { name: image,       label: Logo image (sits on top of background), widget: image, required: false }
+              - { name: background,  label: Lifestyle background photo (optional — shown behind logo with dark overlay), widget: image, required: false }
+              - { name: placeholder, label: Emoji placeholder (used when no logo), widget: string, default: "📦" }
               - { name: gradient,    label: Background gradient CSS, widget: string, default: "linear-gradient(135deg, #2f315a 0%, #4a4d85 100%)" }
               - { name: route,       label: Internal link (optional, e.g. /products/autocount-accounting), widget: string, required: false }
 

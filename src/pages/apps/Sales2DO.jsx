@@ -145,17 +145,19 @@ function BulletList({ items }) {
 
 /* ── Two-column layout: image on the LEFT, text on the RIGHT ──
  * Used by Outstanding DO, Preset Delivery, and Plugin Settings sections.
+ * Column proportions mirror the Video Tutorial grid (58% image, 42%
+ * text) so screenshots and the video player feel like the same size.
  * Collapses to single column at <760px (image first, then text). */
 function SectionRow({ image, alt, caption, children, sticky = true }) {
   return (
     <>
       <style>{`
-        .sr-grid { display: grid; grid-template-columns: 44% 1fr; gap: 2.5rem; align-items: start; margin-top: 1.5rem; }
+        .sr-grid { display: grid; grid-template-columns: 58% 1fr; gap: 2.5rem; align-items: start; margin-top: 1.5rem; }
         @media (max-width: 760px) { .sr-grid { grid-template-columns: 1fr; gap: 1.25rem; } }
       `}</style>
       <div className="sr-grid">
         <div style={sticky ? { position: "sticky", top: 90 } : undefined}>
-          <ImgSlot src={image} alt={alt} caption={caption} maxWidth={520} />
+          <ImgSlot src={image} alt={alt} caption={caption} maxWidth={720} maxHeight={560} />
         </div>
         <div>{children}</div>
       </div>
