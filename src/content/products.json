@@ -8,7 +8,7 @@
       "desc": "Malaysia's leading cloud and desktop accounting software. Full SST and e-Invoice ready.",
       "image": "/uploads/products/autocount-02-1024x352.png",
       "placeholder": "🧾",
-      "gradient": "background: linear-gradient(135deg, rgb(246, 252, 222) 0%, rgb(226, 242, 181) 100%)",
+      "gradient": "background: linear-gradient(135deg, rgb(246, 252, 222) 0%, rgb(226, 242, 181) 100%);",
       "route": "/products/autocount-accounting"
     },
     {
@@ -16,7 +16,7 @@
       "desc": "POS integrated with AutoCount Accounting. Real-time inventory and sales reporting.",
       "image": "/uploads/products/autocountpos.png",
       "placeholder": "🖥️",
-      "gradient": "linear-gradient(135deg, #1e2040 0%, #3a3d6b 100%)",
+      "gradient": "linear-gradient(135deg, #1e2040 0%, #3a3d6b 100%);",
       "route": ""
     },
     {
@@ -24,7 +24,7 @@
       "desc": "Automated payroll compliant with EPF, SOCSO, PCB, and EIS. Payslips in minutes.",
       "image": "/uploads/products/hrms-logo-2024_white-1024x288.png",
       "placeholder": "☁️",
-      "gradient": "background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(249, 249, 249) 100%)",
+      "gradient": "background: linear-gradient(135deg, rgb(255, 255, 255) 0%, rgb(249, 249, 249) 100%);",
       "route": ""
     },
     {
@@ -32,7 +32,7 @@
       "desc": "Cloud F&B POS with table management, kitchen display, and online ordering integration.",
       "image": "/uploads/products/feedme.png",
       "placeholder": "🍽️",
-      "gradient": "background: linear-gradient(135deg, rgb(255, 238, 222) 0%, rgb(254, 207, 175) 100%)",
+      "gradient": "background: linear-gradient(135deg, rgb(255, 238, 222) 0%, rgb(254, 207, 175) 100%);",
       "route": ""
     }
   ]
