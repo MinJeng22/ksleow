@@ -1,8 +1,24 @@
 {
   "items": [
-    { "num": "1000+", "label": "Businesses Served", "animate": true },
-    { "num": "40+",  "label": "Years in Pahang",   "animate": true },
-    { "num": "6",    "label": "Service Pillars",   "animate": false },
-    { "num": "30+",  "label": "Authorized Sub-Dealers", "animate": true }
+    {
+      "num": "1000+",
+      "label": "Businesses Served",
+      "animate": true
+    },
+    {
+      "num": "40+",
+      "label": "Years in Pahang",
+      "animate": true
+    },
+    {
+      "num": "6",
+      "label": "Service Pillars",
+      "animate": false
+    },
+    {
+      "num": "20+",
+      "label": "Authorized Sub-Dealers",
+      "animate": true
+    }
   ]
 }
