@@ -198,12 +198,6 @@ export default function Hero({ onContact }) {
        *     the hero visible above the next section) */}
       <style>{`
         @keyframes scrollHintFadeIn { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
-        @keyframes scrollHintTravel {
-          0%   { transform: translateY(0);    opacity: 0; }
-          15%  { opacity: 1; }
-          85%  { opacity: 1; }
-          100% { transform: translateY(40px); opacity: 0; }
-        }
       `}</style>
       <button
         onClick={() => {
@@ -217,37 +211,30 @@ export default function Hero({ onContact }) {
           position: "absolute", left: "50%", bottom: 36, zIndex: 10,
           transform: "translateX(-50%)",
           display: "inline-flex", flexDirection: "column",
-          alignItems: "center", gap: 14,
+          alignItems: "center", gap: 10,
           background: "transparent", border: "none",
-          color: "#e8c97a",
+          color: "rgba(255,255,255,0.75)",
           fontSize: "0.62rem", fontWeight: 600, letterSpacing: "0.32em",
           textTransform: "uppercase", fontFamily: "inherit",
           cursor: "pointer", padding: "0.5rem 1rem",
           opacity: visible ? hintOpacity : 0,
-          transition: "opacity 0.6s ease",
+          transition: "opacity 0.6s ease, color 0.2s",
           pointerEvents: hintOpacity > 0.2 ? "auto" : "none",
           /* Fade-in entrance only on first appearance (5 s after load) */
           animation: hintShown && hintOpacity > 0.9
             ? "scrollHintFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both"
             : "none",
         }}
+        onMouseOver={e => e.currentTarget.style.color = "#ffffff"}
+        onMouseOut ={e => e.currentTarget.style.color = "rgba(255,255,255,0.75)"}
       >
         <span style={{ textIndent: "0.32em" /* compensate trailing letter-spacing for visual centering */ }}>
           Scroll
         </span>
-        {/* Hairline + traveling dot */}
-        <div style={{ position: "relative", width: 1, height: 40, background: "rgba(232,201,122,0.35)" }}>
-          <span
-            aria-hidden="true"
-            style={{
-              position: "absolute", left: -2, top: 0,
-              width: 5, height: 5, borderRadius: "50%",
-              background: "#e8c97a",
-              boxShadow: "0 0 6px rgba(232,201,122,0.7)",
-              animation: "scrollHintTravel 2.4s ease-in-out infinite",
-            }}
-          />
-        </div>
+        {/* Static chevron — no animation */}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
       </button>
 
       {/* Pause / Play */}
