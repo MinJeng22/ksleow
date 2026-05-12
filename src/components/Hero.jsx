@@ -7,11 +7,21 @@ import branding from "../content/branding.json";
 export default function Hero({ onContact }) {
   const [paused, setPaused]   = useState(false);
   const [visible, setVisible] = useState(false);
+  /* Fade out the "Scroll for more" hint once the user has actually
+   * started scrolling — hides at 60px of scroll, fully gone by 200px. */
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 120);
     return () => clearTimeout(t);
   }, []);
+
+  useEffect(() => {
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  const hintOpacity = Math.max(0, 1 - Math.max(0, scrollY - 60) / 140);
 
   const logoH = "clamp(80px, 11vw, 140px)";
 
@@ -167,6 +177,44 @@ export default function Hero({ onContact }) {
           </div>
         </div>
       </div>
+
+      {/* ── Scroll-for-more hint ──
+       * Centered along the hero's bottom edge. Soft bounce, fades out
+       * once the user has scrolled. Clicking it smooth-scrolls past
+       * the hero to the next section. */}
+      <style>{`
+        @keyframes scrollHintBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+      `}</style>
+      <button
+        onClick={() => {
+          const next = document.querySelector(".stats-section, #services");
+          if (next) next.scrollIntoView({ behavior: "smooth", block: "start" });
+          else window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
+        }}
+        aria-label="Scroll for more"
+        style={{
+          position: "absolute", left: "50%", bottom: 24, zIndex: 10,
+          transform: "translateX(-50%)",
+          display: "inline-flex", flexDirection: "column",
+          alignItems: "center", gap: 6,
+          background: "transparent", border: "none",
+          color: "rgba(255,255,255,0.7)",
+          fontSize: "0.7rem", fontWeight: 500, letterSpacing: "0.18em",
+          textTransform: "uppercase", fontFamily: "inherit",
+          cursor: "pointer", padding: "0.5rem 1rem",
+          opacity: visible ? hintOpacity : 0,
+          transition: "opacity 0.4s ease, color 0.2s",
+          pointerEvents: hintOpacity > 0.2 ? "auto" : "none",
+        }}
+        onMouseOver={e => e.currentTarget.style.color = "#e8c97a"}
+        onMouseOut ={e => e.currentTarget.style.color = "rgba(255,255,255,0.7)"}
+      >
+        Scroll for more
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+          style={{ animation: "scrollHintBounce 1.6s ease-in-out infinite" }}>
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
 
       {/* Pause / Play */}
       <button

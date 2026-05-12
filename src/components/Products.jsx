@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import productsContent from "../content/products.json";
 
@@ -16,6 +16,23 @@ export default function Products({ onContact }) {
   const [hovered, setHovered] = useState(null);
   const navigate = useNavigate();
 
+  /* Reveal cards one-by-one (Accounting → FeedMe) the first time the
+   * grid enters the viewport. Plays once; doesn't reverse on scroll-up. */
+  const [revealed, setRevealed] = useState(false);
+  const gridRef = useRef(null);
+  useEffect(() => {
+    const node = gridRef.current;
+    if (!node) return;
+    if (typeof IntersectionObserver === "undefined") { setRevealed(true); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { setRevealed(true); io.disconnect(); }
+      });
+    }, { threshold: 0.25 });
+    io.observe(node);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section className="home-section products-section" style={{ background: "#2f315a", padding: "6rem 0" }}>
       <div className="content-wrap">
@@ -29,7 +46,7 @@ export default function Products({ onContact }) {
           {productsContent.intro}
         </p>
 
-        <div className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }}>
+        <div ref={gridRef} className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }}>
           {PRODUCTS.map((p, i) => {
             const isHov = hovered === i;
             const clickable = !!p.route;
@@ -43,7 +60,10 @@ export default function Products({ onContact }) {
                   borderRadius: 16, overflow: "hidden",
                   border: `1px solid ${isHov ? "rgba(47,49,90,0.3)" : "rgba(47,49,90,0.11)"}`,
                   background: "#ffffff",
-                  transition: "border-color 0.26s",
+                  /* Fade-in left → right (index * 140ms stagger). */
+                  opacity: revealed ? 1 : 0,
+                  transform: revealed ? "none" : "translateY(8px)",
+                  transition: `opacity 0.7s ease ${i * 0.14}s, transform 0.7s ease ${i * 0.14}s, border-color 0.26s`,
                   cursor: clickable ? "pointer" : "default",
                 }}
               >
