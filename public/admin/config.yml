@@ -114,6 +114,7 @@ collections:
                   - { label: "KSL Business Solutions Sdn. Bhd.",         value: ksl_bs }
                   - { label: "K.S. Leow Tax Consultant Sdn. Bhd.",       value: ksl_tax }
                   - { label: "K.S Leow Management Services Co. Sdn. Bhd.", value: ksl_mgmt }
+                  - { label: "Kim & Co Chartered Accountants",           value: kim_co }
               - name: badgeType
                 label: Badge type
                 widget: select
