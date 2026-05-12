@@ -203,8 +203,8 @@ export default function Hero({ onContact }) {
            * reads as "someone gently dragging the page down". Distance
            * is 72% of the viewport so the bottom of the hero stays
            * visible at the top of the screen after the scroll. */
-          const distance = window.innerHeight * 0.72;
-          const duration = 1800;
+          const distance = window.innerHeight * 0.9;
+          const duration = 200;
           const startY = window.scrollY;
           const t0 = performance.now();
           const easeInOut = (t) =>
