@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { SERVICE_CONTACTS } from "../constants/contact.js";
+import OptimizedImage from "./OptimizedImage.jsx";
 import servicesContent from "../content/services.json";
 import officesContent  from "../content/offices.json";
 import branding        from "../content/branding.json";
+import { optimizedImageSrc } from "../utils/imageOptimization.js";
 
 /* Office lookup by key for the card-back business card */
 const OFFICES = Object.fromEntries(
@@ -67,7 +69,7 @@ function BadgeRow({ badge }) {
         ) : (
           visibleLogos.map((logo, i) => (
             <div key={logo.alt} style={{ display: "flex", alignItems: "center" }}>
-              <img src={logo.src} alt={logo.alt}
+              <OptimizedImage src={logo.src} alt={logo.alt}
                 loading="lazy"
                 decoding="async"
                 fetchPriority="low"
@@ -203,7 +205,7 @@ function ServiceCard({ service }) {
            * Admins can also override via CMS → Brand Logos → Service card back. */}
           <div style={{
             position: "absolute", inset: 0,
-            backgroundImage: `url(${branding.serviceCardBack || "/service-card-back.png"})`,
+            backgroundImage: `url(${optimizedImageSrc(branding.serviceCardBack || "/service-card-back.png")})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             pointerEvents: "none",
@@ -220,8 +222,8 @@ function ServiceCard({ service }) {
               display: "flex", alignItems: "center", justifyContent: "center",
               flexShrink: 0,
             }}>
-              <img
-                src={office?.logo || "/favicon.webp"}
+              <OptimizedImage
+                src={office?.logo || "/favicon.png"}
                 alt={office?.name || "K.S. Leow Group"}
                 loading="lazy"
                 decoding="async"

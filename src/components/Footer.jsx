@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { LOGO_FOOTER } from "../assets/assets.js";
+import OptimizedImage from "./OptimizedImage.jsx";
 import { CONTACT, WA_LINK } from "../constants/contact.js";
 import footer from "../content/footer.json";
 import branding from "../content/branding.json";
@@ -82,7 +83,7 @@ export default function Footer() {
 
             {/* Brand */}
             <div className="footer-brand-col">
-              <img src={branding.footerLogo || LOGO_FOOTER} alt="KSL Business Solutions"
+              <OptimizedImage src={branding.footerLogo || LOGO_FOOTER} alt="KSL Business Solutions"
                 loading="lazy"
                 decoding="async"
                 fetchPriority="low"

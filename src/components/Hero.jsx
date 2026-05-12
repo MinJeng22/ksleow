@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ParticleBackground from "./ParticleBackground";
+import OptimizedImage from "./OptimizedImage.jsx";
 import { LOGO_HERO } from "../assets/assets.js";
 import hero from "../content/hero.json";
 import branding from "../content/branding.json";
@@ -63,7 +64,7 @@ export default function Hero({ onContact }) {
         {/* Logo */}
         <div style={{ marginBottom: "1.1rem" }}>
           <a href="/" onClick={() => window.scrollTo(0, 0)} style={{ display: "inline-block" }}>
-            <img
+            <OptimizedImage
               src={branding.heroLogo || LOGO_HERO}
               alt="KSL Business Solutions"
               loading="eager"

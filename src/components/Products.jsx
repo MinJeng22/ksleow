@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import OptimizedImage from "./OptimizedImage.jsx";
 import productsContent from "../content/products.json";
 
 const PRODUCTS = (productsContent.items || []).map(p => ({
@@ -58,7 +59,7 @@ export default function Products({ onContact }) {
                   outline: (p.img || p.background) ? "none" : "2px dashed rgba(255,255,255,0.15)", outlineOffset: -6 }}>
                   {p.background && (
                     <>
-                      <img src={p.background} alt=""
+                      <OptimizedImage src={p.background} alt=""
                         loading="lazy"
                         decoding="async"
                         fetchPriority="low"
@@ -68,7 +69,7 @@ export default function Products({ onContact }) {
                     </>
                   )}
                   {p.img
-                    ? <img src={p.img} alt={p.name}
+                    ? <OptimizedImage src={p.img} alt={p.name}
                         loading="lazy"
                         decoding="async"
                         fetchPriority="low"
