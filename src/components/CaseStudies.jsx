@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CASE_IMAGES } from "../assets/assets.js";
 import caseStudiesContent from "../content/caseStudies.json";
@@ -38,6 +39,23 @@ const ICONS = [
 
 export default function CaseStudies({ onContact }) {
   const navigate = useNavigate();
+
+  /* One-shot stagger when the grid scrolls into view. */
+  const [revealed, setRevealed] = useState(false);
+  const gridRef = useRef(null);
+  useEffect(() => {
+    const node = gridRef.current;
+    if (!node) return;
+    if (typeof IntersectionObserver === "undefined") { setRevealed(true); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { setRevealed(true); io.disconnect(); }
+      });
+    }, { threshold: 0.2 });
+    io.observe(node);
+    return () => io.disconnect();
+  }, []);
+
   return (
     <section className="home-section" style={{ background: "#f5f5f8", padding: "6rem 0" }}>
     <div className="content-wrap">
@@ -62,6 +80,7 @@ export default function CaseStudies({ onContact }) {
 
       {/* 4-col desktop → 2-col tablet → 1-col mobile (matches Products grid) */}
       <div
+        ref={gridRef}
         className="cases-grid"
         style={{
           display: "grid",
@@ -84,7 +103,10 @@ export default function CaseStudies({ onContact }) {
                 background: isEmpty ? "rgba(47,49,90,0.02)" : "#ffffff",
                 border: `1px solid ${isEmpty ? "rgba(47,49,90,0.04)" : "rgba(47,49,90,0.1)"}`,
                 cursor: clickable ? "pointer" : "default",
-                transition: "border-color 0.2s",
+                /* Slide-up + fade, staggered left → right (150ms apart). */
+                opacity: revealed ? 1 : 0,
+                transform: revealed ? "translateY(0)" : "translateY(28px)",
+                transition: `opacity 0.65s cubic-bezier(0.4,0,0.2,1) ${i * 0.15}s, transform 0.65s cubic-bezier(0.4,0,0.2,1) ${i * 0.15}s, border-color 0.2s`,
                 minHeight: isEmpty ? 200 : "auto",
               }}
               onMouseEnter={clickable ? e => e.currentTarget.style.borderColor = "rgba(201,168,76,0.5)" : undefined}
