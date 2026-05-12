@@ -687,7 +687,7 @@ export default function KSLOmniPage() {
               <div style={{ fontSize: "1.15rem", fontWeight: 700, color: "#ffffff", lineHeight: 1.2 }}>KS Omni</div>
               <div style={{ fontSize: "0.74rem", color: "rgba(255,255,255,0.65)", display: "flex", alignItems: "center", gap: 5, marginTop: 2 }}>
                 <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#4ade80", display: "inline-block" }} />
-                Powered by Gemini AI
+                K.S. Leow Group AI Assistant
               </div>
             </div>
           </div>
