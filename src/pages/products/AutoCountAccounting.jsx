@@ -937,6 +937,77 @@ function CopyBtn({ onClick, gold }) {
   );
 }
 
+/* ── ShareLinkButton ──
+ * Builds a fully-qualified URL that, when opened, reproduces the
+ * current compare-mode state and scrolls the visitor to the right
+ * section. Copies it to the clipboard with a short "Copied!" hint.
+ *
+ *   params  { editionMode, editionA, ... }  — query params to include
+ *   hash    "#editions" | "#releases"        — scroll target
+ */
+function ShareLinkButton({ params, hash }) {
+  const [copied, setCopied] = React.useState(false);
+  function handle() {
+    const usp = new URLSearchParams();
+    Object.entries(params).forEach(([k, v]) => {
+      if (v !== undefined && v !== null && v !== false && v !== "") {
+        usp.set(k, v === true ? "1" : String(v));
+      }
+    });
+    const url = `${window.location.origin}${window.location.pathname}?${usp.toString()}${hash}`;
+    // Try native clipboard first; fall back to a hidden textarea for
+    // non-secure contexts.
+    const writeFallback = () => {
+      const ta = document.createElement("textarea");
+      ta.value = url;
+      ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); } catch { /* ignore */ }
+      document.body.removeChild(ta);
+    };
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(url).catch(writeFallback);
+    } else {
+      writeFallback();
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+  return (
+    <button
+      onClick={handle}
+      title="Copy a shareable link to this comparison"
+      style={{
+        display: "inline-flex", alignItems: "center", gap: "0.4rem",
+        background: copied ? "rgba(201,168,76,0.18)" : "rgba(47,49,90,0.06)",
+        border: `1px solid ${copied ? "rgba(201,168,76,0.4)" : "rgba(47,49,90,0.16)"}`,
+        borderRadius: 50, padding: "0.4rem 0.9rem",
+        fontSize: "0.74rem", fontWeight: 600,
+        color: copied ? "#8a6a10" : "#2f315a",
+        cursor: "pointer", fontFamily: "inherit",
+        transition: "all 0.2s",
+      }}
+    >
+      {copied ? (
+        <>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          Link copied
+        </>
+      ) : (
+        <>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+          </svg>
+          Share Link
+        </>
+      )}
+    </button>
+  );
+}
+
 function ReleaseCard({ r, expanded, onToggle }) {
   const isLatest = r === RELEASES[0];
   return (
@@ -1262,9 +1333,6 @@ const AC_SIDEBAR_ITEMS = [
 export default function AutoCountAccountingPage({ onContact }) {
   const navigate = useNavigate();
 
-  /* Fix 5: always start at top of page when navigating here */
-  useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, []);
-
   const [expanded, setExpanded] = useState(0);   /* first card open by default */
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
@@ -1277,6 +1345,56 @@ export default function AutoCountAccountingPage({ onContact }) {
   const [editionA, setEditionA] = useState(EDITIONS[0]);                  /* Account Plus */
   const [editionB, setEditionB] = useState(EDITIONS[EDITIONS.length - 1]); /* Premium */
   const [editionDiffOnly, setEditionDiffOnly] = useState(false);
+
+  /* ── Init from URL ───────────────────────────────────────────────
+   * Read query params on mount. Anyone landing on a shared link gets
+   * the compare mode + selections pre-applied AND the page auto-
+   * scrolls to the right section. Falls back to top-of-page when no
+   * params are present (original behaviour).
+   *
+   * Param schema:
+   *   editionMode = compare           → switch Editions to Compare mode
+   *   editionA    = <edition name>    → left dropdown
+   *   editionB    = <edition name>    → right dropdown
+   *   editionDiff = 1                 → "show only rows that differ" on
+   *   vMode       = compare           → switch Releases to Compare mode
+   *   vA          = <version string>  → "From version" dropdown
+   *   vB          = <version string>  → "To version" dropdown
+   *   #editions / #releases / #...    → scroll target (URL hash)
+   * ─────────────────────────────────────────────────────────────── */
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    // Editions section
+    const eA = params.get("editionA");
+    const eB = params.get("editionB");
+    if (params.get("editionMode") === "compare" || eA || eB) {
+      setEditionCompareMode(true);
+      if (eA && EDITIONS.includes(eA)) setEditionA(eA);
+      if (eB && EDITIONS.includes(eB)) setEditionB(eB);
+      if (params.get("editionDiff") === "1") setEditionDiffOnly(true);
+    }
+
+    // Releases section
+    const vA = params.get("vA");
+    const vB = params.get("vB");
+    if (params.get("vMode") === "compare" || vA || vB) {
+      setCompareMode(true);
+      if (vA && RELEASES.some(r => r.version === vA)) setCompareA(vA);
+      if (vB && RELEASES.some(r => r.version === vB)) setCompareB(vB);
+    }
+
+    // Scroll: if URL has a hash, scroll there; otherwise top of page.
+    if (window.location.hash) {
+      // Tiny delay so the state-driven sections finish first paint
+      const t = setTimeout(() => {
+        const el = document.querySelector(window.location.hash);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+      return () => clearTimeout(t);
+    }
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
 
   const filtered = RELEASES.filter(r => {
     if (!search) return true;
@@ -1456,7 +1574,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                 </p>
               )}
 
-              <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1.25rem", marginTop: "1rem", flexWrap: "wrap" }}>
                 <label style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontSize: "0.82rem", color: "#6b6f91", cursor: "pointer", userSelect: "none" }}>
                   <input
                     type="checkbox"
@@ -1466,6 +1584,14 @@ export default function AutoCountAccountingPage({ onContact }) {
                   />
                   Show only rows where the two editions differ
                 </label>
+                <ShareLinkButton
+                  hash="#editions"
+                  params={{
+                    editionMode: "compare",
+                    editionA, editionB,
+                    editionDiff: editionDiffOnly,
+                  }}
+                />
               </div>
             </div>
           )}
@@ -1547,7 +1673,17 @@ export default function AutoCountAccountingPage({ onContact }) {
                   </div>
                 </div>
 
-                {/* Summary bar */}
+                {/* Summary bar + share link */}
+                <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.6rem" }}>
+                  <ShareLinkButton
+                    hash="#releases"
+                    params={{
+                      vMode: "compare",
+                      vA: compareA,
+                      vB: compareB,
+                    }}
+                  />
+                </div>
                 <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem", flexWrap: "wrap" }}>
                   {[
                     { label: "Revisions covered", val: between.length, bg: "rgba(47,49,90,0.06)", col: "#2f315a" },
