@@ -14,7 +14,9 @@ import { PRODUCT_IMAGES } from "../../assets/assets.js";
  * touching this file. */
 const ICON_EINVOICE    = "/uploads/icons/e-invoice-ready.webp";
 const ICON_INTEGRATION = "/uploads/icons/integration-icon.png";
-const ICON_FAVICON     = "/uploads/icons/favicon.png";
+/* Use the site favicon directly — guarantees the Prompt Technical
+ * Support icon always matches whatever the browser tab is showing. */
+const ICON_FAVICON     = "/favicon.png";
 const ICON_AC_PLUGIN   = "/uploads/icons/ac-plugin-icon.png";
 
 /* ═══════════════════════════════════════════════════════════════

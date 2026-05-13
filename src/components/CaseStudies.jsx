@@ -47,11 +47,12 @@ export default function CaseStudies({ onContact }) {
     const node = gridRef.current;
     if (!node) return;
     if (typeof IntersectionObserver === "undefined") { setRevealed(true); return; }
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) { setRevealed(true); io.disconnect(); }
-      });
-    }, { threshold: 0.2 });
+    /* Replayable: toggle both ways so the card stagger plays every
+     * time the grid scrolls back into view. */
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => setRevealed(e.isIntersecting)),
+      { threshold: 0.15 }
+    );
     io.observe(node);
     return () => io.disconnect();
   }, []);
