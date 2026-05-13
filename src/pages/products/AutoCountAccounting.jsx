@@ -9,13 +9,13 @@ const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
 )}`;
 import { PRODUCT_IMAGES } from "../../assets/assets.js";
 
-/* Feature-highlight icons. integration-icon.png isn't on disk yet, so
- * that card falls back to its emoji until the asset is supplied. */
-import iconEInvoice      from "../../assets/images/products/e-invoice-ready.png.webp";
-import iconFavicon       from "../../assets/logos/favicon.png";
-import iconAcPlugin      from "../../assets/images/apps/ac-plugin-icon.png";
-// TODO: drop integration-icon.png into src/assets/images/products/ then:
-// import iconIntegration from "../../assets/images/products/integration-icon.png";
+/* Feature-highlight icons — string paths to public/uploads/icons/ so
+ * they can be swapped via CMS / dropped into the folder without
+ * touching this file. */
+const ICON_EINVOICE    = "/uploads/icons/e-invoice-ready.webp";
+const ICON_INTEGRATION = "/uploads/icons/integration-icon.png";
+const ICON_FAVICON     = "/uploads/icons/favicon.png";
+const ICON_AC_PLUGIN   = "/uploads/icons/ac-plugin-icon.png";
 
 /* ═══════════════════════════════════════════════════════════════
  * AUTOCOUNT ACCOUNTING — PRODUCT PAGE
@@ -1194,10 +1194,10 @@ function EditionsTable({ selected = null, diffOnly = false }) {
  * uploaded). Cards fade up + scale in left → right with a 130 ms
  * stagger every time the section enters the viewport. */
 const FEATURES = [
-  { icon: iconEInvoice,  title: "SST & e-Invoice",          desc: "Fully compliant with LHDN MyInvois and Malaysia SST requirements" },
-  { icon: "🔗",          title: "Integrated",               desc: "Seamlessly linked with AutoCount POS, Cloud Payroll modules, and your custom ERP systems." },
-  { icon: iconFavicon,   title: "Prompt Technical Support", desc: "Fast response times and expert troubleshooting from the KSL team during business days to keep your operations running smoothly." },
-  { icon: iconAcPlugin,  title: "Highly Extensible",        desc: "Fully supports C# & .NET plugins, custom fields, and scripting to adapt to your unique business workflows." },
+  { icon: ICON_EINVOICE,    title: "SST & e-Invoice",          desc: "Fully compliant with LHDN MyInvois and Malaysia SST requirements" },
+  { icon: ICON_INTEGRATION, title: "Integrated",               desc: "Seamlessly linked with AutoCount POS, Cloud Payroll modules, and your custom ERP systems." },
+  { icon: ICON_FAVICON,     title: "Prompt Technical Support", desc: "Fast response times and expert troubleshooting from the KSL team during business days to keep your operations running smoothly." },
+  { icon: ICON_AC_PLUGIN,   title: "Highly Extensible",        desc: "Fully supports C# & .NET plugins, custom fields, and scripting to adapt to your unique business workflows." },
 ];
 
 function FeatureHighlights() {
@@ -1235,10 +1235,8 @@ function FeatureHighlights() {
                 marginBottom: "0.7rem",
                 display: "flex", alignItems: "center", justifyContent: "center",
               }}>
-                {typeof f.icon === "string"
-                  ? <span style={{ fontSize: "1.7rem" }}>{f.icon}</span>
-                  : <img src={f.icon} alt="" style={{ maxWidth: 40, maxHeight: 40, objectFit: "contain", display: "block" }} />
-                }
+                <img src={f.icon} alt="" loading="lazy" decoding="async"
+                  style={{ maxWidth: 40, maxHeight: 40, objectFit: "contain", display: "block" }} />
               </div>
               <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.35rem" }}>{f.title}</div>
               <div style={{ fontSize: "0.8rem", color: "#6b6f91", lineHeight: 1.6 }}>{f.desc}</div>
@@ -1303,8 +1301,8 @@ export default function AutoCountAccountingPage({ onContact }) {
        * that overlay. */}
       <div className="product-hero" style={{
         position: "relative",
-        paddingTop: "4.5rem", paddingBottom: "4.5rem",
-        minHeight: "62vh",
+        paddingTop: "3.5rem", paddingBottom: "3.5rem",
+        minHeight: "50vh",
         display: "flex", alignItems: "center",
         backgroundImage: "url(/uploads/products/autocount-accounting-hero.png)",
         backgroundSize: "cover",
@@ -1382,13 +1380,9 @@ export default function AutoCountAccountingPage({ onContact }) {
               </div>
             </div>
 
-            {/* Right: product showcase image — desktop only (hidden via .product-hero-image media query) */}
-            {PRODUCT_IMAGES.autocountInterface && (
-              <div className="product-hero-image" style={{ flex: "0 1 420px", maxWidth: 460 }}>
-                <img src={PRODUCT_IMAGES.autocountInterface} alt="AutoCount Accounting interface"
-                  style={{ width: "100%", height: "auto", display: "block" }} />
-              </div>
-            )}
+            {/* Right-side product showcase image removed — the new
+             * lifestyle photo cover already does the job of showing
+             * AutoCount in context. */}
           </div>
         </div>
       </div>
