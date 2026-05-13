@@ -19,28 +19,24 @@
  * └─────────────────────────────────────────────────────────────┘
  */
 
-/* ── HERO LOGO  (src/assets/logos/logo-hero.webp) ── */
-import logoHero from "./logos/logo-hero.webp";
-export const LOGO_HERO = logoHero;
+/* ── LOGO FALLBACKS ──
+ * Brand logos now live in /public/uploads/branding/ (managed via Decap
+ * CMS → Brand Logos). The constants below are the *fallback* values
+ * Nav / Hero / Footer use when branding.json is empty for a given slot.
+ * They're plain URL strings, not Vite imports, so swapping a file in
+ * public/uploads/branding/ instantly takes effect without a rebuild. */
+export const LOGO_HERO   = "/uploads/branding/ksleow-white.webp";
+export const LOGO_NAV    = "/uploads/branding/ksleow-original.webp";
+export const LOGO_FOOTER = "/uploads/branding/ksleow-gold.webp";
 
-/* ── NAV LOGO   (src/assets/logos/logo-nav.webp) ── */
-import logoNav from "./logos/logo-nav.webp";
-export const LOGO_NAV = logoNav;
-
-/* ── FOOTER LOGO (src/assets/logos/logo-footer.webp) ── */
-import logoFooter from "./logos/logo-footer.webp";
-export const LOGO_FOOTER = logoFooter;
-
-/* ── PARTNER LOGOS  (src/assets/logos/partners/partner1-6.png) ──
- * To replace: drop file → rename to partner1.png … partner6.png  */
-import partner1 from "./logos/partners/partner1.png";
-import partner2 from "./logos/partners/partner2.png";
-import partner3 from "./logos/partners/partner3.png";
-import partner4 from "./logos/partners/partner4.png";
-import partner5 from "./logos/partners/partner5.png";
-import partner6 from "./logos/partners/partner6.png";
-
-export const PARTNER_LOGOS = { partner1, partner2, partner3, partner4, partner5, partner6 };
+/* ── PARTNER LOGOS ──
+ * Partner images now come from CMS-uploaded files referenced in
+ * partners.json. Keep the slot keys here as null placeholders for
+ * Partners.jsx's structural fallback. */
+export const PARTNER_LOGOS = {
+  partner1: null, partner2: null, partner3: null,
+  partner4: null, partner5: null, partner6: null,
+};
 
 /* ── CASE STUDY IMAGES  (src/assets/images/) ── */
 import caseNetworking from "./images/case-networking.jpg";
