@@ -29,6 +29,8 @@
  *   and trying to wrap them only breaks the player.
  * ══════════════════════════════════════════════════════════════ */
 
+import { forwardRef } from "react";
+
 const noContextMenu = (e) => e.preventDefault();
 const noDrag        = (e) => e.preventDefault();
 
@@ -38,15 +40,17 @@ const noDrag        = (e) => e.preventDefault();
  *   <Img src="..." alt="..." priority />     eager + fetchPriority high
  *
  * All other native <img> props pass through (width / height / style / className…).
+ * forwardRef so caller-side refs reach the underlying <img>.
  */
-export function Img({
+export const Img = forwardRef(function Img({
   src, alt = "", priority = false,
   loading: loadingProp,
   decoding: decodingProp,
   ...rest
-}) {
+}, ref) {
   return (
     <img
+      ref={ref}
       src={src}
       alt={alt}
       loading={loadingProp ?? (priority ? "eager" : "lazy")}
@@ -58,7 +62,7 @@ export function Img({
       {...rest}
     />
   );
-}
+});
 
 /* ── <Vid /> — drop-in replacement for <video>
  *
@@ -71,14 +75,19 @@ export function Img({
  *
  * If you do pass controls, the download item is stripped via
  * controlsList="nodownload".
+ *
+ * forwardRef so callers can grab the underlying <video> for play /
+ * pause / currentTime control — Sales2DO's dual-slot crossfade
+ * depends on this.
  */
-export function Vid({
+export const Vid = forwardRef(function Vid({
   src, poster,
   preload: preloadProp,
   ...rest
-}) {
+}, ref) {
   return (
     <video
+      ref={ref}
       src={src}
       poster={poster}
       preload={preloadProp ?? "metadata"}
@@ -89,4 +98,4 @@ export function Vid({
       {...rest}
     />
   );
-}
+});
