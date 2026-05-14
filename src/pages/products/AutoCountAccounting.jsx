@@ -1480,13 +1480,8 @@ export default function AutoCountAccountingPage({ onContact }) {
        * ══════════════════════════════════════════════════════════ */}
       <div id="training" ref={trainingRef} className="ac-section-tight" style={{ background: "#ffffff", padding: "4.5rem 0", borderBottom: "0.5px solid rgba(47,49,90,0.08)", scrollMarginTop: 24 }}>
         <div className="content-wrap">
-          {/* Section header */}
-          <div style={{
-            textAlign: "center", marginBottom: "2.5rem",
-            opacity: trainingInView ? 1 : 0,
-            transform: trainingInView ? "translateY(0)" : "translateY(18px)",
-            transition: "opacity 0.6s ease, transform 0.6s ease",
-          }}>
+          {/* Section header — no animation, only the video below reveals on scroll */}
+          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
             <div style={{
               fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em",
               textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.6rem",

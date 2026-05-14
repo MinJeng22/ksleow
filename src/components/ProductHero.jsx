@@ -54,7 +54,9 @@ export default function ProductHero({
       display: "flex", alignItems: "center",
       backgroundImage: `url(${backgroundImage})`,
       backgroundSize: "cover",
-      backgroundPosition: "center center",
+      /* Right-aligned so the laptop / monitor sits over the right side
+       * of the hero (away from the left-aligned copy + buttons). */
+      backgroundPosition: "right center",
     }}>
       {/* Dark overlay — keeps white copy legible against the photo */}
       <div aria-hidden="true" style={{
