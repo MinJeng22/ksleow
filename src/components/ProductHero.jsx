@@ -56,6 +56,15 @@ export default function ProductHero({
       backgroundSize: "cover",
       backgroundPosition: "center center",
     }}>
+      {/* Mobile-only bump: shift the hero photo to the right so the
+       * laptop / monitor scene stays in frame at narrow widths. Desktop
+       * keeps the inline "center center" above. */}
+      <style>{`
+        @media (max-width: 760px) {
+          .product-hero { background-position: 78% center !important; }
+        }
+      `}</style>
+
       {/* Dark overlay — keeps white copy legible against the photo */}
       <div aria-hidden="true" style={{
         position: "absolute", inset: 0,
