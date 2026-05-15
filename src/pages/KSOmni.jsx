@@ -95,11 +95,11 @@ const BackIcon = () => (
     <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
   </svg>
 );
+/* Paperclip — generic "attach a file" since the picker accepts both
+ * images and documents (PDF / CSV / TXT) now. */
 const ImageUploadIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-    <circle cx="8.5" cy="8.5" r="1.5" />
-    <polyline points="21 15 16 10 5 21" />
+    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
   </svg>
 );
 const CloseSmallIcon = () => (
@@ -607,8 +607,8 @@ export default function KSLOmniPage() {
             <button
               onClick={openFilePicker}
               disabled={loading || attachedImage?.uploading}
-              title="Upload image"
-              aria-label="Upload image"
+              title="Attach file (image, PDF, CSV, TXT)"
+              aria-label="Attach file"
               style={{
                 width: 34, height: 34, borderRadius: "50%", flexShrink: 0,
                 background: "transparent",
@@ -720,8 +720,8 @@ export default function KSLOmniPage() {
           <button
             onClick={openFilePicker}
             disabled={uploadBusy}
-            title="Upload image"
-            aria-label="Upload image"
+            title="Attach file (image, PDF, CSV, TXT)"
+            aria-label="Attach file"
             style={{
               width: 36, height: 36, borderRadius: "50%",
               background: "transparent",
