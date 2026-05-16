@@ -1,3 +1,7 @@
+import ReactMarkdown from "react-markdown";
+import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
+
 /* ══════════════════════════════════════════════════════════════
  * chatbotShared — primitives shared by AIChatbot (modal) and KSOmni
  * (full page). Keep this file dependency-light: no react-router, no
@@ -20,14 +24,103 @@ export const CloseIcon = () => (
   </svg>
 );
 
-/* ── Parse **bold** markdown into <strong> nodes ── */
-export function renderText(text) {
+/* Markdown renderer shared by KS Omni and AIChatbot. */
+function markdownComponents(isUser) {
+  const border = isUser ? "rgba(255,255,255,0.26)" : "rgba(47,49,90,0.16)";
+  const softBg = isUser ? "rgba(255,255,255,0.12)" : "rgba(47,49,90,0.06)";
+  const quoteBorder = isUser ? "rgba(232,201,122,0.7)" : "rgba(201,168,76,0.55)";
+  const linkColor = isUser ? "#f3d788" : "#8a6b16";
+
+  return {
+    p: ({ children }) => <p style={{ margin: "0 0 0.65em" }}>{children}</p>,
+    h1: ({ children }) => (
+      <h1 style={{ fontSize: "1.14em", lineHeight: 1.35, margin: "0 0 0.55em", fontWeight: 700 }}>
+        {children}
+      </h1>
+    ),
+    h2: ({ children }) => (
+      <h2 style={{ fontSize: "1.08em", lineHeight: 1.35, margin: "0 0 0.5em", fontWeight: 700 }}>
+        {children}
+      </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 style={{ fontSize: "1.02em", lineHeight: 1.35, margin: "0 0 0.45em", fontWeight: 700 }}>
+        {children}
+      </h3>
+    ),
+    h4: ({ children }) => (
+      <h4 style={{ fontSize: "1em", lineHeight: 1.35, margin: "0 0 0.4em", fontWeight: 700 }}>
+        {children}
+      </h4>
+    ),
+    ul: ({ children }) => <ul style={{ margin: "0.2em 0 0.75em", paddingLeft: "1.35em" }}>{children}</ul>,
+    ol: ({ children }) => <ol style={{ margin: "0.2em 0 0.75em", paddingLeft: "1.45em" }}>{children}</ol>,
+    li: ({ children }) => <li style={{ margin: "0.22em 0", paddingLeft: "0.05em" }}>{children}</li>,
+    table: ({ children }) => (
+      <div style={{ maxWidth: "100%", overflowX: "auto", margin: "0.7em 0" }}>
+        <table style={{ borderCollapse: "collapse", minWidth: 360, width: "100%", fontSize: "0.88em" }}>
+          {children}
+        </table>
+      </div>
+    ),
+    th: ({ children }) => (
+      <th style={{ border: `1px solid ${border}`, padding: "0.45em 0.6em", background: softBg, textAlign: "left", fontWeight: 700 }}>
+        {children}
+      </th>
+    ),
+    td: ({ children }) => (
+      <td style={{ border: `1px solid ${border}`, padding: "0.45em 0.6em", verticalAlign: "top" }}>
+        {children}
+      </td>
+    ),
+    a: ({ href, children }) => (
+      <a href={href} target="_blank" rel="noreferrer" style={{ color: linkColor, fontWeight: 600 }}>
+        {children}
+      </a>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote style={{ margin: "0.6em 0", padding: "0.15em 0 0.15em 0.75em", borderLeft: `3px solid ${quoteBorder}` }}>
+        {children}
+      </blockquote>
+    ),
+    pre: ({ children }) => (
+      <pre style={{ margin: "0.6em 0", padding: "0.65em 0.75em", borderRadius: 10, overflowX: "auto", border: `1px solid ${border}`, background: softBg }}>
+        {children}
+      </pre>
+    ),
+    code: ({ children, className }) => (
+      <code className={className} style={{
+        background: className ? "transparent" : softBg,
+        borderRadius: 5,
+        padding: className ? 0 : "0.1em 0.28em",
+        fontSize: "0.88em",
+      }}>
+        {children}
+      </code>
+    ),
+  };
+}
+
+export function MarkdownText({ text, isUser = false, fontSize = "0.86rem" }) {
   if (!text) return null;
-  return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
-    part.startsWith("**") && part.endsWith("**")
-      ? <strong key={i}>{part.slice(2, -2)}</strong>
-      : part
+  return (
+    <div className="ks-chat-markdown" style={{
+      color: isUser ? "#ffffff" : "#2f315a",
+      fontSize,
+      lineHeight: 1.65,
+      maxWidth: "100%",
+      overflowWrap: "anywhere",
+      textAlign: "left",
+    }}>
+      <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]} components={markdownComponents(isUser)}>
+        {text}
+      </ReactMarkdown>
+    </div>
   );
+}
+
+export function renderText(text, options = {}) {
+  return <MarkdownText text={text} isUser={options.isUser} fontSize={options.fontSize} />;
 }
 
 /* ── Typing indicator (three pulsing dots, gray bubble) ── */
@@ -101,10 +194,10 @@ export function Message({ msg, fontSize = "0.86rem" }) {
                 color:      isUser ? "#ffffff" : "#2f315a",
                 padding: "0.65rem 0.95rem",
                 borderRadius: isUser ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
-                fontSize, lineHeight: 1.65,
-                whiteSpace: "pre-wrap", wordBreak: "break-word",
+                maxWidth: "100%",
+                overflow: "hidden",
               }}>
-                {renderText(msg.text)}
+                <MarkdownText text={msg.text} isUser={isUser} fontSize={fontSize} />
               </div>
             ))
         }
@@ -208,6 +301,10 @@ export function ChatbotKeyframes() {
   return <style>{`
     @keyframes typingPulse{0%,80%,100%{opacity:0.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
     @keyframes spin{to{transform:rotate(360deg)}}
+    .ks-chat-markdown > :first-child{margin-top:0!important}
+    .ks-chat-markdown > :last-child{margin-bottom:0!important}
+    .ks-chat-markdown li > p{margin:0.1em 0}
+    .ks-chat-markdown table p{margin:0}
   `}</style>;
 }
 
