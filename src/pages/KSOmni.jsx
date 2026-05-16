@@ -16,22 +16,15 @@ const PAGE_URL = "https://ksl-business-solutions-site.vercel.app/omni";
  *     way up keeps memory + bandwidth sane.
  * Anything else (Excel, Word, ZIP, …) is rejected client-side with a
  * friendly message that matches the worker's server-side check. */
-const MAX_IMAGE_BYTES = 5  * 1024 * 1024;
-const MAX_DOC_BYTES   = 10 * 1024 * 1024;
-const DOC_MIME_TYPES  = ["application/pdf", "text/csv", "text/plain"];
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
+const IMAGE_FILE_ACCEPT = "image/*";
+const IMAGE_EXTENSION_RE = /\.(avif|bmp|gif|heic|heif|jpe?g|png|tiff?|webp)$/i;
 /* Extensions for the file picker's `accept` attribute — covers the
  * cases where mobile browsers don't send the right MIME type. */
-const ACCEPT_ATTR = "image/*,application/pdf,.pdf,text/csv,.csv,text/plain,.txt";
+const ACCEPT_ATTR = IMAGE_FILE_ACCEPT;
 
 function isImageFile(f) {
-  return !!f?.type?.startsWith("image/");
-}
-function isDocFile(f) {
-  if (!f) return false;
-  if (DOC_MIME_TYPES.includes(f.type)) return true;
-  // Mime-less or wrong-mime fallback: sniff by extension.
-  const ext = (f.name || "").toLowerCase().split(".").pop();
-  return ["pdf", "csv", "txt"].includes(ext);
+  return !!f && (f.type?.startsWith("image/") || IMAGE_EXTENSION_RE.test(f.name || ""));
 }
 
 /* ── QR Code modal ── */
@@ -100,6 +93,12 @@ const BackIcon = () => (
 const ImageUploadIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+  </svg>
+);
+const CameraIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14.5 4 16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3l1.5-3h5z" />
+    <circle cx="12" cy="13" r="3.5" />
   </svg>
 );
 const CloseSmallIcon = () => (
@@ -219,7 +218,12 @@ export default function KSLOmniPage() {
     if (!file) return;
 
     const asImage = isImageFile(file);
-    const asDoc   = !asImage && isDocFile(file);
+    const asDoc   = false;
+
+    if (!asImage) {
+      setPasteError("Only image files are supported.");
+      return;
+    }
 
     if (!asImage && !asDoc) {
       setPasteError(
@@ -229,10 +233,10 @@ export default function KSLOmniPage() {
       return;
     }
 
-    const maxBytes = asImage ? MAX_IMAGE_BYTES : MAX_DOC_BYTES;
+    const maxBytes = MAX_IMAGE_BYTES;
     if (file.size > maxBytes) {
       const limitMB = (maxBytes / 1024 / 1024).toFixed(0);
-      setPasteError(`File too large (${(file.size/1024/1024).toFixed(1)} MB). Max ${limitMB} MB.`);
+      setPasteError(`Image too large (${(file.size / 1024 / 1024).toFixed(1)} MB). Max ${limitMB} MB.`);
       return;
     }
 
@@ -284,7 +288,7 @@ export default function KSLOmniPage() {
       });
     } catch (err) {
       setAttachedImage(null);
-      setPasteError(`Failed to upload: ${err.message}`);
+      setPasteError(`Failed to upload image: ${err.message}`);
     }
   }
 
@@ -305,9 +309,14 @@ export default function KSLOmniPage() {
 
   /* ── Trigger hidden file input from the upload button ── */
   const fileInputRef = useRef(null);
+  const cameraInputRef = useRef(null);
   function openFilePicker() {
     if (loading || attachedImage?.uploading) return;
     fileInputRef.current?.click();
+  }
+  function openCameraPicker() {
+    if (loading || attachedImage?.uploading) return;
+    cameraInputRef.current?.click();
   }
   async function handleFileSelected(e) {
     const file = e.target.files?.[0];
@@ -546,6 +555,14 @@ export default function KSLOmniPage() {
           onChange={handleFileSelected}
           style={{ display: "none" }}
         />
+        <input
+          ref={cameraInputRef}
+          type="file"
+          accept={IMAGE_FILE_ACCEPT}
+          capture="environment"
+          onChange={handleFileSelected}
+          style={{ display: "none" }}
+        />
 
         {/* Gemini-style input box (mobile) — textarea on top, action row below */}
         <div style={{
@@ -604,20 +621,36 @@ export default function KSLOmniPage() {
             }}
           />
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <button
-              onClick={openFilePicker}
-              disabled={loading || attachedImage?.uploading}
-              title="Attach file (image, PDF, CSV, TXT)"
-              aria-label="Attach file"
-              style={{
-                width: 34, height: 34, borderRadius: "50%", flexShrink: 0,
-                background: "transparent",
-                border: "1px solid rgba(47,49,90,0.18)",
-                color: (loading || attachedImage?.uploading) ? "#a8abcc" : "#2f315a",
-                cursor: (loading || attachedImage?.uploading) ? "not-allowed" : "pointer",
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}
-            ><ImageUploadIcon /></button>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <button
+                onClick={openFilePicker}
+                disabled={loading || attachedImage?.uploading}
+                title="Upload image"
+                aria-label="Upload image"
+                style={{
+                  width: 34, height: 34, borderRadius: "50%", flexShrink: 0,
+                  background: "transparent",
+                  border: "1px solid rgba(47,49,90,0.18)",
+                  color: (loading || attachedImage?.uploading) ? "#a8abcc" : "#2f315a",
+                  cursor: (loading || attachedImage?.uploading) ? "not-allowed" : "pointer",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}
+              ><ImageUploadIcon /></button>
+              <button
+                onClick={openCameraPicker}
+                disabled={loading || attachedImage?.uploading}
+                title="Take photo"
+                aria-label="Take photo"
+                style={{
+                  width: 34, height: 34, borderRadius: "50%", flexShrink: 0,
+                  background: "transparent",
+                  border: "1px solid rgba(47,49,90,0.18)",
+                  color: (loading || attachedImage?.uploading) ? "#a8abcc" : "#2f315a",
+                  cursor: (loading || attachedImage?.uploading) ? "not-allowed" : "pointer",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}
+              ><CameraIcon /></button>
+            </div>
             <button
               onClick={sendMessage}
               disabled={loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)}
@@ -720,8 +753,8 @@ export default function KSLOmniPage() {
           <button
             onClick={openFilePicker}
             disabled={uploadBusy}
-            title="Attach file (image, PDF, CSV, TXT)"
-            aria-label="Attach file"
+            title="Upload image"
+            aria-label="Upload image"
             style={{
               width: 36, height: 36, borderRadius: "50%",
               background: "transparent",

@@ -5,7 +5,7 @@
  * component the two callers can drop into their own layouts.
  * ══════════════════════════════════════════════════════════════ */
 /* ── Cloudflare Worker that proxies KS Omni / Gemini ── */
-export const WORKER_URL = "https://ksl-omni.kslbs.workers.dev";
+export const WORKER_URL = "https://ks-omni.kslbs.workers.dev";
 
 /* ── Icons (only the ones both callers need; page-only icons live
        in their respective files) ── */
