@@ -6,7 +6,7 @@ import {
   Message, ChatbotKeyframes, streamChat,
 } from "../components/chatbotShared.jsx";
 
-const PAGE_URL = "https://ksl-business-solutions-site.vercel.app/omni";
+const PAGE_URL = "https://ksleow.vercel.app/omni";
 
 /* Upload limits + accepted types.
  *   • Images:    5 MB cap (jpg / png / webp / gif / etc.)
@@ -172,9 +172,24 @@ export default function KSLOmniPage() {
 
   const isEmpty = messages.length === 0;
 
+  function focusInputSoon(delay = 50) {
+    window.setTimeout(() => {
+      try {
+        inputRef.current?.focus({ preventScroll: true });
+      } catch {
+        inputRef.current?.focus();
+      }
+    }, delay);
+  }
+
   function scrollChatToBottom() {
     const el = chatScrollRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
+    if (!el) return;
+
+    const pageX = window.scrollX;
+    const pageY = window.scrollY;
+    el.scrollTop = el.scrollHeight;
+    window.requestAnimationFrame(() => window.scrollTo(pageX, pageY));
   }
 
   /* Scroll only when message count changes (not on every streaming update) */
@@ -186,9 +201,9 @@ export default function KSLOmniPage() {
     }
   }, [messages.length]);
 
-  useEffect(() => { setTimeout(() => inputRef.current?.focus(), 200); }, []);
+  useEffect(() => { focusInputSoon(200); }, []);
   useEffect(() => {
-    if (!loading) setTimeout(() => inputRef.current?.focus(), 50);
+    if (!loading) focusInputSoon(50);
   }, [loading]);
 
   function clearChat() {
@@ -402,7 +417,7 @@ export default function KSLOmniPage() {
       });
     } finally {
       setLoading(false);
-      setTimeout(() => inputRef.current?.focus(), 50);
+      focusInputSoon(50);
     }
   }
 
