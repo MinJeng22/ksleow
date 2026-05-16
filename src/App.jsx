@@ -17,6 +17,7 @@ import AutoCountAccountingPage from "./pages/products/AutoCountAccounting";
 import FeedMePOSPage           from "./pages/products/FeedMePOS";
 import Sales2DOPage            from "./pages/apps/Sales2DO";
 import KSOmniPage              from "./pages/KSOmni";
+import QuotationViewerPage     from "./pages/QuotationViewer";
 
 import "./styles/global.css";
 
@@ -51,6 +52,7 @@ function AppShell({ openContact, modalOpen, setModalOpen }) {
         <Route path="/products/feedme-pos"           element={<FeedMePOSPage           onContact={openContact} />} />
         <Route path="/apps/sales2do"                 element={<Sales2DOPage onContact={openContact} />} />
         <Route path="/omni"                           element={<KSOmniPage   onContact={openContact} />} />
+        <Route path="/quotation"                      element={<QuotationViewerPage />} />
       </Routes>
 
       <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
