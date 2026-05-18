@@ -1,6 +1,6 @@
 {
-  "navLogo": "/uploads/branding/ksleow-original.webp",
-  "heroLogo": "/uploads/branding/ksleow-white.webp",
-  "footerLogo": "/uploads/branding/ksleow-gold.webp",
-  "serviceCardBack": "/uploads/branding/service-card-back.webp"
+  "navLogo": "/images/branding/ksleow-original.webp",
+  "heroLogo": "/images/branding/ksleow-white.webp",
+  "footerLogo": "/images/branding/ksleow-gold.webp",
+  "serviceCardBack": "/images/branding/service-card-back.webp"
 }

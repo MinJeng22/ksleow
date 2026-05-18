@@ -8,8 +8,8 @@ const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
   "Hi Elise, I would like to learn more about FeedMe POS. Thank you."
 )}`;
 
-/* Hero photo + brand logo — already in /public/uploads/products/ */
-const HERO_PHOTO = "/uploads/products/feedme-pos-showcase.png";
+/* Hero photo + brand logo — already in /public/images/products/ */
+const HERO_PHOTO = "/images/products/feedme-pos-showcase.png";
 const FEEDME_LOGO = "/images/logos/feedme-logo.png";
 
 /* Sidebar anchors */

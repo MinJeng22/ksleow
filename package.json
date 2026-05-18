@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/compress-uploads.mjs",
+    "build": "vite build && node scripts/compress-images.mjs",
     "build:fast": "vite build",
     "preview": "vite preview"
   },

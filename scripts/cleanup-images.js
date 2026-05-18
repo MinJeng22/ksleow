@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * cleanup-uploads.js
+ * cleanup-images.js
  *
- * Scans source files for /uploads/... references and deletes any file under
- * public/uploads/ that nothing points to.
+ * Scans source files for /images/... references and deletes any file under
+ * public/images/ that nothing points to.
  *
  * CMS uploads may keep an original PNG/JPG while the site displays a generated
  * WebP with the same basename. If one variant is referenced, all same-basename
@@ -14,11 +14,11 @@ import fs from "node:fs";
 import path from "node:path";
 
 const REFERENCE_DIRS = ["src"];
-const UPLOADS_DIR = "public/uploads";
+const IMAGES_DIR = "public/images";
 const REF_FILE_EXTS = new Set([".js", ".jsx", ".ts", ".tsx", ".json", ".css", ".html", ".yml", ".yaml"]);
 const IMAGE_EXTS = [".png", ".jpg", ".jpeg", ".webp"];
 
-const URL_RE = /\/uploads\/[^"'\\\s)]+/g;
+const URL_RE = /\/images\/[^"'\\\s)]+/g;
 
 function walkFiles(dir, visit) {
   if (!fs.existsSync(dir)) return;
@@ -68,7 +68,7 @@ function addRelatedImageVariants(refs) {
   return keep;
 }
 
-function listUploads() {
+function listImages() {
   const out = [];
 
   function walk(dir, urlPrefix) {
@@ -81,7 +81,7 @@ function listUploads() {
     }
   }
 
-  walk(UPLOADS_DIR, "/uploads");
+  walk(IMAGES_DIR, "/images");
   return out;
 }
 
@@ -101,7 +101,7 @@ function removeEmptyDirs(dir) {
 
 const explicitRefs = findExplicitReferences();
 const refs = addRelatedImageVariants(explicitRefs);
-const all = listUploads();
+const all = listImages();
 const orphans = all.filter(file => !refs.has(file.url));
 
 console.log(`Explicit references:       ${explicitRefs.size}`);
@@ -119,5 +119,5 @@ for (const orphan of orphans) {
   console.log(`Deleted ${orphan.url}`);
 }
 
-removeEmptyDirs(UPLOADS_DIR);
-console.log(`Done. Removed ${orphans.length} unused upload(s).`);
+removeEmptyDirs(IMAGES_DIR);
+console.log(`Done. Removed ${orphans.length} unused image(s).`);

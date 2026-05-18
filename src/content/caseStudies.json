@@ -9,7 +9,7 @@
       "tag": "IT Networking · Infrastructure",
       "title": "Mentakab Mall Network Architecture Design & Deployment",
       "desc": "Designed and deployed a scalable enterprise network for Mentakab Mall — covering structured cabling, VLAN segmentation, Wi-Fi 6 access points, and a centralised management dashboard.",
-      "image": "/uploads/case-studies/mentakab-mall.jpg",
+      "image": "/images/case-studies/mentakab-mall.jpg",
       "route": ""
     },
     {
@@ -17,7 +17,7 @@
       "tag": "AutoCount · Plugin Development",
       "title": "Custom Sales2DO Plugin for AutoCount Accounting",
       "desc": "Built a bespoke Sales2DO module extending AutoCount's core — enabling automated order-to-delivery-order conversion, real-time stock updates, and approval workflows for a Pahang distributor.",
-      "image": "/uploads/case-studies/ac-plugin.png",
+      "image": "/images/case-studies/ac-plugin.png",
       "route": "/apps/sales2do"
     },
     {

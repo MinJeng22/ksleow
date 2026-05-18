@@ -13,10 +13,10 @@ backend:
   base_url: https://decap-oauth-proxy.kslbs.workers.dev
   auth_endpoint: oauth                  # matches /oauth route on the Worker
 
-# Files uploaded via the CMS land in /public/uploads/ and are
-# referenced from content as /uploads/<filename>.
-media_folder: public/uploads
-public_folder: /uploads
+# Files uploaded via the CMS land in /public/images/ and are
+# referenced from content as /images/<filename>.
+media_folder: public/images
+public_folder: /images
 
 # Optional: turn on the editorial workflow for draft → review → publish.
 # publish_mode: editorial_workflow
@@ -36,8 +36,8 @@ collections:
       - file: src/content/branding.json
         name: branding
         label: Brand Logos (Nav, Hero, Footer)
-        media_folder: "/public/uploads/branding"
-        public_folder: "/uploads/branding"
+        media_folder: "/public/images/branding"
+        public_folder: "/images/branding"
         fields:
           - { name: navLogo,    label: "Navigation bar logo (leave empty to use bundled default)", widget: image, required: false }
           - { name: heroLogo,   label: "Hero (homepage banner) logo (leave empty to use bundled default)", widget: image, required: false }
@@ -75,8 +75,8 @@ collections:
       - file: src/content/offices.json
         name: offices
         label: Offices / Companies (shown on service card backs)
-        media_folder: "/public/uploads/offices"
-        public_folder: "/uploads/offices"
+        media_folder: "/public/images/offices"
+        public_folder: "/images/offices"
         fields:
           - name: items
             label: Companies
@@ -92,8 +92,8 @@ collections:
       - file: src/content/services.json
         name: services
         label: Services Section
-        media_folder: "/public/uploads/services"
-        public_folder: "/uploads/services"
+        media_folder: "/public/images/services"
+        public_folder: "/images/services"
         fields:
           - { name: eyebrow, label: Eyebrow (small gold text), widget: string }
           - { name: heading, label: Section heading,           widget: string }
@@ -135,8 +135,8 @@ collections:
       - file: src/content/products.json
         name: products
         label: Products Section
-        media_folder: "/public/uploads/products"
-        public_folder: "/uploads/products"
+        media_folder: "/public/images/products"
+        public_folder: "/images/products"
         fields:
           - { name: eyebrow, label: Eyebrow,         widget: string }
           - { name: heading, label: Section heading, widget: string }
@@ -158,8 +158,8 @@ collections:
       - file: src/content/caseStudies.json
         name: caseStudies
         label: Case Studies Section
-        media_folder: "/public/uploads/case-studies"
-        public_folder: "/uploads/case-studies"
+        media_folder: "/public/images/case-studies"
+        public_folder: "/images/case-studies"
         fields:
           - { name: eyebrow,  label: Eyebrow,         widget: string }
           - { name: heading,  label: Section heading, widget: string }

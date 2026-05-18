@@ -11,15 +11,15 @@ const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
 )}`;
 import { PRODUCT_IMAGES } from "../../assets/assets.js";
 
-/* Feature-highlight icons — string paths to public/uploads/icons/ so
+/* Feature-highlight icons — string paths to public/images/icons/ so
  * they can be swapped via CMS / dropped into the folder without
  * touching this file. */
-const ICON_EINVOICE    = "/uploads/icons/e-invoice-ready.webp";
-const ICON_INTEGRATION = "/uploads/icons/integration-icon.png";
+const ICON_EINVOICE    = "/images/icons/e-invoice-ready.png";
+const ICON_INTEGRATION = "/images/icons/integration-icon.png";
 /* Use the site favicon directly — guarantees the Prompt Technical
  * Support icon always matches whatever the browser tab is showing. */
 const ICON_FAVICON     = "/images/icons/favicon.png";
-const ICON_AC_PLUGIN   = "/uploads/icons/ac-plugin-icon.png";
+const ICON_AC_PLUGIN   = "/images/icons/ac-plugin-icon.png";
 
 /* ═══════════════════════════════════════════════════════════════
  * AUTOCOUNT ACCOUNTING — PRODUCT PAGE

@@ -34,7 +34,8 @@ ksl-site/
 │   ├── admin/                    ← ⭐ Decap CMS admin panel (/admin)
 │   │   ├── index.html            ← loads Decap from CDN
 │   │   └── config.yml            ← collections / fields / GitHub backend
-│   └── uploads/                  ← ⭐ CMS-uploaded images (auto-managed)
+│   ├── downloads/                ← Public downloadable files
+│   └── images/                   ← Public images + CMS-uploaded images
 └── src/
     ├── main.jsx                  ← React root mount
     ├── App.jsx                   ← Main layout — assembles all sections
@@ -96,8 +97,8 @@ Hero · Stats Bar · Services · Products · Case Studies · Partners · Careers
 Each section corresponds to one JSON file under [`src/content/`](src/content/).
 
 ### Image uploads
-Files uploaded through the CMS land in [`public/uploads/`](public/uploads/) and are
-referenced from the rendered page as `/uploads/<filename>`. They are committed
+Files uploaded through the CMS land in [`public/images/`](public/images/) and are
+referenced from the rendered page as `/images/<filename>`. They are committed
 to the repo, so they're versioned alongside the content.
 
 ### One-time setup (already done — kept here for reference)

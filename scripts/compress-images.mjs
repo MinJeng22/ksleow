@@ -1,8 +1,8 @@
 /**
- * compress-uploads.mjs — post-build image compression
+ * compress-images.mjs — post-build image compression
  * ══════════════════════════════════════════════════════════════
  * Walks dist/ (post-Vite-build output) and re-encodes every
- * JPG / PNG / WebP under `uploads/` with the smallest setting that
+ * JPG / PNG / WebP under `images/` with the smallest setting that
  * still looks visually identical to the original at the dimensions
  * the site renders.
  *
@@ -17,11 +17,11 @@
  *   • File only overwritten if the new buffer is smaller.
  *
  * Result: admins upload full-resolution originals via the CMS
- * (committed straight into public/uploads/) and visitors still
+ * (committed straight into public/images/) and visitors still
  * download a sensibly-sized asset because Vercel deploys dist/ —
  * not public/ — and dist/ has been through this pass.
  *
- * The public/uploads/ source files are never touched, so the CMS
+ * The public/images/ source files are never touched, so the CMS
  * can keep using them and re-running the build always re-derives
  * the optimized output.
  *
@@ -30,7 +30,7 @@
 import fs   from "node:fs/promises";
 import path from "node:path";
 
-const ROOT = "dist/uploads";
+const ROOT = "dist/images";
 
 /* Per-folder rules — first regex match wins.
  *
@@ -64,7 +64,7 @@ let sharp;
 try {
   sharp = (await import("sharp")).default;
 } catch {
-  console.log("[compress-uploads] sharp not installed — skipping. " +
+  console.log("[compress-images] sharp not installed — skipping. " +
     "Install with: npm i -D sharp");
   process.exit(0);
 }
@@ -98,21 +98,23 @@ for await (const file of walk(ROOT)) {
 
   try {
     const orig = await fs.stat(file);
-    const img  = sharp(file, { failOn: "none" }).rotate();
-    const meta = await img.metadata();
-
-    const transformer = (meta.width && meta.width > rule.maxWidth)
-      ? img.resize({ width: rule.maxWidth, withoutEnlargement: true })
-      : img;
+    const input = await fs.readFile(file);
+    const meta = await sharp(input, { failOn: "none" }).metadata();
+    const makeTransformer = () => {
+      const img = sharp(input, { failOn: "none" }).rotate();
+      return (meta.width && meta.width > rule.maxWidth)
+        ? img.resize({ width: rule.maxWidth, withoutEnlargement: true })
+        : img;
+    };
 
     const buf = ext === ".png"
       /* Lossless PNG: no palette quantisation so logos with
        * transparency and fine artwork stay pin-sharp. The quality
        * knob still tunes the deflate effort. */
-      ? await transformer.png({ quality: rule.quality.png, compressionLevel: 9, palette: false }).toBuffer()
+      ? await makeTransformer().png({ quality: rule.quality.png, compressionLevel: 9, palette: false }).toBuffer()
       : ext === ".webp"
-      ? await transformer.webp({ quality: rule.quality.webp }).toBuffer()
-      : await transformer.jpeg({ quality: rule.quality.jpeg, mozjpeg: true }).toBuffer();
+      ? await makeTransformer().webp({ quality: rule.quality.webp }).toBuffer()
+      : await makeTransformer().jpeg({ quality: rule.quality.jpeg, mozjpeg: true }).toBuffer();
 
     if (buf.length < orig.size) {
       await fs.writeFile(file, buf);
@@ -134,18 +136,18 @@ for await (const file of walk(ROOT)) {
         if (existing.mtimeMs >= orig.mtimeMs) needsCompanion = false; // up-to-date
       } catch { /* doesn't exist yet — needs companion */ }
       if (needsCompanion) {
-        const wbuf = await transformer.webp({ quality: rule.quality.webp }).toBuffer();
+        const wbuf = await makeTransformer().webp({ quality: rule.quality.webp }).toBuffer();
         await fs.writeFile(webpPath, wbuf);
         console.log(`  ↳ ${webpPath.replace(/\\/g, "/")}: ${(wbuf.length/1024).toFixed(0)} KB (webp companion)`);
       }
     }
   } catch (err) {
-    console.warn(`[compress-uploads] skip ${file}: ${err.message}`);
+    console.warn(`[compress-images] skip ${file}: ${err.message}`);
   }
 }
 
 if (touched === 0) {
-  console.log("[compress-uploads] nothing to optimize");
+  console.log("[compress-images] nothing to optimize");
 } else {
-  console.log(`[compress-uploads] ${touched} files optimized, ${(totalSaved/1024/1024).toFixed(2)} MB saved`);
+  console.log(`[compress-images] ${touched} files optimized, ${(totalSaved/1024/1024).toFixed(2)} MB saved`);
 }

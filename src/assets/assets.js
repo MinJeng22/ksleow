@@ -20,14 +20,14 @@
  */
 
 /* ── LOGO FALLBACKS ──
- * Brand logos now live in /public/uploads/branding/ (managed via Decap
+ * Brand logos now live in /public/images/branding/ (managed via Decap
  * CMS → Brand Logos). The constants below are the *fallback* values
  * Nav / Hero / Footer use when branding.json is empty for a given slot.
  * They're plain URL strings, not Vite imports, so swapping a file in
- * public/uploads/branding/ instantly takes effect without a rebuild. */
-export const LOGO_HERO   = "/uploads/branding/ksleow-white.webp";
-export const LOGO_NAV    = "/uploads/branding/ksleow-original.webp";
-export const LOGO_FOOTER = "/uploads/branding/ksleow-gold.webp";
+ * public/images/branding/ instantly takes effect without a rebuild. */
+export const LOGO_HERO   = "/images/branding/ksleow-white.webp";
+export const LOGO_NAV    = "/images/branding/ksleow-original.webp";
+export const LOGO_FOOTER = "/images/branding/ksleow-gold.webp";
 
 /* ── PARTNER LOGOS ──
  * Partner images now come from CMS-uploaded files referenced in

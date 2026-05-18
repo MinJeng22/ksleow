@@ -12,12 +12,12 @@
       "badgeLabel": "Certified By",
       "logos": [
         {
-          "src": "/uploads/services/lhdn-logo.png",
+          "src": "/images/services/lhdn-logo.png",
           "alt": "Cert 1",
           "h": 60
         },
         {
-          "src": "/uploads/services/mia-logo.jpg",
+          "src": "/images/services/mia-logo.jpg",
           "alt": "Cert 2",
           "h": 60
         }
@@ -32,12 +32,12 @@
       "badgeLabel": "Certified By",
       "logos": [
         {
-          "src": "/uploads/services/ssm-logo.png",
+          "src": "/images/services/ssm-logo.png",
           "alt": "Cert 1",
           "h": 60
         },
         {
-          "src": "/uploads/services/maicsa-logo.png",
+          "src": "/images/services/maicsa-logo.png",
           "alt": "Cert 2",
           "h": 60
         }
@@ -52,12 +52,12 @@
       "badgeLabel": "Certified By",
       "logos": [
         {
-          "src": "/uploads/services/mia-logo.jpg",
+          "src": "/images/services/mia-logo.jpg",
           "alt": "Cert 1",
           "h": 60
         },
         {
-          "src": "/uploads/services/mof-logo.png",
+          "src": "/images/services/mof-logo.png",
           "alt": "Cert 2",
           "h": 60
         }

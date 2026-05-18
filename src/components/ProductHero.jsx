@@ -22,7 +22,7 @@ import { Img } from "./Media.jsx";
  *   secondaryCta    { label, href, target? }
  * ══════════════════════════════════════════════════════════════ */
 
-const DEFAULT_BG = "/uploads/products/autocount-accounting-hero.webp";
+const DEFAULT_BG = "/images/products/autocount-accounting-hero.webp";
 
 const DownloadIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
