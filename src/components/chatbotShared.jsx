@@ -26,9 +26,8 @@ export const CloseIcon = () => (
 );
 
 export const GREETING_PHRASES = [
-  { hello: "Hello", prompt: "How can I help you today?" },
-  { hello: "Hai", prompt: "Bagaimana saya boleh bantu anda hari ini?" },
-  { hello: "你好", prompt: "今天我可以怎样帮你？" },
+  { hello: "Hai", prompt: "Ada apa-apa yang boleh saya bantu?" },
+  { hello: "你好丫", prompt: "今天能帮到你什么？" },
 ];
 
 export function autoResizeTextarea(textarea) {

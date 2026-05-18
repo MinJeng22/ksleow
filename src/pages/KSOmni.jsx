@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import {
@@ -7,7 +7,15 @@ import {
   AnimatedGreeting, autoResizeTextarea,
 } from "../components/chatbotShared.jsx";
 
-const PAGE_URL = "https://ksleow.vercel.app/omni";
+function getOmniPageUrl(machineId) {
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://ksleow.vercel.app";
+  const baseUrl = `${origin}/omni`;
+  return machineId ? `${baseUrl}?mid=${encodeURIComponent(machineId)}` : baseUrl;
+}
+
+function getQrUrl(pageUrl) {
+  return `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(pageUrl)}&bgcolor=ffffff&color=2f315a&margin=12`;
+}
 
 /* Upload limits + accepted types.
  *   • Images:    5 MB cap (jpg / png / webp / gif / etc.)
@@ -29,9 +37,7 @@ function isImageFile(f) {
 }
 
 /* ── QR Code modal ── */
-function QRModal({ onClose, machineId }) {
-  const pageUrl = machineId ? `${PAGE_URL}?mid=${encodeURIComponent(machineId)}` : PAGE_URL;
-  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(pageUrl)}&bgcolor=ffffff&color=2f315a&margin=12`;
+function QRModal({ onClose, pageUrl, qrUrl, qrReady }) {
   return (
     <div onClick={onClose} style={{
       position: "fixed", inset: 0, zIndex: 9999,
@@ -51,8 +57,24 @@ function QRModal({ onClose, machineId }) {
         <p style={{ fontSize: "0.78rem", color: "#6b6f91", lineHeight: 1.6, marginBottom: "1.25rem" }}>
           Scan this QR code with your phone to open KS Omni on your mobile device.
         </p>
-        <div style={{ display: "inline-block", padding: "0.75rem", borderRadius: 16, border: "2px solid rgba(47,49,90,0.1)", background: "#f8f8fb", marginBottom: "1.25rem" }}>
-          <img src={qrUrl} alt="QR code" width={200} height={200} style={{ display: "block", borderRadius: 8 }} />
+        <div style={{
+          width: 226, height: 226,
+          display: "inline-flex", alignItems: "center", justifyContent: "center",
+          padding: "0.75rem", borderRadius: 16,
+          border: "2px solid rgba(47,49,90,0.1)",
+          background: "#f8f8fb", marginBottom: "1.25rem",
+        }}>
+          {qrReady ? (
+            <img src={qrUrl} alt="QR code" width={200} height={200} loading="eager" decoding="async" style={{ display: "block", borderRadius: 8 }} />
+          ) : (
+            <div aria-label="Loading QR code" style={{
+              width: 34, height: 34,
+              border: "3px solid rgba(47,49,90,0.14)",
+              borderTopColor: "#2f315a",
+              borderRadius: "50%",
+              animation: "spin 0.7s linear infinite",
+            }} />
+          )}
         </div>
         <div style={{ background: "#f0f0f6", borderRadius: 10, padding: "0.55rem 0.85rem", fontSize: "0.68rem", color: "#6b6f91", fontFamily: "monospace", wordBreak: "break-all", marginBottom: "1.25rem" }}>
           {pageUrl}
@@ -143,6 +165,9 @@ export default function KSLOmniPage() {
     const params = new URLSearchParams(window.location.search);
     return params.get("mid") || null;
   });
+  const pageUrl = useMemo(() => getOmniPageUrl(machineId), [machineId]);
+  const qrUrl = useMemo(() => getQrUrl(pageUrl), [pageUrl]);
+  const [qrReady, setQrReady] = useState(false);
 
   const inputRef     = useRef(null);
   const abortRef     = useRef(null);
@@ -186,6 +211,14 @@ export default function KSLOmniPage() {
   useEffect(() => {
     autoResizeTextarea(inputRef.current);
   }, [input, isMobile]);
+  useEffect(() => {
+    setQrReady(false);
+    const img = new Image();
+    img.decoding = "async";
+    img.onload = () => setQrReady(true);
+    img.onerror = () => setQrReady(true);
+    img.src = qrUrl;
+  }, [qrUrl]);
 
   function handleInputChange(e) {
     setInput(e.target.value);
@@ -617,7 +650,7 @@ export default function KSLOmniPage() {
               background: "transparent",
               fontSize: "0.95rem", fontFamily: "inherit",
               resize: "none", lineHeight: 1.5,
-              maxHeight: 160, overflowY: "hidden",
+              maxHeight: "34dvh", overflowY: "hidden",
               color: "#2f315a",
             }}
           />
@@ -671,7 +704,7 @@ export default function KSLOmniPage() {
             </button>
           </div>
         </div>
-        {showQR && <QRModal onClose={() => setShowQR(false)} machineId={machineId} />}
+        {showQR && <QRModal onClose={() => setShowQR(false)} pageUrl={pageUrl} qrUrl={qrUrl} qrReady={qrReady} />}
       </div>
     );
   }
@@ -745,7 +778,7 @@ export default function KSLOmniPage() {
             fontSize: centered ? "1rem" : "0.95rem",
             fontFamily: "inherit",
             resize: "none", lineHeight: 1.55,
-            maxHeight: centered ? 220 : 180, overflowY: "hidden",
+            maxHeight: centered ? "38dvh" : "32dvh", overflowY: "hidden",
           }}
         />
 
@@ -876,7 +909,7 @@ export default function KSLOmniPage() {
       </div>
 
       <Footer />
-      {showQR && <QRModal onClose={() => setShowQR(false)} machineId={machineId} />}
+      {showQR && <QRModal onClose={() => setShowQR(false)} pageUrl={pageUrl} qrUrl={qrUrl} qrReady={qrReady} />}
     </div>
   );
 }

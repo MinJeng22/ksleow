@@ -205,7 +205,8 @@ export default function AIChatbot({ app }) {
                 border: "1px solid rgba(47,49,90,0.18)",
                 fontSize: "0.86rem", fontFamily: "inherit",
                 resize: "none", outline: "none", lineHeight: 1.5,
-                maxHeight: 160, overflowY: "hidden",
+                maxHeight: window.innerWidth < 640 ? "34dvh" : 240,
+                overflowY: "hidden",
                 background: loading ? "#f5f5f8" : "#ffffff",
                 color: "#2f315a", transition: "border-color 0.2s",
               }}

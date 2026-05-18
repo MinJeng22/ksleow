@@ -34,6 +34,53 @@ import { forwardRef } from "react";
 const noContextMenu = (e) => e.preventDefault();
 const noDrag        = (e) => e.preventDefault();
 
+const WRAPPER_STYLE_KEYS = new Set([
+  "position", "inset", "top", "right", "bottom", "left", "zIndex",
+  "opacity", "transform", "transition", "animation",
+  "margin", "marginTop", "marginRight", "marginBottom", "marginLeft",
+  "alignSelf", "justifySelf", "placeSelf", "gridArea", "gridColumn", "gridRow",
+  "flex", "flexBasis", "flexGrow", "flexShrink", "order",
+]);
+
+function splitProtectedImageStyle(style = {}) {
+  const wrapperStyle = {};
+  const imageStyle = { ...style };
+
+  for (const key of WRAPPER_STYLE_KEYS) {
+    if (key in style) {
+      wrapperStyle[key] = style[key];
+      delete imageStyle[key];
+    }
+  }
+
+  return {
+    wrapperStyle: {
+      display: style.display || "inline-block",
+      lineHeight: 0,
+      userSelect: "none",
+      WebkitUserSelect: "none",
+      WebkitTouchCallout: "none",
+      width: style.width,
+      height: style.height,
+      minWidth: style.minWidth,
+      minHeight: style.minHeight,
+      maxWidth: style.maxWidth,
+      maxHeight: style.maxHeight,
+      borderRadius: style.borderRadius,
+      overflow: style.overflow || (style.borderRadius ? "hidden" : undefined),
+      ...wrapperStyle,
+      position: wrapperStyle.position || "relative",
+    },
+    imageStyle: {
+      ...imageStyle,
+      display: imageStyle.display || "block",
+      userSelect: "none",
+      WebkitUserSelect: "none",
+      WebkitUserDrag: "none",
+    },
+  };
+}
+
 /* ── <Img /> — drop-in replacement for <img>
  *
  *   <Img src="..." alt="..." />              lazy + decode-async (default)
@@ -46,9 +93,12 @@ export const Img = forwardRef(function Img({
   src, alt = "", priority = false,
   loading: loadingProp,
   decoding: decodingProp,
+  protect = true,
+  style,
+  wrapperStyle: wrapperStyleProp,
   ...rest
 }, ref) {
-  return (
+  const renderImage = (imageStyle) => (
     <img
       ref={ref}
       src={src}
@@ -59,8 +109,41 @@ export const Img = forwardRef(function Img({
       draggable={false}
       onContextMenu={noContextMenu}
       onDragStart={noDrag}
+      style={imageStyle}
       {...rest}
     />
+  );
+
+  if (!protect) return renderImage(style);
+
+  const protectedStyle = splitProtectedImageStyle(style);
+  return (
+    <span
+      draggable={false}
+      onContextMenu={noContextMenu}
+      onDragStart={noDrag}
+      style={{ ...protectedStyle.wrapperStyle, ...wrapperStyleProp }}
+    >
+      {/*
+        Transparent overlay catches right-click / drag interactions, so
+        casual "Save image as..." attempts hit the empty layer instead
+        of the real image. This is a deterrent, not DRM.
+      */}
+      {renderImage(protectedStyle.imageStyle)}
+      <span
+        aria-hidden="true"
+        draggable={false}
+        onContextMenu={noContextMenu}
+        onDragStart={noDrag}
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 3,
+          background: "rgba(255,255,255,0)",
+          cursor: style?.cursor || "inherit",
+        }}
+      />
+    </span>
   );
 });
 

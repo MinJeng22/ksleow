@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Img } from "./Media.jsx";
 import { CASE_IMAGES } from "../assets/assets.js";
 import caseStudiesContent from "../content/caseStudies.json";
 
@@ -118,10 +119,7 @@ export default function CaseStudies({ onContact }) {
                   {/* image / placeholder */}
                   <div style={{ position: "relative", paddingBottom: "48%", background: meta.accent }}>
                     {imgSrc ? (
-                      <img src={imgSrc} alt={c.title}
-                        loading="lazy"
-                        decoding="async"
-                        fetchPriority="low"
+                      <Img src={imgSrc} alt={c.title}
                         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
                         onError={e => { e.currentTarget.style.display = "none"; }}
                       />
