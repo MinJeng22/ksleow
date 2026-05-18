@@ -32,7 +32,7 @@ export default function QuotationViewer() {
   return (
     <main style={{ minHeight: "100vh", display: "grid", placeItems: "center", padding: "2rem", background: "#f5f5f8", color: "#2f315a", textAlign: "center" }}>
       <div style={{ maxWidth: 520 }}>
-        <img src="/ksl-logo-circle.webp" alt="" width="56" height="56" style={{ borderRadius: "50%", marginBottom: "1rem" }} />
+        <img src="/images/branding/ksl-logo-circle.webp" alt="" width="56" height="56" style={{ borderRadius: "50%", marginBottom: "1rem" }} />
         <h1 style={{ fontSize: "1.5rem", marginBottom: "0.75rem" }}>Quotation Link Unavailable</h1>
         <p style={{ color: "#6b6f91", lineHeight: 1.7, marginBottom: "1.25rem" }}>
           This quotation link is missing a valid quote token. Please request a new quotation from KS Omni.

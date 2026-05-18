@@ -10,7 +10,7 @@ const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
 
 /* Hero photo + brand logo — already in /public/uploads/products/ */
 const HERO_PHOTO = "/uploads/products/feedme-pos-showcase.png";
-const FEEDME_LOGO = "/feedme-logo.png";
+const FEEDME_LOGO = "/images/logos/feedme-logo.png";
 
 /* Sidebar anchors */
 const SIDEBAR_ITEMS = [

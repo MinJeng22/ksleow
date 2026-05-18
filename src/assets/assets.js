@@ -38,11 +38,11 @@ export const PARTNER_LOGOS = {
   partner4: null, partner5: null, partner6: null,
 };
 
-/* ── CASE STUDY IMAGES  (src/assets/images/) ── */
-import caseNetworking from "./images/case-networking.jpg";
-import casePlugin from "./images/case-plugin.jpg";
-import caseErp from "./images/case-erp.jpg";
-import caseWarehouse from "./images/case-warehouse.jpg";
+/* ── CASE STUDY IMAGES  (src/assets/images/case-studies/) ── */
+import caseNetworking from "./images/case-studies/case-networking.jpg";
+import casePlugin from "./images/case-studies/case-plugin.jpg";
+import caseErp from "./images/case-studies/case-erp.jpg";
+import caseWarehouse from "./images/case-studies/case-warehouse.jpg";
 
 export const CASE_IMAGES = {
   networking: caseNetworking,

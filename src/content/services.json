@@ -72,12 +72,12 @@
       "badgeLabel": "Authorized Dealer",
       "logos": [
         {
-          "src": "/sunmi-logo.png",
+          "src": "/images/logos/sunmi-logo.png",
           "alt": "Sunmi",
           "h": 40
         },
         {
-          "src": "/mdot-logo.png",
+          "src": "/images/logos/mdot-logo.png",
           "alt": "Mdot",
           "h": 40
         }
@@ -92,12 +92,12 @@
       "badgeLabel": "Authorized Dealer",
       "logos": [
         {
-          "src": "/autocount-logo.png",
+          "src": "/images/logos/autocount-logo.png",
           "alt": "AutoCount",
           "h": 60
         },
         {
-          "src": "/feedme-logo.png",
+          "src": "/images/logos/feedme-logo.png",
           "alt": "FeedMe",
           "h": 60
         }

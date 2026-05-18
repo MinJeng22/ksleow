@@ -546,7 +546,7 @@ export default function Sales2DOPage({ onContact }) {
         body={'In AutoCount Accounting\'s standard business workflow, the process typically flows from Delivery Orders (DO) to Sales (Invoices or Cash Sales). However, for companies that operate with a Sales-to-DO workflow, the Sales2DO plugin bridges this gap. It enables users to generate a DO directly from existing Invoices or Cash Sales via integrated "Copy to DO" and "Copy from Invoice / Cash Sale" functions.'}
         iconSrc={acPluginIcon}
         iconAlt="Sales2DO Plugin"
-        primaryCta={{ label: "Download Now", href: "/Sales2DO.app", download: "Sales2DO.app" }}
+        primaryCta={{ label: "Download Now", href: "/downloads/app/Sales2DO.app", download: "Sales2DO.app" }}
         secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
       />
 

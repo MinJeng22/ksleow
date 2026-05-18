@@ -2,8 +2,8 @@ import branding from "../content/branding.json";
 import { CONTACT, WA_LINK } from "../constants/contact.js";
 
 /* Use the same small icon as the service-card backs */
-const HEADER_LOGO_SRC = "/favicon.webp";
-const CARD_BACK_BG = branding.serviceCardBack || "/service-card-back.png";
+const HEADER_LOGO_SRC = "/images/icons/favicon.webp";
+const CARD_BACK_BG = branding.serviceCardBack || "/images/branding/service-card-back.png";
 
 /* ── Inline SVG icons ── */
 const PinIcon = () => (

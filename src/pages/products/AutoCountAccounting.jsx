@@ -18,7 +18,7 @@ const ICON_EINVOICE    = "/uploads/icons/e-invoice-ready.webp";
 const ICON_INTEGRATION = "/uploads/icons/integration-icon.png";
 /* Use the site favicon directly — guarantees the Prompt Technical
  * Support icon always matches whatever the browser tab is showing. */
-const ICON_FAVICON     = "/favicon.png";
+const ICON_FAVICON     = "/images/icons/favicon.png";
 const ICON_AC_PLUGIN   = "/uploads/icons/ac-plugin-icon.png";
 
 /* ═══════════════════════════════════════════════════════════════

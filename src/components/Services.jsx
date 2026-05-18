@@ -198,12 +198,12 @@ function ServiceCard({ service }) {
             boxShadow: "0 10px 32px rgba(15,17,40,0.22)",
           }}
         >
-          {/* Decorative background — defaults to the PNG at /service-card-back.png.
-           * Place your image at:  public/service-card-back.png
+          {/* Decorative background — defaults to the PNG at /images/branding/service-card-back.png.
+           * Place your image at:  public/images/branding/service-card-back.png
            * Admins can also override via CMS → Brand Logos → Service card back. */}
           <div style={{
             position: "absolute", inset: 0,
-            backgroundImage: `url(${branding.serviceCardBack || "/service-card-back.png"})`,
+            backgroundImage: `url(${branding.serviceCardBack || "/images/branding/service-card-back.png"})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             pointerEvents: "none",
@@ -221,7 +221,7 @@ function ServiceCard({ service }) {
               flexShrink: 0,
             }}>
               <img
-                src={office?.logo || "/favicon.webp"}
+                src={office?.logo || "/images/icons/favicon.webp"}
                 alt={office?.name || "K.S. Leow Group"}
                 loading="lazy"
                 decoding="async"
