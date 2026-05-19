@@ -1,22 +1,22 @@
 {
   "eyebrow": "Success Stories",
-  "heading": "Case Studies",
-  "intro": "Real projects, real results — see how we have helped Pahang businesses modernise their operations with the right technology.",
+  "heading": "Other Services",
+  "intro": "Explore additional services that support your business operations, customer reach, and AutoCount workflows.",
   "ctaLabel": "Discuss Your Project",
   "items": [
     {
       "key": "networking",
       "tag": "IT Networking · Infrastructure",
-      "title": "Mentakab Mall Network Architecture Design & Deployment",
-      "desc": "Designed and deployed a scalable enterprise network for Mentakab Mall — covering structured cabling, VLAN segmentation, Wi-Fi 6 access points, and a centralised management dashboard.",
+      "title": "Printing / Advertising / Design",
+      "desc": "Business-ready printing, advertising material, and visual design support for signboards, campaigns, corporate stationery, and promotional collateral.",
       "image": "/images/case-studies/mentakab-mall.jpg",
       "route": ""
     },
     {
       "key": "plugin",
       "tag": "AutoCount · Plugin Development",
-      "title": "Custom Sales2DO Plugin for AutoCount Accounting",
-      "desc": "Built a bespoke Sales2DO module extending AutoCount's core — enabling automated order-to-delivery-order conversion, real-time stock updates, and approval workflows for a Pahang distributor.",
+      "title": "AutoCount Plugin",
+      "desc": "Custom AutoCount plugin development and workflow extensions, including Sales2DO automation for turning sales documents into delivery order processes more efficiently.",
       "image": "/images/case-studies/acplugin.png",
       "route": "/apps/sales2do"
     },

@@ -142,7 +142,7 @@ function ServiceCard({ service }) {
             }
           </div>
 
-          <h3 style={{ fontSize: "0.97rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.55rem", lineHeight: 1.3 }}>
+          <h3 style={{ fontSize: "clamp(1.18rem, 1.5vw, 1.38rem)", fontWeight: 800, color: "#2f315a", marginBottom: "0.6rem", lineHeight: 1.22 }}>
             {service.title}
           </h3>
           <p style={{
