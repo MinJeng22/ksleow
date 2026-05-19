@@ -24,6 +24,7 @@ async function main() {
 
   releases.sort((a, b) => compareVersions(b.version, a.version));
 
+  const highlightsCount = releases.filter((release) => release.highlightsUrl).length;
   const nextJson = `${JSON.stringify(releases, null, 2)}\n`;
   let currentJson = "";
   try {
@@ -33,13 +34,13 @@ async function main() {
   }
 
   if (currentJson === nextJson) {
-    console.log(`AutoCount release notes already up to date. Latest: ${releases[0]?.version}`);
+    console.log(`AutoCount release notes already up to date. Latest: ${releases[0]?.version}. Highlights: ${highlightsCount}`);
     return;
   }
 
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
   await fs.writeFile(OUTPUT_FILE, nextJson, "utf8");
-  console.log(`Updated ${path.relative(ROOT, OUTPUT_FILE)} with ${releases.length} releases. Latest: ${releases[0]?.version}`);
+  console.log(`Updated ${path.relative(ROOT, OUTPUT_FILE)} with ${releases.length} releases. Latest: ${releases[0]?.version}. Highlights: ${highlightsCount}`);
 }
 
 async function fetchText(url) {
@@ -57,13 +58,16 @@ async function fetchText(url) {
 
 function extractReleaseLinks(html) {
   const links = new Map();
-  const re = /<a\s+href="([^"]+)"[^>]*title="Release Note ([0-9.]+)"[^>]*>\s*Release Note \2\s*<\/a>/g;
+  const re = /<li\b[^>]*>[\s\S]*?<a\s+href="([^"]+)"[^>]*title="Release Note ([0-9.]+)"[^>]*>\s*Release Note \2\s*<\/a>[\s\S]*?<\/li>/gi;
   let match;
   while ((match = re.exec(html))) {
+    const itemHtml = match[0];
     const version = match[2];
     links.set(version, {
       version,
       url: absoluteUrl(decodeHtml(match[1])),
+      releasePdfUrl: extractAnchorUrl(itemHtml, "Download PDF"),
+      highlightsUrl: extractHighlightsUrl(itemHtml),
     });
   }
   return [...links.values()].sort((a, b) => compareVersions(b.version, a.version));
@@ -88,7 +92,37 @@ function parseReleasePage(html, link) {
     features,
     fixes,
     sourceUrl: link.url,
+    releasePdfUrl: link.releasePdfUrl || "",
+    highlightsUrl: link.highlightsUrl || "",
   };
+}
+
+function extractAnchorUrl(html, label) {
+  const anchors = extractAnchors(html);
+  const anchor = anchors.find((item) => item.text.toLowerCase() === label.toLowerCase());
+  return anchor ? absoluteUrl(decodeHtml(anchor.href)) : "";
+}
+
+function extractHighlightsUrl(html) {
+  const anchors = extractAnchors(html);
+  const anchor = anchors.find((item) => {
+    const haystack = `${item.text} ${item.title} ${item.href}`.toLowerCase();
+    return item.text.toLowerCase() === "highlights" || /whats?_?new|what'?s new|highlights?/.test(haystack);
+  });
+  return anchor ? absoluteUrl(decodeHtml(anchor.href)) : "";
+}
+
+function extractAnchors(html) {
+  return [...String(html).matchAll(/<a\s+([^>]+)>([\s\S]*?)<\/a>/gi)].map((match) => ({
+    href: readAttribute(match[1], "href"),
+    title: readAttribute(match[1], "title"),
+    text: cleanHtml(match[2]),
+  })).filter((item) => item.href);
+}
+
+function readAttribute(attrs, name) {
+  const match = String(attrs).match(new RegExp(`${name}="([^"]*)"`, "i"));
+  return match?.[1] || "";
 }
 
 function extractContent(html) {

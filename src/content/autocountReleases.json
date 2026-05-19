@@ -100,7 +100,9 @@
       "Fix “About” dialog does not display the actual SQL Server version when using a version higher than SQL Server 2014",
       "Fix able to edit AOTG user under a rare circumstances"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.29.41"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.29.41",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/7/74/AutoCount_Accounting_v2_Release_Note_2.2.29.41.pdf",
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/c/c8/Whats_New_in_2.2.29.41.pdf"
   },
   {
     "version": "2.2.26.36",
@@ -161,7 +163,9 @@
       "Fix Upgrade Account Book from 1.9 to 2.2 will hit error Column 'TaxCode' does not belong to table GLDTL",
       "Fix Unable to Merge Tax Entity - Transaction count after EXECUTE indicates a mismatching number of BEGIN and COMMIT statement"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.26.36"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.26.36",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/0/03/AutoCount_Accounting_v2_Release_Note_2.2.26.36.pdf",
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/c/cf/Whats_New_in_2.2.26.36.pdf"
   },
   {
     "version": "2.2.25.34",
@@ -188,7 +192,9 @@
       "Fix Unable to perform Change Code for Debtor, will prompt error related to column SGEInvoicePeppolFormat",
       "Fix After Reset IPHIST in Studio, price history report will have duplicate AQ and POS records"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.25.34"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.25.34",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/b/bc/AutoCount_Accounting_v2_Release_Note_2.2.25.34.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.24.33",
@@ -259,7 +265,9 @@
       "Fix PEPPOL Tab Appears on First Open of Debtor/Creditor Form",
       "Fix Tax Journal Voucher Listing report did not update the tax wording to TAX"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.24.33"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.24.33",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/0/0f/AutoCount_Accounting_v2_Release_Note_2.2.24.33.pdf",
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/2/2d/Whats_New_in_2.2.24.33.pdf"
   },
   {
     "version": "2.2.23.32",
@@ -272,7 +280,9 @@
       "Fix Import Supplier e-Invoice when convert to Purchase Invoice will prompt “Column SGEInvoicePeppolInstanceID does not belong to table Master”",
       "Fix Invalid Value error when change Purchase Invoice document date"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.23.32"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.23.32",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/7/7c/AutoCount_Accounting_v2_Release_Note_2.2.23.32.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.23.31",
@@ -296,7 +306,9 @@
       "Fix Incorrect Balance Quantity checking when editing an existing Draft Document which deduct stock",
       "Fix Unable to void AR Payment that is linked to Cash Sale even if enabled the option Allow to Edit or Delete A/R and A/P Documents Posted from Other Source"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.23.31"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.23.31",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/5/52/AutoCount_Accounting_v2_Release_Note_2.2.23.31.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.22.30",
@@ -349,7 +361,9 @@
       "Fix Footer amount that is not added to Net Total should not be included for e-Invoice submission",
       "Fix Change Code for BatchNo did not consider for Sales order"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.22.30"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.22.30",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/b/b2/AutoCount_Accounting_v2_Release_Note_2.2.22.30.pdf",
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/2/27/Whats_New_in_2.2.22.30_Final_3.pdf"
   },
   {
     "version": "2.2.21.29",
@@ -389,7 +403,9 @@
       "Fix Unable to import GL, ARAP, Sales Purchase from third party XML",
       "Fix Upgrade database hit bsp_ChangeTaxCode error"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.21.29"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.21.29",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/e/e2/Release_Note_2.2.21.29.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.19.27",
@@ -432,7 +448,9 @@
       "Fix Upgrade account book will hit Error on Repost GL & Withholding Tax Trans in RP: Column \"WithholdingTaxVersion\" does not belong to table ARPayment",
       "Fix Annexure key in longer custom form no 1 and 9 will prompt error should only have a maximum of 19 characters per reference number"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.19.27"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.19.27",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/1/15/Release_Note_2.2.19.27.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.18.26",
@@ -446,7 +464,9 @@
       "Fix Transfer document will hit \"Value was either too large or too small for an Int32\" error due to Smallest Quantity has too many decimals",
       "Fix Unhandled SQL Connectivity Exceptions in E-Invoice Queue Background Timer"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.18.26"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.18.26",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/9/9f/Release_Note_2.2.18.26.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.18.25",
@@ -502,7 +522,9 @@
       "Fix Quotation and Purchase Request generated before enabling Approval flow function will not auto expire according to setting",
       "Fix typo error “Rebuilt” for the successful message of running the function “Rebuild Consignment Balance Quantity Table”"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.18.25"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.18.25",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/f/f0/Release_Note_2.2.18.25.pdf",
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/5/56/Whats_New_in_2.2.18.25.pdf"
   },
   {
     "version": "2.2.17.24",
@@ -524,7 +546,9 @@
       "Fix Failed to update PBalance caused by trailing space",
       "Fix Create Consolidated e-invoice prompt \"Cannot cast DBNull.Value to type 'System.Decimal'. Please use a nullable type\" error if no use Tax"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.17.24"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.17.24",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/0/0f/Release_Note_2.2.17.24.pdf",
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/1/11/Whats_New_in_2.2.16.23-2.2.17.24.pdf"
   },
   {
     "version": "2.2.16.23",
@@ -567,7 +591,9 @@
       "Fix Run Consolidated e-Invoice function will prompt cannot set Column 'Location' property Max Length to '2'",
       "Fix Serial Number Trans did not consider deleted consignment"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.16.23"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.16.23",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/7/71/Release_Note_2.2.16.23.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.14.20",
@@ -639,7 +665,9 @@
       "Fix Stock Card hang and performance issue when have many consignment records",
       "Fix Monthly Sales / Purchase Analysis when Group Level 2 choose Item Class or Item Category will cause unable to filter some filters"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.14.20"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.14.20",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/f/fd/Release_Note_2.2.14.20.pdf",
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/1/18/Whats_New_in_2.2.14.20.pdf"
   },
   {
     "version": "2.2.12.18",
@@ -661,7 +689,9 @@
       "Fix Import Stock Item prompt object reference error",
       "Fix Debtor Maintenance did not remove “Is Tax Registered” column after implementing Tax Entity"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.12.18"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.12.18",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/1/18/Release_Note_2.2.12.18.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.12.17",
@@ -701,7 +731,9 @@
       "Fix Import .acx file which contains ARAP will prompt 'The value of column TaxEntityID in table does not exist in its master file'",
       "Fix when Delete UOM for Item with alternative item code prompt error"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.12.17"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.12.17",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/2/25/Release_Note_2.2.12.17.pdf",
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/9/91/Whats_New_in_2.2.12.17.pdf"
   },
   {
     "version": "2.2.11.16",
@@ -745,7 +777,9 @@
       "Fix Stock document listing with detail report show incorrect date format",
       "Fix Credit Note's Our Invoice No. did not check on Cash Sale transaction for UUID and will assume no Invoice reference and submit as NA"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.11.16"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.11.16",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/5/58/Release_Note_2.2.11.16.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.11.15",
@@ -764,7 +798,9 @@
       "Fix create Purchase Order / Request Quotation and click transfer from Purchase Request will prompt ‘Invalid column name CreditorCode’ error",
       "Fix create Purchase Invoice and click transfer from Purchase Consignment will prompt ‘Invalid column name Transferable’ error"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.11.15"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.11.15",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/e/e6/Release_Note_2.2.11.15.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.11.14",
@@ -805,7 +841,9 @@
       "Fix Import UBS Stock/POS Stock prompt “Column AutoCalcPrice does not allow nulls” error",
       "Fix Cash Sales Void button remains visible after the transaction is voided"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.11.14"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.11.14",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/5/5e/Release_Note_2.2.11.14.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.10.13",
@@ -827,7 +865,9 @@
       "Fix create new Sales/Purchase/Stock document without make any changes and click close or cancel will prompt Data was modified message",
       "Fix import all data and import tax entity did not update Company Profile's TIN information at AIP"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.10.13"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.10.13",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/5/52/Release_Note_2.2.10.13.pdf",
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/8/86/Whats_New_in_2.2.9.11_-_2.2.10.13.pdf"
   },
   {
     "version": "2.2.9.12",
@@ -841,7 +881,9 @@
     "fixes": [
       "Fix Self-Billed grid - show empty for few Annexure information field"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.9.12"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.9.12",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/f/fc/Release_Note_2.2.9.12.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.9.11",
@@ -868,7 +910,9 @@
       "Fix Missing Desc2 Field for Stock Document CurrentDetailRecord application scripting",
       "Fix when creating Consolidated e-invoice prompt \"Cannot cast DBNull.Value to type 'System.Decimal'. Please use a nullable type\" error"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.9.11"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.9.11",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/3/39/Release_Note_2.2.9.11.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.8.10",
@@ -907,7 +951,9 @@
       "Fix when import item measurement using Import All Data function will prompt FormatException error",
       "Fix when perform Batch Approve will capture incorrect Tax Entity information if the transaction had selected branch code"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.8.10"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.8.10",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/2/22/Release_Note_2.2.8.10rev.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.7.9",
@@ -928,7 +974,9 @@
       "No validation for Tax exemption reason during submit e-Invoice",
       "Credit Note/Debit Note block submit e-Invoice when referring to invoice that does not submit e-Invoice"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.7.9"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.7.9",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/f/f9/Release_Note_2.2.7.9.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.6.8",
@@ -955,7 +1003,9 @@
       "Foreign currency revaluation - delete will prompt 'You are not allowed to delete document because post from source document'",
       "Edit Delivery Order will prompt 'Deleted row information cannot be accessed through the row' in certain scenario"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.6.8"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.6.8",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/4/40/Release_Note_2.2.6.8.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.6.7",
@@ -973,7 +1023,9 @@
       "Unable to save debtor after reselecting another TIN number - Tax Entity in use, cannot change and delete",
       "Create new Consolidated e-Invoice prompt 'Value was either too large or too small for an Int32'"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.6.7"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.6.7",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/2/2b/Release_Note_2.2.6.7.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.5.6",
@@ -992,7 +1044,9 @@
       "Create new GST processor prompt 'Unknown SQL exception (Number 207, Message=Invalid column name 'DocStatus'.)",
       "Upgrade account book which got Withholding tax prompt error – Error on Repost GL & Withholding Tax Trans in PV xx: Column ‘DocStatus’ does not belong to table Master."
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.5.6"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.5.6",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/7/75/Release_Note_2.2.5.6a.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.4.5",
@@ -1009,7 +1063,9 @@
     "fixes": [
       "Unable to open KIV document that save in version before 2.2 - Values accept (A,P,D,E,R,V)"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.4.5"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.4.5",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/5/59/Release_Note_2.2.4.5.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.3.4",
@@ -1027,7 +1083,9 @@
       "Prompt company or api key invalid issue when submit e-Invoice from 2.2 beta version Account Book",
       "Unable to save P/O (transfer from S/O) - Over transferred quantity when user edit on P/O"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.3.4"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.3.4",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/2/2d/Release_Note_2.2.3.4.pdf",
+    "highlightsUrl": ""
   },
   {
     "version": "2.2.2.3",
@@ -1061,6 +1119,8 @@
       "Tax Menu did not show at Top Menu even add all access right for Tax Entity Maintenance",
       "Tax entity maintenance empty MSIC code at grid"
     ],
-    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.2.3"
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.2.3",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/a/a7/Release_Note_2.2.2.3.pdf",
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/d/da/Whats_New_in_2.2.2.3.pdf"
   }
 ]

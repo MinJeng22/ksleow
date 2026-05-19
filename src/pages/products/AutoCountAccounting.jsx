@@ -176,6 +176,11 @@ function ShareLinkButton({ params, hash }) {
   );
 }
 
+function openReleaseAsset(url) {
+  if (!url || typeof window === "undefined") return;
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
 function ReleaseCard({ r, expanded, onToggle }) {
   const isLatest = r === RELEASES[0];
   return (
@@ -202,6 +207,36 @@ function ReleaseCard({ r, expanded, onToggle }) {
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
             <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "#2f315a" }}>{r.version}</span>
             <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "#a8abcc", letterSpacing: "0.04em" }}>{r.rev}</span>
+            {r.highlightsUrl && (
+              <span
+                role="link"
+                tabIndex={0}
+                title={`Open AutoCount ${r.version} highlights PDF`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  openReleaseAsset(r.highlightsUrl);
+                }}
+                onKeyDown={(event) => {
+                  if (event.key !== "Enter" && event.key !== " ") return;
+                  event.preventDefault();
+                  event.stopPropagation();
+                  openReleaseAsset(r.highlightsUrl);
+                }}
+                style={{
+                  fontSize: "0.62rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  background: "rgba(201,168,76,0.14)",
+                  color: "#8a6a10",
+                  padding: "0.18rem 0.55rem",
+                  borderRadius: 50,
+                  cursor: "pointer",
+                }}
+              >
+                Highlights
+              </span>
+            )}
             {isLatest && (
               <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", background: "#2f315a", color: "#c9a84c", padding: "0.18rem 0.6rem", borderRadius: 50 }}>
                 Latest
@@ -620,6 +655,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       r.fixes.some(f => f.toLowerCase().includes(q))
     );
   });
+  const highlightCount = RELEASES.filter(r => r.highlightsUrl).length;
 
   return (
     <div style={{ background: "#f5f5f8", minHeight: "100vh" }}>
@@ -836,7 +872,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                 Release Notes — Ver 2.2
               </h2>
               <p style={{ fontSize: "0.85rem", color: "#6b6f91", marginTop: "0.35rem" }}>
-                {RELEASES.length} revisions · Rev {revNumber(RELEASES[RELEASES.length - 1])} → Rev {revNumber(RELEASES[0])} · Newest first
+                {RELEASES.length} revisions · {highlightCount} highlights · Rev {revNumber(RELEASES[RELEASES.length - 1])} → Rev {revNumber(RELEASES[0])} · Newest first
               </p>
             </div>
             {/* Mode toggle */}
