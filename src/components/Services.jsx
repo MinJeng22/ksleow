@@ -198,12 +198,12 @@ function ServiceCard({ service }) {
             boxShadow: "0 10px 32px rgba(15,17,40,0.22)",
           }}
         >
-          {/* Decorative background — defaults to the PNG at /images/branding/service-card-back.png.
-           * Place your image at:  public/images/branding/service-card-back.png
+          {/* Decorative background — defaults to the WebP at /images/branding/service-card-back.webp.
+           * Place your image at:  public/images/branding/service-card-back.webp
            * Admins can also override via CMS → Brand Logos → Service card back. */}
           <div style={{
             position: "absolute", inset: 0,
-            backgroundImage: `url(${branding.serviceCardBack || "/images/branding/service-card-back.png"})`,
+            backgroundImage: `url(${branding.serviceCardBack || "/images/branding/service-card-back.webp"})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             pointerEvents: "none",

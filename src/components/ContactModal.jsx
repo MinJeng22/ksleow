@@ -3,7 +3,7 @@ import { CONTACT, WA_LINK } from "../constants/contact.js";
 
 /* Use the same small icon as the service-card backs */
 const HEADER_LOGO_SRC = "/images/icons/favicon.webp";
-const CARD_BACK_BG = branding.serviceCardBack || "/images/branding/service-card-back.png";
+const CARD_BACK_BG = branding.serviceCardBack || "/images/branding/service-card-back.webp";
 
 /* ── Inline SVG icons ── */
 const PinIcon = () => (
