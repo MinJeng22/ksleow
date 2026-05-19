@@ -181,6 +181,56 @@ function openReleaseAsset(url) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
+function ReleaseAssetLink({ url }) {
+  if (!url) return null;
+  const openAsset = (event) => {
+    event.stopPropagation();
+    openReleaseAsset(url);
+  };
+  return (
+    <span
+      role="link"
+      tabIndex={0}
+      title="Open highlights PDF"
+      onClick={openAsset}
+      onKeyDown={(event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        openAsset(event);
+      }}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "0.3rem",
+        background: "transparent",
+        border: "1px solid rgba(201,168,76,0.35)",
+        borderRadius: 50,
+        padding: "0.2rem 0.6rem",
+        fontSize: "0.62rem",
+        fontWeight: 600,
+        color: "#8a6a10",
+        cursor: "pointer",
+        fontFamily: "inherit",
+        transition: "all 0.2s",
+      }}
+      onMouseOver={(event) => {
+        event.currentTarget.style.background = "rgba(201,168,76,0.12)";
+        event.currentTarget.style.borderColor = "rgba(201,168,76,0.55)";
+      }}
+      onMouseOut={(event) => {
+        event.currentTarget.style.background = "transparent";
+        event.currentTarget.style.borderColor = "rgba(201,168,76,0.35)";
+      }}
+    >
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+      </svg>
+      Highlights
+    </span>
+  );
+}
+
 function ReleaseCard({ r, expanded, onToggle }) {
   const isLatest = r === RELEASES[0];
   return (
@@ -207,41 +257,12 @@ function ReleaseCard({ r, expanded, onToggle }) {
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
             <span style={{ fontSize: "0.95rem", fontWeight: 700, color: "#2f315a" }}>{r.version}</span>
             <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "#a8abcc", letterSpacing: "0.04em" }}>{r.rev}</span>
-            {r.highlightsUrl && (
-              <span
-                role="link"
-                tabIndex={0}
-                title={`Open AutoCount ${r.version} highlights PDF`}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  openReleaseAsset(r.highlightsUrl);
-                }}
-                onKeyDown={(event) => {
-                  if (event.key !== "Enter" && event.key !== " ") return;
-                  event.preventDefault();
-                  event.stopPropagation();
-                  openReleaseAsset(r.highlightsUrl);
-                }}
-                style={{
-                  fontSize: "0.62rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.08em",
-                  background: "rgba(201,168,76,0.14)",
-                  color: "#8a6a10",
-                  padding: "0.18rem 0.55rem",
-                  borderRadius: 50,
-                  cursor: "pointer",
-                }}
-              >
-                Highlights
-              </span>
-            )}
             {isLatest && (
               <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", background: "#2f315a", color: "#c9a84c", padding: "0.18rem 0.6rem", borderRadius: 50 }}>
                 Latest
               </span>
             )}
+            <ReleaseAssetLink url={r.highlightsUrl} />
           </div>
           <div style={{ fontSize: "0.78rem", color: "#a8abcc", marginTop: 2 }}>
             Released {r.date} · DB {r.dbVer} · Server {r.server}

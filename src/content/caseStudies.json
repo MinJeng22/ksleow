@@ -2,19 +2,20 @@
   "eyebrow": "Success Stories",
   "heading": "Other Services",
   "intro": "Explore additional services that support your business operations, customer reach, and AutoCount workflows.",
-  "ctaLabel": "Discuss Your Project",
+  "ctaLabel": "",
   "items": [
     {
       "key": "networking",
-      "tag": "IT Networking · Infrastructure",
+      "tag": "Our Partner - Supaprintz.my",
       "title": "Printing / Advertising / Design",
-      "desc": "Business-ready printing, advertising material, and visual design support for signboards, campaigns, corporate stationery, and promotional collateral.",
+      "desc": "Our partner for business-ready printing, advertising material, and visual design support for signboards, campaigns, corporate stationery, and promotional collateral.",
       "image": "/images/case-studies/mentakab-mall.jpg",
-      "route": ""
+      "route": "",
+      "modal": "supaprintz"
     },
     {
       "key": "plugin",
-      "tag": "AutoCount · Plugin Development",
+      "tag": "AutoCount - Plugin Development",
       "title": "AutoCount Plugin",
       "desc": "Custom AutoCount plugin development and workflow extensions, including Sales2DO automation for turning sales documents into delivery order processes more efficiently.",
       "image": "/images/case-studies/acplugin.png",
@@ -22,7 +23,7 @@
     },
     {
       "key": "erp",
-      "tag": "ERP Integration · Manufacturing",
+      "tag": "ERP Integration - Manufacturing",
       "title": "AutoCount ERP Integration for a Temerloh Food Manufacturer",
       "desc": "Integrated AutoCount Accounting with a production planning module for a local food manufacturer, synchronising raw-material procurement, batch costing, and finished-goods inventory in real time.",
       "image": "",
@@ -30,7 +31,7 @@
     },
     {
       "key": "warehouse",
-      "tag": "IT Networking · Smart Warehouse",
+      "tag": "IT Networking - Smart Warehouse",
       "title": "Smart Warehouse Networking & Barcode System for Kuantan Logistics Firm",
       "desc": "Deployed an industrial-grade wireless mesh network across a 20,000 sq ft warehouse, integrated with AutoCount's inventory module and handheld barcode scanners for real-time stock accuracy.",
       "image": "",

@@ -293,7 +293,7 @@ collections:
           - { name: eyebrow,  label: Eyebrow,         widget: string }
           - { name: heading,  label: Section heading, widget: string }
           - { name: intro,    label: Intro paragraph, widget: text }
-          - { name: ctaLabel, label: Bottom button label, widget: string, default: "Discuss Your Project" }
+          - { name: ctaLabel, label: Bottom button label, widget: string, default: "", required: false }
           - name: items
             label: Case Study Cards (first 2 visible, last 2 are placeholders)
             widget: list
@@ -306,6 +306,7 @@ collections:
               - { name: desc,  label: Description,  widget: text }
               - { name: image, label: Cover image (optional), widget: image, required: false }
               - { name: route, label: Internal link (optional), widget: string, required: false }
+              - { name: modal, label: Modal key (optional), widget: string, required: false }
 
       # ───────── Careers ─────────
       - file: src/content/careers.json
