@@ -1,0 +1,47 @@
+name: Sync AutoCount release notes
+
+on:
+  schedule:
+    # 8:00 AM Malaysia time (UTC+8)
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch official AutoCount release notes
+        run: npm run sync:autocount-releases
+
+      - name: Build check
+        run: npm run build:fast
+
+      - name: Commit and push if updated
+        run: |
+          if git diff --quiet -- src/content/autocountReleases.json; then
+            echo "AutoCount release notes are already up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/autocountReleases.json
+          git commit -m "chore: sync AutoCount release notes"
+          git push
