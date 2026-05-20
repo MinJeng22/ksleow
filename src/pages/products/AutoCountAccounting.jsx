@@ -33,8 +33,8 @@ const RELEASES = autocountReleases;
 
 /* ── Feature pill colours by type ── */
 const TAG = {
-  feature: { bg: "rgba(47,49,90,0.08)", color: "#2f315a", label: "New" },
-  fix: { bg: "rgba(201,168,76,0.12)", color: "#8a6a10", label: "Fix" },
+  feature: { bg: "rgba(47,49,90,0.08)", color: "#2f315a" },
+  fix: { bg: "rgba(201,168,76,0.12)", color: "#8a6a10" },
 };
 
 /* ── Copy release notes to clipboard (WhatsApp format) ── */
@@ -56,16 +56,25 @@ function copyCompare(items, fromVer, toVer, type) {
   navigator.clipboard.writeText(text).catch(() => { });
 }
 
-function ReleaseBadge({ type }) {
+function ReleaseNumber({ number, type }) {
   const t = TAG[type];
   return (
     <span style={{
-      fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.08em",
-      textTransform: "uppercase", padding: "0.18rem 0.55rem",
-      borderRadius: 50, background: t.bg, color: t.color,
+      width: 24,
+      height: 24,
+      borderRadius: "50%",
+      background: t.bg,
+      color: t.color,
       flexShrink: 0,
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: "0.68rem",
+      fontWeight: 800,
+      lineHeight: 1,
+      marginTop: 1,
     }}>
-      {t.label}
+      {number}
     </span>
   );
 }
@@ -113,9 +122,10 @@ function CopyBtn({ onClick, gold }) {
  *   params  { editionMode, editionA, ... }  — query params to include
  *   hash    "#editions" | "#releases"        — scroll target
  */
-function ShareLinkButton({ params, hash }) {
+function ShareLinkButton({ params, hash, compact = false, title = "Copy a shareable link to this comparison" }) {
   const [copied, setCopied] = React.useState(false);
-  function handle() {
+  function handle(event) {
+    event?.stopPropagation();
     const usp = new URLSearchParams();
     Object.entries(params).forEach(([k, v]) => {
       if (v !== undefined && v !== null && v !== false && v !== "") {
@@ -144,13 +154,13 @@ function ShareLinkButton({ params, hash }) {
   return (
     <button
       onClick={handle}
-      title="Copy a shareable link to this comparison"
+      title={title}
       style={{
-        display: "inline-flex", alignItems: "center", gap: "0.4rem",
-        background: copied ? "rgba(201,168,76,0.18)" : "rgba(47,49,90,0.06)",
+        display: "inline-flex", alignItems: "center", gap: compact ? "0.3rem" : "0.4rem",
+        background: copied ? "rgba(201,168,76,0.18)" : (compact ? "transparent" : "rgba(47,49,90,0.06)"),
         border: `1px solid ${copied ? "rgba(201,168,76,0.4)" : "rgba(47,49,90,0.16)"}`,
-        borderRadius: 50, padding: "0.4rem 0.9rem",
-        fontSize: "0.74rem", fontWeight: 600,
+        borderRadius: 50, padding: compact ? "0.2rem 0.6rem" : "0.4rem 0.9rem",
+        fontSize: compact ? "0.62rem" : "0.74rem", fontWeight: 600,
         color: copied ? "#8a6a10" : "#2f315a",
         cursor: "pointer", fontFamily: "inherit",
         transition: "all 0.2s",
@@ -225,13 +235,15 @@ function ReleaseAssetLink({ url }) {
 
 function ReleaseCard({ r, expanded, onToggle }) {
   const isLatest = r === RELEASES[0];
+  const releaseRev = revNumber(r);
   return (
-    <div style={{
+    <div id={`release-${releaseRev}`} style={{
       borderRadius: 14,
       border: `1px solid ${expanded ? "rgba(47,49,90,0.22)" : "rgba(47,49,90,0.1)"}`,
       background: "#ffffff",
       overflow: "hidden",
       transition: "border-color 0.2s",
+      scrollMarginTop: 28,
     }}>
       {/* Header row */}
       <div
@@ -264,6 +276,12 @@ function ReleaseCard({ r, expanded, onToggle }) {
               </span>
             )}
             <ReleaseAssetLink url={r.highlightsUrl} />
+            <ShareLinkButton
+              compact
+              title={`Copy a shareable link to ${r.version}`}
+              hash={`#release-${releaseRev}`}
+              params={{ vr: releaseRev }}
+            />
           </div>
           <div style={{ fontSize: "0.78rem", color: "#a8abcc", marginTop: 2 }}>
             Released {r.date} · DB {r.dbVer} · Server {r.server}
@@ -295,7 +313,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
               </div>
               {r.features.map((f, i) => (
                 <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.5rem" }}>
-                  <ReleaseBadge type="feature" />
+                  <ReleaseNumber number={i + 1} type="feature" />
                   <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{f}</span>
                 </div>
               ))}
@@ -310,7 +328,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
               </div>
               {r.fixes.map((f, i) => (
                 <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.5rem" }}>
-                  <ReleaseBadge type="fix" />
+                  <ReleaseNumber number={i + 1} type="fix" />
                   <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{f}</span>
                 </div>
               ))}
@@ -588,7 +606,7 @@ const AC_SIDEBAR_ITEMS = [
 export default function AutoCountAccountingPage({ onContact }) {
   const navigate = useNavigate();
 
-  const [expanded, setExpanded] = useState(0);   /* first card open by default */
+  const [expanded, setExpanded] = useState(RELEASES[0]?.version || null);   /* first card open by default */
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [compareMode, setCompareMode] = useState(false);
@@ -668,11 +686,22 @@ export default function AutoCountAccountingPage({ onContact }) {
       if (vbRel) setCompareB(vbRel.version);
     }
 
+    const releaseHashMatch = window.location.hash.match(/^#release-(\d+)$/);
+    const sharedRelease =
+      (params.get("vr") && findByRev(params.get("vr"))) ||
+      (params.get("version") && RELEASES.find(r => r.version === params.get("version"))) ||
+      (releaseHashMatch && findByRev(releaseHashMatch[1]));
+    if (sharedRelease) {
+      setCompareMode(false);
+      setExpanded(sharedRelease.version);
+    }
+
     // Scroll: if URL has a hash, scroll there; otherwise top of page.
-    if (window.location.hash) {
+    const scrollTarget = window.location.hash || (sharedRelease ? `#release-${revNumber(sharedRelease)}` : "");
+    if (scrollTarget) {
       // Tiny delay so the state-driven sections finish first paint
       const t = setTimeout(() => {
-        const el = document.querySelector(window.location.hash);
+        const el = document.querySelector(scrollTarget);
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 80);
       return () => clearTimeout(t);
@@ -997,7 +1026,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                     {allFeatures.map((f, i) => (
                       <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
                         <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(47,49,90,0.08)", color: "#2f315a", flexShrink: 0, marginTop: 2 }}>{f.rev}</span>
-                        <span style={{ fontSize: "0.92rem", color: "#444", lineHeight: 1.65 }}>{f.text}</span>
+                        <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{f.text}</span>
                       </div>
                     ))}
                   </div>
@@ -1010,7 +1039,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                     {allFixes.map((f, i) => (
                       <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
                         <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(201,168,76,0.12)", color: "#8a6a10", flexShrink: 0, marginTop: 2 }}>{f.rev}</span>
-                        <span style={{ fontSize: "0.92rem", color: "#444", lineHeight: 1.65 }}>{f.text}</span>
+                        <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{f.text}</span>
                       </div>
                     ))}
                   </div>
@@ -1046,12 +1075,12 @@ export default function AutoCountAccountingPage({ onContact }) {
                   No releases match "{search}"
                 </div>
               )}
-              {filtered.map((r, i) => (
+              {filtered.map((r) => (
                 <ReleaseCard
                   key={r.version}
                   r={r}
-                  expanded={expanded === i}
-                  onToggle={() => setExpanded(expanded === i ? null : i)}
+                  expanded={expanded === r.version}
+                  onToggle={() => setExpanded(expanded === r.version ? null : r.version)}
                 />
               ))}
             </div>
