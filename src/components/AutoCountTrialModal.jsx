@@ -28,6 +28,7 @@ export default function AutoCountTrialModal({ open, onClose }) {
 
   return (
     <div
+      className="trial-modal-backdrop"
       onClick={onClose}
       style={{
         position: "fixed",
@@ -42,6 +43,7 @@ export default function AutoCountTrialModal({ open, onClose }) {
       }}
     >
       <div
+        className="trial-modal-shell"
         onClick={e => e.stopPropagation()}
         style={{
           position: "relative",
@@ -59,9 +61,50 @@ export default function AutoCountTrialModal({ open, onClose }) {
       >
         <style>{`
           @keyframes modalIn{from{opacity:0;transform:translateY(14px) scale(0.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+          @media (max-width: 640px) {
+            .trial-modal-backdrop {
+              align-items: flex-start !important;
+              padding: 0.7rem !important;
+              overflow-y: auto !important;
+            }
+            .trial-modal-shell {
+              width: 100% !important;
+              max-height: none !important;
+              margin: 0.35rem 0 !important;
+              border-radius: 20px !important;
+            }
+            .trial-modal-header {
+              padding: 1.45rem 1.1rem 1.25rem !important;
+              border-radius: 20px 20px 0 0 !important;
+            }
+            .trial-modal-logo {
+              height: 50px !important;
+              margin-bottom: 1rem !important;
+            }
+            .trial-modal-body {
+              padding: 1.05rem !important;
+              border-radius: 0 0 20px 20px !important;
+            }
+            .trial-modal-stats {
+              grid-template-columns: 1fr !important;
+              gap: 0.55rem !important;
+              margin-bottom: 0.95rem !important;
+            }
+            .trial-modal-tile {
+              min-height: auto !important;
+              padding: 0.7rem 0.8rem !important;
+            }
+            .trial-modal-close {
+              top: 12px !important;
+              right: 12px !important;
+              width: 34px !important;
+              height: 34px !important;
+            }
+          }
         `}</style>
 
         <button
+          className="trial-modal-close"
           onClick={onClose}
           aria-label="Close"
           style={{
@@ -84,7 +127,7 @@ export default function AutoCountTrialModal({ open, onClose }) {
           <CloseIcon />
         </button>
 
-        <div style={{
+        <div className="trial-modal-header" style={{
           background: "linear-gradient(135deg, #2f315a 0%, #202242 100%)",
           color: "#ffffff",
           padding: "2rem 2rem 1.8rem",
@@ -92,7 +135,7 @@ export default function AutoCountTrialModal({ open, onClose }) {
           overflow: "hidden",
           position: "relative",
         }}>
-          <img src={LOGO} alt="K.S. Leow Group" style={{ height: 64, objectFit: "contain", display: "block", margin: "0 auto 1.35rem" }} />
+          <img className="trial-modal-logo" src={LOGO} alt="K.S. Leow Group" style={{ height: 64, objectFit: "contain", display: "block", margin: "0 auto 1.35rem" }} />
           <div style={{ fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.13em", textTransform: "uppercase", color: "#e8c97a", marginBottom: "0.55rem", textAlign: "left" }}>
             AutoCount Accounting 2.2
           </div>
@@ -101,8 +144,8 @@ export default function AutoCountTrialModal({ open, onClose }) {
           </h2>
         </div>
 
-        <div style={{ padding: "1.6rem 2rem 2rem", background: "#ffffff", borderRadius: "0 0 26px 26px", overflowY: "auto", minHeight: 0 }}>
-          <div style={{
+        <div className="trial-modal-body" style={{ padding: "1.6rem 2rem 2rem", background: "#ffffff", borderRadius: "0 0 26px 26px", overflowY: "auto", minHeight: 0 }}>
+          <div className="trial-modal-stats" style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
             gap: "0.75rem",
@@ -160,7 +203,7 @@ export default function AutoCountTrialModal({ open, onClose }) {
 
 function InfoTile({ label, value }) {
   return (
-    <div style={{
+    <div className="trial-modal-tile" style={{
       minHeight: 88,
       borderRadius: 16,
       border: "1px solid rgba(201,168,76,0.28)",

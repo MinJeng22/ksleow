@@ -19,7 +19,21 @@ const SUPAPRINTZ_COLORS = {
   yellow: "#ffc10e",
   navy: "#1d1848",
   orange: "#ef4e23",
+  whatsapp: "#25D366",
+  facebook: "#1877F2",
 };
+
+const WhatsAppIcon = () => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+  </svg>
+);
+
+const FacebookIcon = () => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.412c0-3.026 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97H15.83c-1.491 0-1.955.931-1.955 1.886v2.266h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073Z" />
+  </svg>
+);
 
 /* accent colours and placeholder icons for each card */
 const CARD_META = [
@@ -57,6 +71,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
   if (!open) return null;
   return (
     <div
+      className="supaprintz-modal-backdrop"
       role="dialog"
       aria-modal="true"
       aria-labelledby="supaprintz-modal-title"
@@ -65,8 +80,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
         position: "fixed",
         inset: 0,
         zIndex: 80,
-        background: "rgba(29,24,72,0.68)",
-        backdropFilter: "blur(12px)",
+        background: "rgba(0,0,0,0.68)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -74,22 +88,64 @@ function SupaprintzPartnerModal({ open, onClose }) {
       }}
     >
       <div
+        className="supaprintz-modal-shell"
         onClick={(event) => event.stopPropagation()}
         style={{
           width: "min(560px, 100%)",
           borderRadius: 24,
           overflow: "hidden",
           background: "#ffffff",
-          boxShadow: "0 28px 90px rgba(29,24,72,0.38)",
-          border: `1px solid ${SUPAPRINTZ_COLORS.yellow}`,
+          boxShadow: "0 28px 90px rgba(0,0,0,0.34)",
         }}
       >
+        <style>{`
+          @media (max-width: 640px) {
+            .supaprintz-modal-backdrop {
+              align-items: flex-start !important;
+              padding: 0.75rem !important;
+              overflow-y: auto !important;
+            }
+            .supaprintz-modal-shell {
+              width: 100% !important;
+              max-height: none !important;
+              border-radius: 18px !important;
+              margin: 0.35rem 0 !important;
+            }
+            .supaprintz-modal-banner {
+              aspect-ratio: 16 / 9 !important;
+            }
+            .supaprintz-modal-body {
+              padding: 1.15rem !important;
+            }
+            .supaprintz-detail-row {
+              grid-template-columns: 1fr !important;
+              gap: 0.25rem !important;
+              padding: 0.75rem 0 !important;
+            }
+            .supaprintz-modal-actions {
+              flex-direction: column !important;
+              gap: 0.6rem !important;
+              margin-top: 1.1rem !important;
+            }
+            .supaprintz-modal-actions a {
+              width: 100% !important;
+              flex-basis: auto !important;
+            }
+            .supaprintz-modal-close {
+              top: 10px !important;
+              right: 10px !important;
+              width: 34px !important;
+              height: 34px !important;
+            }
+          }
+        `}</style>
         <div style={{
           position: "relative",
           background: "#ffffff",
           borderBottom: `6px solid ${SUPAPRINTZ_COLORS.orange}`,
         }}>
           <img
+            className="supaprintz-modal-banner"
             src={SUPAPRINTZ_PARTNER.banner}
             alt="Supaprintz.my Printing Advertising Design"
             style={{
@@ -101,6 +157,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
             }}
           />
           <button
+            className="supaprintz-modal-close"
             type="button"
             aria-label="Close Supaprintz partner details"
             onClick={onClose}
@@ -126,24 +183,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
           </button>
         </div>
 
-        <div style={{ padding: "1.6rem 2rem 2rem" }}>
-          <div style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.45rem",
-            border: `1px solid ${SUPAPRINTZ_COLORS.yellow}`,
-            background: "rgba(255,193,14,0.16)",
-            color: SUPAPRINTZ_COLORS.navy,
-            borderRadius: 50,
-            padding: "0.28rem 0.75rem",
-            fontSize: "0.68rem",
-            fontWeight: 800,
-            letterSpacing: "0.09em",
-            textTransform: "uppercase",
-            marginBottom: "1rem",
-          }}>
-            Our Partner
-          </div>
+        <div className="supaprintz-modal-body" style={{ padding: "1.6rem 2rem 2rem" }}>
           <h3 id="supaprintz-modal-title" style={{
             fontSize: "clamp(1.4rem, 4vw, 1.9rem)",
             lineHeight: 1.15,
@@ -169,7 +209,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
             ["Phone", SUPAPRINTZ_PARTNER.phone],
             ["Email", SUPAPRINTZ_PARTNER.email],
           ].map(([label, value]) => (
-            <div key={label} style={{
+            <div className="supaprintz-detail-row" key={label} style={{
               display: "grid",
               gridTemplateColumns: "88px 1fr",
               gap: "1rem",
@@ -185,7 +225,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
             </div>
           ))}
 
-          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "1.5rem" }}>
+          <div className="supaprintz-modal-actions" style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "1.5rem" }}>
             <a
               href={SUPAPRINTZ_PARTNER.whatsappUrl}
               target="_blank"
@@ -198,15 +238,16 @@ function SupaprintzPartnerModal({ open, onClose }) {
                 flex: "1 1 150px",
                 minHeight: 44,
                 borderRadius: 50,
-                background: SUPAPRINTZ_COLORS.navy,
-                color: SUPAPRINTZ_COLORS.yellow,
+                background: SUPAPRINTZ_COLORS.whatsapp,
+                color: "#ffffff",
                 textDecoration: "none",
                 fontSize: "0.86rem",
                 fontWeight: 800,
-                boxShadow: "0 14px 28px rgba(29,24,72,0.18)",
+                boxShadow: "0 14px 28px rgba(37,211,102,0.22)",
               }}
             >
-              WhatsApp Our Partner
+              <WhatsAppIcon />
+              Chat on WhatsApp
             </a>
             <a
               href={SUPAPRINTZ_PARTNER.facebookUrl}
@@ -220,15 +261,16 @@ function SupaprintzPartnerModal({ open, onClose }) {
                 flex: "1 1 150px",
                 minHeight: 44,
                 borderRadius: 50,
-                border: `1px solid ${SUPAPRINTZ_COLORS.orange}`,
-                background: "rgba(239,78,35,0.08)",
-                color: SUPAPRINTZ_COLORS.orange,
+                background: SUPAPRINTZ_COLORS.facebook,
+                color: "#ffffff",
                 textDecoration: "none",
                 fontSize: "0.86rem",
                 fontWeight: 800,
+                boxShadow: "0 14px 28px rgba(24,119,242,0.2)",
               }}
             >
-              Facebook
+              <FacebookIcon />
+              Visit Facebook
             </a>
           </div>
         </div>
