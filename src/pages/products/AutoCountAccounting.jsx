@@ -967,13 +967,15 @@ export default function AutoCountAccountingPage({ onContact }) {
             /* collect all items from older→newer (exclusive) */
             const olderIdx = RELEASES.indexOf(older);
             const newerIdx = RELEASES.indexOf(newer);
-            const between = RELEASES.slice(newerIdx, olderIdx + 1);
+            const between = olderIdx === newerIdx
+              ? [newer]
+              : RELEASES.slice(newerIdx, olderIdx);
             const allFeatures = between.flatMap(r => r.features.map(f => ({ ver: r.version, rev: r.rev, text: f })));
             const allFixes = between.flatMap(r => r.fixes.map(f => ({ ver: r.version, rev: r.rev, text: f })));
             return (
               <div>
                 {/* Selectors */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "1rem", alignItems: "center", marginBottom: "2rem" }}>
+                <div className="release-compare-selectors" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "1rem", alignItems: "center", marginBottom: "2rem" }}>
                   <div>
                     <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>From version</label>
                     <select value={compareA} onChange={e => setCompareA(e.target.value)}
@@ -1016,7 +1018,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                 </div>
 
                 {/* Changelog between the two versions */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
+                <div className="release-detail-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
                   <div style={{ background: "#ffffff", borderRadius: 14, padding: "1.4rem", border: "1px solid rgba(47,49,90,0.1)" }}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
                       <div style={{ fontSize: "0.82rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#2f315a" }}>New Features ({allFeatures.length})</div>

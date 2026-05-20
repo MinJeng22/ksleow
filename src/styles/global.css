@@ -88,6 +88,14 @@ body {
   .case-2col           { grid-template-columns: 1fr !important; }
   /* AutoCount Accounting page */
   .ac-features-grid    { grid-template-columns: repeat(2, 1fr) !important; }
+  .release-compare-selectors {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+  .release-compare-selectors > div:nth-child(2) {
+    margin-top: 0 !important;
+    transform: rotate(90deg);
+  }
 
   /* ── Compact homepage section padding on mobile ── */
   .home-section { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
