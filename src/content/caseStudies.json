@@ -1,5 +1,5 @@
 {
-  "eyebrow": "Success Stories",
+  "eyebrow": "WHAT WE ALSO DO",
   "heading": "Other Services",
   "intro": "Explore additional services that support your business operations, customer reach, and AutoCount workflows.",
   "ctaLabel": "",
@@ -17,7 +17,7 @@
       "key": "plugin",
       "tag": "AutoCount - Plugin Development",
       "title": "AutoCount Plugin",
-      "desc": "Custom AutoCount plugin development and workflow extensions, including Sales2DO automation for turning sales documents into delivery order processes more efficiently.",
+      "desc": "Custom AutoCount plugin development and workflow extensions designed to automate repetitive document flows, reduce manual entry, and adapt AutoCount Accounting to real business operations.",
       "image": "/images/case-studies/acplugin.png",
       "route": "/apps/autocount-plugin"
     },

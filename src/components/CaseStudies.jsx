@@ -7,7 +7,7 @@ import caseStudiesContent from "../content/caseStudies.json";
 const CASES = caseStudiesContent.items || [];
 const SUPAPRINTZ_PARTNER = {
   name: "Supaprintz.my",
-  category: "Printing / Advertising / Design",
+  category: "ONE STOP PRINTING HUB @ TEMERLOH",
   address: "No. 8, Ground Floor, Jalan Dagang Utama, Dynaton Bukit Angin, 28000",
   phone: "011-5585 9576",
   email: "suparintz.my@gmail.com",
@@ -94,7 +94,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
           width: "min(560px, 100%)",
           borderRadius: 24,
           overflow: "hidden",
-          background: "#ffffff",
+          background: SUPAPRINTZ_COLORS.navy,
           boxShadow: "0 28px 90px rgba(0,0,0,0.34)",
         }}
       >
@@ -141,8 +141,9 @@ function SupaprintzPartnerModal({ open, onClose }) {
         `}</style>
         <div style={{
           position: "relative",
-          background: "#ffffff",
+          background: SUPAPRINTZ_COLORS.navy,
           borderBottom: `6px solid ${SUPAPRINTZ_COLORS.orange}`,
+          lineHeight: 0,
         }}>
           <img
             className="supaprintz-modal-banner"
@@ -151,7 +152,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
             style={{
               display: "block",
               width: "100%",
-              aspectRatio: "2048 / 1024",
+              aspectRatio: "16 / 9",
               objectFit: "cover",
               objectPosition: "center",
             }}
