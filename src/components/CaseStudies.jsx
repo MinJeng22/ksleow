@@ -11,6 +11,14 @@ const SUPAPRINTZ_PARTNER = {
   address: "No. 8, Ground Floor, Jalan Dagang Utama, Dynaton Bukit Angin, 28000",
   phone: "011-5585 9576",
   email: "suparintz.my@gmail.com",
+  banner: "/images/partners/supaprintz.my-banner.png",
+  whatsappUrl: "https://wa.me/601155859576",
+  facebookUrl: "https://www.facebook.com/supaprintz.my",
+};
+const SUPAPRINTZ_COLORS = {
+  yellow: "#ffc10e",
+  navy: "#1d1848",
+  orange: "#ef4e23",
 };
 
 /* accent colours and placeholder icons for each card */
@@ -57,7 +65,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
         position: "fixed",
         inset: 0,
         zIndex: 80,
-        background: "rgba(20,22,40,0.58)",
+        background: "rgba(29,24,72,0.68)",
         backdropFilter: "blur(12px)",
         display: "flex",
         alignItems: "center",
@@ -69,19 +77,29 @@ function SupaprintzPartnerModal({ open, onClose }) {
         onClick={(event) => event.stopPropagation()}
         style={{
           width: "min(560px, 100%)",
-          borderRadius: 22,
+          borderRadius: 24,
           overflow: "hidden",
           background: "#ffffff",
-          boxShadow: "0 28px 90px rgba(15,18,40,0.35)",
-          border: "1px solid rgba(255,255,255,0.65)",
+          boxShadow: "0 28px 90px rgba(29,24,72,0.38)",
+          border: `1px solid ${SUPAPRINTZ_COLORS.yellow}`,
         }}
       >
         <div style={{
           position: "relative",
-          background: "#2f315a",
-          color: "#ffffff",
-          padding: "2rem 2rem 1.75rem",
+          background: "#ffffff",
+          borderBottom: `6px solid ${SUPAPRINTZ_COLORS.orange}`,
         }}>
+          <img
+            src={SUPAPRINTZ_PARTNER.banner}
+            alt="Supaprintz.my Printing Advertising Design"
+            style={{
+              display: "block",
+              width: "100%",
+              aspectRatio: "2048 / 1024",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+          />
           <button
             type="button"
             aria-label="Close Supaprintz partner details"
@@ -93,29 +111,33 @@ function SupaprintzPartnerModal({ open, onClose }) {
               width: 38,
               height: 38,
               borderRadius: "50%",
-              border: "1px solid rgba(255,255,255,0.24)",
-              background: "rgba(255,255,255,0.1)",
-              color: "#ffffff",
+              border: `1px solid ${SUPAPRINTZ_COLORS.navy}`,
+              background: "rgba(255,255,255,0.92)",
+              color: SUPAPRINTZ_COLORS.navy,
               cursor: "pointer",
               display: "grid",
               placeItems: "center",
+              boxShadow: "0 10px 24px rgba(29,24,72,0.18)",
             }}
           >
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round">
               <path d="M18 6 6 18M6 6l12 12" />
             </svg>
           </button>
+        </div>
+
+        <div style={{ padding: "1.6rem 2rem 2rem" }}>
           <div style={{
             display: "inline-flex",
             alignItems: "center",
             gap: "0.45rem",
-            border: "1px solid rgba(201,168,76,0.45)",
-            background: "rgba(201,168,76,0.14)",
-            color: "#e9cf77",
+            border: `1px solid ${SUPAPRINTZ_COLORS.yellow}`,
+            background: "rgba(255,193,14,0.16)",
+            color: SUPAPRINTZ_COLORS.navy,
             borderRadius: 50,
             padding: "0.28rem 0.75rem",
             fontSize: "0.68rem",
-            fontWeight: 700,
+            fontWeight: 800,
             letterSpacing: "0.09em",
             textTransform: "uppercase",
             marginBottom: "1rem",
@@ -123,19 +145,25 @@ function SupaprintzPartnerModal({ open, onClose }) {
             Our Partner
           </div>
           <h3 id="supaprintz-modal-title" style={{
-            fontSize: "clamp(1.8rem, 5vw, 2.55rem)",
-            lineHeight: 1.05,
-            fontWeight: 750,
-            marginBottom: "0.55rem",
+            fontSize: "clamp(1.4rem, 4vw, 1.9rem)",
+            lineHeight: 1.15,
+            color: SUPAPRINTZ_COLORS.navy,
+            fontWeight: 800,
+            marginBottom: "0.35rem",
           }}>
             {SUPAPRINTZ_PARTNER.name}
           </h3>
-          <p style={{ color: "rgba(255,255,255,0.78)", fontSize: "1rem", lineHeight: 1.65 }}>
+          <p style={{
+            color: SUPAPRINTZ_COLORS.orange,
+            fontSize: "0.9rem",
+            lineHeight: 1.6,
+            fontWeight: 800,
+            letterSpacing: "0.04em",
+            textTransform: "uppercase",
+            marginBottom: "0.8rem",
+          }}>
             {SUPAPRINTZ_PARTNER.category}
           </p>
-        </div>
-
-        <div style={{ padding: "1.6rem 2rem 2rem" }}>
           {[
             ["Address", SUPAPRINTZ_PARTNER.address],
             ["Phone", SUPAPRINTZ_PARTNER.phone],
@@ -148,10 +176,10 @@ function SupaprintzPartnerModal({ open, onClose }) {
               padding: "0.95rem 0",
               borderBottom: "1px solid rgba(47,49,90,0.08)",
             }}>
-              <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "#c9a84c", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              <div style={{ fontSize: "0.68rem", fontWeight: 800, color: SUPAPRINTZ_COLORS.orange, letterSpacing: "0.1em", textTransform: "uppercase" }}>
                 {label}
               </div>
-              <div style={{ fontSize: "0.95rem", color: "#2f315a", lineHeight: 1.55, fontWeight: 600 }}>
+              <div style={{ fontSize: "0.95rem", color: SUPAPRINTZ_COLORS.navy, lineHeight: 1.55, fontWeight: 650 }}>
                 {value}
               </div>
             </div>
@@ -159,7 +187,9 @@ function SupaprintzPartnerModal({ open, onClose }) {
 
           <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "1.5rem" }}>
             <a
-              href="tel:+601155859576"
+              href={SUPAPRINTZ_PARTNER.whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -168,17 +198,20 @@ function SupaprintzPartnerModal({ open, onClose }) {
                 flex: "1 1 150px",
                 minHeight: 44,
                 borderRadius: 50,
-                background: "#2f315a",
-                color: "#ffffff",
+                background: SUPAPRINTZ_COLORS.navy,
+                color: SUPAPRINTZ_COLORS.yellow,
                 textDecoration: "none",
                 fontSize: "0.86rem",
-                fontWeight: 700,
+                fontWeight: 800,
+                boxShadow: "0 14px 28px rgba(29,24,72,0.18)",
               }}
             >
-              Call Partner
+              WhatsApp Our Partner
             </a>
             <a
-              href={`mailto:${SUPAPRINTZ_PARTNER.email}`}
+              href={SUPAPRINTZ_PARTNER.facebookUrl}
+              target="_blank"
+              rel="noreferrer"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -187,14 +220,15 @@ function SupaprintzPartnerModal({ open, onClose }) {
                 flex: "1 1 150px",
                 minHeight: 44,
                 borderRadius: 50,
-                border: "1px solid rgba(47,49,90,0.16)",
-                color: "#2f315a",
+                border: `1px solid ${SUPAPRINTZ_COLORS.orange}`,
+                background: "rgba(239,78,35,0.08)",
+                color: SUPAPRINTZ_COLORS.orange,
                 textDecoration: "none",
                 fontSize: "0.86rem",
-                fontWeight: 700,
+                fontWeight: 800,
               }}
             >
-              Email Partner
+              Facebook
             </a>
           </div>
         </div>
