@@ -1,7 +1,7 @@
 import { LOGO_FOOTER as LOGO } from "../assets/assets.js";
 
-const SUPPORT_WHATSAPP = "60169902279";
-const SUPPORT_MESSAGE = "Hi Elise, I would like to start the AutoCount Accounting 2.2 Free Trial and schedule an installation session. I can prepare AnyDesk / UltraViewer. I want to try ... edition.";
+const SUPPORT_WHATSAPP = "60179052323";
+const SUPPORT_MESSAGE = "HI KS Support Team, I would like to start the AutoCount Accounting 2.2 Free Trial and schedule an installation session. I can prepare AnyDesk / UltraViewer. I want to try ... edition.";
 const SUPPORT_WA_LINK = `https://wa.me/${SUPPORT_WHATSAPP}?text=${encodeURIComponent(SUPPORT_MESSAGE)}`;
 
 const CloseIcon = () => (

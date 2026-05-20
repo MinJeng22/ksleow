@@ -6,9 +6,9 @@ import ProductHero from "../../components/ProductHero.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
-/* AutoCount Accounting page — product-aware WhatsApp link to Sales Agent Elise */
-const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
-  "Hi Elise, I would like to learn more about AutoCount Accounting. Thank you."
+/* AutoCount Accounting page — product-aware WhatsApp link to KSL Support Team */
+const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
+  "HI KS Support Team, I would like to learn more about AutoCount Accounting. Thank you."
 )}`;
 import { PRODUCT_IMAGES } from "../../assets/assets.js";
 

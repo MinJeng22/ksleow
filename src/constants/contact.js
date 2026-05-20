@@ -28,8 +28,8 @@ export const WA_MSG = encodeURIComponent(
 );
 export const WA_LINK = `https://wa.me/${CONTACT.whatsapp}?text=${WA_MSG}`;
 
-/* Sales Agent — Elise (for AutoCount & Sales2DO product pages) */
-export const WA_ELISE = `https://wa.me/60169902279?text=${WA_MSG}`;
+/* Product support WhatsApp link for AutoCount & Sales2DO product pages. */
+export const WA_PRODUCT_SUPPORT = `https://wa.me/${CONTACT.whatsapp}?text=${WA_MSG}`;
 
 /* ══════════════════════════════════════════════════════════════
  * PER-SERVICE CONTACT DETAILS

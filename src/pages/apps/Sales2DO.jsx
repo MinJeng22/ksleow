@@ -3,9 +3,9 @@ import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
 import { Vid, Img } from "../../components/Media.jsx";
-/* Sales2DO-specific WhatsApp link — addressed to Elise with a product-aware message */
-const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
-  "Hi Elise, I would like to learn more about AutoCount Plugin Sales2DO. Thank you."
+/* Sales2DO-specific WhatsApp link — addressed to KSL Support Team with a product-aware message */
+const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
+  "HI KS Support Team, I would like to learn more about AutoCount Plugin Sales2DO. Thank you."
 )}`;
 import AIChatbot from "../../components/AIChatbot.jsx";
 import sales2doContent from "../../content/sales2do.json";
