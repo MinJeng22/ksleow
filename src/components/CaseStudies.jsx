@@ -94,7 +94,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
           width: "min(560px, 100%)",
           borderRadius: 24,
           overflow: "hidden",
-          background: SUPAPRINTZ_COLORS.navy,
+          background: "#ffffff",
           boxShadow: "0 28px 90px rgba(0,0,0,0.34)",
         }}
       >
@@ -111,7 +111,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
               border-radius: 18px !important;
               margin: 0.35rem 0 !important;
             }
-            .supaprintz-modal-banner {
+            .supaprintz-modal-banner-frame {
               aspect-ratio: 16 / 9 !important;
             }
             .supaprintz-modal-body {
@@ -139,11 +139,13 @@ function SupaprintzPartnerModal({ open, onClose }) {
             }
           }
         `}</style>
-        <div style={{
+        <div className="supaprintz-modal-banner-frame" style={{
           position: "relative",
-          background: SUPAPRINTZ_COLORS.navy,
+          background: "#ffffff",
           borderBottom: `6px solid ${SUPAPRINTZ_COLORS.orange}`,
+          aspectRatio: "16 / 9",
           lineHeight: 0,
+          overflow: "hidden",
         }}>
           <img
             className="supaprintz-modal-banner"
@@ -152,9 +154,10 @@ function SupaprintzPartnerModal({ open, onClose }) {
             style={{
               display: "block",
               width: "100%",
-              aspectRatio: "16 / 9",
+              height: "calc(100% + 10px)",
               objectFit: "cover",
               objectPosition: "center",
+              transform: "translateY(-6px)",
             }}
           />
           <button
