@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { SERVICE_CONTACTS } from "../constants/contact.js";
-import ParticleBackground from "./ParticleBackground";
 import servicesContent from "../content/services.json";
 import officesContent  from "../content/offices.json";
 import branding        from "../content/branding.json";
@@ -455,19 +454,6 @@ export default function Services() {
         className="home-section"
         style={{ position: "relative", overflow: "hidden", background: "#ffffff", padding: "6rem 0" }}
       >
-        <ParticleBackground
-          paused={false}
-          backgroundStart="#ffffff"
-          backgroundEnd="#ffffff"
-          lineRgb="201,168,76"
-          dotRgb="201,168,76"
-          highlightRgb="232,201,122"
-          dotOutlineRgb="138,106,24"
-          vignetteEnd="rgba(47,49,90,0.025)"
-          densityScale={1.35}
-          lineAlphaScale={0.42}
-          dotAlpha={0.5}
-        />
         <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.75rem" }}>
             {servicesContent.eyebrow}
