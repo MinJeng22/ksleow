@@ -27,13 +27,19 @@ function Home({ onContact }) {
   return (
     <>
       <HomeImagePreloader />
-      <Hero onContact={onContact} />
-      <Stats />
-      <Services />
-      <Products onContact={onContact} />
-      <CaseStudies onContact={onContact} />
-      <Careers />
-      <Footer />
+      <div className="home-pinned-layout">
+        <div className="home-hero-layer">
+          <Hero onContact={onContact} />
+        </div>
+        <main className="home-content-layer">
+          <Stats />
+          <Services />
+          <Products onContact={onContact} />
+          <CaseStudies onContact={onContact} />
+          <Careers />
+          <Footer />
+        </main>
+      </div>
     </>
   );
 }
