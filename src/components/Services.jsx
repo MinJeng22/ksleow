@@ -142,7 +142,7 @@ function ServiceCard({ service }) {
             willChange: "transform",
             contain: "paint",
             borderRadius: 18,
-            background: isWebinar ? "#15172f" : "#f5f5f8",
+            background: "#f5f5f8",
             border: "1px solid rgba(47,49,90,0.09)",
             padding: "1.4rem",
             display: "flex", flexDirection: "column",
@@ -166,16 +166,17 @@ function ServiceCard({ service }) {
               <div
                 aria-hidden="true"
                 style={{
-                  position: "absolute", inset: 0,
+                  position: "absolute", inset: 1,
                   backgroundImage: "url(/images/services/webinar-scene.svg)",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
+                  borderRadius: 17,
                   transform: "scale(1.02)",
                 }}
               />
               <div
                 aria-hidden="true"
-                style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.46)" }}
+                style={{ position: "absolute", inset: 1, borderRadius: 17, background: "rgba(0,0,0,0.46)" }}
               />
             </>
           )}
