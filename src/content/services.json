@@ -104,15 +104,15 @@
       ]
     },
     {
-      "key": "webinar",
-      "title": "Webinar & Workshops",
-      "desc": "Live webinars and on-demand training on accounting, tax, and business software.",
-      "backgroundImage": "/images/services/webinar-scene.svg",
       "hideBadge": true,
       "officeKey": null,
-      "badgeType": "none",
+      "logos": [],
+      "backgroundImage": "/images/services/webinar.jpg",
       "badgeLabel": "",
-      "logos": []
+      "desc": "Live webinars and on-demand training on accounting, tax, and business software.",
+      "title": "Webinar & Workshops",
+      "badgeType": "none",
+      "key": "webinar"
     }
   ]
 }
