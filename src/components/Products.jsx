@@ -55,8 +55,9 @@ function ProductCard({ product, productIndex, order, hovered, revealed, onHover,
       onMouseEnter={() => onHover(productIndex)}
       onMouseLeave={onLeave}
       onClick={() => clickable && onOpen(product.route)}
+      className="product-card"
       style={{
-        borderRadius: 16, overflow: "hidden",
+        borderRadius: 0, overflow: "hidden",
         border: `1px solid ${isHov ? "rgba(47,49,90,0.3)" : "rgba(47,49,90,0.11)"}`,
         background: "#ffffff",
         transition: "border-color 0.26s",
@@ -147,14 +148,17 @@ export default function Products({ onContact }) {
     return () => query.removeListener(sync);
   }, []);
 
-  const visibleCount = Math.min(isMobile ? 2 : 4, PRODUCTS.length);
-  const canSlide = PRODUCTS.length > visibleCount;
-  const visibleProducts = canSlide
-    ? Array.from({ length: visibleCount }, (_, order) => {
-        const productIndex = (startIndex + order) % PRODUCTS.length;
+  const visibleCount = isMobile ? Math.min(3, PRODUCTS.length) : Math.min(6, PRODUCTS.length);
+  const canSlide = PRODUCTS.length > 1;
+  const visibleProducts = isMobile
+    ? [-1, 0, 1].slice(0, visibleCount).map((offset, order) => {
+        const productIndex = (startIndex + offset + PRODUCTS.length) % PRODUCTS.length;
         return { product: PRODUCTS[productIndex], productIndex, order };
       })
-    : PRODUCTS.map((product, productIndex) => ({ product, productIndex, order: productIndex }));
+    : Array.from({ length: visibleCount }, (_, order) => {
+        const productIndex = (startIndex + order) % PRODUCTS.length;
+        return { product: PRODUCTS[productIndex], productIndex, order };
+      });
   const showPrevious = () => setStartIndex(i => (i - 1 + PRODUCTS.length) % PRODUCTS.length);
   const showNext = () => setStartIndex(i => (i + 1) % PRODUCTS.length);
 
@@ -207,12 +211,12 @@ export default function Products({ onContact }) {
           )}
           <div
             ref={gridRef}
-            className="products-grid"
-            style={{ display: "grid", gridTemplateColumns: `repeat(${visibleCount}, 1fr)`, gridAutoRows: "1fr", minHeight: 380, gap: "1.25rem" }}
+            className="products-grid products-grid-carousel"
+            style={{ display: "grid", gridTemplateColumns: `repeat(${visibleCount}, 1fr)`, gridAutoRows: "1fr", minHeight: 380, gap: "0.9rem" }}
           >
             {visibleProducts.map(({ product, productIndex, order }) => (
               <ProductCard
-                key={product.name}
+                key={`${product.name}-${productIndex}-${order}`}
                 product={product}
                 productIndex={productIndex}
                 order={order}

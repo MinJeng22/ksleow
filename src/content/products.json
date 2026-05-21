@@ -47,6 +47,15 @@
       "placeholder": "☁️",
       "gradient": "rgb(168, 198, 232)",
       "route": ""
+    },
+    {
+      "name": "Sales2DO Plugin",
+      "desc": "AutoCount plugin that converts invoices or cash sales into delivery orders with smart outstanding quantity control.",
+      "image": "/images/icons/ac-plugin-icon.png",
+      "background": "/images/case-studies/acplugin.png",
+      "placeholder": "S2D",
+      "gradient": "rgb(226, 229, 241)",
+      "route": "/apps/sales2do"
     }
   ]
 }
