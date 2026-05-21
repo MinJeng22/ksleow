@@ -464,6 +464,7 @@ export default function Services() {
           highlightRgb="232,201,122"
           dotOutlineRgb="138,106,24"
           vignetteEnd="rgba(47,49,90,0.025)"
+          densityScale={1.35}
           lineAlphaScale={0.42}
           dotAlpha={0.5}
         />

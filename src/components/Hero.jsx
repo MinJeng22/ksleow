@@ -47,7 +47,7 @@ export default function Hero({ onContact }) {
         overflow: "hidden",
       }}
     >
-      <ParticleBackground paused={paused} />
+      <ParticleBackground paused={paused} densityScale={1.35} />
 
       {/*
        * DESKTOP layout (>640px):
