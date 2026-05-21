@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SERVICE_CONTACTS } from "../constants/contact.js";
+import ParticleBackground from "./ParticleBackground";
 import servicesContent from "../content/services.json";
 import officesContent  from "../content/offices.json";
 import branding        from "../content/branding.json";
@@ -86,6 +87,7 @@ function BadgeRow({ badge }) {
 /* ── Flip card ── */
 function ServiceCard({ service }) {
   const [flipped, setFlipped] = useState(false);
+  const cardRef = useRef(null);
   const contact = SERVICE_CONTACTS[service.key] || {};
   const office  = (service.officeKey && OFFICES[service.officeKey]) || null;
   const waNumber  = contact.whatsapp || "60179052323";
@@ -102,9 +104,25 @@ function ServiceCard({ service }) {
     .replace("No.8-9, 1st Floor, ", "")
     .replace("No.8-9, 2nd Floor, ", "")
     .replace("Kampung Catin, 28400 ", "");
+  const isWebinar = service.key === "webinar";
+
+  useEffect(() => {
+    const node = cardRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) setFlipped(false);
+        });
+      },
+      { threshold: 0.12 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div style={{ perspective: "1000px", height: 290 }}>
+    <div ref={cardRef} style={{ perspective: "1000px", height: 290 }}>
       <div style={{
         position: "relative", width: "100%", height: "100%",
         transformStyle: "preserve-3d",
@@ -118,10 +136,13 @@ function ServiceCard({ service }) {
           style={{
             position: "absolute", inset: 0,
             backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden",
-            borderRadius: 18, background: "#f5f5f8",
+            borderRadius: 18,
+            background: isWebinar ? "#15172f" : "#f5f5f8",
             border: "1px solid rgba(47,49,90,0.09)",
             padding: "1.4rem",
             display: "flex", flexDirection: "column",
+            overflow: "hidden",
+            pointerEvents: flipped ? "none" : "auto",
             cursor: "pointer",
             transition: "border-color 0.2s, box-shadow 0.2s",
           }}
@@ -135,18 +156,50 @@ function ServiceCard({ service }) {
           }}
         >
           {/* Top row — badge centered horizontally */}
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", marginBottom: "1rem" }}>
-            {(service.dealer || service.certified)
-              ? <BadgeRow badge={service.dealer || service.certified} />
-              : <div />
-            }
-          </div>
+          {isWebinar && (
+            <>
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute", inset: 0,
+                  backgroundImage: "url(/images/services/webinar-scene.svg)",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  transform: "scale(1.02)",
+                }}
+              />
+              <div
+                aria-hidden="true"
+                style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.46)" }}
+              />
+            </>
+          )}
 
-          <h3 style={{ fontSize: "clamp(1.18rem, 1.5vw, 1.38rem)", fontWeight: 800, color: "#2f315a", marginBottom: "0.6rem", lineHeight: 1.22 }}>
+          {!isWebinar && (
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", marginBottom: "1rem" }}>
+              {(service.dealer || service.certified)
+                ? <BadgeRow badge={service.dealer || service.certified} />
+                : <div />
+              }
+            </div>
+          )}
+
+          <h3 style={{
+            position: "relative", zIndex: 1,
+            fontSize: "clamp(1.18rem, 1.5vw, 1.38rem)",
+            fontWeight: 800,
+            color: isWebinar ? "#ffffff" : "#2f315a",
+            marginBottom: "0.6rem",
+            lineHeight: 1.22,
+            textShadow: isWebinar ? "0 2px 14px rgba(0,0,0,0.36)" : "none",
+          }}>
             {service.title}
           </h3>
           <p style={{
-            fontSize: "0.83rem", color: "#6b6f91", lineHeight: 1.6,
+            position: "relative", zIndex: 1,
+            fontSize: "0.83rem",
+            color: isWebinar ? "rgba(255,255,255,0.84)" : "#6b6f91",
+            lineHeight: 1.6,
             margin: 0,
             /* Clamp to 4 lines max — paired with shorter descriptions in
                services.json so lines never get visually cut. */
@@ -162,13 +215,14 @@ function ServiceCard({ service }) {
 
           {/* Subtle "tap to flip" hint — bottom-right */}
           <div style={{
+            position: "relative", zIndex: 1,
             display: "inline-flex", alignItems: "center", gap: "0.35rem",
             marginTop: "0.6rem",
             alignSelf: "flex-end",
-            fontSize: "0.68rem", color: "#a8abcc", fontWeight: 500,
+            fontSize: "0.84rem", color: "#c9a84c", fontWeight: 700,
           }}>
             Tap for contact
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </div>
@@ -194,6 +248,7 @@ function ServiceCard({ service }) {
             background: "#20255a",
             border: "none",
             display: "flex", flexDirection: "column",
+            pointerEvents: flipped ? "auto" : "none",
             color: "#ffffff",
             boxShadow: "0 10px 32px rgba(15,17,40,0.22)",
           }}
@@ -274,7 +329,7 @@ function ServiceCard({ service }) {
 
             {/* Right: QR code panel */}
             <div
-              onClick={e => e.stopPropagation()}
+              onClick={() => setFlipped(false)}
               style={{
                 flexShrink: 0,
                 alignSelf: "center",
@@ -382,8 +437,21 @@ export default function Services() {
   return (
     <>
       <style>{`@keyframes cardFlip { from { opacity: 0; } to { opacity: 1; } }`}</style>
-      <section id="services" className="home-section" style={{ background: "#ffffff", padding: "6rem 0" }}>
-        <div className="content-wrap">
+      <section
+        id="services"
+        className="home-section"
+        style={{ position: "relative", overflow: "hidden", background: "#edf8ff", padding: "6rem 0" }}
+      >
+        <ParticleBackground
+          paused={false}
+          backgroundStart="#f6fbff"
+          backgroundEnd="#e4f4ff"
+          lineRgb="95,166,214"
+          dotRgb="65,143,199"
+          highlightRgb="38,119,184"
+          vignetteEnd="rgba(46,132,190,0.12)"
+        />
+        <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.75rem" }}>
             {servicesContent.eyebrow}
           </div>

@@ -43,12 +43,23 @@ function rand(a, b) { return Math.random() * (b - a) + a; }
  * tablet (640–1024) → 1.0–1.9
  * desktop (> 1024) → 1.3–2.4  (original)               */
 function particleRadius(W) {
-  if (W < 640)  return rand(0.8, 1.6);
+  if (W < 640)  return rand(1.35, 2.55);
   if (W < 1024) return rand(1.0, 1.9);
   return rand(1.3, 2.4);
 }
 
-export default function ParticleBackground({ paused }) {
+export default function ParticleBackground({
+  paused,
+  backgroundStart = "#0f1128",
+  backgroundEnd = "#07080f",
+  lineRgb = "201,168,76",
+  dotRgb = "201,168,76",
+  highlightRgb = "232,201,122",
+  vignetteEnd = "rgba(0,0,0,0.52)",
+  dotOutlineRgb = "47,49,90",
+  dotOutlineAlpha = 0.36,
+  dotOutlineWidth = 1.05,
+}) {
   const canvasRef = useRef(null);
   const stateRef  = useRef({
     particles: [],
@@ -80,12 +91,12 @@ export default function ParticleBackground({ paused }) {
       s.W = W; s.H = H; s.lastW = W;
 
       s.bgGrad = ctx.createLinearGradient(0, 0, W * 0.5, H);
-      s.bgGrad.addColorStop(0, "#0f1128");
-      s.bgGrad.addColorStop(1, "#07080f");
+      s.bgGrad.addColorStop(0, backgroundStart);
+      s.bgGrad.addColorStop(1, backgroundEnd);
 
       s.vigGrad = ctx.createRadialGradient(W/2, H/2, H*0.2, W/2, H/2, H*0.82);
       s.vigGrad.addColorStop(0, "rgba(0,0,0,0)");
-      s.vigGrad.addColorStop(1, "rgba(0,0,0,0.52)");
+      s.vigGrad.addColorStop(1, vignetteEnd);
 
       const N = Math.min(maxParticlesFor(W), Math.max(minParticlesFor(W), Math.round(W * H * densityFor(W))));
       s.particles = Array.from({ length: N }, () => ({
@@ -106,12 +117,12 @@ export default function ParticleBackground({ paused }) {
 
       /* rebuild gradients for new height */
       s.bgGrad = ctx.createLinearGradient(0, 0, W * 0.5, H);
-      s.bgGrad.addColorStop(0, "#0f1128");
-      s.bgGrad.addColorStop(1, "#07080f");
+      s.bgGrad.addColorStop(0, backgroundStart);
+      s.bgGrad.addColorStop(1, backgroundEnd);
 
       s.vigGrad = ctx.createRadialGradient(W/2, H/2, H*0.2, W/2, H/2, H*0.82);
       s.vigGrad.addColorStop(0, "rgba(0,0,0,0)");
-      s.vigGrad.addColorStop(1, "rgba(0,0,0,0.52)");
+      s.vigGrad.addColorStop(1, vignetteEnd);
 
       /* clamp existing particles to new height — no jump */
       for (const p of s.particles) {
@@ -174,7 +185,7 @@ export default function ParticleBackground({ paused }) {
       ctx.lineWidth = 0.8;
       const alphas = [0.52, 0.34, 0.18, 0.07];
       for (let b = 0; b < BUCKETS; b++) {
-        ctx.strokeStyle = `rgba(201,168,76,${alphas[b]})`;
+        ctx.strokeStyle = `rgba(${lineRgb},${alphas[b]})`;
         ctx.stroke(paths[b]);
       }
 
@@ -186,7 +197,7 @@ export default function ParticleBackground({ paused }) {
           const dSq = dx*dx + dy*dy;
           if (dSq < MOUSE_R_SQ) {
             const alpha = (1 - dSq / MOUSE_R_SQ) * 0.65;
-            ctx.strokeStyle = `rgba(232,201,122,${alpha})`;
+            ctx.strokeStyle = `rgba(${highlightRgb},${alpha})`;
             ctx.lineWidth = 1.1;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
@@ -197,14 +208,19 @@ export default function ParticleBackground({ paused }) {
       }
 
       /* dots — single batch */
-      ctx.fillStyle = "rgba(201,168,76,0.88)";
-      ctx.beginPath();
+      const dotPath = new Path2D();
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
-        ctx.moveTo(p.x + p.r, p.y);
-        ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+        dotPath.moveTo(p.x + p.r, p.y);
+        dotPath.arc(p.x, p.y, p.r, 0, 6.2832);
       }
-      ctx.fill();
+      if (W < 640) {
+        ctx.strokeStyle = `rgba(${dotOutlineRgb},${dotOutlineAlpha})`;
+        ctx.lineWidth = dotOutlineWidth;
+        ctx.stroke(dotPath);
+      }
+      ctx.fillStyle = `rgba(${dotRgb},0.88)`;
+      ctx.fill(dotPath);
 
       ctx.fillStyle = vigGrad;
       ctx.fillRect(0, 0, W, H);

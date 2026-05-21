@@ -129,6 +129,19 @@ body {
   .careers-line2 { margin-left: 0 !important; }
 
   /* ── Products section: smaller cards on mobile (2-col grid above) ── */
+  .products-section .products-header {
+    align-items: flex-start !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .products-section .products-carousel-controls {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .products-section .products-carousel-controls button {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 1.12rem !important;
+  }
   .products-section h2 { font-size: clamp(1.3rem, 5.5vw, 1.7rem) !important; margin-bottom: 0.5rem !important; }
   .products-section p  { font-size: 0.86rem !important; line-height: 1.55 !important; margin-bottom: 1.5rem !important; }
   /* Each product card: tighter image area + smaller text padding */

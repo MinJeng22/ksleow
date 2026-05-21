@@ -15,7 +15,18 @@ const PRODUCTS = (productsContent.items || []).map(p => ({
 
 export default function Products({ onContact }) {
   const [hovered, setHovered] = useState(null);
+  const [startIndex, setStartIndex] = useState(0);
   const navigate = useNavigate();
+  const visibleCount = Math.min(4, PRODUCTS.length);
+  const canSlide = PRODUCTS.length > visibleCount;
+  const visibleProducts = canSlide
+    ? Array.from({ length: visibleCount }, (_, order) => {
+        const productIndex = (startIndex + order) % PRODUCTS.length;
+        return { product: PRODUCTS[productIndex], productIndex, order };
+      })
+    : PRODUCTS.map((product, productIndex) => ({ product, productIndex, order: productIndex }));
+  const showPrevious = () => setStartIndex(i => (i - 1 + PRODUCTS.length) % PRODUCTS.length);
+  const showNext = () => setStartIndex(i => (i + 1) % PRODUCTS.length);
 
   /* Reveal cards one-by-one (Accounting → FeedMe) the first time the
    * grid enters the viewport. Plays once; doesn't reverse on scroll-up. */
@@ -38,24 +49,84 @@ export default function Products({ onContact }) {
   return (
     <section className="home-section products-section" style={{ background: "#2f315a", padding: "6rem 0" }}>
       <div className="content-wrap">
-        <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.75rem" }}>
-          {productsContent.eyebrow}
+        <div className="products-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "1.5rem", flexWrap: "wrap", marginBottom: "3rem" }}>
+          <div style={{ maxWidth: 760 }}>
+            <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.75rem" }}>
+              {productsContent.eyebrow}
+            </div>
+            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 700, color: "#ffffff", lineHeight: 1.2, marginBottom: "0.75rem" }}>
+              {productsContent.heading}
+            </h2>
+            <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.75, margin: 0 }}>
+              {productsContent.intro}
+            </p>
+          </div>
+          {canSlide && (
+            <div className="products-carousel-controls" style={{ display: "flex", gap: "0.65rem", flexShrink: 0 }}>
+              <button
+                type="button"
+                onClick={showPrevious}
+                aria-label="Previous software"
+                style={{
+                  width: 42, height: 42, borderRadius: "50%",
+                  border: "1px solid rgba(255,255,255,0.28)",
+                  background: "rgba(255,255,255,0.08)",
+                  color: "#ffffff", cursor: "pointer",
+                  fontSize: "1.3rem", lineHeight: 1,
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  transition: "background 0.2s, border-color 0.2s, color 0.2s",
+                }}
+                onMouseOver={e => {
+                  e.currentTarget.style.background = "#c9a84c";
+                  e.currentTarget.style.borderColor = "#c9a84c";
+                  e.currentTarget.style.color = "#1e2040";
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.28)";
+                  e.currentTarget.style.color = "#ffffff";
+                }}
+              >
+                {"<"}
+              </button>
+              <button
+                type="button"
+                onClick={showNext}
+                aria-label="Next software"
+                style={{
+                  width: 42, height: 42, borderRadius: "50%",
+                  border: "1px solid rgba(255,255,255,0.28)",
+                  background: "rgba(255,255,255,0.08)",
+                  color: "#ffffff", cursor: "pointer",
+                  fontSize: "1.3rem", lineHeight: 1,
+                  display: "inline-flex", alignItems: "center", justifyContent: "center",
+                  transition: "background 0.2s, border-color 0.2s, color 0.2s",
+                }}
+                onMouseOver={e => {
+                  e.currentTarget.style.background = "#c9a84c";
+                  e.currentTarget.style.borderColor = "#c9a84c";
+                  e.currentTarget.style.color = "#1e2040";
+                }}
+                onMouseOut={e => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.28)";
+                  e.currentTarget.style.color = "#ffffff";
+                }}
+              >
+                {">"}
+              </button>
+            </div>
+          )}
         </div>
-        <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 700, color: "#ffffff", lineHeight: 1.2, marginBottom: "0.75rem" }}>
-          {productsContent.heading}
-        </h2>
-        <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.75, marginBottom: "3rem" }}>
-          {productsContent.intro}
-        </p>
 
         <div ref={gridRef} className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }}>
-          {PRODUCTS.map((p, i) => {
-            const isHov = hovered === i;
+          {visibleProducts.map(({ product: p, productIndex, order }) => {
+            const isHov = hovered === productIndex;
             const clickable = !!p.route;
             return (
               <div
-                key={i}
-                onMouseEnter={() => setHovered(i)}
+                key={p.name}
+                onMouseEnter={() => setHovered(productIndex)}
                 onMouseLeave={() => setHovered(null)}
                 onClick={() => p.route && navigate(p.route)}
                 style={{
@@ -95,7 +166,7 @@ export default function Products({ onContact }) {
                            * place; only the logo on top reveals. */
                           opacity: revealed ? 1 : 0,
                           transform: revealed ? "scale(1)" : "scale(0.96)",
-                          transition: `opacity 0.8s ease ${i * 0.18}s, transform 0.8s ease ${i * 0.18}s`,
+                          transition: `opacity 0.8s ease ${order * 0.18}s, transform 0.8s ease ${order * 0.18}s`,
                         }} />
                     : <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, zIndex: 2 }}>
                         <span style={{ fontSize: "2.6rem", opacity: 0.75 }}>{p.placeholder}</span>

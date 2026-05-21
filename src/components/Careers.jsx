@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CONTACT } from "../constants/contact.js";
+import ParticleBackground from "./ParticleBackground";
 import careers from "../content/careers.json";
 
 /* Strip surrounding quotes / trailing period, then split on first comma. */
@@ -44,10 +45,13 @@ export default function Careers() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    /* Replayable: toggle visibility both ways so the line / word fade
-     * runs every time the section scrolls back into view. */
     const obs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => setVisible(e.isIntersecting)),
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) {
+          setVisible(true);
+          obs.disconnect();
+        }
+      }),
       { threshold: 0.25 }
     );
     obs.observe(el);
@@ -66,13 +70,25 @@ export default function Careers() {
 
   return (
     <div className="home-section" style={{
-      background: "#ffffff",
+      position: "relative",
+      overflow: "hidden",
+      background: "#edf8ff",
       padding: "5rem 0",
       borderTop: "0.5px solid rgba(47,49,90,0.1)",
     }}>
+      <ParticleBackground
+        paused={false}
+        backgroundStart="#f7fcff"
+        backgroundEnd="#e6f5ff"
+        lineRgb="95,166,214"
+        dotRgb="65,143,199"
+        highlightRgb="38,119,184"
+        vignetteEnd="rgba(46,132,190,0.12)"
+      />
       <div
         className="content-wrap"
         style={{
+          position: "relative", zIndex: 1,
           display: "flex", alignItems: "center",
           justifyContent: "space-between",
           gap: "2rem", flexWrap: "wrap",
