@@ -3,7 +3,6 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
-import { PRODUCT_IMAGES } from "../../assets/assets.js";
 import cloudReleases from "../../content/autocountCloudReleases.json";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -12,6 +11,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 
 const OFFICIAL_PRODUCT_URL = "https://www.autocountsoft.com/pro-cloud-acc.html";
 const OFFICIAL_RELEASE_URL = "https://help.accounting.autocountcloud.com/support/discussions/forums/69000107078";
+const FREE_TRIAL_URL = "https://auth.autocountcloud.com/identity/account/register/accounting?dealerCode=SYNS6037";
 const TRAINING_URL = "https://youtu.be/zHstLv2-ATw?si=tSfLxwPCw1YvYKSg";
 const TRAINING_EMBED = "https://www.youtube.com/embed/zHstLv2-ATw";
 
@@ -518,11 +518,11 @@ export default function AutoCountCloudAccountingPage() {
         eyebrow="Cloud Accounting"
         title="AutoCount CloudAccounting"
         body="A secure browser-based accounting platform for Malaysian SMEs that need e-Invoice compliance, real-time access, document capture, and bank-connected bookkeeping without maintaining an office server."
-        iconSrc={PRODUCT_IMAGES.autocountAccountingIcon}
+        iconSrc="/images/products/cloudaccounting-icon.png"
         iconAlt="AutoCount CloudAccounting"
         backgroundImage="/images/products/autocount-accounting-hero.webp"
-        primaryCta={{ label: "Start Free Trial", href: WA_LINK, target: "_blank" }}
-        secondaryCta={{ label: "Watch 30-Min Guide", href: "#training" }}
+        primaryCta={{ label: "Start Free Trial", href: FREE_TRIAL_URL, target: "_blank" }}
+        secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
       />
 
       <FeatureHighlights />
