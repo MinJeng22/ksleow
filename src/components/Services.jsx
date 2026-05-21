@@ -122,12 +122,14 @@ function ServiceCard({ service }) {
   }, []);
 
   return (
-    <div ref={cardRef} style={{ perspective: "1000px", height: 290 }}>
+    <div ref={cardRef} style={{ perspective: "1200px", height: 290 }}>
       <div style={{
         position: "relative", width: "100%", height: "100%",
         transformStyle: "preserve-3d",
-        transition: "transform 0.55s cubic-bezier(0.4,0.2,0.2,1)",
+        WebkitTransformStyle: "preserve-3d",
+        transition: "transform 0.48s cubic-bezier(0.22, 1, 0.36, 1)",
         transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        willChange: "transform",
       }}>
 
         {/* ── FRONT — click anywhere to flip ── */}
@@ -136,6 +138,9 @@ function ServiceCard({ service }) {
           style={{
             position: "absolute", inset: 0,
             backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(0deg) translateZ(0.1px)",
+            willChange: "transform",
+            contain: "paint",
             borderRadius: 18,
             background: isWebinar ? "#15172f" : "#f5f5f8",
             border: "1px solid rgba(47,49,90,0.09)",
@@ -143,9 +148,8 @@ function ServiceCard({ service }) {
             display: "flex", flexDirection: "column",
             overflow: "hidden",
             pointerEvents: flipped ? "none" : "auto",
-            opacity: flipped ? 0 : 1,
             cursor: "pointer",
-            transition: "border-color 0.2s, box-shadow 0.2s, opacity 0.18s ease",
+            transition: "border-color 0.2s, box-shadow 0.2s",
           }}
           onMouseOver={e => {
             e.currentTarget.style.borderColor = "rgba(47,49,90,0.22)";
@@ -244,17 +248,17 @@ function ServiceCard({ service }) {
           style={{
             position: "absolute", inset: 0,
             backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
+            transform: "rotateY(180deg) translateZ(0.1px)",
+            willChange: "transform",
+            contain: "paint",
             borderRadius: 18, overflow: "hidden",
             cursor: "pointer",
             background: "#20255a",
             border: "none",
             display: "flex", flexDirection: "column",
             pointerEvents: flipped ? "auto" : "none",
-            opacity: flipped ? 1 : 0,
             color: "#ffffff",
             boxShadow: "0 10px 32px rgba(15,17,40,0.22)",
-            transition: "opacity 0.18s ease",
           }}
         >
           {/* Decorative background — defaults to the WebP at /images/branding/service-card-back.webp.
@@ -450,14 +454,12 @@ export default function Services() {
           paused={false}
           backgroundStart="#ffffff"
           backgroundEnd="#ffffff"
-          lineRgb="95,166,214"
-          dotRgb="65,143,199"
-          highlightRgb="38,119,184"
-          vignetteEnd="rgba(46,132,190,0.04)"
-          lineAlphaScale={0.52}
-          dotAlpha={0.58}
-          obstacleSelector="#services .services-grid > div"
-          obstaclePadding={7}
+          lineRgb="178,184,202"
+          dotRgb="150,157,178"
+          highlightRgb="130,137,158"
+          vignetteEnd="rgba(47,49,90,0.025)"
+          lineAlphaScale={0.42}
+          dotAlpha={0.5}
         />
         <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.75rem" }}>

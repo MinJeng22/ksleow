@@ -119,7 +119,7 @@ export default function Products({ onContact }) {
           )}
         </div>
 
-        <div ref={gridRef} className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gridAutoRows: "1fr", gap: "1.25rem" }}>
+        <div ref={gridRef} className="products-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gridAutoRows: "1fr", minHeight: 380, gap: "1.25rem" }}>
           {visibleProducts.map(({ product: p, productIndex, order }) => {
             const isHov = hovered === productIndex;
             const clickable = !!p.route;
@@ -136,6 +136,7 @@ export default function Products({ onContact }) {
                   transition: "border-color 0.26s",
                   cursor: clickable ? "pointer" : "default",
                   height: "100%",
+                  minHeight: 380,
                   display: "flex",
                   flexDirection: "column",
                 }}
