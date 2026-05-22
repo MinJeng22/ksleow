@@ -48,33 +48,30 @@ function buildPath(width, height, variant) {
         ])
     : mobile
     ? [
-        { x: -0.02 * width, y: 0.22 * height },
-        { x: 0.1 * width, y: 0.24 * height },
-        { x: 0.18 * width, y: 0.72 * height },
-        { x: 0.16 * width, y: 0.34 * height },
-        { x: 0.36 * width, y: 0.38 * height },
-        { x: 0.48 * width, y: 0.7 * height },
-        { x: 0.62 * width, y: 0.3 * height },
-        { x: 0.8 * width, y: 0.68 * height },
-        { x: 0.94 * width, y: 0.56 * height },
-        { x: 0.9 * width, y: 0.86 * height },
-        { x: 1.06 * width, y: 0.84 * height },
+        { x: -0.08 * width, y: 0.2 * height },
+        { x: 0.08 * width, y: 0.28 * height },
+        { x: 0.22 * width, y: 0.54 * height },
+        { x: 0.36 * width, y: 0.42 * height },
+        { x: 0.52 * width, y: 0.58 * height },
+        { x: 0.7 * width, y: 0.44 * height },
+        { x: 0.88 * width, y: 0.64 * height },
+        { x: 1.08 * width, y: 0.78 * height },
       ]
     : [
-        { x: -0.02 * width, y: 0.22 * height },
-        { x: 0.06 * width, y: 0.2 * height },
-        { x: 0.18 * width, y: 0.78 * height },
-        { x: 0.14 * width, y: 0.34 * height },
-        { x: 0.3 * width, y: 0.36 * height },
-        { x: 0.4 * width, y: 0.42 * height },
-        { x: 0.46 * width, y: 0.74 * height },
-        { x: 0.58 * width, y: 0.28 * height },
-        { x: 0.72 * width, y: 0.42 * height },
-        { x: 0.78 * width, y: 0.7 * height },
-        { x: 0.9 * width, y: 0.62 * height },
-        { x: 0.96 * width, y: 0.52 * height },
-        { x: 0.92 * width, y: 0.86 * height },
-        { x: 1.04 * width, y: 0.84 * height },
+        // Optimized Services curve: cleaner, smoother and less chaotic.
+        // Shape: left entry → soft dip → lifted middle wave → gentle right hook.
+        { x: -0.08 * width, y: 0.2 * height },
+        { x: 0.06 * width, y: 0.22 * height },
+        { x: 0.16 * width, y: 0.52 * height },
+        { x: 0.28 * width, y: 0.38 * height },
+        { x: 0.42 * width, y: 0.46 * height },
+        { x: 0.5 * width, y: 0.68 * height },
+        { x: 0.6 * width, y: 0.36 * height },
+        { x: 0.74 * width, y: 0.48 * height },
+        { x: 0.82 * width, y: 0.66 * height },
+        { x: 0.94 * width, y: 0.58 * height },
+        { x: 0.98 * width, y: 0.76 * height },
+        { x: 1.08 * width, y: 0.78 * height },
       ];
 
   const padded = [controls[0], ...controls, controls[controls.length - 1]];
