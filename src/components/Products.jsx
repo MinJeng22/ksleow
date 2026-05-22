@@ -109,10 +109,12 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
               width: "100%", height: "100%",
               objectFit: "contain", padding: "12%", zIndex: 2,
               opacity: revealed ? 1 : 0,
-              transform: revealed ? "scale(1)" : "scale(0.96)",
+              transform: revealed
+                ? `scale(${isHov ? 1.08 : 1})`
+                : "scale(0.96)",
               transition: animateReveal
                 ? `opacity 0.8s ease ${order * 0.18}s, transform 0.8s ease ${order * 0.18}s`
-                : "none",
+                : "transform 0.28s ease",
             }}
           />
         ) : (
