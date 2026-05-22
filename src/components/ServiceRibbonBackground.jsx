@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
@@ -117,21 +117,19 @@ function partialPoints(path, progress) {
   return result;
 }
 
-function drawPolyline(ctx, points, width, strokeStyle, shadowColor, shadow = 0, offsetY = 0) {
+function drawPolyline(ctx, points, width, strokeStyle) {
   if (points.length < 2) return;
 
   ctx.save();
   ctx.beginPath();
-  ctx.moveTo(points[0].x, points[0].y + offsetY);
+  ctx.moveTo(points[0].x, points[0].y);
   for (let i = 1; i < points.length; i += 1) {
-    ctx.lineTo(points[i].x, points[i].y + offsetY);
+    ctx.lineTo(points[i].x, points[i].y);
   }
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   ctx.lineWidth = width;
   ctx.strokeStyle = strokeStyle;
-  ctx.shadowColor = shadowColor;
-  ctx.shadowBlur = shadow;
   ctx.stroke();
   ctx.restore();
 }
@@ -140,16 +138,28 @@ export default function ServiceRibbonBackground({
   variant = "services",
   completeAt = 0.58,
   trigger = 0.38,
-  opacity = 0.78,
+  opacity = 1,
 }) {
   const canvasRef = useRef(null);
+  const [enabled, setEnabled] = useState(() => (
+    typeof window === "undefined" ? false : window.innerWidth > 640
+  ));
 
   useEffect(() => {
+    const sync = () => setEnabled(window.innerWidth > 640);
+    sync();
+    window.addEventListener("resize", sync, { passive: true });
+    return () => window.removeEventListener("resize", sync);
+  }, []);
+
+  useEffect(() => {
+    if (!enabled) return undefined;
+
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) return undefined;
 
     const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
+    if (!ctx) return undefined;
 
     let width = 0;
     let height = 0;
@@ -191,32 +201,12 @@ export default function ServiceRibbonBackground({
       ctx.clearRect(0, 0, width, height);
 
       const visible = partialPoints(path, progress);
-      const strokeWidth = width < 640 ? 17 : 26;
-      const glowWidth = strokeWidth * 2.45;
-      const softBlue = "rgba(67, 97, 238, 0.13)";
-      const outerBlue = "rgba(80, 111, 246, 0.18)";
-      const highlight = "rgba(255, 255, 255, 0.3)";
       const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, "rgba(43, 76, 228, 0.96)");
-      gradient.addColorStop(0.42, "rgba(96, 128, 255, 0.94)");
-      gradient.addColorStop(1, "rgba(57, 123, 246, 0.9)");
+      gradient.addColorStop(0, "#2e28f6");
+      gradient.addColorStop(0.38, "#4138ff");
+      gradient.addColorStop(1, "#5b8dff");
 
-      drawPolyline(ctx, visible, glowWidth, softBlue, "rgba(67, 97, 238, 0.2)", 34);
-      drawPolyline(ctx, visible, strokeWidth + 7, outerBlue, "rgba(80, 111, 246, 0.16)", 18);
-      drawPolyline(ctx, visible, strokeWidth, gradient, "rgba(67, 97, 238, 0.24)", 4);
-      drawPolyline(ctx, visible, Math.max(2, strokeWidth * 0.1), highlight, "rgba(255,255,255,0.08)", 2, -strokeWidth * 0.08);
-
-      const head = visible[visible.length - 1];
-      if (head) {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(head.x, head.y, strokeWidth * 0.44, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.82)";
-        ctx.shadowColor = "rgba(67, 97, 238, 0.38)";
-        ctx.shadowBlur = 22;
-        ctx.fill();
-        ctx.restore();
-      }
+      drawPolyline(ctx, visible, Math.min(48, Math.max(34, width * 0.03)), gradient);
     };
 
     const tick = () => {
@@ -246,7 +236,9 @@ export default function ServiceRibbonBackground({
       window.removeEventListener("scroll", updateProgress);
       window.removeEventListener("resize", resize);
     };
-  }, []);
+  }, [completeAt, enabled, trigger, variant]);
+
+  if (!enabled) return null;
 
   return (
     <canvas
@@ -259,8 +251,6 @@ export default function ServiceRibbonBackground({
         height: "100%",
         pointerEvents: "none",
         opacity,
-        WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.4) 18%, #000 34%, #000 100%)",
-        maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.4) 18%, #000 34%, #000 100%)",
       }}
     />
   );

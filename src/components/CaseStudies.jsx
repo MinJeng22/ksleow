@@ -303,7 +303,7 @@ export default function CaseStudies({ onContact }) {
   return (
     <>
     <section className="home-section" style={{ position: "relative", overflow: "hidden", background: "#f5f5f8", padding: "6rem 0" }}>
-    <ServiceRibbonBackground variant="continuation" completeAt={0.68} trigger={0.42} opacity={0.74} />
+    <ServiceRibbonBackground variant="continuation" completeAt={0.68} trigger={0.42} />
     <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
       {/* header */}
       <div style={{ marginBottom: "3rem" }}>
