@@ -147,7 +147,7 @@ function ServiceCard({ service }) {
             contain: "paint",
             borderRadius: 18,
             background: "#f5f5f8",
-            border: "1px solid rgba(47,49,90,0.12)",
+            border: "1px solid #d8dbe8",
             padding: "1.4rem",
             display: "flex", flexDirection: "column",
             overflow: "hidden",
@@ -156,11 +156,11 @@ function ServiceCard({ service }) {
             transition: "border-color 0.2s, box-shadow 0.2s",
           }}
           onMouseOver={e => {
-            e.currentTarget.style.borderColor = "rgba(47,49,90,0.22)";
+            e.currentTarget.style.borderColor = "#bfc4d8";
             e.currentTarget.style.boxShadow = "0 4px 16px rgba(47,49,90,0.09)";
           }}
           onMouseOut={e => {
-            e.currentTarget.style.borderColor = "rgba(47,49,90,0.12)";
+            e.currentTarget.style.borderColor = "#d8dbe8";
             e.currentTarget.style.boxShadow = "none";
           }}
         >
@@ -179,7 +179,7 @@ function ServiceCard({ service }) {
               />
               <div
                 aria-hidden="true"
-                style={{ position: "absolute", inset: 0, borderRadius: 18, background: "rgba(255,255,255,0.84)" }}
+                style={{ position: "absolute", inset: 0, borderRadius: 18, background: "rgba(255,255,255,0.62)" }}
               />
             </>
           )}

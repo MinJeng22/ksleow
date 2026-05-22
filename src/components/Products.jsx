@@ -57,7 +57,7 @@ function CarouselControls({ onPrevious, onNext, className = "" }) {
   );
 }
 
-function ProductCard({ product, productIndex, order, hovered, revealed, onHover, onLeave, onOpen }) {
+function ProductCard({ product, productIndex, order, hovered, revealed, animateReveal, onHover, onLeave, onOpen }) {
   const isHov = hovered === productIndex;
   const clickable = !!product.route;
 
@@ -93,6 +93,7 @@ function ProductCard({ product, productIndex, order, hovered, revealed, onHover,
             <Img
               src={product.background}
               alt=""
+              priority
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             />
             <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.55)" }} />
@@ -102,13 +103,16 @@ function ProductCard({ product, productIndex, order, hovered, revealed, onHover,
           <Img
             src={product.img}
             alt={product.name}
+            priority
             style={{
               position: "absolute", inset: 0,
               width: "100%", height: "100%",
               objectFit: "contain", padding: "12%", zIndex: 2,
               opacity: revealed ? 1 : 0,
               transform: revealed ? "scale(1)" : "scale(0.96)",
-              transition: `opacity 0.8s ease ${order * 0.18}s, transform 0.8s ease ${order * 0.18}s`,
+              transition: animateReveal
+                ? `opacity 0.8s ease ${order * 0.18}s, transform 0.8s ease ${order * 0.18}s`
+                : "none",
             }}
           />
         ) : (
@@ -146,6 +150,7 @@ export default function Products({ onContact }) {
   const [startIndex, setStartIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState(null);
   const [viewportWidth, setViewportWidth] = useState(getViewportWidth);
+  const [revealSettled, setRevealSettled] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -184,13 +189,29 @@ export default function Products({ onContact }) {
   useEffect(() => {
     const node = gridRef.current;
     if (!node) return undefined;
-    if (typeof IntersectionObserver === "undefined") { setRevealed(true); return undefined; }
+    let settleTimer;
+    const revealOnce = () => {
+      setRevealed(true);
+      settleTimer = window.setTimeout(() => setRevealSettled(true), 1300);
+    };
+    if (typeof IntersectionObserver === "undefined") {
+      revealOnce();
+      return () => window.clearTimeout(settleTimer);
+    }
     const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => setRevealed(e.isIntersecting)),
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) {
+          revealOnce();
+          io.disconnect();
+        }
+      }),
       { threshold: 0.25 }
     );
     io.observe(node);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      window.clearTimeout(settleTimer);
+    };
   }, []);
 
   return (
@@ -247,6 +268,7 @@ export default function Products({ onContact }) {
                 order={order}
                 hovered={hovered}
                 revealed={revealed}
+                animateReveal={!revealSettled}
                 onHover={setHovered}
                 onLeave={() => setHovered(null)}
                 onOpen={navigate}
