@@ -1140,7 +1140,7 @@ export default function AutoCountAccountingPage({ onContact }) {
             training, and support across Pahang.
           </p>
           <a href={WA_LINK} target="_blank" rel="noreferrer"
-            style={{ display: "inline-block", background: "#c9a84c", color: "#1e2040", padding: "0.85rem 2.5rem", borderRadius: 50, fontSize: "0.95rem", fontWeight: 700, textDecoration: "none", fontFamily: "inherit", transition: "opacity 0.2s" }}
+            style={{ display: "inline-block", background: "#2f315a", color: "#ffffff", padding: "0.85rem 2.5rem", borderRadius: 50, fontSize: "0.95rem", fontWeight: 700, textDecoration: "none", fontFamily: "inherit", transition: "opacity 0.2s" }}
             onMouseOver={e => e.currentTarget.style.opacity = "0.85"}
             onMouseOut={e => e.currentTarget.style.opacity = "1"}
           >

@@ -118,12 +118,12 @@ function PluginCard({ plugin }) {
             style={{
               borderRadius: 50,
               border: "1px solid rgba(47,49,90,0.18)",
-              color: "#2f315a",
               padding: "0.62rem 1.05rem",
               fontSize: "0.8rem",
               fontWeight: 760,
               textDecoration: "none",
-              background: "#ffffff",
+              background: "#2f315a",
+              color: "#ffffff",
             }}
           >
             Enquire Now

@@ -193,13 +193,12 @@ function ServiceCard({ service }) {
               }
             </div>
           )}
-          {isWebinar && <div style={{ height: "6.55rem", flexShrink: 0 }} />}
-
           <h3 style={{
             position: "relative", zIndex: 1,
             fontSize: "clamp(1.18rem, 1.5vw, 1.38rem)",
             fontWeight: 800,
             color: hasFrontBackground ? "#ffffff" : "#2f315a",
+            marginTop: "auto",
             marginBottom: "0.6rem",
             lineHeight: 1.22,
             textShadow: hasFrontBackground ? "0 2px 14px rgba(0,0,0,0.36)" : "none",
@@ -221,8 +220,6 @@ function ServiceCard({ service }) {
           }}>
             {service.desc}
           </p>
-          {/* spacer pushes the "Tap for contact" hint to the bottom */}
-          <div style={{ flex: 1 }} />
 
           {/* Subtle "tap to flip" hint — bottom-right */}
           <div style={{
