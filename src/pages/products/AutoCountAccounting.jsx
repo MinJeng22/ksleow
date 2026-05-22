@@ -7,6 +7,7 @@ import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import ParticleBackground from "../../components/ParticleBackground.jsx";
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
+import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 /* AutoCount Accounting page — product-aware WhatsApp link to KSL Support Team */
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to learn more about AutoCount Accounting. Thank you."
@@ -623,20 +624,7 @@ export default function AutoCountAccountingPage({ onContact }) {
   const [editionB, setEditionB] = useState(EDITIONS[EDITIONS.length - 1]); /* Premium */
   const [editionDiffOnly, setEditionDiffOnly] = useState(false);
 
-  /* Replayable on-view reveal for the YouTube training section. */
-  const trainingRef = useRef(null);
-  const [trainingInView, setTrainingInView] = useState(false);
-  useEffect(() => {
-    const node = trainingRef.current;
-    if (!node) return;
-    if (typeof IntersectionObserver === "undefined") { setTrainingInView(true); return; }
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach(e => setTrainingInView(e.isIntersecting)),
-      { threshold: 0.25 }
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, []);
+
 
   /* ── Init from URL ───────────────────────────────────────────────
    * Read query params on mount. Anyone landing on a shared link gets
@@ -750,79 +738,10 @@ export default function AutoCountAccountingPage({ onContact }) {
 
 
       {/* ══════════════════════════════════════════════════════════
-       * LEARN AUTOCOUNT IN 60 MINUTES — Vertical stacked layout
+       * LEARN AUTOCOUNT IN 60 MINUTES — WebGL Scroll Experience
        * ══════════════════════════════════════════════════════════ */}
-      <div id="training" ref={trainingRef} className="ac-section-tight" style={{ background: "#ffffff", padding: "4.5rem 0", borderBottom: "0.5px solid rgba(47,49,90,0.08)", scrollMarginTop: 24 }}>
-        <div className="content-wrap">
-          {/* Section header — no animation, only the video below reveals on scroll */}
-          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-            <div style={{
-              fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em",
-              textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.6rem",
-            }}>
-              Free Training
-            </div>
-            <h2 style={{
-              fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", fontWeight: 700,
-              color: "#2f315a", lineHeight: 1.2, marginBottom: "0.9rem",
-            }}>
-              Learn AutoCount Accounting in Just 60 Minutes
-            </h2>
-            <p style={{
-              fontSize: "0.95rem", color: "#6b6f91", lineHeight: 1.8,
-              maxWidth: 560, margin: "0 auto 1.5rem",
-            }}>
-              Skip the long manuals. AutoCount's 60-minute guide covers
-              everything you need to know to navigate AutoCount Accounting
-              with confidence — from basic setup to daily transactions.
-            </p>
-            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", justifyContent: "center" }}>
-              <a
-                href="https://youtu.be/ztmg4hvro6U?si=hojFUhwFF0gOmzA8"
-                target="_blank" rel="noreferrer"
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: "0.5rem",
-                  background: "#2f315a", color: "#ffffff",
-                  padding: "0.75rem 1.75rem", borderRadius: 50,
-                  fontSize: "0.88rem", fontWeight: 600,
-                  textDecoration: "none", transition: "background 0.2s",
-                }}
-                onMouseOver={e => e.currentTarget.style.background = "#3d4075"}
-                onMouseOut={e => e.currentTarget.style.background = "#2f315a"}
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21" /></svg>
-                Watch on YouTube
-              </a>
-              <span style={{
-                display: "inline-flex", alignItems: "center",
-                fontSize: "0.82rem", color: "#a8abcc", fontWeight: 500,
-                padding: "0.75rem 1rem",
-              }}>
-                Free · 60 min · By AutoCount
-              </span>
-            </div>
-          </div>
-
-          {/* Full-width embed */}
-          <div style={{
-            borderRadius: 18, overflow: "hidden",
-            boxShadow: "0 20px 60px rgba(47,49,90,0.16)",
-            border: "1px solid rgba(47,49,90,0.08)",
-            opacity: trainingInView ? 1 : 0,
-            transform: trainingInView ? "translateY(0) scale(1)" : "translateY(28px) scale(0.97)",
-            transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s",
-          }}>
-            <div style={{ paddingBottom: "56.25%", position: "relative", background: "#0f1128" }}>
-              <iframe
-                src="https://www.youtube.com/embed/ztmg4hvro6U"
-                title="Learn AutoCount Accounting in 60 Minutes"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
-              />
-            </div>
-          </div>
-        </div>
+      <div id="training">
+        <AutoCountTrainingWebGL />
       </div>
 
       {/* ══════════════════════════════════════════════════════════
