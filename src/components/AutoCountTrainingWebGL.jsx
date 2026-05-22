@@ -59,12 +59,27 @@ export default function AutoCountTrainingWebGL() {
     video.loop = true;
     video.muted = true;
     video.playsInline = true;
-    video.play().catch(() => {});
+    video.setAttribute('muted', '');
+    video.setAttribute('autoplay', '');
+    video.setAttribute('playsinline', '');
+    video.play().catch(e => {
+      console.warn("Video autoplay failed:", e);
+      // Fallback: start video on first user interaction
+      const startVideo = () => {
+        video.play();
+        window.removeEventListener('click', startVideo);
+        window.removeEventListener('scroll', startVideo);
+      };
+      window.addEventListener('click', startVideo);
+      window.addEventListener('scroll', startVideo);
+    });
 
     const texture = new THREE.VideoTexture(video);
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
     texture.format = THREE.RGBAFormat;
+    // Ensure color space is correct for video
+    texture.colorSpace = THREE.SRGBColorSpace;
 
     // A 1x1 plane geometry. We will scale it in the vertex shader.
     // High segment count for smooth wave distortion.
