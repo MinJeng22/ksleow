@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Img } from "./Media.jsx";
-import ServiceRibbonBackground from "./ServiceRibbonBackground.jsx";
 import { CASE_IMAGES } from "../assets/assets.js";
 import caseStudiesContent from "../content/caseStudies.json";
 
-const CASES = caseStudiesContent.items || [];
+const CASES = (caseStudiesContent.items || []).filter((item) => {
+  if (!item?.title || !item?.desc) return false;
+  return !!(item.image || item.route || item.modal);
+});
 const SUPAPRINTZ_PARTNER = {
   name: "Supaprintz.my",
   category: "ONE STOP PRINTING HUB @ TEMERLOH",
@@ -303,7 +305,7 @@ export default function CaseStudies({ onContact }) {
   return (
     <>
     <section className="home-section" style={{ position: "relative", overflow: "hidden", background: "#f5f5f8", padding: "6rem 0" }}>
-    <ServiceRibbonBackground variant="continuation" completeAt={0.52} trigger={0.76} />
+
     <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
       {/* header */}
       <div style={{ marginBottom: "3rem" }}>
@@ -336,10 +338,8 @@ export default function CaseStudies({ onContact }) {
         {CASES.map((c, i) => {
           const imgSrc = c.image || CASE_IMAGES[c.key];
           const meta   = CARD_META[i] || CARD_META[CARD_META.length - 1];
-          /* Last 2 cards are empty placeholders */
-          const isEmpty = i >= 2;
           const opensPartnerModal = c.modal === "supaprintz";
-          const clickable = !isEmpty && (!!c.route || opensPartnerModal);
+          const clickable = !!c.route || opensPartnerModal;
           return (
             <div
               key={c.key || i}
@@ -349,46 +349,41 @@ export default function CaseStudies({ onContact }) {
               } : undefined}
               style={{
                 borderRadius: 16, overflow: "hidden",
-                background: isEmpty ? "rgba(47,49,90,0.02)" : "#ffffff",
-                border: `1px solid ${isEmpty ? "rgba(47,49,90,0.04)" : "rgba(47,49,90,0.1)"}`,
+                background: "#ffffff",
+                border: "1px solid rgba(47,49,90,0.1)",
                 cursor: clickable ? "pointer" : "default",
                 opacity: 1,
                 transform: "none",
                 transition: "border-color 0.2s",
-                minHeight: isEmpty ? 200 : "auto",
               }}
               onMouseEnter={clickable ? e => e.currentTarget.style.borderColor = "rgba(201,168,76,0.5)" : undefined}
               onMouseLeave={clickable ? e => e.currentTarget.style.borderColor = "rgba(47,49,90,0.1)" : undefined}
             >
-              {!isEmpty && (
-                <>
-                  {/* image / placeholder */}
-                  <div style={{ position: "relative", paddingBottom: "48%", background: meta.accent }}>
-                    {imgSrc ? (
-                      <Img src={imgSrc} alt={c.title}
-                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-                        onError={e => { e.currentTarget.style.display = "none"; }}
-                      />
-                    ) : (
-                      <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: meta.iconColor, opacity: 0.5 }}>
-                        {ICONS[i] || ICONS[ICONS.length - 1]}
-                      </div>
-                    )}
+              {/* image / placeholder */}
+              <div style={{ position: "relative", paddingBottom: "48%", background: meta.accent }}>
+                {imgSrc ? (
+                  <Img src={imgSrc} alt={c.title}
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                    onError={e => { e.currentTarget.style.display = "none"; }}
+                  />
+                ) : (
+                  <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", color: meta.iconColor, opacity: 0.5 }}>
+                    {ICONS[i] || ICONS[ICONS.length - 1]}
                   </div>
-                  {/* body */}
-                  <div style={{ padding: "1.4rem" }}>
-                    <div style={{ fontSize: "0.67rem", fontWeight: 600, letterSpacing: "0.1em", color: "#c9a84c", textTransform: "uppercase", marginBottom: "0.5rem" }}>
-                      {c.tag}
-                    </div>
-                    <h3 style={{ fontSize: "0.93rem", fontWeight: 600, color: "#2f315a", lineHeight: 1.45, marginBottom: "0.55rem" }}>
-                      {c.title}
-                    </h3>
-                    <p style={{ fontSize: "0.81rem", color: "#6b6f91", lineHeight: 1.72 }}>
-                      {c.desc}
-                    </p>
-                  </div>
-                </>
-              )}
+                )}
+              </div>
+              {/* body */}
+              <div style={{ padding: "1.4rem" }}>
+                <div style={{ fontSize: "0.67rem", fontWeight: 600, letterSpacing: "0.1em", color: "#c9a84c", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+                  {c.tag}
+                </div>
+                <h3 style={{ fontSize: "0.93rem", fontWeight: 600, color: "#2f315a", lineHeight: 1.45, marginBottom: "0.55rem" }}>
+                  {c.title}
+                </h3>
+                <p style={{ fontSize: "0.81rem", color: "#6b6f91", lineHeight: 1.72 }}>
+                  {c.desc}
+                </p>
+              </div>
             </div>
           );
         })}
