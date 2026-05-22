@@ -24,48 +24,58 @@ const catmullRom = (p0, p1, p2, p3, t) => {
 
 function buildPath(width, height, variant) {
   const mobile = width < 640;
+
+  /* More expressive ribbon curves:
+   * - wider S-curves
+   * - stronger vertical movement
+   * - off-canvas start/end points so the ribbon feels like it flows through the section
+   */
   const controls = variant === "continuation"
     ? (mobile
       ? [
-          { x: 1.12 * width, y: 0.12 * height },
-          { x: 0.7 * width, y: 0.18 * height },
-          { x: 0.18 * width, y: 0.3 * height },
-          { x: 0.74 * width, y: 0.52 * height },
-          { x: 0.2 * width, y: 0.72 * height },
-          { x: 1.08 * width, y: 0.96 * height },
+          { x: 1.14 * width, y: 0.08 * height },
+          { x: 0.72 * width, y: 0.14 * height },
+          { x: 0.2 * width, y: 0.26 * height },
+          { x: 0.82 * width, y: 0.46 * height },
+          { x: 0.1 * width, y: 0.68 * height },
+          { x: 0.56 * width, y: 0.82 * height },
+          { x: 1.12 * width, y: 0.98 * height },
         ]
       : [
-          { x: 1.08 * width, y: 0.18 * height },
-          { x: 0.82 * width, y: 0.22 * height },
-          { x: 0.72 * width, y: 0.42 * height },
-          { x: 0.38 * width, y: 0.5 * height },
-          { x: 0.16 * width, y: 0.66 * height },
-          { x: 0.58 * width, y: 0.78 * height },
-          { x: 1.08 * width, y: 0.9 * height },
+          { x: 1.12 * width, y: 0.1 * height },
+          { x: 0.9 * width, y: 0.16 * height },
+          { x: 0.68 * width, y: 0.36 * height },
+          { x: 0.34 * width, y: 0.3 * height },
+          { x: 0.14 * width, y: 0.56 * height },
+          { x: 0.42 * width, y: 0.72 * height },
+          { x: 0.74 * width, y: 0.58 * height },
+          { x: 1.1 * width, y: 0.86 * height },
         ])
     : mobile
     ? [
-        { x: -0.14 * width, y: 0.14 * height },
-        { x: 0.14 * width, y: 0.29 * height },
-        { x: 0.74 * width, y: 0.42 * height },
-        { x: 0.18 * width, y: 0.6 * height },
-        { x: 0.82 * width, y: 0.78 * height },
-        { x: 1.1 * width, y: 0.98 * height },
+        { x: -0.16 * width, y: 0.08 * height },
+        { x: 0.12 * width, y: 0.22 * height },
+        { x: 0.78 * width, y: 0.34 * height },
+        { x: 0.16 * width, y: 0.56 * height },
+        { x: 0.88 * width, y: 0.76 * height },
+        { x: 1.12 * width, y: 0.96 * height },
       ]
     : [
-        { x: -0.1 * width, y: 0.18 * height },
-        { x: 0.22 * width, y: 0.28 * height },
-        { x: 0.1 * width, y: 0.58 * height },
-        { x: 0.46 * width, y: 0.62 * height },
-        { x: 0.62 * width, y: 0.24 * height },
-        { x: 0.84 * width, y: 0.24 * height },
-        { x: 1.08 * width, y: 0.38 * height },
-        { x: 1.05 * width, y: 0.72 * height },
+        { x: -0.14 * width, y: 0.12 * height },
+        { x: 0.18 * width, y: 0.22 * height },
+        { x: 0.08 * width, y: 0.52 * height },
+        { x: 0.34 * width, y: 0.74 * height },
+        { x: 0.56 * width, y: 0.42 * height },
+        { x: 0.44 * width, y: 0.16 * height },
+        { x: 0.76 * width, y: 0.2 * height },
+        { x: 1.1 * width, y: 0.38 * height },
+        { x: 0.92 * width, y: 0.68 * height },
+        { x: 1.14 * width, y: 0.9 * height },
       ];
 
   const padded = [controls[0], ...controls, controls[controls.length - 1]];
   const points = [];
-  const samples = mobile ? 36 : 44;
+  const samples = mobile ? 44 : 56;
 
   for (let i = 0; i < padded.length - 3; i += 1) {
     for (let step = 0; step < samples; step += 1) {
@@ -136,8 +146,8 @@ function drawPolyline(ctx, points, width, strokeStyle) {
 
 export default function ServiceRibbonBackground({
   variant = "services",
-  completeAt = 0.58,
-  trigger = 0.38,
+  completeAt = 0.46,
+  trigger = 0.72,
   opacity = 1,
 }) {
   const canvasRef = useRef(null);
@@ -197,7 +207,7 @@ export default function ServiceRibbonBackground({
         return;
       }
 
-      progress += delta * 0.16;
+      progress += delta * 0.28;
       draw();
       rafId = requestAnimationFrame(tick);
     };
