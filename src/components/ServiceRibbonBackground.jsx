@@ -1,31 +1,120 @@
 import { useEffect, useRef } from "react";
 
-const RIBBON_COLORS = [
-  "76, 90, 166",
-  "201, 168, 76",
-  "120, 140, 205",
-  "47, 49, 90",
-];
+const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
-function makeRibbon(index, width, height) {
-  const count = Math.max(4, Math.min(7, Math.round(width / 260)));
-  const points = Array.from({ length: count }, (_, i) => {
-    const t = count === 1 ? 0 : i / (count - 1);
-    return {
-      x: t * width,
-      y: height * (0.18 + ((index * 0.17 + t * 0.42) % 0.66)),
-    };
-  });
+const catmullRom = (p0, p1, p2, p3, t) => {
+  const t2 = t * t;
+  const t3 = t2 * t;
 
   return {
-    points,
-    color: RIBBON_COLORS[index % RIBBON_COLORS.length],
-    phase: index * 1.37,
-    speed: 0.0035 + index * 0.00065,
-    amplitude: height * (0.045 + (index % 3) * 0.012),
-    drift: 18 + index * 9,
-    width: 1.1 + (index % 2) * 0.45,
+    x: 0.5 * (
+      (2 * p1.x) +
+      (-p0.x + p2.x) * t +
+      (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 +
+      (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3
+    ),
+    y: 0.5 * (
+      (2 * p1.y) +
+      (-p0.y + p2.y) * t +
+      (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 +
+      (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3
+    ),
   };
+};
+
+function buildPath(width, height) {
+  const mobile = width < 640;
+  const controls = mobile
+    ? [
+        { x: -0.14 * width, y: 0.14 * height },
+        { x: 0.14 * width, y: 0.29 * height },
+        { x: 0.74 * width, y: 0.42 * height },
+        { x: 0.18 * width, y: 0.6 * height },
+        { x: 0.82 * width, y: 0.78 * height },
+        { x: 1.1 * width, y: 0.98 * height },
+      ]
+    : [
+        { x: -0.1 * width, y: 0.16 * height },
+        { x: 0.28 * width, y: 0.3 * height },
+        { x: 0.06 * width, y: 0.58 * height },
+        { x: 0.42 * width, y: 0.62 * height },
+        { x: 0.62 * width, y: 0.18 * height },
+        { x: 1.08 * width, y: 0.36 * height },
+        { x: 0.82 * width, y: 0.56 * height },
+        { x: 1.05 * width, y: 0.78 * height },
+      ];
+
+  const padded = [controls[0], ...controls, controls[controls.length - 1]];
+  const points = [];
+  const samples = mobile ? 36 : 44;
+
+  for (let i = 0; i < padded.length - 3; i += 1) {
+    for (let step = 0; step < samples; step += 1) {
+      points.push(catmullRom(
+        padded[i],
+        padded[i + 1],
+        padded[i + 2],
+        padded[i + 3],
+        step / samples
+      ));
+    }
+  }
+  points.push(controls[controls.length - 1]);
+
+  const lengths = [0];
+  let total = 0;
+  for (let i = 1; i < points.length; i += 1) {
+    total += Math.hypot(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y);
+    lengths.push(total);
+  }
+
+  return { points, lengths, total };
+}
+
+function partialPoints(path, progress) {
+  if (!path.points.length || progress <= 0) return [];
+
+  const target = path.total * clamp(progress);
+  const result = [path.points[0]];
+
+  for (let i = 1; i < path.points.length; i += 1) {
+    if (path.lengths[i] < target) {
+      result.push(path.points[i]);
+      continue;
+    }
+
+    const prevLength = path.lengths[i - 1];
+    const segmentLength = path.lengths[i] - prevLength || 1;
+    const segmentProgress = clamp((target - prevLength) / segmentLength);
+    const prev = path.points[i - 1];
+    const next = path.points[i];
+    result.push({
+      x: prev.x + (next.x - prev.x) * segmentProgress,
+      y: prev.y + (next.y - prev.y) * segmentProgress,
+    });
+    break;
+  }
+
+  return result;
+}
+
+function drawPolyline(ctx, points, width, color, alpha, shadow = 0, offsetY = 0) {
+  if (points.length < 2) return;
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(points[0].x, points[0].y + offsetY);
+  for (let i = 1; i < points.length; i += 1) {
+    ctx.lineTo(points[i].x, points[i].y + offsetY);
+  }
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.lineWidth = width;
+  ctx.strokeStyle = `rgba(${color}, ${alpha})`;
+  ctx.shadowColor = `rgba(${color}, ${Math.min(alpha, 0.32)})`;
+  ctx.shadowBlur = shadow;
+  ctx.stroke();
+  ctx.restore();
 }
 
 export default function ServiceRibbonBackground() {
@@ -38,18 +127,28 @@ export default function ServiceRibbonBackground() {
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let frame = 0;
     let width = 0;
     let height = 0;
-    let ribbons = [];
+    let path = buildPath(1, 1);
+    let targetProgress = 0;
+    let progress = 0;
     let rafId = 0;
-    let pointerX = 0.5;
-    let pointerY = 0.5;
-    let easedPointerX = 0.5;
-    let easedPointerY = 0.5;
-    let scrollOffset = window.scrollY || 0;
-    let easedScroll = scrollOffset;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const updateProgress = () => {
+      const section = canvas.parentElement;
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const triggerLine = window.innerHeight * 0.36;
+      const travel = Math.max(rect.height * 0.9, 1);
+      targetProgress = clamp((triggerLine - rect.top) / travel);
+
+      if (motionQuery.matches) {
+        progress = targetProgress;
+        draw();
+      }
+    };
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -59,88 +158,48 @@ export default function ServiceRibbonBackground() {
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const ribbonCount = width < 640 ? 4 : 6;
-      ribbons = Array.from({ length: ribbonCount }, (_, i) => makeRibbon(i, width, height));
-      if (reducedMotion) {
-        requestAnimationFrame(() => draw(performance.now()));
-      }
+      path = buildPath(width, height);
+      updateProgress();
+      draw();
     };
 
-    const onPointerMove = (event) => {
-      const rect = canvas.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      pointerX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-      pointerY = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
-    };
-
-    const onScroll = () => {
-      scrollOffset = window.scrollY || 0;
-    };
-
-    const drawRibbon = (ribbon, index, time) => {
-      const points = ribbon.points.map((point, i) => {
-        const t = ribbons.length <= 1 ? 0 : index / (ribbons.length - 1);
-        const wave = Math.sin(time * ribbon.speed + ribbon.phase + i * 0.86);
-        const cross = Math.cos(time * ribbon.speed * 0.78 + ribbon.phase + i * 0.52);
-        const pointerPull = (easedPointerY - 0.5) * height * 0.11 * Math.sin(i + time * 0.0014 + index);
-        const scrollPull = Math.sin(easedScroll * 0.0022 + i * 0.9 + index) * height * 0.025;
-
-        return {
-          x:
-            point.x +
-            cross * ribbon.drift +
-            (easedPointerX - 0.5) * width * 0.045 * Math.sin(t + i * 0.7),
-          y:
-            point.y +
-            wave * ribbon.amplitude +
-            pointerPull +
-            scrollPull,
-        };
-      });
-
-      const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, `rgba(${ribbon.color}, 0)`);
-      gradient.addColorStop(0.18, `rgba(${ribbon.color}, 0.46)`);
-      gradient.addColorStop(0.62, `rgba(${ribbon.color}, 0.34)`);
-      gradient.addColorStop(1, `rgba(${ribbon.color}, 0)`);
-
-      ctx.beginPath();
-      ctx.moveTo(points[0].x, points[0].y);
-      for (let i = 1; i < points.length - 1; i += 1) {
-        const midX = (points[i].x + points[i + 1].x) / 2;
-        const midY = (points[i].y + points[i + 1].y) / 2;
-        ctx.quadraticCurveTo(points[i].x, points[i].y, midX, midY);
-      }
-      const last = points[points.length - 1];
-      ctx.lineTo(last.x, last.y);
-
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
-      ctx.shadowColor = `rgba(${ribbon.color}, 0.3)`;
-      ctx.shadowBlur = 22;
-      ctx.strokeStyle = gradient;
-      ctx.lineWidth = ribbon.width * 6.2;
-      ctx.stroke();
-
-      ctx.shadowBlur = 0;
-      ctx.strokeStyle = `rgba(${ribbon.color}, 0.64)`;
-      ctx.lineWidth = ribbon.width * 1.15;
-      ctx.stroke();
-    };
-
-    const draw = (time = 0) => {
-      frame += 1;
-      easedPointerX += (pointerX - easedPointerX) * 0.045;
-      easedPointerY += (pointerY - easedPointerY) * 0.045;
-      easedScroll += (scrollOffset - easedScroll) * 0.05;
-
+    const draw = () => {
       ctx.clearRect(0, 0, width, height);
 
-      ribbons.forEach((ribbon, index) => drawRibbon(ribbon, index, time + frame * 8));
+      const visible = partialPoints(path, progress);
+      const strokeWidth = width < 640 ? 9 : 12;
+      const glowWidth = strokeWidth * 2.6;
+      const blue = "69, 90, 220";
+      const gold = "201, 168, 76";
 
-      if (!reducedMotion) {
-        rafId = requestAnimationFrame(draw);
+      drawPolyline(ctx, visible, glowWidth, blue, 0.1, 28);
+      drawPolyline(ctx, visible, strokeWidth + 5, blue, 0.18, 14);
+      drawPolyline(ctx, visible, strokeWidth, blue, 0.86, 0);
+
+      if (progress > 0.14) {
+        const accent = partialPoints(path, Math.max(0, progress - 0.08));
+        drawPolyline(ctx, accent, Math.max(3, strokeWidth * 0.34), gold, 0.34, 8, strokeWidth * 1.15);
+      }
+
+      const head = visible[visible.length - 1];
+      if (head) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(head.x, head.y, strokeWidth * 0.55, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${blue}, 0.72)`;
+        ctx.shadowColor = `rgba(${blue}, 0.32)`;
+        ctx.shadowBlur = 18;
+        ctx.fill();
+        ctx.restore();
+      }
+    };
+
+    const tick = () => {
+      if (!motionQuery.matches) {
+        progress += (targetProgress - progress) * 0.12;
+        if (Math.abs(targetProgress - progress) < 0.001) progress = targetProgress;
+        draw();
+        rafId = requestAnimationFrame(tick);
       }
     };
 
@@ -150,16 +209,17 @@ export default function ServiceRibbonBackground() {
       ? null
       : new ResizeObserver(resize);
     resizeObserver?.observe(canvas);
-    window.addEventListener("pointermove", onPointerMove, { passive: true });
-    window.addEventListener("scroll", onScroll, { passive: true });
 
-    draw();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", resize, { passive: true });
+    updateProgress();
+    tick();
 
     return () => {
       cancelAnimationFrame(rafId);
       resizeObserver?.disconnect();
-      window.removeEventListener("pointermove", onPointerMove);
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", resize);
     };
   }, []);
 
@@ -173,9 +233,9 @@ export default function ServiceRibbonBackground() {
         width: "100%",
         height: "100%",
         pointerEvents: "none",
-        opacity: 0.82,
-        WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.2) 18%, rgba(0,0,0,0.74) 32%, #000 48%, #000 100%)",
-        maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.2) 18%, rgba(0,0,0,0.74) 32%, #000 48%, #000 100%)",
+        opacity: 0.72,
+        WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.4) 18%, #000 34%, #000 100%)",
+        maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.4) 18%, #000 34%, #000 100%)",
       }}
     />
   );
