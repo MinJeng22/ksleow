@@ -213,7 +213,7 @@ export default function ServiceRibbonBackground({
 
       // Keep the movement smooth and not too fast.
       // Early start/retract is controlled by trigger + completeAt, not by high easing speed.
-      const easing = delta < 0 ? 0.24 : 0.22;
+      const easing = delta < 0 ? 0.18 : 0.22;
       progress += delta * easing;
       draw();
       rafId = requestAnimationFrame(tick);
@@ -244,10 +244,12 @@ export default function ServiceRibbonBackground({
 
       const drawProgress = (triggerLine - rect.top) / travel;
 
-      // When scrolling upward from below the Services section, rect.top can stay very negative,
-      // so drawProgress remains 1 until half of the section is visible.
-      // Use rect.bottom instead, so retract starts as soon as the section area touches the viewport.
-      const retractProgress = 1 - (rect.bottom / travel);
+      // When scrolling upward from below the Services section:
+      // - Start retracting as soon as the section touches the viewport from the top.
+      // - Finish only when the section has almost left the viewport at the bottom.
+      // This makes the retract feel early but gradual, not instant.
+      const retractDistance = rect.height + window.innerHeight * 0.85;
+      const retractProgress = 1 - (rect.bottom / Math.max(retractDistance, 1));
 
       targetProgress = clamp(isScrollingUp ? retractProgress : drawProgress);
 
