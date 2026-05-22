@@ -6,12 +6,13 @@ import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// YouTube video thumbnail to use as the WebGL texture
-const THUMBNAIL_SRC = "https://img.youtube.com/vi/ztmg4hvro6U/maxresdefault.jpg";
+// YouTube video thumbnail to use as the WebGL texture (hqdefault guarantees an image)
+const THUMBNAIL_SRC = "https://img.youtube.com/vi/ztmg4hvro6U/hqdefault.jpg";
 
 export default function AutoCountTrainingWebGL() {
   const [webglError, setWebglError] = useState(false);
-  
+  const [isPlaying, setIsPlaying] = useState(false);
+
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const rightTextRef = useRef(null);
@@ -304,25 +305,45 @@ export default function AutoCountTrainingWebGL() {
           display: "flex", flexDirection: "column", justifyContent: "center"
         }}
       >
-        <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 500, color: "#111", lineHeight: 1.3, marginBottom: "1.5rem" }}>
-          We combine design, motion, 3D, and development to create digital experiences that feel visually striking and technically seamless.
+        <div style={{
+          fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em",
+          textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.8rem",
+        }}>
+          Free Training
+        </div>
+        <h2 style={{
+          fontSize: "clamp(2rem, 3.5vw, 3rem)", fontWeight: 800,
+          color: "#2f315a", lineHeight: 1.15, marginBottom: "1.2rem",
+        }}>
+          Learn AutoCount Accounting in Just 60 Minutes
         </h2>
-        <div>
-          <a
-            href="https://youtu.be/ztmg4hvro6U?si=hojFUhwFF0gOmzA8"
-            target="_blank" rel="noreferrer"
+        <p style={{
+          fontSize: "1.05rem", color: "#6b6f91", lineHeight: 1.7,
+          marginBottom: "2rem", maxWidth: "480px"
+        }}>
+          Skip the long manuals. AutoCount's 60-minute guide covers
+          everything you need to know to navigate AutoCount Accounting
+          with confidence — from basic setup to daily transactions.
+        </p>
+        <div style={{ pointerEvents: "auto", display: "flex", alignItems: "center", gap: "1rem" }}>
+          <button
+            onClick={(e) => { e.preventDefault(); setIsPlaying(true); }}
             style={{
-              display: "inline-flex", alignItems: "center", gap: "0.8rem",
-              background: "#ffffff", color: "#111", padding: "1rem 2rem", borderRadius: 50,
-              fontSize: "0.9rem", fontWeight: 700, textDecoration: "none",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.05)", transition: "transform 0.2s"
+              display: "inline-flex", alignItems: "center", gap: "0.5rem",
+              background: "#2f315a", color: "#ffffff", border: "none", cursor: "pointer",
+              padding: "0.85rem 2rem", borderRadius: 50,
+              fontSize: "0.95rem", fontWeight: 700,
+              textDecoration: "none", transition: "background 0.2s",
             }}
-            onMouseOver={e => e.currentTarget.style.transform = "scale(1.05)"}
-            onMouseOut={e => e.currentTarget.style.transform = "scale(1)"}
+            onMouseOver={e => e.currentTarget.style.background = "#3d4075"}
+            onMouseOut={e => e.currentTarget.style.background = "#2f315a"}
           >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#111" }}></span>
-            FREE TRAINING
-          </a>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21" /></svg>
+            Watch Now
+          </button>
+          <span style={{ fontSize: "0.85rem", color: "#a8abcc", fontWeight: 500 }}>
+            Free · 60 min
+          </span>
         </div>
       </div>
 
@@ -338,13 +359,12 @@ export default function AutoCountTrainingWebGL() {
           PLAY
         </div>
         
-        <a
+        <button
           ref={playCircleRef}
-          href="https://youtu.be/ztmg4hvro6U?si=hojFUhwFF0gOmzA8"
-          target="_blank" rel="noreferrer"
+          onClick={(e) => { e.preventDefault(); setIsPlaying(true); }}
           style={{
             display: "flex", alignItems: "center", justifyContent: "center",
-            width: "12vw", height: "12vw", borderRadius: "50%", background: "#ffffff",
+            width: "12vw", height: "12vw", borderRadius: "50%", background: "#ffffff", border: "none", cursor: "pointer",
             pointerEvents: "auto", opacity: 0, transition: "transform 0.3s", flexShrink: 0,
             boxShadow: "0 20px 40px rgba(0,0,0,0.15)"
           }}
@@ -354,12 +374,44 @@ export default function AutoCountTrainingWebGL() {
           <svg width="3vw" height="3vw" viewBox="0 0 24 24" fill="#111" style={{ marginLeft: "0.5vw" }}>
             <polygon points="5,3 19,12 5,21" />
           </svg>
-        </a>
+        </button>
 
         <div ref={reelWordRef} style={{ fontSize: "12vw", fontWeight: 400, color: "#ffffff", letterSpacing: "0.02em", opacity: 0 }}>
           REEL
         </div>
       </div>
+
+      {/* Fullscreen Video Overlay */}
+      {isPlaying && (
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 9999, background: "#0f1128",
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
+        }}>
+          <button 
+            onClick={() => setIsPlaying(false)}
+            style={{
+              position: "absolute", top: "2rem", right: "2rem", zIndex: 10000,
+              background: "rgba(255,255,255,0.1)", color: "#fff", border: "none",
+              width: "50px", height: "50px", borderRadius: "50%",
+              fontSize: "1.5rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+              transition: "background 0.2s"
+            }}
+            onMouseOver={e => e.currentTarget.style.background = "rgba(255,255,255,0.25)"}
+            onMouseOut={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
+          >
+            ✕
+          </button>
+          <div style={{ width: "90vw", maxWidth: "1200px", aspectRatio: "16/9", background: "#000", borderRadius: 12, overflow: "hidden", boxShadow: "0 25px 50px rgba(0,0,0,0.5)" }}>
+            <iframe
+              src="https://www.youtube.com/embed/ztmg4hvro6U?autoplay=1"
+              title="AutoCount Training"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              style={{ width: "100%", height: "100%", border: "none" }}
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 }
