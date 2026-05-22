@@ -107,8 +107,7 @@ function ServiceCard({ service }) {
     .replace("Kampung Catin, 28400 ", "");
   const isWebinar = service.key === "webinar";
   const showBadge = !isWebinar && !service.hideBadge;
-  const frontBackgroundImage = service.backgroundImage || "";
-  const hasFrontBackground = !!frontBackgroundImage;
+  const hasFrontBackground = false;
 
   useEffect(() => {
     const node = cardRef.current;
@@ -165,25 +164,6 @@ function ServiceCard({ service }) {
           }}
         >
           {/* Top row — badge centered horizontally */}
-          {hasFrontBackground && (
-            <>
-              <div
-                aria-hidden="true"
-                style={{
-                  position: "absolute", inset: 0,
-                  backgroundImage: `url(${frontBackgroundImage})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  borderRadius: 18,
-                }}
-              />
-              <div
-                aria-hidden="true"
-                style={{ position: "absolute", inset: 0, borderRadius: 18, background: "rgba(255,255,255,0.62)" }}
-              />
-            </>
-          )}
-
           {showBadge && (
             <div className="service-badge-wrap" style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start", marginBottom: "1rem" }}>
               {(service.dealer || service.certified)
@@ -451,6 +431,27 @@ export default function Services() {
         className="home-section"
         style={{ position: "relative", overflow: "hidden", background: "#ffffff", padding: "6rem 0" }}
       >
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: "url(/images/branding/service-card-back.webp)",
+            backgroundSize: "cover",
+            backgroundPosition: "left center",
+            opacity: 0.12,
+            pointerEvents: "none",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(255,255,255,0.82)",
+            pointerEvents: "none",
+          }}
+        />
         <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.75rem" }}>
             {servicesContent.eyebrow}
