@@ -37,14 +37,14 @@ function BadgeRow({ badge, onImage = false }) {
   const showPlaceholder = visibleLogos.length === 0;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.4rem", width: "100%" }}>
-      <div style={{
+    <div className="service-badge-row" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.4rem", width: "100%" }}>
+      <div className="service-badge-label" style={{
         fontSize: "0.58rem", fontWeight: 700, letterSpacing: "0.1em",
         textTransform: "uppercase", color: labelColor, textAlign: "center",
       }}>
         {badge.label}
       </div>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0" }}>
+      <div className="service-badge-logos" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0" }}>
         {showPlaceholder ? (
           /* Placeholder slots until real logos are added */
           [0, 1].map(i => (
@@ -186,7 +186,7 @@ function ServiceCard({ service }) {
           )}
 
           {showBadge && (
-            <div style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start", marginBottom: "1rem" }}>
+            <div className="service-badge-wrap" style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start", marginBottom: "1rem" }}>
               {(service.dealer || service.certified)
                 ? <BadgeRow badge={service.dealer || service.certified} onImage={hasFrontBackground} />
                 : <div />
