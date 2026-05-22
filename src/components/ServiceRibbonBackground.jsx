@@ -167,7 +167,51 @@ export default function ServiceRibbonBackground({
     let targetProgress = 0;
     let progress = 0;
     let rafId = 0;
+    let scrollFrameId = 0;
+    let isAnimating = false;
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      const visible = partialPoints(path, progress);
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      gradient.addColorStop(0, "#2f315a");
+      gradient.addColorStop(0.44, "#4f5fbd");
+      gradient.addColorStop(1, "#7b91d9");
+
+      drawPolyline(ctx, visible, Math.min(36, Math.max(24, width * 0.022)), gradient);
+    };
+
+    const tick = () => {
+      if (motionQuery.matches) {
+        isAnimating = false;
+        return;
+      }
+
+      const delta = targetProgress - progress;
+      if (Math.abs(delta) < 0.001) {
+        progress = targetProgress;
+        draw();
+        isAnimating = false;
+        return;
+      }
+
+      progress += delta * 0.16;
+      draw();
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const startAnimation = () => {
+      if (motionQuery.matches) {
+        progress = targetProgress;
+        draw();
+        return;
+      }
+      if (isAnimating) return;
+      isAnimating = true;
+      rafId = requestAnimationFrame(tick);
+    };
 
     const updateProgress = () => {
       const section = canvas.parentElement;
@@ -181,7 +225,17 @@ export default function ServiceRibbonBackground({
       if (motionQuery.matches) {
         progress = targetProgress;
         draw();
+      } else {
+        startAnimation();
       }
+    };
+
+    const scheduleProgressUpdate = () => {
+      if (scrollFrameId) return;
+      scrollFrameId = requestAnimationFrame(() => {
+        scrollFrameId = 0;
+        updateProgress();
+      });
     };
 
     const resize = () => {
@@ -197,27 +251,6 @@ export default function ServiceRibbonBackground({
       draw();
     };
 
-    const draw = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      const visible = partialPoints(path, progress);
-      const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, "#2e28f6");
-      gradient.addColorStop(0.38, "#4138ff");
-      gradient.addColorStop(1, "#5b8dff");
-
-      drawPolyline(ctx, visible, Math.min(48, Math.max(34, width * 0.03)), gradient);
-    };
-
-    const tick = () => {
-      if (!motionQuery.matches) {
-        progress += (targetProgress - progress) * 0.12;
-        if (Math.abs(targetProgress - progress) < 0.001) progress = targetProgress;
-        draw();
-        rafId = requestAnimationFrame(tick);
-      }
-    };
-
     resize();
 
     const resizeObserver = typeof ResizeObserver === "undefined"
@@ -225,15 +258,15 @@ export default function ServiceRibbonBackground({
       : new ResizeObserver(resize);
     resizeObserver?.observe(canvas);
 
-    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("scroll", scheduleProgressUpdate, { passive: true });
     window.addEventListener("resize", resize, { passive: true });
     updateProgress();
-    tick();
 
     return () => {
       cancelAnimationFrame(rafId);
+      cancelAnimationFrame(scrollFrameId);
       resizeObserver?.disconnect();
-      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("scroll", scheduleProgressUpdate);
       window.removeEventListener("resize", resize);
     };
   }, [completeAt, enabled, trigger, variant]);
