@@ -22,22 +22,6 @@
       "route": "/apps/autocount-plugin"
     },
     {
-      "key": "erp",
-      "tag": "ERP Integration - Manufacturing",
-      "title": "AutoCount ERP Integration for a Temerloh Food Manufacturer",
-      "desc": "Integrated AutoCount Accounting with a production planning module for a local food manufacturer, synchronising raw-material procurement, batch costing, and finished-goods inventory in real time.",
-      "image": "",
-      "route": ""
-    },
-    {
-      "key": "warehouse",
-      "tag": "IT Networking - Smart Warehouse",
-      "title": "Smart Warehouse Networking & Barcode System for Kuantan Logistics Firm",
-      "desc": "Deployed an industrial-grade wireless mesh network across a 20,000 sq ft warehouse, integrated with AutoCount's inventory module and handheld barcode scanners for real-time stock accuracy.",
-      "image": "",
-      "route": ""
-    },
-    {
       "key": "sitegiant",
       "tag": "E-Commerce - Sitegiant",
       "title": "Sitegiant Integration",

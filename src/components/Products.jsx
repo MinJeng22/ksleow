@@ -285,7 +285,7 @@ export default function Products({ onContact }) {
                 display: "grid",
                 gridTemplateColumns: `repeat(${renderCount}, 1fr)`,
                 gridAutoRows: "1fr",
-                minHeight: 420,
+                height: 470,
                 gap: "0.9rem",
               }}
             >
