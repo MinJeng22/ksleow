@@ -38,7 +38,7 @@ export default function SectionDivider({ icon }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "0.75rem var(--px)",
+        padding: "3rem var(--px)",
         position: "relative",
         zIndex: 10,
         width: "100%",
@@ -46,30 +46,55 @@ export default function SectionDivider({ icon }) {
         margin: "0 auto",
       }}
     >
-      {/* Left line */}
-      <div style={{ flex: 1, height: 1, background: "rgba(47,49,90,0.10)" }} />
+      {/* Left line (gradient fade) */}
+      <div style={{ 
+        flex: 1, height: 1, 
+        background: "linear-gradient(90deg, transparent, rgba(47,49,90,0.15))" 
+      }} />
 
-      {/* Icon wrapper */}
+      {/* Icon wrapper with premium glassmorphism & glow */}
       <div
         style={{
-          padding: "0 1.25rem",
-          filter: inView
-            ? "grayscale(0) drop-shadow(0 2px 8px rgba(0,0,0,0.06))"
-            : "grayscale(1) opacity(0.3)",
-          transform: inView ? "scale(1)" : "scale(0.8)",
-          transition:
-            "filter 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          position: "relative",
+          margin: "0 2rem",
+          padding: "1.1rem",
+          borderRadius: "50%",
+          background: "linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4))",
+          boxShadow: inView 
+            ? "0 12px 32px rgba(47, 49, 90, 0.08), inset 0 0 0 1px rgba(255,255,255,1)"
+            : "0 4px 16px rgba(0,0,0,0.02), inset 0 0 0 1px rgba(255,255,255,0.4)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          filter: inView ? "grayscale(0)" : "grayscale(1) opacity(0.3)",
+          transform: inView ? "scale(1) translateY(0)" : "scale(0.8) translateY(15px)",
+          transition: "all 1s cubic-bezier(0.22, 1, 0.36, 1)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           lineHeight: 0,
         }}
       >
-        {icon || <div style={{ width: 28, height: 28 }} />}
+        {/* Soft radial glow behind the icon */}
+        <div style={{
+          position: "absolute",
+          inset: "-20%",
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 60%)",
+          opacity: inView ? 1 : 0,
+          transition: "opacity 1.5s ease 0.4s",
+          pointerEvents: "none",
+        }} />
+
+        <div style={{ position: "relative", zIndex: 1 }}>
+          {icon || <div style={{ width: 28, height: 28 }} />}
+        </div>
       </div>
 
-      {/* Right line */}
-      <div style={{ flex: 1, height: 1, background: "rgba(47,49,90,0.10)" }} />
+      {/* Right line (gradient fade) */}
+      <div style={{ 
+        flex: 1, height: 1, 
+        background: "linear-gradient(270deg, transparent, rgba(47,49,90,0.15))" 
+      }} />
     </div>
   );
 }
