@@ -138,7 +138,6 @@ function ServiceCard({ service }) {
   }, []);
 
   const isActive = service.backgroundImage && (isHovered || isMobile);
-  const hasFrontBackground = false; // Still false by default for layout/padding purposes
 
   let activeBadge = service.dealer || service.certified;
   if (isActive && service.hoverLogos && activeBadge) {
