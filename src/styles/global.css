@@ -107,7 +107,10 @@ body {
 
 .products-carousel-controls-side {
   position: absolute;
-  inset: 0 -0.45rem;
+  top: 50%;
+  left: calc(var(--px) * -1);
+  right: calc(var(--px) * -1);
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: space-between;

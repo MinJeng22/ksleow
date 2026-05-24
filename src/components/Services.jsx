@@ -116,7 +116,7 @@ function ServiceCard({ service }) {
 
   useEffect(() => {
     if (isHovered) {
-      const timer = setTimeout(() => setIsDelayedHover(true), 1000);
+      const timer = setTimeout(() => setIsDelayedHover(true), 850);
       return () => clearTimeout(timer);
     } else {
       setIsDelayedHover(false);

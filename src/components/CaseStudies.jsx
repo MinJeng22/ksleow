@@ -5,8 +5,7 @@ import { CASE_IMAGES } from "../assets/assets.js";
 import caseStudiesContent from "../content/caseStudies.json";
 
 const CASES = (caseStudiesContent.items || []).filter((item) => {
-  if (!item?.title || !item?.desc) return false;
-  return !!(item.image || item.route || item.modal);
+  return !!(item?.title && item?.desc);
 });
 const SUPAPRINTZ_PARTNER = {
   name: "Supaprintz.my",

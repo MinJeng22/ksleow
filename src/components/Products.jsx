@@ -150,6 +150,7 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
 export default function Products({ onContact }) {
   const [hovered, setHovered] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
+  const [progressIndex, setProgressIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState(null);
   const [viewportWidth, setViewportWidth] = useState(getViewportWidth);
   const [revealSettled, setRevealSettled] = useState(false);
@@ -173,6 +174,11 @@ export default function Products({ onContact }) {
   const startSlide = (direction) => {
     if (!canSlide || slideDirection) return;
     setSlideDirection(direction);
+    setProgressIndex(i => (
+      direction === "next"
+        ? (i + 1) % PRODUCTS.length
+        : (i - 1 + PRODUCTS.length) % PRODUCTS.length
+    ));
   };
   const showPrevious = () => startSlide("previous");
   const showNext = () => startSlide("next");
@@ -241,7 +247,7 @@ export default function Products({ onContact }) {
           </div>
         </div>
 
-        <div className="products-carousel-shell" style={{ position: "relative" }}>
+        <div style={{ position: "relative" }}>
           {canSlide && (
             <CarouselControls
               className="products-carousel-controls-side"
@@ -249,19 +255,20 @@ export default function Products({ onContact }) {
               onNext={showNext}
             />
           )}
-          <div
-            ref={gridRef}
-            className={`products-grid products-grid-carousel${slideDirection ? ` is-sliding-${slideDirection}` : ""}`}
-            onAnimationEnd={finishSlide}
-            style={{
-              "--products-render-count": renderCount,
-              display: "grid",
-              gridTemplateColumns: `repeat(${renderCount}, 1fr)`,
-              gridAutoRows: "1fr",
-              minHeight: 350,
-              gap: "0.9rem",
-            }}
-          >
+          <div className="products-carousel-shell">
+            <div
+              ref={gridRef}
+              className={`products-grid products-grid-carousel${slideDirection ? ` is-sliding-${slideDirection}` : ""}`}
+              onAnimationEnd={finishSlide}
+              style={{
+                "--products-render-count": renderCount,
+                display: "grid",
+                gridTemplateColumns: `repeat(${renderCount}, 1fr)`,
+                gridAutoRows: "1fr",
+                minHeight: 420,
+                gap: "0.9rem",
+              }}
+            >
             {visibleProducts.map(({ product, productIndex, order }) => (
               <ProductCard
                 key={`${product.name}-${productIndex}-${order}`}
@@ -276,6 +283,7 @@ export default function Products({ onContact }) {
                 onOpen={navigate}
               />
             ))}
+            </div>
           </div>
         </div>
 
@@ -287,7 +295,7 @@ export default function Products({ onContact }) {
               width: `${100 / PRODUCTS.length}%`, 
               background: "#c9a84c",
               borderRadius: "2px",
-              transform: `translateX(${startIndex * 100}%)`,
+              transform: `translateX(${progressIndex * 100}%)`,
               transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)" 
             }} />
           </div>
