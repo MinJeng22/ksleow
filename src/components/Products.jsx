@@ -112,9 +112,11 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
               transform: revealed
                 ? `translateY(0px) scale(${isHov ? 1.08 : 1})`
                 : "translateY(30px) scale(0.85)",
-              transition: animateReveal
-                ? `opacity 0.7s ease ${order * 0.15}s, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) ${order * 0.15}s`
-                : "transform 0.28s ease",
+              transition: (!revealed) 
+                ? "none" 
+                : animateReveal
+                  ? `opacity 0.7s ease ${order * 0.15}s, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) ${order * 0.15}s`
+                  : "transform 0.28s ease",
             }}
           />
         ) : (
