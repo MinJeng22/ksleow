@@ -107,6 +107,7 @@ collections:
               - { name: title,      label: Card title,                   widget: string }
               - { name: desc,       label: Card description,             widget: text }
               - { name: backgroundImage, label: Front card background image, widget: image, required: false }
+              - { name: hoverImage, label: Hover background image, widget: image, required: false }
               - { name: hideBadge,   label: Hide badge/logo area on front, widget: boolean, default: false, required: false }
               - name: officeKey
                 label: "Office / Company shown on card back"
@@ -128,6 +129,14 @@ collections:
               - { name: badgeLabel, label: Badge label text,             widget: string, default: "Authorized Dealer", required: false }
               - name: logos
                 label: Badge logos
+                widget: list
+                required: false
+                fields:
+                  - { name: src, label: Logo image, widget: image }
+                  - { name: alt, label: Alt text,   widget: string }
+                  - { name: h,   label: Height (px), widget: number, default: 60, value_type: int, min: 20, max: 120 }
+              - name: hoverLogos
+                label: Badge logos (on hover, e.g. white versions)
                 widget: list
                 required: false
                 fields:

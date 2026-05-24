@@ -21,6 +21,8 @@ const SERVICES = (servicesContent.items || []).map(s => {
     desc: s.desc,
     officeKey: s.officeKey || null,
     backgroundImage: s.backgroundImage || null,
+    hoverImage: s.hoverImage || null,
+    hoverLogos: s.hoverLogos || null,
     hideBadge: !!s.hideBadge,
     ...(s.badgeType === "dealer"    && badge ? { dealer:    badge } : {}),
     ...(s.badgeType === "certified" && badge ? { certified: badge } : {}),
@@ -28,9 +30,9 @@ const SERVICES = (servicesContent.items || []).map(s => {
 });
 
 /* ── Badge row — used for both Authorized Dealer and Certified By ── */
-function BadgeRow({ badge, onImage = false }) {
+function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
   /* Both labels use the same neutral grey (per design spec) */
-  const labelColor = onImage ? "#2f315a" : "#6b6f91";
+  const labelColor = forceWhiteLabel ? "#ffffff" : (onImage ? "#2f315a" : "#6b6f91");
 
   /* Filter out logos whose src starts with /cert- (placeholders — hide until file exists) */
   const visibleLogos = badge.logos.filter(l => !l.src.startsWith("/cert-"));
@@ -41,6 +43,7 @@ function BadgeRow({ badge, onImage = false }) {
       <div className="service-badge-label" style={{
         fontSize: "0.58rem", fontWeight: 700, letterSpacing: "0.1em",
         textTransform: "uppercase", color: labelColor, textAlign: "center",
+        transition: "color 0.3s ease",
       }}>
         {badge.label}
       </div>
@@ -88,6 +91,7 @@ function BadgeRow({ badge, onImage = false }) {
 /* ── Flip card ── */
 function ServiceCard({ service }) {
   const [flipped, setFlipped] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef(null);
   const contact = SERVICE_CONTACTS[service.key] || {};
   const office  = (service.officeKey && OFFICES[service.officeKey]) || null;
@@ -124,6 +128,12 @@ function ServiceCard({ service }) {
     return () => observer.disconnect();
   }, []);
 
+  const hasHoverEffect = isHovered && service.hoverImage;
+  let activeBadge = service.dealer || service.certified;
+  if (hasHoverEffect && service.hoverLogos && activeBadge) {
+    activeBadge = { ...activeBadge, logos: service.hoverLogos.map(l => ({ ...l, h: l.h || 60 })) };
+  }
+
   return (
     <div ref={cardRef} style={{ perspective: "1200px", height: 290 }}>
       <div style={{
@@ -155,19 +165,34 @@ function ServiceCard({ service }) {
             transition: "border-color 0.2s, box-shadow 0.2s",
           }}
           onMouseOver={e => {
+            setIsHovered(true);
             e.currentTarget.style.borderColor = "#bfc4d8";
             e.currentTarget.style.boxShadow = "0 4px 16px rgba(47,49,90,0.09)";
           }}
           onMouseOut={e => {
+            setIsHovered(false);
             e.currentTarget.style.borderColor = "#d8dbe8";
             e.currentTarget.style.boxShadow = "none";
           }}
         >
+          {/* Hover Background Image with Overlay */}
+          {service.hoverImage && (
+            <div style={{
+              position: "absolute", inset: 0, zIndex: 0,
+              backgroundImage: `url(${service.hoverImage})`,
+              backgroundSize: "cover", backgroundPosition: "center",
+              opacity: isHovered ? 1 : 0,
+              transition: "opacity 0.3s ease",
+            }}>
+              <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.5)" }} />
+            </div>
+          )}
+
           {/* Top row — badge centered horizontally */}
           {showBadge && (
             <div className="service-badge-wrap" style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start", marginBottom: "1rem" }}>
-              {(service.dealer || service.certified)
-                ? <BadgeRow badge={service.dealer || service.certified} onImage={hasFrontBackground} />
+              {activeBadge
+                ? <BadgeRow badge={activeBadge} onImage={hasFrontBackground || hasHoverEffect} forceWhiteLabel={hasHoverEffect} />
                 : <div />
               }
             </div>
@@ -176,18 +201,19 @@ function ServiceCard({ service }) {
             position: "relative", zIndex: 1,
             fontSize: "clamp(1.18rem, 1.5vw, 1.38rem)",
             fontWeight: 800,
-            color: "#2f315a",
+            color: hasHoverEffect ? "#ffffff" : "#2f315a",
             marginTop: "auto",
             marginBottom: "0.6rem",
             lineHeight: 1.22,
             textShadow: "none",
+            transition: "color 0.3s ease",
           }}>
             {service.title}
           </h3>
           <p style={{
             position: "relative", zIndex: 1,
             fontSize: "0.83rem",
-            color: hasFrontBackground ? "#4f577f" : "#6b6f91",
+            color: hasHoverEffect ? "rgba(255,255,255,0.9)" : (hasFrontBackground ? "#4f577f" : "#6b6f91"),
             lineHeight: 1.6,
             margin: 0,
             /* Clamp to 4 lines max — paired with shorter descriptions in
@@ -196,6 +222,7 @@ function ServiceCard({ service }) {
             WebkitLineClamp: 4,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
+            transition: "color 0.3s ease",
           }}>
             {service.desc}
           </p>
@@ -206,7 +233,10 @@ function ServiceCard({ service }) {
             display: "inline-flex", alignItems: "center", gap: "0.35rem",
             marginTop: "0.6rem",
             alignSelf: "flex-end",
-            fontSize: "0.84rem", color: hasFrontBackground ? "#2f315a" : "#c9a84c", fontWeight: 700,
+            fontSize: "0.84rem", 
+            color: hasHoverEffect ? "#ffffff" : (hasFrontBackground ? "#2f315a" : "#c9a84c"), 
+            fontWeight: 700,
+            transition: "color 0.3s ease",
           }}>
             Tap for contact
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
