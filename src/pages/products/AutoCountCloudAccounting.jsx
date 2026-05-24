@@ -3,7 +3,7 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
-import SectionDivider from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconVideo, IconGrid, IconLedger, IconRocket } from "../../components/SectionDivider.jsx";
 import cloudReleases from "../../content/autocountCloudReleases.json";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -531,7 +531,7 @@ export default function AutoCountCloudAccountingPage() {
       <main className="pinned-page-content">
       <FeatureHighlights />
 
-      <SectionDivider iconSrc="/images/products/cloudaccounting-icon.png" />
+      <SectionDivider icon={IconVideo} />
 
       <div id="training" ref={trainingRef} className="ac-section-tight" style={{ background: "#ffffff", padding: "4.5rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
@@ -573,7 +573,7 @@ export default function AutoCountCloudAccountingPage() {
         </div>
       </div>
 
-      <SectionDivider iconSrc="/images/products/cloudaccounting-icon.png" />
+      <SectionDivider icon={IconGrid} />
 
       <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
@@ -655,7 +655,7 @@ export default function AutoCountCloudAccountingPage() {
         </div>
       </div>
 
-      <SectionDivider iconSrc="/images/products/cloudaccounting-icon.png" />
+      <SectionDivider icon={IconLedger} />
 
       <div id="releases" className="ac-section-tight" style={{ padding: "4rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
@@ -757,7 +757,7 @@ export default function AutoCountCloudAccountingPage() {
         </div>
       </div>
 
-      <SectionDivider iconSrc="/images/products/cloudaccounting-icon.png" />
+      <SectionDivider icon={IconRocket} />
 
       <div style={{ background: "#2f315a", padding: "4rem 0" }}>
         <div className="content-wrap" style={{ textAlign: "center" }}>

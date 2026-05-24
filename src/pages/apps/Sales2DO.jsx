@@ -11,7 +11,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 import AIChatbot from "../../components/AIChatbot.jsx";
 import sales2doContent from "../../content/sales2do.json";
 import acPluginIcon     from "../../assets/images/apps/ac-plugin-icon.png";
-import SectionDivider   from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconClipboard, IconSettings, IconStar, IconShield, IconRocket } from "../../components/SectionDivider.jsx";
 import imgOutstanding   from "../../assets/images/apps/sales2do/outstanding.png";
 import imgPreset        from "../../assets/images/apps/sales2do/preset-delivery.png";
 import imgSettings      from "../../assets/images/apps/sales2do/settings.png";
@@ -593,7 +593,7 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider iconSrc={acPluginIcon} />
+      <SectionDivider icon={IconClipboard} />
 
       {/* ── Outstanding Delivery Order ── */}
       <div id="outstanding" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
@@ -622,7 +622,7 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider iconSrc={acPluginIcon} />
+      <SectionDivider icon={IconStar} />
 
       {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
       <div id="preset" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
@@ -645,7 +645,7 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider iconSrc={acPluginIcon} />
+      <SectionDivider icon={IconSettings} />
 
       {/* ── Plugin Settings ── */}
       <div id="settings" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
@@ -671,7 +671,7 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider iconSrc={acPluginIcon} />
+      <SectionDivider icon={IconShield} />
 
       {/* ── Activate Plugin License ── */}
       <div id="license" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
@@ -746,7 +746,7 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider iconSrc={acPluginIcon} />
+      <SectionDivider icon={IconRocket} />
 
       {/* ── CTA ── */}
       <div style={{ position: "relative", overflow: "hidden", background: "#f4f6fb", padding: "4rem 0" }}>

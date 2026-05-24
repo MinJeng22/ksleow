@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
-import SectionDivider from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconLayers, IconLink, IconHandshake, IconRocket } from "../../components/SectionDivider.jsx";
 
 /* FeedMe POS page — product-aware WhatsApp link to Sales Agent Elise */
 const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
@@ -256,7 +256,7 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <SectionDivider iconSrc={FEEDME_LOGO} />
+      <SectionDivider icon={IconLayers} />
 
       {/* ── Module spotlight ── */}
       <div id="modules" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
@@ -322,7 +322,7 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <SectionDivider iconSrc={FEEDME_LOGO} />
+      <SectionDivider icon={IconLink} />
 
       {/* ── AutoCount integration ── */}
       <div id="integration" style={{ background: "#ffffff", ...S.section, scrollMarginTop: 24 }}>
@@ -356,7 +356,7 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <SectionDivider iconSrc={FEEDME_LOGO} />
+      <SectionDivider icon={IconHandshake} />
 
       {/* ── Why partner with KSL ── */}
       <div id="why-ksl" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
@@ -384,7 +384,7 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <SectionDivider iconSrc={FEEDME_LOGO} />
+      <SectionDivider icon={IconRocket} />
 
       {/* ── Final CTA ── */}
       <div style={{ background: "#2f315a", padding: "4rem 0" }}>
