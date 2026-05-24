@@ -21,7 +21,6 @@ const SERVICES = (servicesContent.items || []).map(s => {
     desc: s.desc,
     officeKey: s.officeKey || null,
     backgroundImage: s.backgroundImage || null,
-    hoverImage: s.hoverImage || null,
     hoverLogos: s.hoverLogos || null,
     hideBadge: !!s.hideBadge,
     ...(s.badgeType === "dealer"    && badge ? { dealer:    badge } : {}),
@@ -92,6 +91,7 @@ function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
 function ServiceCard({ service }) {
   const [flipped, setFlipped] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const cardRef = useRef(null);
   const contact = SERVICE_CONTACTS[service.key] || {};
   const office  = (service.officeKey && OFFICES[service.officeKey]) || null;
@@ -125,12 +125,23 @@ function ServiceCard({ service }) {
       { threshold: 0.12 }
     );
     observer.observe(node);
-    return () => observer.disconnect();
+
+    const mql = window.matchMedia("(max-width: 900px)");
+    const mqlHandler = (e) => setIsMobile(e.matches);
+    setIsMobile(mql.matches);
+    mql.addEventListener("change", mqlHandler);
+
+    return () => {
+      observer.disconnect();
+      mql.removeEventListener("change", mqlHandler);
+    };
   }, []);
 
-  const hasHoverEffect = isHovered && service.hoverImage;
+  const isActive = service.backgroundImage && (isHovered || isMobile);
+  const hasFrontBackground = false; // Still false by default for layout/padding purposes
+
   let activeBadge = service.dealer || service.certified;
-  if (hasHoverEffect && service.hoverLogos && activeBadge) {
+  if (isActive && service.hoverLogos && activeBadge) {
     activeBadge = { ...activeBadge, logos: service.hoverLogos.map(l => ({ ...l, h: l.h || 60 })) };
   }
 
@@ -176,12 +187,12 @@ function ServiceCard({ service }) {
           }}
         >
           {/* Hover Background Image with Overlay */}
-          {service.hoverImage && (
+          {service.backgroundImage && (
             <div style={{
               position: "absolute", inset: 0, zIndex: 0,
-              backgroundImage: `url(${service.hoverImage})`,
+              backgroundImage: `url(${service.backgroundImage})`,
               backgroundSize: "cover", backgroundPosition: "center",
-              opacity: isHovered ? 1 : 0,
+              opacity: isActive ? 1 : 0,
               transition: "opacity 0.3s ease",
             }}>
               <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.5)" }} />
@@ -192,7 +203,7 @@ function ServiceCard({ service }) {
           {showBadge && (
             <div className="service-badge-wrap" style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start", marginBottom: "1rem" }}>
               {activeBadge
-                ? <BadgeRow badge={activeBadge} onImage={hasFrontBackground || hasHoverEffect} forceWhiteLabel={hasHoverEffect} />
+                ? <BadgeRow badge={activeBadge} onImage={hasFrontBackground || isActive} forceWhiteLabel={isActive} />
                 : <div />
               }
             </div>
@@ -201,7 +212,7 @@ function ServiceCard({ service }) {
             position: "relative", zIndex: 1,
             fontSize: "clamp(1.18rem, 1.5vw, 1.38rem)",
             fontWeight: 800,
-            color: hasHoverEffect ? "#ffffff" : "#2f315a",
+            color: isActive ? "#ffffff" : "#2f315a",
             marginTop: "auto",
             marginBottom: "0.6rem",
             lineHeight: 1.22,
@@ -213,7 +224,7 @@ function ServiceCard({ service }) {
           <p style={{
             position: "relative", zIndex: 1,
             fontSize: "0.83rem",
-            color: hasHoverEffect ? "rgba(255,255,255,0.9)" : (hasFrontBackground ? "#4f577f" : "#6b6f91"),
+            color: isActive ? "rgba(255,255,255,0.9)" : (hasFrontBackground ? "#4f577f" : "#6b6f91"),
             lineHeight: 1.6,
             margin: 0,
             /* Clamp to 4 lines max — paired with shorter descriptions in
@@ -234,7 +245,7 @@ function ServiceCard({ service }) {
             marginTop: "0.6rem",
             alignSelf: "flex-end",
             fontSize: "0.84rem", 
-            color: hasHoverEffect ? "#ffffff" : (hasFrontBackground ? "#2f315a" : "#c9a84c"), 
+            color: isActive ? "#ffffff" : (hasFrontBackground ? "#2f315a" : "#c9a84c"), 
             fontWeight: 700,
             transition: "color 0.3s ease",
           }}>
