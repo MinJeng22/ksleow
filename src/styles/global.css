@@ -487,10 +487,8 @@ body.supaprintz-modal-open .back-to-top {
 .products-section .products-carousel-shell {
   --products-edge-peek: clamp(136px, 12vw, 210px);
   --products-gap: clamp(0.7rem, 1vw, 0.95rem);
-  --products-card-width: calc((100vw - var(--px) - var(--products-edge-peek) - var(--products-edge-peek) - var(--products-gap) - var(--products-gap) - var(--products-gap) - var(--products-gap) - var(--products-gap)) / 4);
-  width: calc(100vw - var(--px));
-  margin-left: calc(50% - 50vw + (var(--px) / 2));
-  margin-right: calc(50% - 50vw + (var(--px) / 2));
+  --products-card-width: calc((100% - var(--products-edge-peek) * 2 - var(--products-gap) * 5) / 4);
+  width: 100%;
   padding: 0;
   overflow: hidden;
 }
@@ -567,7 +565,7 @@ body.supaprintz-modal-open .back-to-top {
   .products-section .products-carousel-shell {
     --products-edge-peek: clamp(94px, 10vw, 130px);
     --products-gap: 0.8rem;
-    --products-card-width: calc((100vw - var(--px) - var(--products-edge-peek) - var(--products-edge-peek) - var(--products-gap) - var(--products-gap) - var(--products-gap) - var(--products-gap)) / 3);
+    --products-card-width: calc((100% - var(--products-edge-peek) * 2 - var(--products-gap) * 4) / 3);
   }
 
   .products-section .products-grid-carousel {
@@ -579,7 +577,7 @@ body.supaprintz-modal-open .back-to-top {
   .products-section .products-carousel-shell {
     --products-edge-peek: clamp(72px, 11vw, 104px);
     --products-gap: 0.75rem;
-    --products-card-width: calc((100vw - var(--px) - var(--products-edge-peek) - var(--products-edge-peek) - var(--products-gap) - var(--products-gap) - var(--products-gap)) / 2);
+    --products-card-width: calc((100% - var(--products-edge-peek) * 2 - var(--products-gap) * 3) / 2);
   }
 
   .products-section .products-grid-carousel {
@@ -591,7 +589,7 @@ body.supaprintz-modal-open .back-to-top {
   .products-section .products-carousel-shell {
     --products-edge-peek: clamp(42px, 13vw, 58px);
     --products-gap: 0.6rem;
-    --products-card-width: calc(100vw - var(--px) - var(--products-edge-peek) - var(--products-edge-peek) - var(--products-gap) - var(--products-gap));
+    --products-card-width: calc(100% - var(--products-edge-peek) * 2 - var(--products-gap) * 2);
   }
 
   .products-section .products-grid-carousel {
