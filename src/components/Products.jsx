@@ -279,6 +279,20 @@ export default function Products({ onContact }) {
           </div>
         </div>
 
+        <div style={{ marginTop: "3rem", display: "flex", justifyContent: "center" }}>
+          <div style={{ width: "160px", height: "4px", background: "rgba(255,255,255,0.15)", borderRadius: "2px", position: "relative", overflow: "hidden" }}>
+            <div style={{ 
+              position: "absolute",
+              top: 0, left: 0, bottom: 0,
+              width: `${100 / PRODUCTS.length}%`, 
+              background: "#c9a84c",
+              borderRadius: "2px",
+              transform: `translateX(${startIndex * 100}%)`,
+              transition: "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)" 
+            }} />
+          </div>
+        </div>
+
       </div>
     </section>
   );

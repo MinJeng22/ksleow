@@ -36,6 +36,14 @@
       "desc": "Deployed an industrial-grade wireless mesh network across a 20,000 sq ft warehouse, integrated with AutoCount's inventory module and handheld barcode scanners for real-time stock accuracy.",
       "image": "",
       "route": ""
+    },
+    {
+      "key": "sitegiant",
+      "tag": "E-Commerce - Sitegiant",
+      "title": "Sitegiant Integration",
+      "desc": "Omnichannel e-commerce synchronization with AutoCount Accounting, streamlining inventory, sales, and fulfillment across multiple marketplaces.",
+      "image": "",
+      "route": ""
     }
   ]
 }

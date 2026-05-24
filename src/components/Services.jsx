@@ -91,12 +91,13 @@ function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
 function ServiceCard({ service }) {
   const [flipped, setFlipped] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isDelayedHover, setIsDelayedHover] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const cardRef = useRef(null);
   const contact = SERVICE_CONTACTS[service.key] || {};
   const office  = (service.officeKey && OFFICES[service.officeKey]) || null;
-  const waNumber  = contact.whatsapp || "60179052323";
-  const waMessage = `Hi, I would like to enquire about your ${service.title} service. Thank you.`;
+  const waNumber  = contact.phone ? contact.phone.replace(/\D/g, "") : "60179183838";
+  const waMessage = `Hi! I'm interested in ${service.title}. Could you provide more details?`;
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
   const emailHref = `mailto:${contact.email || "support@ksleow.com.my"}`;
 
@@ -111,7 +112,15 @@ function ServiceCard({ service }) {
     .replace("Kampung Catin, 28400 ", "");
   const isWebinar = service.key === "webinar";
   const showBadge = !isWebinar && !service.hideBadge;
-  const hasFrontBackground = false;
+
+  useEffect(() => {
+    if (isHovered) {
+      const timer = setTimeout(() => setIsDelayedHover(true), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      setIsDelayedHover(false);
+    }
+  }, [isHovered]);
 
   useEffect(() => {
     const node = cardRef.current;
@@ -137,7 +146,7 @@ function ServiceCard({ service }) {
     };
   }, []);
 
-  const isActive = service.backgroundImage && (isHovered || isMobile);
+  const isActive = service.backgroundImage && (isDelayedHover || isMobile);
 
   let activeBadge = service.dealer || service.certified;
   if (isActive && service.hoverLogos && activeBadge) {

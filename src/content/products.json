@@ -49,13 +49,22 @@
       "route": ""
     },
     {
-      "name": "Sales2DO Plugin",
-      "desc": "AutoCount plugin that converts invoices or cash sales into delivery orders with smart outstanding quantity control.",
-      "image": "/images/icons/ac-plugin-icon.png",
-      "background": "/images/case-studies/acplugin.png",
-      "placeholder": "S2D",
-      "gradient": "rgb(226, 229, 241)",
-      "route": "/apps/sales2do"
+      "name": "ServerLink",
+      "desc": "Secure, fast, and reliable remote access solution for your business software.",
+      "image": "",
+      "background": "",
+      "placeholder": "🌐",
+      "gradient": "rgb(235, 235, 235)",
+      "route": ""
+    },
+    {
+      "name": "AutoCount OneSale",
+      "desc": "Omnichannel sales management seamlessly integrated with AutoCount.",
+      "image": "",
+      "background": "",
+      "placeholder": "🛍️",
+      "gradient": "rgb(255, 240, 240)",
+      "route": ""
     }
   ]
 }
