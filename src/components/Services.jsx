@@ -112,6 +112,7 @@ function ServiceCard({ service }) {
     .replace("Kampung Catin, 28400 ", "");
   const isWebinar = service.key === "webinar";
   const showBadge = !isWebinar && !service.hideBadge;
+  const hasFrontBackground = false;
 
   useEffect(() => {
     if (isHovered) {
