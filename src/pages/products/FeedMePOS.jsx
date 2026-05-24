@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
+import SectionDivider from "../../components/SectionDivider.jsx";
 
 /* FeedMe POS page — product-aware WhatsApp link to Sales Agent Elise */
 const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
@@ -26,7 +27,7 @@ const S = {
   h2:      { fontSize: "clamp(1.4rem, 2.6vw, 2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem" },
   h3:      { fontSize: "1.05rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.55rem" },
   body:    { fontSize: "0.93rem", color: "#555", lineHeight: 1.82 },
-  section: { padding: "4rem 0", borderBottom: "0.5px solid rgba(47,49,90,0.08)" },
+  section: { padding: "4rem 0" },
 };
 
 /* ── Inline SVG icon set ── */
@@ -255,6 +256,8 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
+      <SectionDivider iconSrc={FEEDME_LOGO} />
+
       {/* ── Module spotlight ── */}
       <div id="modules" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
@@ -319,6 +322,8 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
+      <SectionDivider iconSrc={FEEDME_LOGO} />
+
       {/* ── AutoCount integration ── */}
       <div id="integration" style={{ background: "#ffffff", ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2.5rem", alignItems: "center" }}>
@@ -351,6 +356,8 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
+      <SectionDivider iconSrc={FEEDME_LOGO} />
+
       {/* ── Why partner with KSL ── */}
       <div id="why-ksl" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
@@ -376,6 +383,8 @@ export default function FeedMePOSPage() {
           </div>
         </div>
       </div>
+
+      <SectionDivider iconSrc={FEEDME_LOGO} />
 
       {/* ── Final CTA ── */}
       <div style={{ background: "#2f315a", padding: "4rem 0" }}>

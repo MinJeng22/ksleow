@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
+import SectionDivider from "../../components/SectionDivider.jsx";
 import cloudReleases from "../../content/autocountCloudReleases.json";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -530,7 +531,9 @@ export default function AutoCountCloudAccountingPage() {
       <main className="pinned-page-content">
       <FeatureHighlights />
 
-      <div id="training" ref={trainingRef} className="ac-section-tight" style={{ background: "#ffffff", padding: "4.5rem 0", borderBottom: "0.5px solid rgba(47,49,90,0.08)", scrollMarginTop: 24 }}>
+      <SectionDivider iconSrc="/images/products/cloudaccounting-icon.png" />
+
+      <div id="training" ref={trainingRef} className="ac-section-tight" style={{ background: "#ffffff", padding: "4.5rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "2.4rem" }}>
             <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.6rem" }}>
@@ -570,7 +573,9 @@ export default function AutoCountCloudAccountingPage() {
         </div>
       </div>
 
-      <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0", borderBottom: "0.5px solid rgba(47,49,90,0.08)", scrollMarginTop: 24 }}>
+      <SectionDivider iconSrc="/images/products/cloudaccounting-icon.png" />
+
+      <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.7rem" }}>
             <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7AB317", marginBottom: "0.6rem" }}>
@@ -649,6 +654,8 @@ export default function AutoCountCloudAccountingPage() {
           </div>
         </div>
       </div>
+
+      <SectionDivider iconSrc="/images/products/cloudaccounting-icon.png" />
 
       <div id="releases" className="ac-section-tight" style={{ padding: "4rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
@@ -749,6 +756,8 @@ export default function AutoCountCloudAccountingPage() {
           </div>
         </div>
       </div>
+
+      <SectionDivider iconSrc="/images/products/cloudaccounting-icon.png" />
 
       <div style={{ background: "#2f315a", padding: "4rem 0" }}>
         <div className="content-wrap" style={{ textAlign: "center" }}>

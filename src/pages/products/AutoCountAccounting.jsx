@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
+import SectionDivider from "../../components/SectionDivider.jsx";
 import ParticleBackground from "../../components/ParticleBackground.jsx";
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
@@ -570,7 +571,7 @@ function FeatureHighlights() {
   }, []);
 
   return (
-    <div id="features" className="ac-section-tight" style={{ background: "#ffffff", padding: "3rem 0", borderBottom: "0.5px solid rgba(47,49,90,0.08)", scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
+    <div id="features" className="ac-section-tight" style={{ background: "#ffffff", padding: "3rem 0", scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
       <div className="content-wrap">
         <div ref={gridRef} className="ac-features-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.5rem" }}>
           {FEATURES.map((f, i) => (
@@ -737,6 +738,8 @@ export default function AutoCountAccountingPage({ onContact }) {
       <FeatureHighlights />
 
 
+      <SectionDivider iconSrc={PRODUCT_IMAGES.autocountAccountingIcon} />
+
       {/* ══════════════════════════════════════════════════════════
        * LEARN AUTOCOUNT IN 60 MINUTES — WebGL Scroll Experience
        * ══════════════════════════════════════════════════════════ */}
@@ -744,10 +747,12 @@ export default function AutoCountAccountingPage({ onContact }) {
         <AutoCountTrainingWebGL />
       </div>
 
+      <SectionDivider iconSrc={PRODUCT_IMAGES.autocountAccountingIcon} />
+
       {/* ══════════════════════════════════════════════════════════
        * COMPARING 5 EDITIONS OF ACCOUNTING 2.2
        * ══════════════════════════════════════════════════════════ */}
-      <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0", borderBottom: "0.5px solid rgba(47,49,90,0.08)", scrollMarginTop: 24 }}>
+      <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
             <div style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7AB317", marginBottom: "0.6rem" }}>
@@ -1035,8 +1040,10 @@ export default function AutoCountAccountingPage({ onContact }) {
         </div>
       </div>
 
+      <SectionDivider iconSrc={PRODUCT_IMAGES.autocountAccountingIcon} />
+
       {/* CTA band */}
-      <div style={{ position: "relative", overflow: "hidden", background: "#f4f6fb", padding: "4rem 0", borderTop: "0.5px solid rgba(47,49,90,0.1)" }}>
+      <div style={{ position: "relative", overflow: "hidden", background: "#f4f6fb", padding: "4rem 0" }}>
         <ParticleBackground
           paused={false}
           backgroundStart="#f8f9fd"

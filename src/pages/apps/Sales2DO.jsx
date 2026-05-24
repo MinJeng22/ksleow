@@ -11,6 +11,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 import AIChatbot from "../../components/AIChatbot.jsx";
 import sales2doContent from "../../content/sales2do.json";
 import acPluginIcon     from "../../assets/images/apps/ac-plugin-icon.png";
+import SectionDivider   from "../../components/SectionDivider.jsx";
 import imgOutstanding   from "../../assets/images/apps/sales2do/outstanding.png";
 import imgPreset        from "../../assets/images/apps/sales2do/preset-delivery.png";
 import imgSettings      from "../../assets/images/apps/sales2do/settings.png";
@@ -97,7 +98,7 @@ const S = {
   h2:    { fontSize: "clamp(1.4rem, 2.6vw, 2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem" },
   h3:    { fontSize: "1rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.6rem" },
   body:  { fontSize: "0.92rem", color: "#555", lineHeight: 1.82 },
-  section: { padding: "4rem 0", borderBottom: "0.5px solid rgba(47,49,90,0.08)" },
+  section: { padding: "4rem 0" },
 };
 
 /* ── Screenshot slot ── */
@@ -436,6 +437,16 @@ function VideoGuide() {
             onTouchEnd={onTouchEnd}
             style={{ position: "relative", width: "100%", paddingBottom: isFullscreen ? 0 : "56.25%", height: isFullscreen ? "100%" : 0, background: "#000", borderRadius: isFullscreen ? 0 : 14, overflow: "hidden", boxShadow: "0 12px 36px rgba(47,49,90,0.18)", touchAction: "pan-y" }}
           >
+            {/* Loading spinner visible before video paints */}
+            <div style={{
+              position: "absolute", inset: 0, zIndex: 0,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              flexDirection: "column", gap: "1rem"
+            }}>
+               <div style={{ width: 32, height: 32, border: "3px solid rgba(255,255,255,0.1)", borderTopColor: "#c9a84c", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
+               <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.05em" }}>Loading Video...</div>
+            </div>
+
             {/* Slot A — instant z-index/opacity swap (no fade) so we never
                 blend two videos against the black backdrop. requestVideoFrameCallback
                 guarantees the new slot has painted before the swap, so the cut is
@@ -443,7 +454,6 @@ function VideoGuide() {
             <Vid
               ref={aRef}
               muted
-              poster={imgOutstanding}
               onEnded={onEndedA}
               onContextMenu={(e) => e.preventDefault()}
               style={{
@@ -458,7 +468,6 @@ function VideoGuide() {
             <Vid
               ref={bRef}
               muted
-              poster={imgOutstanding}
               onEnded={onEndedB}
               onContextMenu={(e) => e.preventDefault()}
               style={{
@@ -584,6 +593,8 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
+      <SectionDivider iconSrc={acPluginIcon} />
+
       {/* ── Outstanding Delivery Order ── */}
       <div id="outstanding" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
@@ -611,6 +622,8 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
+      <SectionDivider iconSrc={acPluginIcon} />
+
       {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
       <div id="preset" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
@@ -631,6 +644,8 @@ export default function Sales2DOPage({ onContact }) {
           </SectionRow>
         </div>
       </div>
+
+      <SectionDivider iconSrc={acPluginIcon} />
 
       {/* ── Plugin Settings ── */}
       <div id="settings" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
@@ -655,6 +670,8 @@ export default function Sales2DOPage({ onContact }) {
           </SectionRow>
         </div>
       </div>
+
+      <SectionDivider iconSrc={acPluginIcon} />
 
       {/* ── Activate Plugin License ── */}
       <div id="license" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
@@ -729,8 +746,10 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
+      <SectionDivider iconSrc={acPluginIcon} />
+
       {/* ── CTA ── */}
-      <div style={{ position: "relative", overflow: "hidden", background: "#f4f6fb", padding: "4rem 0", borderTop: "0.5px solid rgba(47,49,90,0.1)" }}>
+      <div style={{ position: "relative", overflow: "hidden", background: "#f4f6fb", padding: "4rem 0" }}>
         <ParticleBackground
           paused={false}
           backgroundStart="#f8f9fd"
