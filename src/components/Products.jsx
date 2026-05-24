@@ -21,7 +21,7 @@ function getCarouselCount(width) {
   if (width <= 640) return 3;
   if (width <= 900) return 4;
   if (width <= 1180) return 5;
-  return 6;
+  return 5;
 }
 
 function Chevron({ direction }) {
