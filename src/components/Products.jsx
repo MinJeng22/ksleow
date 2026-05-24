@@ -194,6 +194,21 @@ export default function Products({ onContact }) {
 
   const [revealed, setRevealed] = useState(false);
   const gridRef = useRef(null);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+  const onTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+  const onTouchEnd = (e) => {
+    if (touchStartX.current === null || slideDirection) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    touchStartX.current = null;
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx > 0) showPrevious(); else showNext();
+  };
+
   useEffect(() => {
     const node = gridRef.current;
     if (!node) return undefined;
@@ -255,7 +270,12 @@ export default function Products({ onContact }) {
               onNext={showNext}
             />
           )}
-          <div className="products-carousel-shell">
+          <div 
+            className="products-carousel-shell"
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
+            style={{ touchAction: "pan-y" }}
+          >
             <div
               ref={gridRef}
               className={`products-grid products-grid-carousel${slideDirection ? ` is-sliding-${slideDirection}` : ""}`}

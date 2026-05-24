@@ -443,6 +443,7 @@ function VideoGuide() {
             <Vid
               ref={aRef}
               muted
+              poster={imgOutstanding}
               onEnded={onEndedA}
               onContextMenu={(e) => e.preventDefault()}
               style={{
@@ -457,6 +458,7 @@ function VideoGuide() {
             <Vid
               ref={bRef}
               muted
+              poster={imgOutstanding}
               onEnded={onEndedB}
               onContextMenu={(e) => e.preventDefault()}
               style={{

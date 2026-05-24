@@ -96,7 +96,11 @@ function ServiceCard({ service }) {
   const cardRef = useRef(null);
   const contact = SERVICE_CONTACTS[service.key] || {};
   const office  = (service.officeKey && OFFICES[service.officeKey]) || null;
-  const waNumber  = contact.phone ? contact.phone.replace(/\D/g, "") : "60179183838";
+  const phoneArray = Array.isArray(contact.phone) 
+    ? contact.phone 
+    : (contact.phone || "017-905 2323").split(/[,/]/).map(s => s.trim());
+  const primaryPhone = phoneArray[0];
+  const waNumber  = primaryPhone.replace(/\D/g, "");
   const waMessage = `Hi! I'm interested in ${service.title}. Could you provide more details?`;
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
   const emailHref = `mailto:${contact.email || "support@ksleow.com.my"}`;
@@ -352,10 +356,13 @@ function ServiceCard({ service }) {
               flex: 1, minWidth: 0,
               display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.5rem",
             }}>
-              <ContactLine
-                icon={<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l1-1a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />}
-                label={contact.phone || "017-905 2323"}
-              />
+              {phoneArray.map((phone, idx) => (
+                <ContactLine
+                  key={idx}
+                  icon={idx === 0 ? <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l1-1a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /> : <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l1-1a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />}
+                  label={phone}
+                />
+              ))}
               <ContactLine
                 icon={<><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></>}
                 label={contact.email || "support@ksleow.com.my"}
