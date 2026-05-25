@@ -112,7 +112,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
               height: auto !important;
             }
             .supaprintz-modal-banner-frame {
-              flex: 0.65 !important;
+              flex: 0.8 !important;
               aspect-ratio: auto !important;
               border-bottom: none !important;
               border-right: 6px solid #f26522 !important;
@@ -124,7 +124,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
               object-fit: cover !important;
             }
             .supaprintz-modal-body {
-              flex: 1.35 !important;
+              flex: 1.25 !important;
               overflow-y: auto !important;
               display: flex !important;
               flex-direction: column !important;
