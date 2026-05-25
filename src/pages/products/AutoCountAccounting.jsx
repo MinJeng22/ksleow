@@ -295,8 +295,8 @@ function ReleaseCard({ r, expanded, onToggle }) {
         </div>
         {/* counts */}
         <div className="release-card-counts" style={{ display: "flex", gap: "0.75rem", flexShrink: 0 }}>
-          <span style={{ fontSize: "0.72rem", color: "#2f315a", fontWeight: 600 }}>✦ {r.features.length} New</span>
-          <span style={{ fontSize: "0.72rem", color: "#8a6a10", fontWeight: 600 }}>⬡ {r.fixes.length} Fix</span>
+          <span style={{ fontSize: "0.72rem", color: "#2f315a", fontWeight: 600 }}>{r.features.length} New</span>
+          <span style={{ fontSize: "0.72rem", color: "#8a6a10", fontWeight: 600 }}>{r.fixes.length} Fix</span>
         </div>
         {/* chevron */}
         <svg className="release-card-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a8abcc" strokeWidth="2"

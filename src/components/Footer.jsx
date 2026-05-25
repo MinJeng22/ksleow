@@ -76,7 +76,7 @@ const H4 = { fontSize: "0.7rem", fontWeight: 600, color: "#c9a84c", textTransfor
 export default function Footer() {
   return (
     <>
-      <footer style={{ background: "#1a1c35", paddingTop: "4.5rem", paddingBottom: "1.4rem" }}>
+      <footer style={{ background: "#1a1c35", paddingTop: "4.5rem", paddingBottom: "1.4rem", marginTop: "auto" }}>
         <div className="content-wrap">
           <div className="footer-grid">
 

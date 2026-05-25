@@ -51,6 +51,31 @@ export default function AutoCountTrainingWebGL() {
           from { opacity: 1; transform: scale(1) translateY(0); }
           to { opacity: 0; transform: scale(0.95) translateY(20px); }
         }
+        .ipad-frame {
+          aspect-ratio: 4/3;
+          border-radius: 28px;
+          background: #111;
+          padding: 2.5% 3.5%;
+          box-shadow: 0 24px 60px rgba(15,17,40,0.2), inset 0 0 0 2px #2a2a2a, inset 0 0 12px rgba(0,0,0,1);
+          position: relative;
+          cursor: pointer;
+          display: flex;
+          align-items: stretch;
+          transition: transform 0.3s ease;
+        }
+        .ipad-frame:hover {
+          transform: scale(1.02);
+        }
+        @media (max-width: 760px) {
+          .ipad-frame {
+            aspect-ratio: 16/9;
+            padding: 0;
+            background: transparent;
+            box-shadow: 0 10px 30px rgba(15,17,40,0.1);
+            border-radius: 12px;
+          }
+          .ipad-frame:hover { transform: none; }
+        }
       `}</style>
       <div className="content-wrap">
         {/* ── Header — always visible, always centred ── */}
@@ -128,20 +153,7 @@ export default function AutoCountTrainingWebGL() {
             <div className="training-grid">
               {/* iPad Frame Wrapper */}
               <div
-                style={{
-                  aspectRatio: '4/3',
-                  borderRadius: '28px',
-                  background: '#111', // iPad black bezel
-                  padding: '2.5% 3.5%', // thinner modern bezels
-                  boxShadow: '0 24px 60px rgba(15,17,40,0.2), inset 0 0 0 2px #2a2a2a, inset 0 0 12px rgba(0,0,0,1)',
-                  position: 'relative',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'stretch',
-                  transition: 'transform 0.3s ease'
-                }}
-                onMouseOver={e => e.currentTarget.style.transform = 'scale(1.02)'}
-                onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                className="ipad-frame"
                 onClick={handlePlay}
               >
                 {/* iPad Screen */}
