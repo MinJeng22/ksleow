@@ -132,14 +132,7 @@ collections:
                 required: false
                 fields:
                   - { name: src, label: Logo image, widget: image }
-                  - { name: alt, label: Alt text,   widget: string }
-                  - { name: h,   label: Height (px), widget: number, default: 60, value_type: int, min: 20, max: 120 }
-              - name: hoverLogos
-                label: Badge logos (on hover, e.g. white versions)
-                widget: list
-                required: false
-                fields:
-                  - { name: src, label: Logo image, widget: image }
+                  - { name: hoverSrc, label: White logo (on hover), widget: image, required: false }
                   - { name: alt, label: Alt text,   widget: string }
                   - { name: h,   label: Height (px), widget: number, default: 60, value_type: int, min: 20, max: 120 }
 

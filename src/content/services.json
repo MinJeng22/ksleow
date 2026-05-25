@@ -14,14 +14,8 @@
         {
           "src": "/images/services/mia-logo.jpg",
           "alt": "Cert 2",
-          "h": 60
-        }
-      ],
-      "hoverLogos": [
-        {
           "h": 60,
-          "src": "/images/services/mia-white-outline.png",
-          "alt": "Cert 2"
+          "hoverSrc": "/images/services/mia-white-outline.png"
         }
       ],
       "backgroundImage": "/images/services/webinar.jpg",

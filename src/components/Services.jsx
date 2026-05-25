@@ -13,7 +13,7 @@ const OFFICES = Object.fromEntries(
  * { dealer | certified } shape the existing render code expects. */
 const SERVICES = (servicesContent.items || []).map(s => {
   const badge = s.badgeLabel && s.logos
-    ? { label: s.badgeLabel, logos: s.logos.map(l => ({ ...l, h: l.h || 60 })) }
+    ? { label: s.badgeLabel, logos: s.logos.map(l => ({ ...l, h: l.h || 60, hoverSrc: l.hoverSrc || null })) }
     : null;
   return {
     key: s.key,
@@ -21,7 +21,7 @@ const SERVICES = (servicesContent.items || []).map(s => {
     desc: s.desc,
     officeKey: s.officeKey || null,
     backgroundImage: s.backgroundImage || null,
-    hoverLogos: s.hoverLogos || null,
+
     hideBadge: !!s.hideBadge,
     ...(s.badgeType === "dealer"    && badge ? { dealer:    badge } : {}),
     ...(s.badgeType === "certified" && badge ? { certified: badge } : {}),
@@ -154,8 +154,8 @@ function ServiceCard({ service }) {
   const isActive = service.backgroundImage && (isDelayedHover || isMobile);
 
   let activeBadge = service.dealer || service.certified;
-  if (isActive && service.hoverLogos && activeBadge) {
-    activeBadge = { ...activeBadge, logos: service.hoverLogos.map(l => ({ ...l, h: l.h || 60 })) };
+  if (isActive && activeBadge) {
+    activeBadge = { ...activeBadge, logos: activeBadge.logos.map(l => ({ ...l, src: l.hoverSrc || l.src })) };
   }
 
   return (
