@@ -51,7 +51,7 @@
     {
       "name": "ServerLink",
       "desc": "Secure, fast, and reliable remote access solution for your business software.",
-      "image": "",
+      "image": "/images/products/serverlink.png",
       "background": "",
       "placeholder": "🌐",
       "gradient": "rgb(235, 235, 235)",
@@ -60,7 +60,7 @@
     {
       "name": "AutoCount OneSale",
       "desc": "Omnichannel sales management seamlessly integrated with AutoCount.",
-      "image": "",
+      "image": "/images/products/autocount-onesales.png",
       "background": "",
       "placeholder": "🛍️",
       "gradient": "rgb(255, 240, 240)",
