@@ -105,14 +105,14 @@ function SupaprintzPartnerModal({ open, onClose }) {
         }}
       >
         <style>{`
-          @media (max-width: 1280px) and (min-width: 641px) {
+          @media (min-width: 641px) {
             .supaprintz-modal-shell {
               flex-direction: row !important;
               width: min(840px, 92vw) !important;
               height: auto !important;
             }
             .supaprintz-modal-banner-frame {
-              flex: 0.8 !important;
+              flex: 0.65 !important;
               aspect-ratio: auto !important;
               border-bottom: none !important;
               border-right: 6px solid #f26522 !important;
@@ -124,7 +124,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
               object-fit: cover !important;
             }
             .supaprintz-modal-body {
-              flex: 1.25 !important;
+              flex: 1.35 !important;
               overflow-y: auto !important;
               display: flex !important;
               flex-direction: column !important;
@@ -189,10 +189,10 @@ function SupaprintzPartnerModal({ open, onClose }) {
           margin: "-1px -1px 0",
         }}>
           <picture>
-            <source media="(min-width: 641px) and (max-width: 1280px)" srcSet="/images/partners/supaprintz-tablet.jpg" />
+            <source media="(min-width: 641px)" srcSet="/images/partners/supaprintz-desktop.png" />
             <img
               className="supaprintz-modal-banner"
-              src="/images/partners/supaprintz-desktop.png"
+              src="/images/partners/supaprintz-tablet.jpg"
               alt="Supaprintz.my Printing Advertising Design"
               style={{
                 display: "block",
