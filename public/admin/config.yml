@@ -160,19 +160,19 @@ collections:
               - { name: gradient,    label: Background gradient CSS, widget: string, default: "linear-gradient(135deg, #2f315a 0%, #4a4d85 100%)" }
               - { name: route,       label: Internal link (optional, e.g. /products/autocount-accounting), widget: string, required: false }
 
-      # ───────── Case Studies ─────────
-      - file: src/content/caseStudies.json
-        name: caseStudies
-        label: Case Studies Section
-        media_folder: "/public/images/case-studies"
-        public_folder: "/images/case-studies"
+      # ───────── Other Services ─────────
+      - file: src/content/otherServices.json
+        name: otherServices
+        label: Other Services Section
+        media_folder: "/public/images/other-services"
+        public_folder: "/images/other-services"
         fields:
           - { name: eyebrow,  label: Eyebrow,         widget: string }
           - { name: heading,  label: Section heading, widget: string }
           - { name: intro,    label: Intro paragraph, widget: text }
           - { name: ctaLabel, label: Bottom button label, widget: string, default: "", required: false }
           - name: items
-            label: Case Study Cards (first 2 visible, last 2 are placeholders)
+            label: Other Service Cards (first 2 visible, last 2 are placeholders)
             widget: list
             min: 4
             max: 4
