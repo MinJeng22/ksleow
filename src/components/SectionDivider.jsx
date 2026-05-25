@@ -74,7 +74,7 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
           filter: inView ? "grayscale(0)" : "grayscale(1) opacity(0.3)",
-          transform: inView ? "scale(1) translateY(0)" : "scale(0.8) translateY(15px)",
+          transform: inView ? "translateY(0)" : "translateY(4px)",
           transition: "all 1s cubic-bezier(0.22, 1, 0.36, 1)",
           display: "flex",
           alignItems: "center",

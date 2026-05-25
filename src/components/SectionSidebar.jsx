@@ -66,7 +66,11 @@ export default function SectionSidebar({ items }) {
     lockedRef.current = true;
     if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
     lockTimerRef.current = setTimeout(() => { lockedRef.current = false; }, 900);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const el = document.getElementById(id);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: top - 100, behavior: "smooth" });
+    }
   }
 
   return (
