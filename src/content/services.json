@@ -4,13 +4,7 @@
   "intro": "Every essential service your business needs — all under one roof since 1981.",
   "items": [
     {
-      "key": "taxation",
-      "title": "Taxation & Accounting",
-      "desc": "Bookkeeping, financial statements, tax filing, SST & e-Invoice compliance, and LHDN liaison.",
-      "backgroundImage": "/images/services/webinar.jpg",
       "officeKey": "ksl_tax",
-      "badgeType": "certified",
-      "badgeLabel": "Certified By",
       "logos": [
         {
           "src": "/images/services/lhdn-logo.png",
@@ -22,7 +16,20 @@
           "alt": "Cert 2",
           "h": 60
         }
-      ]
+      ],
+      "hoverLogos": [
+        {
+          "h": 60,
+          "src": "/images/services/mia-white-outline.png",
+          "alt": "Cert 2"
+        }
+      ],
+      "backgroundImage": "/images/services/webinar.jpg",
+      "badgeLabel": "Certified By",
+      "desc": "Bookkeeping, financial statements, tax filing, SST & e-Invoice compliance, and LHDN liaison.",
+      "title": "Taxation & Accounting",
+      "badgeType": "certified",
+      "key": "taxation"
     },
     {
       "key": "secretarial",
