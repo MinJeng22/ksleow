@@ -302,6 +302,12 @@ export default function Products({ onContact }) {
         padding: "6rem 0",
       }}
     >
+      <style>{`
+        @keyframes products-autoplay-progress {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+      `}</style>
       <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
         <div className="products-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "1.5rem", flexWrap: "wrap", marginBottom: "3rem" }}>
           <div style={{ maxWidth: 760 }}>
@@ -364,19 +370,37 @@ export default function Products({ onContact }) {
         <div style={{ marginTop: "3rem", display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
           <div style={{ 
             display: "flex", alignItems: "center", gap: "8px", 
-            background: "rgba(255,255,255,0.06)", padding: "10px 14px", borderRadius: "20px" 
+            background: "rgba(255,255,255,0.06)", padding: "0 14px", height: "38px", borderRadius: "19px" 
           }}>
             {PRODUCTS.map((_, i) => (
               <div
                 key={i}
                 style={{
-                  width: i === progressIndex ? "24px" : "6px",
+                  width: i === progressIndex ? "32px" : "12px",
                   height: "6px",
                   borderRadius: "3px",
-                  background: i === progressIndex ? "#ffffff" : "rgba(255,255,255,0.4)",
-                  transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)"
+                  background: "rgba(255,255,255,0.2)",
+                  transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
+                  position: "relative",
+                  overflow: "hidden"
                 }}
-              />
+              >
+                {i === progressIndex && (
+                  <div
+                    key={`progress-${progressIndex}-${isPlaying ? 'play' : 'pause'}`}
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      top: 0,
+                      bottom: 0,
+                      background: "#ffffff",
+                      borderRadius: "3px",
+                      width: isPlaying ? "0%" : "100%",
+                      animation: isPlaying ? "products-autoplay-progress 3000ms linear forwards" : "none"
+                    }}
+                  />
+                )}
+              </div>
             ))}
           </div>
           <button
