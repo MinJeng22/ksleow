@@ -106,12 +106,14 @@ export default function SectionSidebar({ items }) {
             onMouseOver={e => { if (!isActive) e.currentTarget.style.background = "rgba(47,49,90,0.05)"; }}
             onMouseOut={e => { if (!isActive) e.currentTarget.style.background = "transparent"; }}
           >
-            <span style={{
-              width: 6, height: 6, borderRadius: "50%",
-              background: isActive ? "#c9a84c" : "#cfd0e0",
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{
               flexShrink: 0,
-              transition: "background 0.18s",
-            }} />
+              color: isActive ? "#c9a84c" : "#cfd0e0",
+              transition: "color 0.18s, transform 0.18s",
+              transform: isActive ? "translateX(2px)" : "translateX(0)",
+            }}>
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
             {s.label}
           </button>
         );

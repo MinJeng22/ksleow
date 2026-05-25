@@ -46,7 +46,7 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "1.5rem var(--px)",
+        padding: "0.75rem var(--px)",
         position: "relative",
         zIndex: 10,
         width: "100%",
