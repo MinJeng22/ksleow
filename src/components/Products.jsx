@@ -190,6 +190,7 @@ export default function Products({ onContact }) {
   const [slideDirection, setSlideDirection] = useState(null);
   const [viewportWidth, setViewportWidth] = useState(getViewportWidth);
   const [revealSettled, setRevealSettled] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -227,6 +228,16 @@ export default function Products({ onContact }) {
     ));
     setSlideDirection(null);
   };
+
+  useEffect(() => {
+    let interval;
+    if (isPlaying && canSlide && !slideDirection) {
+      interval = setInterval(() => {
+        showNext();
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [isPlaying, canSlide, slideDirection]);
 
   const [revealed, setRevealed] = useState(false);
   const gridRef = useRef(null);
@@ -350,19 +361,47 @@ export default function Products({ onContact }) {
           </div>
         </div>
 
-        <div style={{ marginTop: "3rem", display: "flex", justifyContent: "center", gap: "8px" }}>
-          {PRODUCTS.map((_, i) => (
-            <div
-              key={i}
-              style={{
-                width: i === progressIndex ? "32px" : "16px",
-                height: "4px",
-                borderRadius: "2px",
-                background: i === progressIndex ? "#c9a84c" : "rgba(255,255,255,0.15)",
-                transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)"
-              }}
-            />
-          ))}
+        <div style={{ marginTop: "3rem", display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
+          <div style={{ 
+            display: "flex", alignItems: "center", gap: "8px", 
+            background: "rgba(255,255,255,0.06)", padding: "10px 14px", borderRadius: "20px" 
+          }}>
+            {PRODUCTS.map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  width: i === progressIndex ? "24px" : "6px",
+                  height: "6px",
+                  borderRadius: "3px",
+                  background: i === progressIndex ? "#ffffff" : "rgba(255,255,255,0.4)",
+                  transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)"
+                }}
+              />
+            ))}
+          </div>
+          <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            style={{
+              width: "38px", height: "38px", borderRadius: "50%",
+              background: "rgba(255,255,255,0.06)", border: "none",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              cursor: "pointer", color: "#ffffff",
+              transition: "background 0.2s"
+            }}
+            onMouseOver={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.15)"}
+            onMouseOut={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.06)"}
+            aria-label={isPlaying ? "Pause autoplay" : "Start autoplay"}
+          >
+            {isPlaying ? (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 4h4v16H6zm8 0h4v16h-4z"/>
+              </svg>
+            ) : (
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{ transform: "translateX(1.5px)" }}>
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            )}
+          </button>
         </div>
 
       </div>
