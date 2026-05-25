@@ -106,12 +106,12 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
         }}
       >
         <div style={{
-          position: "absolute", inset: -24,
+          position: "absolute", inset: -8,
           background: product.gradient,
           transform: isHov 
-            ? `translate3d(${mousePos.x * -8}px, ${mousePos.y * -8}px, -10px) scale(1.05)` 
+            ? `translate3d(${mousePos.x * -3}px, ${mousePos.y * -3}px, -5px) scale(1.02)` 
             : "translate3d(0px, 0px, 0px) scale(1)",
-          transition: isHov ? "transform 0.1s ease-out" : "transform 0.4s ease",
+          transition: isHov ? "transform 0.15s ease-out" : "transform 0.4s ease",
           zIndex: 0,
         }}>
           {product.background && (
@@ -139,17 +139,17 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
               opacity: revealed ? 1 : 0,
               transform: revealed
                 ? isHov 
-                  ? `translate3d(${mousePos.x * 12}px, ${mousePos.y * 12}px, 30px) scale(1.08) rotateX(${mousePos.y * -8}deg) rotateY(${mousePos.x * 8}deg)`
+                  ? `translate3d(${mousePos.x * 5}px, ${mousePos.y * 5}px, 15px) scale(1.04) rotateX(${mousePos.y * -3}deg) rotateY(${mousePos.x * 3}deg)`
                   : "translate3d(0px, 0px, 0px) scale(1) rotateX(0deg) rotateY(0deg)"
                 : "translate3d(0px, 30px, 0px) scale(0.85) rotateX(0deg) rotateY(0deg)",
               transition: (!revealed) 
                 ? "none" 
                 : animateReveal && !isHov
                   ? `opacity 0.4s ease ${order * 0.08}s, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${order * 0.08}s`
-                  : isHov ? "transform 0.1s ease-out, filter 0.1s ease-out" : "transform 0.4s ease, filter 0.4s ease",
+                  : isHov ? "transform 0.15s ease-out, filter 0.15s ease-out" : "transform 0.4s ease, filter 0.4s ease",
               filter: isHov 
-                ? `drop-shadow(${mousePos.x * -10}px ${mousePos.y * -10 + 10}px 12px rgba(0,0,0,0.3))` 
-                : "drop-shadow(0px 4px 6px rgba(0,0,0,0.1))",
+                ? `drop-shadow(${mousePos.x * -4}px ${mousePos.y * -4 + 6}px 8px rgba(0,0,0,0.2))` 
+                : "drop-shadow(0px 2px 4px rgba(0,0,0,0.08))",
             }}
           />
         ) : (
