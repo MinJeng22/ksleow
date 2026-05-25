@@ -475,9 +475,6 @@ function EditionsTable({ selected = null, diffOnly = false }) {
     background: "#7AB317",
   };
   const stickyBookCell = {
-    position: "sticky",
-    top: 42,
-    zIndex: 2,
     background: "#fafafb",
   };
 
