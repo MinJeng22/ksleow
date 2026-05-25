@@ -594,7 +594,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: "1rem 0" }}>
-        <SectionDivider icon={IconClipboard} />
+        <SectionDivider icon={IconClipboard} targetId="outstanding" />
       </div>
 
       {/* ── Outstanding Delivery Order ── */}
@@ -625,7 +625,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       <div style={{ background: "linear-gradient(to bottom, #f5f5f8, #ffffff)", padding: "1rem 0" }}>
-        <SectionDivider icon={IconStar} />
+        <SectionDivider icon={IconStar} targetId="preset" />
       </div>
 
       {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
@@ -650,7 +650,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: "1rem 0" }}>
-        <SectionDivider icon={IconSettings} />
+        <SectionDivider icon={IconSettings} targetId="settings" />
       </div>
 
       {/* ── Plugin Settings ── */}
@@ -678,7 +678,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       <div style={{ background: "linear-gradient(to bottom, #f5f5f8, #ffffff)", padding: "1rem 0" }}>
-        <SectionDivider icon={IconShield} />
+        <SectionDivider icon={IconShield} targetId="license" />
       </div>
 
       {/* ── Activate Plugin License ── */}

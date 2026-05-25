@@ -257,7 +257,7 @@ export default function FeedMePOSPage() {
       </div>
 
       <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: "1rem 0" }}>
-        <SectionDivider icon={IconLayers} />
+        <SectionDivider icon={IconLayers} targetId="modules" />
       </div>
 
       {/* ── Module spotlight ── */}
@@ -325,7 +325,7 @@ export default function FeedMePOSPage() {
       </div>
 
       <div style={{ background: "linear-gradient(to bottom, #f5f5f8, #ffffff)", padding: "1rem 0" }}>
-        <SectionDivider icon={IconLink} />
+        <SectionDivider icon={IconLink} targetId="integration" />
       </div>
 
       {/* ── AutoCount integration ── */}
@@ -361,7 +361,7 @@ export default function FeedMePOSPage() {
       </div>
 
       <div style={{ background: "linear-gradient(to bottom, #ffffff, #f8f9fc)", padding: "1rem 0" }}>
-        <SectionDivider icon={IconHandshake} />
+        <SectionDivider icon={IconHandshake} targetId="why-ksl" />
       </div>
 
       {/* ── Why partner with KSL ── */}

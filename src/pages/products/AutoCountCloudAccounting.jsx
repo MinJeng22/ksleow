@@ -534,7 +534,7 @@ export default function AutoCountCloudAccountingPage() {
         <FeatureHighlights />
 
         <div style={{ padding: "0", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-          <SectionDivider icon={IconVideo} />
+          <SectionDivider icon={IconVideo} targetId="training" />
         </div>
 
         <div id="training" ref={trainingRef} className="ac-section-tight" style={{ padding: "4.5rem 0", scrollMarginTop: 24 }}>
@@ -579,7 +579,7 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: "1rem 0" }}>
-        <SectionDivider icon={IconGrid} />
+        <SectionDivider icon={IconGrid} targetId="editions" />
       </div>
 
       <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0", scrollMarginTop: 24 }}>
@@ -662,7 +662,9 @@ export default function AutoCountCloudAccountingPage() {
         </div>
       </div>
 
-      <SectionDivider icon={IconLedger} />
+      <div style={{ padding: "1rem 0" }}>
+        <SectionDivider icon={IconLedger} targetId="releases" />
+      </div>
 
       <div id="releases" className="ac-section-tight" style={{ padding: "4rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">

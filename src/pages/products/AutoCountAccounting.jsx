@@ -739,7 +739,7 @@ export default function AutoCountAccountingPage({ onContact }) {
         <FeatureHighlights />
 
         <div style={{ padding: "0", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-          <SectionDivider icon={IconVideo} color="#c9a84c" />
+          <SectionDivider icon={IconVideo} color="#c9a84c" targetId="training" />
         </div>
 
         {/* ══════════════════════════════════════════════════════════
@@ -751,7 +751,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: "1rem 0" }}>
-        <SectionDivider icon={IconGrid} color="#2f315a" />
+        <SectionDivider icon={IconGrid} color="#2f315a" targetId="editions" />
       </div>
 
       {/* ══════════════════════════════════════════════════════════
@@ -856,6 +856,10 @@ export default function AutoCountAccountingPage({ onContact }) {
             diffOnly={editionCompareMode && editionA !== editionB && editionDiffOnly}
           />
         </div>
+      </div>
+
+      <div style={{ padding: "1rem 0" }}>
+        <SectionDivider icon={IconLedger} color="#8a6a10" targetId="releases" />
       </div>
 
       {/* ── Release Notes ── */}

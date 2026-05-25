@@ -40,7 +40,12 @@ export default function SectionSidebar({ items }) {
           bestId = s.id;
         }
       }
-      setActive(prev => (prev === bestId ? prev : bestId));
+      setActive(prev => {
+        if (prev !== bestId) {
+          window.dispatchEvent(new CustomEvent("sectionChange", { detail: bestId }));
+        }
+        return bestId;
+      });
     }
     update();
     window.addEventListener("scroll", update, { passive: true });
@@ -52,7 +57,12 @@ export default function SectionSidebar({ items }) {
   }, [items]);
 
   function go(id) {
-    setActive(id);
+    setActive(prev => {
+      if (prev !== id) {
+        window.dispatchEvent(new CustomEvent("sectionChange", { detail: id }));
+      }
+      return id;
+    });
     lockedRef.current = true;
     if (lockTimerRef.current) clearTimeout(lockTimerRef.current);
     lockTimerRef.current = setTimeout(() => { lockedRef.current = false; }, 900);

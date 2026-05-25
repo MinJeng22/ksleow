@@ -12,24 +12,34 @@ import React, { useRef, useState, useEffect } from "react";
  * The `icon` prop should be a React element (inline SVG). The component
  * applies CSS filter transitions on the wrapper so any SVG works.
  */
-export default function SectionDivider({ icon, color = "#2f315a" }) {
+export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") {
-      setInView(true);
-      return;
+    if (targetId) {
+      const handleSectionChange = (e) => {
+        if (e.detail === targetId) {
+          setInView(true);
+        }
+      };
+      window.addEventListener("sectionChange", handleSectionChange);
+      return () => window.removeEventListener("sectionChange", handleSectionChange);
+    } else {
+      if (typeof IntersectionObserver === "undefined") {
+        setInView(true);
+        return;
+      }
+      const io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setInView(true);
+        },
+        { threshold: 0.5 }
+      );
+      if (ref.current) io.observe(ref.current);
+      return () => io.disconnect();
     }
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold: 0.5 }
-    );
-    if (ref.current) io.observe(ref.current);
-    return () => io.disconnect();
-  }, []);
+  }, [targetId]);
 
   return (
     <div
