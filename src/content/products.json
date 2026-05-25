@@ -13,15 +13,6 @@
       "route": "/products/autocount-accounting"
     },
     {
-      "name": "AutoCount CloudAccounting",
-      "desc": "Browser-based accounting with e-Invoice, AI SmartScan, bank connection, and anytime access.",
-      "image": "/images/products/cloudaccounting-logo.png",
-      "background": "/images/products/autocount-accounting-hero.webp",
-      "placeholder": "☁️",
-      "gradient": "rgb(221, 234, 213)",
-      "route": "/products/autocount-cloud-accounting"
-    },
-    {
       "name": "FeedMe POS",
       "desc": "Cloud F&B POS with table management, kitchen display, and online ordering integration.",
       "image": "/images/products/feedme.png",
@@ -29,6 +20,15 @@
       "placeholder": "🍽️",
       "gradient": "linear-gradient(135deg, rgb(255, 238, 222) 0%, rgb(254, 207, 175) 100%)",
       "route": ""
+    },
+    {
+      "name": "AutoCount CloudAccounting",
+      "desc": "Browser-based accounting with e-Invoice, AI SmartScan, bank connection, and anytime access.",
+      "image": "/images/products/cloudaccounting-logo.png",
+      "background": "/images/products/autocount-accounting-hero.webp",
+      "placeholder": "☁️",
+      "gradient": "rgb(221, 234, 213)",
+      "route": "/products/autocount-cloud-accounting"
     },
     {
       "name": "AutoCount POS",
@@ -40,21 +40,21 @@
       "route": ""
     },
     {
-      "name": "AutoCount Cloud Payroll",
-      "desc": "Automated payroll compliant with EPF, SOCSO, PCB, and EIS. Payslips in minutes.",
-      "image": "/images/products/hrms-logo-2024_white-1024x288.png",
-      "background": "/images/products/autocount-hrms-showcase.webp",
-      "placeholder": "☁️",
-      "gradient": "rgb(168, 198, 232)",
-      "route": ""
-    },
-    {
       "name": "ServerLink",
       "desc": "Secure, fast, and reliable remote access solution for your business software.",
       "image": "/images/products/serverlink.png",
       "background": "",
       "placeholder": "🌐",
       "gradient": "rgb(235, 235, 235)",
+      "route": ""
+    },
+    {
+      "name": "AutoCount Cloud Payroll",
+      "desc": "Automated payroll compliant with EPF, SOCSO, PCB, and EIS. Payslips in minutes.",
+      "image": "/images/products/hrms-logo-2024_white-1024x288.png",
+      "background": "/images/products/autocount-hrms-showcase.webp",
+      "placeholder": "☁️",
+      "gradient": "rgb(168, 198, 232)",
       "route": ""
     },
     {
