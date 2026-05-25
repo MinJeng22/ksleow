@@ -37,7 +37,18 @@
       "key": "ksl_mgmt",
       "name": "K.S LEOW MANAGEMENT SERVICES CO. SDN. BHD.",
       "tagline": "Secretarial, Management & Audit",
-      "logo": ""
+      "logo": "",
+      "facebook": "https://www.facebook.com/ksleow.com.my",
+      "phones": [
+        {
+          "number": "+09-275 0337"
+        }
+      ],
+      "emails": [
+        {
+          "email": "cosec@ksleow.com.my"
+        }
+      ]
     },
     {
       "key": "kim_co",
