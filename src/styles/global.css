@@ -800,9 +800,9 @@ body.supaprintz-modal-open .back-to-top {
 
 @media (max-width: 1180px) {
   .products-section .products-carousel-shell {
-    --products-edge-peek: clamp(94px, 10vw, 130px);
+    --products-edge-peek: calc(var(--products-gap) * -1);
     --products-gap: 0.8rem;
-    --products-card-width: calc((var(--container-w) - var(--products-edge-peek) * 2 - var(--products-gap) * 4) / 3);
+    --products-card-width: calc((var(--container-w) - var(--products-gap) * 2) / 3);
   }
 
   .products-section .products-grid-carousel {
@@ -812,9 +812,9 @@ body.supaprintz-modal-open .back-to-top {
 
 @media (max-width: 900px) {
   .products-section .products-carousel-shell {
-    --products-edge-peek: clamp(72px, 11vw, 104px);
+    --products-edge-peek: calc(var(--products-gap) * -1);
     --products-gap: 0.75rem;
-    --products-card-width: calc((var(--container-w) - var(--products-edge-peek) * 2 - var(--products-gap) * 3) / 2);
+    --products-card-width: calc((var(--container-w) - var(--products-gap) * 1) / 2);
   }
 
   .products-section .products-grid-carousel {
