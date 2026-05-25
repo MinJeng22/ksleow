@@ -105,7 +105,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
         }}
       >
         <style>{`
-          @media (max-width: 1024px) and (min-width: 641px) {
+          @media (max-width: 1280px) and (min-width: 641px) {
             .supaprintz-modal-shell {
               flex-direction: row !important;
               width: min(840px, 92vw) !important;
@@ -187,7 +187,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
           margin: "-1px -1px 0",
         }}>
           <picture>
-            <source media="(min-width: 641px) and (max-width: 1024px)" srcSet="/images/partners/supaprintz-tablet.png" />
+            <source media="(min-width: 641px) and (max-width: 1280px)" srcSet="/images/partners/supaprintz-tablet.jpg" />
             <img
               className="supaprintz-modal-banner"
               src="/images/partners/supaprintz-desktop.png"
@@ -202,31 +202,6 @@ function SupaprintzPartnerModal({ open, onClose }) {
               }}
             />
           </picture>
-          <button
-            className="supaprintz-modal-close"
-            type="button"
-            aria-label="Close Supaprintz partner details"
-            onClick={onClose}
-            style={{
-              position: "absolute",
-              top: 16,
-              right: 16,
-              width: 38,
-              height: 38,
-              borderRadius: "50%",
-              border: `1px solid ${SUPAPRINTZ_COLORS.navy}`,
-              background: "rgba(255,255,255,0.92)",
-              color: SUPAPRINTZ_COLORS.navy,
-              cursor: "pointer",
-              display: "grid",
-              placeItems: "center",
-              boxShadow: "0 10px 24px rgba(29,24,72,0.18)",
-            }}
-          >
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round">
-              <path d="M18 6 6 18M6 6l12 12" />
-            </svg>
-          </button>
         </div>
 
         <div className="supaprintz-modal-body" style={{ padding: "1.6rem 2rem 2rem", overflowY: "auto", minHeight: 0 }}>
@@ -311,6 +286,32 @@ function SupaprintzPartnerModal({ open, onClose }) {
             </a>
           </div>
         </div>
+        <button
+          className="supaprintz-modal-close"
+          type="button"
+          aria-label="Close Supaprintz partner details"
+          onClick={onClose}
+          style={{
+            position: "absolute",
+            top: 16,
+            right: 16,
+            width: 38,
+            height: 38,
+            borderRadius: "50%",
+            border: `1px solid ${SUPAPRINTZ_COLORS.navy}`,
+            background: "rgba(255,255,255,0.92)",
+            color: SUPAPRINTZ_COLORS.navy,
+            cursor: "pointer",
+            display: "grid",
+            placeItems: "center",
+            boxShadow: "0 10px 24px rgba(29,24,72,0.18)",
+            zIndex: 10,
+          }}
+        >
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
       </div>
     </div>
   );
