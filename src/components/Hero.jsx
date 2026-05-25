@@ -37,7 +37,7 @@ export default function Hero({ onContact }) {
   const [density, setDensity] = useState(1.35);
   useEffect(() => {
     const update = () => {
-      if (window.innerWidth >= 640 && window.innerWidth < 1024) {
+      if (window.innerWidth >= 640 && window.innerWidth < 1280) {
         setDensity(0.7); // reduced on tablet
       } else {
         setDensity(1.35);

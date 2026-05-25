@@ -21,10 +21,10 @@ body {
   font-family: 'Poppins', sans-serif;
   color: var(--brand);
   background: var(--white);
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
-.app { overflow-x: hidden; }
+.app { overflow-x: clip; }
 
 /* Custom scrollbar for small scrolling containers */
 .custom-scrollbar::-webkit-scrollbar {
@@ -769,7 +769,7 @@ body.supaprintz-modal-open .back-to-top {
   z-index: 10;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   .products-section .products-carousel-controls-side {
     left: max(calc(-50vw + 50% + 8px), calc(var(--px) * -1 - 14px)) !important;
     right: max(calc(-50vw + 50% + 8px), calc(var(--px) * -1 - 14px)) !important;
@@ -843,6 +843,6 @@ body.supaprintz-modal-open .back-to-top {
   }
 }
 .editions-table-wrap { overflow-x: auto; } 
-@media (min-width: 1024px) { 
+@media (min-width: 640px) { 
   .editions-table-wrap { overflow-x: visible; overflow-y: visible; } 
 }
