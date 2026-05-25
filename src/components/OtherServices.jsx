@@ -306,6 +306,11 @@ export default function OtherServices({ onContact }) {
     };
   }, [partnerOpen]);
 
+  const displayCases = [...CASES];
+  while (displayCases.length < 4) {
+    displayCases.push({ isEmpty: true, key: `empty-${displayCases.length}` });
+  }
+
   return (
     <>
     <section className="home-section" style={{ position: "relative", overflow: "hidden", background: "#f5f5f8", padding: "6rem 0" }}>
@@ -335,11 +340,16 @@ export default function OtherServices({ onContact }) {
         className="cases-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${Math.min(CASES.length, 4)}, 1fr)`,
+          gridTemplateColumns: "repeat(4, 1fr)",
           gap: "1.25rem",
         }}
       >
-        {CASES.map((c, i) => {
+        {displayCases.map((c, i) => {
+          if (c.isEmpty) {
+            return (
+              <div key={c.key} className="other-services-empty-card" style={{ opacity: 0, pointerEvents: "none" }} />
+            );
+          }
           const imgSrc = c.image || CASE_IMAGES[c.key];
           const meta   = CARD_META[i] || CARD_META[CARD_META.length - 1];
           const opensPartnerModal = c.modal === "supaprintz";

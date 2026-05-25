@@ -253,6 +253,7 @@ body {
   .services-grid { grid-template-columns: 1fr !important; }
   .products-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.7rem !important; }
   .cases-grid    { grid-template-columns: 1fr !important; }
+  .other-services-empty-card { display: none !important; }
   .stats-grid    { grid-template-columns: repeat(2, 1fr) !important; }
   .video-grid    { grid-template-columns: 1fr !important; }
   .case-2col           { grid-template-columns: 1fr !important; }
