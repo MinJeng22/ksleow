@@ -557,6 +557,13 @@ body.supaprintz-modal-open .back-to-top {
   z-index: 5;
 }
 
+@media (min-width: 1024px) {
+  .products-section .products-carousel-controls-side {
+    left: max(calc(-50vw + 50% + 8px), calc(var(--px) * -1 - 28px)) !important;
+    right: max(calc(-50vw + 50% + 8px), calc(var(--px) * -1 - 28px)) !important;
+  }
+}
+
 .products-section .products-carousel-button {
   border-radius: 0 !important;
 }
