@@ -226,17 +226,19 @@ export default function Products({ onContact }) {
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => {
         if (e.isIntersecting) {
-          setRevealed(true);
-          setRevealSettled(false);
-          window.clearTimeout(settleTimer);
-          settleTimer = window.setTimeout(() => setRevealSettled(true), 1300);
+          if (e.intersectionRatio >= 0.15) {
+            setRevealed(true);
+            setRevealSettled(false);
+            window.clearTimeout(settleTimer);
+            settleTimer = window.setTimeout(() => setRevealSettled(true), 1300);
+          }
         } else {
           setRevealed(false);
           setRevealSettled(false);
           window.clearTimeout(settleTimer);
         }
       }),
-      { threshold: 0.25 }
+      { threshold: [0, 0.15] }
     );
     io.observe(node);
     return () => {
