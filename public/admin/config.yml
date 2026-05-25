@@ -172,10 +172,9 @@ collections:
           - { name: intro,    label: Intro paragraph, widget: text }
           - { name: ctaLabel, label: Bottom button label, widget: string, default: "", required: false }
           - name: items
-            label: Other Service Cards (first 2 visible, last 2 are placeholders)
+            label: Other Service Cards
             widget: list
-            min: 4
-            max: 4
+            min: 1
             fields:
               - { name: key,   label: Internal key, widget: string }
               - { name: tag,   label: Tag line (small gold uppercase), widget: string }

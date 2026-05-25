@@ -335,7 +335,7 @@ export default function OtherServices({ onContact }) {
         className="cases-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(4, 1fr)",
+          gridTemplateColumns: `repeat(${Math.min(CASES.length, 4)}, 1fr)`,
           gap: "1.25rem",
         }}
       >
