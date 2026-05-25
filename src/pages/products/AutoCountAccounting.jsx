@@ -735,19 +735,24 @@ export default function AutoCountAccountingPage({ onContact }) {
       <main className="pinned-page-content">
 
       {/* ── Feature highlights ── */}
-      <FeatureHighlights />
+      <div style={{ background: "#ffffff" }}>
+        <FeatureHighlights />
 
+        <div style={{ padding: "0", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+          <SectionDivider icon={IconVideo} color="#c9a84c" />
+        </div>
 
-      <SectionDivider icon={IconVideo} color="#c9a84c" />
-
-      {/* ══════════════════════════════════════════════════════════
-       * LEARN AUTOCOUNT IN 60 MINUTES — WebGL Scroll Experience
-       * ══════════════════════════════════════════════════════════ */}
-      <div id="training">
-        <AutoCountTrainingWebGL />
+        {/* ══════════════════════════════════════════════════════════
+         * LEARN AUTOCOUNT IN 60 MINUTES — WebGL Scroll Experience
+         * ══════════════════════════════════════════════════════════ */}
+        <div id="training">
+          <AutoCountTrainingWebGL />
+        </div>
       </div>
 
-      <SectionDivider icon={IconGrid} color="#2f315a" />
+      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: "1rem 0" }}>
+        <SectionDivider icon={IconGrid} color="#2f315a" />
+      </div>
 
       {/* ══════════════════════════════════════════════════════════
        * COMPARING 5 EDITIONS OF ACCOUNTING 2.2

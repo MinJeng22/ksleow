@@ -593,7 +593,9 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider icon={IconClipboard} />
+      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: "1rem 0" }}>
+        <SectionDivider icon={IconClipboard} />
+      </div>
 
       {/* ── Outstanding Delivery Order ── */}
       <div id="outstanding" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
@@ -622,7 +624,9 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider icon={IconStar} />
+      <div style={{ background: "linear-gradient(to bottom, #f5f5f8, #ffffff)", padding: "1rem 0" }}>
+        <SectionDivider icon={IconStar} />
+      </div>
 
       {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
       <div id="preset" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
@@ -645,7 +649,9 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider icon={IconSettings} />
+      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: "1rem 0" }}>
+        <SectionDivider icon={IconSettings} />
+      </div>
 
       {/* ── Plugin Settings ── */}
       <div id="settings" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
@@ -671,7 +677,9 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider icon={IconShield} />
+      <div style={{ background: "linear-gradient(to bottom, #f5f5f8, #ffffff)", padding: "1rem 0" }}>
+        <SectionDivider icon={IconShield} />
+      </div>
 
       {/* ── Activate Plugin License ── */}
       <div id="license" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
@@ -746,7 +754,9 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider icon={IconRocket} />
+      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f4f6fb)", padding: "1rem 0" }}>
+        <SectionDivider icon={IconRocket} />
+      </div>
 
       {/* ── CTA ── */}
       <div style={{ position: "relative", overflow: "hidden", background: "#f4f6fb", padding: "4rem 0" }}>

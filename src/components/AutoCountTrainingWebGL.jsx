@@ -10,7 +10,7 @@ export default function AutoCountTrainingWebGL() {
       style={{
         position: 'relative',
         width: '100%',
-        background: '#f8f9fc',
+        background: 'transparent',
         padding: '5rem 0',
       }}
     >

@@ -256,7 +256,9 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <SectionDivider icon={IconLayers} />
+      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: "1rem 0" }}>
+        <SectionDivider icon={IconLayers} />
+      </div>
 
       {/* ── Module spotlight ── */}
       <div id="modules" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
@@ -322,7 +324,9 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <SectionDivider icon={IconLink} />
+      <div style={{ background: "linear-gradient(to bottom, #f5f5f8, #ffffff)", padding: "1rem 0" }}>
+        <SectionDivider icon={IconLink} />
+      </div>
 
       {/* ── AutoCount integration ── */}
       <div id="integration" style={{ background: "#ffffff", ...S.section, scrollMarginTop: 24 }}>
@@ -356,10 +360,12 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <SectionDivider icon={IconHandshake} />
+      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f8f9fc)", padding: "1rem 0" }}>
+        <SectionDivider icon={IconHandshake} />
+      </div>
 
       {/* ── Why partner with KSL ── */}
-      <div id="why-ksl" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
+      <div id="why-ksl" style={{ background: "#f8f9fc", ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>Why Partner With KSL</div>
           <h2 style={{ ...S.h2, marginBottom: "0.75rem" }}>Local Installation, Local Support</h2>

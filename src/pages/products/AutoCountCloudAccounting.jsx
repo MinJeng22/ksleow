@@ -529,11 +529,15 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <main className="pinned-page-content">
-      <FeatureHighlights />
+      {/* ── Feature highlights ── */}
+      <div style={{ background: "#ffffff" }}>
+        <FeatureHighlights />
 
-      <SectionDivider icon={IconVideo} />
+        <div style={{ padding: "0", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+          <SectionDivider icon={IconVideo} />
+        </div>
 
-      <div id="training" ref={trainingRef} className="ac-section-tight" style={{ background: "#ffffff", padding: "4.5rem 0", scrollMarginTop: 24 }}>
+        <div id="training" ref={trainingRef} className="ac-section-tight" style={{ padding: "4.5rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "2.4rem" }}>
             <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.6rem" }}>
@@ -571,9 +575,12 @@ export default function AutoCountCloudAccountingPage() {
             </div>
           </div>
         </div>
+        </div>
       </div>
 
-      <SectionDivider icon={IconGrid} />
+      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: "1rem 0" }}>
+        <SectionDivider icon={IconGrid} />
+      </div>
 
       <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
