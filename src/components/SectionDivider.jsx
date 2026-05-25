@@ -19,9 +19,7 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
   useEffect(() => {
     if (targetId) {
       const handleSectionChange = (e) => {
-        if (e.detail === targetId) {
-          setInView(true);
-        }
+        setInView(e.detail === targetId);
       };
       window.addEventListener("sectionChange", handleSectionChange);
       return () => window.removeEventListener("sectionChange", handleSectionChange);
@@ -32,7 +30,7 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
       }
       const io = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) setInView(true);
+          setInView(entry.isIntersecting);
         },
         { threshold: 0.5 }
       );
@@ -48,7 +46,7 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "3rem var(--px)",
+        padding: "1.5rem var(--px)",
         position: "relative",
         zIndex: 10,
         width: "100%",
