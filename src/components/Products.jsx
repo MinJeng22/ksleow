@@ -99,19 +99,20 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
         style={{
           paddingBottom: "56%",
           position: "relative",
+          overflow: "hidden",
           outline: (product.img || product.background) ? "none" : "2px dashed rgba(255,255,255,0.15)",
           outlineOffset: -6,
-          perspective: "1000px",
+          perspective: "800px",
           transformStyle: "preserve-3d",
         }}
       >
         <div style={{
-          position: "absolute", inset: -8,
+          position: "absolute", inset: -4,
           background: product.gradient,
           transform: isHov 
-            ? `translate3d(${mousePos.x * -3}px, ${mousePos.y * -3}px, -5px) scale(1.02)` 
-            : "translate3d(0px, 0px, 0px) scale(1)",
-          transition: isHov ? "transform 0.15s ease-out" : "transform 0.4s ease",
+            ? `translate3d(${mousePos.x * -1.5}px, ${mousePos.y * -1.5}px, 0px)` 
+            : "translate3d(0px, 0px, 0px)",
+          transition: isHov ? "transform 0.15s ease-out" : "transform 0.35s ease",
           zIndex: 0,
         }}>
           {product.background && (
@@ -139,17 +140,17 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
               opacity: revealed ? 1 : 0,
               transform: revealed
                 ? isHov 
-                  ? `translate3d(${mousePos.x * 5}px, ${mousePos.y * 5}px, 15px) scale(1.04) rotateX(${mousePos.y * -3}deg) rotateY(${mousePos.x * 3}deg)`
+                  ? `translate3d(${mousePos.x * 3}px, ${mousePos.y * 3}px, 10px) scale(1.02) rotateX(${mousePos.y * -1.5}deg) rotateY(${mousePos.x * 1.5}deg)`
                   : "translate3d(0px, 0px, 0px) scale(1) rotateX(0deg) rotateY(0deg)"
                 : "translate3d(0px, 30px, 0px) scale(0.85) rotateX(0deg) rotateY(0deg)",
               transition: (!revealed) 
                 ? "none" 
                 : animateReveal && !isHov
                   ? `opacity 0.4s ease ${order * 0.08}s, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${order * 0.08}s`
-                  : isHov ? "transform 0.15s ease-out, filter 0.15s ease-out" : "transform 0.4s ease, filter 0.4s ease",
+                  : isHov ? "transform 0.15s ease-out, filter 0.15s ease-out" : "transform 0.35s ease, filter 0.35s ease",
               filter: isHov 
-                ? `drop-shadow(${mousePos.x * -4}px ${mousePos.y * -4 + 6}px 8px rgba(0,0,0,0.2))` 
-                : "drop-shadow(0px 2px 4px rgba(0,0,0,0.08))",
+                ? `drop-shadow(${mousePos.x * -2}px ${mousePos.y * -2 + 4}px 6px rgba(0,0,0,0.15))` 
+                : "drop-shadow(0px 2px 4px rgba(0,0,0,0.06))",
             }}
           />
         ) : (
