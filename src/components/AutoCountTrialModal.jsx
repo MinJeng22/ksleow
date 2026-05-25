@@ -61,9 +61,29 @@ export default function AutoCountTrialModal({ open, onClose }) {
       >
         <style>{`
           @keyframes modalIn{from{opacity:0;transform:translateY(14px) scale(0.96)}to{opacity:1;transform:translateY(0) scale(1)}}
-          @media (max-width: 1024px) {
+          @media (max-width: 1024px) and (min-width: 641px) {
             .trial-modal-shell {
-              zoom: 0.85;
+              flex-direction: row !important;
+              width: min(840px, 92vw) !important;
+              height: auto !important;
+            }
+            .trial-modal-header {
+              flex: 1 !important;
+              border-radius: 26px 0 0 26px !important;
+              display: flex !important;
+              flex-direction: column !important;
+              justify-content: center !important;
+              padding: 2.5rem !important;
+            }
+            .trial-modal-body {
+              flex: 1.25 !important;
+              border-radius: 0 26px 26px 0 !important;
+              overflow-y: auto !important;
+            }
+            .trial-modal-close {
+              background: #f1f2f6 !important;
+              color: #2f315a !important;
+              border: none !important;
             }
           }
           @media (max-width: 640px) {

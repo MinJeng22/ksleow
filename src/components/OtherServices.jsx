@@ -105,9 +105,33 @@ function SupaprintzPartnerModal({ open, onClose }) {
         }}
       >
         <style>{`
-          @media (max-width: 1024px) {
+          @media (max-width: 1024px) and (min-width: 641px) {
             .supaprintz-modal-shell {
-              zoom: 0.85;
+              flex-direction: row !important;
+              width: min(840px, 92vw) !important;
+              height: auto !important;
+            }
+            .supaprintz-modal-banner-frame {
+              flex: 1 !important;
+              aspect-ratio: auto !important;
+              border-bottom: none !important;
+              border-right: 6px solid #f26522 !important;
+            }
+            .supaprintz-modal-banner {
+              height: 100% !important;
+              object-fit: cover !important;
+            }
+            .supaprintz-modal-body {
+              flex: 1.25 !important;
+              overflow-y: auto !important;
+              display: flex !important;
+              flex-direction: column !important;
+              justify-content: center !important;
+            }
+            .supaprintz-modal-close {
+              background: #f1f2f6 !important;
+              color: #1a2542 !important;
+              border: none !important;
             }
           }
           @media (max-width: 640px) {
