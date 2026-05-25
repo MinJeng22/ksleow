@@ -113,7 +113,7 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
   );
 }
 
-/* ─── Pre-built icon library (inline SVGs with colour) ──────────────── */
+/* ΓöÇΓöÇΓöÇ Pre-built icon library (inline SVGs with colour) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
 
 /** Accounting / ledger book */
 export const IconLedger = (
