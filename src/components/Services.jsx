@@ -96,10 +96,24 @@ function ServiceCard({ service }) {
   const cardRef = useRef(null);
   const contact = SERVICE_CONTACTS[service.key] || {};
   const office  = (service.officeKey && OFFICES[service.officeKey]) || null;
-  const phoneArray = Array.isArray(contact.phone) 
-    ? contact.phone 
-    : (contact.phone || "017-905 2323").split(/[,/]/).map(s => s.trim());
+  
+  const cmsPhones = office?.phones?.map(p => p.number).filter(Boolean);
+  const phoneArray = (cmsPhones && cmsPhones.length > 0)
+    ? cmsPhones
+    : (Array.isArray(contact.phone) ? contact.phone : (contact.phone || "017-905 2323").split(/[,/]/).map(s => s.trim()));
   const primaryPhone = phoneArray[0];
+
+  const cmsAddresses = office?.addresses?.map(a => a.address).filter(Boolean);
+  const addressArray = (cmsAddresses && cmsAddresses.length > 0)
+    ? cmsAddresses
+    : [
+        (contact.address || "Taman Zabidin, Mentakab, Pahang")
+          .replace("No.8-9, Ground Floor, ", "")
+          .replace("No.8-9, 1st Floor, ", "")
+          .replace("No.8-9, 2nd Floor, ", "")
+          .replace("Kampung Catin, 28400 ", "")
+      ];
+
   const waNumber  = primaryPhone.replace(/\D/g, "");
   const waMessage = `Hi! I'm interested in ${service.title}. Could you provide more details?`;
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
@@ -108,12 +122,6 @@ function ServiceCard({ service }) {
   // QR code points to the same WhatsApp link — scan with phone to open chat
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=2&bgcolor=ffffff&color=2f315a&data=${encodeURIComponent(waLink)}`;
 
-  // Clean address (drop redundant building/street prefix & postal code so it fits)
-  const cleanAddress = (contact.address || "Taman Zabidin, Mentakab, Pahang")
-    .replace("No.8-9, Ground Floor, ", "")
-    .replace("No.8-9, 1st Floor, ", "")
-    .replace("No.8-9, 2nd Floor, ", "")
-    .replace("Kampung Catin, 28400 ", "");
   const isWebinar = service.key === "webinar";
   const showBadge = !isWebinar && !service.hideBadge;
   const hasFrontBackground = false;
@@ -356,10 +364,14 @@ function ServiceCard({ service }) {
             alignItems: "stretch",
           }}>
             {/* Left: contact details */}
-            <div style={{
-              flex: 1, minWidth: 0,
-              display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.5rem",
-            }}>
+            <div
+              className="custom-scrollbar"
+              style={{
+                flex: 1, minWidth: 0,
+                display: "flex", flexDirection: "column", justifyContent: "flex-start", gap: "0.5rem",
+                overflowY: "auto", paddingRight: "4px"
+              }}
+            >
               {phoneArray.map((phone, idx) => (
                 <ContactLine
                   key={idx}
@@ -371,10 +383,13 @@ function ServiceCard({ service }) {
                 icon={<><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></>}
                 label={contact.email || "support@ksleow.com.my"}
               />
-              <ContactLine
-                icon={<><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></>}
-                label={cleanAddress}
-              />
+              {addressArray.map((addr, idx) => (
+                <ContactLine
+                  key={`addr-${idx}`}
+                  icon={<><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></>}
+                  label={addr}
+                />
+              ))}
             </div>
 
             {/* Right: QR code panel */}
