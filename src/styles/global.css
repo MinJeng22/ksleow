@@ -612,9 +612,9 @@ body.supaprintz-modal-open .back-to-top {
 
 @media (max-width: 640px) {
   .products-section .products-carousel-shell {
-    --products-edge-peek: clamp(16px, 4vw, 24px);
+    --products-edge-peek: calc(var(--products-gap) * -1);
     --products-gap: 0.6rem;
-    --products-card-width: calc(var(--container-w) - var(--products-edge-peek) - var(--products-gap));
+    --products-card-width: var(--container-w);
   }
 
   .products-section .product-card {

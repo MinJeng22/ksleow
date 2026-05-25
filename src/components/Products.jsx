@@ -115,8 +115,8 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
               transition: (!revealed) 
                 ? "none" 
                 : animateReveal
-                  ? `opacity 0.7s ease ${order * 0.15}s, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) ${order * 0.15}s`
-                  : "transform 0.28s ease",
+                  ? `opacity 0.4s ease ${order * 0.08}s, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${order * 0.08}s`
+                  : "transform 0.2s ease",
             }}
           />
         ) : (
