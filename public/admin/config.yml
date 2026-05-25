@@ -133,6 +133,7 @@ collections:
                 fields:
                   - { name: src, label: Logo image, widget: image }
                   - { name: hoverSrc, label: White logo (on hover), widget: image, required: false }
+                  - { name: hoverH,   label: Hover Height (px), widget: number, required: false, value_type: int, min: 20, max: 120 }
                   - { name: alt, label: Alt text,   widget: string }
                   - { name: h,   label: Height (px), widget: number, default: 60, value_type: int, min: 20, max: 120 }
 

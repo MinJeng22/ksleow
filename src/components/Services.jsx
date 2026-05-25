@@ -13,7 +13,7 @@ const OFFICES = Object.fromEntries(
  * { dealer | certified } shape the existing render code expects. */
 const SERVICES = (servicesContent.items || []).map(s => {
   const badge = s.badgeLabel && s.logos
-    ? { label: s.badgeLabel, logos: s.logos.map(l => ({ ...l, h: l.h || 60, hoverSrc: l.hoverSrc || null })) }
+    ? { label: s.badgeLabel, logos: s.logos.map(l => ({ ...l, h: l.h || 60, hoverSrc: l.hoverSrc || null, hoverH: l.hoverH || null })) }
     : null;
   return {
     key: s.key,
@@ -75,7 +75,7 @@ function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
                 loading="lazy"
                 decoding="async"
                 fetchPriority="low"
-                style={{ height: logo.h, maxWidth: 160, objectFit: "contain" }} />
+                style={{ height: logo.h, maxWidth: 160, objectFit: "contain", transition: "height 0.3s ease" }} />
               {i < visibleLogos.length - 1 && (
                 <div style={{ width: 1, height: 44, background: onImage ? "rgba(47,49,90,0.2)" : "rgba(47,49,90,0.2)", margin: "0 0.7rem" }} />
               )}
@@ -155,7 +155,11 @@ function ServiceCard({ service }) {
 
   let activeBadge = service.dealer || service.certified;
   if (isActive && activeBadge) {
-    activeBadge = { ...activeBadge, logos: activeBadge.logos.map(l => ({ ...l, src: l.hoverSrc || l.src })) };
+    activeBadge = { ...activeBadge, logos: activeBadge.logos.map(l => ({ 
+      ...l, 
+      src: l.hoverSrc || l.src,
+      h: l.hoverH || l.h 
+    })) };
   }
 
   return (
