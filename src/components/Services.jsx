@@ -154,7 +154,7 @@ function ServiceCard({ service }) {
     );
     observer.observe(node);
 
-    const mql = window.matchMedia("(max-width: 900px)");
+    const mql = window.matchMedia("(max-width: 1024px)");
     const mqlHandler = (e) => setIsMobile(e.matches);
     setIsMobile(mql.matches);
     mql.addEventListener("change", mqlHandler);
