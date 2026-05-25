@@ -61,10 +61,26 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
   const isHov = hovered === productIndex;
   const clickable = !!product.route;
 
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    if (!isHov) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    setMousePos({ x: x * 2 - 1, y: y * 2 - 1 });
+  };
+
+  const handleMouseLeave = () => {
+    onLeave();
+    setMousePos({ x: 0, y: 0 });
+  };
+
   return (
     <div
       onMouseEnter={() => onHover(productIndex)}
-      onMouseLeave={onLeave}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       onClick={() => clickable && onOpen(product.route)}
       className="product-card"
       style={{
@@ -81,24 +97,36 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
     >
       <div
         style={{
-          background: product.gradient,
           paddingBottom: "56%",
           position: "relative",
           outline: (product.img || product.background) ? "none" : "2px dashed rgba(255,255,255,0.15)",
           outlineOffset: -6,
+          perspective: "1000px",
+          transformStyle: "preserve-3d",
         }}
       >
-        {product.background && (
-          <>
-            <Img
-              src={product.background}
-              alt=""
-              priority
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-            />
-            <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.55)" }} />
-          </>
-        )}
+        <div style={{
+          position: "absolute", inset: -24,
+          background: product.gradient,
+          transform: isHov 
+            ? `translate3d(${mousePos.x * -8}px, ${mousePos.y * -8}px, -10px) scale(1.05)` 
+            : "translate3d(0px, 0px, 0px) scale(1)",
+          transition: isHov ? "transform 0.1s ease-out" : "transform 0.4s ease",
+          zIndex: 0,
+        }}>
+          {product.background && (
+            <>
+              <Img
+                src={product.background}
+                alt=""
+                priority
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+              <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.55)" }} />
+            </>
+          )}
+        </div>
+
         {product.img ? (
           <Img
             src={product.img}
@@ -110,13 +138,18 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
               objectFit: "contain", padding: "12%", zIndex: 2,
               opacity: revealed ? 1 : 0,
               transform: revealed
-                ? `translateY(0px) scale(${isHov ? 1.08 : 1})`
-                : "translateY(30px) scale(0.85)",
+                ? isHov 
+                  ? `translate3d(${mousePos.x * 12}px, ${mousePos.y * 12}px, 30px) scale(1.08) rotateX(${mousePos.y * -8}deg) rotateY(${mousePos.x * 8}deg)`
+                  : "translate3d(0px, 0px, 0px) scale(1) rotateX(0deg) rotateY(0deg)"
+                : "translate3d(0px, 30px, 0px) scale(0.85) rotateX(0deg) rotateY(0deg)",
               transition: (!revealed) 
                 ? "none" 
-                : animateReveal
+                : animateReveal && !isHov
                   ? `opacity 0.4s ease ${order * 0.08}s, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${order * 0.08}s`
-                  : "transform 0.2s ease",
+                  : isHov ? "transform 0.1s ease-out, filter 0.1s ease-out" : "transform 0.4s ease, filter 0.4s ease",
+              filter: isHov 
+                ? `drop-shadow(${mousePos.x * -10}px ${mousePos.y * -10 + 10}px 12px rgba(0,0,0,0.3))` 
+                : "drop-shadow(0px 4px 6px rgba(0,0,0,0.1))",
             }}
           />
         ) : (
