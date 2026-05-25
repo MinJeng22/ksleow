@@ -174,7 +174,7 @@ export default function AutoCountTrainingWebGL() {
               </div>
 
               {/* Description text */}
-              <div>
+              <div style={{ transform: 'translateY(-1rem)' }}>
                 <p style={{
                   fontSize: '0.95rem', color: '#6b6f91', lineHeight: 1.8,
                   maxWidth: 480, marginBottom: '1.5rem', marginTop: 0,
