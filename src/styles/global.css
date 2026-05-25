@@ -209,7 +209,7 @@ body {
   .stats-section .content-wrap > * { padding-top: 1.85rem !important; padding-bottom: 1.85rem !important; }
   /* Products section: smaller cards on tablet */
   .products-section h2 { font-size: clamp(1.5rem, 3vw, 2.1rem) !important; }
-  .products-section .products-grid { gap: 0.95rem !important; }
+  .products-section { --products-gap: 0.95rem; }
 }
 
 /* ── Small tablet (640–900) ── */
@@ -381,8 +381,8 @@ body {
   .products-section .products-carousel-controls-side {
     display: flex !important;
     position: absolute;
-    left: -0.7rem;
-    right: -0.7rem;
+    left: 0.5rem;
+    right: 0.5rem;
     top: 50%;
     bottom: auto;
     transform: translateY(-50%);
@@ -390,7 +390,7 @@ body {
     width: auto !important;
     justify-content: space-between;
     pointer-events: none;
-    z-index: 5;
+    z-index: 10;
   }
   .products-section .products-carousel-button {
     width: 38px !important;

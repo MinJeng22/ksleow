@@ -34,6 +34,20 @@ export default function Hero({ onContact }) {
 
   const logoH = "clamp(80px, 11vw, 140px)";
 
+  const [density, setDensity] = useState(1.35);
+  useEffect(() => {
+    const update = () => {
+      if (window.innerWidth >= 640 && window.innerWidth < 1024) {
+        setDensity(0.7); // reduced on tablet
+      } else {
+        setDensity(1.35);
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
   return (
     <section
       id="hero"
@@ -47,7 +61,7 @@ export default function Hero({ onContact }) {
         overflow: "hidden",
       }}
     >
-      <ParticleBackground paused={paused} densityScale={1.35} />
+      <ParticleBackground paused={paused} densityScale={density} />
 
       {/*
        * DESKTOP layout (>640px):

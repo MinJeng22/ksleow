@@ -305,7 +305,7 @@ export default function ParticleBackground({
       window.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, []);
+  }, [densityScale]);
 
   return (
     <canvas
