@@ -1,8 +1,25 @@
 import React, { useState, useRef } from 'react';
 
-const YOUTUBE_ID = 'ztmg4hvro6U';
+const VIDEOS = [
+  {
+    id: 'ztmg4hvro6U',
+    label: 'General Tutorial',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+  },
+  {
+    id: 'dA9fzUg6OYU',
+    label: 'e-Invoice',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+  },
+  {
+    id: 'vFu1AgUT5rg',
+    label: 'SST Tutorial',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="10" cy="13" r="1"/><circle cx="14" cy="17" r="1"/><line x1="14" y1="13" x2="10" y2="17"/></svg>
+  }
+];
 
 export default function AutoCountTrainingWebGL() {
+  const [activeVideo, setActiveVideo] = useState(VIDEOS[0].id);
   const [showIframe, setShowIframe] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const videoRef = useRef(null);
@@ -134,8 +151,8 @@ export default function AutoCountTrainingWebGL() {
               }}
             >
               <iframe
-                src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&rel=0&modestbranding=1`}
-                title="Learn AutoCount Accounting in 60 Minutes"
+                src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0&modestbranding=1`}
+                title="AutoCount Training Video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 style={{ width: '100%', height: '100%', border: 'none' }}
@@ -147,8 +164,9 @@ export default function AutoCountTrainingWebGL() {
           <>
             <div className="training-grid">
               {/* iPad Frame Wrapper */}
-              <div
-                className="ipad-frame"
+              <div>
+                <div
+                  className="ipad-frame"
                 onClick={handlePlay}
               >
                 {/* iPad Screen */}
@@ -160,7 +178,7 @@ export default function AutoCountTrainingWebGL() {
                   position: 'relative',
                 }}>
                   <img
-                    src={`https://i.ytimg.com/vi/${YOUTUBE_ID}/maxresdefault.jpg`}
+                    src={`https://i.ytimg.com/vi/${activeVideo}/maxresdefault.jpg`}
                     alt="AutoCount Tutorial"
                     loading="lazy"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
@@ -179,6 +197,42 @@ export default function AutoCountTrainingWebGL() {
                   </div>
                 </div>
               </div>
+
+              {/* Video Selector Buttons */}
+              <div style={{
+                marginTop: '1.25rem',
+                background: '#2f315a',
+                borderRadius: '20px',
+                padding: '6px',
+                display: 'flex',
+                gap: '6px'
+              }}>
+                {VIDEOS.map(v => {
+                  const isActive = activeVideo === v.id;
+                  return (
+                    <button
+                      key={v.id}
+                      onClick={() => setActiveVideo(v.id)}
+                      style={{
+                        flex: 1,
+                        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
+                        padding: '12px 4px',
+                        background: isActive ? '#f5f5f8' : 'transparent',
+                        color: isActive ? '#1c1e36' : 'rgba(255,255,255,0.7)',
+                        border: 'none', borderRadius: '14px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                      }}
+                    >
+                      {v.icon}
+                      <span style={{ fontSize: '0.72rem', fontWeight: isActive ? 700 : 500, textAlign: 'center', lineHeight: 1.1 }}>
+                        {v.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
               {/* Description text */}
               <div style={{ transform: 'translateY(-1rem)' }}>
