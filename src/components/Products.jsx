@@ -390,12 +390,12 @@ export default function Products({ onContact }) {
                     key={`progress-${progressIndex}-${isPlaying ? 'play' : 'pause'}`}
                     style={{
                       position: "absolute",
-                      left: 0,
+                      right: 0,
                       top: 0,
                       bottom: 0,
                       background: "#ffffff",
                       borderRadius: "3px",
-                      width: isPlaying ? "100%" : "0%",
+                      width: "100%",
                       animation: isPlaying ? "products-autoplay-progress 3000ms linear forwards" : "none"
                     }}
                   />
