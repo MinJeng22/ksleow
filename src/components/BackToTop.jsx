@@ -74,8 +74,8 @@ export default function BackToTop() {
           .back-to-top-glass {
             bottom: 20px;
             right: 20px;
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
           }
         }
       `}</style>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export default function useDarkBg(ref) {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true); // Default to true because top of page (Hero) is always dark
 
   useEffect(() => {
     let ticking = false;

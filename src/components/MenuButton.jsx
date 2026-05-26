@@ -110,6 +110,8 @@ const STYLES = `
 .menu-fab, .search-fab {
   display: flex;
   align-items: center;
+  height: 48px;
+  box-sizing: border-box;
   gap: 0.45rem;
   border-radius: 100px;
   cursor: pointer;
@@ -123,10 +125,10 @@ const STYLES = `
   user-select: none;
 }
 .menu-fab {
-  padding: 0.55rem 1.1rem 0.55rem 0.85rem;
+  padding: 0 1.1rem 0 0.85rem;
 }
 .search-fab {
-  padding: 0.55rem 1rem;
+  padding: 0 1rem;
 }
 .menu-fab:hover, .search-fab:hover {
   background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.15));
@@ -165,6 +167,8 @@ const STYLES = `
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 48px;
+    box-sizing: border-box;
     gap: 0.35rem;
     border: none;
     background: none;
@@ -173,7 +177,7 @@ const STYLES = `
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
     font-size: 0.78rem;
     font-weight: 600;
-    padding: 0.5rem 1rem;
+    padding: 0 1rem;
     border-radius: 100px;
     transition: all 0.25s ease;
     -webkit-tap-highlight-color: transparent;
@@ -390,6 +394,8 @@ export default function MenuButton({ onOpenSearch }) {
   /* Close on route change */
   useEffect(() => { setOpen(false); }, [pathname]);
 
+  if (pathname === "/omni") return null;
+
   const handleNav = (path) => {
     setOpen(false);
     if (path === "/" && pathname === "/") {
@@ -444,6 +450,21 @@ export default function MenuButton({ onOpenSearch }) {
       >
         <button 
           className="mfb-btn" 
+          onClick={onOpenSearch} 
+          aria-label="Search"
+          style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>Search</span>
+        </button>
+
+        <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
+
+        <button 
+          className="mfb-btn" 
           onClick={() => setOpen(!open)} 
           aria-label={open ? "Close menu" : "Open menu"}
           style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
@@ -454,21 +475,6 @@ export default function MenuButton({ onOpenSearch }) {
             <span style={{ height: 1.5, top: 9 }} />
           </div>
           <span>Menu</span>
-        </button>
-
-        <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
-
-        <button 
-          className="mfb-btn" 
-          onClick={onOpenSearch} 
-          aria-label="Search"
-          style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
-        >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <span>Search</span>
         </button>
       </div>
 
