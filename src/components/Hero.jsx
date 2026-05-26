@@ -265,25 +265,73 @@ export default function Hero({ onContact }) {
       </button>
 
       {/* Pause / Play */}
+      <style>{`
+        .hero-glass-btn {
+          position: absolute;
+          bottom: 28px;
+          right: 28px;
+          z-index: 10;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          border: 0.5px solid rgba(255, 255, 255, 0.45);
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.25) 0%,
+            rgba(255, 255, 255, 0.05) 100%
+          );
+          backdrop-filter: blur(40px) saturate(1.8);
+          -webkit-backdrop-filter: blur(40px) saturate(1.8);
+          box-shadow:
+            0 8px 32px rgba(0, 0, 0, 0.08),
+            0 1px 3px rgba(0, 0, 0, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+          color: #ffffff; /* White icon for dark background */
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition:
+            transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 0.25s ease,
+            background 0.25s ease;
+        }
+        .hero-glass-btn:hover {
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.35) 0%,
+            rgba(255, 255, 255, 0.1) 100%
+          );
+          box-shadow:
+            0 12px 40px rgba(0, 0, 0, 0.12),
+            0 2px 6px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.4),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+          transform: translateY(-2px);
+        }
+        .hero-glass-btn:active {
+          transform: translateY(1px) scale(0.95);
+        }
+        /* Mobile: Keep bottom right, maybe slightly adjusted */
+        @media (max-width: 767px) {
+          .hero-glass-btn {
+            bottom: 20px;
+            right: 20px;
+            width: 42px;
+            height: 42px;
+          }
+        }
+      `}</style>
       <button
+        className="hero-glass-btn"
         onClick={() => setPaused(p => !p)}
         title={paused ? "Play background" : "Pause background"}
         aria-label={paused ? "Play background" : "Pause background"}
-        style={{
-          position: "absolute", bottom: 24, right: 24, zIndex: 10,
-          width: 38, height: 38, borderRadius: "50%",
-          background: "rgba(255,255,255,0.1)",
-          border: "1px solid rgba(255,255,255,0.22)",
-          color: "#ffffff", cursor: "pointer",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          transition: "background 0.2s",
-        }}
-        onMouseOver={e => e.currentTarget.style.background = "rgba(255,255,255,0.2)"}
-        onMouseOut={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
       >
         {paused
-          ? <svg width="12" height="14" viewBox="0 0 12 14" fill="white"><polygon points="0,0 12,7 0,14"/></svg>
-          : <svg width="12" height="14" viewBox="0 0 12 14" fill="white"><rect x="0" y="0" width="4" height="14"/><rect x="8" y="0" width="4" height="14"/></svg>
+          ? <svg width="14" height="16" viewBox="0 0 12 14" fill="currentColor"><polygon points="0,0 12,7 0,14"/></svg>
+          : <svg width="14" height="16" viewBox="0 0 12 14" fill="currentColor"><rect x="0" y="0" width="4" height="14"/><rect x="8" y="0" width="4" height="14"/></svg>
         }
       </button>
     </section>
