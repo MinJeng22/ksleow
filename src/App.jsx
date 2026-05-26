@@ -12,6 +12,7 @@ import Products      from "./components/Products";
 import Careers       from "./components/Careers";
 import Footer        from "./components/Footer";
 import BackToTop     from "./components/BackToTop";
+import MenuButton    from "./components/MenuButton";
 
 import AutoCountAccountingPage from "./pages/products/AutoCountAccounting";
 import AutoCountCloudAccountingPage from "./pages/products/AutoCountCloudAccounting";
@@ -67,6 +68,7 @@ function AppShell({ openContact, modalOpen, setModalOpen }) {
 
       <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <BackToTop />
+      <MenuButton onClick={() => console.log('Menu clicked')} />
     </div>
   );
 }
