@@ -110,7 +110,7 @@ const STYLES = `
 .menu-fab, .search-fab {
   display: flex;
   align-items: center;
-  height: 48px;
+  height: 40px;
   box-sizing: border-box;
   gap: 0.45rem;
   border-radius: 100px;
@@ -158,6 +158,8 @@ const STYLES = `
     z-index: 1000;
     display: flex;
     align-items: center;
+    height: 44px;
+    box-sizing: border-box;
     gap: 4px;
     padding: 4px;
     border-radius: 100px;
@@ -167,8 +169,7 @@ const STYLES = `
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 48px;
-    box-sizing: border-box;
+    height: 100%;
     gap: 0.35rem;
     border: none;
     background: none;

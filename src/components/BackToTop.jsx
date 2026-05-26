@@ -25,8 +25,8 @@ export default function BackToTop() {
           bottom: 28px;
           right: 28px;
           z-index: 500;
-          width: 48px;
-          height: 48px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           border: 0.5px solid rgba(255, 255, 255, 0.45);
           background: linear-gradient(
@@ -74,8 +74,8 @@ export default function BackToTop() {
           .back-to-top-glass {
             bottom: 20px;
             right: 20px;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
           }
         }
       `}</style>
