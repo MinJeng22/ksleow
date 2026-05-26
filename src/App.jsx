@@ -13,6 +13,7 @@ import Careers       from "./components/Careers";
 import Footer        from "./components/Footer";
 import BackToTop     from "./components/BackToTop";
 import MenuButton    from "./components/MenuButton";
+import GlobalSearch  from "./components/GlobalSearch";
 
 import AutoCountAccountingPage from "./pages/products/AutoCountAccounting";
 import AutoCountCloudAccountingPage from "./pages/products/AutoCountCloudAccounting";
@@ -47,7 +48,7 @@ function Home({ onContact }) {
 
 /* The site Nav is shown ONLY on the homepage. Every other route (including
  * /omni, product pages, app pages) provides its own page header. */
-function AppShell({ openContact, modalOpen, setModalOpen }) {
+function AppShell({ openContact, modalOpen, setModalOpen, searchOpen, setSearchOpen }) {
   const { pathname } = useLocation();
   const showNav = pathname === "/";
 
@@ -67,19 +68,27 @@ function AppShell({ openContact, modalOpen, setModalOpen }) {
       </Routes>
 
       <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
       <BackToTop />
-      <MenuButton />
+      <MenuButton onOpenSearch={() => setSearchOpen(true)} />
     </div>
   );
 }
 
 export default function App() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const openContact = () => setModalOpen(true);
 
   return (
     <BrowserRouter>
-      <AppShell openContact={openContact} modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <AppShell 
+        openContact={openContact} 
+        modalOpen={modalOpen} 
+        setModalOpen={setModalOpen} 
+        searchOpen={searchOpen}
+        setSearchOpen={setSearchOpen}
+      />
     </BrowserRouter>
   );
 }
