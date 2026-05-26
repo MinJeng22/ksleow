@@ -184,16 +184,7 @@ export default function Hero({ onContact }) {
             </button>
             <a
               href={hero.secondaryButtonHref || "#services"}
-              style={{
-                background: "transparent", color: "#ffffff",
-                border: "1.5px solid rgba(255,255,255,0.35)",
-                padding: "0.75rem 1.75rem", borderRadius: 50,
-                fontSize: "0.88rem", fontWeight: 500,
-                textDecoration: "none", whiteSpace: "nowrap",
-                transition: "border-color 0.2s", display: "inline-block",
-              }}
-              onMouseOver={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.82)"}
-              onMouseOut={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.35)"}
+              className="btn-ghost-base btn-ghost-light"
             >
               {hero.secondaryButton}
             </a>

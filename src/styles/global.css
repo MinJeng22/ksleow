@@ -838,6 +838,43 @@ body.supaprintz-modal-open .back-to-top {
   .editions-table-wrap { overflow-x: visible; overflow-y: visible; max-height: none; } 
 }
 
+/* ── Shared Ghost Outline Buttons (WhatsApp Us Style) ── */
+.btn-ghost-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  font-family: inherit;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.btn-ghost-light {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.btn-ghost-light:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.btn-ghost-dark {
+  background: transparent;
+  color: #2f315a;
+  border-color: rgba(47, 49, 90, 0.28);
+}
+.btn-ghost-dark:hover {
+  background: rgba(47, 49, 90, 0.08);
+  border-color: #2f315a;
+}
+
 /* ── Liquid Glass Shared Tokens ── */
 .lg-glass {
   border: 0.5px solid rgba(255, 255, 255, 0.45);

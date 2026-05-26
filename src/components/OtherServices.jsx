@@ -436,16 +436,8 @@ export default function OtherServices({ onContact }) {
       {otherServicesContent.ctaLabel && (
         <button
           onClick={onContact}
-          style={{
-            marginTop: "2.5rem",
-            border: "1.5px solid rgba(47,49,90,0.28)", color: "rgba(47,49,90,0.7)",
-            padding: "0.72rem 1.9rem", borderRadius: 50,
-            fontSize: "0.85rem", fontWeight: 500,
-            background: "transparent", cursor: "pointer", fontFamily: "inherit",
-            transition: "border-color 0.2s, color 0.2s",
-          }}
-          onMouseOver={e => { e.currentTarget.style.borderColor = "#2f315a"; e.currentTarget.style.color = "#2f315a"; }}
-          onMouseOut={e => { e.currentTarget.style.borderColor = "rgba(47,49,90,0.28)"; e.currentTarget.style.color = "rgba(47,49,90,0.7)"; }}
+          className="btn-ghost-base btn-ghost-dark"
+          style={{ marginTop: "2.5rem" }}
         >
           {otherServicesContent.ctaLabel}
         </button>

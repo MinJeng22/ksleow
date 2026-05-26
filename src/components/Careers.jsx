@@ -183,24 +183,7 @@ export default function Careers() {
           {/* Secondary — partnership enquiry */}
           <a
             href={`mailto:${careers.partnerEmail || CONTACT.email}?subject=Partnership Enquiry`}
-            style={{
-              background: "transparent", color: "#2f315a",
-              border: "1.5px solid #2f315a",
-              padding: "0.82rem 2.2rem", borderRadius: 50,
-              fontSize: "0.9rem", fontWeight: 600,
-              textDecoration: "none", whiteSpace: "nowrap",
-              transition: "background 0.2s, color 0.2s, border-color 0.2s",
-            }}
-            onMouseOver={e => {
-              e.currentTarget.style.background = "rgba(47,49,90,0.08)";
-              e.currentTarget.style.borderColor = "#2f315a";
-              e.currentTarget.style.color = "#2f315a";
-            }}
-            onMouseOut={e => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.borderColor = "#2f315a";
-              e.currentTarget.style.color = "#2f315a";
-            }}
+            className="btn-ghost-base btn-ghost-dark"
           >
             {careers.partnerButtonLabel || "Partner with Us"}
           </a>

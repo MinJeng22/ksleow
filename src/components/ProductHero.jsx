@@ -226,21 +226,11 @@ function PrimaryButton({ cta }) {
 
 /* ── Secondary CTA — ghost outline ── */
 function SecondaryButton({ cta }) {
-  const baseStyle = {
-    display: "inline-flex", alignItems: "center", justifyContent: "center",
-    background: "rgba(255,255,255,0.1)", color: "#ffffff",
-    border: "1px solid rgba(255,255,255,0.25)",
-    padding: "0.75rem 2rem", borderRadius: 50,
-    fontSize: "0.9rem", fontWeight: 500,
-    textDecoration: "none", transition: "background 0.2s",
-  };
   return (
     <a href={cta.href}
+      className="btn-ghost-base btn-ghost-light"
       target={cta.target}
       rel={cta.target === "_blank" ? "noreferrer" : undefined}
-      style={baseStyle}
-      onMouseOver={e => e.currentTarget.style.background = "rgba(255,255,255,0.18)"}
-      onMouseOut ={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
     >
       {cta.label}
     </a>

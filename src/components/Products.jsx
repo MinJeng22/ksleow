@@ -367,18 +367,18 @@ export default function Products({ onContact }) {
           </div>
         </div>
 
-        <div style={{ marginTop: "3rem", display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
+        <div style={{ marginTop: "3rem", display: "flex", justifyContent: "center", alignItems: "center", gap: "14px" }}>
           <div style={{ 
-            display: "flex", alignItems: "center", gap: "8px", 
-            background: "rgba(255,255,255,0.06)", padding: "0 14px", height: "38px", borderRadius: "19px" 
+            display: "flex", alignItems: "center", gap: "10px", 
+            background: "rgba(255,255,255,0.06)", padding: "0 18px", height: "46px", borderRadius: "23px" 
           }}>
             {PRODUCTS.map((_, i) => (
               <div
                 key={i}
                 style={{
-                  width: i === progressIndex ? "32px" : "12px",
-                  height: "6px",
-                  borderRadius: "3px",
+                  width: i === progressIndex ? "40px" : "16px",
+                  height: "8px",
+                  borderRadius: "4px",
                   background: "rgba(255,255,255,0.2)",
                   transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
                   position: "relative",
@@ -406,7 +406,7 @@ export default function Products({ onContact }) {
           <button
             onClick={() => setIsPlaying(!isPlaying)}
             style={{
-              width: "38px", height: "38px", borderRadius: "50%",
+              width: "46px", height: "46px", borderRadius: "50%",
               background: "rgba(255,255,255,0.06)", border: "none",
               display: "flex", alignItems: "center", justifyContent: "center",
               cursor: "pointer", color: "#ffffff",
@@ -417,11 +417,11 @@ export default function Products({ onContact }) {
             aria-label={isPlaying ? "Pause autoplay" : "Start autoplay"}
           >
             {isPlaying ? (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M6 4h4v16H6zm8 0h4v16h-4z"/>
               </svg>
             ) : (
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{ transform: "translateX(1.5px)" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style={{ transform: "translateX(1.5px)" }}>
                 <path d="M8 5v14l11-7z"/>
               </svg>
             )}
