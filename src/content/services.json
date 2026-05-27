@@ -60,14 +60,14 @@
       "logos": [
         {
           "src": "/images/services/mia-logo.jpg",
-          "alt": "Cert 1",
+          "alt": "mia",
           "h": 60
         },
         {
           "src": "/images/services/mof-logo.png",
           "alt": "mof",
           "h": 60,
-          "hoverSrc": "/images/services/mof-white-outline.png"
+          "hoverSrc": ""
         }
       ]
     },
