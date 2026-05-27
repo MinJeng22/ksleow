@@ -41,9 +41,10 @@
           "h": 60
         },
         {
-          "src": "/images/services/maicsa-logo.png",
-          "alt": "Cert 2",
-          "h": 60
+          "src": "/images/services/maicsa.png",
+          "alt": "cert 1",
+          "h": 60,
+          "hoverSrc": "/images/services/maicsa-white.png"
         }
       ]
     },
