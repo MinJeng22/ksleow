@@ -604,7 +604,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
       <div
         ref={mobileBarRef}
         className={`mobile-float-bar lg-glass${showScrollTop && mobileActionMode === "back" ? " has-scrolltop" : ""}`}
-        style={hideBar ? { opacity: 0, transform: "translateY(150%)", pointerEvents: "none" } : undefined}
+        style={(hideBar || open) ? { opacity: 0, transform: "translateY(150%)", pointerEvents: "none" } : undefined}
       >
         {mobileActionMode && (
           <>

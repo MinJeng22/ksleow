@@ -173,7 +173,7 @@ export default function Careers() {
             transform: visible ? "translateY(0)" : "translateY(8px)",
             transition: "opacity 0.5s ease, transform 0.5s ease",
             transitionDelay: visible ? `${buttonsStart}ms` : "0ms",
-            pointerEvents: buttonsClickable ? "auto" : "none",
+            pointerEvents: buttonsClickable ? undefined : "none",
           }}
         >
           {/* Primary — career enquiry */}
