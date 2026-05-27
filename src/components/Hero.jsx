@@ -265,14 +265,14 @@ export default function Hero({ onContact }) {
             : "none",
         }}
       >
-        <span style={{ textIndent: "0.18em" /* compensate trailing letter-spacing for visual centering */ }}>
-          Scroll for more
-        </span>
         {/* Static chevron — no animation */}
         <span className="lg-glass-icon" aria-hidden="true">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="6 9 12 15 18 9" />
           </svg>
+        </span>
+        <span style={{ textIndent: "0.18em" /* compensate trailing letter-spacing for visual centering */ }}>
+          Scroll for more
         </span>
       </button>
 

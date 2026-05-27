@@ -25,7 +25,8 @@ export default function BackToTop() {
           bottom: 28px;
           right: 28px;
           z-index: 500;
-          --lg-size: 44px;
+          --lg-height: 44px;
+          --lg-px: 1.15rem;
           transition:
             opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
             transform 0.46s cubic-bezier(0.2, 1.18, 0.36, 1),
@@ -45,10 +46,7 @@ export default function BackToTop() {
         /* Mobile sizing */
         @media (max-width: 767px) {
           .back-to-top-glass {
-            bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-            right: 14px;
-            --lg-size: 48px;
-            z-index: 1001;
+            display: none !important;
           }
         }
         @media (prefers-reduced-motion: reduce) {
@@ -62,7 +60,7 @@ export default function BackToTop() {
       `}</style>
       <button
         ref={btnRef}
-        className={`back-to-top-glass lg-glass lg-glass-btn lg-glass-circle${visible ? " is-visible" : ""}`}
+        className={`back-to-top-glass lg-glass lg-glass-btn${visible ? " is-visible" : ""}`}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Back to top"
         title="Back to top"
@@ -76,8 +74,8 @@ export default function BackToTop() {
         }}
       >
         <svg
-          width="20"
-          height="20"
+          width="15"
+          height="15"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -87,6 +85,7 @@ export default function BackToTop() {
         >
           <polyline points="18 15 12 9 6 15" />
         </svg>
+        <span>To Top</span>
       </button>
     </>
   );
