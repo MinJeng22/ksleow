@@ -54,17 +54,18 @@ function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
               <div style={{
                 height: 36, width: 60,
                 borderRadius: 6,
-                background: onImage ? "rgba(47,49,90,0.06)" : "rgba(47,49,90,0.06)",
-                border: `1px dashed ${onImage ? "rgba(47,49,90,0.18)" : "rgba(47,49,90,0.18)"}`,
+                background: forceWhiteLabel ? "rgba(255,255,255,0.06)" : "rgba(47,49,90,0.06)",
+                border: `1px dashed ${forceWhiteLabel ? "rgba(255,255,255,0.2)" : "rgba(47,49,90,0.18)"}`,
                 display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "all 0.3s ease",
               }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(47,49,90,0.3)" strokeWidth="1.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={forceWhiteLabel ? "rgba(255,255,255,0.4)" : "rgba(47,49,90,0.3)"} strokeWidth="1.5" style={{ transition: "stroke 0.3s ease" }}>
                   <rect x="3" y="3" width="18" height="18" rx="2"/>
                   <path d="M9 9h1M14 9h1M9 12c0 0 1.5 2 3 2s3-2 3-2"/>
                 </svg>
               </div>
               {i === 0 && (
-                <div style={{ width: 1, height: 44, background: onImage ? "rgba(47,49,90,0.15)" : "rgba(47,49,90,0.15)", margin: "0 0.6rem" }} />
+                <div style={{ width: 1, height: 44, background: forceWhiteLabel ? "rgba(255,255,255,0.25)" : "rgba(47,49,90,0.15)", margin: "0 0.6rem", transition: "background 0.3s ease" }} />
               )}
             </div>
           ))
@@ -77,7 +78,7 @@ function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
                 fetchPriority="low"
                 style={{ height: logo.h, maxWidth: 160, objectFit: "contain", transition: "height 0.3s ease" }} />
               {i < visibleLogos.length - 1 && (
-                <div style={{ width: 1, height: 44, background: onImage ? "rgba(47,49,90,0.2)" : "rgba(47,49,90,0.2)", margin: "0 0.7rem" }} />
+                <div style={{ width: 1, height: 44, background: forceWhiteLabel ? "rgba(255,255,255,0.25)" : "rgba(47,49,90,0.2)", margin: "0 0.7rem", transition: "background 0.3s ease" }} />
               )}
             </div>
           ))
