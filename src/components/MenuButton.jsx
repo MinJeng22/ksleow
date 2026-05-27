@@ -90,7 +90,7 @@ const STYLES = `
   .top-right-controls { display: none !important; }
 }
 
-.menu-fab, .search-fab {
+.menu-fab, .search-fab, .back-fab {
   display: flex;
   align-items: center;
   height: 40px;
@@ -110,7 +110,7 @@ const STYLES = `
 .menu-fab {
   padding: 0 1.1rem 0 0.85rem;
 }
-.search-fab {
+.search-fab, .back-fab {
   padding: 0 1rem;
 }
 
@@ -411,6 +411,18 @@ export default function MenuButton({ onOpenSearch }) {
             <span /><span /><span />
           </div>
           <span>Menu</span>
+        </button>
+
+        <button
+          className="back-fab lg-glass lg-glass-btn"
+          onClick={() => navigate(-1)}
+          aria-label="Back"
+          style={{ color: isDesktopDark ? "#ffffff" : "rgba(0, 0, 0, 0.6)" }}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>Back</span>
         </button>
       </div>
 
