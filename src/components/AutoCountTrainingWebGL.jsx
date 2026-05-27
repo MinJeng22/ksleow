@@ -185,7 +185,7 @@ function UnfurlingClothReveal({ videoId, direction = 'open', onComplete }) {
           ? 4 * t * t * t
           : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-        const duration = direction === 'close' ? 2100 : 2800;
+        const duration = 8000;
         const start = performance.now();
 
         const animate = (now) => {
@@ -384,10 +384,10 @@ export default function AutoCountTrainingWebGL() {
           box-shadow: 0 20px 60px rgba(15,17,40,0.12);
         }
         .cloth-reveal-stage[data-direction="open"] {
-          animation: clothStageOpen 2.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation: clothStageOpen 8s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
         .cloth-reveal-stage[data-direction="close"] {
-          animation: clothStageClose 2.1s cubic-bezier(0.45, 0, 0.2, 1) both;
+          animation: clothStageClose 8s cubic-bezier(0.45, 0, 0.2, 1) both;
         }
         .cloth-reveal-fallback-image {
           position: absolute;
@@ -401,10 +401,10 @@ export default function AutoCountTrainingWebGL() {
           pointer-events: none;
         }
         .cloth-reveal-fallback-image[data-direction="open"] {
-          animation: clothFallbackOpen 2.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation: clothFallbackOpen 8s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
         .cloth-reveal-fallback-image[data-direction="close"] {
-          animation: clothFallbackClose 2.1s cubic-bezier(0.45, 0, 0.2, 1) both;
+          animation: clothFallbackClose 8s cubic-bezier(0.45, 0, 0.2, 1) both;
         }
         .cloth-reveal-fallback-image[data-ready="true"] {
           opacity: 0;
