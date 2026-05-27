@@ -152,9 +152,7 @@ const STYLES = `
       transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
       box-shadow 0.35s ease;
   }
-  .mobile-float-bar.has-scrolltop {
-    animation: menuBarMakeRoom 0.58s cubic-bezier(0.2, 1.25, 0.36, 1) both;
-  }
+
   .mobile-float-bar .mfb-btn {
     display: flex;
     align-items: center;
@@ -174,13 +172,10 @@ const STYLES = `
       background 0.25s ease,
       color 0.25s ease,
       opacity 0.25s ease,
-      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-      max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
       padding 0.35s ease;
     -webkit-tap-highlight-color: transparent;
   }
   .mobile-float-bar .mfb-btn:active {
-    transform: scale(0.93);
     background: rgba(0,0,0,0.04);
   }
   .mobile-float-bar .mfb-divider {
@@ -198,43 +193,13 @@ const STYLES = `
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.45s cubic-bezier(0.2, 1.1, 0.36, 1), opacity 0.3s ease;
+    transition: opacity 0.3s ease;
   }
   .mobile-float-bar .mfb-action-label {
     display: inline-block;
     min-width: 34px;
     text-align: left;
-    transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
-  }
-  .mobile-float-bar .mfb-action[data-mode="back"] {
-    animation: actionMorphBack 0.46s cubic-bezier(0.2, 1.18, 0.36, 1);
-  }
-  .mobile-float-bar .mfb-action[data-mode="scroll"] {
-    animation: actionMorphScroll 0.46s cubic-bezier(0.2, 1.18, 0.36, 1);
-  }
-  .mobile-float-bar.has-scrolltop .mfb-action[data-mode="back"] {
-    animation: actionMorphBack 0.46s cubic-bezier(0.2, 1.18, 0.36, 1), actionFriendlyBump 0.62s cubic-bezier(0.18, 1.28, 0.36, 1) 0.08s;
-  }
-  @keyframes actionMorphBack {
-    0% { transform: translateX(7px) scale(0.96); opacity: 0.78; }
-    62% { transform: translateX(-2px) scale(1.03); opacity: 1; }
-    100% { transform: translateX(0) scale(1); opacity: 1; }
-  }
-  @keyframes actionMorphScroll {
-    0% { transform: translateX(-7px) scale(0.96); opacity: 0.78; }
-    62% { transform: translateX(2px) scale(1.03); opacity: 1; }
-    100% { transform: translateX(0) scale(1); opacity: 1; }
-  }
-  @keyframes actionFriendlyBump {
-    0%, 100% { transform: translateX(0) scale(1); }
-    36% { transform: translateX(-8px) scale(0.97); }
-    68% { transform: translateX(3px) scale(1.02); }
-  }
-  @keyframes menuBarMakeRoom {
-    0% { transform: translateY(0); }
-    38% { transform: translateY(3px); }
-    76% { transform: translateY(-2px); }
-    100% { transform: translateY(0); }
+    transition: opacity 0.22s ease;
   }
   @media (max-width: 360px) {
     .mobile-float-bar {
