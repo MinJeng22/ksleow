@@ -202,7 +202,29 @@ export default function Hero({ onContact }) {
        *   • Click scrolls ~72% of the viewport (keeps the bottom of
        *     the hero visible above the next section) */}
       <style>{`
-        @keyframes scrollHintFadeIn { from { opacity: 0; transform: translate(-50%, 12px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        @keyframes scrollHintFadeIn {
+          from { opacity: 0; filter: blur(6px); }
+          to { opacity: 1; filter: blur(0); }
+        }
+        .hero-scroll-hint {
+          position: absolute;
+          left: 50%;
+          bottom: 32px;
+          z-index: 10;
+          gap: 0.55rem;
+          color: rgba(255,255,255,0.82);
+          font-family: inherit;
+          font-size: 0.68rem;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+        }
+        .hero-scroll-hint svg {
+          transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-scroll-hint:hover svg {
+          transform: translateY(2px);
+        }
         @media (max-width: 767px) {
           .hero-scroll-hint {
             display: none !important;
@@ -210,7 +232,7 @@ export default function Hero({ onContact }) {
         }
       `}</style>
       <button
-        className="hero-scroll-hint"
+        className="hero-scroll-hint lg-glass lg-glass-btn lg-glass-pill"
         onClick={() => {
           /* Hand-paced scroll — native "smooth" is too fast and feels
            * like a jump cut. We RAF a slow ease-in-out over ~1.8s so it
@@ -232,33 +254,28 @@ export default function Hero({ onContact }) {
         }}
         aria-label="Scroll for more"
         style={{
-          position: "absolute", left: "50%", bottom: 36, zIndex: 10,
-          transform: "translateX(-50%)",
-          display: "inline-flex", flexDirection: "column",
-          alignItems: "center", gap: 10,
-          background: "transparent", border: "none",
-          color: "rgba(255,255,255,0.75)",
-          fontSize: "0.62rem", fontWeight: 600, letterSpacing: "0.32em",
-          textTransform: "uppercase", fontFamily: "inherit",
-          cursor: "pointer", padding: "0.5rem 1rem",
+          "--lg-height": "44px",
+          "--lg-px": "1.15rem",
+          "--lg-rest-transform": "translateX(-50%) translateY(0) scale(1)",
+          "--lg-hover-transform": "translateX(-50%) translateY(-2px) scale(1.018)",
+          "--lg-active-transform": "translateX(-50%) translateY(0) scale(0.97)",
           opacity: visible ? hintOpacity : 0,
-          transition: "opacity 0.6s ease, color 0.2s",
           pointerEvents: hintOpacity > 0.2 ? "auto" : "none",
           /* Fade-in entrance only on first appearance (5 s after load) */
           animation: hintShown && hintOpacity > 0.9
             ? "scrollHintFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both"
             : "none",
         }}
-        onMouseOver={e => e.currentTarget.style.color = "#ffffff"}
-        onMouseOut ={e => e.currentTarget.style.color = "rgba(255,255,255,0.75)"}
       >
-        <span style={{ textIndent: "0.32em" /* compensate trailing letter-spacing for visual centering */ }}>
+        <span style={{ textIndent: "0.18em" /* compensate trailing letter-spacing for visual centering */ }}>
           Scroll for more
         </span>
         {/* Static chevron — no animation */}
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
+        <span className="lg-glass-icon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </span>
       </button>
 
       {/* Pause / Play */}
@@ -268,34 +285,20 @@ export default function Hero({ onContact }) {
           bottom: 28px;
           right: 28px;
           z-index: 10;
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
           color: #ffffff;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          --lg-size: 48px;
         }
         /* Mobile: sit beside the bottom Search/Menu/Scroll bar. */
         @media (max-width: 767px) {
           .hero-glass-btn {
             bottom: calc(20px + env(safe-area-inset-bottom, 0px));
             right: 14px;
-            width: 42px;
-            height: 42px;
-            transition:
-              transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
-              background 0.25s ease,
-              color 0.25s ease;
-          }
-          .hero-glass-btn:active {
-            transform: scale(0.92);
+            --lg-size: 42px;
           }
         }
       `}</style>
       <button
-        className="hero-glass-btn lg-glass lg-glass-btn"
+        className="hero-glass-btn lg-glass lg-glass-btn lg-glass-circle"
         onClick={() => setPaused(p => !p)}
         title={paused ? "Play background" : "Pause background"}
         aria-label={paused ? "Play background" : "Pause background"}

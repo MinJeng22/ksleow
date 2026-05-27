@@ -25,14 +25,7 @@ export default function BackToTop() {
           bottom: 28px;
           right: 28px;
           z-index: 500;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0;
+          --lg-size: 40px;
           transition:
             opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
             transform 0.46s cubic-bezier(0.2, 1.18, 0.36, 1),
@@ -54,8 +47,7 @@ export default function BackToTop() {
           .back-to-top-glass {
             bottom: calc(20px + env(safe-area-inset-bottom, 0px));
             right: 14px;
-            width: 44px;
-            height: 44px;
+            --lg-size: 44px;
             z-index: 1001;
           }
         }
@@ -70,13 +62,15 @@ export default function BackToTop() {
       `}</style>
       <button
         ref={btnRef}
-        className={`back-to-top-glass lg-glass lg-glass-btn${visible ? " is-visible" : ""}`}
+        className={`back-to-top-glass lg-glass lg-glass-btn lg-glass-circle${visible ? " is-visible" : ""}`}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Back to top"
         title="Back to top"
         style={{
           opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0) scale(1)" : "translateY(12px) scale(0.85)",
+          "--lg-rest-transform": visible ? "translateY(0) scale(1)" : "translateY(12px) scale(0.85)",
+          "--lg-hover-transform": "translateY(-2px) scale(1.04)",
+          "--lg-active-transform": "translateY(0) scale(0.94)",
           pointerEvents: visible ? "auto" : "none",
           color: isDark ? "rgba(255, 255, 255, 0.95)" : "rgba(0, 0, 0, 0.55)",
         }}

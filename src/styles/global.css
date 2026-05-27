@@ -1116,37 +1116,83 @@ body.supaprintz-modal-open .back-to-top {
 
 /* ── Liquid Glass Shared Tokens ── */
 .lg-glass {
-  border: 0.5px solid rgba(255, 255, 255, 0.45);
-  background: linear-gradient(
+  --lg-bg: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.35) 0%,
     rgba(255, 255, 255, 0.08) 100%
   );
-  backdrop-filter: blur(40px) saturate(1.8);
-  -webkit-backdrop-filter: blur(40px) saturate(1.8);
-  box-shadow:
+  --lg-bg-hover: linear-gradient(135deg, rgba(255,255,255,0.52), rgba(255,255,255,0.17));
+  --lg-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
     0 1px 3px rgba(0, 0, 0, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.6),
     inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+  --lg-shadow-hover:
+    0 16px 46px rgba(0,0,0,0.14),
+    0 3px 8px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.72),
+    inset 0 -1px 0 rgba(0,0,0,0.05);
+  border: 0.5px solid rgba(255, 255, 255, 0.45);
+  background: var(--lg-bg);
+  backdrop-filter: blur(40px) saturate(1.8);
+  -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  box-shadow: var(--lg-shadow);
 }
 
 .lg-glass-btn {
+  align-items: center;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  transform: var(--lg-rest-transform, translate3d(0,0,0) scale(1));
   transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.25s ease,
-    background 0.25s ease,
-    color 0.3s ease;
+    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.58s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.42s ease,
+    background 0.42s ease,
+    border-color 0.42s ease,
+    color 0.42s ease,
+    filter 0.42s ease;
+  will-change: transform, opacity;
 }
 .lg-glass-btn:hover {
-  background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.15));
-  box-shadow:
-    0 12px 40px rgba(0,0,0,0.12),
-    0 2px 6px rgba(0,0,0,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.7),
-    inset 0 -1px 0 rgba(0,0,0,0.05);
-  transform: translateY(-1px);
+  background: var(--lg-bg-hover);
+  box-shadow: var(--lg-shadow-hover);
+  transform: var(--lg-hover-transform, translate3d(0,-2px,0) scale(1.018));
 }
 .lg-glass-btn:active {
-  transform: scale(0.96) translateY(0);
+  transform: var(--lg-active-transform, translate3d(0,0,0) scale(0.965));
+  transition-duration: 0.18s;
+}
+
+.lg-glass-circle {
+  border-radius: 50%;
+  width: var(--lg-size, 44px);
+  height: var(--lg-size, 44px);
+}
+
+.lg-glass-pill {
+  min-height: var(--lg-height, 44px);
+  padding: 0 var(--lg-px, 1rem);
+}
+
+.lg-glass-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.46s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lg-glass-btn:hover .lg-glass-icon {
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lg-glass-btn,
+  .lg-glass-icon {
+    transition: none !important;
+  }
 }
