@@ -558,7 +558,7 @@ export default function MenuButton({ onOpenSearch }) {
 
   const hasHistory = window.history.state && window.history.state.idx > 0;
   const isHomeHero = pathname === "/" && scrollY < 10;
-  const mobileActionMode = isHomeHero ? "scroll" : (hasHistory ? "back" : null);
+  const mobileActionMode = hasHistory ? "back" : null;
 
   const scrollForMore = () => {
     const distance = window.innerHeight * 0.9;
@@ -638,22 +638,16 @@ export default function MenuButton({ onOpenSearch }) {
               key={mobileActionMode}
               className="mfb-btn mfb-action"
               data-mode={mobileActionMode}
-              onClick={mobileActionMode === "scroll" ? scrollForMore : handleMobileBack}
-              aria-label={mobileActionMode === "scroll" ? "Scroll for more" : "Back"}
+              onClick={handleMobileBack}
+              aria-label="Back"
               style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
             >
               <span className="mfb-action-icon" aria-hidden="true">
-                {mobileActionMode === "scroll" ? (
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                ) : (
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                  </svg>
-                )}
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
               </span>
-              <span className="mfb-action-label">{mobileActionMode === "scroll" ? "Scroll" : "Back"}</span>
+              <span className="mfb-action-label">Back</span>
             </button>
             <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
           </>
@@ -684,21 +678,29 @@ export default function MenuButton({ onOpenSearch }) {
           <span>Menu</span>
         </button>
 
-        {showScrollTop && (
+        {(isHomeHero || showScrollTop) && (
           <>
             <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
             <button
+              key={isHomeHero ? "scroll" : "top"}
+              data-mode={isHomeHero ? "scroll" : "top"}
               className="mfb-btn mfb-action"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              aria-label="To Top"
+              onClick={isHomeHero ? scrollForMore : () => window.scrollTo({ top: 0, behavior: "smooth" })}
+              aria-label={isHomeHero ? "Scroll for more" : "To Top"}
               style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
             >
               <span className="mfb-action-icon" aria-hidden="true">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="18 15 12 9 6 15" />
-                </svg>
+                {isHomeHero ? (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                ) : (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="18 15 12 9 6 15" />
+                  </svg>
+                )}
               </span>
-              <span className="mfb-action-label">To Top</span>
+              <span className="mfb-action-label">{isHomeHero ? "Scroll" : "To Top"}</span>
             </button>
           </>
         )}
