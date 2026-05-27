@@ -15,7 +15,7 @@
     {
       "name": "FeedMe POS",
       "desc": "Cloud F&B POS with table management, kitchen display, and online ordering integration.",
-      "image": "/images/products/feedme.png",
+      "image": "/images/products/feedme-white-logo.png",
       "background": "/images/products/feedme-pos-showcase.webp",
       "placeholder": "🍽️",
       "gradient": "linear-gradient(135deg, rgb(255, 238, 222) 0%, rgb(254, 207, 175) 100%)",
