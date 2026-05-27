@@ -10,7 +10,7 @@
           "src": "/images/services/lhdn-logo.png",
           "alt": "lhdn",
           "h": 60,
-          "hoverSrc": "/images/services/lhdn-logo-white.png"
+          "hoverSrc": "/images/services/lhdn-white-logo.png"
         },
         {
           "src": "/images/services/mia-logo.jpg",
@@ -39,7 +39,7 @@
         {
           "src": "/images/services/ssm-logo.png",
           "alt": "ssm",
-          "h": 60
+          "h": 40
         },
         {
           "src": "/images/services/maicsa-logo.png",
@@ -111,7 +111,7 @@
           "src": "/images/services/feedme-logo.png",
           "alt": "FeedMe",
           "h": 60,
-          "hoverSrc": "/images/services/feedme-white-logo.png"
+          "hoverSrc": "/images/services/feedme-logo.png"
         }
       ]
     },
