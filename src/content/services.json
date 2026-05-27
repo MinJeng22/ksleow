@@ -8,8 +8,9 @@
       "logos": [
         {
           "src": "/images/services/lhdn-logo.png",
-          "alt": "Cert 1",
-          "h": 60
+          "alt": "lhdn",
+          "h": 60,
+          "hoverSrc": "/images/services/lhdn-logo-white.png"
         },
         {
           "src": "/images/services/mia-logo.jpg",
@@ -107,9 +108,10 @@
           "hoverSrc": "/images/services/autocount-white-logo.png"
         },
         {
-          "src": "/images/logos/feedme-logo.png",
+          "src": "/images/services/feedme-logo.png",
           "alt": "FeedMe",
-          "h": 60
+          "h": 60,
+          "hoverSrc": "/images/services/feedme-white-logo.png"
         }
       ]
     },
