@@ -122,7 +122,7 @@ const STYLES = `
 @media (max-width: 767px) {
   .mobile-float-bar {
     position: fixed;
-    bottom: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
@@ -133,7 +133,13 @@ const STYLES = `
     gap: 4px;
     padding: 4px;
     border-radius: 100px;
-    transition: opacity 0.35s ease, transform 0.35s ease;
+    transition:
+      opacity 0.35s ease,
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease;
+  }
+  .mobile-float-bar.has-scrolltop {
+    animation: menuBarMakeRoom 0.58s cubic-bezier(0.2, 1.25, 0.36, 1) both;
   }
   .mobile-float-bar .mfb-btn {
     display: flex;
@@ -150,7 +156,13 @@ const STYLES = `
     font-weight: 600;
     padding: 0 1rem;
     border-radius: 100px;
-    transition: all 0.25s ease;
+    transition:
+      background 0.25s ease,
+      color 0.25s ease,
+      opacity 0.25s ease,
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      padding 0.35s ease;
     -webkit-tap-highlight-color: transparent;
   }
   .mobile-float-bar .mfb-btn:active {
@@ -162,6 +174,63 @@ const STYLES = `
     height: 20px;
     background: rgba(0,0,0,0.1);
     flex-shrink: 0;
+  }
+  .mobile-float-bar .mfb-action {
+    min-width: 92px;
+    max-width: 112px;
+    overflow: hidden;
+  }
+  .mobile-float-bar .mfb-action-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.45s cubic-bezier(0.2, 1.1, 0.36, 1), opacity 0.3s ease;
+  }
+  .mobile-float-bar .mfb-action-label {
+    display: inline-block;
+    min-width: 42px;
+    text-align: left;
+    transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+  }
+  .mobile-float-bar .mfb-action[data-mode="back"] {
+    animation: actionMorphBack 0.46s cubic-bezier(0.2, 1.18, 0.36, 1);
+  }
+  .mobile-float-bar .mfb-action[data-mode="scroll"] {
+    animation: actionMorphScroll 0.46s cubic-bezier(0.2, 1.18, 0.36, 1);
+  }
+  .mobile-float-bar.has-scrolltop .mfb-action[data-mode="back"] {
+    animation: actionMorphBack 0.46s cubic-bezier(0.2, 1.18, 0.36, 1), actionFriendlyBump 0.62s cubic-bezier(0.18, 1.28, 0.36, 1) 0.08s;
+  }
+  @keyframes actionMorphBack {
+    0% { transform: translateX(7px) scale(0.96); opacity: 0.78; }
+    62% { transform: translateX(-2px) scale(1.03); opacity: 1; }
+    100% { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  @keyframes actionMorphScroll {
+    0% { transform: translateX(-7px) scale(0.96); opacity: 0.78; }
+    62% { transform: translateX(2px) scale(1.03); opacity: 1; }
+    100% { transform: translateX(0) scale(1); opacity: 1; }
+  }
+  @keyframes actionFriendlyBump {
+    0%, 100% { transform: translateX(0) scale(1); }
+    36% { transform: translateX(-8px) scale(0.97); }
+    68% { transform: translateX(3px) scale(1.02); }
+  }
+  @keyframes menuBarMakeRoom {
+    0% { transform: translateX(-50%) translateY(0); }
+    38% { transform: translateX(-50%) translateY(3px); }
+    76% { transform: translateX(-50%) translateY(-2px); }
+    100% { transform: translateX(-50%) translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-float-bar,
+    .mobile-float-bar .mfb-btn,
+    .mobile-float-bar.has-scrolltop,
+    .mobile-float-bar .mfb-action,
+    .mobile-float-bar.has-scrolltop .mfb-action[data-mode="back"] {
+      animation: none !important;
+      transition: none !important;
+    }
   }
 }
 
@@ -381,12 +450,31 @@ export default function MenuButton({ onOpenSearch }) {
     }
   };
 
-  const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const hasHistory = window.history.state && window.history.state.idx > 0;
+  const isHomeHero = pathname === "/" && scrollY < (typeof window !== "undefined" ? window.innerHeight * 0.8 : 0);
+  const mobileActionMode = isHomeHero ? "scroll" : (pathname === "/" || hasHistory ? "back" : null);
+
+  const scrollForMore = () => {
+    const distance = window.innerHeight * 0.9;
+    const duration = 260;
+    const startY = window.scrollY;
+    const t0 = performance.now();
+    const easeInOut = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    const tick = (now) => {
+      const p = Math.min((now - t0) / duration, 1);
+      window.scrollTo(0, startY + distance * easeInOut(p));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   };
 
-  const hasHistory = window.history.state && window.history.state.idx > 0;
-  const isHomeHero = location.pathname === "/" && scrollY < (typeof window !== "undefined" ? window.innerHeight * 0.8 : 0);
+  const handleMobileBack = () => {
+    if (pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    navigate(-1);
+  };
 
   return (
     <>
@@ -438,7 +526,7 @@ export default function MenuButton({ onOpenSearch }) {
       {/* ── Mobile floating bar ───────────────────────── */}
       <div
         ref={mobileBarRef}
-        className="mobile-float-bar lg-glass"
+        className={`mobile-float-bar lg-glass${showScrollTop && mobileActionMode === "back" ? " has-scrolltop" : ""}`}
       >
         <button 
           className="mfb-btn" 
@@ -469,46 +557,30 @@ export default function MenuButton({ onOpenSearch }) {
           <span>Menu</span>
         </button>
 
-        {(hasHistory || isHomeHero) && (
+        {mobileActionMode && (
           <>
             <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
-            {isHomeHero ? (
-              <button 
-                className="mfb-btn" 
-                onClick={() => {
-                  const distance = window.innerHeight * 0.9;
-                  const duration = 200;
-                  const startY = window.scrollY;
-                  const t0 = performance.now();
-                  const easeInOut = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-                  const tick = (now) => {
-                    const p = Math.min((now - t0) / duration, 1);
-                    window.scrollTo(0, startY + distance * easeInOut(p));
-                    if (p < 1) requestAnimationFrame(tick);
-                  };
-                  requestAnimationFrame(tick);
-                }} 
-                aria-label="Scroll for more"
-                style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-                <span>Scroll</span>
-              </button>
-            ) : (
-              <button 
-                className="mfb-btn" 
-                onClick={() => navigate(-1)} 
-                aria-label="Back"
-                style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-                <span>Back</span>
-              </button>
-            )}
+            <button
+              key={mobileActionMode}
+              className="mfb-btn mfb-action"
+              data-mode={mobileActionMode}
+              onClick={mobileActionMode === "scroll" ? scrollForMore : handleMobileBack}
+              aria-label={mobileActionMode === "scroll" ? "Scroll for more" : "Back"}
+              style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
+            >
+              <span className="mfb-action-icon" aria-hidden="true">
+                {mobileActionMode === "scroll" ? (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                ) : (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                )}
+              </span>
+              <span className="mfb-action-label">{mobileActionMode === "scroll" ? "Scroll" : "Back"}</span>
+            </button>
           </>
         )}
       </div>

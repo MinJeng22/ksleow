@@ -34,25 +34,43 @@ export default function BackToTop() {
           justify-content: center;
           padding: 0;
           transition:
-            opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-            transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.46s cubic-bezier(0.2, 1.18, 0.36, 1),
             box-shadow 0.25s ease,
             background 0.25s ease,
             color 0.35s ease;
         }
+        .back-to-top-glass.is-visible {
+          animation: backTopFriendlyDock 0.62s cubic-bezier(0.18, 1.28, 0.36, 1) both;
+        }
+        @keyframes backTopFriendlyDock {
+          0% { transform: translateY(14px) scale(0.84); opacity: 0; }
+          54% { transform: translateY(-5px) scale(1.06); opacity: 1; }
+          78% { transform: translateY(2px) scale(0.98); opacity: 1; }
+          100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
         /* Mobile sizing */
         @media (max-width: 767px) {
           .back-to-top-glass {
-            bottom: 20px;
-            right: 20px;
+            bottom: calc(20px + 56px + env(safe-area-inset-bottom, 0px));
+            right: 18px;
             width: 44px;
             height: 44px;
+            z-index: 995;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .back-to-top-glass.is-visible {
+            animation: none !important;
+          }
+          .back-to-top-glass {
+            transition: opacity 0.2s ease !important;
           }
         }
       `}</style>
       <button
         ref={btnRef}
-        className="back-to-top-glass lg-glass lg-glass-btn"
+        className={`back-to-top-glass lg-glass lg-glass-btn${visible ? " is-visible" : ""}`}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Back to top"
         title="Back to top"

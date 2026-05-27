@@ -277,13 +277,20 @@ export default function Hero({ onContact }) {
           align-items: center;
           justify-content: center;
         }
-        /* Mobile: Keep bottom right, maybe slightly adjusted */
+        /* Mobile: leave vertical room for the bottom Search/Menu/Scroll bar. */
         @media (max-width: 767px) {
           .hero-glass-btn {
-            bottom: 20px;
-            right: 20px;
+            bottom: calc(20px + 56px + env(safe-area-inset-bottom, 0px));
+            right: 18px;
             width: 42px;
             height: 42px;
+            transition:
+              transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.25s ease,
+              color 0.25s ease;
+          }
+          .hero-glass-btn:active {
+            transform: scale(0.92);
           }
         }
       `}</style>
