@@ -91,6 +91,7 @@ function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
 /* ── Flip card ── */
 function ServiceCard({ service }) {
   const [flipped, setFlipped] = useState(false);
+  const [flipDirection, setFlipDirection] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
   const [isDelayedHover, setIsDelayedHover] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -184,13 +185,19 @@ function ServiceCard({ service }) {
         transformStyle: "preserve-3d",
         WebkitTransformStyle: "preserve-3d",
         transition: "transform 0.48s cubic-bezier(0.22, 1, 0.36, 1)",
-        transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        transform: flipped ? `rotateY(${180 * flipDirection}deg)` : "rotateY(0deg)",
         willChange: "transform",
       }}>
 
         {/* ── FRONT — click anywhere to flip ── */}
         <div
-          onClick={() => setFlipped(true)}
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const isLeft = clickX < rect.width / 2;
+            setFlipDirection(isLeft ? -1 : 1);
+            setFlipped(true);
+          }}
           style={{
             position: "absolute", inset: 0,
             backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden",
@@ -519,8 +526,24 @@ export default function Services() {
       <section
         id="services"
         className="home-section"
-        style={{ position: "relative", overflow: "hidden", background: "#ffffff", padding: "var(--section-py) 0" }}
+        style={{ position: "relative", overflow: "hidden", background: "#f5f5f8", padding: "var(--section-py) 0" }}
       >
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "url(/images/kc-group-bg.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.35,
+          zIndex: 0
+        }} />
+        <div style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to bottom, #f5f5f8 0%, rgba(245,245,248,0) 15%, rgba(245,245,248,0) 85%, #f5f5f8 100%)",
+          zIndex: 0,
+          pointerEvents: "none"
+        }} />
 
         <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
           <div className="ks-eyebrow" style={{ marginBottom: "0.75rem" }}>
