@@ -65,7 +65,7 @@ function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
                 </svg>
               </div>
               {i === 0 && (
-                <div style={{ width: 1, height: 44, background: forceWhiteLabel ? "rgba(255,255,255,0.25)" : "rgba(47,49,90,0.15)", margin: "0 0.6rem", transition: "background 0.3s ease" }} />
+                <div style={{ width: 2, height: 44, background: forceWhiteLabel ? "rgba(255,255,255,0.25)" : "rgba(47,49,90,0.15)", margin: "0 0.6rem", transition: "background 0.3s ease", borderRadius: 1 }} />
               )}
             </div>
           ))
@@ -78,7 +78,7 @@ function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
                 fetchPriority="low"
                 style={{ height: logo.h, maxWidth: 160, objectFit: "contain", transition: "height 0.3s ease" }} />
               {i < visibleLogos.length - 1 && (
-                <div style={{ width: 1, height: 44, background: forceWhiteLabel ? "rgba(255,255,255,0.25)" : "rgba(47,49,90,0.2)", margin: "0 0.7rem", transition: "background 0.3s ease" }} />
+                <div style={{ width: 2, height: 44, background: forceWhiteLabel ? "rgba(255,255,255,0.25)" : "rgba(47,49,90,0.2)", margin: "0 0.7rem", transition: "background 0.3s ease", borderRadius: 1 }} />
               )}
             </div>
           ))
