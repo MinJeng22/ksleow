@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Nav           from "./components/Nav";
@@ -79,6 +79,14 @@ export default function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const openContact = () => setModalOpen(true);
+
+  useEffect(() => {
+    if (modalOpen || searchOpen) {
+      document.body.classList.add("has-active-modal");
+    } else {
+      document.body.classList.remove("has-active-modal");
+    }
+  }, [modalOpen, searchOpen]);
 
   return (
     <BrowserRouter>

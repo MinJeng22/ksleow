@@ -23,7 +23,23 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
+import { useEffect } from "react";
+
 export default function AutoCountTrialModal({ open, onClose }) {
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+      document.body.classList.add("has-active-modal");
+    } else {
+      document.body.style.overflow = "";
+      document.body.classList.remove("has-active-modal");
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.classList.remove("has-active-modal");
+    };
+  }, [open]);
+
   if (!open) return null;
 
   return (

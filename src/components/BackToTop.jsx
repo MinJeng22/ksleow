@@ -60,7 +60,7 @@ export default function BackToTop({ hideBar }) {
       `}</style>
       <button
         ref={btnRef}
-        className={`back-to-top-glass lg-glass lg-glass-btn${visible && !hideBar ? " is-visible" : ""}`}
+        className={`back-to-top-glass lg-glass lg-glass-btn lg-glass-pill${visible && !hideBar ? " is-visible" : ""}`}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Back to top"
         title="Back to top"

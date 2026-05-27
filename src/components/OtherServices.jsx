@@ -325,13 +325,13 @@ export default function OtherServices({ onContact }) {
 
   useEffect(() => {
     if (!partnerOpen) return;
-    document.body.classList.add("supaprintz-modal-open");
+    document.body.classList.add("supaprintz-modal-open", "has-active-modal");
     const onKeyDown = (event) => {
       if (event.key === "Escape") setPartnerOpen(false);
     };
     window.addEventListener("keydown", onKeyDown);
     return () => {
-      document.body.classList.remove("supaprintz-modal-open");
+      document.body.classList.remove("supaprintz-modal-open", "has-active-modal");
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [partnerOpen]);

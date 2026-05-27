@@ -1116,3 +1116,20 @@ body.supaprintz-modal-open .back-to-top {
     transition: none !important;
   }
 }
+
+/* ── Global Modal Open State: Hide Floating Bars ── */
+body.has-active-modal .mobile-float-bar {
+  opacity: 0 !important;
+  transform: translateY(150%) !important;
+  pointer-events: none !important;
+}
+body.has-active-modal .top-right-controls,
+body.has-active-modal .top-left-controls {
+  opacity: 0 !important;
+  transform: translateY(-15px) !important;
+  pointer-events: none !important;
+}
+body.has-active-modal .back-to-top-glass {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
