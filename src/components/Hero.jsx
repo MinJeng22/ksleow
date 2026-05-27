@@ -151,7 +151,7 @@ export default function Hero({ onContact }) {
           <p style={{
             fontSize: "clamp(1.05rem, 2.2vw, 1.45rem)",
             fontWeight: 400, color: "#e8c97a",
-            fontStyle: "italic", marginBottom: "1.1rem",
+            marginBottom: "1.1rem",
           }}>
             {hero.tagline}
           </p>
