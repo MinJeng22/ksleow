@@ -23,6 +23,28 @@ const VIDEOS = [
 
 const getThumbnailUrl = (videoId) => `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
 
+let threeModulePromise = null;
+
+function loadThreeModule() {
+  if (!threeModulePromise) {
+    threeModulePromise = import('three');
+  }
+  return threeModulePromise;
+}
+
+function preloadImage(src) {
+  if (typeof window === 'undefined') return;
+  const image = new Image();
+  image.crossOrigin = 'anonymous';
+  image.decoding = 'async';
+  image.src = src;
+}
+
+function preloadRevealAssets(videoId) {
+  preloadImage(getThumbnailUrl(videoId));
+  loadThreeModule().catch(() => {});
+}
+
 function createFallbackTexture(THREE) {
   const canvas = document.createElement('canvas');
   canvas.width = 1280;
@@ -53,6 +75,7 @@ function createFallbackTexture(THREE) {
 function UnfurlingClothReveal({ videoId, direction = 'open', onComplete }) {
   const mountRef = useRef(null);
   const onCompleteRef = useRef(onComplete);
+  const [canvasReady, setCanvasReady] = useState(false);
 
   useEffect(() => {
     onCompleteRef.current = onComplete;
@@ -61,6 +84,7 @@ function UnfurlingClothReveal({ videoId, direction = 'open', onComplete }) {
   useEffect(() => {
     const mount = mountRef.current;
     if (!mount) return undefined;
+    setCanvasReady(false);
 
     if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
       const timer = window.setTimeout(() => onCompleteRef.current?.(), 80);
@@ -78,7 +102,7 @@ function UnfurlingClothReveal({ videoId, direction = 'open', onComplete }) {
 
     (async () => {
       try {
-        const THREE = await import('three');
+        const THREE = await loadThreeModule();
         if (disposed) return;
 
         const scene = new THREE.Scene();
@@ -97,6 +121,7 @@ function UnfurlingClothReveal({ videoId, direction = 'open', onComplete }) {
         renderer.domElement.style.height = '100%';
         renderer.domElement.style.display = 'block';
         mount.appendChild(renderer.domElement);
+        setCanvasReady(true);
 
         const clothWidth = 3.4;
         const clothHeight = clothWidth * 9 / 16;
@@ -160,7 +185,7 @@ function UnfurlingClothReveal({ videoId, direction = 'open', onComplete }) {
           ? 4 * t * t * t
           : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-        const duration = direction === 'close' ? 900 : 1250;
+        const duration = direction === 'close' ? 1150 : 1650;
         const start = performance.now();
 
         const animate = (now) => {
@@ -234,7 +259,17 @@ function UnfurlingClothReveal({ videoId, direction = 'open', onComplete }) {
   }, [direction, videoId]);
 
   return (
-    <div className="cloth-reveal-stage" ref={mountRef}>
+    <div className="cloth-reveal-stage" data-direction={direction} ref={mountRef}>
+      <img
+        className="cloth-reveal-fallback-image"
+        data-direction={direction}
+        data-ready={canvasReady ? 'true' : 'false'}
+        src={getThumbnailUrl(videoId)}
+        alt=""
+        aria-hidden="true"
+        decoding="async"
+        crossOrigin="anonymous"
+      />
       <div className="cloth-reveal-label">
         {direction === 'close' ? 'Closing tutorial...' : 'Opening tutorial...'}
       </div>
@@ -249,8 +284,20 @@ export default function AutoCountTrainingWebGL() {
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
 
+  useEffect(() => {
+    const preload = () => preloadRevealAssets(activeVideo);
+    const idleId = window.requestIdleCallback?.(preload, { timeout: 1800 });
+    const timer = idleId ? 0 : window.setTimeout(preload, 900);
+
+    return () => {
+      if (idleId) window.cancelIdleCallback?.(idleId);
+      if (timer) window.clearTimeout(timer);
+    };
+  }, [activeVideo]);
+
   const handlePlay = () => {
     if (clothMode) return;
+    preloadRevealAssets(activeVideo);
     setClothMode('open');
     setShowIframe(false);
     setTimeout(() => {
@@ -288,6 +335,26 @@ export default function AutoCountTrainingWebGL() {
           from { opacity: 1; transform: scale(1) translateY(0); }
           to { opacity: 0; transform: scale(0.95) translateY(20px); }
         }
+        @keyframes clothStageOpen {
+          0% { opacity: 0; transform: perspective(900px) rotateX(10deg) rotateY(-7deg) scale(0.58); filter: saturate(0.82); }
+          52% { opacity: 1; transform: perspective(900px) rotateX(-4deg) rotateY(3deg) scale(1.025); }
+          100% { opacity: 1; transform: perspective(900px) rotateX(0) rotateY(0) scale(1); filter: saturate(1); }
+        }
+        @keyframes clothStageClose {
+          0% { opacity: 1; transform: perspective(900px) rotateX(0) rotateY(0) scale(1); }
+          52% { opacity: 0.95; transform: perspective(900px) rotateX(9deg) rotateY(-5deg) scale(0.72); }
+          100% { opacity: 0.68; transform: perspective(900px) rotateX(18deg) rotateY(-11deg) scale(0.42); }
+        }
+        @keyframes clothFallbackOpen {
+          0% { clip-path: polygon(38% 30%, 62% 28%, 66% 62%, 34% 64%); transform: perspective(900px) rotateX(18deg) rotateY(-11deg) scale(0.52); filter: blur(1px) saturate(0.82); }
+          48% { clip-path: polygon(8% 16%, 94% 9%, 88% 84%, 12% 91%); transform: perspective(900px) rotateX(-5deg) rotateY(4deg) scale(1.02); filter: blur(0.2px) saturate(1); }
+          100% { clip-path: inset(0 round 18px); transform: perspective(900px) rotateX(0) rotateY(0) scale(1); filter: none; }
+        }
+        @keyframes clothFallbackClose {
+          0% { clip-path: inset(0 round 18px); transform: perspective(900px) rotateX(0) rotateY(0) scale(1); filter: none; }
+          55% { clip-path: polygon(10% 14%, 90% 18%, 86% 82%, 14% 88%); transform: perspective(900px) rotateX(8deg) rotateY(-5deg) scale(0.8); filter: blur(0.2px); }
+          100% { clip-path: polygon(38% 30%, 62% 28%, 66% 62%, 34% 64%); transform: perspective(900px) rotateX(19deg) rotateY(-12deg) scale(0.48); filter: blur(1px) saturate(0.82); }
+        }
         .ipad-frame {
           aspect-ratio: 4/3;
           border-radius: 28px;
@@ -310,13 +377,45 @@ export default function AutoCountTrainingWebGL() {
           aspect-ratio: 16/9;
           border-radius: 18px;
           overflow: hidden;
+          transform-origin: center;
           background:
             radial-gradient(circle at 50% 28%, rgba(232,201,122,0.15), transparent 34%),
             #0f1128;
           box-shadow: 0 20px 60px rgba(15,17,40,0.12);
         }
+        .cloth-reveal-stage[data-direction="open"] {
+          animation: clothStageOpen 1.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .cloth-reveal-stage[data-direction="close"] {
+          animation: clothStageClose 1.15s cubic-bezier(0.45, 0, 0.2, 1) both;
+        }
+        .cloth-reveal-fallback-image {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          opacity: 1;
+          transform-origin: center;
+          transition: opacity 0.18s ease;
+          pointer-events: none;
+        }
+        .cloth-reveal-fallback-image[data-direction="open"] {
+          animation: clothFallbackOpen 1.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .cloth-reveal-fallback-image[data-direction="close"] {
+          animation: clothFallbackClose 1.15s cubic-bezier(0.45, 0, 0.2, 1) both;
+        }
+        .cloth-reveal-fallback-image[data-ready="true"] {
+          opacity: 0;
+        }
+        .cloth-reveal-stage canvas {
+          position: relative;
+          z-index: 1;
+        }
         .cloth-reveal-label {
           position: absolute;
+          z-index: 2;
           left: 50%;
           bottom: 1rem;
           transform: translateX(-50%);
