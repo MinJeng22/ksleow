@@ -161,12 +161,8 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
         )}
       </div>
 
-      <div style={{ padding: "1.35rem", flex: 1, display: "flex", flexDirection: "column" }}>
-        <h3 style={{
-          fontSize: "0.93rem",
-          fontWeight: 600,
-          color: "#2f315a",
-          lineHeight: 1.45,
+      <div className="site-card-body" style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <h3 className="site-card-title" style={{
           marginBottom: "0.55rem",
           minHeight: "2.35em",
           display: "flex",
@@ -174,7 +170,7 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
         }}>
           {product.name}
         </h3>
-        <p style={{ fontSize: "0.81rem", color: "#6b6f91", lineHeight: 1.72, marginBottom: 0 }}>
+        <p className="site-card-copy" style={{ marginBottom: 0 }}>
           {product.desc}
         </p>
         {clickable && (
@@ -308,7 +304,7 @@ export default function Products({ onContact }) {
         position: "relative",
         overflow: "hidden",
         backgroundColor: "#0f1128",
-        padding: "6rem 0",
+        padding: "var(--section-py) 0",
       }}
     >
       <style>{`
@@ -379,7 +375,7 @@ export default function Products({ onContact }) {
         <div style={{ marginTop: "3rem", display: "flex", justifyContent: "center", alignItems: "center", gap: "14px" }}>
           <div style={{ 
             display: "flex", alignItems: "center", gap: "10px", 
-            background: "rgba(255,255,255,0.06)", padding: "0 18px", height: "46px", borderRadius: "23px" 
+            background: "rgba(255,255,255,0.06)", padding: "0 18px", height: "var(--btn-h-lg)", borderRadius: "var(--radius-pill)"
           }}>
             {PRODUCTS.map((_, i) => (
               <div
@@ -415,7 +411,7 @@ export default function Products({ onContact }) {
           <button
             onClick={() => setIsPlaying(!isPlaying)}
             style={{
-              width: "46px", height: "46px", borderRadius: "50%",
+              width: "var(--btn-h-lg)", height: "var(--btn-h-lg)", borderRadius: "50%",
               background: "rgba(255,255,255,0.06)", border: "none",
               display: "flex", alignItems: "center", justifyContent: "center",
               cursor: "pointer", color: "#ffffff",

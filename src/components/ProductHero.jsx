@@ -37,7 +37,7 @@ function LogoChip({ iconSrc, iconAlt, className = "" }) {
   if (!iconSrc) return null;
   return (
     <div className={`product-hero-icon ${className}`} style={{
-      width: 80, height: 80, borderRadius: 18,
+      width: "var(--icon-lg)", height: "var(--icon-lg)", borderRadius: "var(--media-radius)",
       background: "rgba(255,255,255,0.1)",
       border: "1px solid rgba(255,255,255,0.15)",
       display: "flex", alignItems: "center", justifyContent: "center",

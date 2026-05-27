@@ -343,7 +343,7 @@ export default function OtherServices({ onContact }) {
 
   return (
     <>
-    <section className="home-section" style={{ position: "relative", overflow: "hidden", background: "#f5f5f8", padding: "6rem 0" }}>
+    <section className="home-section" style={{ position: "relative", overflow: "hidden", background: "#f5f5f8", padding: "var(--section-py) 0" }}>
 
     <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
       {/* header */}
@@ -417,14 +417,14 @@ export default function OtherServices({ onContact }) {
                 )}
               </div>
               {/* body */}
-              <div style={{ padding: "1.4rem" }}>
+              <div className="site-card-body">
                 <div style={{ fontSize: "0.67rem", fontWeight: 600, letterSpacing: "0.1em", color: "#c9a84c", textTransform: "uppercase", marginBottom: "0.5rem" }}>
                   {c.tag}
                 </div>
-                <h3 style={{ fontSize: "0.93rem", fontWeight: 600, color: "#2f315a", lineHeight: 1.45, marginBottom: "0.55rem" }}>
+                <h3 className="site-card-title" style={{ marginBottom: "0.55rem" }}>
                   {c.title}
                 </h3>
-                <p style={{ fontSize: "0.81rem", color: "#6b6f91", lineHeight: 1.72 }}>
+                <p className="site-card-copy">
                   {c.desc}
                 </p>
               </div>

@@ -54,7 +54,7 @@ export default function AutoCountTrainingWebGL() {
         position: 'relative',
         width: '100%',
         background: 'transparent',
-        padding: '5rem 0',
+        padding: 'var(--section-py) 0',
       }}
     >
       <style>{`

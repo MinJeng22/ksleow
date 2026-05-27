@@ -26,7 +26,7 @@ const S = {
   label:   { fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.5rem" },
   h2:      { fontSize: "clamp(1.4rem, 2.6vw, 2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem" },
   h3:      { fontSize: "1.05rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.55rem" },
-  body:    { fontSize: "0.93rem", color: "#555", lineHeight: 1.82 },
+  body:    { fontSize: "var(--text-body)", color: "#555", lineHeight: 1.82 },
   section: { padding: "4rem 0" },
 };
 
@@ -157,7 +157,7 @@ export default function FeedMePOSPage() {
           <div className="product-hero-row" style={{ display: "flex", alignItems: "center", gap: "2.5rem", flexWrap: "wrap" }}>
             <div className="product-hero-textgroup" style={{ display: "flex", alignItems: "flex-start", gap: "2rem", flex: 1, minWidth: 280 }}>
               <div className="product-hero-mobile-topline">
-                <div className="product-hero-icon product-hero-icon-mobile" style={{ width: 80, height: 80, borderRadius: 18, background: "#ffffff", border: "1px solid rgba(255,255,255,0.15)", display: "none", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden" }}>
+                <div className="product-hero-icon product-hero-icon-mobile" style={{ width: "var(--icon-lg)", height: "var(--icon-lg)", borderRadius: "var(--media-radius)", background: "#ffffff", border: "1px solid rgba(255,255,255,0.15)", display: "none", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden" }}>
                   <img src={FEEDME_LOGO} alt="FeedMe POS" style={{ width: "100%", height: "100%", objectFit: "contain", padding: 10 }} />
                 </div>
                 <button
@@ -169,7 +169,7 @@ export default function FeedMePOSPage() {
                 >Back</button>
               </div>
               {/* Logo chip */}
-              <div className="product-hero-icon product-hero-icon-desktop" style={{ width: 80, height: 80, borderRadius: 18, background: "#ffffff", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden" }}>
+              <div className="product-hero-icon product-hero-icon-desktop" style={{ width: "var(--icon-lg)", height: "var(--icon-lg)", borderRadius: "var(--media-radius)", background: "#ffffff", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden" }}>
                 <img src={FEEDME_LOGO} alt="FeedMe POS" style={{ width: "100%", height: "100%", objectFit: "contain", padding: 10 }} />
               </div>
 

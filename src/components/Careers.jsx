@@ -86,7 +86,7 @@ export default function Careers() {
       position: "relative",
       overflow: "hidden",
       background: "#f4f6fb",
-      padding: "5rem 0",
+      padding: "var(--section-py) 0",
       borderTop: "0.5px solid rgba(47,49,90,0.1)",
     }}>
       <ParticleBackground
