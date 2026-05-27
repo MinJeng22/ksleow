@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { Img } from "./Media.jsx";
 
 /* ══════════════════════════════════════════════════════════════
@@ -60,13 +59,11 @@ export default function ProductHero({
   primaryCta,
   secondaryCta,
 }) {
-  const navigate = useNavigate();
 
   return (
     <div className="product-hero" style={{
       position: "relative",
-      paddingTop: "3.5rem", paddingBottom: "3.5rem",
-      minHeight: "50vh",
+      paddingTop: "7rem", paddingBottom: "5rem",
       display: "flex", alignItems: "center",
       backgroundImage: `url(${backgroundImage})`,
       backgroundSize: "cover",
@@ -89,12 +86,6 @@ export default function ProductHero({
       }} />
 
       <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
-        {/* Back button */}
-        <button
-          className="product-hero-back product-hero-back-desktop ks-btn ks-btn-sm ks-btn-light"
-          onClick={() => navigate("/")}
-          style={{ marginBottom: "2rem" }}
-        >Back</button>
 
         <div className="product-hero-row" style={{
           display: "flex", alignItems: "center", gap: "2.5rem", flexWrap: "wrap",
@@ -105,13 +96,6 @@ export default function ProductHero({
           }}>
             <div className="product-hero-mobile-topline">
               <LogoChip iconSrc={iconSrc} iconAlt={iconAlt} className="product-hero-icon-mobile" />
-              <button
-                className="product-hero-back product-hero-back-mobile ks-btn ks-btn-sm ks-btn-light"
-                onClick={() => navigate("/")}
-                style={{
-                  display: "none",
-                }}
-              >Back</button>
             </div>
             {/* Logo chip (optional) */}
             <LogoChip iconSrc={iconSrc} iconAlt={iconAlt} className="product-hero-icon-desktop" />
