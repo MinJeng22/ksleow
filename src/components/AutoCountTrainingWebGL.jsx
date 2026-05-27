@@ -21,17 +21,11 @@ const VIDEOS = [
   }
 ];
 
+const MORPH_OPEN_MS = 4200;
+const MORPH_CLOSE_MS = 3200;
+const APPLE_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+
 const getThumbnailUrl = (videoId) => `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
-const CLOTH_REVEAL_DURATION_MS = 8000;
-
-let threeModulePromise = null;
-
-function loadThreeModule() {
-  if (!threeModulePromise) {
-    threeModulePromise = import('three');
-  }
-  return threeModulePromise;
-}
 
 function preloadImage(src) {
   if (typeof window === 'undefined') return;
@@ -41,238 +35,127 @@ function preloadImage(src) {
   image.src = src;
 }
 
-function preloadRevealAssets(videoId) {
-  preloadImage(getThumbnailUrl(videoId));
-  loadThreeModule().catch(() => {});
+function toPlainRect(rect) {
+  return {
+    left: rect.left,
+    top: rect.top,
+    width: rect.width,
+    height: rect.height,
+  };
 }
 
-function createFallbackTexture(THREE) {
-  const canvas = document.createElement('canvas');
-  canvas.width = 1280;
-  canvas.height = 720;
-  const ctx = canvas.getContext('2d');
-  const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  gradient.addColorStop(0, '#20255a');
-  gradient.addColorStop(1, '#0f1128');
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#e8c97a';
-  ctx.beginPath();
-  ctx.moveTo(570, 280);
-  ctx.lineTo(570, 440);
-  ctx.lineTo(710, 360);
-  ctx.closePath();
-  ctx.fill();
-  ctx.fillStyle = 'rgba(255,255,255,0.82)';
-  ctx.font = '700 44px system-ui, -apple-system, Segoe UI, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('AutoCount Tutorial', canvas.width / 2, 510);
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  return texture;
+function constrain(value, min, max) {
+  return Math.min(Math.max(value, min), max);
 }
 
-function UnfurlingClothReveal({ videoId, direction = 'open', onComplete }) {
-  const mountRef = useRef(null);
-  const onCompleteRef = useRef(onComplete);
-  const [canvasReady, setCanvasReady] = useState(false);
+function getExpandedRect(sourceRect, contentWrap) {
+  const isMobile = window.innerWidth <= 760;
+  const margin = isMobile ? 8 : 28;
+  const wrapRect = contentWrap?.getBoundingClientRect();
+  const maxWidth = isMobile
+    ? window.innerWidth - margin * 2
+    : Math.min(
+      wrapRect?.width || window.innerWidth - margin * 2,
+      window.innerWidth - margin * 2
+    );
+  const maxHeight = window.innerHeight - margin * 2;
+  let width = Math.max(280, maxWidth);
+  let height = width * 9 / 16;
+
+  if (height > maxHeight) {
+    height = maxHeight;
+    width = height * 16 / 9;
+  }
+
+  const sourceCenterX = sourceRect.left + sourceRect.width / 2;
+  const sourceCenterY = sourceRect.top + sourceRect.height / 2;
+  const left = constrain(sourceCenterX - width / 2, margin, window.innerWidth - width - margin);
+  const top = constrain(sourceCenterY - height / 2, margin, window.innerHeight - height - margin);
+
+  return { left, top, width, height };
+}
+
+function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onComplete }) {
+  const [active, setActive] = useState(false);
+  const duration = direction === 'open' ? MORPH_OPEN_MS : MORPH_CLOSE_MS;
+  const currentRect = active ? endRect : startRect;
+  const borderRadius = direction === 'open'
+    ? (active ? 18 : 30)
+    : (active ? 30 : 18);
+  const screenInset = direction === 'open'
+    ? (active ? '0%' : '3.5%')
+    : (active ? '3.5%' : '0%');
+  const screenRadius = direction === 'open'
+    ? (active ? 18 : 12)
+    : (active ? 12 : 18);
+  const shellTransform = direction === 'open'
+    ? (active
+      ? 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)'
+      : 'perspective(1200px) rotateX(7deg) rotateY(-6deg) scale(0.985)')
+    : (active
+      ? 'perspective(1200px) rotateX(7deg) rotateY(-6deg) scale(0.985)'
+      : 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)');
 
   useEffect(() => {
-    onCompleteRef.current = onComplete;
-  }, [onComplete]);
+    let rafOne = 0;
+    let rafTwo = 0;
+    const timer = window.setTimeout(onComplete, duration + 120);
 
-  useEffect(() => {
-    const mount = mountRef.current;
-    if (!mount) return undefined;
-    setCanvasReady(false);
-
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-      const timer = window.setTimeout(() => onCompleteRef.current?.(), CLOTH_REVEAL_DURATION_MS);
-      return () => window.clearTimeout(timer);
-    }
-
-    let disposed = false;
-    let frameId = 0;
-    let finishTimer = 0;
-    let finished = false;
-    let renderer = null;
-    let geometry = null;
-    let material = null;
-    const cleanup = [];
-
-    (async () => {
-      try {
-        const THREE = await loadThreeModule();
-        if (disposed) return;
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(36, 16 / 9, 0.1, 100);
-        camera.position.set(0, 0, 4.25);
-
-        renderer = new THREE.WebGLRenderer({
-          alpha: true,
-          antialias: true,
-          preserveDrawingBuffer: true,
-          powerPreference: 'high-performance',
-        });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-        renderer.outputColorSpace = THREE.SRGBColorSpace;
-        renderer.domElement.style.width = '100%';
-        renderer.domElement.style.height = '100%';
-        renderer.domElement.style.display = 'block';
-        mount.appendChild(renderer.domElement);
-        setCanvasReady(true);
-
-        const clothWidth = 3.4;
-        const clothHeight = clothWidth * 9 / 16;
-        geometry = new THREE.PlaneGeometry(clothWidth, clothHeight, 72, 40);
-        const basePositions = geometry.attributes.position.array.slice();
-        material = new THREE.MeshStandardMaterial({
-          map: createFallbackTexture(THREE),
-          side: THREE.DoubleSide,
-          roughness: 0.72,
-          metalness: 0.02,
-          transparent: true,
-          opacity: 0.98,
-        });
-        const cloth = new THREE.Mesh(geometry, material);
-        scene.add(cloth);
-
-        const ambient = new THREE.AmbientLight(0xffffff, 1.9);
-        const key = new THREE.DirectionalLight(0xffffff, 1.6);
-        key.position.set(2.3, 2.2, 4);
-        scene.add(ambient, key);
-
-        const loader = new THREE.TextureLoader();
-        loader.setCrossOrigin('anonymous');
-        loader.load(
-          getThumbnailUrl(videoId),
-          (texture) => {
-            if (disposed) {
-              texture.dispose();
-              return;
-            }
-            texture.colorSpace = THREE.SRGBColorSpace;
-            texture.anisotropy = Math.min(renderer?.capabilities.getMaxAnisotropy() || 1, 8);
-            texture.needsUpdate = true;
-            material?.map?.dispose?.();
-            material.map = texture;
-            material.needsUpdate = true;
-          },
-          undefined,
-          () => {}
-        );
-
-        const setSize = () => {
-          if (!renderer) return;
-          const rect = mount.getBoundingClientRect();
-          const nextWidth = Math.max(1, rect.width);
-          const nextHeight = Math.max(1, rect.height);
-          renderer.setSize(nextWidth, nextHeight, false);
-          camera.aspect = nextWidth / nextHeight;
-          camera.updateProjectionMatrix();
-        };
-        setSize();
-        window.addEventListener('resize', setSize, { passive: true });
-        cleanup.push(() => window.removeEventListener('resize', setSize));
-
-        const easeOutBack = (t) => {
-          const c1 = 1.42;
-          const c3 = c1 + 1;
-          return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
-        };
-        const easeInOut = (t) => t < 0.5
-          ? 4 * t * t * t
-          : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-        const duration = CLOTH_REVEAL_DURATION_MS;
-        const start = performance.now();
-
-        const animate = (now) => {
-          if (disposed || !geometry || !renderer || !material) return;
-
-          const elapsed = now - start;
-          const t = Math.min(elapsed / duration, 1);
-          const motion = direction === 'close' ? 1 - easeInOut(t) : Math.min(Math.max(easeOutBack(t), 0), 1.035);
-          const settle = direction === 'close' ? t : Math.max(0, (t - 0.72) / 0.28);
-          const wave = direction === 'close'
-            ? (0.15 + easeInOut(t) * 0.9)
-            : (1 - easeInOut(t)) * (1 - settle * 0.55);
-          const positions = geometry.attributes.position.array;
-
-          for (let i = 0; i < positions.length; i += 3) {
-            const x = basePositions[i];
-            const y = basePositions[i + 1];
-            const u = x / clothWidth + 0.5;
-            const v = y / clothHeight + 0.5;
-            const reveal = Math.min(1, Math.max(0, motion - u * 0.08));
-            const widthScale = 0.24 + 0.76 * reveal;
-            const heightScale = 0.34 + 0.66 * reveal;
-            const edgeCurl = Math.sin(u * Math.PI) * Math.sin(v * Math.PI);
-            const ripple = Math.sin((u * 3.8 + t * 2.1) * Math.PI) * Math.sin((v + 0.18) * Math.PI);
-
-            positions[i] = x * widthScale + ripple * wave * 0.085;
-            positions[i + 1] = y * heightScale + Math.sin((u * 1.6 + t) * Math.PI) * wave * 0.12;
-            positions[i + 2] = edgeCurl * wave * 0.52 + ripple * wave * 0.16 - (1 - reveal) * 0.18;
-          }
-
-          geometry.attributes.position.needsUpdate = true;
-          geometry.computeVertexNormals();
-
-          cloth.rotation.x = -0.24 * wave;
-          cloth.rotation.y = 0.12 * wave;
-          cloth.rotation.z = -0.035 * wave;
-          cloth.scale.setScalar(direction === 'close'
-            ? 0.9 + 0.1 * (1 - easeInOut(t))
-            : 0.9 + 0.1 * easeInOut(t));
-
-          renderer.render(scene, camera);
-
-          if (t < 1) {
-            frameId = window.requestAnimationFrame(animate);
-          } else if (!finished) {
-            finished = true;
-            finishTimer = window.setTimeout(() => onCompleteRef.current?.(), 120);
-          }
-        };
-        frameId = window.requestAnimationFrame(animate);
-      } catch {
-        if (!disposed && !finished) {
-          finished = true;
-          finishTimer = window.setTimeout(() => onCompleteRef.current?.(), CLOTH_REVEAL_DURATION_MS);
-        }
-      }
-    })();
+    rafOne = window.requestAnimationFrame(() => {
+      rafTwo = window.requestAnimationFrame(() => setActive(true));
+    });
 
     return () => {
-      disposed = true;
-      finished = true;
-      window.cancelAnimationFrame(frameId);
-      window.clearTimeout(finishTimer);
-      cleanup.forEach((fn) => fn());
-      if (renderer?.domElement?.parentNode === mount) mount.removeChild(renderer.domElement);
-      geometry?.dispose();
-      material?.map?.dispose?.();
-      material?.dispose();
-      renderer?.dispose();
+      window.cancelAnimationFrame(rafOne);
+      window.cancelAnimationFrame(rafTwo);
+      window.clearTimeout(timer);
     };
-  }, [direction, videoId]);
+  }, [duration, onComplete]);
 
   return (
-    <div className="cloth-reveal-stage" data-direction={direction} ref={mountRef}>
-      <img
-        className="cloth-reveal-fallback-image"
+    <div
+      className="tutorial-morph-overlay"
+      aria-hidden="true"
+    >
+      <div
+        className="tutorial-morph-shell"
         data-direction={direction}
-        data-ready={canvasReady ? 'true' : 'false'}
-        src={getThumbnailUrl(videoId)}
-        alt=""
-        aria-hidden="true"
-        decoding="async"
-        crossOrigin="anonymous"
-      />
-      <div className="cloth-reveal-label">
-        {direction === 'close' ? 'Closing tutorial...' : 'Opening tutorial...'}
+        data-active={active ? 'true' : 'false'}
+        style={{
+          left: `${currentRect.left}px`,
+          top: `${currentRect.top}px`,
+          width: `${currentRect.width}px`,
+          height: `${currentRect.height}px`,
+          borderRadius: `${borderRadius}px`,
+          transform: shellTransform,
+          '--morph-duration': `${duration}ms`,
+          transitionDuration: `${duration}ms`,
+          transitionTimingFunction: APPLE_EASE,
+        }}
+      >
+        <div
+          className="tutorial-morph-screen"
+          style={{
+            inset: screenInset,
+            borderRadius: `${screenRadius}px`,
+            transitionDuration: `${duration}ms`,
+            transitionTimingFunction: APPLE_EASE,
+          }}
+        >
+          <img
+            className="tutorial-morph-image"
+            src={getThumbnailUrl(videoId)}
+            alt=""
+            decoding="async"
+            crossOrigin="anonymous"
+          />
+          <div className="tutorial-morph-dim" />
+          <div className="tutorial-morph-play">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="#2f315a">
+              <polygon points="5,3 19,12 5,21" />
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -281,38 +164,81 @@ function UnfurlingClothReveal({ videoId, direction = 'open', onComplete }) {
 export default function AutoCountTrainingWebGL() {
   const [activeVideo, setActiveVideo] = useState(VIDEOS[0].id);
   const [showIframe, setShowIframe] = useState(false);
-  const [clothMode, setClothMode] = useState(null);
+  const [morph, setMorph] = useState(null);
+  const tabletRef = useRef(null);
   const videoRef = useRef(null);
+  const videoFrameRef = useRef(null);
   const sectionRef = useRef(null);
+  const contentWrapRef = useRef(null);
+  const lastTabletRectRef = useRef(null);
 
   useEffect(() => {
-    const preload = () => preloadRevealAssets(activeVideo);
-    const idleId = window.requestIdleCallback?.(preload, { timeout: 1800 });
-    const timer = idleId ? 0 : window.setTimeout(preload, 900);
-
-    return () => {
-      if (idleId) window.cancelIdleCallback?.(idleId);
-      if (timer) window.clearTimeout(timer);
-    };
+    preloadImage(getThumbnailUrl(activeVideo));
   }, [activeVideo]);
 
-  const handlePlay = () => {
-    if (clothMode) return;
-    preloadRevealAssets(activeVideo);
-    setClothMode('open');
+  const completeMorph = () => {
+    const currentMorph = morph;
+    if (!currentMorph) return;
+
+    setMorph(null);
+
+    if (currentMorph.direction === 'open') {
+      setShowIframe(true);
+      window.requestAnimationFrame(() => {
+        if (videoRef.current) {
+          const y = videoRef.current.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+      return;
+    }
+
     setShowIframe(false);
-    setTimeout(() => {
-      if (videoRef.current) {
-        const y = videoRef.current.getBoundingClientRect().top + window.scrollY - 80;
+    window.requestAnimationFrame(() => {
+      if (sectionRef.current) {
+        const y = sectionRef.current.getBoundingClientRect().top + window.scrollY - 60;
         window.scrollTo({ top: y, behavior: 'smooth' });
       }
-    }, 50);
+    });
+  };
+
+  const handlePlay = () => {
+    if (morph) return;
+    const tabletRect = tabletRef.current?.getBoundingClientRect();
+    if (!tabletRect) {
+      setShowIframe(true);
+      return;
+    }
+
+    const startRect = toPlainRect(tabletRect);
+    const endRect = getExpandedRect(startRect, contentWrapRef.current);
+    lastTabletRectRef.current = startRect;
+    preloadImage(getThumbnailUrl(activeVideo));
+    setShowIframe(false);
+    setMorph({ direction: 'open', videoId: activeVideo, startRect, endRect });
   };
 
   const handleClose = () => {
-    if (clothMode) return;
+    if (morph) return;
+    const startSource = videoFrameRef.current || videoRef.current;
+    const startDomRect = startSource?.getBoundingClientRect();
+    if (!startDomRect) {
+      setShowIframe(false);
+      return;
+    }
+
+    const startRect = toPlainRect(startDomRect);
+    const fallbackWidth = Math.min(startRect.width * 0.42, 560);
+    const fallbackHeight = fallbackWidth * 3 / 4;
+    const endRect = lastTabletRectRef.current || {
+      left: startRect.left + startRect.width / 2 - fallbackWidth / 2,
+      top: startRect.top + startRect.height / 2 - fallbackHeight / 2,
+      width: fallbackWidth,
+      height: fallbackHeight,
+    };
+
     setShowIframe(false);
-    setClothMode('close');
+    setMorph({ direction: 'close', videoId: activeVideo, startRect, endRect });
   };
 
   return (
@@ -329,32 +255,8 @@ export default function AutoCountTrainingWebGL() {
         .training-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
         @media (max-width: 760px) { .training-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
         @keyframes videoExpand {
-          from { opacity: 0; transform: scale(0.95) translateY(20px); }
+          from { opacity: 0; transform: scale(0.985) translateY(8px); }
           to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        @keyframes videoShrink {
-          from { opacity: 1; transform: scale(1) translateY(0); }
-          to { opacity: 0; transform: scale(0.95) translateY(20px); }
-        }
-        @keyframes clothStageOpen {
-          0% { opacity: 0; transform: perspective(900px) rotateX(10deg) rotateY(-7deg) scale(0.58); filter: saturate(0.82); }
-          52% { opacity: 1; transform: perspective(900px) rotateX(-4deg) rotateY(3deg) scale(1.025); }
-          100% { opacity: 1; transform: perspective(900px) rotateX(0) rotateY(0) scale(1); filter: saturate(1); }
-        }
-        @keyframes clothStageClose {
-          0% { opacity: 1; transform: perspective(900px) rotateX(0) rotateY(0) scale(1); }
-          52% { opacity: 0.95; transform: perspective(900px) rotateX(9deg) rotateY(-5deg) scale(0.72); }
-          100% { opacity: 0.68; transform: perspective(900px) rotateX(18deg) rotateY(-11deg) scale(0.42); }
-        }
-        @keyframes clothFallbackOpen {
-          0% { clip-path: polygon(38% 30%, 62% 28%, 66% 62%, 34% 64%); transform: perspective(900px) rotateX(18deg) rotateY(-11deg) scale(0.52); filter: blur(1px) saturate(0.82); }
-          48% { clip-path: polygon(8% 16%, 94% 9%, 88% 84%, 12% 91%); transform: perspective(900px) rotateX(-5deg) rotateY(4deg) scale(1.02); filter: blur(0.2px) saturate(1); }
-          100% { clip-path: inset(0 round 18px); transform: perspective(900px) rotateX(0) rotateY(0) scale(1); filter: none; }
-        }
-        @keyframes clothFallbackClose {
-          0% { clip-path: inset(0 round 18px); transform: perspective(900px) rotateX(0) rotateY(0) scale(1); filter: none; }
-          55% { clip-path: polygon(10% 14%, 90% 18%, 86% 82%, 14% 88%); transform: perspective(900px) rotateX(8deg) rotateY(-5deg) scale(0.8); filter: blur(0.2px); }
-          100% { clip-path: polygon(38% 30%, 62% 28%, 66% 62%, 34% 64%); transform: perspective(900px) rotateX(19deg) rotateY(-12deg) scale(0.48); filter: blur(1px) saturate(0.82); }
         }
         .ipad-frame {
           aspect-ratio: 4/3;
@@ -367,65 +269,102 @@ export default function AutoCountTrainingWebGL() {
           cursor: pointer;
           display: flex;
           align-items: stretch;
-          transition: transform 0.3s ease;
+          transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .ipad-frame:hover {
-          transform: scale(1.02);
+          transform: scale(1.018);
         }
-        .cloth-reveal-stage {
-          position: relative;
-          width: 100%;
-          aspect-ratio: 16/9;
-          border-radius: 18px;
+        .tutorial-morph-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+          pointer-events: auto;
+          contain: layout style paint;
+        }
+        .tutorial-morph-shell {
+          position: fixed;
           overflow: hidden;
+          background: #0f1128;
+          box-shadow:
+            0 34px 90px rgba(15,17,40,0.32),
+            0 12px 28px rgba(15,17,40,0.18),
+            inset 0 0 0 1px rgba(255,255,255,0.08);
           transform-origin: center;
+          will-change: left, top, width, height, border-radius, transform, box-shadow, filter;
+          transition-property: left, top, width, height, border-radius, transform, box-shadow, filter;
+        }
+        .tutorial-morph-shell[data-active="true"] {
+          box-shadow:
+            0 42px 110px rgba(15,17,40,0.22),
+            0 12px 34px rgba(15,17,40,0.16),
+            inset 0 0 0 1px rgba(255,255,255,0.04);
+        }
+        .tutorial-morph-shell::before {
+          content: "";
+          position: absolute;
+          inset: -30%;
+          z-index: 3;
           background:
-            radial-gradient(circle at 50% 28%, rgba(232,201,122,0.15), transparent 34%),
-            #0f1128;
-          box-shadow: 0 20px 60px rgba(15,17,40,0.12);
+            linear-gradient(115deg, transparent 20%, rgba(255,255,255,0.2) 42%, transparent 58%),
+            radial-gradient(circle at 28% 18%, rgba(255,255,255,0.2), transparent 24%);
+          opacity: 0.8;
+          transform: translateX(-30%) rotate(2deg);
+          transition: transform var(--morph-duration, 4200ms) cubic-bezier(0.22, 1, 0.36, 1), opacity 700ms ease;
+          pointer-events: none;
         }
-        .cloth-reveal-stage[data-direction="open"] {
-          animation: clothStageOpen 8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        .tutorial-morph-shell[data-active="true"]::before {
+          opacity: 0.3;
+          transform: translateX(26%) rotate(2deg);
         }
-        .cloth-reveal-stage[data-direction="close"] {
-          animation: clothStageClose 8s cubic-bezier(0.45, 0, 0.2, 1) both;
+        .tutorial-morph-screen {
+          position: absolute;
+          overflow: hidden;
+          background: #0f1128;
+          box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+          transition-property: inset, border-radius, box-shadow;
         }
-        .cloth-reveal-fallback-image {
+        .tutorial-morph-image {
           position: absolute;
           inset: 0;
           width: 100%;
           height: 100%;
           object-fit: cover;
-          opacity: 1;
-          transform-origin: center;
-          transition: opacity 0.18s ease;
-          pointer-events: none;
+          transform: scale(1.045);
+          transition: transform var(--morph-duration, 4200ms) cubic-bezier(0.22, 1, 0.36, 1), filter var(--morph-duration, 4200ms) cubic-bezier(0.22, 1, 0.36, 1);
+          filter: saturate(0.95) contrast(0.98);
         }
-        .cloth-reveal-fallback-image[data-direction="open"] {
-          animation: clothFallbackOpen 8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        .tutorial-morph-shell[data-active="true"] .tutorial-morph-image {
+          transform: scale(1);
+          filter: saturate(1) contrast(1);
         }
-        .cloth-reveal-fallback-image[data-direction="close"] {
-          animation: clothFallbackClose 8s cubic-bezier(0.45, 0, 0.2, 1) both;
-        }
-        .cloth-reveal-fallback-image[data-ready="true"] {
-          opacity: 0;
-        }
-        .cloth-reveal-stage canvas {
-          position: relative;
-          z-index: 1;
-        }
-        .cloth-reveal-label {
+        .tutorial-morph-dim {
           position: absolute;
-          z-index: 2;
+          inset: 0;
+          background: rgba(0,0,0,0.28);
+          transition: background var(--morph-duration, 4200ms) cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .tutorial-morph-shell[data-active="true"] .tutorial-morph-dim {
+          background: rgba(0,0,0,0.12);
+        }
+        .tutorial-morph-play {
+          position: absolute;
           left: 50%;
-          bottom: 1rem;
-          transform: translateX(-50%);
-          color: rgba(255,255,255,0.72);
-          font-size: 0.72rem;
-          font-weight: 700;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
-          pointer-events: none;
+          top: 50%;
+          width: 64px;
+          height: 64px;
+          display: grid;
+          place-items: center;
+          padding-left: 4px;
+          border-radius: 50%;
+          background: #e8c97a;
+          box-shadow: 0 12px 30px rgba(232,201,122,0.32);
+          transform: translate(-50%, -50%) scale(0.92);
+          opacity: 0.92;
+          transition: transform var(--morph-duration, 4200ms) cubic-bezier(0.22, 1, 0.36, 1), opacity 900ms ease;
+        }
+        .tutorial-morph-shell[data-active="true"] .tutorial-morph-play {
+          transform: translate(-50%, -50%) scale(0.74);
+          opacity: 0;
         }
         @media (max-width: 760px) {
           .ipad-frame {
@@ -436,12 +375,14 @@ export default function AutoCountTrainingWebGL() {
             border-radius: 12px;
           }
           .ipad-frame:hover { transform: none; }
+          .tutorial-morph-play {
+            width: 54px;
+            height: 54px;
+          }
         }
       `}</style>
-      <div className="content-wrap">
-        {/* ── Header — always visible, always centred ── */}
+      <div className="content-wrap" ref={contentWrapRef}>
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 700,
             color: '#2f315a', lineHeight: 1.2, margin: 0,
@@ -451,16 +392,15 @@ export default function AutoCountTrainingWebGL() {
         </div>
 
         {showIframe ? (
-          /* ── Layout 2: Full-width video after clicking play ── */
           <div
             ref={videoRef}
             style={{
               width: '100%',
-              animation: 'videoExpand 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              animation: 'videoExpand 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
-              <button 
+              <button
                 onClick={handleClose}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
@@ -481,8 +421,9 @@ export default function AutoCountTrainingWebGL() {
                 Minimize
               </button>
             </div>
-            
+
             <div
+              ref={videoFrameRef}
               style={{
                 width: '100%',
                 aspectRatio: '16/9',
@@ -501,112 +442,80 @@ export default function AutoCountTrainingWebGL() {
               />
             </div>
           </div>
-        ) : clothMode ? (
-          <div
-            ref={videoRef}
-            style={{
-              width: '100%',
-              animation: clothMode === 'open'
-                ? 'videoExpand 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards'
-                : 'none',
-            }}
-          >
-            <UnfurlingClothReveal
-              videoId={activeVideo}
-              direction={clothMode}
-              onComplete={() => {
-                if (clothMode === 'open') {
-                  setClothMode(null);
-                  setShowIframe(true);
-                  return;
-                }
-
-                setClothMode(null);
-                if (sectionRef.current) {
-                  const y = sectionRef.current.getBoundingClientRect().top + window.scrollY - 60;
-                  window.scrollTo({ top: y, behavior: 'smooth' });
-                }
-              }}
-            />
-          </div>
         ) : (
-          /* ── Layout 1: Video thumbnail (left) + description (right) ── */
           <>
             <div className="training-grid">
-              {/* iPad Frame Wrapper */}
               <div>
                 <div
+                  ref={tabletRef}
                   className="ipad-frame"
-                onClick={handlePlay}
-              >
-                {/* iPad Screen */}
-                <div style={{
-                  flex: 1,
-                  borderRadius: '10px',
-                  overflow: 'hidden',
-                  background: '#0f1128',
-                  position: 'relative',
-                }}>
-                  <img
-                    src={getThumbnailUrl(activeVideo)}
-                    alt="AutoCount Tutorial"
-                    loading="lazy"
-                    crossOrigin="anonymous"
-                    decoding="async"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  />
-                  <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)', display: 'grid', placeItems: 'center' }}>
-                    <div style={{
-                      width: 64, height: 64, background: '#e8c97a', borderRadius: '50%',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      boxShadow: '0 8px 24px rgba(232,201,122,0.4)',
-                      paddingLeft: 4
-                    }}>
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="#2f315a">
-                        <polygon points="5,3 19,12 5,21" />
-                      </svg>
+                  onClick={handlePlay}
+                >
+                  <div style={{
+                    flex: 1,
+                    borderRadius: '10px',
+                    overflow: 'hidden',
+                    background: '#0f1128',
+                    position: 'relative',
+                  }}>
+                    <img
+                      src={getThumbnailUrl(activeVideo)}
+                      alt="AutoCount Tutorial"
+                      loading="lazy"
+                      crossOrigin="anonymous"
+                      decoding="async"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
+                    <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)', display: 'grid', placeItems: 'center' }}>
+                      <div style={{
+                        width: 64, height: 64, background: '#e8c97a', borderRadius: '50%',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        boxShadow: '0 8px 24px rgba(232,201,122,0.4)',
+                        paddingLeft: 4
+                      }}>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#2f315a">
+                          <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
+
+                <div style={{
+                  marginTop: '1.25rem',
+                  background: '#2f315a',
+                  borderRadius: '20px',
+                  padding: '6px',
+                  display: 'flex',
+                  gap: '6px'
+                }}>
+                  {VIDEOS.map(v => {
+                    const isActive = activeVideo === v.id;
+                    return (
+                      <button
+                        key={v.id}
+                        onClick={() => setActiveVideo(v.id)}
+                        style={{
+                          flex: 1,
+                          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
+                          padding: '12px 4px',
+                          background: isActive ? '#f5f5f8' : 'transparent',
+                          color: isActive ? '#1c1e36' : 'rgba(255,255,255,0.7)',
+                          border: 'none', borderRadius: '14px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                        }}
+                      >
+                        {v.icon}
+                        <span style={{ fontSize: '0.72rem', fontWeight: isActive ? 700 : 500, textAlign: 'center', lineHeight: 1.1 }}>
+                          {v.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
-              {/* Video Selector Buttons */}
-              <div style={{
-                marginTop: '1.25rem',
-                background: '#2f315a',
-                borderRadius: '20px',
-                padding: '6px',
-                display: 'flex',
-                gap: '6px'
-              }}>
-                {VIDEOS.map(v => {
-                  const isActive = activeVideo === v.id;
-                  return (
-                    <button
-                      key={v.id}
-                      onClick={() => setActiveVideo(v.id)}
-                      style={{
-                        flex: 1,
-                        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
-                        padding: '12px 4px',
-                        background: isActive ? '#f5f5f8' : 'transparent',
-                        color: isActive ? '#1c1e36' : 'rgba(255,255,255,0.7)',
-                        border: 'none', borderRadius: '14px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-                      }}
-                    >
-                      {v.icon}
-                      <span style={{ fontSize: '0.72rem', fontWeight: isActive ? 700 : 500, textAlign: 'center', lineHeight: 1.1 }}>
-                        {v.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-              {/* Description text */}
               <div style={{ transform: 'translateY(-1rem)' }}>
                 <p style={{
                   fontSize: '0.95rem', color: '#6b6f91', lineHeight: 1.8,
@@ -614,7 +523,7 @@ export default function AutoCountTrainingWebGL() {
                 }}>
                   Skip the long manuals. AutoCount's 60-minute guide covers
                   everything you need to know to navigate AutoCount Accounting
-                  with confidence — from basic setup to daily transactions.
+                  with confidence - from basic setup to daily transactions.
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                   <button
@@ -635,7 +544,7 @@ export default function AutoCountTrainingWebGL() {
                     Watch on Youtube
                   </button>
                   <span style={{ fontSize: '0.82rem', color: '#a8abcc', fontWeight: 500 }}>
-                    Free · 60 minutes
+                    Free - 60 minutes
                   </span>
                 </div>
               </div>
@@ -643,6 +552,17 @@ export default function AutoCountTrainingWebGL() {
           </>
         )}
       </div>
+
+      {morph && (
+        <MorphingTutorialPreview
+          key={`${morph.direction}-${morph.videoId}`}
+          direction={morph.direction}
+          videoId={morph.videoId}
+          startRect={morph.startRect}
+          endRect={morph.endRect}
+          onComplete={completeMorph}
+        />
+      )}
     </section>
   );
 }
