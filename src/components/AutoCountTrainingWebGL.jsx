@@ -50,7 +50,7 @@ function createFallbackTexture(THREE) {
   return texture;
 }
 
-function UnfurlingClothReveal({ videoId, onComplete }) {
+function UnfurlingClothReveal({ videoId, direction = 'open', onComplete }) {
   const mountRef = useRef(null);
   const onCompleteRef = useRef(onComplete);
 
@@ -160,7 +160,7 @@ function UnfurlingClothReveal({ videoId, onComplete }) {
           ? 4 * t * t * t
           : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-        const duration = 1250;
+        const duration = direction === 'close' ? 900 : 1250;
         const start = performance.now();
 
         const animate = (now) => {
@@ -168,9 +168,11 @@ function UnfurlingClothReveal({ videoId, onComplete }) {
 
           const elapsed = now - start;
           const t = Math.min(elapsed / duration, 1);
-          const unfold = Math.min(Math.max(easeOutBack(t), 0), 1.035);
-          const settle = Math.max(0, (t - 0.72) / 0.28);
-          const wave = (1 - easeInOut(t)) * (1 - settle * 0.55);
+          const motion = direction === 'close' ? 1 - easeInOut(t) : Math.min(Math.max(easeOutBack(t), 0), 1.035);
+          const settle = direction === 'close' ? t : Math.max(0, (t - 0.72) / 0.28);
+          const wave = direction === 'close'
+            ? (0.15 + easeInOut(t) * 0.9)
+            : (1 - easeInOut(t)) * (1 - settle * 0.55);
           const positions = geometry.attributes.position.array;
 
           for (let i = 0; i < positions.length; i += 3) {
@@ -178,7 +180,7 @@ function UnfurlingClothReveal({ videoId, onComplete }) {
             const y = basePositions[i + 1];
             const u = x / clothWidth + 0.5;
             const v = y / clothHeight + 0.5;
-            const reveal = Math.min(1, Math.max(0, unfold - u * 0.08));
+            const reveal = Math.min(1, Math.max(0, motion - u * 0.08));
             const widthScale = 0.24 + 0.76 * reveal;
             const heightScale = 0.34 + 0.66 * reveal;
             const edgeCurl = Math.sin(u * Math.PI) * Math.sin(v * Math.PI);
@@ -195,7 +197,9 @@ function UnfurlingClothReveal({ videoId, onComplete }) {
           cloth.rotation.x = -0.24 * wave;
           cloth.rotation.y = 0.12 * wave;
           cloth.rotation.z = -0.035 * wave;
-          cloth.scale.setScalar(0.9 + 0.1 * easeInOut(t));
+          cloth.scale.setScalar(direction === 'close'
+            ? 0.9 + 0.1 * (1 - easeInOut(t))
+            : 0.9 + 0.1 * easeInOut(t));
 
           renderer.render(scene, camera);
 
@@ -227,11 +231,13 @@ function UnfurlingClothReveal({ videoId, onComplete }) {
       material?.dispose();
       renderer?.dispose();
     };
-  }, [videoId]);
+  }, [direction, videoId]);
 
   return (
     <div className="cloth-reveal-stage" ref={mountRef}>
-      <div className="cloth-reveal-label">Opening tutorial...</div>
+      <div className="cloth-reveal-label">
+        {direction === 'close' ? 'Closing tutorial...' : 'Opening tutorial...'}
+      </div>
     </div>
   );
 }
@@ -239,14 +245,13 @@ function UnfurlingClothReveal({ videoId, onComplete }) {
 export default function AutoCountTrainingWebGL() {
   const [activeVideo, setActiveVideo] = useState(VIDEOS[0].id);
   const [showIframe, setShowIframe] = useState(false);
-  const [isUnfurling, setIsUnfurling] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
+  const [clothMode, setClothMode] = useState(null);
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
 
   const handlePlay = () => {
-    setIsClosing(false);
-    setIsUnfurling(true);
+    if (clothMode) return;
+    setClothMode('open');
     setShowIframe(false);
     setTimeout(() => {
       if (videoRef.current) {
@@ -257,16 +262,9 @@ export default function AutoCountTrainingWebGL() {
   };
 
   const handleClose = () => {
-    setIsClosing(true);
-    setIsUnfurling(false);
-    if (sectionRef.current) {
-      const y = sectionRef.current.getBoundingClientRect().top + window.scrollY - 60;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-    setTimeout(() => {
-      setShowIframe(false);
-      setIsClosing(false);
-    }, 400);
+    if (clothMode) return;
+    setShowIframe(false);
+    setClothMode('close');
   };
 
   return (
@@ -358,9 +356,7 @@ export default function AutoCountTrainingWebGL() {
             ref={videoRef}
             style={{
               width: '100%',
-              animation: isClosing 
-                ? 'videoShrink 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards'
-                : 'videoExpand 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              animation: 'videoExpand 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
             }}
           >
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
@@ -405,19 +401,31 @@ export default function AutoCountTrainingWebGL() {
               />
             </div>
           </div>
-        ) : isUnfurling ? (
+        ) : clothMode ? (
           <div
             ref={videoRef}
             style={{
               width: '100%',
-              animation: 'videoExpand 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              animation: clothMode === 'open'
+                ? 'videoExpand 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+                : 'none',
             }}
           >
             <UnfurlingClothReveal
               videoId={activeVideo}
+              direction={clothMode}
               onComplete={() => {
-                setIsUnfurling(false);
-                setShowIframe(true);
+                if (clothMode === 'open') {
+                  setClothMode(null);
+                  setShowIframe(true);
+                  return;
+                }
+
+                setClothMode(null);
+                if (sectionRef.current) {
+                  const y = sectionRef.current.getBoundingClientRect().top + window.scrollY - 60;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
               }}
             />
           </div>
