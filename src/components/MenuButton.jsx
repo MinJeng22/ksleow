@@ -500,13 +500,13 @@ export default function MenuButton({ onOpenSearch }) {
 
   /* ── Hover handlers (desktop only) ── */
   const handleMenuEnter = () => {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= 1024) {
       clearTimeout(hoverTimeoutRef.current);
       setOpen(true);
     }
   };
   const handleMenuLeave = () => {
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= 1024) {
       hoverTimeoutRef.current = setTimeout(() => setOpen(false), 200);
     }
   };
@@ -595,7 +595,7 @@ export default function MenuButton({ onOpenSearch }) {
           className="menu-fab lg-glass lg-glass-btn"
           onMouseEnter={handleMenuEnter}
           onMouseLeave={handleMenuLeave}
-          onClick={() => { if (window.innerWidth < 768) setOpen(!open); }}
+          onClick={() => { if (window.innerWidth < 1024) setOpen(!open); }}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           style={{ color: isDesktopDark ? "#ffffff" : "rgba(0, 0, 0, 0.6)" }}

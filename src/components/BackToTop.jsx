@@ -25,7 +25,7 @@ export default function BackToTop() {
           bottom: 28px;
           right: 28px;
           z-index: 500;
-          --lg-size: 40px;
+          --lg-size: 44px;
           transition:
             opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
             transform 0.46s cubic-bezier(0.2, 1.18, 0.36, 1),
@@ -47,7 +47,7 @@ export default function BackToTop() {
           .back-to-top-glass {
             bottom: calc(20px + env(safe-area-inset-bottom, 0px));
             right: 14px;
-            --lg-size: 44px;
+            --lg-size: 48px;
             z-index: 1001;
           }
         }
@@ -76,8 +76,8 @@ export default function BackToTop() {
         }}
       >
         <svg
-          width="18"
-          height="18"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
