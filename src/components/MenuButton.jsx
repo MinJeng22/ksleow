@@ -70,6 +70,37 @@ const MENU_ITEMS = [
   },
 ];
 
+function MenuGlyph({ open, size = 17 }) {
+  return (
+    <svg
+      className={`menu-glyph${open ? " is-open" : ""}`}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {open ? (
+        <>
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </>
+      ) : (
+        <>
+          <rect x="4" y="4" width="6" height="6" rx="1.6" />
+          <rect x="14" y="4" width="6" height="6" rx="1.6" />
+          <rect x="4" y="14" width="6" height="6" rx="1.6" />
+          <rect x="14" y="14" width="6" height="6" rx="1.6" />
+        </>
+      )}
+    </svg>
+  );
+}
+
 /* ── CSS keyframes & styles ─────────────────────────────── */
 const STYLES = `
 /* ─── Menu & Search Container (Desktop/Tablet) ───────────── */
@@ -123,12 +154,13 @@ const STYLES = `
   .mobile-float-bar {
     position: fixed;
     bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-    left: 50%;
-    transform: translateX(-50%);
+    left: 12px;
+    transform: translateX(0);
     z-index: 1000;
     display: flex;
     align-items: center;
     height: 44px;
+    max-width: calc(100vw - 78px);
     box-sizing: border-box;
     gap: 4px;
     padding: 4px;
@@ -152,9 +184,9 @@ const STYLES = `
     cursor: pointer;
     color: rgba(0, 0, 0, 0.55);
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 600;
-    padding: 0 1rem;
+    padding: 0 0.82rem;
     border-radius: 100px;
     transition:
       background 0.25s ease,
@@ -176,8 +208,8 @@ const STYLES = `
     flex-shrink: 0;
   }
   .mobile-float-bar .mfb-action {
-    min-width: 92px;
-    max-width: 112px;
+    min-width: 82px;
+    max-width: 102px;
     overflow: hidden;
   }
   .mobile-float-bar .mfb-action-icon {
@@ -188,7 +220,7 @@ const STYLES = `
   }
   .mobile-float-bar .mfb-action-label {
     display: inline-block;
-    min-width: 42px;
+    min-width: 34px;
     text-align: left;
     transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
   }
@@ -217,10 +249,26 @@ const STYLES = `
     68% { transform: translateX(3px) scale(1.02); }
   }
   @keyframes menuBarMakeRoom {
-    0% { transform: translateX(-50%) translateY(0); }
-    38% { transform: translateX(-50%) translateY(3px); }
-    76% { transform: translateX(-50%) translateY(-2px); }
-    100% { transform: translateX(-50%) translateY(0); }
+    0% { transform: translateY(0); }
+    38% { transform: translateY(3px); }
+    76% { transform: translateY(-2px); }
+    100% { transform: translateY(0); }
+  }
+  @media (max-width: 360px) {
+    .mobile-float-bar {
+      left: 10px;
+      max-width: calc(100vw - 72px);
+      gap: 2px;
+      padding: 3px;
+    }
+    .mobile-float-bar .mfb-btn {
+      padding: 0 0.62rem;
+      font-size: 0.72rem;
+      gap: 0.28rem;
+    }
+    .mobile-float-bar .mfb-action {
+      min-width: 72px;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     .mobile-float-bar,
@@ -364,29 +412,12 @@ const STYLES = `
   color: #2f315a;
 }
 
-/* Hamburger animation */
-.menu-hamburger { position: relative; width: 18px; height: 14px; }
-.menu-hamburger span {
-  display: block;
-  position: absolute;
-  height: 1.8px;
-  width: 100%;
-  background: currentColor;
-  border-radius: 2px;
-  left: 0;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+.menu-glyph {
+  flex-shrink: 0;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
 }
-.menu-hamburger span:nth-child(1) { top: 0; }
-.menu-hamburger span:nth-child(2) { top: 6px; width: 70%; }
-.menu-hamburger span:nth-child(3) { top: 12px; }
-.menu-hamburger.is-open span:nth-child(1) {
-  top: 6px; transform: rotate(45deg);
-}
-.menu-hamburger.is-open span:nth-child(2) {
-  opacity: 0; width: 0;
-}
-.menu-hamburger.is-open span:nth-child(3) {
-  top: 6px; transform: rotate(-45deg);
+.menu-glyph.is-open {
+  transform: rotate(90deg) scale(0.92);
 }
 `;
 
@@ -502,9 +533,7 @@ export default function MenuButton({ onOpenSearch }) {
           aria-expanded={open}
           style={{ color: isDesktopDark ? "#ffffff" : "rgba(0, 0, 0, 0.6)" }}
         >
-          <div className={`menu-hamburger${open ? " is-open" : ""}`}>
-            <span /><span /><span />
-          </div>
+          <MenuGlyph open={open} />
           <span>Menu</span>
         </button>
 
@@ -549,11 +578,7 @@ export default function MenuButton({ onOpenSearch }) {
           aria-label={open ? "Close menu" : "Open menu"}
           style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
         >
-          <div className={`menu-hamburger${open ? " is-open" : ""}`} style={{ width: 14, height: 11 }}>
-            <span style={{ height: 1.5 }} />
-            <span style={{ height: 1.5, top: 4.5, width: "70%" }} />
-            <span style={{ height: 1.5, top: 9 }} />
-          </div>
+          <MenuGlyph open={open} size={15} />
           <span>Menu</span>
         </button>
 

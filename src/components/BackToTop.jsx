@@ -52,11 +52,11 @@ export default function BackToTop() {
         /* Mobile sizing */
         @media (max-width: 767px) {
           .back-to-top-glass {
-            bottom: calc(20px + 56px + env(safe-area-inset-bottom, 0px));
-            right: 18px;
+            bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+            right: 14px;
             width: 44px;
             height: 44px;
-            z-index: 995;
+            z-index: 1001;
           }
         }
         @media (prefers-reduced-motion: reduce) {

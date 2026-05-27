@@ -446,12 +446,12 @@ textarea {
     min-height: 290px !important;
   }
   .products-section h2 { font-size: var(--heading-sm) !important; margin-bottom: 0.5rem !important; }
-  .products-section p  { font-size: var(--text-body) !important; line-height: 1.55 !important; margin-bottom: 1.5rem !important; }
+  .products-section .products-header p  { font-size: var(--text-body) !important; line-height: 1.55 !important; margin-bottom: 1.5rem !important; }
   /* Each product card: tighter image area + smaller text padding */
   .products-section .products-grid > * > div:first-child { padding-bottom: 60% !important; }
   .products-section .products-grid > * > div:last-child  { padding: 0.85rem !important; }
-  .products-section .products-grid h3 { font-size: var(--text-sm) !important; margin-bottom: 0.3rem !important; }
-  .products-section .products-grid p  { font-size: var(--text-xs) !important; line-height: 1.5 !important; margin-bottom: 0 !important; }
+  .products-section .products-grid h3 { font-size: 0.93rem !important; font-weight: 600 !important; line-height: 1.45 !important; margin-bottom: 0.55rem !important; }
+  .products-section .products-grid p  { font-size: 0.81rem !important; line-height: 1.72 !important; margin-bottom: 0 !important; }
 
   /* Hero mobile: hide spacer, centre everything */
   .hero-spacer     { display: none !important; }

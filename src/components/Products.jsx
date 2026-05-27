@@ -162,10 +162,19 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
       </div>
 
       <div style={{ padding: "1.35rem", flex: 1, display: "flex", flexDirection: "column" }}>
-        <h3 className="ks-card-title" style={{ marginBottom: "0.5rem", minHeight: "2.35em", display: "flex", alignItems: "flex-start" }}>
+        <h3 style={{
+          fontSize: "0.93rem",
+          fontWeight: 600,
+          color: "#2f315a",
+          lineHeight: 1.45,
+          marginBottom: "0.55rem",
+          minHeight: "2.35em",
+          display: "flex",
+          alignItems: "flex-start",
+        }}>
           {product.name}
         </h3>
-        <p className="ks-card-text" style={{ marginBottom: 0 }}>
+        <p style={{ fontSize: "0.81rem", color: "#6b6f91", lineHeight: 1.72, marginBottom: 0 }}>
           {product.desc}
         </p>
         {clickable && (
