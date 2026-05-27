@@ -423,7 +423,7 @@ const STYLES = `
 
 .menu-parent-count {
   align-items: center;
-  color: #9a7615;
+  color: #2f315a;
   display: inline-flex;
   flex-shrink: 0;
   font-size: 0.72rem;

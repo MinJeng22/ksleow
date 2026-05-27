@@ -135,7 +135,12 @@ function ServiceCard({ service }) {
   const hasFrontBackground = false;
 
   useEffect(() => {
-    setIsDelayedHover(isHovered);
+    if (isHovered) {
+      const timer = setTimeout(() => setIsDelayedHover(true), 500);
+      return () => clearTimeout(timer);
+    } else {
+      setIsDelayedHover(false);
+    }
   }, [isHovered]);
 
   useEffect(() => {
