@@ -161,10 +161,10 @@ export default function AutoCountTrialModal({ open, onClose }) {
           position: "relative",
         }}>
           <img className="trial-modal-logo" src={LOGO} alt="K.S. Leow Group" style={{ height: 64, objectFit: "contain", display: "block", margin: "0 auto 1.35rem" }} />
-          <div style={{ fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.13em", textTransform: "uppercase", color: "#e8c97a", marginBottom: "0.55rem", textAlign: "left" }}>
+          <div className="ks-eyebrow" style={{ color: "#e8c97a", textAlign: "left" }}>
             AutoCount Accounting 2.2
           </div>
-          <h2 style={{ fontSize: "clamp(1.65rem, 4vw, 2.15rem)", fontWeight: 800, lineHeight: 1.13, marginBottom: 0, textAlign: "left" }}>
+          <h2 className="ks-section-title" style={{ color: "#ffffff", lineHeight: 1.13, marginBottom: 0, textAlign: "left" }}>
             Start your Free Trial
           </h2>
         </div>
@@ -201,19 +201,9 @@ export default function AutoCountTrialModal({ open, onClose }) {
             href={SUPPORT_WA_LINK}
             target="_blank"
             rel="noreferrer"
+            className="ks-btn ks-btn-whatsapp ks-btn-block"
             style={{
-              width: "100%",
-              minHeight: 48,
-              borderRadius: 999,
-              background: "#25D366",
-              color: "#ffffff",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "0.55rem",
-              fontSize: "0.92rem",
               fontWeight: 800,
-              textDecoration: "none",
               boxShadow: "0 12px 28px rgba(37,211,102,0.24)",
             }}
           >

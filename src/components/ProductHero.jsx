@@ -91,19 +91,9 @@ export default function ProductHero({
       <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
         {/* Back button */}
         <button
-          className="product-hero-back product-hero-back-desktop"
+          className="product-hero-back product-hero-back-desktop ks-btn ks-btn-sm ks-btn-light"
           onClick={() => navigate("/")}
-          style={{
-            display: "inline-flex", alignItems: "center", gap: 6,
-            background: "rgba(255,255,255,0.1)",
-            border: "1px solid rgba(255,255,255,0.2)",
-            color: "rgba(255,255,255,0.75)",
-            padding: "0.4rem 1rem", borderRadius: 50,
-            fontSize: "0.8rem", cursor: "pointer", fontFamily: "inherit",
-            marginBottom: "2rem", transition: "background 0.2s",
-          }}
-          onMouseOver={e => e.currentTarget.style.background = "rgba(255,255,255,0.18)"}
-          onMouseOut ={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
+          style={{ marginBottom: "2rem" }}
         >Back</button>
 
         <div className="product-hero-row" style={{
@@ -116,19 +106,11 @@ export default function ProductHero({
             <div className="product-hero-mobile-topline">
               <LogoChip iconSrc={iconSrc} iconAlt={iconAlt} className="product-hero-icon-mobile" />
               <button
-                className="product-hero-back product-hero-back-mobile"
+                className="product-hero-back product-hero-back-mobile ks-btn ks-btn-sm ks-btn-light"
                 onClick={() => navigate("/")}
                 style={{
-                  display: "none", alignItems: "center", gap: 6,
-                  background: "rgba(255,255,255,0.1)",
-                  border: "1px solid rgba(255,255,255,0.2)",
-                  color: "rgba(255,255,255,0.75)",
-                  padding: "0.4rem 1rem", borderRadius: 50,
-                  fontSize: "0.8rem", cursor: "pointer", fontFamily: "inherit",
-                  transition: "background 0.2s",
+                  display: "none",
                 }}
-                onMouseOver={e => e.currentTarget.style.background = "rgba(255,255,255,0.18)"}
-                onMouseOut ={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
               >Back</button>
             </div>
             {/* Logo chip (optional) */}
@@ -136,26 +118,17 @@ export default function ProductHero({
 
             <div style={{ flex: 1, minWidth: 240 }}>
               {eyebrow && (
-                <div className="product-hero-eyebrow" style={{
-                  fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.12em",
-                  textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.5rem",
-                }}>
+                <div className="product-hero-eyebrow ks-eyebrow">
                   {eyebrow}
                 </div>
               )}
 
-              <h1 className="product-hero-title" style={{
-                fontSize: "clamp(1.8rem, 3.5vw, 2.8rem)", fontWeight: 700,
-                color: "#ffffff", lineHeight: 1.15, marginBottom: "1rem",
-              }}>
+              <h1 className="product-hero-title ks-hero-title" style={{ marginBottom: "1rem" }}>
                 {title}
               </h1>
 
               {body && (
-                <p className="product-hero-body" style={{
-                  fontSize: "1rem", color: "#ffffff",
-                  lineHeight: 1.78, maxWidth: 600, marginBottom: "1.5rem",
-                }}>
+                <p className="product-hero-body ks-body-text ks-body-light" style={{ maxWidth: 600, marginBottom: "1.5rem" }}>
                   {body}
                 </p>
               )}
@@ -177,22 +150,13 @@ export default function ProductHero({
  *   If cta.onClick → renders as <button>
  *   If cta.disabled → renders as inert button (no handler, default cursor) */
 function PrimaryButton({ cta }) {
-  const baseStyle = {
-    display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
-    background: "#c9a84c", color: "#1e2040",
-    padding: "0.75rem 2rem", borderRadius: 50,
-    fontSize: "0.9rem", fontWeight: 700,
-    fontFamily: "inherit", textDecoration: "none",
-    transition: "opacity 0.2s",
-  };
-  const hoverIn  = e => { if (!cta.disabled) e.currentTarget.style.opacity = "0.85"; };
-  const hoverOut = e => { if (!cta.disabled) e.currentTarget.style.opacity = "1"; };
   const icon = cta.icon ?? (cta.download ? <DownloadIcon /> : null);
 
   if (cta.disabled) {
     return (
       <button type="button" aria-disabled="true"
-        style={{ ...baseStyle, border: "none", cursor: "default" }}
+        className="ks-btn ks-btn-primary"
+        style={{ cursor: "default", opacity: 0.72 }}
       >
         {icon}
         {cta.label}
@@ -205,8 +169,7 @@ function PrimaryButton({ cta }) {
         download={cta.download || undefined}
         target={cta.target}
         rel={cta.target === "_blank" ? "noreferrer" : undefined}
-        style={baseStyle}
-        onMouseOver={hoverIn} onMouseOut={hoverOut}
+        className="ks-btn ks-btn-primary"
       >
         {icon}
         {cta.label}
@@ -215,8 +178,7 @@ function PrimaryButton({ cta }) {
   }
   return (
     <button type="button" onClick={cta.onClick}
-      style={{ ...baseStyle, border: "none", cursor: "pointer" }}
-      onMouseOver={hoverIn} onMouseOut={hoverOut}
+      className="ks-btn ks-btn-primary"
     >
       {icon}
       {cta.label}

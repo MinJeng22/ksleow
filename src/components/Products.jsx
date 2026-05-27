@@ -162,10 +162,10 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
       </div>
 
       <div style={{ padding: "1.35rem", flex: 1, display: "flex", flexDirection: "column" }}>
-        <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.5rem", minHeight: "2.35em", display: "flex", alignItems: "flex-start" }}>
+        <h3 className="ks-card-title" style={{ marginBottom: "0.5rem", minHeight: "2.35em", display: "flex", alignItems: "flex-start" }}>
           {product.name}
         </h3>
-        <p style={{ fontSize: "0.82rem", color: "#6b6f91", lineHeight: 1.66, marginBottom: 0 }}>
+        <p className="ks-card-text" style={{ marginBottom: 0 }}>
           {product.desc}
         </p>
         {clickable && (
@@ -311,13 +311,13 @@ export default function Products({ onContact }) {
       <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
         <div className="products-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "1.5rem", flexWrap: "wrap", marginBottom: "3rem" }}>
           <div style={{ maxWidth: 760 }}>
-            <div style={{ fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.75rem" }}>
+            <div className="ks-eyebrow" style={{ marginBottom: "0.75rem" }}>
               {productsContent.eyebrow}
             </div>
-            <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 700, color: "#ffffff", lineHeight: 1.2, marginBottom: "0.75rem" }}>
+            <h2 className="ks-section-title ks-section-title-lg" style={{ color: "#ffffff", marginBottom: "0.75rem" }}>
               {productsContent.heading}
             </h2>
-            <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.75, margin: 0 }}>
+            <p className="ks-body-text" style={{ color: "rgba(255,255,255,0.72)", margin: 0 }}>
               {productsContent.intro}
             </p>
           </div>

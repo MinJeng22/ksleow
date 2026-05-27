@@ -98,19 +98,12 @@ function CopyBtn({ onClick, gold = false }) {
     <button
       type="button"
       onClick={handle}
+      className="ks-btn ks-btn-sm ks-btn-muted"
       style={{
-        display: "inline-flex",
-        alignItems: "center",
         gap: "0.35rem",
         background: copied ? (gold ? "rgba(201,168,76,0.18)" : "rgba(47,49,90,0.1)") : "#fff",
         border: `1px solid ${gold ? "rgba(201,168,76,0.32)" : "rgba(47,49,90,0.14)"}`,
-        borderRadius: 50,
-        padding: "0.28rem 0.7rem",
         color: copied ? (gold ? "#8a6a10" : "#2f315a") : "#6b6f91",
-        cursor: "pointer",
-        fontFamily: "inherit",
-        fontSize: "0.66rem",
-        fontWeight: 700,
       }}
     >
       {copied ? "Copied" : "Copy"}
@@ -154,19 +147,11 @@ function ShareLinkButton({ params, hash, compact = false }) {
     <button
       type="button"
       onClick={handle}
+      className={`ks-btn ks-btn-muted ${compact ? "ks-btn-sm" : ""}`}
       style={{
-        display: "inline-flex",
-        alignItems: "center",
         gap: compact ? "0.32rem" : "0.45rem",
-        border: "1px solid rgba(47,49,90,0.16)",
         background: copied ? "rgba(201,168,76,0.16)" : "#ffffff",
         color: copied ? "#8a6a10" : "#2f315a",
-        borderRadius: 50,
-        padding: compact ? "0.25rem 0.72rem" : "0.48rem 1rem",
-        cursor: "pointer",
-        fontFamily: "inherit",
-        fontSize: compact ? "0.66rem" : "0.78rem",
-        fontWeight: 700,
       }}
     >
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
@@ -253,10 +238,10 @@ function FeatureHighlights() {
               <div style={{ width: 44, height: 44, marginBottom: "0.75rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Img src={feature.icon} alt="" style={{ maxWidth: 40, maxHeight: 40, objectFit: "contain" }} />
               </div>
-              <div style={{ fontSize: "0.88rem", fontWeight: 800, color: "#2f315a", marginBottom: "0.35rem" }}>
+              <div className="ks-card-title" style={{ marginBottom: "0.35rem" }}>
                 {feature.title}
               </div>
-              <div style={{ fontSize: "0.8rem", color: "#6b6f91", lineHeight: 1.62 }}>
+              <div className="ks-card-text">
                 {feature.desc}
               </div>
             </div>
@@ -277,9 +262,9 @@ function EditionTable({ selected = null, diffOnly = false }) {
   });
 
   return (
-    <div style={{ border: "1px solid rgba(47,49,90,0.08)", borderRadius: 14, overflow: "hidden", background: "#ffffff", boxShadow: "0 4px 20px rgba(47,49,90,0.05)" }}>
+    <div className="ks-panel" style={{ overflow: "hidden", boxShadow: "0 4px 20px rgba(47,49,90,0.05)" }}>
       <div style={{ overflowX: "auto", maxHeight: "min(72vh, 760px)", overflowY: "auto" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.84rem" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "var(--text-sm)" }}>
           <thead>
             <tr style={{ background: "#2f315a" }}>
               <th style={{ position: "sticky", top: 0, zIndex: 3, minWidth: 190, padding: "0.7rem", color: "#ffffff", textAlign: "left" }}></th>
@@ -541,13 +526,13 @@ export default function AutoCountCloudAccountingPage() {
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "2.4rem" }}>
 
-            <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", fontWeight: 800, color: "#2f315a", lineHeight: 1.2, marginBottom: "0.85rem" }}>
+            <h2 className="ks-section-title" style={{ marginBottom: "0.85rem" }}>
               Learn AutoCount CloudAccounting in Just 30 Minutes
             </h2>
-            <p style={{ fontSize: "0.95rem", color: "#6b6f91", lineHeight: 1.8, maxWidth: 620, margin: "0 auto 1.35rem" }}>
+            <p className="ks-body-text" style={{ maxWidth: 620, margin: "0 auto 1.35rem" }}>
               A fast orientation for owners and accounts teams who want to understand the workflow before starting a trial.
             </p>
-            <a href={TRAINING_URL} target="_blank" rel="noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", background: "#2f315a", color: "#ffffff", padding: "0.75rem 1.75rem", borderRadius: 50, fontSize: "0.88rem", fontWeight: 700, textDecoration: "none" }}>
+            <a href={TRAINING_URL} target="_blank" rel="noreferrer" className="ks-btn ks-btn-brand">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21" /></svg>
               Watch on YouTube
             </a>
@@ -583,35 +568,25 @@ export default function AutoCountCloudAccountingPage() {
       <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.7rem" }}>
-            <div style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#7AB317", marginBottom: "0.6rem" }}>
+            <div className="ks-eyebrow" style={{ color: "#7AB317" }}>
               Plans for Different Business Sizes
             </div>
-            <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", fontWeight: 800, color: "#2f315a", lineHeight: 1.2, marginBottom: "0.85rem" }}>
+            <h2 className="ks-section-title" style={{ marginBottom: "0.85rem" }}>
               Comparing 5 Editions of CloudAccounting
             </h2>
-            <p style={{ maxWidth: 680, margin: "0 auto", color: "#6b6f91", lineHeight: 1.75, fontSize: "0.92rem" }}>
+            <p className="ks-body-text" style={{ maxWidth: 680, margin: "0 auto" }}>
               Use Lite for simple billing, move to Plus or Pro when stock and branch control become important, or choose Accountant when managing multiple client books.
             </p>
           </div>
 
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.6rem" }}>
-            <div style={{ display: "flex", background: "#ffffff", borderRadius: 50, padding: 4, gap: 2, border: "1px solid rgba(47,49,90,0.08)" }}>
+            <div className="ks-tab-list">
               {[["browse", "Browse All Editions"], ["compare", "Compare Editions"]].map(([mode, label]) => (
                 <button
                   type="button"
                   key={mode}
                   onClick={() => setEditionCompareMode(mode === "compare")}
-                  style={{
-                    fontSize: "0.78rem",
-                    fontWeight: 700,
-                    padding: "0.45rem 1.15rem",
-                    borderRadius: 50,
-                    border: "none",
-                    cursor: "pointer",
-                    fontFamily: "inherit",
-                    background: (editionCompareMode ? "compare" : "browse") === mode ? "#2f315a" : "transparent",
-                    color: (editionCompareMode ? "compare" : "browse") === mode ? "#ffffff" : "#6b6f91",
-                  }}
+                  className={`ks-tab-button ${(editionCompareMode ? "compare" : "browse") === mode ? "is-active" : ""}`}
                 >
                   {label}
                 </button>
@@ -654,7 +629,7 @@ export default function AutoCountCloudAccountingPage() {
             diffOnly={editionCompareMode && editionA !== editionB && editionDiffOnly}
           />
 
-          <div style={{ marginTop: "1rem", fontSize: "0.76rem", color: "#8c90ad", lineHeight: 1.6, textAlign: "center" }}>
+          <div className="ks-note-text" style={{ marginTop: "1rem", textAlign: "center" }}>
             Prices shown are monthly public-plan references excluding SST. Confirm current promotion and edition fit with KSL before subscription.
           </div>
         </div>
@@ -667,31 +642,21 @@ export default function AutoCountCloudAccountingPage() {
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
             <div>
 
-              <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontWeight: 800, color: "#2f315a" }}>
+              <h2 className="ks-section-title">
                 Release Notes - CloudAccounting
               </h2>
-              <p style={{ fontSize: "0.85rem", color: "#6b6f91", marginTop: "0.35rem" }}>
+              <p className="ks-card-text" style={{ marginTop: "0.35rem" }}>
                 {RELEASES.length} releases - {highlightCount} with highlights - {RELEASES.at(-1)?.version} to {RELEASES[0]?.version} - Newest first
               </p>
             </div>
 
-            <div style={{ display: "flex", background: "#f0f0f5", borderRadius: 50, padding: 4, gap: 2 }}>
+            <div className="ks-tab-list" style={{ background: "#f0f0f5" }}>
               {[["browse", "Browse All"], ["compare", "Compare Versions"]].map(([mode, label]) => (
                 <button
                   type="button"
                   key={mode}
                   onClick={() => setCompareMode(mode === "compare")}
-                  style={{
-                    fontSize: "0.78rem",
-                    fontWeight: 700,
-                    padding: "0.4rem 1.1rem",
-                    borderRadius: 50,
-                    border: "none",
-                    cursor: "pointer",
-                    fontFamily: "inherit",
-                    background: (compareMode ? "compare" : "browse") === mode ? "#2f315a" : "transparent",
-                    color: (compareMode ? "compare" : "browse") === mode ? "#ffffff" : "#6b6f91",
-                  }}
+                  className={`ks-tab-button ${(compareMode ? "compare" : "browse") === mode ? "is-active" : ""}`}
                 >
                   {label}
                 </button>
@@ -718,13 +683,14 @@ export default function AutoCountCloudAccountingPage() {
                     placeholder="Search version or keyword..."
                     value={search}
                     onChange={(event) => setSearch(event.target.value)}
-                    style={{ width: "100%", paddingLeft: 34, paddingRight: 12, height: 38, borderRadius: 50, border: "1px solid rgba(47,49,90,0.18)", fontSize: "0.84rem", fontFamily: "inherit", color: "#2f315a", outline: "none" }}
+                    className="ks-field"
+                    style={{ paddingLeft: 34, paddingRight: 12, minHeight: 38, borderRadius: 50 }}
                   />
                 </div>
                 <button
                   type="button"
                   onClick={() => setExpanded(null)}
-                  style={{ fontSize: "0.78rem", color: "#6b6f91", background: "transparent", border: "1px solid rgba(47,49,90,0.15)", borderRadius: 50, padding: "0.4rem 0.95rem", cursor: "pointer", fontFamily: "inherit" }}
+                  className="ks-btn ks-btn-sm ks-btn-muted"
                 >
                   Collapse all
                 </button>
@@ -750,10 +716,10 @@ export default function AutoCountCloudAccountingPage() {
 
           <div style={{ marginTop: "2.5rem", padding: "1.25rem 1.5rem", borderRadius: 12, background: "rgba(47,49,90,0.04)", border: "1px solid rgba(47,49,90,0.08)", display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "0.85rem", fontWeight: 800, color: "#2f315a" }}>Official CloudAccounting release notes</div>
-              <div style={{ fontSize: "0.78rem", color: "#6b6f91", marginTop: 2 }}>Synced from AutoCount Cloud Accounting Help Centre forum topics.</div>
+              <div className="ks-card-title">Official CloudAccounting release notes</div>
+              <div className="ks-card-text" style={{ marginTop: 2 }}>Synced from AutoCount Cloud Accounting Help Centre forum topics.</div>
             </div>
-            <a href={OFFICIAL_RELEASE_URL} target="_blank" rel="noreferrer" style={{ background: "#2f315a", color: "#ffffff", padding: "0.6rem 1.4rem", borderRadius: 50, fontSize: "0.82rem", fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>
+            <a href={OFFICIAL_RELEASE_URL} target="_blank" rel="noreferrer" className="ks-btn ks-btn-sm ks-btn-brand">
               Official Forum
             </a>
           </div>
@@ -764,17 +730,17 @@ export default function AutoCountCloudAccountingPage() {
 
       <div style={{ background: "#2f315a", padding: "4rem 0" }}>
         <div className="content-wrap" style={{ textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontWeight: 800, color: "#ffffff", marginBottom: "0.75rem" }}>
+          <h2 className="ks-section-title" style={{ color: "#ffffff", marginBottom: "0.75rem" }}>
             Move accounting work into the cloud with proper guidance.
           </h2>
-          <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.66)", maxWidth: 540, margin: "0 auto 1.75rem", lineHeight: 1.75 }}>
+          <p className="ks-body-text" style={{ color: "rgba(255,255,255,0.66)", maxWidth: 540, margin: "0 auto 1.75rem" }}>
             KSL can help you choose the right edition, start the free trial, and prepare the account book for daily use.
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: "0.9rem", flexWrap: "wrap" }}>
-            <a href={WA_LINK} target="_blank" rel="noreferrer" style={{ display: "inline-block", background: "#c9a84c", color: "#1e2040", padding: "0.85rem 2.2rem", borderRadius: 50, fontSize: "0.95rem", fontWeight: 800, textDecoration: "none" }}>
+            <a href={WA_LINK} target="_blank" rel="noreferrer" className="ks-btn ks-btn-primary ks-btn-lg">
               WhatsApp KSL Support
             </a>
-            <a href={OFFICIAL_PRODUCT_URL} target="_blank" rel="noreferrer" style={{ display: "inline-block", background: "rgba(255,255,255,0.1)", color: "#ffffff", border: "1px solid rgba(255,255,255,0.22)", padding: "0.85rem 2.2rem", borderRadius: 50, fontSize: "0.95rem", fontWeight: 700, textDecoration: "none" }}>
+            <a href={OFFICIAL_PRODUCT_URL} target="_blank" rel="noreferrer" className="ks-btn ks-btn-light ks-btn-lg">
               Official Product Page
             </a>
           </div>
@@ -790,13 +756,14 @@ export default function AutoCountCloudAccountingPage() {
 function EditionSelect({ label, value, onChange }) {
   return (
     <div>
-      <label style={{ fontSize: "0.68rem", fontWeight: 700, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>
+      <label className="ks-control-label">
         {label}
       </label>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        style={{ width: "100%", height: 40, borderRadius: 10, border: "1px solid rgba(47,49,90,0.2)", padding: "0 0.85rem", fontSize: "0.88rem", fontFamily: "inherit", color: "#2f315a", background: "#ffffff", cursor: "pointer" }}
+        className="ks-field"
+        style={{ padding: "0 0.85rem", cursor: "pointer" }}
       >
         {EDITIONS.map((edition) => <option key={edition} value={edition}>{edition}</option>)}
       </select>
@@ -842,9 +809,9 @@ function ReleaseCompare({ compareA, setCompareA, compareB, setCompareB }) {
           { label: "New features", value: allFeatures.length, bg: "rgba(47,49,90,0.06)", color: "#2f315a" },
           { label: "Bug fixes", value: allFixes.length, bg: "rgba(201,168,76,0.1)", color: "#8a6a10" },
         ].map((item) => (
-          <div key={item.label} style={{ flex: 1, minWidth: 130, background: item.bg, borderRadius: 12, padding: "1rem 1.25rem" }}>
+          <div key={item.label} style={{ flex: 1, minWidth: 130, background: item.bg, borderRadius: "var(--radius-card)", padding: "1rem 1.25rem" }}>
             <div style={{ fontSize: "1.6rem", fontWeight: 800, color: item.color, lineHeight: 1 }}>{item.value}</div>
-            <div style={{ fontSize: "0.72rem", fontWeight: 700, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.07em", marginTop: 4 }}>{item.label}</div>
+            <div className="ks-control-label" style={{ marginTop: 4, marginBottom: 0 }}>{item.label}</div>
           </div>
         ))}
       </div>
@@ -870,13 +837,14 @@ function ReleaseCompare({ compareA, setCompareA, compareB, setCompareB }) {
 function ReleaseSelect({ label, value, onChange }) {
   return (
     <div>
-      <label style={{ fontSize: "0.68rem", fontWeight: 700, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>
+      <label className="ks-control-label">
         {label}
       </label>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        style={{ width: "100%", height: 40, borderRadius: 10, border: "1px solid rgba(47,49,90,0.2)", padding: "0 0.85rem", fontSize: "0.88rem", fontFamily: "inherit", color: "#2f315a", background: "#ffffff", cursor: "pointer" }}
+        className="ks-field"
+        style={{ padding: "0 0.85rem", cursor: "pointer" }}
       >
         {RELEASES.map((release) => (
           <option key={release.version} value={release.version}>{release.version} ({release.rev})</option>
@@ -889,7 +857,7 @@ function ReleaseSelect({ label, value, onChange }) {
 function CompareList({ title, items, type, copy }) {
   const gold = type === "fix";
   return (
-    <div style={{ background: "#ffffff", borderRadius: 14, padding: "1.4rem", border: "1px solid rgba(47,49,90,0.1)" }}>
+    <div className="ks-panel" style={{ padding: "1.4rem" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", gap: "0.75rem" }}>
         <div style={{ fontSize: "0.82rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: gold ? "#8a6a10" : "#2f315a" }}>
           {title}
