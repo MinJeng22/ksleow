@@ -154,13 +154,14 @@ const STYLES = `
   .mobile-float-bar {
     position: fixed;
     bottom: calc(20px + env(safe-area-inset-bottom, 0px));
-    left: 12px;
-    transform: translateX(0);
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1000;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 44px;
-    max-width: calc(100vw - 78px);
+    width: max-content;
     box-sizing: border-box;
     gap: 4px;
     padding: 4px;
@@ -186,7 +187,7 @@ const STYLES = `
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
     font-size: 0.76rem;
     font-weight: 600;
-    padding: 0 0.82rem;
+    padding: 0 0.6rem;
     border-radius: 100px;
     transition:
       background 0.25s ease,

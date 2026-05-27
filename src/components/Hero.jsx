@@ -76,7 +76,7 @@ export default function Hero({ onContact }) {
        *   stacks naturally in a single column, centred.
        */}
       <div
-        className="content-wrap"
+        className="content-wrap hero-content-wrap"
         style={{
           position: "relative", zIndex: 2,
           width: "100%",
