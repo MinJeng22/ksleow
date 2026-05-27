@@ -666,18 +666,6 @@ export default function MenuButton({ onOpenSearch }) {
 
         <button 
           className="mfb-btn" 
-          onClick={() => setOpen(!open)} 
-          aria-label={open ? "Close menu" : "Open menu"}
-          style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
-        >
-          <MenuGlyph open={open} size={15} />
-          <span>Menu</span>
-        </button>
-
-        <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
-
-        <button 
-          className="mfb-btn" 
           onClick={onOpenSearch} 
           aria-label="Search"
           style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
@@ -687,6 +675,18 @@ export default function MenuButton({ onOpenSearch }) {
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
           <span>Search</span>
+        </button>
+
+        <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
+
+        <button 
+          className="mfb-btn" 
+          onClick={() => setOpen(!open)} 
+          aria-label={open ? "Close menu" : "Open menu"}
+          style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
+        >
+          <MenuGlyph open={open} size={15} />
+          <span>Menu</span>
         </button>
 
         {showScrollTop && (
