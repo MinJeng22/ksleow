@@ -27,11 +27,6 @@ export default function BackToTop() {
           z-index: 500;
           --lg-height: 40px;
           --lg-px: 1.15rem;
-          font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-          font-weight: 600;
-          font-size: 0.82rem;
-          letter-spacing: 0.01em;
-          gap: 0.45rem;
           transition:
             opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
             transform 0.46s cubic-bezier(0.2, 1.18, 0.36, 1),
@@ -65,7 +60,7 @@ export default function BackToTop() {
       `}</style>
       <button
         ref={btnRef}
-        className={`back-to-top-glass lg-glass lg-glass-btn${visible ? " is-visible" : ""}`}
+        className={`back-to-top-glass lg-glass lg-glass-btn lg-glass-pill${visible ? " is-visible" : ""}`}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Back to top"
         title="Back to top"

@@ -1061,6 +1061,11 @@ body.supaprintz-modal-open .back-to-top {
   display: inline-flex;
   justify-content: center;
   padding: 0;
+  gap: var(--lg-gap, 0.45rem);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  font-size: var(--lg-font-size, 0.82rem);
+  font-weight: var(--lg-font-weight, 600);
+  letter-spacing: 0.01em;
   -webkit-tap-highlight-color: transparent;
   transform: var(--lg-rest-transform, translate3d(0,0,0) scale(1));
   transition:

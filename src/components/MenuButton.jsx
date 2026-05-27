@@ -110,14 +110,9 @@ const STYLES = `
   align-items: center;
   height: 40px;
   box-sizing: border-box;
-  gap: 0.45rem;
   border-radius: 100px;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.6);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
   transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   -webkit-tap-highlight-color: transparent;
   user-select: none;
