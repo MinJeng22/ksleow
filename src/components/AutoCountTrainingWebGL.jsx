@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const VIDEOS = [
   {
@@ -21,15 +21,233 @@ const VIDEOS = [
   }
 ];
 
+const getThumbnailUrl = (videoId) => `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+
+function createFallbackTexture(THREE) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1280;
+  canvas.height = 720;
+  const ctx = canvas.getContext('2d');
+  const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+  gradient.addColorStop(0, '#20255a');
+  gradient.addColorStop(1, '#0f1128');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#e8c97a';
+  ctx.beginPath();
+  ctx.moveTo(570, 280);
+  ctx.lineTo(570, 440);
+  ctx.lineTo(710, 360);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.82)';
+  ctx.font = '700 44px system-ui, -apple-system, Segoe UI, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('AutoCount Tutorial', canvas.width / 2, 510);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+function UnfurlingClothReveal({ videoId, onComplete }) {
+  const mountRef = useRef(null);
+  const onCompleteRef = useRef(onComplete);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  useEffect(() => {
+    const mount = mountRef.current;
+    if (!mount) return undefined;
+
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      const timer = window.setTimeout(() => onCompleteRef.current?.(), 80);
+      return () => window.clearTimeout(timer);
+    }
+
+    let disposed = false;
+    let frameId = 0;
+    let finishTimer = 0;
+    let finished = false;
+    let renderer = null;
+    let geometry = null;
+    let material = null;
+    const cleanup = [];
+
+    (async () => {
+      try {
+        const THREE = await import('three');
+        if (disposed) return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(36, 16 / 9, 0.1, 100);
+        camera.position.set(0, 0, 4.25);
+
+        renderer = new THREE.WebGLRenderer({
+          alpha: true,
+          antialias: true,
+          preserveDrawingBuffer: true,
+          powerPreference: 'high-performance',
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.domElement.style.width = '100%';
+        renderer.domElement.style.height = '100%';
+        renderer.domElement.style.display = 'block';
+        mount.appendChild(renderer.domElement);
+
+        const clothWidth = 3.4;
+        const clothHeight = clothWidth * 9 / 16;
+        geometry = new THREE.PlaneGeometry(clothWidth, clothHeight, 72, 40);
+        const basePositions = geometry.attributes.position.array.slice();
+        material = new THREE.MeshStandardMaterial({
+          map: createFallbackTexture(THREE),
+          side: THREE.DoubleSide,
+          roughness: 0.72,
+          metalness: 0.02,
+          transparent: true,
+          opacity: 0.98,
+        });
+        const cloth = new THREE.Mesh(geometry, material);
+        scene.add(cloth);
+
+        const ambient = new THREE.AmbientLight(0xffffff, 1.9);
+        const key = new THREE.DirectionalLight(0xffffff, 1.6);
+        key.position.set(2.3, 2.2, 4);
+        scene.add(ambient, key);
+
+        const loader = new THREE.TextureLoader();
+        loader.setCrossOrigin('anonymous');
+        loader.load(
+          getThumbnailUrl(videoId),
+          (texture) => {
+            if (disposed) {
+              texture.dispose();
+              return;
+            }
+            texture.colorSpace = THREE.SRGBColorSpace;
+            texture.anisotropy = Math.min(renderer?.capabilities.getMaxAnisotropy() || 1, 8);
+            texture.needsUpdate = true;
+            material?.map?.dispose?.();
+            material.map = texture;
+            material.needsUpdate = true;
+          },
+          undefined,
+          () => {}
+        );
+
+        const setSize = () => {
+          if (!renderer) return;
+          const rect = mount.getBoundingClientRect();
+          const nextWidth = Math.max(1, rect.width);
+          const nextHeight = Math.max(1, rect.height);
+          renderer.setSize(nextWidth, nextHeight, false);
+          camera.aspect = nextWidth / nextHeight;
+          camera.updateProjectionMatrix();
+        };
+        setSize();
+        window.addEventListener('resize', setSize, { passive: true });
+        cleanup.push(() => window.removeEventListener('resize', setSize));
+
+        const easeOutBack = (t) => {
+          const c1 = 1.42;
+          const c3 = c1 + 1;
+          return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+        };
+        const easeInOut = (t) => t < 0.5
+          ? 4 * t * t * t
+          : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+        const duration = 1250;
+        const start = performance.now();
+
+        const animate = (now) => {
+          if (disposed || !geometry || !renderer || !material) return;
+
+          const elapsed = now - start;
+          const t = Math.min(elapsed / duration, 1);
+          const unfold = Math.min(Math.max(easeOutBack(t), 0), 1.035);
+          const settle = Math.max(0, (t - 0.72) / 0.28);
+          const wave = (1 - easeInOut(t)) * (1 - settle * 0.55);
+          const positions = geometry.attributes.position.array;
+
+          for (let i = 0; i < positions.length; i += 3) {
+            const x = basePositions[i];
+            const y = basePositions[i + 1];
+            const u = x / clothWidth + 0.5;
+            const v = y / clothHeight + 0.5;
+            const reveal = Math.min(1, Math.max(0, unfold - u * 0.08));
+            const widthScale = 0.24 + 0.76 * reveal;
+            const heightScale = 0.34 + 0.66 * reveal;
+            const edgeCurl = Math.sin(u * Math.PI) * Math.sin(v * Math.PI);
+            const ripple = Math.sin((u * 3.8 + t * 2.1) * Math.PI) * Math.sin((v + 0.18) * Math.PI);
+
+            positions[i] = x * widthScale + ripple * wave * 0.085;
+            positions[i + 1] = y * heightScale + Math.sin((u * 1.6 + t) * Math.PI) * wave * 0.12;
+            positions[i + 2] = edgeCurl * wave * 0.52 + ripple * wave * 0.16 - (1 - reveal) * 0.18;
+          }
+
+          geometry.attributes.position.needsUpdate = true;
+          geometry.computeVertexNormals();
+
+          cloth.rotation.x = -0.24 * wave;
+          cloth.rotation.y = 0.12 * wave;
+          cloth.rotation.z = -0.035 * wave;
+          cloth.scale.setScalar(0.9 + 0.1 * easeInOut(t));
+
+          renderer.render(scene, camera);
+
+          if (t < 1) {
+            frameId = window.requestAnimationFrame(animate);
+          } else if (!finished) {
+            finished = true;
+            finishTimer = window.setTimeout(() => onCompleteRef.current?.(), 120);
+          }
+        };
+        frameId = window.requestAnimationFrame(animate);
+      } catch {
+        if (!disposed && !finished) {
+          finished = true;
+          finishTimer = window.setTimeout(() => onCompleteRef.current?.(), 120);
+        }
+      }
+    })();
+
+    return () => {
+      disposed = true;
+      finished = true;
+      window.cancelAnimationFrame(frameId);
+      window.clearTimeout(finishTimer);
+      cleanup.forEach((fn) => fn());
+      if (renderer?.domElement?.parentNode === mount) mount.removeChild(renderer.domElement);
+      geometry?.dispose();
+      material?.map?.dispose?.();
+      material?.dispose();
+      renderer?.dispose();
+    };
+  }, [videoId]);
+
+  return (
+    <div className="cloth-reveal-stage" ref={mountRef}>
+      <div className="cloth-reveal-label">Opening tutorial...</div>
+    </div>
+  );
+}
+
 export default function AutoCountTrainingWebGL() {
   const [activeVideo, setActiveVideo] = useState(VIDEOS[0].id);
   const [showIframe, setShowIframe] = useState(false);
+  const [isUnfurling, setIsUnfurling] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const videoRef = useRef(null);
   const sectionRef = useRef(null);
 
   const handlePlay = () => {
-    setShowIframe(true);
+    setIsClosing(false);
+    setIsUnfurling(true);
+    setShowIframe(false);
     setTimeout(() => {
       if (videoRef.current) {
         const y = videoRef.current.getBoundingClientRect().top + window.scrollY - 80;
@@ -40,6 +258,7 @@ export default function AutoCountTrainingWebGL() {
 
   const handleClose = () => {
     setIsClosing(true);
+    setIsUnfurling(false);
     if (sectionRef.current) {
       const y = sectionRef.current.getBoundingClientRect().top + window.scrollY - 60;
       window.scrollTo({ top: y, behavior: 'smooth' });
@@ -86,6 +305,29 @@ export default function AutoCountTrainingWebGL() {
         }
         .ipad-frame:hover {
           transform: scale(1.02);
+        }
+        .cloth-reveal-stage {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 16/9;
+          border-radius: 18px;
+          overflow: hidden;
+          background:
+            radial-gradient(circle at 50% 28%, rgba(232,201,122,0.15), transparent 34%),
+            #0f1128;
+          box-shadow: 0 20px 60px rgba(15,17,40,0.12);
+        }
+        .cloth-reveal-label {
+          position: absolute;
+          left: 50%;
+          bottom: 1rem;
+          transform: translateX(-50%);
+          color: rgba(255,255,255,0.72);
+          font-size: 0.72rem;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          pointer-events: none;
         }
         @media (max-width: 760px) {
           .ipad-frame {
@@ -163,6 +405,22 @@ export default function AutoCountTrainingWebGL() {
               />
             </div>
           </div>
+        ) : isUnfurling ? (
+          <div
+            ref={videoRef}
+            style={{
+              width: '100%',
+              animation: 'videoExpand 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+            }}
+          >
+            <UnfurlingClothReveal
+              videoId={activeVideo}
+              onComplete={() => {
+                setIsUnfurling(false);
+                setShowIframe(true);
+              }}
+            />
+          </div>
         ) : (
           /* ── Layout 1: Video thumbnail (left) + description (right) ── */
           <>
@@ -182,9 +440,11 @@ export default function AutoCountTrainingWebGL() {
                   position: 'relative',
                 }}>
                   <img
-                    src={`https://i.ytimg.com/vi/${activeVideo}/maxresdefault.jpg`}
+                    src={getThumbnailUrl(activeVideo)}
                     alt="AutoCount Tutorial"
                     loading="lazy"
+                    crossOrigin="anonymous"
+                    decoding="async"
                     style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)', display: 'grid', placeItems: 'center' }}>
