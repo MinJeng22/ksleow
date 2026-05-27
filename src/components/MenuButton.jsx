@@ -532,12 +532,17 @@ const STYLES = `
 .menu-sub-label {
   min-width: 0;
 }
-.menu-sub-item:hover {
-  background: rgba(255, 255, 255, 0.68);
-  color: #2f315a;
-  box-shadow: 0 8px 18px rgba(47,49,90,0.07);
+@media (hover: hover) and (pointer: fine) {
+  .menu-sub-item:hover {
+    background: rgba(255, 255, 255, 0.68);
+    color: #2f315a;
+    box-shadow: 0 8px 18px rgba(47,49,90,0.07);
+  }
+  .menu-sub-item:hover .menu-sub-icon {
+    color: #9a7615;
+    transform: scale(1.02);
+  }
 }
-.menu-sub-item:hover .menu-sub-icon,
 .menu-sub-item.is-active .menu-sub-icon {
   color: #9a7615;
   transform: scale(1.02);

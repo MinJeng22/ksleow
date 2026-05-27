@@ -1,75 +1,119 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from "react";
+
+const DARK_SELECTORS = [
+  "#hero",
+  ".product-hero",
+  ".products-section",
+  "footer",
+];
+
+const LIGHT_SELECTORS = [
+  "#services",
+  "#other-services",
+  ".home-section:not(.products-section)",
+];
+
+function getLuminance(r, g, b) {
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+}
+
+function parseRgbValues(value) {
+  if (!value || value === "none" || value === "transparent") return [];
+  return [...value.matchAll(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([.\d]+))?\)/g)]
+    .map((match) => ({
+      r: Number(match[1]),
+      g: Number(match[2]),
+      b: Number(match[3]),
+      a: match[4] === undefined ? 1 : Number(match[4]),
+    }))
+    .filter((color) => color.a > 0.18);
+}
+
+function backgroundLuminanceFromElement(element) {
+  let current = element;
+
+  while (current && current !== document.documentElement) {
+    if (current.closest(DARK_SELECTORS.join(","))) return 0.12;
+    if (current.closest(LIGHT_SELECTORS.join(","))) return 0.92;
+
+    const style = window.getComputedStyle(current);
+    const colors = [
+      ...parseRgbValues(style.backgroundColor),
+      ...parseRgbValues(style.backgroundImage),
+    ];
+
+    if (colors.length > 0) {
+      const total = colors.reduce((sum, color) => sum + getLuminance(color.r, color.g, color.b), 0);
+      return total / colors.length;
+    }
+
+    current = current.parentElement;
+  }
+
+  return 0.92;
+}
 
 export default function useDarkBg(ref) {
-  const [isDark, setIsDark] = useState(true); // Default to true because top of page (Hero) is always dark
+  const [isDark, setIsDark] = useState(true);
+  const lastValueRef = useRef(true);
 
   useEffect(() => {
     let ticking = false;
+
     const checkBg = () => {
-      if (!ref.current) return;
-      
-      const rect = ref.current.getBoundingClientRect();
-      // If element is hidden (display: none), width/height are 0
+      const node = ref.current;
+      if (!node) return;
+
+      const rect = node.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) return;
-      
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
-      
-      const originalPointerEvents = ref.current.style.pointerEvents;
-      ref.current.style.pointerEvents = 'none';
-      const el = document.elementFromPoint(x, y);
-      ref.current.style.pointerEvents = originalPointerEvents;
-      
-      if (el) {
-        // Fast path for known dark sections
-        if (el.closest('#hero') || el.closest('.product-hero') || el.closest('.products-section') || el.closest('footer')) {
-          setIsDark(true);
-          return;
-        }
-        
-        // Compute background color hierarchy
-        let currentEl = el;
-        let foundDark = false;
-        while (currentEl && currentEl !== document.documentElement) {
-          const style = window.getComputedStyle(currentEl);
-          const bgColor = style.backgroundColor;
-          if (bgColor !== 'rgba(0, 0, 0, 0)' && bgColor !== 'transparent') {
-            const match = bgColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-            if (match) {
-              const r = parseInt(match[1]);
-              const g = parseInt(match[2]);
-              const b = parseInt(match[3]);
-              // Relative luminance
-              const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-              foundDark = luminance < 0.5;
-            }
-            break;
-          }
-          currentEl = currentEl.parentElement;
-        }
-        setIsDark(foundDark);
+
+      const insetX = Math.min(10, rect.width / 4);
+      const insetY = Math.min(10, rect.height / 4);
+      const points = [
+        [rect.left + rect.width / 2, rect.top + rect.height / 2],
+        [rect.left + insetX, rect.top + rect.height / 2],
+        [rect.right - insetX, rect.top + rect.height / 2],
+        [rect.left + rect.width / 2, rect.top + insetY],
+        [rect.left + rect.width / 2, rect.bottom - insetY],
+      ];
+
+      const luminanceSamples = points
+        .map(([x, y]) => {
+          const elements = document.elementsFromPoint(x, y);
+          const underlying = elements.find((element) => !node.contains(element) && element !== node);
+          return underlying ? backgroundLuminanceFromElement(underlying) : null;
+        })
+        .filter((value) => typeof value === "number");
+
+      if (luminanceSamples.length === 0) return;
+
+      const darkVotes = luminanceSamples.filter((value) => value < 0.54).length;
+      const nextValue = darkVotes >= Math.ceil(luminanceSamples.length / 2);
+      if (nextValue !== lastValueRef.current) {
+        lastValueRef.current = nextValue;
+        setIsDark(nextValue);
       }
     };
 
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          checkBg();
-          ticking = false;
-        });
-        ticking = true;
-      }
+    const scheduleCheck = () => {
+      if (ticking) return;
+      window.requestAnimationFrame(() => {
+        checkBg();
+        ticking = false;
+      });
+      ticking = true;
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll, { passive: true });
-    
-    // Check initially
-    setTimeout(checkBg, 100);
-    
+    window.addEventListener("scroll", scheduleCheck, { passive: true });
+    window.addEventListener("resize", scheduleCheck, { passive: true });
+
+    scheduleCheck();
+    const initialTimer = window.setTimeout(scheduleCheck, 120);
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
+      window.clearTimeout(initialTimer);
+      window.removeEventListener("scroll", scheduleCheck);
+      window.removeEventListener("resize", scheduleCheck);
     };
   }, [ref]);
 
