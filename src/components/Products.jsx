@@ -373,25 +373,35 @@ export default function Products({ onContact }) {
           </div>
         </div>
 
+
         <div style={{ marginTop: "3rem", display: "flex", justifyContent: "center", alignItems: "center", gap: "14px" }}>
           <div style={{ 
             display: "flex", alignItems: "center", gap: "10px", 
             background: "rgba(255,255,255,0.06)", padding: "0 18px", height: "var(--btn-h-lg)", borderRadius: "var(--radius-pill)"
           }}>
-            {PRODUCTS.map((_, i) => (
+            {PRODUCTS.map((_, i) => {
+              const isActive = i === progressIndex;
+              const isVisible = (() => {
+                for (let j = 0; j < visibleCount; j++) {
+                  if ((progressIndex + j) % PRODUCTS.length === i) return true;
+                }
+                return false;
+              })();
+
+              return (
               <div
                 key={i}
                 style={{
-                  width: i === progressIndex ? "40px" : "16px",
+                  width: isActive ? "40px" : "16px",
                   height: "8px",
                   borderRadius: "4px",
-                  background: "rgba(255,255,255,0.2)",
+                  background: isVisible && !isActive ? "#ffffff" : "rgba(255,255,255,0.2)",
                   transition: "all 0.4s cubic-bezier(0.22, 1, 0.36, 1)",
                   position: "relative",
                   overflow: "hidden"
                 }}
               >
-                {i === progressIndex && (
+                {isActive && (
                   <div
                     key={`progress-${progressIndex}-${isPlaying ? 'play' : 'pause'}`}
                     style={{
@@ -407,13 +417,12 @@ export default function Products({ onContact }) {
                   />
                 )}
               </div>
-            ))}
+            )})}
           </div>
           <button
             onClick={() => setIsPlaying(!isPlaying)}
             style={{
               width: "var(--btn-h-lg)", height: "var(--btn-h-lg)", borderRadius: "50%",
-              background: "rgba(255,255,255,0.06)", border: "none",
               display: "flex", alignItems: "center", justifyContent: "center",
               cursor: "pointer", color: "#ffffff",
               transition: "background 0.2s"
