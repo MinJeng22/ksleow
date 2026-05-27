@@ -61,7 +61,7 @@
       "name": "AutoCount OneSale",
       "desc": "Omnichannel sales management seamlessly integrated with AutoCount.",
       "image": "/images/products/autocount-onesales.png",
-      "background": "",
+      "background": "/images/products/autocount-onesale.png",
       "placeholder": "🛍️",
       "gradient": "rgb(255, 240, 240)",
       "route": ""
