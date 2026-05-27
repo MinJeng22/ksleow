@@ -656,13 +656,17 @@ export default function MenuButton({ onOpenSearch }) {
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
+                ) : showScrollTop ? (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="18 15 12 9 6 15" />
+                  </svg>
                 ) : (
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="15 18 9 12 15 6"></polyline>
                   </svg>
                 )}
               </span>
-              <span className="mfb-action-label">{mobileActionMode === "scroll" ? "Scroll" : "Back"}</span>
+              <span className="mfb-action-label">{mobileActionMode === "scroll" ? "Scroll" : (showScrollTop ? "To Top" : "Back")}</span>
             </button>
             <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
           </>

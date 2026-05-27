@@ -27,6 +27,10 @@ export default function BackToTop() {
           z-index: 500;
           --lg-height: 44px;
           --lg-px: 1.15rem;
+          font-weight: 500;
+          font-size: 0.9rem;
+          letter-spacing: 0.01em;
+          gap: 8px;
           transition:
             opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
             transform 0.46s cubic-bezier(0.2, 1.18, 0.36, 1),
