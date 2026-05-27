@@ -82,14 +82,27 @@ const STYLES = `
   top: 1.6rem;
   right: 2rem;
 }
+.top-left-controls {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  top: 1.6rem;
+  left: 2rem;
+}
 @media (min-width: 768px) and (max-width: 1023px) {
   .top-right-controls {
     top: 1.2rem;
     right: 2rem;
   }
+  .top-left-controls {
+    top: 1.2rem;
+    left: 2rem;
+  }
 }
 @media (max-width: 767px) {
-  .top-right-controls { display: none !important; }
+  .top-right-controls, .top-left-controls { display: none !important; }
 }
 
 .menu-fab, .search-fab, .back-fab {
@@ -448,10 +461,12 @@ export default function MenuButton({ onOpenSearch }) {
   const [expandedMobile, setExpandedMobile] = useState([0]);
   const panelRef = useRef(null);
   const fabRef = useRef(null);
+  const leftFabRef = useRef(null);
   const mobileBarRef = useRef(null);
   const hoverTimeoutRef = useRef(null);
 
   const isDesktopDark = useDarkBg(fabRef);
+  const isLeftDesktopDark = useDarkBg(leftFabRef);
   const isMobileDark = useDarkBg(mobileBarRef);
 
   const navigate = useNavigate();
@@ -603,55 +618,31 @@ export default function MenuButton({ onOpenSearch }) {
           <MenuGlyph open={open} />
           <span>Menu</span>
         </button>
+      </div>
 
-        {hasHistory && (
+      {hasHistory && (
+        <div className="top-left-controls" ref={leftFabRef}>
           <button
             className="back-fab lg-glass lg-glass-btn"
             onClick={() => navigate(-1)}
             aria-label="Back"
-            style={{ color: isDesktopDark ? "#ffffff" : "rgba(0, 0, 0, 0.6)" }}
+            style={{ color: isLeftDesktopDark ? "#ffffff" : "rgba(0, 0, 0, 0.6)" }}
           >
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
             <span>Back</span>
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* ── Mobile floating bar ───────────────────────── */}
       <div
         ref={mobileBarRef}
         className={`mobile-float-bar lg-glass${showScrollTop && mobileActionMode === "back" ? " has-scrolltop" : ""}`}
       >
-        <button 
-          className="mfb-btn" 
-          onClick={onOpenSearch} 
-          aria-label="Search"
-          style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
-        >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <span>Search</span>
-        </button>
-
-        <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
-
-        <button 
-          className="mfb-btn" 
-          onClick={() => setOpen(!open)} 
-          aria-label={open ? "Close menu" : "Open menu"}
-          style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
-        >
-          <MenuGlyph open={open} size={15} />
-          <span>Menu</span>
-        </button>
-
         {mobileActionMode && (
           <>
-            <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
             <button
               key={mobileActionMode}
               className="mfb-btn mfb-action"
@@ -673,8 +664,34 @@ export default function MenuButton({ onOpenSearch }) {
               </span>
               <span className="mfb-action-label">{mobileActionMode === "scroll" ? "Scroll" : "Back"}</span>
             </button>
+            <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
           </>
         )}
+
+        <button 
+          className="mfb-btn" 
+          onClick={() => setOpen(!open)} 
+          aria-label={open ? "Close menu" : "Open menu"}
+          style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
+        >
+          <MenuGlyph open={open} size={15} />
+          <span>Menu</span>
+        </button>
+
+        <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
+
+        <button 
+          className="mfb-btn" 
+          onClick={onOpenSearch} 
+          aria-label="Search"
+          style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>Search</span>
+        </button>
       </div>
 
       {/* ── Backdrop (mobile only) ─────────────────────── */}
