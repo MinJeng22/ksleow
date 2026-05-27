@@ -41,10 +41,10 @@
           "h": 60
         },
         {
-          "src": "/images/services/maicsa.png",
+          "src": "/images/services/maicsa-logo.png",
           "alt": "cert",
           "h": 60,
-          "hoverSrc": "/images/services/maicsa-white.png"
+          "hoverSrc": "/images/services/maicsa-white-logo.png"
         }
       ]
     },
