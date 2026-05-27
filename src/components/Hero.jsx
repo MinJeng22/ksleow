@@ -95,22 +95,20 @@ export default function Hero({ onContact }) {
 
         {/* Logo */}
         <div style={{ marginBottom: "1.1rem" }}>
-          <a href="/" onClick={() => window.scrollTo(0, 0)} style={{ display: "inline-block" }}>
-            <img
-              src={branding.heroLogo || LOGO_HERO}
-              alt="KSL Business Solutions"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              style={{
-                height: logoH,
-                objectFit: "contain",
-                display: "block",
-                /* Don't invert when admin uploaded a custom logo (likely already on dark) */
-                filter: branding.heroLogo ? "none" : "brightness(0) invert(1)",
-              }}
-            />
-          </a>
+          <img
+            src={branding.heroLogo || LOGO_HERO}
+            alt="KSL Business Solutions"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            style={{
+              height: logoH,
+              objectFit: "contain",
+              display: "block",
+              /* Don't invert when admin uploaded a custom logo (likely already on dark) */
+              filter: branding.heroLogo ? "none" : "brightness(0) invert(1)",
+            }}
+          />
         </div>
 
         {/* ── Badge — directly below logo ── */}
