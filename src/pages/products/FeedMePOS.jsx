@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
-import SectionDivider, { IconLayers, IconLink, IconHandshake } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconLayers, IconLink, IconHandshake, IconStar } from "../../components/SectionDivider.jsx";
 
 /* FeedMe POS page — product-aware WhatsApp link to Sales Agent Elise */
 const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
@@ -14,10 +14,10 @@ const FEEDME_LOGO = "/images/logos/feedme-logo.png";
 
 /* Sidebar anchors */
 const SIDEBAR_ITEMS = [
-  { id: "features",     label: "Features"        },
-  { id: "modules",      label: "Modules"         },
-  { id: "integration",  label: "AutoCount Sync"  },
-  { id: "why-ksl",      label: "Why KSL"         },
+  { id: "features",     label: "Features",        icon: IconStar },
+  { id: "modules",      label: "Modules",         icon: IconLayers },
+  { id: "integration",  label: "AutoCount Sync",  icon: IconLink },
+  { id: "why-ksl",      label: "Why KSL",         icon: IconHandshake },
 ];
 
 /* ── Shared style tokens (lifted from AutoCount page for visual parity) ── */

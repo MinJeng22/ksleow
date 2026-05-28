@@ -11,7 +11,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 import AIChatbot from "../../components/AIChatbot.jsx";
 import sales2doContent from "../../content/sales2do.json";
 import acPluginIcon     from "../../assets/images/apps/ac-plugin-icon.png";
-import SectionDivider, { IconClipboard, IconSettings, IconStar, IconShield } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconClipboard, IconSettings, IconStar, IconShield, IconVideo } from "../../components/SectionDivider.jsx";
 import imgOutstanding   from "../../assets/images/apps/sales2do/outstanding.png";
 import imgPreset        from "../../assets/images/apps/sales2do/preset-delivery.png";
 import imgSettings      from "../../assets/images/apps/sales2do/settings.png";
@@ -24,11 +24,11 @@ import imgLicenseOffline from "../../assets/images/apps/sales2do/license-online.
 
 /* Sales2DO sidebar anchor items */
 const S2D_SIDEBAR_ITEMS = [
-  { id: "overview",    label: "Overview"       },
-  { id: "outstanding", label: "Outstanding DO" },
-  { id: "preset",      label: "Preset"         },
-  { id: "settings",    label: "Settings"       },
-  { id: "license",     label: "License"        },
+  { id: "overview",    label: "Overview",       icon: IconVideo },
+  { id: "outstanding", label: "Outstanding DO", icon: IconClipboard },
+  { id: "preset",      label: "Preset",         icon: IconStar },
+  { id: "settings",    label: "Settings",       icon: IconSettings },
+  { id: "license",     label: "License",        icon: IconShield },
 ];
 
 /* ── Video segments ── */

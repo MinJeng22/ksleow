@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
-import SectionDivider, { IconLedger, IconVideo, IconGrid } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconLedger, IconVideo, IconGrid, IconStar } from "../../components/SectionDivider.jsx";
 import ParticleBackground from "../../components/ParticleBackground.jsx";
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
@@ -531,49 +531,33 @@ function EditionsTable({ selected = null, diffOnly = false }) {
   );
 }
 
-/* AutoCount feature orbit with hover-revealed descriptions. */
+/* AutoCount feature highlights. */
 const FEATURES = [
   {
-    side: "left",
-    slot: "top",
-    title: "30 Years of Experience",
-    desc: "Mature accounting software shaped by long-term SME requirements, continuous refinement, and practical implementation experience.",
+    icon: "/images/services/lhdn-logo.png",
+    title: "SST & e-Invoice Ready",
+    desc: "Prepared for Malaysia SST and LHDN MyInvois workflows, with accounting controls that help your team handle compliance work with less friction.",
   },
   {
-    side: "left",
-    slot: "middle",
-    title: "Affordability, Flexibility & Extensibility",
-    desc: "Start with the edition your business needs today, then expand with modules, plugins, and custom workflows as operations grow.",
+    icon: "/images/icons/integration-icon.png",
+    title: "Integrated Operations",
+    desc: "Connect accounting with POS, inventory, payroll, and custom business workflows so daily transactions stay traceable from front counter to ledger.",
   },
   {
-    side: "left",
-    slot: "bottom",
-    title: "Guaranteed Customer Support",
-    desc: "KSL provides setup guidance, user training, and ongoing troubleshooting so your team can use AutoCount with confidence.",
+    icon: "/images/branding/ksl-logo-circle.webp",
+    title: "Prompt Technical Support",
+    desc: "KSL helps with setup, user guidance, troubleshooting, and practical usage questions so your team can keep operating without unnecessary downtime.",
   },
   {
-    side: "right",
-    slot: "top",
-    title: "Extensive Service Network",
-    desc: "AutoCount is supported by a wide authorized dealer network, with local KSL support for companies across Pahang.",
-  },
-  {
-    side: "right",
-    slot: "middle",
-    title: "Continuous Development",
-    desc: "Frequent updates help the platform keep pace with SST, e-Invoice, reporting, security, and day-to-day business requirements.",
-  },
-  {
-    side: "right",
-    slot: "bottom",
-    title: "Advanced Technologies",
-    desc: "Built for modern accounting workflows with integrations, automation options, and scalable tools for long-term operations.",
+    icon: "/images/icons/ac-plugin-icon.png",
+    title: "Highly Extensible",
+    desc: "Supports plugins, custom fields, scripting, and tailored automation, making AutoCount adaptable to the way your company actually works.",
   },
 ];
 
 function FeatureHighlights() {
   const gridRef = useRef(null);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(true);
   useEffect(() => {
     const node = gridRef.current;
     if (!node) return;
@@ -589,26 +573,41 @@ function FeatureHighlights() {
   }, []);
 
   return (
-    <div id="features" className="ac-section-tight ac-features-showcase" style={{ background: "#ffffff", scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
+    <div id="features" className="ac-section-tight ac-features-showcase" style={{ scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
       <div className="content-wrap">
-        <div ref={gridRef} className={`ac-features-orbit${inView ? " is-in-view" : ""}`}>
-          <div className="ac-features-center" aria-hidden="true">
-            <div className="ac-features-center-card">
+        <div ref={gridRef} className={`ac-features-panel${inView ? " is-in-view" : ""}`}>
+          <div className="ac-features-header">
+            <div className="ac-features-brand">
               <Img src="/images/logos/autocount-logo.png" alt="AutoCount" className="ac-features-logo" />
+            </div>
+            <div>
+              <span className="ac-features-kicker">AutoCount Features</span>
+              <h2 className="ac-features-heading">Built for reliable SME accounting operations</h2>
+              <p className="ac-features-copy">
+                Core capabilities that matter after go-live: compliance readiness,
+                connected workflows, dependable support, and room to customise.
+              </p>
             </div>
           </div>
 
-          {FEATURES.map((f, i) => (
-            <article
-              key={f.title}
-              tabIndex={0}
-              className={`ac-feature-node ac-feature-node-${f.side} ac-feature-node-${f.slot}`}
-              style={{ "--feature-delay": `${i * 90}ms` }}
-            >
-              <span className="ac-feature-title">{f.title}</span>
-              <span className="ac-feature-desc">{f.desc}</span>
-            </article>
-          ))}
+          <div className="ac-features-grid">
+            {FEATURES.map((f, i) => (
+              <article
+                key={f.title}
+                className="ac-feature-card"
+                style={{ "--feature-delay": `${i * 90}ms` }}
+              >
+                <div className="ac-feature-topline">
+                  <span className="ac-feature-icon">
+                    <Img src={f.icon} alt="" />
+                  </span>
+                  <span className="ac-feature-index">{String(i + 1).padStart(2, "0")}</span>
+                </div>
+                <h3 className="ac-feature-title">{f.title}</h3>
+                <p className="ac-feature-desc">{f.desc}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -617,10 +616,10 @@ function FeatureHighlights() {
 
 /* AutoCount sidebar anchor items */
 const AC_SIDEBAR_ITEMS = [
-  { id: "features",  label: "Features"        },
-  { id: "training",  label: "60-Min Training" },
-  { id: "editions",  label: "Edition Compare" },
-  { id: "releases",  label: "Release Notes"   },
+  { id: "features",  label: "Features",        icon: IconStar },
+  { id: "training",  label: "60-Min Training", icon: IconVideo },
+  { id: "editions",  label: "Edition Compare", icon: IconGrid },
+  { id: "releases",  label: "Release Notes",   icon: IconLedger },
 ];
 
 export default function AutoCountAccountingPage({ onContact }) {

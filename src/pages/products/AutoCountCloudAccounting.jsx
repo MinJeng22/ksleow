@@ -3,7 +3,7 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
-import SectionDivider, { IconVideo, IconGrid, IconLedger } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconVideo, IconGrid, IconLedger, IconStar } from "../../components/SectionDivider.jsx";
 import cloudReleases from "../../content/autocountCloudReleases.json";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -19,10 +19,10 @@ const TRAINING_EMBED = "https://www.youtube.com/embed/zHstLv2-ATw";
 const RELEASES = cloudReleases;
 
 const SIDEBAR_ITEMS = [
-  { id: "features", label: "Advantages" },
-  { id: "training", label: "30-Min Guide" },
-  { id: "editions", label: "Editions" },
-  { id: "releases", label: "Release Notes" },
+  { id: "features", label: "Advantages",    icon: IconStar },
+  { id: "training", label: "30-Min Guide",  icon: IconVideo },
+  { id: "editions", label: "Editions",      icon: IconGrid },
+  { id: "releases", label: "Release Notes", icon: IconLedger },
 ];
 
 const FEATURES = [
@@ -201,7 +201,7 @@ function copyCompare(items, fromVersion, toVersion, type) {
 
 function FeatureHighlights() {
   const gridRef = useRef(null);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(true);
 
   useEffect(() => {
     const node = gridRef.current;
@@ -219,33 +219,41 @@ function FeatureHighlights() {
   }, []);
 
   return (
-    <div id="features" className="ac-section-tight" style={{ background: "#ffffff", padding: "3rem 0", borderBottom: "0.5px solid rgba(47,49,90,0.08)", scrollMarginTop: 24 }}>
+    <div id="features" className="ac-section-tight ac-features-showcase" style={{ scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
       <div className="content-wrap">
-        <div ref={gridRef} className="cloud-feature-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }}>
-          {FEATURES.map((feature, index) => (
-            <div
-              key={feature.title}
-              style={{
-                padding: "1.25rem",
-                borderRadius: 12,
-                background: "#f8f8fb",
-                border: "1px solid rgba(47,49,90,0.07)",
-                opacity: inView ? 1 : 0,
-                transform: inView ? "translateY(0) scale(1)" : "translateY(18px) scale(0.97)",
-                transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${index * 0.12}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${index * 0.12}s`,
-              }}
-            >
-              <div style={{ width: 44, height: 44, marginBottom: "0.75rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Img src={feature.icon} alt="" style={{ maxWidth: 40, maxHeight: 40, objectFit: "contain" }} />
-              </div>
-              <div className="ks-card-title" style={{ marginBottom: "0.35rem" }}>
-                {feature.title}
-              </div>
-              <div className="ks-card-text">
-                {feature.desc}
-              </div>
+        <div ref={gridRef} className={`ac-features-panel${inView ? " is-in-view" : ""}`}>
+          <div className="ac-features-header">
+            <div className="ac-features-brand">
+              <Img src="/images/logos/autocount-logo.png" alt="AutoCount" className="ac-features-logo" />
             </div>
-          ))}
+            <div>
+              <span className="ac-features-kicker">AutoCount Features</span>
+              <h2 className="ac-features-heading">Cloud accounting built for everyday SME work</h2>
+              <p className="ac-features-copy">
+                Four practical advantages for modern accounting teams: e-Invoice readiness,
+                browser access, AI document capture, and connected bank reconciliation.
+              </p>
+            </div>
+          </div>
+
+          <div className="ac-features-grid">
+            {FEATURES.map((feature, index) => (
+              <article
+                key={feature.title}
+                className="ac-feature-card"
+                style={{ "--feature-delay": `${index * 90}ms` }}
+              >
+                <div className="ac-feature-topline">
+                  <span className="ac-feature-icon">
+                    <Img src={feature.icon} alt="" />
+                  </span>
+                  <span className="ac-feature-index">{String(index + 1).padStart(2, "0")}</span>
+                </div>
+                <h3 className="ac-feature-title">{feature.title}</h3>
+                <p className="ac-feature-desc">{feature.desc}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </div>
