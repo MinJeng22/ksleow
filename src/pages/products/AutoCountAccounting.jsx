@@ -15,14 +15,6 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 )}`;
 import { PRODUCT_IMAGES } from "../../assets/assets.js";
 
-/* Feature-highlight icons — string paths to public/images/icons/ so
- * they can be swapped via CMS / dropped into the folder without
- * touching this file. */
-const ICON_EINVOICE    = "/images/services/lhdn-logo.png";
-const ICON_INTEGRATION = "/images/icons/integration-icon.png";
-const ICON_FAVICON     = "/images/branding/ksl-logo-circle.webp";
-const ICON_AC_PLUGIN   = "/images/icons/ac-plugin-icon.png";
-
 /* ═══════════════════════════════════════════════════════════════
  * AUTOCOUNT ACCOUNTING — PRODUCT PAGE
  *
@@ -539,15 +531,44 @@ function EditionsTable({ selected = null, diffOnly = false }) {
   );
 }
 
-/* ── Feature highlights — replayable scroll-in stagger ──
- * Four cards with image icons (emoji fallback for any icon not yet
- * uploaded). Cards fade up + scale in left → right with a 130 ms
- * stagger every time the section enters the viewport. */
+/* AutoCount feature orbit with hover-revealed descriptions. */
 const FEATURES = [
-  { icon: ICON_EINVOICE,    title: "SST & e-Invoice",          desc: "Fully compliant with LHDN MyInvois and Malaysia SST requirements" },
-  { icon: ICON_INTEGRATION, title: "Integrated",               desc: "Seamlessly linked with AutoCount POS, Cloud Payroll modules, and your custom ERP systems." },
-  { icon: ICON_FAVICON,     title: "Prompt Technical Support", desc: "Fast response times and expert troubleshooting from the KSL team during business days to keep your operations running smoothly." },
-  { icon: ICON_AC_PLUGIN,   title: "Highly Extensible",        desc: "Fully supports C# & .NET plugins, custom fields, and scripting to adapt to your unique business workflows." },
+  {
+    side: "left",
+    slot: "top",
+    title: "30 Years of Experience",
+    desc: "Mature accounting software shaped by long-term SME requirements, continuous refinement, and practical implementation experience.",
+  },
+  {
+    side: "left",
+    slot: "middle",
+    title: "Affordability, Flexibility & Extensibility",
+    desc: "Start with the edition your business needs today, then expand with modules, plugins, and custom workflows as operations grow.",
+  },
+  {
+    side: "left",
+    slot: "bottom",
+    title: "Guaranteed Customer Support",
+    desc: "KSL provides setup guidance, user training, and ongoing troubleshooting so your team can use AutoCount with confidence.",
+  },
+  {
+    side: "right",
+    slot: "top",
+    title: "Extensive Service Network",
+    desc: "AutoCount is supported by a wide authorized dealer network, with local KSL support for companies across Pahang.",
+  },
+  {
+    side: "right",
+    slot: "middle",
+    title: "Continuous Development",
+    desc: "Frequent updates help the platform keep pace with SST, e-Invoice, reporting, security, and day-to-day business requirements.",
+  },
+  {
+    side: "right",
+    slot: "bottom",
+    title: "Advanced Technologies",
+    desc: "Built for modern accounting workflows with integrations, automation options, and scalable tools for long-term operations.",
+  },
 ];
 
 function FeatureHighlights() {
@@ -568,29 +589,25 @@ function FeatureHighlights() {
   }, []);
 
   return (
-    <div id="features" className="ac-section-tight" style={{ background: "#ffffff", padding: "3rem 0", scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
+    <div id="features" className="ac-section-tight ac-features-showcase" style={{ background: "#ffffff", scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
       <div className="content-wrap">
-        <div ref={gridRef} className="ac-features-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.5rem" }}>
-          {FEATURES.map((f, i) => (
-            <div key={i} style={{
-              padding: "1.25rem", borderRadius: 12,
-              background: "#f8f8fb",
-              border: "1px solid rgba(47,49,90,0.07)",
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateY(0) scale(1)" : "translateY(20px) scale(0.96)",
-              transition: `opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.13}s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.13}s`,
-            }}>
-              <div style={{
-                width: 44, height: 44,
-                marginBottom: "0.7rem",
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}>
-                <Img src={f.icon} alt=""
-                  style={{ maxWidth: 40, maxHeight: 40, objectFit: "contain", display: "block" }} />
-              </div>
-              <div style={{ fontSize: "0.88rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.35rem" }}>{f.title}</div>
-              <div style={{ fontSize: "0.8rem", color: "#6b6f91", lineHeight: 1.6 }}>{f.desc}</div>
+        <div ref={gridRef} className={`ac-features-orbit${inView ? " is-in-view" : ""}`}>
+          <div className="ac-features-center" aria-hidden="true">
+            <div className="ac-features-center-card">
+              <Img src="/images/logos/autocount-logo.png" alt="AutoCount" className="ac-features-logo" />
             </div>
+          </div>
+
+          {FEATURES.map((f, i) => (
+            <article
+              key={f.title}
+              tabIndex={0}
+              className={`ac-feature-node ac-feature-node-${f.side} ac-feature-node-${f.slot}`}
+              style={{ "--feature-delay": `${i * 90}ms` }}
+            >
+              <span className="ac-feature-title">{f.title}</span>
+              <span className="ac-feature-desc">{f.desc}</span>
+            </article>
           ))}
         </div>
       </div>
