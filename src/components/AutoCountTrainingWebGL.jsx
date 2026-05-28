@@ -21,8 +21,8 @@ const VIDEOS = [
   }
 ];
 
-const MORPH_OPEN_MS = 4200;
-const MORPH_CLOSE_MS = 3200;
+const MORPH_OPEN_MS = 2400;
+const MORPH_CLOSE_MS = 1900;
 const APPLE_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
 const getThumbnailUrl = (videoId) => `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
@@ -78,7 +78,11 @@ function getExpandedRect(sourceRect, contentWrap) {
 function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onComplete }) {
   const [active, setActive] = useState(false);
   const duration = direction === 'open' ? MORPH_OPEN_MS : MORPH_CLOSE_MS;
-  const currentRect = active ? endRect : startRect;
+  const startCenterX = startRect.left + startRect.width / 2;
+  const startCenterY = startRect.top + startRect.height / 2;
+  const endCenterX = endRect.left + endRect.width / 2;
+  const endCenterY = endRect.top + endRect.height / 2;
+  const initialTransform = `translate3d(${startCenterX - endCenterX}px, ${startCenterY - endCenterY}px, 0) scale(${startRect.width / endRect.width}, ${startRect.height / endRect.height})`;
   const borderRadius = direction === 'open'
     ? (active ? 18 : 30)
     : (active ? 30 : 18);
@@ -91,10 +95,10 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
   const shellTransform = direction === 'open'
     ? (active
       ? 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)'
-      : 'perspective(1200px) rotateX(7deg) rotateY(-6deg) scale(0.985)')
+      : `${initialTransform} perspective(1200px) rotateX(7deg) rotateY(-6deg)`)
     : (active
-      ? 'perspective(1200px) rotateX(7deg) rotateY(-6deg) scale(0.985)'
-      : 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)');
+      ? 'translate3d(0, 0, 0) scale(1, 1) perspective(1200px) rotateX(7deg) rotateY(-6deg)'
+      : initialTransform);
 
   useEffect(() => {
     let rafOne = 0;
@@ -122,10 +126,10 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
         data-direction={direction}
         data-active={active ? 'true' : 'false'}
         style={{
-          left: `${currentRect.left}px`,
-          top: `${currentRect.top}px`,
-          width: `${currentRect.width}px`,
-          height: `${currentRect.height}px`,
+          left: `${endRect.left}px`,
+          top: `${endRect.top}px`,
+          width: `${endRect.width}px`,
+          height: `${endRect.height}px`,
           borderRadius: `${borderRadius}px`,
           transform: shellTransform,
           '--morph-duration': `${duration}ms`,
@@ -237,7 +241,6 @@ export default function AutoCountTrainingWebGL() {
       height: fallbackHeight,
     };
 
-    setShowIframe(false);
     setMorph({ direction: 'close', videoId: activeVideo, startRect, endRect });
   };
 
@@ -290,8 +293,9 @@ export default function AutoCountTrainingWebGL() {
             0 12px 28px rgba(15,17,40,0.18),
             inset 0 0 0 1px rgba(255,255,255,0.08);
           transform-origin: center;
-          will-change: left, top, width, height, border-radius, transform, box-shadow, filter;
-          transition-property: left, top, width, height, border-radius, transform, box-shadow, filter;
+          backface-visibility: hidden;
+          will-change: border-radius, transform, box-shadow, filter;
+          transition-property: border-radius, transform, box-shadow, filter;
         }
         .tutorial-morph-shell[data-active="true"] {
           box-shadow:
@@ -396,6 +400,7 @@ export default function AutoCountTrainingWebGL() {
             ref={videoRef}
             style={{
               width: '100%',
+              opacity: morph?.direction === 'close' ? 0 : 1,
               animation: 'videoExpand 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards',
             }}
           >
@@ -450,6 +455,7 @@ export default function AutoCountTrainingWebGL() {
                   ref={tabletRef}
                   className="ipad-frame"
                   onClick={handlePlay}
+                  style={{ opacity: morph?.direction === 'open' ? 0 : 1 }}
                 >
                   <div style={{
                     flex: 1,
