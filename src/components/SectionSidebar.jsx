@@ -74,19 +74,14 @@ export default function SectionSidebar({ items }) {
   }
 
   return (
-    <nav className="ac-sidebar" style={{
+    <nav className="ac-sidebar lg-glass" style={{
       position: "fixed",
       top: "50%", right: 24,
       transform: "translateY(-50%)",
       zIndex: 150,
       display: "flex", flexDirection: "column", gap: 4,
-      background: "rgba(255,255,255,0.92)",
-      backdropFilter: "blur(10px)",
-      WebkitBackdropFilter: "blur(10px)",
-      border: "1px solid rgba(47,49,90,0.1)",
       borderRadius: 14,
       padding: "0.75rem 0.5rem",
-      boxShadow: "0 8px 28px rgba(47,49,90,0.12)",
       minWidth: 168,
     }}>
       {items.map(s => {
