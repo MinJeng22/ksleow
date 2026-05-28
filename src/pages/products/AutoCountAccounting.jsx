@@ -620,7 +620,6 @@ const AC_SIDEBAR_ITEMS = [
   { id: "training",      label: "60-Min Training", icon: IconVideo },
   { id: "editions",      label: "Edition Compare", icon: IconGrid },
   { id: "releases",      label: "Release Notes",   icon: IconLedger },
-  { id: "why-autocount", label: "Why AutoCount",   icon: IconStar },
   { id: "why-ksl",       label: "Why Choose Us",   icon: IconHandshake },
 ];
 
@@ -1066,34 +1065,6 @@ export default function AutoCountAccountingPage({ onContact }) {
             >
               Official Wiki →
             </a>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Why Choose AutoCount ── */}
-      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f8f9fc)", padding: 0 }}>
-        <SectionDivider icon={IconStar} targetId="why-autocount" />
-      </div>
-      <div id="why-autocount" style={{ background: "#f8f9fc", padding: "4rem 0", scrollMarginTop: 24 }}>
-        <div className="content-wrap">
-          <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "1rem" }}>Why AutoCount</div>
-          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>Why Choose AutoCount Accounting?</h2>
-          <p style={{ fontSize: "1.05rem", color: "#6b6f91", lineHeight: 1.6, marginBottom: "2rem", maxWidth: 720 }}>
-            AutoCount is the leading accounting software for Malaysian SMEs, designed to be robust, flexible, and fully compliant with local tax requirements.
-          </p>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
-            {[
-              { title: "No Subscription Fees", body: "A true one-time perpetual license with no forced monthly fees, saving you long-term costs." },
-              { title: "SST & e-Invoice Ready", body: "Fully compliant with Malaysian tax regulations, ensuring smooth transition for LHDN e-Invoicing." },
-              { title: "Easy to Learn & Use", body: "Intuitive interface that allows users with minimal accounting background to start working immediately." },
-              { title: "Highly Customizable", body: "Built-in customizable grid layouts, report designers, and user access rights to fit your business workflows." },
-            ].map((c, i) => (
-              <div key={i} style={{ background: "#ffffff", border: "1px solid rgba(47,49,90,0.09)", borderRadius: 14, padding: "1.3rem 1.4rem" }}>
-                <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.4rem" }}>{c.title}</h3>
-                <p style={{ fontSize: "0.88rem", color: "#6b6f91", margin: 0, lineHeight: 1.5 }}>{c.body}</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>
