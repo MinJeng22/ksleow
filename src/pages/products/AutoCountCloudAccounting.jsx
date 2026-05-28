@@ -231,7 +231,6 @@ function FeatureHighlights() {
         <div ref={gridRef} className={`ac-features-orbit${inView ? " is-in-view" : ""}`}>
           <div className="ac-features-center" aria-hidden="true">
             <div className="ac-features-center-card">
-              <span className="ac-features-kicker">AutoCount Features</span>
               <Img src="/images/logos/autocount-logo.png" alt="AutoCount" className="ac-features-logo" />
             </div>
           </div>

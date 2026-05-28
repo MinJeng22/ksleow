@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
-import SectionDivider, { IconLedger, IconVideo, IconGrid, IconStar } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconLedger, IconVideo, IconGrid, IconStar, IconHandshake } from "../../components/SectionDivider.jsx";
 import ParticleBackground from "../../components/ParticleBackground.jsx";
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
@@ -585,7 +585,6 @@ function FeatureHighlights() {
         <div ref={gridRef} className={`ac-features-orbit${inView ? " is-in-view" : ""}`}>
           <div className="ac-features-center" aria-hidden="true">
             <div className="ac-features-center-card">
-              <span className="ac-features-kicker">AutoCount Features</span>
               <Img src="/images/logos/autocount-logo.png" alt="AutoCount" className="ac-features-logo" />
             </div>
           </div>
@@ -617,10 +616,12 @@ function FeatureHighlights() {
 
 /* AutoCount sidebar anchor items */
 const AC_SIDEBAR_ITEMS = [
-  { id: "features",  label: "Features",        icon: IconStar },
-  { id: "training",  label: "60-Min Training", icon: IconVideo },
-  { id: "editions",  label: "Edition Compare", icon: IconGrid },
-  { id: "releases",  label: "Release Notes",   icon: IconLedger },
+  { id: "features",      label: "Features",        icon: IconStar },
+  { id: "training",      label: "60-Min Training", icon: IconVideo },
+  { id: "editions",      label: "Edition Compare", icon: IconGrid },
+  { id: "releases",      label: "Release Notes",   icon: IconLedger },
+  { id: "why-autocount", label: "Why AutoCount",   icon: IconStar },
+  { id: "why-ksl",       label: "Why Choose Us",   icon: IconHandshake },
 ];
 
 export default function AutoCountAccountingPage({ onContact }) {
@@ -632,6 +633,7 @@ export default function AutoCountAccountingPage({ onContact }) {
   const [compareMode, setCompareMode] = useState(false);
   const [compareA, setCompareA] = useState(RELEASES[RELEASES.length - 1].version); /* oldest */
   const [compareB, setCompareB] = useState(RELEASES[0].version);                   /* newest */
+  const [visibleLimit, setVisibleLimit] = useState(5);
   const [trialOpen, setTrialOpen] = useState(false);
   /* Edition compare mode — same Browse/Compare pattern as Release Notes */
   const [editionCompareMode, setEditionCompareMode] = useState(false);
@@ -1026,7 +1028,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                   No releases match "{search}"
                 </div>
               )}
-              {filtered.map((r) => (
+              {filtered.slice(0, search ? filtered.length : visibleLimit).map((r) => (
                 <ReleaseCard
                   key={r.version}
                   r={r}
@@ -1034,6 +1036,17 @@ export default function AutoCountAccountingPage({ onContact }) {
                   onToggle={() => setExpanded(expanded === r.version ? null : r.version)}
                 />
               ))}
+              {!search && visibleLimit < filtered.length && (
+                <div style={{ textAlign: "center", marginTop: "1rem" }}>
+                  <button onClick={() => setVisibleLimit(prev => prev + 5)}
+                    style={{ fontSize: "0.82rem", fontWeight: 600, color: "#2f315a", background: "rgba(47,49,90,0.06)", border: "none", borderRadius: 50, padding: "0.5rem 1.25rem", cursor: "pointer", fontFamily: "inherit", transition: "background 0.2s" }}
+                    onMouseOver={e => e.currentTarget.style.background = "rgba(47,49,90,0.1)"}
+                    onMouseOut={e => e.currentTarget.style.background = "rgba(47,49,90,0.06)"}
+                  >
+                    View more releases
+                  </button>
+                </div>
+              )}
             </div>
 
           </>}
@@ -1053,6 +1066,62 @@ export default function AutoCountAccountingPage({ onContact }) {
             >
               Official Wiki →
             </a>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Why Choose AutoCount ── */}
+      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f8f9fc)", padding: 0 }}>
+        <SectionDivider icon={IconStar} targetId="why-autocount" />
+      </div>
+      <div id="why-autocount" style={{ background: "#f8f9fc", padding: "4rem 0", scrollMarginTop: 24 }}>
+        <div className="content-wrap">
+          <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "1rem" }}>Why AutoCount</div>
+          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>Why Choose AutoCount Accounting?</h2>
+          <p style={{ fontSize: "1.05rem", color: "#6b6f91", lineHeight: 1.6, marginBottom: "2rem", maxWidth: 720 }}>
+            AutoCount is the leading accounting software for Malaysian SMEs, designed to be robust, flexible, and fully compliant with local tax requirements.
+          </p>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
+            {[
+              { title: "No Subscription Fees", body: "A true one-time perpetual license with no forced monthly fees, saving you long-term costs." },
+              { title: "SST & e-Invoice Ready", body: "Fully compliant with Malaysian tax regulations, ensuring smooth transition for LHDN e-Invoicing." },
+              { title: "Easy to Learn & Use", body: "Intuitive interface that allows users with minimal accounting background to start working immediately." },
+              { title: "Highly Customizable", body: "Built-in customizable grid layouts, report designers, and user access rights to fit your business workflows." },
+            ].map((c, i) => (
+              <div key={i} style={{ background: "#ffffff", border: "1px solid rgba(47,49,90,0.09)", borderRadius: 14, padding: "1.3rem 1.4rem" }}>
+                <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.4rem" }}>{c.title}</h3>
+                <p style={{ fontSize: "0.88rem", color: "#6b6f91", margin: 0, lineHeight: 1.5 }}>{c.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Why Choose Us ── */}
+      <div style={{ background: "linear-gradient(to bottom, #f8f9fc, #ffffff)", padding: 0 }}>
+        <SectionDivider icon={IconHandshake} targetId="why-ksl" />
+      </div>
+      <div id="why-ksl" style={{ background: "#ffffff", padding: "4rem 0", scrollMarginTop: 24 }}>
+        <div className="content-wrap">
+          <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "1rem" }}>Why Partner With KSL</div>
+          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>Why Choose Us?</h2>
+          <p style={{ fontSize: "1.05rem", color: "#6b6f91", lineHeight: 1.6, marginBottom: "2rem", maxWidth: 720 }}>
+            Software is only as good as the people who set it up. KSL Business Solutions brings over 40 years of industry experience to ensure your success.
+          </p>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
+            {[
+              { title: "Authorized Platinum Dealer", body: "We are the top-tier authorized dealer with deep technical knowledge of AutoCount systems." },
+              { title: "Local On-Site Support", body: "Prompt on-site installation, troubleshooting, and face-to-face training across Pahang." },
+              { title: "Dedicated Training Team", body: "We provide comprehensive training sessions and a dedicated support channel for your team." },
+              { title: "Decades of Experience", body: "With over 40 years in the industry, we understand both accounting principles and business logic." },
+            ].map((c, i) => (
+              <div key={i} style={{ background: "#f8f9fc", border: "1px solid rgba(47,49,90,0.09)", borderRadius: 14, padding: "1.3rem 1.4rem" }}>
+                <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.4rem" }}>{c.title}</h3>
+                <p style={{ fontSize: "0.88rem", color: "#6b6f91", margin: 0, lineHeight: 1.5 }}>{c.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
