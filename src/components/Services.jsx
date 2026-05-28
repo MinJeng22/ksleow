@@ -543,6 +543,9 @@ export default function Services() {
     <>
       <style>{`
         @keyframes cardFlip { from { opacity: 0; } to { opacity: 1; } }
+        @media (min-width: 768px) {
+          #services .services-bg-fade { display: none; }
+        }
       `}</style>
       <section
         id="services"
@@ -558,7 +561,7 @@ export default function Services() {
           opacity: 0.35,
           zIndex: 0
         }} />
-        <div style={{
+        <div className="services-bg-fade" style={{
           position: "absolute",
           inset: 0,
           background: "linear-gradient(to bottom, #f5f5f8 0%, rgba(245,245,248,0) 15%, rgba(245,245,248,0) 85%, #f5f5f8 100%)",
