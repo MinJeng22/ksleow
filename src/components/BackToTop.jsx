@@ -28,20 +28,12 @@ export default function BackToTop({ hideBar }) {
           --lg-height: 40px;
           --lg-px: 1.15rem;
           transition:
-            opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-            transform 0.46s cubic-bezier(0.2, 1.18, 0.36, 1),
             box-shadow 0.25s ease,
             background 0.25s ease,
             color 0.35s ease;
         }
         .back-to-top-glass.is-visible {
-          animation: backTopFriendlyDock 0.62s cubic-bezier(0.18, 1.28, 0.36, 1) both;
-        }
-        @keyframes backTopFriendlyDock {
-          0% { transform: translateY(14px) scale(0.84); opacity: 0; }
-          54% { transform: translateY(-5px) scale(1.06); opacity: 1; }
-          78% { transform: translateY(2px) scale(0.98); opacity: 1; }
-          100% { transform: translateY(0) scale(1); opacity: 1; }
+          animation: none;
         }
         /* Mobile sizing */
         @media (max-width: 767px) {
@@ -50,11 +42,8 @@ export default function BackToTop({ hideBar }) {
           }
         }
         @media (prefers-reduced-motion: reduce) {
-          .back-to-top-glass.is-visible {
-            animation: none !important;
-          }
           .back-to-top-glass {
-            transition: opacity 0.2s ease !important;
+            transition: none !important;
           }
         }
       `}</style>
@@ -66,7 +55,7 @@ export default function BackToTop({ hideBar }) {
         title="Back to top"
         style={{
           opacity: hideBar || !visible ? 0 : 1,
-          "--lg-rest-transform": visible ? "translateY(0) scale(1)" : "translateY(12px) scale(0.85)",
+          "--lg-rest-transform": "translateY(0) scale(1)",
           "--lg-hover-transform": "translateY(-2px) scale(1.04)",
           "--lg-active-transform": "translateY(0) scale(0.94)",
           pointerEvents: hideBar || !visible ? "none" : "auto",

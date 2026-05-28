@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const DARK_SELECTORS = [
   "#hero",
@@ -56,9 +57,12 @@ function backgroundLuminanceFromElement(element) {
 export default function useDarkBg(ref) {
   const [isDark, setIsDark] = useState(true);
   const lastValueRef = useRef(true);
+  const location = useLocation();
+  const locationKey = `${location.pathname}${location.search}${location.hash}`;
 
   useEffect(() => {
     let ticking = false;
+    const timers = [];
 
     const checkBg = () => {
       const node = ref.current;
@@ -108,14 +112,18 @@ export default function useDarkBg(ref) {
     window.addEventListener("resize", scheduleCheck, { passive: true });
 
     scheduleCheck();
-    const initialTimer = window.setTimeout(scheduleCheck, 120);
+    timers.push(
+      window.setTimeout(scheduleCheck, 0),
+      window.setTimeout(scheduleCheck, 120),
+      window.setTimeout(scheduleCheck, 320)
+    );
 
     return () => {
-      window.clearTimeout(initialTimer);
+      timers.forEach((timer) => window.clearTimeout(timer));
       window.removeEventListener("scroll", scheduleCheck);
       window.removeEventListener("resize", scheduleCheck);
     };
-  }, [ref]);
+  }, [ref, locationKey]);
 
   return isDark;
 }
