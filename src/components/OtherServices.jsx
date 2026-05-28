@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Img } from "./Media.jsx";
 import { CASE_IMAGES } from "../assets/assets.js";
+import { CONTACT } from "../constants/contact.js";
 import otherServicesContent from "../content/otherServices.json";
 
 const CASES = (otherServicesContent.items || []).filter((item) => {
@@ -21,6 +22,21 @@ const SUPAPRINTZ_MODAL_IMAGES = [
   "/images/partners/supaprintz-desktop.png",
   "/images/partners/supaprintz-tablet.jpg",
 ];
+const SITEGIANT_PARTNER = {
+  name: "Sitegiant",
+  category: "E-COMMERCE & AUTOCOUNT INTEGRATION",
+  image: "/images/other-services/sitegiant.png",
+  whatsappUrl: `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent("Hi! I'm interested in Sitegiant Integration. Could you provide more details?")}`,
+  websiteUrl: "https://sitegiant.my/",
+  headline: "Connect your online sales channels with AutoCount",
+  intro: "Bring marketplace orders, stock movement, and business reporting closer together with a cleaner e-commerce workflow.",
+  benefits: [
+    ["Marketplace order sync", "Centralize online orders from marketplaces and webstore channels so your team can process them faster."],
+    ["Inventory confidence", "Keep stock visibility tighter across sales channels and reduce manual checks before fulfilment."],
+    ["AutoCount-ready workflow", "Prepare e-commerce transactions for smoother accounting, stock, and back-office follow-up."],
+    ["Room to scale", "Support campaigns, product updates, and multi-channel selling without rebuilding the workflow each time."],
+  ],
+};
 const SUPAPRINTZ_COLORS = {
   yellow: "#ffc10e",
   navy: "#1d1848",
@@ -38,6 +54,13 @@ const WhatsAppIcon = () => (
 const FacebookIcon = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
     <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.412c0-3.026 1.792-4.697 4.533-4.697 1.313 0 2.686.236 2.686.236v2.97H15.83c-1.491 0-1.955.931-1.955 1.886v2.266h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073Z" />
+  </svg>
+);
+
+const ExternalLinkIcon = () => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M7 17 17 7" />
+    <path d="M9 7h8v8" />
   </svg>
 );
 
@@ -73,249 +96,75 @@ const ICONS = [
   </svg>,
 ];
 
-function SupaprintzPartnerModal({ open, onClose }) {
+function PartnerModal({
+  open,
+  onClose,
+  variant,
+  titleId,
+  closeLabel,
+  bannerDesktop,
+  bannerMobile,
+  bannerAlt,
+  colors,
+  children,
+  actions,
+}) {
   if (!open) return null;
   return (
     <div
-      className="supaprintz-modal-backdrop"
+      className={`partner-modal-backdrop ${variant}-modal-backdrop`}
       role="dialog"
       aria-modal="true"
-      aria-labelledby="supaprintz-modal-title"
+      aria-labelledby={titleId}
       onClick={onClose}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 1000,
-        background: "rgba(0,0,0,0.68)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "1.25rem",
-      }}
     >
       <div
-        className="supaprintz-modal-shell"
+        className={`partner-modal-shell partner-modal--${variant}`}
         onClick={(event) => event.stopPropagation()}
         style={{
-          position: "relative",
-          width: "min(460px, 100%)",
-          maxHeight: "92vh",
-          borderRadius: 26,
-          overflow: "hidden",
-          background: "#ffffff",
-          boxShadow: "0 36px 100px rgba(10,11,24,0.36)",
-          display: "flex",
-          flexDirection: "column",
+          "--partner-accent": colors.accent,
+          "--partner-text": colors.text,
+          "--partner-whatsapp": colors.whatsapp,
+          "--partner-secondary": colors.secondary,
+          "--partner-secondary-shadow": colors.secondaryShadow,
         }}
       >
-        <style>{`
-          @media (min-width: 641px) {
-            .supaprintz-modal-shell {
-              flex-direction: row !important;
-              width: min(840px, 92vw) !important;
-              height: auto !important;
-            }
-            .supaprintz-modal-banner-frame {
-              flex: 0.8 !important;
-              aspect-ratio: auto !important;
-              border-bottom: none !important;
-              border-right: 6px solid #f26522 !important;
-              border-top-right-radius: 0 !important;
-              border-bottom-left-radius: 24px !important;
-            }
-            .supaprintz-modal-banner {
-              height: 100% !important;
-              object-fit: cover !important;
-            }
-            .supaprintz-modal-body {
-              flex: 1.25 !important;
-              overflow-y: auto !important;
-              display: flex !important;
-              flex-direction: column !important;
-              justify-content: center !important;
-            }
-            .supaprintz-modal-close {
-              background: #f1f2f6 !important;
-              color: #1a2542 !important;
-              border: none !important;
-            }
-          }
-          @media (max-width: 640px) {
-            .supaprintz-modal-backdrop {
-              align-items: flex-start !important;
-              padding: 0.75rem !important;
-              overflow-y: auto !important;
-            }
-            .supaprintz-modal-shell {
-              width: 100% !important;
-              max-height: none !important;
-              border-radius: 18px !important;
-              margin: 0.35rem 0 !important;
-            }
-            .supaprintz-modal-banner-frame {
-              aspect-ratio: 16 / 10 !important;
-              flex-shrink: 0 !important;
-            }
-            .supaprintz-modal-body {
-              padding: 1.15rem !important;
-            }
-            .supaprintz-detail-row {
-              grid-template-columns: 1fr !important;
-              gap: 0.25rem !important;
-              padding: 0.75rem 0 !important;
-            }
-            .supaprintz-modal-actions {
-              flex-direction: column !important;
-              gap: 0.6rem !important;
-              margin-top: 1.1rem !important;
-            }
-            .supaprintz-modal-actions a {
-              width: 100% !important;
-              flex-basis: auto !important;
-            }
-            .supaprintz-modal-close {
-              top: 10px !important;
-              right: 10px !important;
-              width: 34px !important;
-              height: 34px !important;
-            }
-          }
-        `}</style>
-        <div className="supaprintz-modal-banner-frame" style={{
-          position: "relative",
-          background: "transparent",
-          borderBottom: `6px solid ${SUPAPRINTZ_COLORS.orange}`,
-          aspectRatio: "16 / 9",
-          lineHeight: 0,
-          overflow: "hidden",
-          borderTopLeftRadius: 24,
-          borderTopRightRadius: 24,
-          margin: "-1px -1px 0",
-        }}>
+        <div className="partner-modal-banner-frame">
           <picture>
-            <source media="(min-width: 641px)" srcSet={SUPAPRINTZ_MODAL_IMAGES[0]} />
+            {bannerDesktop && <source media="(min-width: 641px)" srcSet={bannerDesktop} />}
             <img
-              className="supaprintz-modal-banner"
-              src={SUPAPRINTZ_MODAL_IMAGES[1]}
-              alt="Supaprintz.my Printing Advertising Design"
+              className="partner-modal-banner"
+              src={bannerMobile || bannerDesktop}
+              alt={bannerAlt}
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              style={{
-                display: "block",
-                width: "100%",
-                height: "calc(100% + 10px)",
-                objectFit: "cover",
-                objectPosition: "center",
-                transform: "translateY(-6px)",
-              }}
             />
           </picture>
         </div>
 
-        <div className="supaprintz-modal-body" style={{ padding: "1.6rem 2rem 2rem", overflowY: "auto", minHeight: 0 }}>
-          <p style={{
-            color: SUPAPRINTZ_COLORS.navy,
-            fontSize: "clamp(1.15rem, 4vw, 1.5rem)",
-            lineHeight: 1.2,
-            fontWeight: 800,
-            letterSpacing: "0.04em",
-            textTransform: "uppercase",
-            marginBottom: "0.9rem",
-          }}>
-            {SUPAPRINTZ_PARTNER.category}
-          </p>
-          {[
-            ["Address", SUPAPRINTZ_PARTNER.address],
-            ["Phone", SUPAPRINTZ_PARTNER.phone],
-            ["Email", SUPAPRINTZ_PARTNER.email],
-          ].map(([label, value]) => (
-            <div className="supaprintz-detail-row" key={label} style={{
-              display: "grid",
-              gridTemplateColumns: "88px 1fr",
-              gap: "1rem",
-              padding: "0.95rem 0",
-              borderBottom: "1px solid rgba(47,49,90,0.08)",
-            }}>
-              <div style={{ fontSize: "0.68rem", fontWeight: 800, color: SUPAPRINTZ_COLORS.orange, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                {label}
-              </div>
-              <div style={{ fontSize: "0.95rem", color: SUPAPRINTZ_COLORS.navy, lineHeight: 1.55, fontWeight: 650 }}>
-                {value}
-              </div>
-            </div>
-          ))}
-
-          <div className="supaprintz-modal-actions" style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "1.5rem" }}>
-            <a
-              href={SUPAPRINTZ_PARTNER.whatsappUrl}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "0.45rem",
-                flex: "1 1 150px",
-                minHeight: 44,
-                borderRadius: 50,
-                background: SUPAPRINTZ_COLORS.whatsapp,
-                color: "#ffffff",
-                textDecoration: "none",
-                fontSize: "0.86rem",
-                fontWeight: 800,
-                boxShadow: "0 14px 28px rgba(37,211,102,0.22)",
-              }}
-            >
-              <WhatsAppIcon />
-              Chat on WhatsApp
-            </a>
-            <a
-              href={SUPAPRINTZ_PARTNER.facebookUrl}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "0.45rem",
-                flex: "1 1 150px",
-                minHeight: 44,
-                borderRadius: 50,
-                background: SUPAPRINTZ_COLORS.facebook,
-                color: "#ffffff",
-                textDecoration: "none",
-                fontSize: "0.86rem",
-                fontWeight: 800,
-                boxShadow: "0 14px 28px rgba(24,119,242,0.2)",
-              }}
-            >
-              <FacebookIcon />
-              Visit Facebook
-            </a>
+        <div className="partner-modal-body">
+          {children}
+          <div className="partner-modal-actions">
+            {actions.map((action) => (
+              <a
+                key={action.label}
+                className={`partner-modal-action partner-modal-action--${action.kind || "secondary"}`}
+                href={action.href}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {action.icon}
+                {action.label}
+              </a>
+            ))}
           </div>
         </div>
         <button
-          className="supaprintz-modal-close"
+          className="partner-modal-close"
           type="button"
-          aria-label="Close Supaprintz partner details"
+          aria-label={closeLabel}
           onClick={onClose}
-          style={{
-            position: "absolute",
-            top: 16,
-            right: 16,
-            width: 38,
-            height: 38,
-            borderRadius: "50%",
-            border: `1px solid ${SUPAPRINTZ_COLORS.navy}`,
-            background: "rgba(255,255,255,0.92)",
-            color: SUPAPRINTZ_COLORS.navy,
-            cursor: "pointer",
-            display: "grid",
-            placeItems: "center",
-            boxShadow: "0 10px 24px rgba(29,24,72,0.18)",
-            zIndex: 10,
-          }}
         >
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round">
             <path d="M18 6 6 18M6 6l12 12" />
@@ -326,12 +175,113 @@ function SupaprintzPartnerModal({ open, onClose }) {
   );
 }
 
+function SupaprintzPartnerModal({ open, onClose }) {
+  return (
+    <PartnerModal
+      open={open}
+      onClose={onClose}
+      variant="supaprintz"
+      titleId="supaprintz-modal-title"
+      closeLabel="Close Supaprintz partner details"
+      bannerDesktop={SUPAPRINTZ_MODAL_IMAGES[0]}
+      bannerMobile={SUPAPRINTZ_MODAL_IMAGES[1]}
+      bannerAlt="Supaprintz.my Printing Advertising Design"
+      colors={{
+        accent: SUPAPRINTZ_COLORS.orange,
+        text: SUPAPRINTZ_COLORS.navy,
+        whatsapp: SUPAPRINTZ_COLORS.whatsapp,
+        secondary: SUPAPRINTZ_COLORS.facebook,
+        secondaryShadow: "rgba(24,119,242,0.2)",
+      }}
+      actions={[
+        {
+          label: "Chat on WhatsApp",
+          href: SUPAPRINTZ_PARTNER.whatsappUrl,
+          kind: "whatsapp",
+          icon: <WhatsAppIcon />,
+        },
+        {
+          label: "Visit Facebook",
+          href: SUPAPRINTZ_PARTNER.facebookUrl,
+          kind: "secondary",
+          icon: <FacebookIcon />,
+        },
+      ]}
+    >
+      <p id="supaprintz-modal-title" className="partner-modal-title">
+        {SUPAPRINTZ_PARTNER.category}
+      </p>
+      {[
+        ["Address", SUPAPRINTZ_PARTNER.address],
+        ["Phone", SUPAPRINTZ_PARTNER.phone],
+        ["Email", SUPAPRINTZ_PARTNER.email],
+      ].map(([label, value]) => (
+        <div className="partner-modal-detail-row" key={label}>
+          <div className="partner-modal-detail-label">{label}</div>
+          <div className="partner-modal-detail-value">{value}</div>
+        </div>
+      ))}
+    </PartnerModal>
+  );
+}
+
+function SitegiantPartnerModal({ open, onClose }) {
+  return (
+    <PartnerModal
+      open={open}
+      onClose={onClose}
+      variant="sitegiant"
+      titleId="sitegiant-modal-title"
+      closeLabel="Close Sitegiant integration details"
+      bannerDesktop={SITEGIANT_PARTNER.image}
+      bannerMobile={SITEGIANT_PARTNER.image}
+      bannerAlt="Sitegiant Integration"
+      colors={{
+        accent: "#6bbf59",
+        text: "#1a2542",
+        whatsapp: SUPAPRINTZ_COLORS.whatsapp,
+        secondary: "#2f315a",
+        secondaryShadow: "rgba(47,49,90,0.22)",
+      }}
+      actions={[
+        {
+          label: "Chat on WhatsApp",
+          href: SITEGIANT_PARTNER.whatsappUrl,
+          kind: "whatsapp",
+          icon: <WhatsAppIcon />,
+        },
+        {
+          label: "Visit Sitegiant Website",
+          href: SITEGIANT_PARTNER.websiteUrl,
+          kind: "secondary",
+          icon: <ExternalLinkIcon />,
+        },
+      ]}
+    >
+      <div className="partner-modal-eyebrow">{SITEGIANT_PARTNER.category}</div>
+      <h3 id="sitegiant-modal-title" className="partner-modal-title">
+        {SITEGIANT_PARTNER.headline}
+      </h3>
+      <p className="partner-modal-intro">{SITEGIANT_PARTNER.intro}</p>
+      <div className="partner-modal-benefit-list">
+        {SITEGIANT_PARTNER.benefits.map(([title, copy]) => (
+          <div className="partner-modal-benefit" key={title}>
+            <div className="partner-modal-benefit-title">{title}</div>
+            <div className="partner-modal-benefit-copy">{copy}</div>
+          </div>
+        ))}
+      </div>
+    </PartnerModal>
+  );
+}
+
 export default function OtherServices({ onContact }) {
   const navigate = useNavigate();
   const [partnerOpen, setPartnerOpen] = useState(false);
+  const [sitegiantOpen, setSitegiantOpen] = useState(false);
 
   useEffect(() => {
-    SUPAPRINTZ_MODAL_IMAGES.forEach((src) => {
+    [...SUPAPRINTZ_MODAL_IMAGES, SITEGIANT_PARTNER.image].forEach((src) => {
       const img = new Image();
       img.decoding = "async";
       img.src = src;
@@ -339,17 +289,20 @@ export default function OtherServices({ onContact }) {
   }, []);
 
   useEffect(() => {
-    if (!partnerOpen) return;
-    document.body.classList.add("supaprintz-modal-open", "has-active-modal");
+    if (!partnerOpen && !sitegiantOpen) return;
+    document.body.classList.add("partner-modal-open", "has-active-modal");
     const onKeyDown = (event) => {
-      if (event.key === "Escape") setPartnerOpen(false);
+      if (event.key === "Escape") {
+        setPartnerOpen(false);
+        setSitegiantOpen(false);
+      }
     };
     window.addEventListener("keydown", onKeyDown);
     return () => {
-      document.body.classList.remove("supaprintz-modal-open", "has-active-modal");
+      document.body.classList.remove("partner-modal-open", "has-active-modal");
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [partnerOpen]);
+  }, [partnerOpen, sitegiantOpen]);
 
   const displayCases = [...CASES];
   while (displayCases.length < 4) {
@@ -398,12 +351,14 @@ export default function OtherServices({ onContact }) {
           const imgSrc = c.image || CASE_IMAGES[c.key];
           const meta   = CARD_META[i] || CARD_META[CARD_META.length - 1];
           const opensPartnerModal = c.modal === "supaprintz";
-          const clickable = !!c.route || opensPartnerModal;
+          const opensSitegiantModal = c.modal === "sitegiant";
+          const clickable = !!c.route || opensPartnerModal || opensSitegiantModal;
           return (
             <div
               key={c.key || i}
               onClick={clickable ? () => {
                 if (opensPartnerModal) setPartnerOpen(true);
+                else if (opensSitegiantModal) setSitegiantOpen(true);
                 else navigate(c.route);
               } : undefined}
               style={{
@@ -460,6 +415,7 @@ export default function OtherServices({ onContact }) {
     </div>
     </section>
     <SupaprintzPartnerModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
+    <SitegiantPartnerModal open={sitegiantOpen} onClose={() => setSitegiantOpen(false)} />
     </>
   );
 }
