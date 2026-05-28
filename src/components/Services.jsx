@@ -585,7 +585,7 @@ export default function Services() {
           inset: 0,
           backgroundImage: "url(/images/services/ksLeow-group.png)",
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "left center",
           opacity: 0.35,
           zIndex: 0
         }} />
