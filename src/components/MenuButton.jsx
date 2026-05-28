@@ -19,21 +19,21 @@ const MEGA_MENU = [
     title: "Products",
     items: [
       { label: "AutoCount Accounting",      path: "/products/autocount-accounting", icon: "monitor" },
-      { label: "FeedMe POS",                path: "/products/feedme-pos", icon: "pos" },
+      { label: "FeedMe POS",                path: "/products/feedme-pos", icon: "fork" },
       { label: "AutoCount CloudAccounting", path: "/products/autocount-cloud-accounting", icon: "cloud" },
-      { label: "AutoCount POS",             scrollTo: "#products", icon: "terminal" },
-      { label: "ServerLink",                scrollTo: "#products", icon: "server" },
+      { label: "AutoCount POS",             scrollTo: "#products", icon: "cash-register" },
+      { label: "ServerLink",                scrollTo: "#products", icon: "laptop" },
       { label: "AutoCount HRMS",            scrollTo: "#products", icon: "users" },
-      { label: "AutoCount OneSale",         scrollTo: "#products", icon: "cart" },
+      { label: "AutoCount OneSale",         scrollTo: "#products", icon: "smartphone" },
     ],
   },
   {
     title: "Other Services",
     items: [
       { label: "Printing / Advertising / Design", scrollTo: "#other-services", icon: "printer" },
-      { label: "AutoCount Plugin",                path: "/apps/autocount-plugin", icon: "plug" },
+      { label: "AutoCount Plugin",                path: "/apps/autocount-plugin", icon: "puzzle" },
       { label: "SiteGiant Integration",           scrollTo: "#other-services", icon: "link" },
-      { label: "AI Assistant (KS Omni)",           path: "/omni", icon: "bot" },
+      { label: "KS Omni (AI Assistant)",           path: "/omni", icon: "bot" },
     ],
   },
 ];
@@ -92,6 +92,16 @@ function NavIcon({ name, size = 16 }) {
       return <svg {...common}><path d="M10 13a5 5 0 0 0 7.54.54l2-2a5 5 0 0 0-7.07-7.07l-1.15 1.15" /><path d="M14 11a5 5 0 0 0-7.54-.54l-2 2a5 5 0 0 0 7.07 7.07l1.15-1.15" /></svg>;
     case "bot":
       return <svg {...common}><rect x="4" y="8" width="16" height="12" rx="3" /><path d="M12 8V4" /><path d="M8 12h.01M16 12h.01" /><path d="M9 16h6" /></svg>;
+    case "puzzle":
+      return <svg {...common}><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.611c-.941.941-2.469.941-3.408 0L8.73 19.73a.98.98 0 0 1-.276-.837c.07-.47.48-.802.925-.968a2.5 2.5 0 1 0-3.214-3.214c-.166-.446-.497-.855-.968-.925a.979.979 0 0 1-.837.276L2.748 11.9a2.41 2.41 0 0 1 0-3.408l1.568-1.568c.23-.23.556-.338.878-.289.467.071.796.471.961.908a2.5 2.5 0 1 0 3.226-3.226c-.437-.165-.837-.494-.908-.961a.978.978 0 0 1 .289-.878l1.568-1.568c.941-.941 2.469-.941 3.408 0l1.568 1.568c.23.23.556.338.878.289.467-.071.796-.471.961-.908a2.5 2.5 0 1 0 3.226 3.226c.165.437.494.837.961.908Z" /></svg>;
+    case "fork":
+      return <svg {...common}><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" /><path d="M7 2v20" /><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" /></svg>;
+    case "smartphone":
+      return <svg {...common}><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /><path d="M12 18h.01" /></svg>;
+    case "cash-register":
+      return <svg {...common}><rect width="18" height="6" x="3" y="15" rx="2" /><path d="M5 15V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7" /><rect width="8" height="4" x="8" y="2" rx="1" /><path d="M9 11h.01M12 11h.01M15 11h.01" /></svg>;
+    case "laptop":
+      return <svg {...common}><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16" /></svg>;
     default:
       return <svg {...common}><circle cx="12" cy="12" r="8" /><path d="m12 8 4 4-4 4" /><path d="M8 12h8" /></svg>;
   }
