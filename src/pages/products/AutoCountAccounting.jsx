@@ -555,6 +555,13 @@ const FEATURES = [
   },
 ];
 
+const FEATURE_SLOTS = [
+  { side: "left", slot: "top" },
+  { side: "right", slot: "top" },
+  { side: "left", slot: "bottom" },
+  { side: "right", slot: "bottom" },
+];
+
 function FeatureHighlights() {
   const gridRef = useRef(null);
   const [inView, setInView] = useState(true);
@@ -575,39 +582,33 @@ function FeatureHighlights() {
   return (
     <div id="features" className="ac-section-tight ac-features-showcase" style={{ scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
       <div className="content-wrap">
-        <div ref={gridRef} className={`ac-features-panel${inView ? " is-in-view" : ""}`}>
-          <div className="ac-features-header">
-            <div className="ac-features-brand">
-              <Img src="/images/logos/autocount-logo.png" alt="AutoCount" className="ac-features-logo" />
-            </div>
-            <div>
+        <div ref={gridRef} className={`ac-features-orbit${inView ? " is-in-view" : ""}`}>
+          <div className="ac-features-center" aria-hidden="true">
+            <div className="ac-features-center-card">
               <span className="ac-features-kicker">AutoCount Features</span>
-              <h2 className="ac-features-heading">Built for reliable SME accounting operations</h2>
-              <p className="ac-features-copy">
-                Core capabilities that matter after go-live: compliance readiness,
-                connected workflows, dependable support, and room to customise.
-              </p>
+              <Img src="/images/logos/autocount-logo.png" alt="AutoCount" className="ac-features-logo" />
             </div>
           </div>
 
-          <div className="ac-features-grid">
-            {FEATURES.map((f, i) => (
+          {FEATURES.map((f, i) => {
+            const slot = FEATURE_SLOTS[i] || FEATURE_SLOTS[0];
+            return (
               <article
                 key={f.title}
-                className="ac-feature-card"
+                tabIndex={0}
+                className={`ac-feature-node ac-feature-node-${slot.side} ac-feature-node-${slot.slot}`}
                 style={{ "--feature-delay": `${i * 90}ms` }}
               >
-                <div className="ac-feature-topline">
-                  <span className="ac-feature-icon">
-                    <Img src={f.icon} alt="" />
-                  </span>
-                  <span className="ac-feature-index">{String(i + 1).padStart(2, "0")}</span>
-                </div>
-                <h3 className="ac-feature-title">{f.title}</h3>
-                <p className="ac-feature-desc">{f.desc}</p>
+                <span className="ac-feature-icon">
+                  <Img src={f.icon} alt="" />
+                </span>
+                <span className="ac-feature-copy">
+                  <span className="ac-feature-title">{f.title}</span>
+                  <span className="ac-feature-desc">{f.desc}</span>
+                </span>
               </article>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>

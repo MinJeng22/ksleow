@@ -48,6 +48,13 @@ const FEATURES = [
   },
 ];
 
+const FEATURE_SLOTS = [
+  { side: "left", slot: "top" },
+  { side: "right", slot: "top" },
+  { side: "left", slot: "bottom" },
+  { side: "right", slot: "bottom" },
+];
+
 const EDITIONS = ["Lite", "Basic", "Plus", "Pro", "Accountant"];
 const EDITION_CODE = {
   Lite: "lite",
@@ -221,39 +228,33 @@ function FeatureHighlights() {
   return (
     <div id="features" className="ac-section-tight ac-features-showcase" style={{ scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
       <div className="content-wrap">
-        <div ref={gridRef} className={`ac-features-panel${inView ? " is-in-view" : ""}`}>
-          <div className="ac-features-header">
-            <div className="ac-features-brand">
-              <Img src="/images/logos/autocount-logo.png" alt="AutoCount" className="ac-features-logo" />
-            </div>
-            <div>
+        <div ref={gridRef} className={`ac-features-orbit${inView ? " is-in-view" : ""}`}>
+          <div className="ac-features-center" aria-hidden="true">
+            <div className="ac-features-center-card">
               <span className="ac-features-kicker">AutoCount Features</span>
-              <h2 className="ac-features-heading">Cloud accounting built for everyday SME work</h2>
-              <p className="ac-features-copy">
-                Four practical advantages for modern accounting teams: e-Invoice readiness,
-                browser access, AI document capture, and connected bank reconciliation.
-              </p>
+              <Img src="/images/logos/autocount-logo.png" alt="AutoCount" className="ac-features-logo" />
             </div>
           </div>
 
-          <div className="ac-features-grid">
-            {FEATURES.map((feature, index) => (
+          {FEATURES.map((feature, index) => {
+            const slot = FEATURE_SLOTS[index] || FEATURE_SLOTS[0];
+            return (
               <article
                 key={feature.title}
-                className="ac-feature-card"
+                tabIndex={0}
+                className={`ac-feature-node ac-feature-node-${slot.side} ac-feature-node-${slot.slot}`}
                 style={{ "--feature-delay": `${index * 90}ms` }}
               >
-                <div className="ac-feature-topline">
-                  <span className="ac-feature-icon">
-                    <Img src={feature.icon} alt="" />
-                  </span>
-                  <span className="ac-feature-index">{String(index + 1).padStart(2, "0")}</span>
-                </div>
-                <h3 className="ac-feature-title">{feature.title}</h3>
-                <p className="ac-feature-desc">{feature.desc}</p>
+                <span className="ac-feature-icon">
+                  <Img src={feature.icon} alt="" />
+                </span>
+                <span className="ac-feature-copy">
+                  <span className="ac-feature-title">{feature.title}</span>
+                  <span className="ac-feature-desc">{feature.desc}</span>
+                </span>
               </article>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>

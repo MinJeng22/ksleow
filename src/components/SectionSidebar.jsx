@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import useDarkBg from "../hooks/useDarkBg";
 
 /**
  * SectionSidebar — floating right-rail anchor nav for long product pages.
@@ -21,6 +22,8 @@ import React, { useState, useEffect, useRef } from "react";
 export default function SectionSidebar({ items }) {
   const [active, setActive] = useState(items[0]?.id || "");
   const lockedRef = useRef(false);
+  const navRef = useRef(null);
+  const isDark = useDarkBg(navRef);
   const lockTimerRef = useRef(null);
 
   useEffect(() => {
@@ -74,7 +77,7 @@ export default function SectionSidebar({ items }) {
   }
 
   return (
-    <nav className="ac-sidebar lg-glass" style={{
+    <nav ref={navRef} className="ac-sidebar lg-glass" style={{
       position: "fixed",
       top: "50%", right: 24,
       transform: "translateY(-50%)",
@@ -92,8 +95,8 @@ export default function SectionSidebar({ items }) {
               display: "flex", alignItems: "center", gap: 8,
               padding: "0.5rem 0.85rem",
               border: "none",
-              background: isActive ? "rgba(201,168,76,0.15)" : "transparent",
-              color: isActive ? "#a17f1e" : "#6b6f91",
+              background: isActive ? (isDark ? "rgba(201,168,76,0.25)" : "rgba(201,168,76,0.15)") : "transparent",
+              color: isActive ? (isDark ? "#c9a84c" : "#a17f1e") : (isDark ? "#ffffff" : "#6b6f91"),
               /* Constant font-weight prevents layout shift between states */
               fontWeight: 600,
               fontSize: "0.78rem",
@@ -102,7 +105,7 @@ export default function SectionSidebar({ items }) {
               textAlign: "left",
               transition: "background 0.18s, color 0.18s",
             }}
-            onMouseOver={e => { if (!isActive) e.currentTarget.style.background = "rgba(47,49,90,0.05)"; }}
+            onMouseOver={e => { if (!isActive) e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.1)" : "rgba(47,49,90,0.05)"; }}
             onMouseOut={e => { if (!isActive) e.currentTarget.style.background = "transparent"; }}
           >
             {s.icon ? (
@@ -110,7 +113,7 @@ export default function SectionSidebar({ items }) {
                 width: 16, height: 16,
                 style: {
                   flexShrink: 0,
-                  color: isActive ? "#c9a84c" : "#cfd0e0",
+                  color: isActive ? (isDark ? "#e1c87d" : "#c9a84c") : (isDark ? "rgba(255,255,255,0.6)" : "#cfd0e0"),
                   transition: "color 0.18s, transform 0.18s",
                   transform: isActive ? "translateX(2px)" : "translateX(0)",
                 }
@@ -118,7 +121,7 @@ export default function SectionSidebar({ items }) {
             ) : (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{
                 flexShrink: 0,
-                color: isActive ? "#c9a84c" : "#cfd0e0",
+                color: isActive ? (isDark ? "#e1c87d" : "#c9a84c") : (isDark ? "rgba(255,255,255,0.6)" : "#cfd0e0"),
                 transition: "color 0.18s, transform 0.18s",
                 transform: isActive ? "translateX(2px)" : "translateX(0)",
               }}>
