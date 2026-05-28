@@ -543,8 +543,39 @@ export default function Services() {
     <>
       <style>{`
         @keyframes cardFlip { from { opacity: 0; } to { opacity: 1; } }
+        #services .services-bg-fade {
+          background: linear-gradient(
+            to bottom,
+            rgba(245,245,248,0.98) 0%,
+            rgba(245,245,248,0.74) 7%,
+            rgba(245,245,248,0.34) 18%,
+            rgba(245,245,248,0.08) 30%,
+            rgba(245,245,248,0) 40%,
+            rgba(245,245,248,0) 60%,
+            rgba(245,245,248,0.08) 70%,
+            rgba(245,245,248,0.34) 82%,
+            rgba(245,245,248,0.74) 93%,
+            rgba(245,245,248,0.98) 100%
+          );
+        }
         @media (min-width: 768px) {
-          #services .services-bg-fade { display: none; }
+          #services .services-bg-fade {
+            background: linear-gradient(
+              to bottom,
+              rgba(245,245,248,0.96) 0%,
+              rgba(245,245,248,0.78) 5%,
+              rgba(245,245,248,0.42) 14%,
+              rgba(245,245,248,0.16) 25%,
+              rgba(245,245,248,0.03) 34%,
+              rgba(245,245,248,0) 43%,
+              rgba(245,245,248,0) 57%,
+              rgba(245,245,248,0.03) 66%,
+              rgba(245,245,248,0.16) 75%,
+              rgba(245,245,248,0.42) 86%,
+              rgba(245,245,248,0.78) 95%,
+              rgba(245,245,248,0.96) 100%
+            );
+          }
         }
       `}</style>
       <section
@@ -564,7 +595,6 @@ export default function Services() {
         <div className="services-bg-fade" style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(to bottom, #f5f5f8 0%, rgba(245,245,248,0) 15%, rgba(245,245,248,0) 85%, #f5f5f8 100%)",
           zIndex: 0,
           pointerEvents: "none"
         }} />
