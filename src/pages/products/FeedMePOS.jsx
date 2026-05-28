@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
-import SectionDivider, { IconLayers, IconLink, IconHandshake, IconRocket } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconLayers, IconLink, IconHandshake } from "../../components/SectionDivider.jsx";
 
 /* FeedMe POS page — product-aware WhatsApp link to Sales Agent Elise */
 const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
@@ -373,7 +373,6 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <SectionDivider icon={IconRocket} />
 
       {/* ── Final CTA ── */}
       <div style={{ background: "#2f315a", padding: "4rem 0" }}>

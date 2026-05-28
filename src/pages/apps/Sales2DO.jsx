@@ -11,7 +11,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 import AIChatbot from "../../components/AIChatbot.jsx";
 import sales2doContent from "../../content/sales2do.json";
 import acPluginIcon     from "../../assets/images/apps/ac-plugin-icon.png";
-import SectionDivider, { IconClipboard, IconSettings, IconStar, IconShield, IconRocket } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconClipboard, IconSettings, IconStar, IconShield } from "../../components/SectionDivider.jsx";
 import imgOutstanding   from "../../assets/images/apps/sales2do/outstanding.png";
 import imgPreset        from "../../assets/images/apps/sales2do/preset-delivery.png";
 import imgSettings      from "../../assets/images/apps/sales2do/settings.png";
@@ -754,9 +754,6 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f4f6fb)", padding: 0 }}>
-        <SectionDivider icon={IconRocket} />
-      </div>
 
       {/* ── CTA ── */}
       <div style={{ position: "relative", overflow: "hidden", background: "#f4f6fb", padding: "4rem 0" }}>

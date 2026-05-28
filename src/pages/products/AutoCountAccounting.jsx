@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
-import SectionDivider, { IconLedger, IconVideo, IconGrid, IconRocket } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconLedger, IconVideo, IconGrid } from "../../components/SectionDivider.jsx";
 import ParticleBackground from "../../components/ParticleBackground.jsx";
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
@@ -1039,8 +1039,6 @@ export default function AutoCountAccountingPage({ onContact }) {
           </div>
         </div>
       </div>
-
-      <SectionDivider icon={IconRocket} />
 
       {/* CTA band */}
       <div style={{ position: "relative", overflow: "hidden", background: "#f4f6fb", padding: "4rem 0" }}>

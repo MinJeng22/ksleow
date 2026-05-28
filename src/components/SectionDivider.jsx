@@ -42,33 +42,43 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
   return (
     <div
       ref={ref}
+      className="section-divider"
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "0 var(--px)",
+        minHeight: 92,
+        display: "grid",
+        placeItems: "center",
+        padding: "1.15rem 0",
         position: "relative",
         zIndex: 10,
         width: "100%",
-        maxWidth: 1440,
         margin: "0 auto",
       }}
     >
-      {/* Left line */}
-      <div style={{ flex: 1, height: 1, background: `linear-gradient(90deg, transparent, ${color}30, ${color}60)` }} />
-      <div style={{ width: 4, height: 4, borderRadius: "50%", background: `${color}80`, margin: "0 0.5rem" }} />
+      <div
+        className="section-divider-line"
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: "50%",
+          height: 1,
+          background: `${color}24`,
+          transform: "translateY(-50%)",
+        }}
+      />
 
       {/* Icon wrapper with premium glassmorphism & glow */}
       <div
+        className="section-divider-icon"
         style={{
           position: "relative",
-          margin: "0 1rem",
-          padding: "1rem",
-          borderRadius: "16px",
-          background: "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.6))",
+          width: 58,
+          height: 58,
+          borderRadius: "50%",
+          background: `linear-gradient(135deg, ${color}, ${color}d9)`,
           boxShadow: inView 
-            ? `0 12px 32px ${color}15, inset 0 0 0 1px rgba(255,255,255,1), inset 0 2px 4px rgba(255,255,255,0.5)`
-            : "0 4px 16px rgba(0,0,0,0.02), inset 0 0 0 1px rgba(255,255,255,0.4)",
+            ? `0 0 0 8px ${color}22, 0 14px 34px ${color}20, inset 0 0 0 1px rgba(255,255,255,0.32)`
+            : `0 0 0 8px ${color}14, 0 4px 16px rgba(0,0,0,0.04), inset 0 0 0 1px rgba(255,255,255,0.22)`,
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
           filter: inView ? "grayscale(0)" : "grayscale(1) opacity(0.4)",
@@ -84,21 +94,17 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
         <div style={{
           position: "absolute",
           inset: "-30%",
-          borderRadius: "16px",
+          borderRadius: "50%",
           background: `radial-gradient(circle, ${color}20 0%, transparent 70%)`,
           opacity: inView ? 1 : 0,
           transition: "opacity 1.2s ease 0.3s",
           pointerEvents: "none",
         }} />
 
-        <div style={{ position: "relative", zIndex: 1, color: color, transform: inView ? "scale(1)" : "scale(0.8)", transition: "transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)" }}>
+        <div style={{ position: "relative", zIndex: 1, color: "#ffffff", transform: inView ? "scale(1)" : "scale(0.8)", transition: "transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)" }}>
           {icon || <div style={{ width: 28, height: 28 }} />}
         </div>
       </div>
-
-      {/* Right line */}
-      <div style={{ width: 4, height: 4, borderRadius: "50%", background: `${color}80`, margin: "0 0.5rem" }} />
-      <div style={{ flex: 1, height: 1, background: `linear-gradient(270deg, transparent, ${color}30, ${color}60)` }} />
     </div>
   );
 }

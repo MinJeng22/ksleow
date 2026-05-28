@@ -3,7 +3,7 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
-import SectionDivider, { IconVideo, IconGrid, IconLedger, IconRocket } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconVideo, IconGrid, IconLedger } from "../../components/SectionDivider.jsx";
 import cloudReleases from "../../content/autocountCloudReleases.json";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -725,8 +725,6 @@ export default function AutoCountCloudAccountingPage() {
           </div>
         </div>
       </div>
-
-      <SectionDivider icon={IconRocket} />
 
       <div style={{ background: "#2f315a", padding: "4rem 0" }}>
         <div className="content-wrap" style={{ textAlign: "center" }}>
