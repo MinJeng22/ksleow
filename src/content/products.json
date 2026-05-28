@@ -25,7 +25,7 @@
       "name": "AutoCount CloudAccounting",
       "desc": "Browser-based accounting with e-Invoice, AI SmartScan, bank connection, and anytime access.",
       "image": "/images/products/cloudaccounting-logo.png",
-      "background": "/images/products/autocount-accounting-hero.webp",
+      "background": "/images/products/autocountcloudaccounting.png",
       "placeholder": "☁️",
       "gradient": "rgb(221, 234, 213)",
       "route": "/products/autocount-cloud-accounting"
@@ -52,7 +52,7 @@
       "name": "AutoCount Cloud Payroll",
       "desc": "Automated payroll compliant with EPF, SOCSO, PCB, and EIS. Payslips in minutes.",
       "image": "/images/products/hrms-logo-2024_white-1024x288.png",
-      "background": "/images/products/autocount-hrms-showcase.webp",
+      "background": "/images/products/autocount-hrms.png",
       "placeholder": "☁️",
       "gradient": "rgb(168, 198, 232)",
       "route": ""
