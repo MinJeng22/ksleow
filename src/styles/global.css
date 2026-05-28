@@ -438,59 +438,15 @@ textarea {
   .products-section { --products-grid-min-h: 310px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .ac-features-showcase {
-    padding: 2.9rem 0 3rem !important;
+    padding: 2.6rem 0 2.75rem !important;
   }
-  .ac-features-showcase .content-wrap {
-    padding-left: 18px;
-    padding-right: 18px;
+  .ac-features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
   }
-  .ac-features-orbit {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-    min-height: 0;
-    width: 100%;
-    max-width: min(560px, calc(100vw - 36px));
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 16px;
-    padding: 1.05rem;
-  }
-  .ac-features-orbit::after {
-    display: none;
-  }
-  .ac-features-center {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: min(236px, 68vw);
-    margin: 0 auto 0.45rem;
-    transform: none;
-  }
-  .ac-features-center-card {
-    width: calc(100% - 58px);
-  }
-  .ac-features-logo {
-    width: min(132px, 70%);
-  }
-  .ac-feature-node,
-  .ac-feature-node-left,
-  .ac-feature-node-right {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    min-height: 0;
-    min-width: 0;
-    flex-direction: row;
-    text-align: left;
-    border-radius: 13px;
+  .ac-feature-card {
+    min-height: 220px;
     padding: 0.95rem;
-    opacity: 1;
-    transform: none;
-  }
-  .ac-feature-node::before,
-  .ac-feature-node::after {
-    display: none;
   }
   .ac-feature-icon {
     width: 46px;
@@ -502,19 +458,15 @@ textarea {
     height: 30px;
   }
   .ac-feature-copy {
-    min-width: 0;
-    max-width: calc(100% - 58px);
+    margin-top: auto;
   }
   .ac-feature-title {
-    font-size: 0.84rem;
+    font-size: 0.86rem;
     overflow-wrap: anywhere;
   }
   .ac-feature-desc {
     font-size: 0.72rem;
     line-height: 1.62;
-    max-height: none;
-    margin-top: 0.36rem;
-    opacity: 1;
     overflow-wrap: anywhere;
   }
   /* Product page hero showcase image — hide on tablet & mobile */
@@ -591,6 +543,8 @@ textarea {
     --products-carousel-h: 340px;
   }
   .services-grid { grid-template-columns: 1fr !important; }
+  .ac-features-grid { grid-template-columns: 1fr !important; }
+  .ac-feature-card { min-height: 0; }
   .products-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.7rem !important; }
   .cases-grid    { grid-template-columns: 1fr !important; }
   .other-services-empty-card { display: none !important; }

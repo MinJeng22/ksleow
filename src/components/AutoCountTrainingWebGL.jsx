@@ -22,7 +22,8 @@ const VIDEOS = [
 ];
 
 const MORPH_OPEN_MS = 2200;
-const MORPH_CLOSE_MS = 1700;
+const MORPH_CLOSE_MS = 2400;
+const MORPH_SETTLE_MS = 320;
 const APPLE_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
 const getThumbnailUrl = (videoId) => `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
@@ -115,7 +116,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
   useEffect(() => {
     let rafOne = 0;
     let rafTwo = 0;
-    const timer = window.setTimeout(onComplete, duration + 120);
+    const timer = window.setTimeout(onComplete, duration + (direction === 'close' ? 220 : 150));
 
     rafOne = window.requestAnimationFrame(() => {
       rafTwo = window.requestAnimationFrame(() => setActive(true));
@@ -185,6 +186,7 @@ export default function AutoCountTrainingWebGL() {
   const [stageHeight, setStageHeight] = useState(null);
   const [stageTransitionMs, setStageTransitionMs] = useState(MORPH_OPEN_MS);
   const [morph, setMorph] = useState(null);
+  const [stageConcealed, setStageConcealed] = useState(false);
   const tabletRef = useRef(null);
   const openTargetRef = useRef(null);
   const collapseTargetRef = useRef(null);
@@ -197,6 +199,7 @@ export default function AutoCountTrainingWebGL() {
   const stageHeightTimerRef = useRef(null);
   const stageHeightRafRef = useRef(0);
   const scrollFollowRafRef = useRef(0);
+  const morphSettleTimerRef = useRef(null);
   const lastClosedStageHeightRef = useRef(null);
 
   useEffect(() => {
@@ -206,6 +209,7 @@ export default function AutoCountTrainingWebGL() {
   useEffect(() => () => {
     window.clearTimeout(iframeReadyTimerRef.current);
     window.clearTimeout(stageHeightTimerRef.current);
+    window.clearTimeout(morphSettleTimerRef.current);
     window.cancelAnimationFrame(stageHeightRafRef.current);
     window.cancelAnimationFrame(scrollFollowRafRef.current);
   }, []);
@@ -262,16 +266,16 @@ export default function AutoCountTrainingWebGL() {
 
     const fallbackTimer = window.setTimeout(() => {
       setIframeReady(true);
-    }, 2600);
+    }, 3400);
 
     return () => window.clearTimeout(fallbackTimer);
   }, [iframeMounted, activeVideo]);
 
-  const releaseStageHeight = () => {
+  const releaseStageHeight = (delay = 260) => {
     window.clearTimeout(stageHeightTimerRef.current);
     stageHeightTimerRef.current = window.setTimeout(() => {
       setStageHeight(null);
-    }, 80);
+    }, delay);
   };
 
   const animateStageHeight = (fromHeight, toHeight, duration) => {
@@ -320,20 +324,28 @@ export default function AutoCountTrainingWebGL() {
     if (!currentMorph) return;
 
     window.cancelAnimationFrame(scrollFollowRafRef.current);
-    setMorph(null);
+    window.clearTimeout(morphSettleTimerRef.current);
 
     if (currentMorph.direction === 'open') {
       setPlayerOpen(true);
       setIframeMounted(true);
       setIframeReady(false);
-      releaseStageHeight();
+      setStageConcealed(false);
+      morphSettleTimerRef.current = window.setTimeout(() => {
+        setMorph(null);
+        releaseStageHeight(320);
+      }, MORPH_SETTLE_MS);
       return;
     }
 
     setPlayerOpen(false);
     setIframeMounted(false);
     setIframeReady(false);
-    releaseStageHeight();
+    setStageConcealed(false);
+    morphSettleTimerRef.current = window.setTimeout(() => {
+      setMorph(null);
+      releaseStageHeight(360);
+    }, MORPH_SETTLE_MS + 80);
   };
 
   const handlePlay = () => {
@@ -357,6 +369,7 @@ export default function AutoCountTrainingWebGL() {
     window.clearTimeout(iframeReadyTimerRef.current);
     animateStageHeight(currentStageHeight, nextStageHeight, MORPH_OPEN_MS);
     followOpeningScroll(currentStageHeight, nextStageHeight, endRect);
+    setStageConcealed(true);
     setIframeMounted(false);
     setIframeReady(false);
     setPlayerOpen(false);
@@ -390,6 +403,7 @@ export default function AutoCountTrainingWebGL() {
 
     window.clearTimeout(iframeReadyTimerRef.current);
     animateStageHeight(currentStageHeight, nextStageHeight, MORPH_CLOSE_MS);
+    setStageConcealed(true);
     setIframeMounted(false);
     setIframeReady(false);
     setPlayerOpen(false);
@@ -400,7 +414,7 @@ export default function AutoCountTrainingWebGL() {
     window.clearTimeout(iframeReadyTimerRef.current);
     iframeReadyTimerRef.current = window.setTimeout(() => {
       setIframeReady(true);
-    }, 700);
+    }, 950);
   };
 
   const activeVideoMeta = VIDEOS.find(video => video.id === activeVideo) || VIDEOS[0];
@@ -466,7 +480,7 @@ export default function AutoCountTrainingWebGL() {
           height: 100%;
           border: none;
           opacity: 0;
-          transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1);
+          transition: opacity 820ms cubic-bezier(0.22, 1, 0.36, 1);
         }
         .tutorial-video-frame.is-ready iframe {
           opacity: 1;
@@ -477,7 +491,7 @@ export default function AutoCountTrainingWebGL() {
           z-index: 2;
           background: #0f1128;
           opacity: 1;
-          transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1);
+          transition: opacity 860ms cubic-bezier(0.22, 1, 0.36, 1);
           pointer-events: none;
         }
         .tutorial-video-cover.is-hidden {
@@ -665,7 +679,7 @@ export default function AutoCountTrainingWebGL() {
 
         <div
           ref={stageRef}
-          className={`tutorial-stage${morph ? ' is-morphing' : ''}`}
+          className={`tutorial-stage${stageConcealed ? ' is-morphing' : ''}`}
           style={{
             height: stageHeight != null ? `${stageHeight}px` : undefined,
             overflow: stageHeight != null ? 'hidden' : undefined,
