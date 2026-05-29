@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+﻿import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
@@ -1030,22 +1030,6 @@ export default function AutoCountAccountingPage({ onContact }) {
 
           </>}
 
-          {/* Official link */}
-          <div style={{ marginTop: "2.5rem", padding: "1.25rem 1.5rem", borderRadius: 12, background: "rgba(47,49,90,0.04)", border: "1px solid rgba(47,49,90,0.08)", display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "#2f315a" }}>Full release notes on AutoCount Wiki</div>
-              <div style={{ fontSize: "0.78rem", color: "#6b6f91", marginTop: 2 }}>Detailed technical documentation including database upgrade notes and server requirements.</div>
-            </div>
-            <a
-              href="https://wiki.autocountsoft.com/wiki/Category:AutoCount_Accounting_2.2:Release_Note"
-              target="_blank" rel="noreferrer"
-              style={{ background: "#2f315a", color: "#ffffff", padding: "0.6rem 1.4rem", borderRadius: 50, fontSize: "0.82rem", fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap", transition: "background 0.2s" }}
-              onMouseOver={e => e.currentTarget.style.background = "#3d4075"}
-              onMouseOut={e => e.currentTarget.style.background = "#2f315a"}
-            >
-              Official Wiki →
-            </a>
-          </div>
         </div>
       </div>
 
