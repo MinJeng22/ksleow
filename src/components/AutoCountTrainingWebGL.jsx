@@ -90,6 +90,23 @@ function easeOutQuint(value) {
   return 1 - Math.pow(1 - value, 5);
 }
 
+function isDesktopTabletRect(rect) {
+  if (!rect?.width || !rect?.height) return false;
+  return Math.abs(rect.height / rect.width - 0.75) < 0.06;
+}
+
+function getTabletInset(rect) {
+  return isDesktopTabletRect(rect) ? `${Math.round(rect.width * 0.035)}px` : '0px';
+}
+
+function getTabletOuterRadius(rect) {
+  return isDesktopTabletRect(rect) ? 28 : 12;
+}
+
+function getTabletScreenRadius(rect) {
+  return isDesktopTabletRect(rect) ? 10 : 10;
+}
+
 function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onComplete }) {
   const [active, setActive] = useState(false);
   const completedRef = useRef(false);
@@ -100,14 +117,14 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
   const endCenterY = endRect.top + endRect.height / 2;
   const initialTransform = `translate3d(${startCenterX - endCenterX}px, ${startCenterY - endCenterY}px, 0) scale(${startRect.width / endRect.width}, ${startRect.height / endRect.height})`;
   const borderRadius = direction === 'open'
-    ? (active ? 18 : 30)
-    : (active ? 30 : 18);
+    ? (active ? 18 : getTabletOuterRadius(startRect))
+    : (active ? getTabletOuterRadius(endRect) : 18);
   const screenInset = direction === 'open'
-    ? (active ? '0%' : '3.5%')
-    : (active ? '3.5%' : '0%');
+    ? (active ? '0px' : getTabletInset(startRect))
+    : (active ? getTabletInset(endRect) : '0px');
   const screenRadius = direction === 'open'
-    ? (active ? 18 : 12)
-    : (active ? 12 : 18);
+    ? (active ? 18 : getTabletScreenRadius(startRect))
+    : (active ? getTabletScreenRadius(endRect) : 18);
   const shellTransform = direction === 'open'
     ? (active
       ? 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1)'
