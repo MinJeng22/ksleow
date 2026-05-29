@@ -197,7 +197,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
           transform: shellTransform,
           '--morph-duration': `${duration}ms`,
           '--morph-ease': APPLE_EASE,
-          boxShadow: direction === 'close' ? VIDEO_SHADOW : 'none',
+          boxShadow: VIDEO_SHADOW,
           opacity: isSettling ? 0 : 1,
         }}
         onTransitionEnd={event => {
@@ -246,6 +246,7 @@ export default function AutoCountTrainingWebGL() {
   const [morph, setMorph] = useState(null);
   const [morphSettling, setMorphSettling] = useState(false);
   const [stageConcealed, setStageConcealed] = useState(false);
+  const [shadowIn, setShadowIn] = useState(false);
   const tabletRef = useRef(null);
   const openTargetRef = useRef(null);
   const collapseTargetRef = useRef(null);
@@ -404,22 +405,25 @@ export default function AutoCountTrainingWebGL() {
       setIframeMounted(true);
       setIframeReady(false);
       setStageConcealed(false);
-      // Release the stage height constraint immediately - the video frame has the same
-      // natural height, so there's no layout shift. This also removes any overflow
-      // that would clip the video frame's box-shadow.
       setStageHeight(null);
-      // After 2 frames (real frame has been painted), remove the morph overlay.
-      // No opacity fade needed - the 2-frame gap ensures no visual pop.
+      setShadowIn(true);
+      // After 2 frames (real frame painted), start the 200ms cross-fade:
+      // morph shell fades out (opacity 1→0) while real frame shadow fades in (0→1).
+      // Both take 200ms, so combined shadow stays constant at 1x.
       morphPaintRafRef.current = window.requestAnimationFrame(() => {
         morphPaintRafRef.current = window.requestAnimationFrame(() => {
-          setMorph(null);
-          setMorphSettling(false);
+          setMorphSettling(true);
+          morphSettleTimerRef.current = window.setTimeout(() => {
+            setMorph(null);
+            setMorphSettling(false);
+          }, 250);
         });
       });
       return;
     }
 
     setPlayerOpen(false);
+    setShadowIn(false);
     setIframeMounted(false);
     setIframeReady(false);
     setStageConcealed(false);
@@ -575,8 +579,12 @@ export default function AutoCountTrainingWebGL() {
           border-radius: 18px;
           overflow: hidden;
           background: #0f1128;
-          box-shadow: ${VIDEO_SHADOW};
+          box-shadow: 0 24px 64px rgba(15,17,40,0);
+          transition: box-shadow 200ms ease;
           transform: translateZ(0);
+        }
+        .tutorial-video-frame.shadow-in {
+          box-shadow: ${VIDEO_SHADOW};
         }
         .tutorial-video-frame iframe {
           position: absolute;
@@ -884,7 +892,7 @@ export default function AutoCountTrainingWebGL() {
               <div ref={videoRef} className="tutorial-player-shell">
                 <div
                   ref={videoFrameRef}
-                  className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}`}
+                  className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}${shadowIn ? ' shadow-in' : ''}`}
                 >
                   <button
                     className="tutorial-close-btn"
