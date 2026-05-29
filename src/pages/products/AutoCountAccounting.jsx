@@ -582,9 +582,6 @@ function FeatureHighlights() {
               className="ac-feature-card"
               style={{ "--feature-delay": `${i * 90}ms` }}
             >
-              <span className="ac-feature-icon">
-                <Img src={f.icon} alt="" />
-              </span>
               <span className="ac-feature-copy">
                 <span className="ac-feature-title">{f.title}</span>
                 <span className="ac-feature-desc">{f.desc}</span>
