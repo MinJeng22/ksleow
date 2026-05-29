@@ -384,7 +384,7 @@ export default function FeedMePOSPage() {
             Talk to KSL Business Solutions for pricing, hardware bundles, on-site setup,
             and training across Pahang.
           </p>
-          <a href={WA_LINK} target="_blank" rel="noreferrer" className="enquire-now-btn">Enquire Now</a>
+          <a href={WA_LINK} target="_blank" rel="noreferrer" className="btn-ghost-base btn-ghost-dark">Enquire Now</a>
         </div>
       </div>
 

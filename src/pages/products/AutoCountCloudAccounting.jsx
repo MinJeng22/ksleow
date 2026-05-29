@@ -253,11 +253,11 @@ function EditionTable({ selected = null, diffOnly = false }) {
     <div className="ks-panel" style={{ boxShadow: "0 4px 20px rgba(47,49,90,0.05)" }}>
       <div className="editions-table-wrap">
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "var(--text-sm)" }}>
-          <thead style={{ position: "sticky", top: 0, zIndex: 3 }}>
+          <thead style={{ position: "sticky", top: 64, zIndex: 3 }}>
             <tr style={{ background: "#2f315a" }}>
-              <th style={{ position: "sticky", top: 0, zIndex: 3, minWidth: 190, padding: "0.7rem", color: "#ffffff", textAlign: "left" }}></th>
+              <th style={{ position: "sticky", top: 64, zIndex: 3, minWidth: 190, padding: "0.7rem", color: "#ffffff", textAlign: "left" }}></th>
               {cols.map((edition) => (
-                <th key={edition} style={{ position: "sticky", top: 0, zIndex: 3, minWidth: 130, padding: "0.7rem", color: "#ffffff", textAlign: "center", fontWeight: 800 }}>
+                <th key={edition} style={{ position: "sticky", top: 64, zIndex: 3, minWidth: 130, padding: "0.7rem", color: "#ffffff", textAlign: "center", fontWeight: 800 }}>
                   {edition}
                 </th>
               ))}
@@ -322,7 +322,7 @@ function ReleaseCard({ release, expanded, onToggle }) {
           </div>
           <div className="release-card-actions" style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap", marginTop: "0.42rem" }}>
             {isLatest && (
-              <span style={{ fontSize: "0.6rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", background: "#2f315a", color: "#c9a84c", padding: "0.18rem 0.6rem", borderRadius: 50 }}>
+              <span style={{ fontSize: "0.6rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", background: "#2f315a", color: "#ffffff", padding: "0.18rem 0.6rem", borderRadius: 50 }}>
                 Latest
               </span>
             )}
@@ -555,7 +555,7 @@ export default function AutoCountCloudAccountingPage() {
         <SectionDivider icon={IconGrid} targetId="editions" />
       </div>
 
-      <div id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
+      <div id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24, overflow: "visible" }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.7rem" }}>
             <div className="ks-eyebrow" style={{ color: "#7AB317" }}>

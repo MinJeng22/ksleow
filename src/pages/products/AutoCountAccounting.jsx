@@ -204,7 +204,7 @@ function ReleaseAssetLink({ url }) {
         padding: "0.2rem 0.6rem",
         fontSize: "0.62rem",
         fontWeight: 600,
-        color: "#4a6e0e",
+        color: "#2f315a",
         cursor: "pointer",
         fontFamily: "inherit",
         textDecoration: "none",
@@ -269,7 +269,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
           </div>
           <div className="release-card-actions" style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap", marginTop: "0.42rem" }}>
             {isLatest && (
-              <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", background: "#2f315a", color: "#7ab317", padding: "0.18rem 0.6rem", borderRadius: 50 }}>
+              <span style={{ fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", background: "#2f315a", color: "#ffffff", padding: "0.18rem 0.6rem", borderRadius: 50 }}>
                 Latest
               </span>
             )}
@@ -462,7 +462,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
   const colIdx = cols.map(c => EDITIONS.indexOf(c));
   const stickyHeaderCell = {
     position: "sticky",
-    top: 0,
+    top: 64,
     zIndex: 3,
     background: "#7AB317",
   };
@@ -481,7 +481,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
     <div style={{ background: "#ffffff", borderRadius: 14, border: "1px solid rgba(47,49,90,0.08)", boxShadow: "0 4px 20px rgba(47,49,90,0.05)" }}>
       <div className="editions-table-wrap">
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.84rem" }}>
-          <thead style={{ position: "sticky", top: 0, zIndex: 3 }}>
+          <thead style={{ position: "sticky", top: 64, zIndex: 3 }}>
             <tr style={{ background: "#7AB317" }}>
               <th style={{ ...stickyHeaderCell, padding: cellPad, textAlign: "left", color: "#ffffff", fontWeight: 600, minWidth: 190 }}></th>
               {cols.map(e => (
@@ -774,7 +774,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       {/* ══════════════════════════════════════════════════════════
        * COMPARING 5 EDITIONS OF ACCOUNTING 2.2
        * ══════════════════════════════════════════════════════════ */}
-      <div id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
+      <div id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24, overflow: "visible" }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
 
@@ -1108,11 +1108,7 @@ export default function AutoCountAccountingPage({ onContact }) {
             KSL Business Solutions provides full AutoCount implementation,
             training, and support across Pahang.
           </p>
-          <a href={WA_LINK} target="_blank" rel="noreferrer"
-            style={{ display: "inline-block", background: "#2f315a", color: "#ffffff", padding: "0.85rem 2.5rem", borderRadius: 50, fontSize: "0.95rem", fontWeight: 700, textDecoration: "none", fontFamily: "inherit", transition: "opacity 0.2s" }}
-            onMouseOver={e => e.currentTarget.style.opacity = "0.85"}
-            onMouseOut={e => e.currentTarget.style.opacity = "1"}
-          >
+          <a href={WA_LINK} target="_blank" rel="noreferrer" className="btn-ghost-base btn-ghost-dark">
             Enquire Now
           </a>
         </div>
