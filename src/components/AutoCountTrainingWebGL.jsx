@@ -724,7 +724,7 @@ export default function AutoCountTrainingWebGL() {
             fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 700,
             color: '#2f315a', lineHeight: 1.2, margin: 0,
           }}>
-            Learn AutoCount Accounting in Just 60 Minutes
+            AutoCount Accounting Quick-Start Guide
           </h2>
         </div>
 
@@ -884,7 +884,7 @@ export default function AutoCountTrainingWebGL() {
                   fontSize: '0.95rem', color: '#6b6f91', lineHeight: 1.8,
                   maxWidth: 480, marginBottom: '1.5rem', marginTop: 0,
                 }}>
-                  Skip the long manuals. AutoCount's 60-minute guide covers
+                  Skip the long manuals. AutoCount's quick-start guide covers
                   everything you need to know to navigate AutoCount Accounting
                   with confidence - from basic setup to daily transactions.
                 </p>
@@ -908,7 +908,7 @@ export default function AutoCountTrainingWebGL() {
                     Watch on Youtube
                   </button>
                   <span style={{ fontSize: '0.82rem', color: '#a8abcc', fontWeight: 500 }}>
-                    Free - 60 minutes
+                    Free - Quick-Start Guide
                   </span>
                 </div>
               </div>
