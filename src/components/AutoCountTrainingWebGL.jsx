@@ -555,6 +555,9 @@ export default function AutoCountTrainingWebGL() {
           width: 100%;
           opacity: 1;
         }
+        .tutorial-video-frame.no-shadow {
+          box-shadow: none !important;
+        }
         .tutorial-video-frame {
           position: relative;
           width: 100%;
@@ -862,7 +865,7 @@ export default function AutoCountTrainingWebGL() {
               <div ref={videoRef} className="tutorial-player-shell">
                 <div
                   ref={videoFrameRef}
-                  className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}`}
+                  className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}${morph ? ' no-shadow' : ''}`}
                 >
                   <button
                     className="tutorial-close-btn"
