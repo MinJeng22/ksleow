@@ -484,13 +484,17 @@ export default function AutoCountTrainingWebGL() {
 
     window.clearTimeout(iframeReadyTimerRef.current);
     await warmMorphImage(activeVideo);
-    animateStageHeight(currentStageHeight, nextStageHeight, MORPH_CLOSE_MS);
-    setStageConcealed(true);
-    setIframeMounted(false);
-    setIframeReady(false);
-    setPlayerOpen(false);
     setMorph({ direction: 'close', videoId: activeVideo, startRect, endRect });
-    preparingMorphRef.current = false;
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        animateStageHeight(currentStageHeight, nextStageHeight, MORPH_CLOSE_MS);
+        setStageConcealed(true);
+        setIframeMounted(false);
+        setIframeReady(false);
+        setPlayerOpen(false);
+        preparingMorphRef.current = false;
+      });
+    });
   };
 
   const handleIframeLoad = () => {
