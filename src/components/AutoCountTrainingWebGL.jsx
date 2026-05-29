@@ -310,9 +310,7 @@ export default function AutoCountTrainingWebGL() {
     });
   };
 
-  const followOpeningScroll = (startHeight, endHeight, endRect) => {
-    window.cancelAnimationFrame(scrollFollowRafRef.current);
-
+  const getOpeningScrollPlan = (startHeight, endHeight, endRect) => {
     const heightDelta = Math.max(0, endHeight - startHeight);
     const viewportTarget = Math.max(
       window.scrollY,
@@ -324,6 +322,12 @@ export default function AutoCountTrainingWebGL() {
     );
     const startScrollY = window.scrollY;
     const scrollDelta = targetScrollY - startScrollY;
+
+    return { startScrollY, scrollDelta };
+  };
+
+  const followOpeningScroll = ({ startScrollY, scrollDelta }) => {
+    window.cancelAnimationFrame(scrollFollowRafRef.current);
 
     if (scrollDelta <= 1) return;
 
@@ -387,16 +391,21 @@ export default function AutoCountTrainingWebGL() {
       : getExpandedRect(contentWrapRef.current, stageRef.current);
     const currentStageHeight = stageRef.current?.getBoundingClientRect().height || startRect.height;
     const nextStageHeight = endRect.height;
+    const openingScrollPlan = getOpeningScrollPlan(currentStageHeight, nextStageHeight, endRect);
+    const morphEndRect = {
+      ...endRect,
+      top: endRect.top - openingScrollPlan.scrollDelta,
+    };
     lastClosedStageHeightRef.current = currentStageHeight;
     preloadImage(getThumbnailUrl(activeVideo));
     window.clearTimeout(iframeReadyTimerRef.current);
     animateStageHeight(currentStageHeight, nextStageHeight, MORPH_OPEN_MS);
-    followOpeningScroll(currentStageHeight, nextStageHeight, endRect);
+    followOpeningScroll(openingScrollPlan);
     setStageConcealed(true);
     setIframeMounted(false);
     setIframeReady(false);
     setPlayerOpen(false);
-    setMorph({ direction: 'open', videoId: activeVideo, startRect, endRect });
+    setMorph({ direction: 'open', videoId: activeVideo, startRect, endRect: morphEndRect });
   };
 
   const handleClose = () => {
