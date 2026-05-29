@@ -36,10 +36,10 @@
   --site-card-copy: 0.81rem;
   --carousel-btn-size: 44px;
   --ks-page-paper: #ffffff;
-  --ks-page-mist: #f4f6fb;
-  --ks-page-cloud: #eef3f8;
-  --ks-page-warm: #fbf8ef;
-  --ks-page-ice: #f7fbff;
+  --ks-page-mist: #f3f5fb;
+  --ks-page-cloud: #f0f6f2;
+  --ks-page-warm: #fbf5e8;
+  --ks-page-ice: #f2f8ff;
   --ks-page-ink: #2f315a;
 
   /* Desktop: tight padding */
@@ -165,8 +165,7 @@ textarea {
 }
 
 .product-app-content {
-  background:
-    linear-gradient(180deg, var(--ks-page-paper) 0%, var(--ks-page-mist) 45%, var(--ks-page-cloud) 100%);
+  background: var(--ks-page-paper);
 }
 
 .product-app-section {
@@ -179,8 +178,8 @@ textarea {
     linear-gradient(
       180deg,
       var(--product-section-from) 0%,
-      var(--product-section-bg) 34%,
-      var(--product-section-bg) 66%,
+      var(--product-section-bg) 30%,
+      var(--product-section-bg) 70%,
       var(--product-section-to) 100%
     );
 }
@@ -225,6 +224,8 @@ textarea {
 .product-app-divider {
   --section-from: var(--ks-page-paper);
   --section-to: var(--ks-page-mist);
+  height: 0;
+  margin: 0 !important;
   position: relative;
   overflow: visible;
   padding: 0;
@@ -234,20 +235,13 @@ textarea {
 
 .product-app-divider::before {
   content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 8rem;
-  transform: translateY(-50%);
-  pointer-events: none;
-  background:
-    linear-gradient(90deg, transparent, rgba(201,168,76,0.08), transparent),
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.34), transparent 54%);
-  opacity: 0.45;
+  display: none;
 }
 
 .product-app-divider .section-divider {
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
   position: relative;
   z-index: 1;
 }

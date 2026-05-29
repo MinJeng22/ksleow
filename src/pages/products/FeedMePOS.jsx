@@ -312,7 +312,7 @@ export default function FeedMePOSPage() {
       </div>
 
       {/* ── AutoCount integration ── */}
-      <div id="integration" className="product-app-section product-app-section-ice product-app-section-from-mist product-app-section-to-warm" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="integration" className="product-app-section product-app-section-ice product-app-section-to-warm" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2.5rem", alignItems: "center" }}>
           <div>
             <div style={S.label}>Built to Work Together</div>
@@ -348,7 +348,7 @@ export default function FeedMePOSPage() {
       </div>
 
       {/* ── Why partner with KSL ── */}
-      <div id="why-ksl" className="product-app-section product-app-section-warm product-app-section-from-ice" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="why-ksl" className="product-app-section product-app-section-warm" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>Why Partner With KSL</div>
           <h2 style={{ ...S.h2, marginBottom: "0.75rem" }}>Local Installation, Local Support</h2>
