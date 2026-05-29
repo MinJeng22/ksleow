@@ -977,13 +977,13 @@ export default function AutoCountTrainingWebGL() {
                       disabled={Boolean(morph)}
                       style={{
                         display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                        background: '#7ab317', color: '#fff', padding: '0.75rem 1.75rem',
+                        background: '#80c31e', color: '#fff', padding: '0.75rem 1.75rem',
                         borderRadius: 50, fontSize: '0.88rem', fontWeight: 600,
                         border: 'none', cursor: morph ? 'default' : 'pointer',
                         transition: 'transform 0.15s, background 0.15s'
                       }}
                       onMouseOver={e => { if (!morph) e.currentTarget.style.background = '#8bc34a'; }}
-                      onMouseOut={e => { if (!morph) e.currentTarget.style.background = '#7ab317'; }}
+                      onMouseOut={e => { if (!morph) e.currentTarget.style.background = '#80c31e'; }}
                     >
                       <svg className="tutorial-play-icon" width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
                         <polygon points="5,3 19,12 5,21" />

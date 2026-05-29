@@ -29,7 +29,7 @@ const RELEASES = autocountReleases;
 /* ── Feature pill colours by type ── */
 const TAG = {
   feature: { bg: "rgba(47,49,90,0.08)", color: "#2f315a" },
-  fix: { bg: "rgba(122,179,23,0.12)", color: "#4a6e0e" },
+  fix: { bg: "rgba(128,195,30,0.12)", color: "#4a6e0e" },
 };
 
 /* ── Copy release notes to clipboard (WhatsApp format) ── */
@@ -88,8 +88,8 @@ function CopyBtn({ onClick, gold }) {
       title="Copy for WhatsApp"
       style={{
         display: "inline-flex", alignItems: "center", gap: "0.3rem",
-        background: copied ? (gold ? "rgba(122,179,23,0.2)" : "rgba(47,49,90,0.12)") : "transparent",
-        border: `1px solid ${gold ? "rgba(122,179,23,0.35)" : "rgba(47,49,90,0.18)"}`,
+        background: copied ? (gold ? "rgba(128,195,30,0.2)" : "rgba(47,49,90,0.12)") : "transparent",
+        border: `1px solid ${gold ? "rgba(128,195,30,0.35)" : "rgba(47,49,90,0.18)"}`,
         borderRadius: 50, padding: "0.2rem 0.6rem",
         fontSize: "0.62rem", fontWeight: 600,
         color: copied ? (gold ? "#4a6e0e" : "#2f315a") : "#a8abcc",
@@ -152,8 +152,8 @@ function ShareLinkButton({ params, hash, compact = false, title = "Copy a sharea
       title={title}
       style={{
         display: "inline-flex", alignItems: "center", gap: compact ? "0.3rem" : "0.4rem",
-        background: copied ? "rgba(122,179,23,0.18)" : (compact ? "transparent" : "rgba(47,49,90,0.06)"),
-        border: `1px solid ${copied ? "rgba(122,179,23,0.4)" : "rgba(47,49,90,0.16)"}`,
+        background: copied ? "rgba(128,195,30,0.18)" : (compact ? "transparent" : "rgba(47,49,90,0.06)"),
+        border: `1px solid ${copied ? "rgba(128,195,30,0.4)" : "rgba(47,49,90,0.16)"}`,
         borderRadius: 50, padding: compact ? "0.2rem 0.6rem" : "0.4rem 0.9rem",
         fontSize: compact ? "0.62rem" : "0.74rem", fontWeight: 600,
         color: copied ? "#4a6e0e" : "#2f315a",
@@ -199,7 +199,7 @@ function ReleaseAssetLink({ url }) {
         alignItems: "center",
         gap: "0.3rem",
         background: "transparent",
-        border: "1px solid rgba(122,179,23,0.35)",
+        border: "1px solid rgba(128,195,30,0.35)",
         borderRadius: 50,
         padding: "0.2rem 0.6rem",
         fontSize: "0.62rem",
@@ -211,12 +211,12 @@ function ReleaseAssetLink({ url }) {
         transition: "all 0.2s",
       }}
       onMouseOver={(event) => {
-        event.currentTarget.style.background = "rgba(122,179,23,0.12)";
-        event.currentTarget.style.borderColor = "rgba(122,179,23,0.55)";
+        event.currentTarget.style.background = "rgba(128,195,30,0.12)";
+        event.currentTarget.style.borderColor = "rgba(128,195,30,0.55)";
       }}
       onMouseOut={(event) => {
         event.currentTarget.style.background = "transparent";
-        event.currentTarget.style.borderColor = "rgba(122,179,23,0.35)";
+        event.currentTarget.style.borderColor = "rgba(128,195,30,0.35)";
       }}
     >
       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
@@ -445,10 +445,10 @@ const EDITION_TABLE = {
 
 function EditionMarker({ value }) {
   if (value === "●") {
-    return <span style={{ display: "inline-block", width: 11, height: 11, borderRadius: "50%", background: "#7AB317" }} />;
+    return <span style={{ display: "inline-block", width: 11, height: 11, borderRadius: "50%", background: "#80c31e" }} />;
   }
   if (value === "+") {
-    return <span style={{ color: "#7AB317", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>+</span>;
+    return <span style={{ color: "#80c31e", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>+</span>;
   }
   return <span style={{ color: "#9aa", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>−</span>;
 }
@@ -464,7 +464,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
     position: "sticky",
     top: 0,
     zIndex: 3,
-    background: "#7AB317",
+    background: "#80c31e",
   };
   const stickyBookCell = {
     background: "#fafafb",
@@ -482,7 +482,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
       <div className="editions-table-wrap">
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.84rem" }}>
           <thead style={{ position: "sticky", top: 0, zIndex: 3 }}>
-            <tr style={{ background: "#7AB317" }}>
+            <tr style={{ background: "#80c31e" }}>
               <th style={{ ...stickyHeaderCell, padding: cellPad, textAlign: "left", color: "#ffffff", fontWeight: 600, minWidth: 190 }}></th>
               {cols.map(e => (
                 <th key={e} style={{ ...stickyHeaderCell, padding: cellPad, color: "#ffffff", fontWeight: 700, textAlign: "center", minWidth: 86, lineHeight: 1.25 }}>{e}</th>
@@ -713,8 +713,8 @@ export default function AutoCountAccountingPage({ onContact }) {
       <style>{`
         /* Local overrides for Start Free Trial (primary button) and Navigator focus */
         #page-autocount-accounting .ks-btn-primary {
-          background: #7ab317 !important;
-          border-color: #7ab317 !important;
+          background: #80c31e !important;
+          border-color: #80c31e !important;
           color: #ffffff !important;
         }
         #page-autocount-accounting .ks-btn-primary:hover {
@@ -723,8 +723,8 @@ export default function AutoCountAccountingPage({ onContact }) {
         }
         #page-autocount-accounting .ac-sidebar button[style*="rgba(201, 168, 76"],
         #page-autocount-accounting .ac-sidebar button[style*="rgba(201,168,76"] {
-          background: rgba(122,179,23,0.25) !important;
-          color: #7ab317 !important;
+          background: rgba(128,195,30,0.25) !important;
+          color: #80c31e !important;
         }
         #page-autocount-accounting .ac-sidebar button svg {
           color: inherit !important;
@@ -755,7 +755,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-        <SectionDivider icon={IconVideo} color="#7ab317" targetId="training" />
+        <SectionDivider icon={IconVideo} color="#80c31e" targetId="training" />
       </div>
 
       {/* ══════════════════════════════════════════════════════════
@@ -783,11 +783,11 @@ export default function AutoCountAccountingPage({ onContact }) {
             </h2>
             <div style={{ display: "inline-flex", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center", fontSize: "0.78rem", color: "#6b6f91" }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#7AB317", display: "inline-block" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#80c31e", display: "inline-block" }} />
                 = included module
               </span>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                <span style={{ color: "#7AB317", fontWeight: 700, fontSize: "1rem", lineHeight: 1 }}>+</span>
+                <span style={{ color: "#80c31e", fontWeight: 700, fontSize: "1rem", lineHeight: 1 }}>+</span>
                 = available optional (add-on) module
               </span>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
@@ -827,7 +827,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                     {EDITIONS.map(e => <option key={e} value={e}>{e}</option>)}
                   </select>
                 </div>
-                <div style={{ textAlign: "center", fontSize: "1.1rem", fontWeight: 700, color: "#7ab317", marginTop: "1.2rem" }}>VS</div>
+                <div style={{ textAlign: "center", fontSize: "1.1rem", fontWeight: 700, color: "#80c31e", marginTop: "1.2rem" }}>VS</div>
                 <div>
                   <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>Edition B</label>
                   <select value={editionB} onChange={e => setEditionB(e.target.value)}
@@ -838,7 +838,7 @@ export default function AutoCountAccountingPage({ onContact }) {
               </div>
 
               {editionA === editionB && (
-                <p style={{ fontSize: "0.78rem", color: "#7ab317", textAlign: "center", marginTop: "0.65rem" }}>
+                <p style={{ fontSize: "0.78rem", color: "#80c31e", textAlign: "center", marginTop: "0.65rem" }}>
                   Pick two different editions to see how they differ.
                 </p>
               )}
@@ -937,7 +937,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                       {RELEASES.map(r => <option key={r.version} value={r.version}>{r.version} ({r.rev})</option>)}
                     </select>
                   </div>
-                  <div style={{ textAlign: "center", fontSize: "1.3rem", color: "#7ab317", marginTop: "1.2rem" }}>→</div>
+                  <div style={{ textAlign: "center", fontSize: "1.3rem", color: "#80c31e", marginTop: "1.2rem" }}>→</div>
                   <div>
                     <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>To version</label>
                     <select value={compareB} onChange={e => setCompareB(e.target.value)}
@@ -962,7 +962,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                   {[
                     { label: "Revisions covered", val: between.length, bg: "rgba(47,49,90,0.06)", col: "#2f315a" },
                     { label: "New features", val: allFeatures.length, bg: "rgba(47,49,90,0.06)", col: "#2f315a" },
-                    { label: "Bug fixes", val: allFixes.length, bg: "rgba(122,179,23,0.1)", col: "#4a6e0e" },
+                    { label: "Bug fixes", val: allFixes.length, bg: "rgba(128,195,30,0.1)", col: "#4a6e0e" },
                   ].map(s => (
                     <div key={s.label} style={{ flex: 1, minWidth: 120, background: s.bg, borderRadius: 12, padding: "1rem 1.25rem" }}>
                       <div style={{ fontSize: "1.6rem", fontWeight: 700, color: s.col, lineHeight: 1 }}>{s.val}</div>
@@ -994,7 +994,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                     {allFixes.length === 0 && <div style={{ fontSize: "0.82rem", color: "#a8abcc" }}>No bug fixes in this range.</div>}
                     {allFixes.map((f, i) => (
                       <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
-                        <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(122,179,23,0.12)", color: "#4a6e0e", flexShrink: 0, marginTop: 2 }}>{f.rev}</span>
+                        <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(128,195,30,0.12)", color: "#4a6e0e", flexShrink: 0, marginTop: 2 }}>{f.rev}</span>
                         <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{f.text}</span>
                       </div>
                     ))}
@@ -1068,7 +1068,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "2.5rem", marginTop: "2rem", alignItems: "center" }}>
             
             <div style={{ paddingRight: "1rem" }}>
-              <div style={{ fontSize: "1rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#7ab317", marginBottom: "1.2rem" }}>
+              <div style={{ fontSize: "1rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#80c31e", marginBottom: "1.2rem" }}>
                 7 Consecutive Years
               </div>
               <h3 style={{ fontSize: "clamp(1.6rem, 2.8vw, 2rem)", fontWeight: 800, color: "#2f315a", lineHeight: 1.2, marginBottom: "1.25rem" }}>
@@ -1104,8 +1104,8 @@ export default function AutoCountAccountingPage({ onContact }) {
           backgroundStart="#f8f9fd"
           backgroundEnd="#eef1f8"
           lineRgb="47,49,90"
-          dotRgb="122,179,23"
-          highlightRgb="122,179,23"
+          dotRgb="128,195,30"
+          highlightRgb="128,195,30"
           vignetteEnd="rgba(47,49,90,0.08)"
           densityScale={0.78}
           mobileDensityScale={2.2}

@@ -101,9 +101,9 @@ function CopyBtn({ onClick, gold = false }) {
       className="ks-btn ks-btn-sm ks-btn-muted"
       style={{
         gap: "0.35rem",
-        background: copied ? (gold ? "rgba(201,168,76,0.18)" : "rgba(47,49,90,0.1)") : "#fff",
-        border: `1px solid ${gold ? "rgba(201,168,76,0.32)" : "rgba(47,49,90,0.14)"}`,
-        color: copied ? (gold ? "#8a6a10" : "#2f315a") : "#6b6f91",
+        background: copied ? (gold ? "rgba(0,158,57,0.18)" : "rgba(47,49,90,0.1)") : "#fff",
+        border: `1px solid ${gold ? "rgba(0,158,57,0.32)" : "rgba(47,49,90,0.14)"}`,
+        color: copied ? (gold ? "#009e39" : "#2f315a") : "#6b6f91",
       }}
     >
       {copied ? "Copied" : "Copy"}
@@ -150,8 +150,8 @@ function ShareLinkButton({ params, hash, compact = false }) {
       className={`ks-btn ks-btn-muted ${compact ? "ks-btn-sm" : ""}`}
       style={{
         gap: compact ? "0.32rem" : "0.45rem",
-        background: copied ? "rgba(201,168,76,0.16)" : "#ffffff",
-        color: copied ? "#8a6a10" : "#2f315a",
+        background: copied ? "rgba(0,158,57,0.16)" : "#ffffff",
+        color: copied ? "#009e39" : "#2f315a",
       }}
     >
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
@@ -169,8 +169,8 @@ function ReleaseNumber({ number, type }) {
       width: 24,
       height: 24,
       borderRadius: "50%",
-      background: type === "fix" ? "rgba(201,168,76,0.12)" : "rgba(47,49,90,0.08)",
-      color: type === "fix" ? "#8a6a10" : "#2f315a",
+      background: type === "fix" ? "rgba(0,158,57,0.12)" : "rgba(47,49,90,0.08)",
+      color: type === "fix" ? "#009e39" : "#2f315a",
       display: "inline-flex",
       alignItems: "center",
       justifyContent: "center",
@@ -327,7 +327,7 @@ function ReleaseCard({ release, expanded, onToggle }) {
               </span>
             )}
             {hasHighlights && (
-              <span style={{ fontSize: "0.6rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", background: "rgba(201,168,76,0.12)", color: "#8a6a10", padding: "0.18rem 0.58rem", borderRadius: 50 }}>
+              <span style={{ fontSize: "0.6rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.08em", background: "rgba(0,158,57,0.12)", color: "#009e39", padding: "0.18rem 0.58rem", borderRadius: 50 }}>
                 Highlights
               </span>
             )}
@@ -336,7 +336,7 @@ function ReleaseCard({ release, expanded, onToggle }) {
               target="_blank"
               rel="noreferrer"
               onClick={(event) => event.stopPropagation()}
-              style={{ color: "#8a6a10", fontSize: "0.66rem", fontWeight: 800, textDecoration: "none" }}
+              style={{ color: "#009e39", fontSize: "0.66rem", fontWeight: 800, textDecoration: "none" }}
             >
               Official Note
             </a>
@@ -349,7 +349,7 @@ function ReleaseCard({ release, expanded, onToggle }) {
 
         <div className="release-card-counts" style={{ display: "flex", gap: "0.75rem", flexShrink: 0 }}>
           <span style={{ fontSize: "0.72rem", color: "#2f315a", fontWeight: 700 }}>{release.features.length} New</span>
-          <span style={{ fontSize: "0.72rem", color: "#8a6a10", fontWeight: 700 }}>{release.fixes.length} Fix</span>
+          <span style={{ fontSize: "0.72rem", color: "#009e39", fontWeight: 700 }}>{release.fixes.length} Fix</span>
         </div>
         <svg className="release-card-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#a8abcc" strokeWidth="2" style={{ flexShrink: 0, transform: expanded ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.25s" }}>
           <polyline points="6 9 12 15 18 9" />
@@ -359,8 +359,8 @@ function ReleaseCard({ release, expanded, onToggle }) {
       {expanded && (
         <div style={{ padding: "0 1.4rem 1.4rem", borderTop: "0.5px solid rgba(47,49,90,0.08)" }}>
           {hasHighlights && (
-            <div style={{ marginTop: "1.1rem", marginBottom: "1.1rem", padding: "1rem", borderRadius: 12, background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.18)" }}>
-              <div style={{ fontSize: "0.76rem", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8a6a10", marginBottom: "0.55rem" }}>
+            <div style={{ marginTop: "1.1rem", marginBottom: "1.1rem", padding: "1rem", borderRadius: 12, background: "rgba(0,158,57,0.08)", border: "1px solid rgba(0,158,57,0.18)" }}>
+              <div style={{ fontSize: "0.76rem", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#009e39", marginBottom: "0.55rem" }}>
                 Highlights
               </div>
               {release.highlights.slice(0, 4).map((item, index) => (
@@ -385,7 +385,7 @@ function ReleaseList({ title, items, type, copy }) {
   return (
     <div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem", gap: "0.75rem" }}>
-        <div style={{ fontSize: "0.82rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: gold ? "#8a6a10" : "#2f315a" }}>
+        <div style={{ fontSize: "0.82rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: gold ? "#009e39" : "#2f315a" }}>
           {title}
         </div>
         {items.length > 0 && <CopyBtn onClick={copy} gold={gold} />}
@@ -588,7 +588,7 @@ export default function AutoCountCloudAccountingPage() {
             <div style={{ maxWidth: 760, margin: "0 auto 1.5rem" }}>
               <div className="cloud-compare-selectors" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "1rem", alignItems: "center" }}>
                 <EditionSelect label="Edition A" value={editionA} onChange={setEditionA} />
-                <div style={{ textAlign: "center", fontSize: "1rem", fontWeight: 800, color: "#c9a84c", marginTop: "1.2rem" }}>VS</div>
+                <div style={{ textAlign: "center", fontSize: "1rem", fontWeight: 800, color: "#009e39", marginTop: "1.2rem" }}>VS</div>
                 <EditionSelect label="Edition B" value={editionB} onChange={setEditionB} />
               </div>
               <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1.25rem", marginTop: "1rem", flexWrap: "wrap" }}>
@@ -778,7 +778,7 @@ function ReleaseCompare({ compareA, setCompareA, compareB, setCompareB }) {
     <div>
       <div className="cloud-compare-selectors" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "1rem", alignItems: "center", marginBottom: "2rem" }}>
         <ReleaseSelect label="From version" value={compareA} onChange={setCompareA} />
-        <div style={{ textAlign: "center", fontSize: "1.3rem", color: "#c9a84c", marginTop: "1.2rem" }}>-&gt;</div>
+        <div style={{ textAlign: "center", fontSize: "1.3rem", color: "#009e39", marginTop: "1.2rem" }}>-&gt;</div>
         <ReleaseSelect label="To version" value={compareB} onChange={setCompareB} />
       </div>
 
@@ -797,7 +797,7 @@ function ReleaseCompare({ compareA, setCompareA, compareB, setCompareB }) {
         {[
           { label: "Releases covered", value: between.length, bg: "rgba(47,49,90,0.06)", color: "#2f315a" },
           { label: "New features", value: allFeatures.length, bg: "rgba(47,49,90,0.06)", color: "#2f315a" },
-          { label: "Bug fixes", value: allFixes.length, bg: "rgba(201,168,76,0.1)", color: "#8a6a10" },
+          { label: "Bug fixes", value: allFixes.length, bg: "rgba(0,158,57,0.1)", color: "#009e39" },
         ].map((item) => (
           <div key={item.label} style={{ flex: 1, minWidth: 130, background: item.bg, borderRadius: "var(--radius-card)", padding: "1rem 1.25rem" }}>
             <div style={{ fontSize: "1.6rem", fontWeight: 800, color: item.color, lineHeight: 1 }}>{item.value}</div>
@@ -849,7 +849,7 @@ function CompareList({ title, items, type, copy }) {
   return (
     <div className="ks-panel" style={{ padding: "1.4rem" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem", gap: "0.75rem" }}>
-        <div style={{ fontSize: "0.82rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: gold ? "#8a6a10" : "#2f315a" }}>
+        <div style={{ fontSize: "0.82rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: gold ? "#009e39" : "#2f315a" }}>
           {title}
         </div>
         {items.length > 0 && <CopyBtn onClick={copy} gold={gold} />}
@@ -859,7 +859,7 @@ function CompareList({ title, items, type, copy }) {
       )}
       {items.map((item, index) => (
         <div key={`${item.rev}-${index}`} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
-          <span style={{ fontSize: "0.6rem", fontWeight: 800, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: gold ? "rgba(201,168,76,0.12)" : "rgba(47,49,90,0.08)", color: gold ? "#8a6a10" : "#2f315a", flexShrink: 0, marginTop: 2 }}>
+          <span style={{ fontSize: "0.6rem", fontWeight: 800, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: gold ? "rgba(0,158,57,0.12)" : "rgba(47,49,90,0.08)", color: gold ? "#009e39" : "#2f315a", flexShrink: 0, marginTop: 2 }}>
             {item.rev}
           </span>
           <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{item.text}</span>
