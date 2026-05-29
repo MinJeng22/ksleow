@@ -485,7 +485,7 @@ export default function AutoCountTrainingWebGL() {
       }}
     >
       <style>{`
-        .training-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
+        .training-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
         @media (max-width: 760px) { .training-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
         .tutorial-stage {
           position: relative;
@@ -855,7 +855,7 @@ export default function AutoCountTrainingWebGL() {
 
               </div>
 
-              <div style={{ transform: 'translateY(-1rem)' }}>
+              <div style={{ alignSelf: 'start' }}>
                 <div style={{
                   margin: '0 0 1.35rem',
                   width: '100%',

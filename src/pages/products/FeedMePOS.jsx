@@ -67,23 +67,22 @@ const Icon = {
 };
 
 /* ── Reusable: feature card (icon chip + title + body) ── */
-function FeatureCard({ icon, title, children }) {
+function FeatureCard({ title, children }) {
   return (
     <div style={{
-      background: "#ffffff", borderRadius: 14, padding: "1.4rem 1.5rem",
+      position: "relative", overflow: "hidden",
+      background: "#ffffff", borderRadius: 14, padding: "1.35rem 1.5rem 1.35rem 1.75rem",
       border: "1px solid rgba(47,49,90,0.09)", transition: "transform 0.2s, border-color 0.2s",
     }}
       onMouseOver={e => { e.currentTarget.style.borderColor = "rgba(201,168,76,0.5)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
       onMouseOut ={e => { e.currentTarget.style.borderColor = "rgba(47,49,90,0.09)";   e.currentTarget.style.transform = "translateY(0)"; }}
     >
-      <div style={{
-        width: 44, height: 44, borderRadius: 12,
-        background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.3)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        marginBottom: "0.85rem",
-      }}>
-        {icon}
-      </div>
+      <span aria-hidden="true" style={{
+        position: "absolute", left: 0, top: 18, bottom: 18, width: 4,
+        borderRadius: "0 999px 999px 0",
+        background: "linear-gradient(180deg, #d8b85b 0%, #b9922f 100%)",
+        boxShadow: "0 0 18px rgba(201,168,76,0.25)",
+      }} />
       <h3 style={S.h3}>{title}</h3>
       <p style={{ ...S.body, margin: 0 }}>{children}</p>
     </div>
