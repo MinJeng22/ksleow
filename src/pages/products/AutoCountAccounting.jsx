@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
@@ -597,7 +597,7 @@ function FeatureHighlights() {
 /* AutoCount sidebar anchor items */
 const AC_SIDEBAR_ITEMS = [
   { id: "features",      label: "Features",        icon: IconStar },
-  { id: "training",      label: "60-Min Training", icon: IconVideo },
+  { id: "training",      label: "Quick-Start Guide", icon: IconVideo },
   { id: "editions",      label: "Edition Compare", icon: IconGrid },
   { id: "releases",      label: "Release Notes",   icon: IconLedger },
   { id: "why-ksl",       label: "Why Choose Us",   icon: IconHandshake },
@@ -730,7 +730,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       <main className="pinned-page-content product-app-content">
 
       {/* ── Feature highlights ── */}
-      <div className="product-app-section product-app-section-paper product-app-section-to-mist">
+      <div className="product-app-section product-app-section-paper product-app-section-clean">
         <FeatureHighlights />
       </div>
 
