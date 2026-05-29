@@ -171,9 +171,18 @@ textarea {
 
 .product-app-section {
   --product-section-bg: var(--ks-page-paper);
+  --product-section-from: var(--product-section-bg);
+  --product-section-to: var(--product-section-bg);
   position: relative;
   overflow: hidden;
-  background: var(--product-section-bg);
+  background:
+    linear-gradient(
+      180deg,
+      var(--product-section-from) 0%,
+      var(--product-section-bg) 24%,
+      var(--product-section-bg) 76%,
+      var(--product-section-to) 100%
+    );
 }
 
 .product-app-section::before {
@@ -201,6 +210,16 @@ textarea {
 .product-app-section-cloud { --product-section-bg: var(--ks-page-cloud); }
 .product-app-section-warm { --product-section-bg: var(--ks-page-warm); }
 .product-app-section-ice { --product-section-bg: var(--ks-page-ice); }
+.product-app-section-from-paper { --product-section-from: var(--ks-page-paper); }
+.product-app-section-from-mist { --product-section-from: var(--ks-page-mist); }
+.product-app-section-from-cloud { --product-section-from: var(--ks-page-cloud); }
+.product-app-section-from-warm { --product-section-from: var(--ks-page-warm); }
+.product-app-section-from-ice { --product-section-from: var(--ks-page-ice); }
+.product-app-section-to-paper { --product-section-to: var(--ks-page-paper); }
+.product-app-section-to-mist { --product-section-to: var(--ks-page-mist); }
+.product-app-section-to-cloud { --product-section-to: var(--ks-page-cloud); }
+.product-app-section-to-warm { --product-section-to: var(--ks-page-warm); }
+.product-app-section-to-ice { --product-section-to: var(--ks-page-ice); }
 
 .product-app-divider {
   --section-from: var(--ks-page-paper);

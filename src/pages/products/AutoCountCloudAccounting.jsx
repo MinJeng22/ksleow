@@ -506,13 +506,15 @@ export default function AutoCountCloudAccountingPage() {
 
       <main className="pinned-page-content product-app-content">
       {/* ── Feature highlights ── */}
-      <div className="product-app-section product-app-section-paper">
+      <div className="product-app-section product-app-section-paper product-app-section-to-mist">
         <FeatureHighlights />
+      </div>
 
-        <div style={{ padding: "0", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-          <SectionDivider icon={IconVideo} targetId="training" />
-        </div>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <SectionDivider icon={IconVideo} targetId="training" />
+      </div>
 
+      <div className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-mist">
         <div id="training" ref={trainingRef} className="ac-section-tight" style={{ padding: "4.5rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "2.4rem" }}>
@@ -552,11 +554,11 @@ export default function AutoCountCloudAccountingPage() {
         </div>
       </div>
 
-      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)" }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-mist)" }}>
         <SectionDivider icon={IconGrid} targetId="editions" />
       </div>
 
-      <div id="editions" className="ac-section-tight product-app-section product-app-section-mist" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
+      <div id="editions" className="ac-section-tight product-app-section product-app-section-mist product-app-section-to-cloud" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.7rem" }}>
             <div className="ks-eyebrow" style={{ color: "#7AB317" }}>
@@ -630,7 +632,7 @@ export default function AutoCountCloudAccountingPage() {
         <SectionDivider icon={IconLedger} targetId="releases" />
       </div>
 
-      <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud" style={{ padding: "2rem 0 4rem 0", scrollMarginTop: 24 }}>
+      <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-from-mist" style={{ padding: "2rem 0 4rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
             <div>

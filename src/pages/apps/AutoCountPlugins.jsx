@@ -157,7 +157,7 @@ export default function AutoCountPluginsPage() {
       </div>
 
       <main className="pinned-page-content product-app-content">
-        <section id="plugin-library" className="product-app-section product-app-section-mist" style={{ padding: "3.5rem 0 4.5rem" }}>
+        <section id="plugin-library" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-cloud" style={{ padding: "3.5rem 0 4.5rem" }}>
         <div className="content-wrap">
           {plugins.length > 0 ? (
             <div style={{

@@ -730,29 +730,31 @@ export default function AutoCountAccountingPage({ onContact }) {
       <main className="pinned-page-content product-app-content">
 
       {/* ── Feature highlights ── */}
-      <div className="product-app-section product-app-section-paper">
+      <div className="product-app-section product-app-section-paper product-app-section-to-mist">
         <FeatureHighlights />
+      </div>
 
-        <div style={{ padding: "0", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-          <SectionDivider icon={IconVideo} color="#c9a84c" targetId="training" />
-        </div>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <SectionDivider icon={IconVideo} color="#c9a84c" targetId="training" />
+      </div>
 
-        {/* ══════════════════════════════════════════════════════════
-         * LEARN AUTOCOUNT IN 60 MINUTES — WebGL Scroll Experience
-         * ══════════════════════════════════════════════════════════ */}
+      {/* ══════════════════════════════════════════════════════════
+       * LEARN AUTOCOUNT IN 60 MINUTES — WebGL Scroll Experience
+       * ══════════════════════════════════════════════════════════ */}
+      <div className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-mist">
         <div id="training">
           <AutoCountTrainingWebGL />
         </div>
       </div>
 
-      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)" }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-mist)" }}>
         <SectionDivider icon={IconGrid} color="#2f315a" targetId="editions" />
       </div>
 
       {/* ══════════════════════════════════════════════════════════
        * COMPARING 5 EDITIONS OF ACCOUNTING 2.2
        * ══════════════════════════════════════════════════════════ */}
-      <div id="editions" className="ac-section-tight product-app-section product-app-section-mist" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
+      <div id="editions" className="ac-section-tight product-app-section product-app-section-mist product-app-section-to-cloud" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
 
@@ -856,7 +858,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       {/* ── Release Notes ── */}
-      <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud" style={{ padding: "2rem 0 4rem 0", scrollMarginTop: 24 }}>
+      <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-from-mist product-app-section-to-warm" style={{ padding: "2rem 0 4rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
 
           {/* ── Title + tab switcher ── */}

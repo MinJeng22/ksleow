@@ -585,7 +585,7 @@ export default function Sales2DOPage({ onContact }) {
       <main className="pinned-page-content product-app-content">
 
       {/* ── Overview + Video Guide ── */}
-      <div id="overview" className="product-app-section product-app-section-paper" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="overview" className="product-app-section product-app-section-paper product-app-section-to-mist" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ ...S.label, marginBottom: "0.5rem" }}>{overview.label}</div>
           <h2 style={{ ...S.h2, marginBottom: "1.5rem" }}>{overview.heading}</h2>
@@ -598,7 +598,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       {/* ── Outstanding Delivery Order ── */}
-      <div id="outstanding" className="product-app-section product-app-section-mist" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="outstanding" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>{outstanding.label}</div>
           <h2 style={S.h2}>{outstanding.heading}</h2>
@@ -629,7 +629,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
-      <div id="preset" className="product-app-section product-app-section-ice" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="preset" className="product-app-section product-app-section-ice product-app-section-from-mist product-app-section-to-cloud" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>{preset.label}</div>
           <h2 style={S.h2}>{preset.heading}</h2>
@@ -654,7 +654,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       {/* ── Plugin Settings ── */}
-      <div id="settings" className="product-app-section product-app-section-cloud" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="settings" className="product-app-section product-app-section-cloud product-app-section-from-ice product-app-section-to-warm" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>{settings.label}</div>
           <h2 style={S.h2}>{settings.heading}</h2>
@@ -682,7 +682,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       {/* ── Activate Plugin License ── */}
-      <div id="license" className="product-app-section product-app-section-warm" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="license" className="product-app-section product-app-section-warm product-app-section-from-cloud" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>{license.label}</div>
           <h2 style={S.h2}>{license.heading}</h2>
