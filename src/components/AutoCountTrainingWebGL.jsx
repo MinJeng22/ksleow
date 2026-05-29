@@ -862,7 +862,7 @@ export default function AutoCountTrainingWebGL() {
           className={`tutorial-stage${stageConcealed ? ' is-morphing' : ''}${morph?.direction === 'close' ? ' is-closing' : ''}`}
           style={{
             height: stageHeight != null ? `${stageHeight}px` : undefined,
-            overflow: stageHeight != null ? 'hidden' : undefined,
+            overflow: stageHeight != null ? 'clip' : undefined,
             transition: stageHeight != null
               ? `height ${stageTransitionMs}ms ${APPLE_EASE}`
               : undefined,
