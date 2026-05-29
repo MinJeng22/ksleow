@@ -197,7 +197,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
           transform: shellTransform,
           '--morph-duration': `${duration}ms`,
           '--morph-ease': APPLE_EASE,
-          boxShadow: VIDEO_SHADOW,
+          boxShadow: direction === 'close' ? VIDEO_SHADOW : 'none',
           opacity: isSettling ? 0 : 1,
         }}
         onTransitionEnd={event => {
