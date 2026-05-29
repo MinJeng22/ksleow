@@ -462,7 +462,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
   const colIdx = cols.map(c => EDITIONS.indexOf(c));
   const stickyHeaderCell = {
     position: "sticky",
-    top: 64,
+    top: 56,
     zIndex: 3,
     background: "#7AB317",
   };
@@ -481,21 +481,21 @@ function EditionsTable({ selected = null, diffOnly = false }) {
     <div style={{ background: "#ffffff", borderRadius: 14, border: "1px solid rgba(47,49,90,0.08)", boxShadow: "0 4px 20px rgba(47,49,90,0.05)" }}>
       <div className="editions-table-wrap">
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.84rem" }}>
-          <thead style={{ position: "sticky", top: 64, zIndex: 3 }}>
+          <thead style={{ position: "sticky", top: 56, zIndex: 3 }}>
             <tr style={{ background: "#7AB317" }}>
               <th style={{ ...stickyHeaderCell, padding: cellPad, textAlign: "left", color: "#ffffff", fontWeight: 600, minWidth: 190 }}></th>
               {cols.map(e => (
                 <th key={e} style={{ ...stickyHeaderCell, padding: cellPad, color: "#ffffff", fontWeight: 700, textAlign: "center", minWidth: 86, lineHeight: 1.25 }}>{e}</th>
               ))}
             </tr>
+          </thead>
+          <tbody>
             <tr style={{ background: "#fafafb", borderBottom: "1px solid rgba(47,49,90,0.08)" }}>
               <td style={{ ...stickyBookCell, padding: cellPad, color: "#2f315a", fontWeight: 500 }}>Default Account Book</td>
               {filterRow(EDITION_TABLE.defaultAccountBook).map((v, i) => (
                 <td key={i} style={{ ...stickyBookCell, padding: cellPad, color: "#2f315a", fontWeight: 600, textAlign: "center" }}>{v}</td>
               ))}
             </tr>
-          </thead>
-          <tbody>
             {EDITION_TABLE.sections.map((section) => {
               const rows = diffOnly
                 ? section.rows.filter(([, values]) => rowDiffers(values))
