@@ -152,7 +152,9 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
     : (active
       ? 'translate3d(0, 0, 0) scale(1, 1)'
       : initialTransform);
-  const shellOpacity = isSettling ? 0 : 1;
+  // opacity is always in transition-property (see CSS), duration is 0ms normally
+  // and 200ms when settling via .is-settling class — this avoids instant-jump bug
+  // caused by changing transitionProperty and opacity in the same React render.
 
   const finishMorph = useCallback(() => {
     if (completedRef.current) return;
@@ -183,7 +185,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
       aria-hidden="true"
     >
       <div
-        className="tutorial-morph-shell"
+        className={`tutorial-morph-shell${isSettling ? ' is-settling' : ''}`}
         data-direction={direction}
         data-active={active ? 'true' : 'false'}
         style={{
@@ -194,11 +196,9 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
           borderRadius: `${borderRadius}px`,
           transform: shellTransform,
           '--morph-duration': `${duration}ms`,
+          '--morph-ease': APPLE_EASE,
           boxShadow: VIDEO_SHADOW,
-          opacity: shellOpacity,
-          transitionDuration: isSettling ? '200ms' : `${duration}ms`,
-          transitionTimingFunction: isSettling ? 'ease' : APPLE_EASE,
-          transitionProperty: isSettling ? 'opacity' : 'border-radius, transform',
+          opacity: isSettling ? 0 : 1,
         }}
         onTransitionEnd={event => {
           if (event.currentTarget !== event.target) return;
@@ -742,8 +742,17 @@ export default function AutoCountTrainingWebGL() {
           transform-origin: center;
           backface-visibility: hidden;
           contain: layout paint style;
-          will-change: border-radius, transform;
-          transition-property: border-radius, transform;
+          will-change: border-radius, transform, opacity;
+          /* opacity is always listed so the browser knows to animate it;
+             during the main animation its duration is 0ms (instant);
+             .is-settling switches it to 200ms for the handoff fade */
+          transition-property: border-radius, transform, opacity;
+          transition-duration: var(--morph-duration), var(--morph-duration), 0ms;
+          transition-timing-function: var(--morph-ease), var(--morph-ease), ease;
+        }
+        .tutorial-morph-shell.is-settling {
+          transition-duration: 0ms, 0ms, 200ms;
+          transition-timing-function: linear, linear, ease;
         }
         .tutorial-morph-shell::before {
           content: "";
