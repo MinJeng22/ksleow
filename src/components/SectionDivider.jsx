@@ -6,7 +6,7 @@ import React, { useRef, useState, useEffect } from "react";
  * Usage:
  *   <SectionDivider icon={<MyIcon />} />
  *
- * The SVG starts grayscale + faded. When the divider scrolls into view
+ * The SVG starts grayscale. When the divider scrolls into view
  * (IntersectionObserver, threshold 0.5) it transitions to full colour.
  *
  * The `icon` prop should be a React element (inline SVG). The component
@@ -44,10 +44,10 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
       ref={ref}
       className="section-divider"
       style={{
-        minHeight: 92,
-        display: "grid",
-        placeItems: "center",
-        padding: "1.15rem 0",
+        minHeight: 0,
+        height: 0,
+        display: "block",
+        padding: 0,
         position: "relative",
         zIndex: 10,
         width: "100%",
@@ -60,10 +60,9 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
           position: "absolute",
           left: 0,
           right: 0,
-          top: "50%",
+          top: 0,
           height: 1,
           background: `${color}24`,
-          transform: "translateY(-50%)",
         }}
       />
 
@@ -71,19 +70,19 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
       <div
         className="section-divider-icon"
         style={{
-          position: "relative",
+          position: "absolute",
+          left: "50%",
+          top: -14,
           width: 58,
           height: 58,
           borderRadius: "50%",
           background: `linear-gradient(135deg, ${color}, ${color}d9)`,
-          boxShadow: inView 
-            ? `0 0 0 8px ${color}22, 0 14px 34px ${color}20, inset 0 0 0 1px rgba(255,255,255,0.32)`
-            : `0 0 0 8px ${color}14, 0 4px 16px rgba(0,0,0,0.04), inset 0 0 0 1px rgba(255,255,255,0.22)`,
+          boxShadow: `0 0 0 8px ${color}18, 0 12px 28px rgba(47,49,90,0.1), inset 0 0 0 1px rgba(255,255,255,0.28)`,
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
-          filter: inView ? "grayscale(0)" : "grayscale(1) opacity(0.4)",
-          transform: inView ? "translateY(0) scale(1)" : "translateY(8px) scale(0.95)",
-          transition: "all 0.8s cubic-bezier(0.22, 1, 0.36, 1)",
+          filter: inView ? "grayscale(0)" : "grayscale(1)",
+          transform: "translate(-50%, -100%)",
+          transition: "filter 0.65s cubic-bezier(0.22, 1, 0.36, 1)",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -96,12 +95,11 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
           inset: "-30%",
           borderRadius: "50%",
           background: `radial-gradient(circle, ${color}20 0%, transparent 70%)`,
-          opacity: inView ? 1 : 0,
-          transition: "opacity 1.2s ease 0.3s",
+          opacity: 0.55,
           pointerEvents: "none",
         }} />
 
-        <div style={{ position: "relative", zIndex: 1, color: "#ffffff", transform: inView ? "scale(1)" : "scale(0.8)", transition: "transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)" }}>
+        <div style={{ position: "relative", zIndex: 1, color: "#ffffff" }}>
           {icon || <div style={{ width: 28, height: 28 }} />}
         </div>
       </div>
