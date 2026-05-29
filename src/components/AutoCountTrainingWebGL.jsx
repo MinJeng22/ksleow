@@ -96,7 +96,7 @@ function isDesktopTabletRect(rect) {
 }
 
 function getTabletInset(rect) {
-  return isDesktopTabletRect(rect) ? `${Math.round(rect.width * 0.035)}px` : '0px';
+  return isDesktopTabletRect(rect) ? `${(rect.width * 0.035).toFixed(3)}px` : '0px';
 }
 
 function getTabletOuterRadius(rect) {
@@ -202,7 +202,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
             crossOrigin="anonymous"
           />
           <div className="tutorial-morph-dim" />
-          <div className="tutorial-morph-play">
+          <div className="tutorial-morph-play tutorial-play-button">
             <svg className="tutorial-play-icon" width="24" height="24" viewBox="0 0 24 24" fill="#2f315a" aria-hidden="true">
               <polygon points="5,3 19,12 5,21" />
             </svg>
@@ -586,9 +586,35 @@ export default function AutoCountTrainingWebGL() {
           flex: 0 0 auto;
           overflow: visible;
         }
+        .tutorial-play-button {
+          width: 64px;
+          height: 64px;
+          display: grid;
+          place-items: center;
+          padding-left: 4px;
+          border-radius: 50%;
+          background: #e8c97a;
+          box-shadow: 0 8px 24px rgba(232,201,122,0.4);
+          box-sizing: border-box;
+          line-height: 0;
+        }
         .tutorial-close-btn:hover {
           background: #ffffff;
           transform: translateY(-1px);
+        }
+        .tutorial-tablet-screen {
+          flex: 1;
+          border-radius: 10px;
+          overflow: hidden;
+          background: #0f1128;
+          position: relative;
+        }
+        .tutorial-tablet-dim {
+          position: absolute;
+          inset: 0;
+          background: rgba(0,0,0,0.3);
+          display: grid;
+          place-items: center;
         }
         .ipad-frame {
           aspect-ratio: 4/3;
@@ -682,14 +708,6 @@ export default function AutoCountTrainingWebGL() {
           position: absolute;
           left: 50%;
           top: 50%;
-          width: 64px;
-          height: 64px;
-          display: grid;
-          place-items: center;
-          padding-left: 4px;
-          border-radius: 50%;
-          background: #e8c97a;
-          box-shadow: 0 8px 24px rgba(232,201,122,0.4);
           transform: translate(-50%, -50%) scale(1);
           opacity: 1;
           transition: transform var(--morph-duration, 4200ms) cubic-bezier(0.22, 1, 0.36, 1), opacity 900ms ease;
@@ -713,6 +731,10 @@ export default function AutoCountTrainingWebGL() {
           }
           .ipad-frame:hover { transform: none; }
           .tutorial-morph-play {
+            width: 54px;
+            height: 54px;
+          }
+          .tutorial-play-button {
             width: 54px;
             height: 54px;
           }
@@ -746,13 +768,7 @@ export default function AutoCountTrainingWebGL() {
             <div className="training-grid">
               <div>
                 <div ref={collapseTargetRef} className="ipad-frame">
-                  <div style={{
-                    flex: 1,
-                    borderRadius: '10px',
-                    overflow: 'hidden',
-                    background: '#0f1128',
-                    position: 'relative',
-                  }} />
+                  <div className="tutorial-tablet-screen" />
                 </div>
               </div>
               <div />
@@ -812,13 +828,7 @@ export default function AutoCountTrainingWebGL() {
                     pointerEvents: morph ? 'none' : 'auto',
                   }}
                 >
-                  <div style={{
-                    flex: 1,
-                    borderRadius: '10px',
-                    overflow: 'hidden',
-                    background: '#0f1128',
-                    position: 'relative',
-                  }}>
+                  <div className="tutorial-tablet-screen">
                     <img
                       src={getThumbnailUrl(activeVideo)}
                       alt="AutoCount Tutorial"
@@ -827,13 +837,8 @@ export default function AutoCountTrainingWebGL() {
                       decoding="async"
                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                     />
-                    <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)', display: 'grid', placeItems: 'center' }}>
-                      <div style={{
-                        width: 64, height: 64, background: '#e8c97a', borderRadius: '50%',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        boxShadow: '0 8px 24px rgba(232,201,122,0.4)',
-                        paddingLeft: 4
-                      }}>
+                    <div className="tutorial-tablet-dim">
+                      <div className="tutorial-play-button">
                         <svg className="tutorial-play-icon" width="24" height="24" viewBox="0 0 24 24" fill="#2f315a" aria-hidden="true">
                           <polygon points="5,3 19,12 5,21" />
                         </svg>
