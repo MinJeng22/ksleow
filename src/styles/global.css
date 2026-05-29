@@ -35,6 +35,12 @@
   --site-card-title: 0.93rem;
   --site-card-copy: 0.81rem;
   --carousel-btn-size: 44px;
+  --ks-page-paper: #ffffff;
+  --ks-page-mist: #f4f6fb;
+  --ks-page-cloud: #eef3f8;
+  --ks-page-warm: #fbf8ef;
+  --ks-page-ice: #f7fbff;
+  --ks-page-ink: #2f315a;
 
   /* Desktop: tight padding */
   --px: clamp(8px, 1vw, 16px);
@@ -122,6 +128,11 @@ textarea {
   flex-direction: column;
 }
 
+.product-app-page {
+  background:
+    linear-gradient(180deg, var(--ks-page-mist) 0%, var(--ks-page-paper) 34%, var(--ks-page-cloud) 100%);
+}
+
 .pinned-hero-stage {
   position: fixed;
   inset: 0;
@@ -151,6 +162,70 @@ textarea {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+
+.product-app-content {
+  background:
+    linear-gradient(180deg, var(--ks-page-paper) 0%, var(--ks-page-mist) 45%, var(--ks-page-cloud) 100%);
+}
+
+.product-app-section {
+  --product-section-bg: var(--ks-page-paper);
+  position: relative;
+  overflow: hidden;
+  background: var(--product-section-bg);
+}
+
+.product-app-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(201,168,76,0.09), transparent 28%),
+    radial-gradient(circle at 88% 18%, rgba(47,49,90,0.055), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+  opacity: var(--product-section-glow, 0.7);
+}
+
+.product-app-section > .content-wrap,
+.product-app-section > .ac-features-showcase,
+.product-app-section > div,
+.product-app-section > section {
+  position: relative;
+  z-index: 1;
+}
+
+.product-app-section-paper { --product-section-bg: var(--ks-page-paper); }
+.product-app-section-mist { --product-section-bg: var(--ks-page-mist); }
+.product-app-section-cloud { --product-section-bg: var(--ks-page-cloud); }
+.product-app-section-warm { --product-section-bg: var(--ks-page-warm); }
+.product-app-section-ice { --product-section-bg: var(--ks-page-ice); }
+
+.product-app-divider {
+  --section-from: var(--ks-page-paper);
+  --section-to: var(--ks-page-mist);
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  background:
+    linear-gradient(180deg, var(--section-from) 0%, color-mix(in srgb, var(--section-from) 44%, var(--section-to)) 48%, var(--section-to) 100%);
+}
+
+.product-app-divider::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent, rgba(201,168,76,0.12), transparent),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.5), transparent 42%);
+  opacity: 0.7;
+}
+
+.product-app-divider .section-divider {
+  position: relative;
+  z-index: 1;
 }
 
 @media (max-width: 768px) {

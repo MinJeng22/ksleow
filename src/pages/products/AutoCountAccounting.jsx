@@ -709,7 +709,7 @@ export default function AutoCountAccountingPage({ onContact }) {
   const highlightCount = RELEASES.filter(r => r.highlightsUrl).length;
 
   return (
-    <div className="pinned-hero-page" style={{ background: "#f5f5f8", minHeight: "100vh" }}>
+    <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
 
       {/* Floating section sidebar — desktop only (≥1280px), hidden via media query otherwise */}
       <SectionSidebar items={AC_SIDEBAR_ITEMS} />
@@ -727,10 +727,10 @@ export default function AutoCountAccountingPage({ onContact }) {
         />
       </div>
 
-      <main className="pinned-page-content">
+      <main className="pinned-page-content product-app-content">
 
       {/* ── Feature highlights ── */}
-      <div style={{ background: "#ffffff" }}>
+      <div className="product-app-section product-app-section-paper">
         <FeatureHighlights />
 
         <div style={{ padding: "0", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
@@ -745,14 +745,14 @@ export default function AutoCountAccountingPage({ onContact }) {
         </div>
       </div>
 
-      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: 0 }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)" }}>
         <SectionDivider icon={IconGrid} color="#2f315a" targetId="editions" />
       </div>
 
       {/* ══════════════════════════════════════════════════════════
        * COMPARING 5 EDITIONS OF ACCOUNTING 2.2
        * ══════════════════════════════════════════════════════════ */}
-      <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
+      <div id="editions" className="ac-section-tight product-app-section product-app-section-mist" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
 
@@ -851,10 +851,12 @@ export default function AutoCountAccountingPage({ onContact }) {
         </div>
       </div>
 
-      <SectionDivider icon={IconLedger} color="#8a6a10" targetId="releases" />
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-cloud)" }}>
+        <SectionDivider icon={IconLedger} color="#8a6a10" targetId="releases" />
+      </div>
 
       {/* ── Release Notes ── */}
-      <div id="releases" className="ac-section-tight" style={{ padding: "2rem 0 4rem 0", scrollMarginTop: 24 }}>
+      <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud" style={{ padding: "2rem 0 4rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
 
           {/* ── Title + tab switcher ── */}
@@ -1034,10 +1036,10 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       {/* ── Why Choose Us ── */}
-      <div style={{ background: "linear-gradient(to bottom, #f8f9fc, #ffffff)", padding: 0 }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-cloud)", "--section-to": "var(--ks-page-warm)" }}>
         <SectionDivider icon={IconHandshake} targetId="why-ksl" />
       </div>
-      <div id="why-ksl" style={{ background: "#ffffff", padding: "4rem 0", scrollMarginTop: 24 }}>
+      <div id="why-ksl" className="product-app-section product-app-section-warm" style={{ padding: "4rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "1rem" }}>Why Partner With KSL</div>
           <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>Why Choose Us?</h2>

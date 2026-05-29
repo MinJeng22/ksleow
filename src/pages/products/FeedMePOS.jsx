@@ -136,7 +136,7 @@ export default function FeedMePOSPage() {
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, []);
 
   return (
-    <div className="pinned-hero-page" style={{ background: "#f5f5f8", minHeight: "100vh" }}>
+    <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
 
       <SectionSidebar items={SIDEBAR_ITEMS} />
 
@@ -199,9 +199,9 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <main className="pinned-page-content">
+      <main className="pinned-page-content product-app-content">
       {/* ── Key Features ── */}
-      <div id="features" style={{ background: "#ffffff", ...S.section, scrollMarginTop: 24 }}>
+      <div id="features" className="product-app-section product-app-section-paper" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>What's Inside</div>
           <h2 style={{ ...S.h2, marginBottom: "0.75rem" }}>Everything an F&amp;B Outlet Needs</h2>
@@ -239,12 +239,12 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: 0 }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)" }}>
         <SectionDivider icon={IconLayers} targetId="modules" />
       </div>
 
       {/* ── Module spotlight ── */}
-      <div id="modules" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
+      <div id="modules" className="product-app-section product-app-section-mist" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>How It Flows</div>
           <h2 style={{ ...S.h2, marginBottom: "0.75rem" }}>One Order, End-to-End</h2>
@@ -307,12 +307,12 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <div style={{ background: "linear-gradient(to bottom, #f5f5f8, #ffffff)", padding: 0 }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
         <SectionDivider icon={IconLink} targetId="integration" />
       </div>
 
       {/* ── AutoCount integration ── */}
-      <div id="integration" style={{ background: "#ffffff", ...S.section, scrollMarginTop: 24 }}>
+      <div id="integration" className="product-app-section product-app-section-ice" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2.5rem", alignItems: "center" }}>
           <div>
             <div style={S.label}>Built to Work Together</div>
@@ -343,12 +343,12 @@ export default function FeedMePOSPage() {
         </div>
       </div>
 
-      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f8f9fc)", padding: 0 }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-warm)" }}>
         <SectionDivider icon={IconHandshake} targetId="why-ksl" />
       </div>
 
       {/* ── Why partner with KSL ── */}
-      <div id="why-ksl" style={{ background: "#f8f9fc", ...S.section, scrollMarginTop: 24 }}>
+      <div id="why-ksl" className="product-app-section product-app-section-warm" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>Why Partner With KSL</div>
           <h2 style={{ ...S.h2, marginBottom: "0.75rem" }}>Local Installation, Local Support</h2>

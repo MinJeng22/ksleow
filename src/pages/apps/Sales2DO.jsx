@@ -565,7 +565,7 @@ export default function Sales2DOPage({ onContact }) {
   } = sales2doContent;
 
   return (
-    <div className="pinned-hero-page" style={{ background: "#f5f5f8", minHeight: "100vh" }}>
+    <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
 
       <SectionSidebar items={S2D_SIDEBAR_ITEMS} />
 
@@ -582,10 +582,10 @@ export default function Sales2DOPage({ onContact }) {
         />
       </div>
 
-      <main className="pinned-page-content">
+      <main className="pinned-page-content product-app-content">
 
       {/* ── Overview + Video Guide ── */}
-      <div id="overview" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
+      <div id="overview" className="product-app-section product-app-section-paper" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ ...S.label, marginBottom: "0.5rem" }}>{overview.label}</div>
           <h2 style={{ ...S.h2, marginBottom: "1.5rem" }}>{overview.heading}</h2>
@@ -593,12 +593,12 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: 0 }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)" }}>
         <SectionDivider icon={IconClipboard} targetId="outstanding" />
       </div>
 
       {/* ── Outstanding Delivery Order ── */}
-      <div id="outstanding" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
+      <div id="outstanding" className="product-app-section product-app-section-mist" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>{outstanding.label}</div>
           <h2 style={S.h2}>{outstanding.heading}</h2>
@@ -624,12 +624,12 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <div style={{ background: "linear-gradient(to bottom, #f5f5f8, #ffffff)", padding: 0 }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
         <SectionDivider icon={IconStar} targetId="preset" />
       </div>
 
       {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
-      <div id="preset" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
+      <div id="preset" className="product-app-section product-app-section-ice" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>{preset.label}</div>
           <h2 style={S.h2}>{preset.heading}</h2>
@@ -649,12 +649,12 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: 0 }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-cloud)" }}>
         <SectionDivider icon={IconSettings} targetId="settings" />
       </div>
 
       {/* ── Plugin Settings ── */}
-      <div id="settings" style={{ background: "#f5f5f8", ...S.section, scrollMarginTop: 24 }}>
+      <div id="settings" className="product-app-section product-app-section-cloud" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>{settings.label}</div>
           <h2 style={S.h2}>{settings.heading}</h2>
@@ -677,12 +677,12 @@ export default function Sales2DOPage({ onContact }) {
         </div>
       </div>
 
-      <div style={{ background: "linear-gradient(to bottom, #f5f5f8, #ffffff)", padding: 0 }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-cloud)", "--section-to": "var(--ks-page-warm)" }}>
         <SectionDivider icon={IconShield} targetId="license" />
       </div>
 
       {/* ── Activate Plugin License ── */}
-      <div id="license" style={{ background: "#fff", ...S.section, scrollMarginTop: 24 }}>
+      <div id="license" className="product-app-section product-app-section-warm" style={{ ...S.section, scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={S.label}>{license.label}</div>
           <h2 style={S.h2}>{license.heading}</h2>

@@ -143,7 +143,7 @@ export default function AutoCountPluginsPage() {
   }, []);
 
   return (
-    <div className="pinned-hero-page" style={{ background: "#f5f5f8", minHeight: "100vh" }}>
+    <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
       <div className="pinned-hero-stage">
         <ProductHero
           eyebrow={pluginContent.hero?.eyebrow}
@@ -156,8 +156,8 @@ export default function AutoCountPluginsPage() {
         />
       </div>
 
-      <main className="pinned-page-content">
-        <section id="plugin-library" style={{ padding: "3.5rem 0 4.5rem" }}>
+      <main className="pinned-page-content product-app-content">
+        <section id="plugin-library" className="product-app-section product-app-section-mist" style={{ padding: "3.5rem 0 4.5rem" }}>
         <div className="content-wrap">
           {plugins.length > 0 ? (
             <div style={{

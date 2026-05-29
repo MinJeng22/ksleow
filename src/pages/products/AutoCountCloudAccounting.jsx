@@ -488,7 +488,7 @@ export default function AutoCountCloudAccountingPage() {
   const highlightCount = RELEASES.filter((release) => release.highlights?.length > 0).length;
 
   return (
-    <div className="pinned-hero-page" style={{ background: "#f5f5f8", minHeight: "100vh" }}>
+    <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
       <SectionSidebar items={SIDEBAR_ITEMS} />
 
       <div className="pinned-hero-stage">
@@ -504,9 +504,9 @@ export default function AutoCountCloudAccountingPage() {
         />
       </div>
 
-      <main className="pinned-page-content">
+      <main className="pinned-page-content product-app-content">
       {/* ── Feature highlights ── */}
-      <div style={{ background: "#ffffff" }}>
+      <div className="product-app-section product-app-section-paper">
         <FeatureHighlights />
 
         <div style={{ padding: "0", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
@@ -552,11 +552,11 @@ export default function AutoCountCloudAccountingPage() {
         </div>
       </div>
 
-      <div style={{ background: "linear-gradient(to bottom, #ffffff, #f5f5f8)", padding: 0 }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)" }}>
         <SectionDivider icon={IconGrid} targetId="editions" />
       </div>
 
-      <div id="editions" className="ac-section-tight" style={{ background: "#f5f5f8", padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
+      <div id="editions" className="ac-section-tight product-app-section product-app-section-mist" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.7rem" }}>
             <div className="ks-eyebrow" style={{ color: "#7AB317" }}>
@@ -626,9 +626,11 @@ export default function AutoCountCloudAccountingPage() {
         </div>
       </div>
 
-      <SectionDivider icon={IconLedger} targetId="releases" />
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-cloud)" }}>
+        <SectionDivider icon={IconLedger} targetId="releases" />
+      </div>
 
-      <div id="releases" className="ac-section-tight" style={{ padding: "2rem 0 4rem 0", scrollMarginTop: 24 }}>
+      <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud" style={{ padding: "2rem 0 4rem 0", scrollMarginTop: 24 }}>
         <div className="content-wrap">
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
             <div>
