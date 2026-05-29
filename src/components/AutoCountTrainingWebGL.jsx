@@ -531,6 +531,11 @@ export default function AutoCountTrainingWebGL() {
           visibility: hidden;
           pointer-events: none;
         }
+        .tutorial-stage.is-morphing.is-closing .tutorial-stage-content {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: none;
+        }
         .tutorial-measure-target {
           position: absolute;
           top: 0;
@@ -638,6 +643,39 @@ export default function AutoCountTrainingWebGL() {
         .tutorial-close-btn:hover {
           background: #ffffff;
           transform: translateY(-1px);
+        }
+        .tutorial-copy-panel {
+          align-self: start;
+        }
+        .tutorial-stage.is-morphing.is-closing .tutorial-selector,
+        .tutorial-stage.is-morphing.is-closing .tutorial-description,
+        .tutorial-stage.is-morphing.is-closing .tutorial-actions {
+          opacity: 0;
+          transform: translate3d(0, 18px, 0) scale(0.985);
+          animation: tutorial-copy-return 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+          will-change: transform, opacity;
+        }
+        .tutorial-stage.is-morphing.is-closing .tutorial-selector {
+          animation-delay: 100ms;
+        }
+        .tutorial-stage.is-morphing.is-closing .tutorial-description {
+          animation-delay: 180ms;
+        }
+        .tutorial-stage.is-morphing.is-closing .tutorial-actions {
+          animation-delay: 260ms;
+        }
+        @keyframes tutorial-copy-return {
+          0% {
+            opacity: 0;
+            transform: translate3d(0, 18px, 0) scale(0.985);
+          }
+          72% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1);
+          }
         }
         .tutorial-tablet-screen {
           flex: 1;
@@ -794,7 +832,7 @@ export default function AutoCountTrainingWebGL() {
 
         <div
           ref={stageRef}
-          className={`tutorial-stage${stageConcealed ? ' is-morphing' : ''}`}
+          className={`tutorial-stage${stageConcealed ? ' is-morphing' : ''}${morph?.direction === 'close' ? ' is-closing' : ''}`}
           style={{
             height: stageHeight != null ? `${stageHeight}px` : undefined,
             overflow: stageHeight != null ? 'hidden' : undefined,
@@ -891,8 +929,8 @@ export default function AutoCountTrainingWebGL() {
 
               </div>
 
-              <div style={{ alignSelf: 'start' }}>
-                <div style={{
+              <div className="tutorial-copy-panel">
+                <div className="tutorial-selector" style={{
                   margin: '0 0 1.35rem',
                   width: '100%',
                   maxWidth: 480,
@@ -929,13 +967,13 @@ export default function AutoCountTrainingWebGL() {
                     );
                   })}
                 </div>
-                <p style={{
+                <p className="tutorial-description" style={{
                   fontSize: '0.95rem', color: '#6b6f91', lineHeight: 1.8,
                   maxWidth: 480, marginBottom: '1.5rem', marginTop: 0,
                 }}>
                   {activeVideoMeta.description}
                 </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                <div className="tutorial-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                   <button
                     onClick={handlePlay}
                     disabled={Boolean(morph)}
