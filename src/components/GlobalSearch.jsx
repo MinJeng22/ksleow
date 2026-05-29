@@ -53,10 +53,8 @@ const SEARCH_INDEX = [
     keywords: "plugins, extensions, add-on, customize, autocount, app",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="7" height="7" rx="1"/>
-        <rect x="14" y="3" width="7" height="7" rx="1"/>
-        <rect x="3" y="14" width="7" height="7" rx="1"/>
-        <rect x="14" y="14" width="7" height="7" rx="1"/>
+        <rect width="7" height="7" x="14" y="3" rx="1"/>
+        <path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"/>
       </svg>
     )
   },
@@ -77,9 +75,7 @@ const SEARCH_INDEX = [
     keywords: "ks omni, ai, chatbot, omnichannel, whatsapp, customer service, support",
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 2a14.5 14.5 0 000 20 14.5 14.5 0 000-20"/>
-        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
       </svg>
     )
   },

@@ -31,9 +31,9 @@ const MEGA_MENU = [
     title: "Other Services",
     items: [
       { label: "Printing / Advertising / Design", scrollTo: "#other-services", icon: "printer" },
-      { label: "AutoCount Plugin",                path: "/apps/autocount-plugin", icon: "puzzle" },
+      { label: "AutoCount Plugin",                path: "/apps/autocount-plugin", icon: "blocks" },
       { label: "SiteGiant Integration",           scrollTo: "#other-services", icon: "link" },
-      { label: "KS Omni (AI Assistant)",           path: "/omni", icon: "bot" },
+      { label: "KS Omni (AI Assistant)",           path: "/omni", icon: "chat" },
     ],
   },
 ];
@@ -92,6 +92,10 @@ function NavIcon({ name, size = 16 }) {
       return <svg {...common}><path d="M10 13a5 5 0 0 0 7.54.54l2-2a5 5 0 0 0-7.07-7.07l-1.15 1.15" /><path d="M14 11a5 5 0 0 0-7.54-.54l-2 2a5 5 0 0 0 7.07 7.07l1.15-1.15" /></svg>;
     case "bot":
       return <svg {...common}><rect x="4" y="8" width="16" height="12" rx="3" /><path d="M12 8V4" /><path d="M8 12h.01M16 12h.01" /><path d="M9 16h6" /></svg>;
+    case "chat":
+      return <svg {...common}><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" /></svg>;
+    case "blocks":
+      return <svg {...common}><rect width="7" height="7" x="14" y="3" rx="1"/><path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"/></svg>;
     case "puzzle":
       return <svg {...common}><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.611c-.941.941-2.469.941-3.408 0L8.73 19.73a.98.98 0 0 1-.276-.837c.07-.47.48-.802.925-.968a2.5 2.5 0 1 0-3.214-3.214c-.166-.446-.497-.855-.968-.925a.979.979 0 0 1-.837.276L2.748 11.9a2.41 2.41 0 0 1 0-3.408l1.568-1.568c.23-.23.556-.338.878-.289.467.071.796.471.961.908a2.5 2.5 0 1 0 3.226-3.226c-.437-.165-.837-.494-.908-.961a.978.978 0 0 1 .289-.878l1.568-1.568c.941-.941 2.469-.941 3.408 0l1.568 1.568c.23.23.556.338.878.289.467-.071.796-.471.961-.908a2.5 2.5 0 1 0 3.226 3.226c.165.437.494.837.961.908Z" /></svg>;
     case "fork":
