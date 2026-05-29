@@ -436,12 +436,16 @@ export default function AutoCountTrainingWebGL() {
       setIframeReady(false);
       setStageConcealed(false);
       setStageHeight(null);
-      setShadowIn(true);
-      // After 2 frames (real frame painted), start the 200ms cross-fade:
-      // morph shell fades out (opacity 1→0) while real frame shadow fades in (0→1).
-      // Both take 200ms, so combined shadow stays constant at 1x.
+      // NOTE: setShadowIn(true) is intentionally DELAYED to the 2-RAF callback below.
+      // If called here (same render as setPlayerOpen), the element is newly created with
+      // shadow-in already applied — the browser has no "before" state, so the CSS
+      // box-shadow transition never fires and the shadow pops in instantly at full opacity,
+      // causing a double-shadow flash with the portal shadow.
       morphPaintRafRef.current = window.requestAnimationFrame(() => {
         morphPaintRafRef.current = window.requestAnimationFrame(() => {
+          // Now the real frame is in the DOM. Add shadow-in here so the transition fires.
+          // Simultaneously start the portal fade-out. Both are 200ms → cross-fade is 1x constant.
+          setShadowIn(true);
           setMorphSettling(true);
           morphSettleTimerRef.current = window.setTimeout(() => {
             setMorph(null);
