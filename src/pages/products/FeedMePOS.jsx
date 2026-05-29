@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
-import SectionDivider, { IconLayers, IconLink, IconHandshake, IconStar } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconLayers, IconLink, IconHandshake, IconStar } from "../../components/SectionDivider.jsx";import ParticleBackground from "../../components/ParticleBackground.jsx";
 
 /* FeedMe POS page — product-aware WhatsApp link to Sales Agent Elise */
 const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
@@ -374,22 +374,17 @@ export default function FeedMePOSPage() {
 
 
       {/* ── Final CTA ── */}
-      <div style={{ background: "#2f315a", padding: "4rem 0" }}>
-        <div className="content-wrap" style={{ textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontWeight: 700, color: "#ffffff", marginBottom: "0.75rem" }}>
+      <div className="enquire-now-section">
+        <ParticleBackground paused={false} backgroundStart="#f8f9fd" backgroundEnd="#eef1f8" lineRgb="47,49,90" dotRgb="201,168,76" highlightRgb="201,168,76" vignetteEnd="rgba(47,49,90,0.08)" densityScale={0.78} mobileDensityScale={2.2} lineAlphaScale={0.38} dotAlpha={0.6} />
+        <div className="enquire-now-content content-wrap">
+          <h2 className="enquire-now-heading">
             Ready to Run Your Restaurant on FeedMe?
           </h2>
-          <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.6)", maxWidth: 520, margin: "0 auto 1.75rem" }}>
+          <p className="enquire-now-body">
             Talk to KSL Business Solutions for pricing, hardware bundles, on-site setup,
             and training across Pahang.
           </p>
-          <a href={WA_LINK} target="_blank" rel="noreferrer"
-            style={{ display: "inline-block", background: "#2f315a", color: "#ffffff", padding: "0.85rem 2.5rem", borderRadius: 50, fontSize: "0.95rem", fontWeight: 700, textDecoration: "none", fontFamily: "inherit", transition: "opacity 0.2s" }}
-            onMouseOver={e => e.currentTarget.style.opacity = "0.85"}
-            onMouseOut ={e => e.currentTarget.style.opacity = "1"}
-          >
-            Enquire Now
-          </a>
+          <a href={WA_LINK} target="_blank" rel="noreferrer" className="enquire-now-btn">Enquire Now</a>
         </div>
       </div>
 

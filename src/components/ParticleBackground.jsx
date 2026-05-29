@@ -60,6 +60,7 @@ export default function ParticleBackground({
   dotOutlineAlpha = 0.42,
   dotOutlineWidth = 0.65,
   densityScale = 1,
+  mobileDensityScale = null,
   lineAlphaScale = 1,
   dotAlpha = 0.52,
   obstacleSelector = null,
@@ -106,7 +107,8 @@ export default function ParticleBackground({
       s.vigGrad.addColorStop(1, vignetteEnd);
 
       const baseN = Math.min(maxParticlesFor(W), Math.max(minParticlesFor(W), Math.round(W * H * densityFor(W))));
-      const N = Math.max(3, Math.round(baseN * densityScale));
+      const currentDensityScale = (mobileDensityScale !== null && W < 640) ? mobileDensityScale : densityScale;
+      const N = Math.max(3, Math.round(baseN * currentDensityScale));
       s.particles = Array.from({ length: N }, () => ({
         x:  rand(0, W), y: rand(0, H),
         vx: rand(-SPEED, SPEED) || SPEED,
@@ -305,7 +307,7 @@ export default function ParticleBackground({
       window.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, [densityScale]);
+  }, [densityScale, mobileDensityScale]);
 
   return (
     <canvas

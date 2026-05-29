@@ -1066,7 +1066,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       {/* CTA band */}
-      <div style={{ position: "relative", overflow: "hidden", background: "#f4f6fb", padding: "4rem 0" }}>
+      <div className="enquire-now-section">
         <ParticleBackground
           paused={false}
           backgroundStart="#f8f9fd"
@@ -1076,15 +1076,15 @@ export default function AutoCountAccountingPage({ onContact }) {
           highlightRgb="201,168,76"
           vignetteEnd="rgba(47,49,90,0.08)"
           densityScale={0.78}
-          mobileDensityScale={1.45}
+          mobileDensityScale={2.2}
           lineAlphaScale={0.38}
           dotAlpha={0.6}
         />
-        <div className="content-wrap" style={{ position: "relative", zIndex: 1, textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontWeight: 700, color: "#2f315a", marginBottom: "0.75rem" }}>
+        <div className="enquire-now-content content-wrap">
+          <h2 className="enquire-now-heading">
             Ready to get started with AutoCount?
           </h2>
-          <p style={{ fontSize: "0.95rem", color: "#6b6f91", maxWidth: 480, margin: "0 auto 1.75rem" }}>
+          <p className="enquire-now-body">
             KSL Business Solutions provides full AutoCount implementation,
             training, and support across Pahang.
           </p>

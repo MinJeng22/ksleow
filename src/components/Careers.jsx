@@ -78,19 +78,7 @@ export default function Careers() {
     }
   }, [visible, buttonsStart]);
 
-  const [density, setDensity] = useState(0.78);
-  useEffect(() => {
-    const update = () => {
-      if (window.innerWidth < 640) {
-        setDensity(2.2); // increased on mobile
-      } else {
-        setDensity(0.78);
-      }
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
+
 
   return (
     <div className="home-section" style={{
@@ -108,7 +96,8 @@ export default function Careers() {
         dotRgb="201,168,76"
         highlightRgb="201,168,76"
         vignetteEnd="rgba(47,49,90,0.08)"
-        densityScale={density}
+        densityScale={0.78}
+        mobileDensityScale={2.2}
         lineAlphaScale={0.38}
         dotAlpha={0.6}
       />
