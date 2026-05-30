@@ -571,12 +571,6 @@ export default function KSLOmniPage() {
           width: 38px; height: 38px;
           border-radius: 50%;
         }
-        .omni-divider {
-          width: 1px;
-          height: 20px;
-          background: rgba(0,0,0,0.1);
-          margin: auto 4px;
-        }
       `}</style>
 
       {/* ── Top Liquid Glass Navigation ── */}
@@ -584,15 +578,12 @@ export default function KSLOmniPage() {
         {/* Left Group: Back (desktop) + KS Omni Branding */}
         <div className="omni-top-group">
           {!isMobile && (
-            <>
-              <button className="omni-lg-glass-btn omni-btn-pill" onClick={goHome} aria-label="Back" title="Back">
-                <BackIcon />
-                <span>Back</span>
-              </button>
-              <div className="omni-divider" />
-            </>
+            <button className="omni-lg-glass-btn omni-btn-pill" onClick={goHome} aria-label="Back" title="Back">
+              <BackIcon />
+              <span>Back</span>
+            </button>
           )}
-          <div style={{ display: "flex", alignItems: "center", gap: 8, paddingRight: 10, paddingLeft: 4 }}>
+          <div className="omni-lg-glass-btn omni-btn-pill" style={{ cursor: "default", paddingLeft: "0.4rem", paddingRight: "0.8rem", pointerEvents: "none" }}>
             <div style={{ width: 26, height: 26, borderRadius: "50%", overflow: "hidden", border: "1.5px solid rgba(201,168,76,0.5)", flexShrink: 0 }}>
               <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchPriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
             </div>
@@ -607,12 +598,10 @@ export default function KSLOmniPage() {
             onClick={() => setShowQR(true)} 
             aria-label="Open on Phone"
             title="Open on Phone"
-            style={{ color: "#a17f1e" }}
           >
             <QRIcon />
             <span>Open on Phone</span>
           </button>
-          <div className="omni-divider" />
           
           {!isMobile && (
             <>
@@ -642,18 +631,18 @@ export default function KSLOmniPage() {
                 </svg>
                 <span>Menu</span>
               </button>
-              <div className="omni-divider" />
             </>
           )}
 
           <button 
-            className="omni-lg-glass-btn omni-btn-circle" 
+            className="omni-lg-glass-btn omni-btn-pill" 
             onClick={clearChat} 
             aria-label="Clear chat"
             title="Clear chat"
             style={{ color: "#991b1b" }}
           >
             <TrashIcon />
+            <span>Clear Chat</span>
           </button>
         </div>
       </div>
