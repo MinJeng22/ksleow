@@ -555,6 +555,14 @@ const FEATURES = [
   },
 ];
 
+const BRAND_LOGOS = [
+  "/images/brands/ac-brand-1.png",
+  "/images/brands/ac-brand-2.png",
+  "/images/brands/ac-brand-3.png",
+  "/images/brands/ac-brand-4.png",
+  "/images/brands/ac-brand-5.png",
+];
+
 function FeatureHighlights() {
   const gridRef = useRef(null);
   const [inView, setInView] = useState(true);
@@ -593,6 +601,33 @@ function FeatureHighlights() {
               </span>
             </article>
           ))}
+        </div>
+
+        {/* Brand Marquee */}
+        <div style={{ marginTop: "4rem", position: "relative" }}>
+          <p style={{
+            textAlign: "center", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.1em",
+            color: "#6b6f91", textTransform: "uppercase", marginBottom: "2rem"
+          }}>
+            Trusted by these growing brands
+          </p>
+          <div style={{
+            position: "absolute", left: 0, bottom: 0, top: "2rem", width: "80px",
+            background: "linear-gradient(to right, #fbfbfd, transparent)", zIndex: 2, pointerEvents: "none"
+          }} />
+          <div style={{
+            position: "absolute", right: 0, bottom: 0, top: "2rem", width: "80px",
+            background: "linear-gradient(to left, #fbfbfd, transparent)", zIndex: 2, pointerEvents: "none"
+          }} />
+          <div className="ac-brand-marquee-container">
+            <div className="ac-brand-marquee">
+              {[...BRAND_LOGOS, ...BRAND_LOGOS].map((src, i) => (
+                <div key={i} className="ac-brand-item">
+                  <img src={src} alt="Brand logo" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

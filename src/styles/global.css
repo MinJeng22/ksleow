@@ -444,6 +444,47 @@ textarea {
   overflow-wrap: anywhere;
 }
 
+@keyframes ac-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ac-brand-marquee-container {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+
+.ac-brand-marquee {
+  display: flex;
+  width: 200%;
+  animation: ac-marquee 25s linear infinite;
+}
+
+.ac-brand-marquee:hover {
+  animation-play-state: paused;
+}
+
+.ac-brand-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.ac-brand-item img {
+  max-width: 120px;
+  max-height: 48px;
+  object-fit: contain;
+  filter: grayscale(100%) opacity(0.5);
+  transition: filter 0.3s ease;
+}
+
+.ac-brand-item img:hover {
+  filter: grayscale(0%) opacity(1);
+}
+
 @media (max-width: 1180px) and (min-width: 901px) {
   .ac-features-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
