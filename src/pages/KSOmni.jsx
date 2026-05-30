@@ -220,6 +220,12 @@ export default function KSLOmniPage() {
     img.src = qrUrl;
   }, [qrUrl]);
 
+  useEffect(() => {
+    const onOpenQR = () => setShowQR(true);
+    window.addEventListener("openOmniQR", onOpenQR);
+    return () => window.removeEventListener("openOmniQR", onOpenQR);
+  }, []);
+
   function handleInputChange(e) {
     setInput(e.target.value);
     autoResizeTextarea(e.currentTarget);
@@ -535,36 +541,7 @@ export default function KSLOmniPage() {
           @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
         `}</style>
 
-        {/* Mobile header — Back button on the left, title, Clear on the right */}
-        <div style={{
-          background: "#2f315a",
-          padding: "0.7rem 0.85rem",
-          paddingTop: "max(0.7rem, env(safe-area-inset-top))",
-          display: "flex", alignItems: "center", gap: "0.55rem", flexShrink: 0,
-        }}>
-          <button onClick={goHome} title="Back" aria-label="Back"
-            style={{
-              background: "rgba(255,255,255,0.1)", border: "none", color: "rgba(255,255,255,0.85)",
-              width: 34, height: 34, borderRadius: "50%", cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}><BackIcon /></button>
-          <div style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "1.5px solid rgba(201,168,76,0.5)", flexShrink: 0 }}>
-              <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-          </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: "0.9rem", fontWeight: 700, color: "#ffffff", lineHeight: 1.2 }}>KS Omni</div>
-            <div style={{ fontSize: "0.65rem", color: "rgba(255,255,255,0.55)", display: "flex", alignItems: "center", gap: 4, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-              <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#4ade80", display: "inline-block", flexShrink: 0 }} />
-              K.S. Leow Group AI Assistant
-            </div>
-          </div>
-          <button onClick={clearChat} title="Clear chat" aria-label="Clear chat"
-            style={{
-              background: "rgba(255,255,255,0.1)", border: "none", color: "rgba(255,255,255,0.7)",
-              width: 34, height: 34, borderRadius: "50%", cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}><TrashIcon /></button>
-        </div>
+        {/* Mobile header removed: now integrated into floating action bar */}
 
         {/* Messages OR empty greeting.
          * When empty: vertically center, but the greeting block itself stays

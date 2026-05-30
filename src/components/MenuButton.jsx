@@ -821,7 +821,6 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
         {mobileActionMode && (
           <>
             <button
-              key={mobileActionMode}
               className="mfb-btn mfb-action"
               data-mode={mobileActionMode}
               onClick={handleMobileBack}
@@ -834,6 +833,33 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
                 </svg>
               </span>
               <span className="mfb-action-label">Back</span>
+            </button>
+            <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
+          </>
+        )}
+
+        {pathname === "/omni" && (
+          <>
+            <div className="mfb-btn" style={{ padding: "0 0.25rem", gap: "0.4rem", color: isMobileDark ? "#ffffff" : "#2f315a", pointerEvents: "none" }}>
+              <div style={{ width: 20, height: 20, borderRadius: "50%", overflow: "hidden", border: "1px solid rgba(201,168,76,0.5)", flexShrink: 0 }}>
+                <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
+              <span style={{ fontSize: "0.8rem", fontWeight: 700, whiteSpace: "nowrap" }}>KS Omni</span>
+            </div>
+            <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
+            
+            <button 
+              className="mfb-btn" 
+              onClick={() => window.dispatchEvent(new Event("openOmniQR"))} 
+              aria-label="Open on Phone"
+              style={{ color: isMobileDark ? "#e1c87d" : "#a17f1e" }}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <path d="M14 14h1v1h-1zM18 14h2v2h-2zM14 19h3v2h-1v-1h-2zM21 19v2h-1v-1" />
+              </svg>
+              <span>Phone</span>
             </button>
             <div className="mfb-divider" style={{ background: isMobileDark ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.1)" }} />
           </>
