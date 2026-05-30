@@ -159,6 +159,9 @@ export default function KSLOmniPage() {
   const [showQR, setShowQR]                = useState(false);
   const [attachedImage, setAttachedImage]  = useState(null);   /* { gsUri, dataUrl, sizeKb, uploading } */
   const [pasteError, setPasteError]        = useState("");
+  const [viewportHeight, setViewportHeight] = useState(
+    typeof window !== "undefined" ? window.innerHeight : "100vh"
+  );
 
   /* Machine ID read from URL (?mid=XXXX) — passed to worker silently, not shown in UI */
   const [machineId] = useState(() => {
@@ -224,6 +227,21 @@ export default function KSLOmniPage() {
     const onOpenQR = () => setShowQR(true);
     window.addEventListener("openOmniQR", onOpenQR);
     return () => window.removeEventListener("openOmniQR", onOpenQR);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !window.visualViewport) return;
+    const updateViewport = () => {
+      setViewportHeight(window.visualViewport.height);
+      window.scrollTo(0, 0);
+    };
+    window.visualViewport.addEventListener("resize", updateViewport);
+    window.visualViewport.addEventListener("scroll", updateViewport);
+    updateViewport();
+    return () => {
+      window.visualViewport.removeEventListener("resize", updateViewport);
+      window.visualViewport.removeEventListener("scroll", updateViewport);
+    };
   }, []);
 
   function handleInputChange(e) {
@@ -508,7 +526,7 @@ export default function KSLOmniPage() {
    * UNIFIED LAYOUT: Fullscreen chat for both Desktop and Mobile
    * ══════════════════════════════════════════════════════════ */
   return (
-    <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "100dvh", zIndex: 300, display: "flex", flexDirection: "column", background: "radial-gradient(circle at 85% 15%, rgba(201, 168, 76, 0.15) 0%, transparent 50%), linear-gradient(to bottom, #f8f9fd, #eef1f8)" }}>
+    <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: viewportHeight, zIndex: 300, display: "flex", flexDirection: "column", background: "radial-gradient(circle at 85% 15%, rgba(201, 168, 76, 0.15) 0%, transparent 50%), linear-gradient(to bottom, #f8f9fd, #eef1f8)" }}>
       <ChatbotKeyframes />
       <style>{`
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -593,15 +611,17 @@ export default function KSLOmniPage() {
 
         {/* Right Group: Phone + Search (desktop) + Menu (desktop) + Clear */}
         <div className="omni-top-group" style={{ flexWrap: "wrap", justifyContent: "flex-end" }}>
-          <button 
-            className="omni-lg-glass-btn omni-btn-pill" 
-            onClick={() => setShowQR(true)} 
-            aria-label="Open on Phone"
-            title="Open on Phone"
-          >
-            <QRIcon />
-            <span>Open on Phone</span>
-          </button>
+          {!isMobile && (
+            <button 
+              className="omni-lg-glass-btn omni-btn-pill" 
+              onClick={() => setShowQR(true)} 
+              aria-label="Open on Phone"
+              title="Open on Phone"
+            >
+              <QRIcon />
+              <span>Open on Phone</span>
+            </button>
+          )}
           
           <button 
             className="omni-lg-glass-btn omni-btn-pill" 
