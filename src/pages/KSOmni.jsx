@@ -52,8 +52,8 @@ function QRModal({ onClose, pageUrl, qrUrl, qrReady }) {
         maxWidth: 320, width: "100%", textAlign: "center",
         boxShadow: "0 32px 80px rgba(15,17,40,0.35)",
         animation: "slideUp 0.25s cubic-bezier(0.34,1.56,0.64,1)",
+        marginTop: "1.5rem", position: "relative",
       }}>
-        <div style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.4rem" }}>Scan to Continue</div>
         <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.4rem" }}>Open on Mobile</h3>
         <p style={{ fontSize: "0.78rem", color: "#6b6f91", lineHeight: 1.6, marginBottom: "1.25rem" }}>
           Scan this QR code with your phone to open KS Omni on your mobile device.
@@ -94,10 +94,11 @@ function QRModal({ onClose, pageUrl, qrUrl, qrReady }) {
 }
 
 /* ── Page-specific icons (Send / Close come from chatbotShared) ── */
-const TrashIcon = () => (
+const NewChatIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-    <path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    <path d="M12 8v6" />
+    <path d="M9 11h6" />
   </svg>
 );
 const QRIcon = () => (
@@ -665,7 +666,7 @@ export default function KSLOmniPage() {
             aria-label="New Chat"
             title="New Chat"
           >
-            <TrashIcon />
+            <NewChatIcon />
             <span>New Chat</span>
           </button>
           
