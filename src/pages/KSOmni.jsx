@@ -249,6 +249,16 @@ export default function KSLOmniPage() {
   }, []);
 
   useEffect(() => {
+    const handleTouchMove = (e) => {
+      if (chatScrollRef.current && chatScrollRef.current.contains(e.target)) return;
+      if (inputRef.current && inputRef.current.contains(e.target)) return;
+      if (e.cancelable) e.preventDefault();
+    };
+    document.addEventListener("touchmove", handleTouchMove, { passive: false });
+    return () => document.removeEventListener("touchmove", handleTouchMove);
+  }, []);
+
+  useEffect(() => {
     if (typeof window === "undefined" || !window.visualViewport) return;
     const threshold = 150; // keyboard is considered open if viewport shrinks by 150px+
     const fullHeight = window.innerHeight;
@@ -595,7 +605,7 @@ export default function KSLOmniPage() {
         @keyframes typingPulse{0%,80%,100%{opacity:0.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
         
         .omni-top-bar {
-          position: fixed;
+          position: absolute;
           top: 0; left: 0; right: 0;
           padding: max(12px, env(safe-area-inset-top)) 12px 12px;
           display: flex;
@@ -638,11 +648,11 @@ export default function KSLOmniPage() {
               className="lg-glass lg-glass-btn lg-glass-pill" 
               style={{ color: "#ffffff", gap: "0.4rem" }}
               onClick={() => setShowQR(true)} 
-              aria-label="Open on Phone"
-              title="Open on Phone"
+              aria-label="Open on Mobile"
+              title="Open on Mobile"
             >
               <QRIcon />
-              <span>Open on Phone</span>
+              <span>Open on Mobile</span>
             </button>
           )}
           
@@ -696,6 +706,8 @@ export default function KSLOmniPage() {
       <div style={{ flex: 1, display: "flex", flexDirection: "column", maxWidth: 900, margin: "0 auto", width: "100%", paddingTop: "max(80px, env(safe-area-inset-top) + 80px)", minHeight: 0 }}>
         <div ref={chatScrollRef} style={{
           flex: 1, overflowY: "auto",
+          overscrollBehavior: "none",
+          WebkitOverflowScrolling: "touch",
           padding: isEmpty ? "1rem 1.25rem 1rem" : "1rem 1.25rem 0",
           display: "flex", flexDirection: "column",
           justifyContent: isEmpty ? "center" : "flex-start",
