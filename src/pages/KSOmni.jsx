@@ -620,11 +620,20 @@ export default function KSLOmniPage() {
           border-radius: 50px;
           padding: 0.35rem;
         }
+        @media (min-width: 1024px) {
+          .omni-top-bar {
+            padding: 1.5rem;
+          }
+          .omni-top-group {
+            gap: 0.5rem;
+            padding: 0;
+          }
+        }
       `}</style>
 
       {/* ── Top Liquid Glass Navigation ── */}
       <div className="omni-top-bar">
-        {/* Left Group: Back (desktop) + KS Omni Branding */}
+        {/* Left Group: Back (desktop) */}
         <div className="omni-top-group">
           {!isMobile && (
             <button className="lg-glass lg-glass-btn lg-glass-pill" style={{ color: "#ffffff", gap: "0.4rem" }} onClick={goHome} aria-label="Back" title="Back">
@@ -632,12 +641,6 @@ export default function KSLOmniPage() {
               <span>Back</span>
             </button>
           )}
-          <div className="lg-glass lg-glass-pill" style={{ borderRadius: 100, cursor: "default", paddingLeft: "0.4rem", paddingRight: "0.8rem", pointerEvents: "none", color: "#ffffff", display: "inline-flex", alignItems: "center", gap: "0.4rem", minHeight: "44px" }}>
-            <div style={{ width: 26, height: 26, borderRadius: "50%", overflow: "hidden", border: "1.5px solid rgba(201,168,76,0.5)", flexShrink: 0 }}>
-              <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchPriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-            </div>
-            <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "rgba(255,255,255,0.9)", whiteSpace: "nowrap" }}>KS Omni</span>
-          </div>
         </div>
 
         {/* Right Group: Phone + Search (desktop) + Menu (desktop) + Clear */}
@@ -659,11 +662,11 @@ export default function KSLOmniPage() {
             className="lg-glass lg-glass-btn lg-glass-pill" 
             style={{ color: "#ffffff", gap: "0.4rem" }}
             onClick={clearChat} 
-            aria-label="Clear chat"
-            title="Clear chat"
+            aria-label="New Chat"
+            title="New Chat"
           >
             <TrashIcon />
-            <span>Clear Chat</span>
+            <span>New Chat</span>
           </button>
           
           {!isMobile && (
