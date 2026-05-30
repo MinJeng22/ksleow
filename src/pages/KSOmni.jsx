@@ -684,19 +684,6 @@ export default function KSLOmniPage() {
             <>
               <button 
                 className="omni-lg-glass-btn omni-btn-pill" 
-                onClick={() => window.dispatchEvent(new Event("openGlobalSearch"))} 
-                aria-label="Search"
-                title="Search"
-              >
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                </svg>
-                <span>Search</span>
-              </button>
-              <div className="omni-divider" />
-              <button 
-                className="omni-lg-glass-btn omni-btn-pill" 
                 onClick={() => window.dispatchEvent(new Event("openGlobalMenu"))} 
                 aria-label="Menu"
                 title="Menu"
@@ -849,10 +836,6 @@ export default function KSLOmniPage() {
             <span className="mfb-action-label">Back</span>
           </button>
           <div className="mfb-divider" aria-hidden="true" />
-          <button className="mfb-btn mfb-search" onClick={() => window.dispatchEvent(new Event("openGlobalSearch"))} aria-label="Search">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: 1 }}><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <span className="mfb-label">Search</span>
-          </button>
           <button className="mfb-btn mfb-menu" onClick={() => window.dispatchEvent(new Event("openGlobalMenu"))} aria-label="Menu">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             <span className="mfb-label">Menu</span>
