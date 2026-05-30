@@ -480,7 +480,7 @@ textarea {
   object-fit: contain;
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 767px) {
   .ac-brand-marquee {
     animation-duration: 40s;
   }
