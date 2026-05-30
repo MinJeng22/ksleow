@@ -152,12 +152,28 @@ function useIsMobile() {
   return mobile;
 }
 
+function getChatStorageKey(machineId) {
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kuala_Lumpur" }).format(new Date());
+  return `ks_omni_chat_${machineId || "default"}_${today}`;
+}
+
 /* ── Main page ── */
 export default function KSLOmniPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
 
-  const [messages, setMessages]            = useState([]);    /* empty until user sends first msg */
+  const [machineId] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("mid") || null;
+  });
+
+  const [messages, setMessages] = useState(() => {
+    try {
+      const saved = localStorage.getItem(getChatStorageKey(machineId));
+      if (saved) return JSON.parse(saved);
+    } catch (e) {}
+    return [];
+  });
   const [input, setInput]                  = useState("");
   const [loading, setLoading]              = useState(false);
   const [showQR, setShowQR]                = useState(false);
@@ -167,10 +183,6 @@ export default function KSLOmniPage() {
   const [menuOpen, setMenuOpen]            = useState(false);
   const containerRef = useRef(null);
   const contentRef = useRef(null);
-  const [machineId] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("mid") || null;
-  });
   const pageUrl = useMemo(() => getOmniPageUrl(machineId), [machineId]);
   const qrUrl = useMemo(() => getQrUrl(pageUrl), [pageUrl]);
   const [qrReady, setQrReady] = useState(false);
@@ -217,6 +229,27 @@ export default function KSLOmniPage() {
   useEffect(() => {
     autoResizeTextarea(inputRef.current);
   }, [input, isMobile]);
+
+  // Save messages to local storage and clean up old days
+  useEffect(() => {
+    try {
+      const key = getChatStorageKey(machineId);
+      if (messages.length > 0) {
+        localStorage.setItem(key, JSON.stringify(messages));
+      } else {
+        localStorage.removeItem(key);
+      }
+      
+      const keysToRemove = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith("ks_omni_chat_") && k !== key) {
+          keysToRemove.push(k);
+        }
+      }
+      keysToRemove.forEach(k => localStorage.removeItem(k));
+    } catch (e) {}
+  }, [messages, machineId]);
   useEffect(() => {
     setQrReady(false);
     const img = new Image();
@@ -284,6 +317,9 @@ export default function KSLOmniPage() {
   function clearChat() {
     abortRef.current?.abort();
     setMessages([]);
+    try {
+      localStorage.removeItem(getChatStorageKey(machineId));
+    } catch (e) {}
     setInput("");
     setAttachedImage(null);
     setPasteError("");
