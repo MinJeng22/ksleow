@@ -582,10 +582,15 @@ function FeatureHighlights() {
               className="ac-feature-card"
               style={{ "--feature-delay": `${i * 90}ms` }}
             >
-              <span className="ac-feature-copy">
+              <span className="ac-feature-copy" style={{ position: "relative", zIndex: 2 }}>
                 <span className="ac-feature-title">{f.title}</span>
                 <span className="ac-feature-desc">{f.desc}</span>
               </span>
+              {f.icon && (
+                <div style={{ position: "absolute", bottom: "1.25rem", right: "1.25rem", width: "28px", height: "28px", zIndex: 1, pointerEvents: "none" }}>
+                  <img src={f.icon} alt="" style={{ width: "100%", height: "100%", objectFit: "contain", opacity: 0.8 }} />
+                </div>
+              )}
             </article>
           ))}
         </div>
