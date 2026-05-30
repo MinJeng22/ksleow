@@ -473,6 +473,14 @@ export default function AutoCountTrainingWebGL() {
   const handlePlay = async () => {
     if (morph || preparingMorphRef.current) return;
     preparingMorphRef.current = true;
+
+    if (window.innerWidth <= 900) {
+      setPlayerOpen(true);
+      setIframeMounted(true);
+      preparingMorphRef.current = false;
+      return;
+    }
+
     const tabletRect = tabletRef.current?.getBoundingClientRect();
     if (!tabletRect) {
       setPlayerOpen(true);
@@ -509,6 +517,15 @@ export default function AutoCountTrainingWebGL() {
   const handleClose = async () => {
     if (morph || preparingMorphRef.current) return;
     preparingMorphRef.current = true;
+
+    if (window.innerWidth <= 900) {
+      setPlayerOpen(false);
+      setIframeMounted(false);
+      setIframeReady(false);
+      preparingMorphRef.current = false;
+      return;
+    }
+
     const startSource = videoFrameRef.current || videoRef.current;
     const startDomRect = startSource?.getBoundingClientRect();
     if (!startDomRect) {

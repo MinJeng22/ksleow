@@ -651,7 +651,7 @@ const AC_SIDEBAR_ITEMS = [
 export default function AutoCountAccountingPage({ onContact }) {
   const navigate = useNavigate();
 
-  const [expanded, setExpanded] = useState(RELEASES[0]?.version || null);   /* first card open by default */
+  const [expanded, setExpanded] = useState(null);   /* all closed by default */
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
   const [compareMode, setCompareMode] = useState(false);
