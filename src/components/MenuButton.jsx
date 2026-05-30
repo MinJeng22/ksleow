@@ -641,9 +641,18 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
 
   useEffect(() => {
     const handleOpenMenu = () => setOpen(true);
+    const handleToggleMenu = () => setOpen(prev => !prev);
     window.addEventListener("openGlobalMenu", handleOpenMenu);
-    return () => window.removeEventListener("openGlobalMenu", handleOpenMenu);
+    window.addEventListener("toggleGlobalMenu", handleToggleMenu);
+    return () => {
+      window.removeEventListener("openGlobalMenu", handleOpenMenu);
+      window.removeEventListener("toggleGlobalMenu", handleToggleMenu);
+    };
   }, []);
+
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("globalMenuStateChange", { detail: open }));
+  }, [open]);
 
   /* Close on outside click (mobile) */
   useEffect(() => {

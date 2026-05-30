@@ -164,6 +164,7 @@ export default function KSLOmniPage() {
   const [attachedImage, setAttachedImage]  = useState(null);   /* { gsUri, dataUrl, sizeKb, uploading } */
   const [pasteError, setPasteError]        = useState("");
   const [keyboardOpen, setKeyboardOpen]    = useState(false);
+  const [menuOpen, setMenuOpen]            = useState(false);
   const containerRef = useRef(null);
   const contentRef = useRef(null);
   const [machineId] = useState(() => {
@@ -235,12 +236,15 @@ export default function KSLOmniPage() {
     document.documentElement.style.background = "#0c0e1a";
 
     const onOpenQR = () => setShowQR(true);
+    const onMenuChange = (e) => setMenuOpen(e.detail);
     window.addEventListener("openOmniQR", onOpenQR);
+    window.addEventListener("globalMenuStateChange", onMenuChange);
     
     return () => {
       document.body.style.background = savedBodyBg;
       document.documentElement.style.background = savedHtmlBg;
       window.removeEventListener("openOmniQR", onOpenQR);
+      window.removeEventListener("globalMenuStateChange", onMenuChange);
     };
   }, []);
 
@@ -591,8 +595,6 @@ export default function KSLOmniPage() {
           border-radius: 50px;
           padding: 0.35rem;
         }
-          background: rgba(255, 255, 255, 0.12) !important;
-        }
       `}</style>
 
       {/* ── Top Liquid Glass Navigation ── */}
@@ -644,11 +646,11 @@ export default function KSLOmniPage() {
               <button 
                 className="lg-glass lg-glass-btn lg-glass-pill" 
                 style={{ color: "#ffffff", gap: "0.4rem" }}
-                onClick={() => window.dispatchEvent(new Event("openGlobalMenu"))} 
+                onClick={() => window.dispatchEvent(new Event("toggleGlobalMenu"))} 
                 aria-label="Menu"
                 title="Menu"
               >
-                <MenuGlyph open={false} size={15} />
+                <MenuGlyph open={menuOpen} size={15} />
                 <span>Menu</span>
               </button>
             </>
@@ -691,7 +693,7 @@ export default function KSLOmniPage() {
 
       {/* ── Liquid Glass Input Row ── */}
       <div style={{ maxWidth: 900, margin: "0 auto", width: "100%", padding: "0.5rem 1rem" }}>
-        <div className="omni-lg-glass" style={{
+        <div className="lg-glass" style={{
           marginBottom: isMobile ? "max(64px, env(safe-area-inset-bottom) + 64px)" : "max(0.5rem, env(safe-area-inset-bottom))",
           padding: "0.65rem 0.8rem 0.5rem",
           borderRadius: 24,
@@ -792,8 +794,8 @@ export default function KSLOmniPage() {
             <span className="mfb-action-label">Back</span>
           </button>
           <div className="mfb-divider" style={{ background: "rgba(255,255,255,0.25)" }} aria-hidden="true" />
-          <button className="mfb-btn mfb-menu" style={{ color: "#ffffff" }} onClick={() => window.dispatchEvent(new Event("openGlobalMenu"))} aria-label="Menu">
-            <MenuGlyph open={false} size={15} />
+          <button className="mfb-btn mfb-menu" style={{ color: "#ffffff" }} onClick={() => window.dispatchEvent(new Event("toggleGlobalMenu"))} aria-label="Menu">
+            <MenuGlyph open={menuOpen} size={15} />
             <span className="mfb-label">Menu</span>
           </button>
         </div>
