@@ -442,11 +442,11 @@ export default function Products({ onContact }) {
             aria-label={isPlaying ? "Pause autoplay" : "Start autoplay"}
           >
             {isPlaying ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M6 4h4v16H6zm8 0h4v16h-4z"/>
               </svg>
             ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style={{ transform: "translateX(1.5px)" }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style={{ transform: "translateX(1.5px)" }}>
                 <path d="M8 5v14l11-7z"/>
               </svg>
             )}
