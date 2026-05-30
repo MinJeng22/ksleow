@@ -159,7 +159,9 @@ export default function KSLOmniPage() {
   const [showQR, setShowQR]                = useState(false);
   const [attachedImage, setAttachedImage]  = useState(null);   /* { gsUri, dataUrl, sizeKb, uploading } */
   const [pasteError, setPasteError]        = useState("");
+  const [keyboardOpen, setKeyboardOpen]    = useState(false);
   const containerRef = useRef(null);
+  const contentRef = useRef(null);
   const [machineId] = useState(() => {
     const params = new URLSearchParams(window.location.search);
     return params.get("mid") || null;
@@ -224,13 +226,9 @@ export default function KSLOmniPage() {
     // shows the same color instead of white
     const savedBodyBg = document.body.style.background;
     const savedHtmlBg = document.documentElement.style.background;
-    const savedBodyOv = document.body.style.overflow;
-    const savedHtmlOv = document.documentElement.style.overflow;
 
     document.body.style.background = "#eef1f8";
     document.documentElement.style.background = "#eef1f8";
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
 
     const onOpenQR = () => setShowQR(true);
     window.addEventListener("openOmniQR", onOpenQR);
@@ -238,25 +236,26 @@ export default function KSLOmniPage() {
     return () => {
       document.body.style.background = savedBodyBg;
       document.documentElement.style.background = savedHtmlBg;
-      document.body.style.overflow = savedBodyOv;
-      document.documentElement.style.overflow = savedHtmlOv;
       window.removeEventListener("openOmniQR", onOpenQR);
     };
   }, []);
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.visualViewport) return;
+    const threshold = 150; // keyboard is considered open if viewport shrinks by 150px+
+    const fullHeight = window.innerHeight;
     const updateViewport = () => {
-      if (containerRef.current) {
-        containerRef.current.style.height = `${window.visualViewport.height}px`;
+      const vvh = window.visualViewport.height;
+      if (contentRef.current) {
+        contentRef.current.style.height = `${vvh}px`;
       }
+      setKeyboardOpen(fullHeight - vvh > threshold);
       window.scrollTo(0, 0);
     };
     window.visualViewport.addEventListener("resize", updateViewport);
     window.visualViewport.addEventListener("scroll", updateViewport);
     updateViewport();
     
-    // Also opt-in to virtual keyboard API for Android Chrome if available
     if (navigator.virtualKeyboard) {
       navigator.virtualKeyboard.overlaysContent = true;
     }
@@ -549,7 +548,8 @@ export default function KSLOmniPage() {
    * UNIFIED LAYOUT: Fullscreen chat for both Desktop and Mobile
    * ══════════════════════════════════════════════════════════ */
   return (
-    <div ref={containerRef} style={{ position: "fixed", top: 0, left: 0, right: 0, height: "100dvh", zIndex: 300, display: "flex", flexDirection: "column", background: "radial-gradient(circle at 85% 15%, rgba(201, 168, 76, 0.15) 0%, transparent 50%), linear-gradient(to bottom, #f8f9fd, #eef1f8)" }}>
+    <div style={{ position: "fixed", inset: 0, zIndex: 300, background: "radial-gradient(circle at 85% 15%, rgba(201, 168, 76, 0.15) 0%, transparent 50%), linear-gradient(to bottom, #f8f9fd, #eef1f8)" }}>
+    <div ref={contentRef} style={{ position: "absolute", top: 0, left: 0, right: 0, height: "100dvh", display: "flex", flexDirection: "column" }}>
       <ChatbotKeyframes />
       <style>{`
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -816,7 +816,7 @@ export default function KSLOmniPage() {
       {showQR && <QRModal onClose={() => setShowQR(false)} pageUrl={pageUrl} qrUrl={qrUrl} qrReady={qrReady} />}
 
       {/* ── Mobile Float Bar (Back, Search, Menu) ── */}
-      {isMobile && (
+      {isMobile && !keyboardOpen && (
         <div className="mobile-float-bar lg-glass" style={{ display: "flex" }}>
           <button className="mfb-btn mfb-action" onClick={goHome} aria-label="Back">
             <span className="mfb-action-icon" aria-hidden="true">
@@ -835,6 +835,7 @@ export default function KSLOmniPage() {
           </button>
         </div>
       )}
+    </div>
     </div>
   );
 }
