@@ -508,7 +508,7 @@ export default function KSLOmniPage() {
    * UNIFIED LAYOUT: Fullscreen chat for both Desktop and Mobile
    * ══════════════════════════════════════════════════════════ */
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 300, display: "flex", flexDirection: "column", background: "linear-gradient(to bottom, #f8f9fd, #eef1f8)" }}>
+    <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "100dvh", zIndex: 300, display: "flex", flexDirection: "column", background: "linear-gradient(to bottom, #f8f9fd, #eef1f8)" }}>
       <ChatbotKeyframes />
       <style>{`
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -601,7 +601,7 @@ export default function KSLOmniPage() {
         </div>
 
         {/* Right Group: Phone + Search (desktop) + Menu (desktop) + Clear */}
-        <div className="omni-top-group" style={{ flexWrap: "wrap", justifyContent: "flex-end", maxWidth: "60%" }}>
+        <div className="omni-top-group" style={{ flexWrap: "wrap", justifyContent: "flex-end" }}>
           <button 
             className="omni-lg-glass-btn omni-btn-pill" 
             onClick={() => setShowQR(true)} 
@@ -765,9 +765,9 @@ export default function KSLOmniPage() {
               disabled={loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)}
               style={{
                 width: 34, height: 34, borderRadius: "50%", flexShrink: 0,
-                background: (loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)) ? "rgba(47,49,90,0.18)" : "#2f315a",
+                background: (loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)) ? "rgba(47,49,90,0.12)" : "#2f315a",
                 border: "none",
-                color: (loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)) ? "#a8abcc" : "#ffffff",
+                color: (loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)) ? "rgba(47,49,90,0.4)" : "#ffffff",
                 cursor:  (loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)) ? "not-allowed" : "pointer",
                 display: "flex", alignItems: "center", justifyContent: "center",
               }}
