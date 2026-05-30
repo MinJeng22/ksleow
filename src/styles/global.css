@@ -458,7 +458,7 @@ textarea {
 .ac-brand-marquee {
   display: flex;
   width: max-content;
-  animation: ac-marquee 40s linear infinite;
+  animation: ac-marquee 60s linear infinite;
 }
 
 .ac-brand-marquee:hover {
