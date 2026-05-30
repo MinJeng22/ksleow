@@ -469,7 +469,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 0.75rem;
+  padding: 0 0.5rem;
   flex-shrink: 0;
 }
 
@@ -480,7 +480,7 @@ textarea {
   object-fit: contain;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
   .ac-brand-marquee {
     animation-duration: 40s;
   }
@@ -488,7 +488,8 @@ textarea {
     padding: 0;
   }
   .ac-brand-item img {
-    height: 38px;
+    height: 48px;
+    max-width: 130px;
   }
 }
 
