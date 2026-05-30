@@ -603,6 +603,16 @@ export default function KSLOmniPage() {
             <span>Open on Phone</span>
           </button>
           
+          <button 
+            className="omni-lg-glass-btn omni-btn-pill" 
+            onClick={clearChat} 
+            aria-label="Clear chat"
+            title="Clear chat"
+          >
+            <TrashIcon />
+            <span>Clear Chat</span>
+          </button>
+          
           {!isMobile && (
             <>
               <button 
@@ -634,16 +644,6 @@ export default function KSLOmniPage() {
             </>
           )}
 
-          <button 
-            className="omni-lg-glass-btn omni-btn-pill" 
-            onClick={clearChat} 
-            aria-label="Clear chat"
-            title="Clear chat"
-            style={{ color: "#991b1b" }}
-          >
-            <TrashIcon />
-            <span>Clear Chat</span>
-          </button>
         </div>
       </div>
 
