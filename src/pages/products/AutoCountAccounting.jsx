@@ -1150,24 +1150,28 @@ export default function AutoCountAccountingPage({ onContact }) {
           }
           .ac-awards-item {
             flex: 0 0 auto;
-            width: 120px;
-            height: 160px;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(47,49,90,0.08);
+            width: 100px;
+            height: 135px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(47,49,90,0.08);
             overflow: hidden;
             background: #fff;
             border: 1px solid rgba(47,49,90,0.04);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
           }
           .ac-awards-item:hover {
-            transform: scale(1.1) translateY(-5px);
-            box-shadow: 0 12px 30px rgba(47,49,90,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(47,49,90,0.15);
             z-index: 10;
           }
           .ac-awards-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.4s ease;
+          }
+          .ac-awards-item:hover img {
+            transform: scale(1.15);
           }
           .ac-awards-item.dup {
             display: none;
@@ -1183,10 +1187,11 @@ export default function AutoCountAccountingPage({ onContact }) {
               width: max-content;
               animation: ac-marquee 30s linear infinite;
               justify-content: flex-start;
+              gap: 1rem;
             }
             .ac-awards-item {
-              width: 100px;
-              height: 140px;
+              width: 80px;
+              height: 110px;
             }
             .ac-awards-item.dup {
               display: block;
@@ -1200,7 +1205,7 @@ export default function AutoCountAccountingPage({ onContact }) {
             textAlign: "center", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.15em",
             color: "#6b6f91", textTransform: "uppercase", marginBottom: "2.5rem"
           }}>
-            7 Consecutive Years Pahang State Top AutoCount Dealer
+            Proudly Recognized as the Top AutoCount Dealer in Pahang State for 7 Consecutive Years
           </p>
 
           <div className="ac-awards-container">
