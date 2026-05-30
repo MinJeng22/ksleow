@@ -254,20 +254,33 @@ export default function KSLOmniPage() {
     const fullHeight = window.innerHeight;
     const savedBodyOv = document.body.style.overflow;
     const savedHtmlOv = document.documentElement.style.overflow;
+    const savedBodyPos = document.body.style.position;
+    const savedBodyW = document.body.style.width;
+    const savedBodyH = document.body.style.height;
 
     const updateViewport = () => {
-      const vvh = window.visualViewport.height;
+      const vv = window.visualViewport;
       if (contentRef.current) {
-        contentRef.current.style.height = `${vvh}px`;
+        contentRef.current.style.height = `${vv.height}px`;
+        contentRef.current.style.top = `${vv.offsetTop}px`;
       }
-      const isOpen = fullHeight - vvh > threshold;
+      const isOpen = fullHeight - vv.height > threshold;
       setKeyboardOpen(isOpen);
       if (isOpen) {
         document.body.style.overflow = "hidden";
         document.documentElement.style.overflow = "hidden";
+        document.body.style.position = "fixed";
+        document.body.style.width = "100%";
+        document.body.style.height = "100%";
       } else {
         document.body.style.overflow = "";
         document.documentElement.style.overflow = "";
+        document.body.style.position = "";
+        document.body.style.width = "";
+        document.body.style.height = "";
+        if (contentRef.current) {
+          contentRef.current.style.top = "0px";
+        }
       }
       window.scrollTo(0, 0);
     };
@@ -282,6 +295,9 @@ export default function KSLOmniPage() {
     return () => {
       document.body.style.overflow = savedBodyOv;
       document.documentElement.style.overflow = savedHtmlOv;
+      document.body.style.position = savedBodyPos;
+      document.body.style.width = savedBodyW;
+      document.body.style.height = savedBodyH;
       window.visualViewport.removeEventListener("resize", updateViewport);
       window.visualViewport.removeEventListener("scroll", updateViewport);
     };
@@ -607,7 +623,7 @@ export default function KSLOmniPage() {
               <span>Back</span>
             </button>
           )}
-          <div className="lg-glass lg-glass-pill" style={{ cursor: "default", paddingLeft: "0.4rem", paddingRight: "0.8rem", pointerEvents: "none", color: "#ffffff", display: "inline-flex", alignItems: "center", gap: "0.4rem", minHeight: "44px" }}>
+          <div className="lg-glass lg-glass-pill" style={{ borderRadius: 100, cursor: "default", paddingLeft: "0.4rem", paddingRight: "0.8rem", pointerEvents: "none", color: "#ffffff", display: "inline-flex", alignItems: "center", gap: "0.4rem", minHeight: "44px" }}>
             <div style={{ width: 26, height: 26, borderRadius: "50%", overflow: "hidden", border: "1.5px solid rgba(201,168,76,0.5)", flexShrink: 0 }}>
               <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchPriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
             </div>
