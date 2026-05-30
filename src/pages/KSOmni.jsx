@@ -220,9 +220,27 @@ export default function KSLOmniPage() {
   }, [qrUrl]);
 
   useEffect(() => {
+    // Prevent scrolling the underlying page
+    const origBodyOverflow = document.body.style.overflow;
+    const origHtmlOverflow = document.documentElement.style.overflow;
+    const origBodyOverscroll = document.body.style.overscrollBehavior;
+    const origHtmlOverscroll = document.documentElement.style.overscrollBehavior;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overscrollBehavior = "none";
+    document.documentElement.style.overscrollBehavior = "none";
+
     const onOpenQR = () => setShowQR(true);
     window.addEventListener("openOmniQR", onOpenQR);
-    return () => window.removeEventListener("openOmniQR", onOpenQR);
+    
+    return () => {
+      document.body.style.overflow = origBodyOverflow;
+      document.documentElement.style.overflow = origHtmlOverflow;
+      document.body.style.overscrollBehavior = origBodyOverscroll;
+      document.documentElement.style.overscrollBehavior = origHtmlOverscroll;
+      window.removeEventListener("openOmniQR", onOpenQR);
+    };
   }, []);
 
   useEffect(() => {
