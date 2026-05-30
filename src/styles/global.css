@@ -477,12 +477,6 @@ textarea {
   max-width: 120px;
   max-height: 48px;
   object-fit: contain;
-  filter: grayscale(100%) opacity(0.5);
-  transition: filter 0.3s ease;
-}
-
-.ac-brand-item img:hover {
-  filter: grayscale(0%) opacity(1);
 }
 
 @media (max-width: 1180px) and (min-width: 901px) {
