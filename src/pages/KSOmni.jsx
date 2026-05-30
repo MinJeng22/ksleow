@@ -134,7 +134,15 @@ const CloseSmallIcon = () => (
  * Rendered above the centered input box on the empty state.
  * Mirrors Gemini's home screen: small lighter top line + large gradient prompt. */
 function EmptyGreeting() {
-  return <AnimatedGreeting />;
+  return (
+    <div className="omni-dark-greeting">
+      <style>{`
+        .omni-dark-greeting > div > div:first-child { color: rgba(255,255,255,0.35) !important; }
+        .omni-dark-greeting > div > div:last-child { background: linear-gradient(90deg, rgba(255,255,255,0.85) 0%, #c9a84c 100%) !important; -webkit-background-clip: text !important; }
+      `}</style>
+      <AnimatedGreeting />
+    </div>
+  );
 }
 
 /* ── Mobile detection ── */
@@ -227,8 +235,8 @@ export default function KSLOmniPage() {
     const savedBodyBg = document.body.style.background;
     const savedHtmlBg = document.documentElement.style.background;
 
-    document.body.style.background = "#eef1f8";
-    document.documentElement.style.background = "#eef1f8";
+    document.body.style.background = "#0c0e1a";
+    document.documentElement.style.background = "#0c0e1a";
 
     const onOpenQR = () => setShowQR(true);
     window.addEventListener("openOmniQR", onOpenQR);
@@ -548,7 +556,7 @@ export default function KSLOmniPage() {
    * UNIFIED LAYOUT: Fullscreen chat for both Desktop and Mobile
    * ══════════════════════════════════════════════════════════ */
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 300, background: "radial-gradient(circle at 85% 15%, rgba(201, 168, 76, 0.15) 0%, transparent 50%), linear-gradient(to bottom, #f8f9fd, #eef1f8)" }}>
+    <div style={{ position: "fixed", inset: 0, zIndex: 300, background: "radial-gradient(ellipse at 50% 0%, rgba(47, 49, 90, 0.5) 0%, transparent 60%), radial-gradient(circle at 85% 15%, rgba(201, 168, 76, 0.08) 0%, transparent 45%), linear-gradient(to bottom, #111328, #0c0e1a)" }}>
     <div ref={contentRef} style={{ position: "absolute", top: 0, left: 0, right: 0, height: "100dvh", display: "flex", flexDirection: "column" }}>
       <ChatbotKeyframes />
       <style>{`
@@ -558,25 +566,25 @@ export default function KSLOmniPage() {
         @keyframes typingPulse{0%,80%,100%{opacity:0.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
         
         .omni-lg-glass {
-          background: rgba(255, 255, 255, 0.75);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.4);
-          box-shadow: 0 4px 24px rgba(47, 49, 90, 0.05);
+          background: rgba(255, 255, 255, 0.06);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 4px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
         }
         
         .omni-lg-glass-btn {
-          background: rgba(255, 255, 255, 0.5);
-          border: 1px solid rgba(255, 255, 255, 0.4);
+          background: rgba(255, 255, 255, 0.07);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
           transition: background 0.2s, transform 0.2s;
-          color: rgba(0,0,0,0.6);
+          color: rgba(255,255,255,0.7);
         }
         .omni-lg-glass-btn:hover {
-          background: rgba(255, 255, 255, 0.85);
+          background: rgba(255, 255, 255, 0.14);
           transform: translateY(-2px);
         }
         .omni-lg-glass-btn:active {
@@ -628,7 +636,7 @@ export default function KSLOmniPage() {
             <div style={{ width: 26, height: 26, borderRadius: "50%", overflow: "hidden", border: "1.5px solid rgba(201,168,76,0.5)", flexShrink: 0 }}>
               <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchPriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
             </div>
-            <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "#2f315a", whiteSpace: "nowrap" }}>KS Omni</span>
+            <span style={{ fontSize: "0.85rem", fontWeight: 700, color: "rgba(255,255,255,0.9)", whiteSpace: "nowrap" }}>KS Omni</span>
           </div>
         </div>
 
@@ -772,7 +780,7 @@ export default function KSLOmniPage() {
               fontSize: "0.95rem", fontFamily: "inherit",
               resize: "none", lineHeight: 1.5,
               maxHeight: "34dvh", overflowY: "hidden",
-              color: "#2f315a",
+              color: "rgba(255,255,255,0.9)",
             }}
           />
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
@@ -785,8 +793,8 @@ export default function KSLOmniPage() {
                 style={{
                   width: 34, height: 34, borderRadius: "50%", flexShrink: 0,
                   background: "transparent",
-                  border: "1px solid rgba(47,49,90,0.18)",
-                  color: (loading || attachedImage?.uploading) ? "#a8abcc" : "#2f315a",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  color: (loading || attachedImage?.uploading) ? "rgba(255,255,255,0.25)" : "rgba(255,255,255,0.6)",
                   cursor: (loading || attachedImage?.uploading) ? "not-allowed" : "pointer",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}
@@ -797,9 +805,9 @@ export default function KSLOmniPage() {
               disabled={loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)}
               style={{
                 width: 34, height: 34, borderRadius: "50%", flexShrink: 0,
-                background: (loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)) ? "rgba(47,49,90,0.12)" : "#2f315a",
+                background: (loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)) ? "rgba(255,255,255,0.08)" : "#c9a84c",
                 border: "none",
-                color: (loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)) ? "rgba(47,49,90,0.4)" : "#ffffff",
+                color: (loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)) ? "rgba(255,255,255,0.2)" : "#0c0e1a",
                 cursor:  (loading || attachedImage?.uploading || (!input.trim() && !attachedImage?.gsUri)) ? "not-allowed" : "pointer",
                 display: "flex", alignItems: "center", justifyContent: "center",
               }}
