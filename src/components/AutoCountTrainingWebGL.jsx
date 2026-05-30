@@ -184,9 +184,6 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
   // (NOT inside the overlay). This puts it in the same compositing layer as the real
   // video frame, enabling a clean cross-fade between portal shadow (fading out)
   // and real frame shadow (fading in). boxShadow is always VIDEO_SHADOW.
-  // Portal shadow: static at the final video position (no border-radius/transform animation).
-  // Only opacity is transitioned — opacity is GPU-composited, border-radius/transform+boxShadow cause repaint.
-  // Starts at opacity 0, fades to 1 when active (shell is at final position), then fades out when settling.
   const portalShadow = createPortal(
     <div
       aria-hidden="true"
@@ -196,13 +193,14 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
         top: endRect.top,
         width: endRect.width,
         height: endRect.height,
-        borderRadius: '18px',
+        borderRadius: `${borderRadius}px`,
+        transform: shellTransform,
         boxShadow: VIDEO_SHADOW,
         pointerEvents: 'none',
         zIndex: 9998,
-        willChange: 'opacity',
-        opacity: (active && !isSettling) ? 1 : 0,
-        transition: 'opacity 200ms ease',
+        // opacity always has a transition — reliably fires when isSettling changes
+        opacity: isSettling ? 0 : 1,
+        transition: `border-radius ${duration}ms ${APPLE_EASE}, transform ${duration}ms ${APPLE_EASE}, opacity 200ms ease`,
       }}
     />,
     document.body
@@ -233,17 +231,15 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
           }}
           onTransitionEnd={event => {
             if (event.currentTarget !== event.target) return;
+            if (isSettling && event.propertyName === 'opacity') { onComplete(); return; }
             if (!isSettling && event.propertyName === 'transform' && active) finishMorph();
-          }}
-          onAnimationEnd={event => {
-            // morph-shell-settle animation ends — safe to call onComplete
-            if (isSettling && event.animationName === 'morph-shell-settle') onComplete();
           }}
         >
           <div
             className="tutorial-morph-screen"
             style={{
-              transform: screenInset === '0px' ? 'scale(1)' : `scale(${1 - (parseFloat(screenInset) * 2) / endRect.width}, ${1 - (parseFloat(screenInset) * 2) / endRect.height})`,
+              inset: screenInset,
+              borderRadius: `${screenRadius}px`,
               transitionDuration: `${duration}ms`,
               transitionTimingFunction: APPLE_EASE,
             }}
@@ -617,23 +613,12 @@ export default function AutoCountTrainingWebGL() {
           border-radius: 18px;
           overflow: hidden;
           background: #0f1128;
+          box-shadow: 0 24px 64px rgba(15,17,40,0);
+          transition: box-shadow 200ms ease;
           transform: translateZ(0);
         }
-        /* shadow-layer: GPU-composited opacity transition instead of box-shadow transition.
-           box-shadow cannot be composited; opacity can. The layer sits behind the video frame. */
-        .tutorial-shadow-layer {
-          position: absolute;
-          inset: 0;
-          border-radius: 18px;
+        .tutorial-video-frame.shadow-in {
           box-shadow: ${VIDEO_SHADOW};
-          opacity: 0;
-          will-change: opacity;
-          transition: opacity 200ms ease;
-          pointer-events: none;
-          z-index: 0;
-        }
-        .tutorial-shadow-layer.shadow-visible {
-          opacity: 1;
         }
         .tutorial-video-frame iframe {
           position: absolute;
@@ -797,31 +782,17 @@ export default function AutoCountTrainingWebGL() {
           transform-origin: center;
           backface-visibility: hidden;
           contain: layout paint style;
-          /* transform is GPU-composited; border-radius is not but needed for the shape */
-          will-change: transform, opacity;
-          transition-property: border-radius, transform;
-          transition-duration: var(--morph-duration);
-          transition-timing-function: var(--morph-ease);
+          will-change: border-radius, transform, opacity;
+          /* opacity is always listed so the browser knows to animate it;
+             during the main animation its duration is 0ms (instant);
+             .is-settling switches it to 200ms for the handoff fade */
+          transition-property: border-radius, transform, opacity;
+          transition-duration: var(--morph-duration), var(--morph-duration), 0ms;
+          transition-timing-function: var(--morph-ease), var(--morph-ease), ease;
         }
         .tutorial-morph-shell.is-settling {
-          /* CSS animation is more reliable than transition for one-shot settle fade */
-          animation: morph-shell-settle 220ms ease forwards;
-          pointer-events: none;
-        }
-        @keyframes morph-shell-settle {
-          from { opacity: 1; }
-          to   { opacity: 0; }
-        }
-        .tutorial-morph-screen {
-          position: absolute;
-          inset: 0;
-          overflow: hidden;
-          background: #0f1128;
-          box-shadow: none;
-          contain: paint;
-          transform-origin: center;
-          will-change: transform;
-          transition-property: transform;
+          transition-duration: 0ms, 0ms, 200ms;
+          transition-timing-function: linear, linear, ease;
         }
         .tutorial-morph-shell::before {
           content: "";
@@ -843,7 +814,15 @@ export default function AutoCountTrainingWebGL() {
           opacity: 0;
           transform: translateX(26%) rotate(2deg);
         }
-
+        .tutorial-morph-screen {
+          position: absolute;
+          overflow: hidden;
+          background: #0f1128;
+          box-shadow: none;
+          contain: paint;
+          will-change: inset, border-radius;
+          transition-property: inset, border-radius;
+        }
         .tutorial-morph-image {
           position: absolute;
           inset: 0;
@@ -946,12 +925,8 @@ export default function AutoCountTrainingWebGL() {
             {playerOpen ? (
               <div ref={videoRef} className="tutorial-player-shell">
                 <div
-                  className={`tutorial-shadow-layer${shadowIn ? ' shadow-visible' : ''}`}
-                  aria-hidden="true"
-                />
-                <div
                   ref={videoFrameRef}
-                  className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}`}
+                  className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}${shadowIn ? ' shadow-in' : ''}`}
                 >
                   <button
                     className="tutorial-close-btn"
