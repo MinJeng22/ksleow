@@ -1139,9 +1139,14 @@ export default function AutoCountAccountingPage({ onContact }) {
           }
           .ac-awards-track {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
             gap: 1.5rem;
+            padding-bottom: 1rem;
+          }
+          .ac-awards-track::-webkit-scrollbar {
+            display: none;
           }
           .ac-awards-item {
             flex: 0 0 auto;
@@ -1169,11 +1174,10 @@ export default function AutoCountAccountingPage({ onContact }) {
             .ac-awards-container {
               margin: 2rem -1rem 0;
               max-width: none;
-              padding: 1.5rem 0;
               background: linear-gradient(to right, rgba(128,195,30,0.02), rgba(128,195,30,0.06), rgba(128,195,30,0.02));
             }
             .ac-awards-track {
-              flex-wrap: nowrap;
+              overflow-x: visible;
               width: max-content;
               animation: ac-marquee 30s linear infinite;
               justify-content: flex-start;
@@ -1188,19 +1192,19 @@ export default function AutoCountAccountingPage({ onContact }) {
           }
         `}</style>
         <div className="content-wrap" style={{ textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: "1.5rem" }}>Why Choose Us?</h2>
+          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>Why Choose Us?</h2>
           
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.5rem" }}>
-            <div style={{ padding: "0.8rem 2rem", background: "#ffffff", borderRadius: "100px", boxShadow: "0 8px 30px rgba(47,49,90,0.12)", color: "#2f315a", fontSize: "1.1rem", fontWeight: 700, letterSpacing: "-0.01em", border: "1px solid rgba(47,49,90,0.05)" }}>
-              <span style={{ color: "#80c31e", fontWeight: 800 }}>7 Consecutive Years</span> Pahang State Top AutoCount Dealer
-            </div>
-          </div>
-
-          <p style={{ fontSize: "1.05rem", color: "#6b6f91", lineHeight: 1.6, maxWidth: "800px", margin: "0 auto 1.5rem" }}>
-            Software is only as good as the people who set it up. KSL Business Solutions brings over 40 years of industry experience. Our deep technical knowledge, prompt on-site support, and dedicated training team ensure your business runs smoothly and successfully. We are proud to be the trusted partner for countless businesses across Pahang.
+          <p style={{
+            textAlign: "center", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.15em",
+            color: "#6b6f91", textTransform: "uppercase", marginBottom: "2.5rem"
+          }}>
+            7 Consecutive Years Pahang State Top AutoCount Dealer
           </p>
 
-          <div className="ac-awards-container">
+          <div className="ac-awards-container" style={{
+            maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)"
+          }}>
             <div className="ac-awards-track">
               {AWARDS_IMAGES.map((src, i) => (
                 <div key={`orig-${i}`} className="ac-awards-item">
