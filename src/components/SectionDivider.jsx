@@ -67,14 +67,22 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
       />
 
       {/* Icon wrapper with premium glassmorphism & glow */}
+      <style>{`
+        .section-divider-icon-dynamic {
+          width: clamp(40px, 6vw, 64px) !important;
+          height: clamp(40px, 6vw, 64px) !important;
+        }
+        .section-divider-icon-dynamic svg {
+          width: clamp(20px, 3vw, 32px) !important;
+          height: clamp(20px, 3vw, 32px) !important;
+        }
+      `}</style>
       <div
-        className="section-divider-icon"
+        className="section-divider-icon section-divider-icon-dynamic"
         style={{
           position: "absolute",
           left: "50%",
           top: 0,
-          width: 58,
-          height: 58,
           borderRadius: "50%",
           background: `linear-gradient(135deg, ${color}, ${color}d9)`,
           boxShadow: `0 0 0 8px ${color}18, 0 12px 28px rgba(47,49,90,0.1), inset 0 0 0 1px rgba(255,255,255,0.28)`,
@@ -99,7 +107,7 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
           pointerEvents: "none",
         }} />
 
-        <div style={{ position: "relative", zIndex: 1, color: "#ffffff" }}>
+        <div style={{ position: "relative", zIndex: 1, color: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center" }}>
           {icon || <div style={{ width: 28, height: 28 }} />}
         </div>
       </div>
