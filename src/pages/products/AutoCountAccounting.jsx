@@ -574,20 +574,20 @@ const BRAND_LOGOS = [
 ];
 
 const AWARDS_IMAGES = [
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-trophy.png",
+  "/images/awards/ac-medal.jpg",
   "/images/awards/ac-trophy.png",
   "/images/awards/ac-medal.jpg",
+  "/images/awards/ac-trophy.png",
   "/images/awards/ac-medal.jpg",
+  "/images/awards/ac-trophy.png",
   "/images/awards/ac-medal.jpg",
+  "/images/awards/ac-trophy.png",
   "/images/awards/ac-medal.jpg",
+  "/images/awards/ac-trophy.png",
   "/images/awards/ac-medal.jpg",
+  "/images/awards/ac-trophy.png",
   "/images/awards/ac-medal.jpg",
-  "/images/awards/ac-medal.jpg",
+  "/images/awards/ac-trophy.png",
 ];
 
 function FeatureHighlights() {
@@ -1135,15 +1135,16 @@ export default function AutoCountAccountingPage({ onContact }) {
             margin: 2rem auto 0;
             padding: 2.5rem 0;
             overflow: hidden;
-            max-width: 1100px;
+            width: 100%;
           }
           .ac-awards-track {
             display: flex;
             flex-wrap: nowrap;
             overflow-x: auto;
             scrollbar-width: none;
-            gap: 0.5rem;
+            gap: 1rem;
             padding-bottom: 1rem;
+            justify-content: center;
           }
           .ac-awards-track::-webkit-scrollbar {
             display: none;
