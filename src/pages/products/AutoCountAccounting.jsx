@@ -1135,26 +1135,23 @@ export default function AutoCountAccountingPage({ onContact }) {
             margin: 2rem auto 0;
             padding: 2.5rem 0;
             overflow: hidden;
-            max-width: 100%;
+            max-width: 1100px;
           }
           .ac-awards-track {
             display: flex;
             flex-wrap: nowrap;
             overflow-x: auto;
             scrollbar-width: none;
-            gap: 2rem;
+            gap: 0.5rem;
             padding-bottom: 1rem;
-            padding-left: 2rem;
-            padding-right: 2rem;
           }
           .ac-awards-track::-webkit-scrollbar {
             display: none;
           }
           .ac-awards-item {
             flex: 0 0 auto;
-            width: 110px;
-            height: 145px;
-            padding: 0.5rem;
+            width: 100px;
+            height: 135px;
             background: transparent;
             display: flex;
             align-items: center;
@@ -1209,21 +1206,21 @@ export default function AutoCountAccountingPage({ onContact }) {
             Top AutoCount Dealer in Pahang State for 7 Consecutive Years — Empowering Your Business with 7 Years of Expertise, Prompt On-Site Support & Dedicated Training
           </p>
 
-        </div>
-
-        <div className="ac-awards-container">
-          <div className="ac-awards-track">
-            {AWARDS_IMAGES.map((src, i) => (
-              <div key={`orig-${i}`} className="ac-awards-item">
-                <img src={src} alt="Top AutoCount Dealer Award" loading="lazy" />
-              </div>
-            ))}
-            {AWARDS_IMAGES.map((src, i) => (
-              <div key={`dup1-${i}`} className="ac-awards-item dup">
-                <img src={src} alt="Top AutoCount Dealer Award" loading="lazy" />
-              </div>
-            ))}
+          <div className="ac-awards-container">
+            <div className="ac-awards-track">
+              {AWARDS_IMAGES.map((src, i) => (
+                <div key={`orig-${i}`} className="ac-awards-item">
+                  <img src={src} alt="Top AutoCount Dealer Award" loading="lazy" />
+                </div>
+              ))}
+              {AWARDS_IMAGES.map((src, i) => (
+                <div key={`dup1-${i}`} className="ac-awards-item dup">
+                  <img src={src} alt="Top AutoCount Dealer Award" loading="lazy" />
+                </div>
+              ))}
+            </div>
           </div>
+
         </div>
       </div>
 
