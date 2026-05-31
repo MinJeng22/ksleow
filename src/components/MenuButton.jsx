@@ -642,11 +642,26 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   useEffect(() => {
     const handleOpenMenu = () => setOpen(true);
     const handleToggleMenu = () => setOpen(prev => !prev);
+    const handleHoverEnter = () => {
+      if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
+        clearTimeout(hoverTimeoutRef.current);
+        setOpen(true);
+      }
+    };
+    const handleHoverLeave = () => {
+      if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
+        hoverTimeoutRef.current = setTimeout(() => setOpen(false), 200);
+      }
+    };
     window.addEventListener("openGlobalMenu", handleOpenMenu);
     window.addEventListener("toggleGlobalMenu", handleToggleMenu);
+    window.addEventListener("globalMenuEnter", handleHoverEnter);
+    window.addEventListener("globalMenuLeave", handleHoverLeave);
     return () => {
       window.removeEventListener("openGlobalMenu", handleOpenMenu);
       window.removeEventListener("toggleGlobalMenu", handleToggleMenu);
+      window.removeEventListener("globalMenuEnter", handleHoverEnter);
+      window.removeEventListener("globalMenuLeave", handleHoverLeave);
     };
   }, []);
 

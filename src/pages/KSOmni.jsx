@@ -114,6 +114,12 @@ const DeleteIcon = ({ size = 15 }) => (
     <path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
   </svg>
 );
+const EditIcon = ({ size = 15 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 20h9" />
+    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+  </svg>
+);
 const NewChatIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -384,6 +390,15 @@ export default function KSLOmniPage() {
     setAttachedImage(null);
     setPasteError("");
     if (isMobile) setSidebarOpen(false);
+  }
+
+  function renameSession(id, newLabel) {
+    if (!newLabel || !newLabel.trim()) return;
+    setSessions(prev => {
+      const next = prev.map(s => s.id === id ? { ...s, preview: newLabel.trim() } : s);
+      localStorage.setItem(getSessionsListKey(machineId), JSON.stringify(next));
+      return next;
+    });
   }
 
   function deleteSession(id) {
@@ -705,9 +720,18 @@ export default function KSLOmniPage() {
                  <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1, color: "rgba(255,255,255,0.8)", fontSize: "0.85rem" }}>
                    {s.preview || "New Conversation"}
                  </div>
-                 <button onClick={(e) => { e.stopPropagation(); deleteSession(s.id); }} style={{ background: "transparent", border: "none", color: "#6b6f91", padding: "0.25rem", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-                   <DeleteIcon size={14} />
-                 </button>
+                 <div style={{ display: "flex", gap: "0.2rem", alignItems: "center" }}>
+                   <button onClick={(e) => { 
+                     e.stopPropagation(); 
+                     const newLabel = window.prompt("Rename chat:", s.preview || "");
+                     if (newLabel) renameSession(s.id, newLabel);
+                   }} style={{ background: "transparent", border: "none", color: "#6b6f91", padding: "0.25rem", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }} title="Rename">
+                     <EditIcon size={14} />
+                   </button>
+                   <button onClick={(e) => { e.stopPropagation(); deleteSession(s.id); }} style={{ background: "transparent", border: "none", color: "#6b6f91", padding: "0.25rem", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }} title="Delete">
+                     <DeleteIcon size={14} />
+                   </button>
+                 </div>
               </div>
             ))}
             {sessions.length === 0 && (
@@ -765,15 +789,15 @@ export default function KSLOmniPage() {
         {/* Left Group: Back (desktop) */}
         <div className="omni-top-group">
           {!isMobile && (
-            <button className="lg-glass lg-glass-btn lg-glass-pill" style={{ color: "#ffffff", gap: "0.4rem" }} onClick={() => setSidebarOpen(prev => !prev)} aria-label="History" title="History">
-              <HistoryIcon />
-              <span>History</span>
-            </button>
-          )}
-          {!isMobile && (
             <button className="lg-glass lg-glass-btn lg-glass-pill" style={{ color: "#ffffff", gap: "0.4rem" }} onClick={goHome} aria-label="Back" title="Back">
               <BackIcon />
               <span>Back</span>
+            </button>
+          )}
+          {!isMobile && !sidebarOpen && (
+            <button className="lg-glass lg-glass-btn lg-glass-pill" style={{ color: "#ffffff", gap: "0.4rem" }} onClick={() => setSidebarOpen(prev => !prev)} aria-label="History" title="History">
+              <HistoryIcon />
+              <span>History</span>
             </button>
           )}
         </div>
@@ -800,6 +824,8 @@ export default function KSLOmniPage() {
               <button 
                 className="lg-glass lg-glass-btn lg-glass-pill" 
                 style={{ color: "#ffffff", gap: "0.4rem" }}
+                onMouseEnter={() => window.dispatchEvent(new Event("globalMenuEnter"))}
+                onMouseLeave={() => window.dispatchEvent(new Event("globalMenuLeave"))}
                 onClick={() => window.dispatchEvent(new Event("toggleGlobalMenu"))} 
                 aria-label="Menu"
                 title="Menu"
