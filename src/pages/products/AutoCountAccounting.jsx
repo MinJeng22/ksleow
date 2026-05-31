@@ -1147,6 +1147,9 @@ export default function AutoCountAccountingPage({ onContact }) {
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             padding: 0 0.5rem;
           }
+          .ac-awards-item:nth-child(even) {
+            margin-right: 1.5rem;
+          }
           .ac-awards-item:hover {
             transform: translateY(-5px);
             z-index: 10;
@@ -1178,9 +1181,12 @@ export default function AutoCountAccountingPage({ onContact }) {
               display: none;
             }
             .ac-awards-item {
-              width: 76px;
-              height: 105px;
-              padding: 0 0.25rem;
+              width: 70px;
+              height: 95px;
+              padding: 0 0.15rem;
+            }
+            .ac-awards-item:nth-child(14) {
+              margin-right: 0;
             }
           }
           /* Mobile: Keep marquee sizes */
