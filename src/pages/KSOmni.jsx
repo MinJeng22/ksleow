@@ -690,11 +690,17 @@ export default function KSLOmniPage() {
       }}>
         <div style={{ width: isMobile ? 280 : 260, padding: "max(1rem, env(safe-area-inset-top)) 1rem 1rem", height: "100%", display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-              <div style={{ width: 26, height: 26, borderRadius: "50%", overflow: "hidden", border: "1.5px solid rgba(201,168,76,0.5)", flexShrink: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+              <div style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "1.5px solid rgba(201,168,76,0.5)", flexShrink: 0 }}>
                 <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchPriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
-              <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 700, fontSize: "1rem", letterSpacing: "0.02em", whiteSpace: "nowrap" }}>KS Omni</span>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.15rem" }}>
+                <span style={{ color: "rgba(255,255,255,0.95)", fontWeight: 700, fontSize: "0.95rem", letterSpacing: "0.02em", whiteSpace: "nowrap", lineHeight: 1 }}>KS Omni</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#10b981", flexShrink: 0 }} />
+                  <span style={{ color: "#8a8ea8", fontSize: "0.7rem", whiteSpace: "nowrap", letterSpacing: "0.01em" }}>K.S. Leow Group AI Assistant</span>
+                </div>
+              </div>
             </div>
             <button onClick={() => setSidebarOpen(false)} style={{ background: "transparent", border: "none", color: "#6b6f91", padding: "0.5rem", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }} aria-label="Close Sidebar">
               <CloseSidebarIcon />
