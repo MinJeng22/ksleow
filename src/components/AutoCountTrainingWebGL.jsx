@@ -943,58 +943,65 @@ export default function AutoCountTrainingWebGL() {
               <div />
             </div>
           </div>
-          <div className="tutorial-stage-content">
-            {playerOpen ? (
-              <div ref={videoRef} className="tutorial-player-shell">
-                <div
-                  ref={videoFrameRef}
-                  className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}${shadowIn ? ' shadow-in' : ''}`}
-                >
-                  <button
-                    className="tutorial-close-btn"
-                    type="button"
-                    onClick={handleClose}
-                    disabled={Boolean(morph)}
-                  >
-                    <svg className="tutorial-close-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="4 14 10 14 10 20" />
-                      <polyline points="20 10 14 10 14 4" />
-                      <line x1="14" y1="10" x2="21" y2="3" />
-                      <line x1="3" y1="21" x2="10" y2="14" />
-                    </svg>
-                    Minimize
-                  </button>
-
-                {iframeMounted && (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0&modestbranding=1${activeVideoMeta.playlistId ? '&list=' + activeVideoMeta.playlistId : ''}`}
-                    title="AutoCount Training Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    onLoad={handleIframeLoad}
-                  />
-                )}
-
-                  <div className={`tutorial-video-cover${iframeReady ? ' is-hidden' : ''}`}>
-                    <img
-                      src={getThumbnailUrl(activeVideo)}
-                      alt=""
-                      decoding="async"
-                      crossOrigin="anonymous"
-                    />
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="training-grid">
+          <div className={`tutorial-stage-content ${playerOpen ? 'is-playing' : ''}`}>
+            <style>{`
+              .mobile-video-player {
+                display: none;
+              }
+              @media (min-width: 901px) {
+                .desktop-hide-when-playing {
+                  transition: opacity 0.3s;
+                }
+                .is-playing .desktop-hide-when-playing {
+                  opacity: 0;
+                  pointer-events: none;
+                }
+              }
+              @media (max-width: 900px) {
+                .desktop-player-overlay {
+                  display: none !important;
+                }
+                .is-playing .mobile-video-player {
+                  display: block;
+                  aspect-ratio: 16/9;
+                  border-radius: 12px;
+                  overflow: hidden;
+                  background: #000;
+                  margin-bottom: 1.5rem;
+                  box-shadow: 0 10px 30px rgba(15,17,40,0.15);
+                }
+                .is-playing .mobile-video-player iframe {
+                  width: 100%;
+                  height: 100%;
+                  border: none;
+                }
+                .is-playing .mobile-hide-when-playing {
+                  display: none;
+                }
+              }
+            `}</style>
+            
+            <div className="training-grid desktop-hide-when-playing">
               <div>
+                <div className="mobile-video-player">
+                  {playerOpen && (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0&modestbranding=1${activeVideoMeta.playlistId ? '&list=' + activeVideoMeta.playlistId : ''}`}
+                      title="AutoCount Training Video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      onLoad={handleIframeLoad}
+                    />
+                  )}
+                </div>
                 <div
                   ref={tabletRef}
-                  className="ipad-frame"
+                  className="ipad-frame mobile-hide-when-playing"
                   onClick={handlePlay}
                   style={{
                     opacity: morph ? 0 : 1,
                     pointerEvents: morph ? 'none' : 'auto',
+                    cursor: 'pointer',
                   }}
                 >
                   <div className="tutorial-tablet-screen">
@@ -1015,7 +1022,6 @@ export default function AutoCountTrainingWebGL() {
                     </div>
                   </div>
                 </div>
-
               </div>
 
               <div className="tutorial-copy-panel">
@@ -1054,14 +1060,14 @@ export default function AutoCountTrainingWebGL() {
                     );
                   })}
                 </div>
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
                   <p className="tutorial-description" style={{
                     fontSize: '0.95rem', color: '#6b6f91', lineHeight: 1.8,
-                    maxWidth: 480, marginBottom: '1.5rem', marginTop: 0,
+                    maxWidth: 480, marginBottom: '1.5rem', marginTop: '1rem',
                   }}>
                     {activeVideoMeta.description}
                   </p>
-                  <div className="tutorial-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                  <div className="tutorial-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', maxWidth: 480 }}>
                     <button
                       onClick={handlePlay}
                       disabled={Boolean(morph)}
@@ -1080,10 +1086,51 @@ export default function AutoCountTrainingWebGL() {
                       </svg>
                       Watch on Youtube
                     </button>
-
                   </div>
                 </div>
               </div>
+            </div>
+
+            {playerOpen && (
+              <div ref={videoRef} className="tutorial-player-shell desktop-player-overlay">
+                <div
+                  ref={videoFrameRef}
+                  className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}${shadowIn ? ' shadow-in' : ''}`}
+                >
+                  <button
+                    className="tutorial-close-btn"
+                    type="button"
+                    onClick={handleClose}
+                    disabled={Boolean(morph)}
+                  >
+                    <svg className="tutorial-close-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="4 14 10 14 10 20" />
+                      <polyline points="20 10 14 10 14 4" />
+                      <line x1="14" y1="10" x2="21" y2="3" />
+                      <line x1="3" y1="21" x2="10" y2="14" />
+                    </svg>
+                    Minimize
+                  </button>
+
+                {iframeMounted && (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0&modestbranding=1${activeVideoMeta.playlistId ? '&list=' + activeVideoMeta.playlistId : ''}`}
+                    title="AutoCount Training Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    onLoad={handleIframeLoad}
+                  />
+                )}
+
+                  <div className={`tutorial-video-cover${iframeReady ? ' is-hidden' : ''}`}>
+                    <img
+                      src={getThumbnailUrl(activeVideo)}
+                      alt=""
+                      decoding="async"
+                      crossOrigin="anonymous"
+                    />
+                  </div>
+                </div>
               </div>
             )}
           </div>
