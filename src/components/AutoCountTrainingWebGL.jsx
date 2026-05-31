@@ -478,6 +478,11 @@ export default function AutoCountTrainingWebGL() {
       setPlayerOpen(true);
       setIframeMounted(true);
       preparingMorphRef.current = false;
+      setTimeout(() => {
+        if (stageRef.current) {
+          stageRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 50);
       return;
     }
 

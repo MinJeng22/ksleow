@@ -336,7 +336,7 @@ textarea {
 
 .ac-feature-card {
   position: relative;
-  min-height: 190px;
+  height: 100%;
   border-radius: 16px;
   padding: 1.25rem 1.25rem 1.25rem 1.55rem;
   display: flex;
