@@ -882,12 +882,15 @@ export default function KSLOmniPage() {
 
         {/* ── Liquid Glass Input Row ── */}
         <div style={{ maxWidth: 900, margin: "0 auto", width: "100%", padding: "0.5rem 1rem" }}>
-          <div className="lg-glass" style={{
+          <div style={{
+            position: "relative",
             marginBottom: 0,
             padding: "0.65rem 0.8rem 0.5rem",
-            borderRadius: 24,
             display: "flex", flexDirection: "column", gap: "0.35rem",
           }}>
+            {/* Sibling glass background to prevent WebKit IME bug (backdrop-filter messes up input coords) */}
+            <div className="lg-glass" style={{ position: "absolute", inset: 0, zIndex: -1, borderRadius: 24, pointerEvents: "none" }} />
+
           {/* Inline attachment preview (inside the input container) */}
           {attachedImage && (
             <div style={{ position: "relative", display: "inline-block", alignSelf: "flex-start", margin: "0.1rem 0 0.2rem" }}>
