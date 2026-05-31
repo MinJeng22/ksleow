@@ -253,9 +253,7 @@ export default function KSLOmniPage() {
   const isEmpty = messages.length === 0;
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = '';
     };
   }, []);
 
@@ -813,7 +811,7 @@ export default function KSLOmniPage() {
               aria-label="Open on Mobile"
             >
               <QRIcon />
-              <span>Mobile QR</span>
+              <span>Open on Mobile</span>
             </button>
             <button 
               className="menu-fab lg-glass lg-glass-btn" 
@@ -861,7 +859,6 @@ export default function KSLOmniPage() {
         <div ref={chatScrollRef} style={{
           flex: isEmpty ? "none" : 1, 
           overflowY: isEmpty ? "visible" : "auto",
-          overscrollBehavior: "none",
           WebkitOverflowScrolling: "touch",
           padding: isEmpty ? "0 1.25rem 1.5rem" : "1rem 1.25rem 0",
           display: "flex", flexDirection: "column",
