@@ -240,6 +240,7 @@ export default function KSLOmniPage() {
   const [menuOpen, setMenuOpen]            = useState(false);
   const containerRef = useRef(null);
   const contentRef = useRef(null);
+  const maxHeights = useRef({ portrait: 0, landscape: 0 });
   const pageUrl = useMemo(() => getOmniPageUrl(machineId), [machineId]);
   const qrUrl = useMemo(() => getQrUrl(pageUrl), [pageUrl]);
   const [qrReady, setQrReady] = useState(false);
@@ -356,22 +357,31 @@ export default function KSLOmniPage() {
   useEffect(() => {
     if (typeof window === "undefined" || !window.visualViewport) return;
     const threshold = 150; 
-    const initialHeight = window.innerHeight;
 
     const updateViewport = () => {
       const vv = window.visualViewport;
+      
+      const isLandscape = window.innerWidth > window.innerHeight;
+      const orientation = isLandscape ? 'landscape' : 'portrait';
+      const currentHeight = isIOS ? window.innerHeight : vv.height; // Android native viewport shrinks, iOS doesn't
+      
+      if (currentHeight > maxHeights.current[orientation]) {
+         maxHeights.current[orientation] = currentHeight;
+      }
+      
+      const maxKnownHeight = maxHeights.current[orientation];
+      const isOpen = maxKnownHeight - vv.height > threshold;
+
       if (isIOS) {
         if (contentRef.current) {
           contentRef.current.style.height = `${vv.height}px`;
           contentRef.current.style.top = `${vv.offsetTop}px`;
         }
-        setKeyboardOpen(initialHeight - vv.height > threshold);
-      } else {
-        const active = document.activeElement;
-        const isFocused = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT');
-        setKeyboardOpen(!!isFocused);
       }
+      
+      setKeyboardOpen(isOpen);
     };
+    
     window.visualViewport.addEventListener("resize", updateViewport);
     window.visualViewport.addEventListener("scroll", updateViewport);
     updateViewport();
