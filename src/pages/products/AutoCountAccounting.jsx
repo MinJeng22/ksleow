@@ -479,21 +479,67 @@ function EditionsTable({ selected = null, diffOnly = false }) {
 
   return (
     <div style={{ background: "#ffffff", borderRadius: 14, border: "1px solid rgba(47,49,90,0.08)", boxShadow: "0 4px 20px rgba(47,49,90,0.05)" }}>
-      <div className="editions-table-wrap">
+      <style>{`
+        @media (max-width: 760px) {
+          .editions-responsive-table, 
+          .editions-responsive-table thead, 
+          .editions-responsive-table tbody, 
+          .editions-responsive-table tr {
+            display: block;
+            width: 100%;
+          }
+          .editions-responsive-table tr {
+            display: flex;
+            flex-wrap: wrap;
+          }
+          .editions-responsive-table thead th.th-feature-col {
+            display: none;
+          }
+          .editions-responsive-table thead th.th-edition-col {
+            flex: 1;
+            min-width: 0 !important;
+            font-size: 0.72rem;
+            padding: 0.6rem 0.2rem !important;
+            word-wrap: break-word;
+          }
+          .editions-responsive-table td[colspan] {
+            width: 100%;
+            text-align: center;
+          }
+          .editions-responsive-table tbody td.td-feature-name {
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px dashed rgba(47,49,90,0.1);
+            padding: 0.75rem 0.5rem 0.4rem !important;
+          }
+          .editions-responsive-table tbody td.td-marker {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.5rem 0.2rem 0.75rem !important;
+            border-right: 1px solid rgba(47,49,90,0.05);
+          }
+          .editions-responsive-table tbody td.td-marker:last-child {
+            border-right: none;
+          }
+        }
+      `}</style>
+      <div className="editions-table-wrap editions-responsive-table">
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.84rem" }}>
           <thead style={{ position: "sticky", top: 0, zIndex: 3 }}>
             <tr style={{ background: "#80c31e" }}>
-              <th style={{ ...stickyHeaderCell, padding: cellPad, textAlign: "left", color: "#ffffff", fontWeight: 600, minWidth: 190 }}></th>
+              <th className="th-feature-col" style={{ ...stickyHeaderCell, padding: cellPad, textAlign: "left", color: "#ffffff", fontWeight: 600, minWidth: 190 }}></th>
               {cols.map(e => (
-                <th key={e} style={{ ...stickyHeaderCell, padding: cellPad, color: "#ffffff", fontWeight: 700, textAlign: "center", minWidth: 86, lineHeight: 1.25 }}>{e}</th>
+                <th key={e} className="th-edition-col" style={{ ...stickyHeaderCell, padding: cellPad, color: "#ffffff", fontWeight: 700, textAlign: "center", minWidth: 86, lineHeight: 1.25 }}>{e}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             <tr style={{ background: "#fafafb", borderBottom: "1px solid rgba(47,49,90,0.08)" }}>
-              <td style={{ ...stickyBookCell, padding: cellPad, color: "#2f315a", fontWeight: 500 }}>Default Account Book</td>
+              <td className="td-feature-name" style={{ ...stickyBookCell, padding: cellPad, color: "#2f315a", fontWeight: 500 }}>Default Account Book</td>
               {filterRow(EDITION_TABLE.defaultAccountBook).map((v, i) => (
-                <td key={i} style={{ ...stickyBookCell, padding: cellPad, color: "#2f315a", fontWeight: 600, textAlign: "center" }}>{v}</td>
+                <td key={i} className="td-marker" style={{ ...stickyBookCell, padding: cellPad, color: "#2f315a", fontWeight: 600, textAlign: "center" }}>{v}</td>
               ))}
             </tr>
             {EDITION_TABLE.sections.map((section) => {
@@ -504,7 +550,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
               return (
                 <React.Fragment key={section.name}>
                   <tr style={{ background: "#eaeaef" }}>
-                    <td colSpan={cols.length + 1} style={{ padding: "0.55rem 0.85rem", color: "#6b6f91", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                    <td colSpan={cols.length + 1} style={{ padding: "0.55rem 0.85rem", color: "#6b6f91", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", textAlign: "center" }}>
                       {section.name}
                     </td>
                   </tr>
@@ -512,9 +558,9 @@ function EditionsTable({ selected = null, diffOnly = false }) {
                     const visibleVals = filterRow(values);
                     return (
                       <tr key={rowName} style={{ background: ri % 2 === 0 ? "#ffffff" : "#fafafb", borderBottom: "1px solid rgba(47,49,90,0.05)" }}>
-                        <td style={{ padding: cellPad, color: "#2f315a" }}>{rowName}</td>
+                        <td className="td-feature-name" style={{ padding: cellPad, color: "#2f315a" }}>{rowName}</td>
                         {visibleVals.map((v, vi) => (
-                          <td key={vi} style={{ padding: cellPad, textAlign: "center" }}>
+                          <td key={vi} className="td-marker" style={{ padding: cellPad, textAlign: "center" }}>
                             <EditionMarker value={v} />
                           </td>
                         ))}
