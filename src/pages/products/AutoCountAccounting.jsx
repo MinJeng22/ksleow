@@ -1142,16 +1142,19 @@ export default function AutoCountAccountingPage({ onContact }) {
             flex-wrap: nowrap;
             overflow-x: auto;
             scrollbar-width: none;
-            gap: 0.5rem;
+            gap: 2rem;
             padding-bottom: 1rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
           }
           .ac-awards-track::-webkit-scrollbar {
             display: none;
           }
           .ac-awards-item {
             flex: 0 0 auto;
-            width: 100px;
-            height: 135px;
+            width: 110px;
+            height: 145px;
+            padding: 0.5rem;
             background: transparent;
             display: flex;
             align-items: center;
