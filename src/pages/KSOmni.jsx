@@ -843,10 +843,10 @@ export default function KSLOmniPage() {
         ref={fileInputCameraRef}
         style={{ display: "none" }}
         accept="image/*"
-        capture="camera"
+        capture="environment"
         onChange={handleFileSelected}
       />
-
+      
       {/* ── Main Flex Container for Chat + Input ── */}
       <div style={{
         flex: 1, 
