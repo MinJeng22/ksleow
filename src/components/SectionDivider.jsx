@@ -61,8 +61,8 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
           left: 0,
           right: 0,
           top: 0,
-          height: 1,
-          background: `${color}24`,
+          height: 2,
+          background: `linear-gradient(to right, transparent, ${color}80, transparent)`,
         }}
       />
 
