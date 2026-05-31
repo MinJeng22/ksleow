@@ -943,156 +943,9 @@ export default function AutoCountTrainingWebGL() {
               <div />
             </div>
           </div>
-          <div className={`tutorial-stage-content ${playerOpen ? 'is-playing' : ''}`}>
-            <style>{`
-              .mobile-video-player {
-                display: none;
-              }
-              @media (min-width: 901px) {
-                .desktop-hide-when-playing {
-                  transition: opacity 0.3s;
-                }
-                .is-playing .desktop-hide-when-playing {
-                  opacity: 0;
-                  pointer-events: none;
-                }
-              }
-              @media (max-width: 900px) {
-                .desktop-player-overlay {
-                  display: none !important;
-                }
-                .is-playing .mobile-video-player {
-                  display: block;
-                  aspect-ratio: 16/9;
-                  border-radius: 12px;
-                  overflow: hidden;
-                  background: #000;
-                  margin-bottom: 1.5rem;
-                  box-shadow: 0 10px 30px rgba(15,17,40,0.15);
-                }
-                .is-playing .mobile-video-player iframe {
-                  width: 100%;
-                  height: 100%;
-                  border: none;
-                }
-                .is-playing .mobile-hide-when-playing {
-                  display: none;
-                }
-              }
-            `}</style>
-            
-            <div className="training-grid desktop-hide-when-playing">
-              <div>
-                <div className="mobile-video-player">
-                  {playerOpen && (
-                    <iframe
-                      src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0&modestbranding=1${activeVideoMeta.playlistId ? '&list=' + activeVideoMeta.playlistId : ''}`}
-                      title="AutoCount Training Video"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      onLoad={handleIframeLoad}
-                    />
-                  )}
-                </div>
-                <div
-                  ref={tabletRef}
-                  className="ipad-frame mobile-hide-when-playing"
-                  onClick={handlePlay}
-                  style={{
-                    opacity: morph ? 0 : 1,
-                    pointerEvents: morph ? 'none' : 'auto',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div className="tutorial-tablet-screen">
-                    <img
-                      src={getThumbnailUrl(activeVideo)}
-                      alt="AutoCount Tutorial"
-                      loading="lazy"
-                      crossOrigin="anonymous"
-                      decoding="async"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    />
-                    <div className="tutorial-tablet-dim">
-                      <div className="tutorial-play-button">
-                        <svg className="tutorial-play-icon" width="24" height="24" viewBox="0 0 24 24" fill="#2f315a" aria-hidden="true">
-                          <polygon points="5,3 19,12 5,21" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="tutorial-copy-panel">
-                <div className="tutorial-selector" style={{
-                  margin: '0 0 1.35rem',
-                  width: '100%',
-                  maxWidth: 480,
-                  background: '#f2f2f7',
-                  borderRadius: '20px',
-                  padding: '6px',
-                  display: 'flex',
-                  gap: '6px'
-                }}>
-                  {VIDEOS.map(v => {
-                    const isActive = activeVideo === v.id;
-                    return (
-                      <button
-                        key={v.id}
-                        onClick={() => setActiveVideo(v.id)}
-                        style={{
-                          flex: 1,
-                          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
-                          padding: '12px 4px',
-                          background: isActive ? '#2f315a' : 'transparent',
-                          color: isActive ? '#ffffff' : '#86868b',
-                          border: 'none', borderRadius: '14px',
-                          cursor: 'pointer',
-                          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-                        }}
-                      >
-                        {v.icon}
-                        <span style={{ fontSize: '0.72rem', fontWeight: isActive ? 700 : 500, textAlign: 'center', lineHeight: 1.1 }}>
-                          {v.label}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-                  <p className="tutorial-description" style={{
-                    fontSize: '0.95rem', color: '#6b6f91', lineHeight: 1.8,
-                    maxWidth: 480, marginBottom: '1.5rem', marginTop: '1rem',
-                  }}>
-                    {activeVideoMeta.description}
-                  </p>
-                  <div className="tutorial-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', maxWidth: 480 }}>
-                    <button
-                      onClick={handlePlay}
-                      disabled={Boolean(morph)}
-                      style={{
-                        display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                        background: '#80c31e', color: '#fff', padding: '0.75rem 1.75rem',
-                        borderRadius: 50, fontSize: '0.88rem', fontWeight: 600,
-                        border: 'none', cursor: morph ? 'default' : 'pointer',
-                        transition: 'transform 0.15s, background 0.15s'
-                      }}
-                      onMouseOver={e => { if (!morph) e.currentTarget.style.background = '#8bc34a'; }}
-                      onMouseOut={e => { if (!morph) e.currentTarget.style.background = '#80c31e'; }}
-                    >
-                      <svg className="tutorial-play-icon" width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-                        <polygon points="5,3 19,12 5,21" />
-                      </svg>
-                      Watch on Youtube
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {playerOpen && (
-              <div ref={videoRef} className="tutorial-player-shell desktop-player-overlay">
+          <div className="tutorial-stage-content">
+            {playerOpen ? (
+              <div ref={videoRef} className="tutorial-player-shell">
                 <div
                   ref={videoFrameRef}
                   className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}${shadowIn ? ' shadow-in' : ''}`}
@@ -1131,6 +984,106 @@ export default function AutoCountTrainingWebGL() {
                     />
                   </div>
                 </div>
+              </div>
+            ) : (
+              <div className="training-grid">
+              <div>
+                <div
+                  ref={tabletRef}
+                  className="ipad-frame"
+                  onClick={handlePlay}
+                  style={{
+                    opacity: morph ? 0 : 1,
+                    pointerEvents: morph ? 'none' : 'auto',
+                  }}
+                >
+                  <div className="tutorial-tablet-screen">
+                    <img
+                      src={getThumbnailUrl(activeVideo)}
+                      alt="AutoCount Tutorial"
+                      loading="lazy"
+                      crossOrigin="anonymous"
+                      decoding="async"
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                    />
+                    <div className="tutorial-tablet-dim">
+                      <div className="tutorial-play-button">
+                        <svg className="tutorial-play-icon" width="24" height="24" viewBox="0 0 24 24" fill="#2f315a" aria-hidden="true">
+                          <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div className="tutorial-copy-panel">
+                <div className="tutorial-selector" style={{
+                  margin: '0 0 1.35rem',
+                  width: '100%',
+                  maxWidth: 480,
+                  background: '#f2f2f7',
+                  borderRadius: '20px',
+                  padding: '6px',
+                  display: 'flex',
+                  gap: '6px'
+                }}>
+                  {VIDEOS.map(v => {
+                    const isActive = activeVideo === v.id;
+                    return (
+                      <button
+                        key={v.id}
+                        onClick={() => setActiveVideo(v.id)}
+                        style={{
+                          flex: 1,
+                          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
+                          padding: '12px 4px',
+                          background: isActive ? '#2f315a' : 'transparent',
+                          color: isActive ? '#ffffff' : '#86868b',
+                          border: 'none', borderRadius: '14px',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                        }}
+                      >
+                        {v.icon}
+                        <span style={{ fontSize: '0.72rem', fontWeight: isActive ? 700 : 500, textAlign: 'center', lineHeight: 1.1 }}>
+                          {v.label}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <p className="tutorial-description" style={{
+                    fontSize: '0.95rem', color: '#6b6f91', lineHeight: 1.8,
+                    maxWidth: 480, marginBottom: '1.5rem', marginTop: 0,
+                  }}>
+                    {activeVideoMeta.description}
+                  </p>
+                  <div className="tutorial-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+                    <button
+                      onClick={handlePlay}
+                      disabled={Boolean(morph)}
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                        background: '#80c31e', color: '#fff', padding: '0.75rem 1.75rem',
+                        borderRadius: 50, fontSize: '0.88rem', fontWeight: 600,
+                        border: 'none', cursor: morph ? 'default' : 'pointer',
+                        transition: 'transform 0.15s, background 0.15s'
+                      }}
+                      onMouseOver={e => { if (!morph) e.currentTarget.style.background = '#8bc34a'; }}
+                      onMouseOut={e => { if (!morph) e.currentTarget.style.background = '#80c31e'; }}
+                    >
+                      <svg className="tutorial-play-icon" width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                        <polygon points="5,3 19,12 5,21" />
+                      </svg>
+                      Watch on Youtube
+                    </button>
+
+                  </div>
+                </div>
+              </div>
               </div>
             )}
           </div>
