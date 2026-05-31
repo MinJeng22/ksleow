@@ -32,7 +32,7 @@ const MEGA_MENU = [
     title: "Other Services",
     items: [
       { label: "Printing / Advertising / Design", scrollTo: "#other-services", icon: "printer" },
-      { label: "AutoCount Plugin",                path: "/apps/autocount-plugin", icon: "blocks" },
+      { label: "AutoCount Plugin",                path: "/apps/autocount-plugin", icon: "puzzle" },
       { label: "SiteGiant Integration",           scrollTo: "#other-services", icon: "link" },
       { label: "KS Omni (AI Assistant)",           path: "/omni", icon: "chat" },
     ],
