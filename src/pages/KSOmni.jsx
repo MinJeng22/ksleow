@@ -27,11 +27,11 @@ function getQrUrl(pageUrl) {
  * Anything else (Excel, Word, ZIP, …) is rejected client-side with a
  * friendly message that matches the worker's server-side check. */
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
-const IMAGE_FILE_ACCEPT = "image/*";
+const IMAGE_FILE_ACCEPT = "image/png,image/jpeg,image/webp,image/gif";
 const IMAGE_EXTENSION_RE = /\.(avif|bmp|gif|heic|heif|jpe?g|png|tiff?|webp)$/i;
 /* Extensions for the file picker's `accept` attribute — covers the
- * cases where mobile browsers don't send the right MIME type. */
-const ACCEPT_ATTR = IMAGE_FILE_ACCEPT;
+ * common document types we handle. */
+const ACCEPT_ATTR = "image/png,image/jpeg,image/webp,image/gif,application/pdf,text/plain,.csv";
 
 function isImageFile(f) {
   return !!f && (f.type?.startsWith("image/") || IMAGE_EXTENSION_RE.test(f.name || ""));
@@ -843,7 +843,7 @@ export default function KSLOmniPage() {
         ref={fileInputCameraRef}
         style={{ display: "none" }}
         accept="image/*"
-        capture="environment"
+        capture="camera"
         onChange={handleFileSelected}
       />
 
@@ -973,10 +973,10 @@ export default function KSLOmniPage() {
                         .omni-file-btn.camera-btn { display: none !important; }
                       }
                     `}</style>
-                    <button className="omni-file-btn camera-btn" onClick={() => { setShowFileMenu(false); fileInputCameraRef.current?.click(); }}>
+                    <button className="omni-file-btn camera-btn" onClick={() => { fileInputCameraRef.current?.click(); setShowFileMenu(false); }}>
                       <CameraIcon /> Camera
                     </button>
-                    <button className="omni-file-btn" onClick={() => { setShowFileMenu(false); openFilePicker(); }}>
+                    <button className="omni-file-btn" onClick={() => { openFilePicker(); setShowFileMenu(false); }}>
                       <ImageUploadIcon /> Photos
                     </button>
                   </div>
