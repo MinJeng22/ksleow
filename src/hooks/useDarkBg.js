@@ -12,6 +12,8 @@ const LIGHT_SELECTORS = [
   "#services",
   "#other-services",
   ".home-section:not(.products-section)",
+  ".site-card",
+  ".site-card-bg"
 ];
 
 function getLuminance(r, g, b) {
@@ -34,8 +36,8 @@ function backgroundLuminanceFromElement(element) {
   let current = element;
 
   while (current && current !== document.documentElement) {
-    if (current.closest(DARK_SELECTORS.join(","))) return 0.12;
-    if (current.closest(LIGHT_SELECTORS.join(","))) return 0.92;
+    if (current.matches && current.matches(DARK_SELECTORS.join(","))) return 0.12;
+    if (current.matches && current.matches(LIGHT_SELECTORS.join(","))) return 0.92;
 
     const style = window.getComputedStyle(current);
     const colors = [

@@ -207,16 +207,7 @@ export default function KSLOmniPage() {
     } catch (e) {}
     return [];
   });
-  const [activeSessionId, setActiveSessionId] = useState(() => {
-    try {
-      const saved = localStorage.getItem(getSessionsListKey(machineId));
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.length > 0) return parsed[0].id;
-      }
-    } catch (e) {}
-    return generateId();
-  });
+  const [activeSessionId, setActiveSessionId] = useState(() => generateId());
   const [messages, setMessages] = useState(() => {
     try {
       const saved = localStorage.getItem(getSessionMessagesKey(machineId, activeSessionId));
@@ -856,31 +847,40 @@ export default function KSLOmniPage() {
         style={{ display: "none" }}
       />
 
-      {/* ── Chat Content Area ── */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", maxWidth: 900, margin: "0 auto", width: "100%", paddingTop: "max(80px, env(safe-area-inset-top) + 80px)", minHeight: 0 }}>
+      {/* ── Main Flex Container for Chat + Input ── */}
+      <div style={{
+        flex: 1, 
+        display: "flex", 
+        flexDirection: "column", 
+        justifyContent: isEmpty ? "center" : "space-between",
+        paddingTop: "max(80px, env(safe-area-inset-top) + 80px)", 
+        minHeight: 0
+      }}>
+        {/* ── Chat Content Area ── */}
         <div ref={chatScrollRef} style={{
-          flex: 1, overflowY: "auto",
+          flex: isEmpty ? "none" : 1, 
+          overflowY: isEmpty ? "visible" : "auto",
           overscrollBehavior: "none",
           WebkitOverflowScrolling: "touch",
-          padding: isEmpty ? "1rem 1.25rem 1rem" : "1rem 1.25rem 0",
+          padding: isEmpty ? "0 1.25rem 1.5rem" : "1rem 1.25rem 0",
           display: "flex", flexDirection: "column",
           justifyContent: isEmpty ? "center" : "flex-start",
+          maxWidth: 900, margin: "0 auto", width: "100%"
         }}>
           {isEmpty
             ? <EmptyGreeting />
             : messages.map((msg, i) => <Message key={i} msg={msg} fontSize={isMobile ? "0.88rem" : "0.95rem"} />)
           }
         </div>
-      </div>
 
-      {/* ── Liquid Glass Input Row ── */}
-      <div style={{ maxWidth: 900, margin: "0 auto", width: "100%", padding: "0.5rem 1rem" }}>
-        <div className="lg-glass" style={{
-          marginBottom: isMobile ? "max(64px, env(safe-area-inset-bottom) + 64px)" : "max(0.5rem, env(safe-area-inset-bottom))",
-          padding: "0.65rem 0.8rem 0.5rem",
-          borderRadius: 24,
-          display: "flex", flexDirection: "column", gap: "0.35rem",
-        }}>
+        {/* ── Liquid Glass Input Row ── */}
+        <div style={{ maxWidth: 900, margin: "0 auto", width: "100%", padding: "0.5rem 1rem" }}>
+          <div className="lg-glass" style={{
+            marginBottom: (isMobile && !isEmpty) ? "max(64px, env(safe-area-inset-bottom) + 64px)" : "max(0.5rem, env(safe-area-inset-bottom))",
+            padding: "0.65rem 0.8rem 0.5rem",
+            borderRadius: 24,
+            display: "flex", flexDirection: "column", gap: "0.35rem",
+          }}>
           {/* Inline attachment preview (inside the input container) */}
           {attachedImage && (
             <div style={{ position: "relative", display: "inline-block", alignSelf: "flex-start", margin: "0.1rem 0 0.2rem" }}>
@@ -961,8 +961,14 @@ export default function KSLOmniPage() {
               }
             </button>
           </div>
+          
+          {/* Disclaimer text under input */}
+          <div style={{ textAlign: "center", fontSize: "0.72rem", color: "rgba(255,255,255,0.4)", marginTop: "0.4rem", marginBottom: (isMobile && isEmpty) ? "max(64px, env(safe-area-inset-bottom) + 64px)" : "0" }}>
+            AI Responses may be inaccurate
+          </div>
         </div>
       </div>
+    </div>
 
       {showQR && <QRModal onClose={() => setShowQR(false)} pageUrl={pageUrl} qrUrl={qrUrl} qrReady={qrReady} />}
 
