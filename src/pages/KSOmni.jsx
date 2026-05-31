@@ -860,7 +860,7 @@ export default function KSLOmniPage() {
         flexDirection: "column", 
         justifyContent: isEmpty ? "center" : "space-between",
         paddingTop: "max(80px, env(safe-area-inset-top) + 80px)", 
-        paddingBottom: isEmpty ? "15vh" : 0,
+        paddingBottom: (isEmpty && !keyboardOpen) ? "15vh" : 0,
         minHeight: 0
       }}>
         {/* ── Chat Content Area ── */}
@@ -971,7 +971,7 @@ export default function KSLOmniPage() {
         </div>
           
         {/* Disclaimer text under input */}
-        <div style={{ textAlign: "center", fontSize: "0.72rem", color: "rgba(255,255,255,0.4)", marginTop: "0.4rem", marginBottom: (isMobile && !keyboardOpen) ? "max(64px, env(safe-area-inset-bottom) + 64px)" : "max(0.5rem, env(safe-area-inset-bottom))" }}>
+        <div style={{ textAlign: "center", fontSize: "0.72rem", color: "rgba(255,255,255,0.4)", marginTop: "0.4rem", marginBottom: keyboardOpen ? "0.2rem" : (isMobile ? "max(64px, env(safe-area-inset-bottom) + 64px)" : "max(0.5rem, env(safe-area-inset-bottom))") }}>
           AI Responses may be inaccurate
         </div>
       </div>
