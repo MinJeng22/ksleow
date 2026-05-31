@@ -163,11 +163,11 @@ function SectionRow({ image, alt, caption, children, sticky = true }) {
   return (
     <>
       <style>{`
-        .sr-grid { display: grid; grid-template-columns: 58% 1fr; gap: 2.5rem; align-items: start; margin-top: 1.5rem; }
+        .sr-grid { display: grid; grid-template-columns: 58% 1fr; gap: 2.5rem; margin-top: 1.5rem; }
         @media (max-width: 760px) { .sr-grid { grid-template-columns: 1fr; gap: 1.25rem; } }
       `}</style>
       <div className="sr-grid">
-        <div style={sticky ? { position: "sticky", top: 90 } : undefined}>
+        <div style={sticky ? { position: "sticky", top: 120, alignSelf: "start" } : {}}>
           <ImgSlot src={image} alt={alt} caption={caption} maxWidth={720} maxHeight={560} />
         </div>
         <div>{children}</div>
