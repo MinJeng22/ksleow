@@ -343,26 +343,32 @@ export default function KSLOmniPage() {
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.visualViewport) return;
-    const threshold = 150; // keyboard is considered open if viewport shrinks by 150px+
-    const fullHeight = window.innerHeight;
+    const threshold = 150; 
+    const initialHeight = window.innerHeight;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
     const updateViewport = () => {
       const vv = window.visualViewport;
-      if (contentRef.current) {
-        contentRef.current.style.height = `${vv.height}px`;
-        contentRef.current.style.top = `${vv.offsetTop}px`;
+      if (isIOS) {
+        if (contentRef.current) {
+          contentRef.current.style.height = `${vv.height}px`;
+          contentRef.current.style.top = `${vv.offsetTop}px`;
+        }
+        setKeyboardOpen(initialHeight - vv.height > threshold);
+      } else {
+        if (contentRef.current) {
+          contentRef.current.style.height = "100dvh";
+          contentRef.current.style.top = "0px";
+        }
+        const active = document.activeElement;
+        const isFocused = active && (active.tagName === 'TEXTAREA' || active.tagName === 'INPUT');
+        setKeyboardOpen(!!isFocused);
       }
-      const isOpen = fullHeight - vv.height > threshold;
-      setKeyboardOpen(isOpen);
     };
     window.visualViewport.addEventListener("resize", updateViewport);
     window.visualViewport.addEventListener("scroll", updateViewport);
     updateViewport();
     
-    if (navigator.virtualKeyboard) {
-      navigator.virtualKeyboard.overlaysContent = true;
-    }
-
     return () => {
       window.visualViewport.removeEventListener("resize", updateViewport);
       window.visualViewport.removeEventListener("scroll", updateViewport);
