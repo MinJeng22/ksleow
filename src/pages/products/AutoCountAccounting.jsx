@@ -1167,23 +1167,31 @@ export default function AutoCountAccountingPage({ onContact }) {
             animation-play-state: paused !important;
           }
 
-          /* Desktop: Static, fit 14 items */
+          /* Desktop: Static, fit 14 items across full width */
           @media (min-width: 901px) {
             .ac-awards-container-new {
               mask-image: none;
               -webkit-mask-image: none;
+              width: 100%;
             }
             .ac-awards-marquee-track {
               animation: none !important;
-              justify-content: center;
+              justify-content: flex-start;
+              width: 100%;
             }
             .ac-awards-item.dup {
               display: none;
             }
             .ac-awards-item {
-              width: 70px;
-              height: 95px;
-              padding: 0 0.15rem;
+              width: 74px;
+              height: 100px;
+              padding: 0;
+            }
+            .ac-awards-item:nth-child(odd) {
+              margin-right: 0.25rem;
+            }
+            .ac-awards-item:nth-child(even) {
+              margin-right: auto;
             }
             .ac-awards-item:nth-child(14) {
               margin-right: 0;
