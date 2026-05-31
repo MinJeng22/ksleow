@@ -402,9 +402,12 @@ export default function OtherServices({ onContact }) {
                 <p className="site-card-copy">
                   {c.desc}
                 </p>
-                <div style={{ marginTop: "auto", textAlign: "right", paddingTop: "1.5rem" }}>
-                  <span style={{ fontSize: "0.8rem", fontWeight: 600, color: "#2f315a", display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                    Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                <div style={{ marginTop: "auto", paddingTop: "0.75rem", textAlign: "right" }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.78rem", fontWeight: 600, color: "#c9a84c", letterSpacing: "0.04em" }}>
+                    Learn more
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
                   </span>
                 </div>
               </div>
