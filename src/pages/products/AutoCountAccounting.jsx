@@ -1152,22 +1152,20 @@ export default function AutoCountAccountingPage({ onContact }) {
             flex: 0 0 auto;
             width: 100px;
             height: 135px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(47,49,90,0.08);
-            overflow: hidden;
-            background: #fff;
-            border: 1px solid rgba(47,49,90,0.04);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           }
           .ac-awards-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(47,49,90,0.15);
             z-index: 10;
           }
           .ac-awards-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
             transition: transform 0.4s ease;
           }
           .ac-awards-item:hover img {
