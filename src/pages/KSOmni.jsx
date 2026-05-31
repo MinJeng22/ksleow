@@ -787,78 +787,51 @@ export default function KSLOmniPage() {
           pointer-events: none;
           z-index: 1000;
         }
-        .omni-top-group {
-          display: flex;
-          gap: 0.25rem;
-          pointer-events: auto;
-          border-radius: 50px;
-          padding: 0.35rem;
-        }
         @media (min-width: 1024px) {
-          .omni-top-bar {
-            padding: 1.5rem;
-          }
-          .omni-top-group {
-            gap: 0.5rem;
-            padding: 0;
-          }
+          /* Inherit all floating button styles from MenuButton.jsx for perfect consistency */
         }
       `}</style>
 
-      {/* ── Top Liquid Glass Navigation ── */}
-      <div className="omni-top-bar">
-        {/* Left Group: Back (desktop) */}
-        <div className="omni-top-group">
-          {!isMobile && (
-            <button className="lg-glass lg-glass-btn lg-glass-pill" style={{ color: "#ffffff", gap: "0.4rem" }} onClick={goHome} aria-label="Back" title="Back">
+      {/* ── Desktop & Tablet Controls ── */}
+      {!isMobile && (
+        <>
+          <div className="top-left-controls" style={{ transition: "transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)", transform: sidebarOpen ? "translateX(300px)" : "none" }}>
+            <button className="back-fab lg-glass lg-glass-btn" style={{ color: "#ffffff" }} onClick={goHome} aria-label="Back">
               <BackIcon />
               <span>Back</span>
             </button>
-          )}
-          {!isMobile && !sidebarOpen && (
-            <button className="lg-glass lg-glass-btn lg-glass-pill" style={{ color: "#ffffff", gap: "0.4rem" }} onClick={() => setSidebarOpen(prev => !prev)} aria-label="History" title="History">
-              <HistoryIcon />
-              <span>History</span>
-            </button>
-          )}
-        </div>
+            {!sidebarOpen && (
+              <button className="back-fab lg-glass lg-glass-btn" style={{ color: "#ffffff" }} onClick={() => setSidebarOpen(true)} aria-label="History">
+                <HistoryIcon />
+                <span>History</span>
+              </button>
+            )}
+          </div>
 
-        {/* Right Group: Phone + Search (desktop) + Menu (desktop) + Clear */}
-        <div className="omni-top-group" style={{ flexWrap: "wrap", justifyContent: "flex-end" }}>
-          {!isMobile && (
+          <div className="top-right-controls">
             <button 
-              className="lg-glass lg-glass-btn lg-glass-pill" 
-              style={{ color: "#ffffff", gap: "0.4rem" }}
+              className="search-fab lg-glass lg-glass-btn" 
+              style={{ color: "#ffffff" }}
               onClick={() => setShowQR(true)} 
               aria-label="Open on Mobile"
-              title="Open on Mobile"
             >
               <QRIcon />
-              <span>Open on Mobile</span>
+              <span>Mobile QR</span>
             </button>
-          )}
-          
-
-          
-          {!isMobile && (
-            <>
-              <button 
-                className="lg-glass lg-glass-btn lg-glass-pill" 
-                style={{ color: "#ffffff", gap: "0.4rem" }}
-                onMouseEnter={() => window.dispatchEvent(new Event("globalMenuEnter"))}
-                onMouseLeave={() => window.dispatchEvent(new Event("globalMenuLeave"))}
-                onClick={() => window.dispatchEvent(new Event("toggleGlobalMenu"))} 
-                aria-label="Menu"
-                title="Menu"
-              >
-                <MenuGlyph open={menuOpen} size={15} />
-                <span>Menu</span>
-              </button>
-            </>
-          )}
-
-        </div>
-      </div>
+            <button 
+              className="menu-fab lg-glass lg-glass-btn" 
+              style={{ color: "#ffffff" }}
+              onMouseEnter={() => window.dispatchEvent(new Event("globalMenuEnter"))}
+              onMouseLeave={() => window.dispatchEvent(new Event("globalMenuLeave"))}
+              onClick={() => window.dispatchEvent(new Event("toggleGlobalMenu"))} 
+              aria-label="Menu"
+            >
+              <MenuGlyph open={menuOpen} size={15} />
+              <span>Menu</span>
+            </button>
+          </div>
+        </>
+      )}
 
       {/* Hidden file input shared by both desktop & mobile InputRow upload buttons */}
       <input
