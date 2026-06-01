@@ -255,7 +255,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
             />
             <div className="tutorial-morph-dim" />
             <div className="tutorial-morph-play tutorial-play-button">
-              <svg className="tutorial-play-icon" width="24" height="24" viewBox="0 0 24 24" fill="#2f315a" aria-hidden="true">
+              <svg className="tutorial-play-icon" width="24" height="24" viewBox="0 0 24 24" fill={playIconColor} aria-hidden="true">
                 <polygon points="5,3 19,12 5,21" />
               </svg>
             </div>
@@ -266,8 +266,9 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
   );
 }
 
-export default function AutoCountTrainingWebGL() {
-  const [activeVideo, setActiveVideo] = useState(VIDEOS[0].id);
+export default function AutoCountTrainingWebGL({ customVideos, themeColor = '#80c31e', themeHoverColor = '#8bc34a', activeTabBg = '#2f315a', playIconColor = '#2f315a', playBtnBg = '#e8c97a' }) {
+  const videos = customVideos || VIDEOS;
+  const [activeVideo, setActiveVideo] = useState(videos[0].id);
   const [playerOpen, setPlayerOpen] = useState(false);
   const [iframeMounted, setIframeMounted] = useState(false);
   const [iframeReady, setIframeReady] = useState(false);
@@ -295,7 +296,7 @@ export default function AutoCountTrainingWebGL() {
   const preparingMorphRef = useRef(false);
 
   useEffect(() => {
-    VIDEOS.forEach(video => {
+    videos.forEach(video => {
       preloadImage(getThumbnailUrl(video.id));
     });
   }, []);
@@ -577,7 +578,7 @@ export default function AutoCountTrainingWebGL() {
     }, 950);
   };
 
-  const activeVideoMeta = VIDEOS.find(video => video.id === activeVideo) || VIDEOS[0];
+  const activeVideoMeta = videos.find(video => video.id === activeVideo) || videos[0];
 
   return (
     <section
@@ -590,6 +591,7 @@ export default function AutoCountTrainingWebGL() {
       }}
     >
       <style>{`
+        .tutorial-play-button { --play-btn-bg: ${playBtnBg}; background: var(--play-btn-bg); }
         .training-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; }
         @media (max-width: 760px) { .training-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
         .tutorial-stage {
@@ -713,7 +715,7 @@ export default function AutoCountTrainingWebGL() {
           place-items: center;
           padding-left: 4px;
           border-radius: 50%;
-          background: #e8c97a;
+          background: var(--play-btn-bg, #e8c97a);
           box-shadow: 0 8px 24px rgba(232,201,122,0.4);
           box-sizing: border-box;
           line-height: 0;
@@ -1008,7 +1010,7 @@ export default function AutoCountTrainingWebGL() {
                     />
                     <div className="tutorial-tablet-dim">
                       <div className="tutorial-play-button">
-                        <svg className="tutorial-play-icon" width="24" height="24" viewBox="0 0 24 24" fill="#2f315a" aria-hidden="true">
+                        <svg className="tutorial-play-icon" width="24" height="24" viewBox="0 0 24 24" fill={playIconColor} aria-hidden="true">
                           <polygon points="5,3 19,12 5,21" />
                         </svg>
                       </div>
@@ -1019,7 +1021,7 @@ export default function AutoCountTrainingWebGL() {
               </div>
 
               <div className="tutorial-copy-panel">
-                <div className="tutorial-selector" style={{
+                <div className="tutorial-selector" style={{ display: videos.length <= 1 ? 'none' : 'flex' }} style={{
                   margin: '0 0 1.35rem',
                   width: '100%',
                   maxWidth: 480,
@@ -1029,7 +1031,7 @@ export default function AutoCountTrainingWebGL() {
                   display: 'flex',
                   gap: '6px'
                 }}>
-                  {VIDEOS.map(v => {
+                  {videos.map(v => {
                     const isActive = activeVideo === v.id;
                     return (
                       <button
@@ -1039,7 +1041,7 @@ export default function AutoCountTrainingWebGL() {
                           flex: 1,
                           display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
                           padding: '12px 4px',
-                          background: isActive ? '#2f315a' : 'transparent',
+                          background: isActive ? activeTabBg : 'transparent',
                           color: isActive ? '#ffffff' : '#86868b',
                           border: 'none', borderRadius: '14px',
                           cursor: 'pointer',
@@ -1067,13 +1069,13 @@ export default function AutoCountTrainingWebGL() {
                       disabled={Boolean(morph)}
                       style={{
                         display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                        background: '#80c31e', color: '#fff', padding: '0.75rem 1.75rem',
+                        background: themeColor, color: '#fff', padding: '0.75rem 1.75rem',
                         borderRadius: 50, fontSize: '0.88rem', fontWeight: 600,
                         border: 'none', cursor: morph ? 'default' : 'pointer',
                         transition: 'transform 0.15s, background 0.15s'
                       }}
-                      onMouseOver={e => { if (!morph) e.currentTarget.style.background = '#8bc34a'; }}
-                      onMouseOut={e => { if (!morph) e.currentTarget.style.background = '#80c31e'; }}
+                      onMouseOver={e => { if (!morph) e.currentTarget.style.background = themeHoverColor; }}
+                      onMouseOut={e => { if (!morph) e.currentTarget.style.background = themeColor; }}
                     >
                       <svg className="tutorial-play-icon" width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
                         <polygon points="5,3 19,12 5,21" />

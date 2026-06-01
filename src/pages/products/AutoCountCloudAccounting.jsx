@@ -5,6 +5,7 @@ import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
 import SectionDivider, { IconVideo, IconGrid, IconLedger, IconStar } from "../../components/SectionDivider.jsx";
 import cloudReleases from "../../content/autocountCloudReleases.json";
+import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to start AutoCount CloudAccounting free trial and compare the available editions. Thank you."
@@ -14,7 +15,16 @@ const OFFICIAL_PRODUCT_URL = "https://www.autocountsoft.com/pro-cloud-acc.html";
 const OFFICIAL_RELEASE_URL = "https://help.accounting.autocountcloud.com/support/discussions/forums/69000107078";
 const FREE_TRIAL_URL = "https://auth.autocountcloud.com/identity/account/register/accounting?dealerCode=SYNS6037";
 const TRAINING_URL = "https://youtu.be/zHstLv2-ATw?si=tSfLxwPCw1YvYKSg";
-const TRAINING_EMBED = "https://www.youtube.com/embed/zHstLv2-ATw";
+
+const CLOUD_VIDEOS = [
+  {
+    id: 'zHstLv2-ATw',
+    label: 'CloudAccounting Tutorial',
+    description: 'Learn AutoCount CloudAccounting in Just 30 Minutes. A fast orientation for owners and accounts teams who want to understand the workflow before starting a trial.',
+    note: 'Quick-Start Guide',
+    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+  }
+];
 
 const RELEASES = cloudReleases;
 
@@ -415,24 +425,6 @@ export default function AutoCountCloudAccountingPage() {
   const [compareB, setCompareB] = useState(RELEASES[0]?.version || "");
   const [expanded, setExpanded] = useState(RELEASES[0]?.version || null);
   const [search, setSearch] = useState("");
-  const trainingRef = useRef(null);
-  const [trainingInView, setTrainingInView] = useState(false);
-
-  useEffect(() => {
-    const node = trainingRef.current;
-    if (!node) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setTrainingInView(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => setTrainingInView(entry.isIntersecting)),
-      { threshold: 0.22 }
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, []);
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const eaName = CODE_TO_EDITION[params.get("cea")] || params.get("editionA");
@@ -512,42 +504,15 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <div className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
-        <div id="training" ref={trainingRef} className="ac-section-tight">
-        <div className="content-wrap">
-          <div style={{ textAlign: "center", marginBottom: "2.4rem" }}>
-
-            <h2 className="ks-section-title" style={{ marginBottom: "0.85rem" }}>
-              Learn AutoCount CloudAccounting in Just 30 Minutes
-            </h2>
-            <p className="ks-body-text" style={{ maxWidth: 620, margin: "0 auto 1.35rem" }}>
-              A fast orientation for owners and accounts teams who want to understand the workflow before starting a trial.
-            </p>
-            <a href={TRAINING_URL} target="_blank" rel="noreferrer" className="ks-btn ks-btn-brand">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21" /></svg>
-              Watch on YouTube
-            </a>
-          </div>
-
-          <div style={{
-            borderRadius: 18,
-            overflow: "hidden",
-            boxShadow: "0 20px 60px rgba(47,49,90,0.16)",
-            border: "1px solid rgba(47,49,90,0.08)",
-            opacity: trainingInView ? 1 : 0,
-            transform: trainingInView ? "translateY(0) scale(1)" : "translateY(28px) scale(0.97)",
-            transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.15s",
-          }}>
-            <div style={{ paddingBottom: "56.25%", position: "relative", background: "#0f1128" }}>
-              <iframe
-                src={TRAINING_EMBED}
-                title="Learn AutoCount CloudAccounting in 30 Minutes"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
-              />
-            </div>
-          </div>
-        </div>
+        <div id="training">
+          <AutoCountTrainingWebGL 
+            customVideos={CLOUD_VIDEOS} 
+            themeColor="#00a2ed" 
+            themeHoverColor="#19b2f5" 
+            playBtnBg="#00a2ed" 
+            playIconColor="#ffffff" 
+            activeTabBg="#00a2ed" 
+          />
         </div>
       </div>
 
