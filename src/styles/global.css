@@ -1817,3 +1817,13 @@ body.has-active-modal .back-to-top-glass {
   opacity: 0.85;
 }
 
+. 
+.ks-learn-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}

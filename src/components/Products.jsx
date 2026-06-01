@@ -183,7 +183,7 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
         </p>
         {clickable && (
           <div style={{ marginTop: "auto", paddingTop: "0.75rem", textAlign: "right" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.78rem", fontWeight: 600, color: "#c9a84c", letterSpacing: "0.04em" }}>
+            <span className="ks-learn-more">
               Learn more
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <polyline points="9 18 15 12 9 6" />

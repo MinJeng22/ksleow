@@ -36,43 +36,41 @@ function PluginCard({ plugin }) {
       transition: "transform 0.2s, box-shadow 0.2s, border-color 0.2s",
     }}>
       <div style={{
-        minHeight: 150,
-        background: "linear-gradient(135deg, rgba(47,49,90,0.98), rgba(47,49,90,0.82))",
-        color: "#ffffff",
-        padding: "1.35rem",
+        padding: "1.35rem 1.35rem 0 1.35rem",
         display: "flex",
-        alignItems: "flex-end",
+        alignItems: "flex-start",
         justifyContent: "space-between",
         gap: "1rem",
       }}>
         <div>
-          <div style={{ fontSize: "0.68rem", fontWeight: 750, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.5rem" }}>
+          <div className="ks-eyebrow" style={{ marginBottom: "0.4rem" }}>
             {plugin.tag}
           </div>
-          <h3 style={{ fontSize: "1.65rem", fontWeight: 800, color: "#ffffff", lineHeight: 1.05 }}>
+          <h3 className="ks-card-title" style={{ fontSize: "1.35rem", marginBottom: 0 }}>
             {plugin.name}
           </h3>
         </div>
         <span style={{
           borderRadius: 50,
           padding: "0.28rem 0.7rem",
-          background: "rgba(255,255,255,0.14)",
-          color: "#ffffff",
+          background: "rgba(47,49,90,0.08)",
+          color: "#2f315a",
           fontSize: "0.68rem",
           fontWeight: 750,
           whiteSpace: "nowrap",
+          flexShrink: 0,
         }}>
           {developerLabel}
         </span>
       </div>
 
       <div style={{ padding: "1.35rem", display: "flex", flexDirection: "column", gap: "1rem", flex: 1 }}>
-        <p style={{ color: "#555", fontSize: "0.92rem", lineHeight: 1.75, margin: 0 }}>
+        <p className="ks-body-text" style={{ margin: 0 }}>
           {plugin.summary}
         </p>
 
         {plugin.modules?.length > 0 && (
-          <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap", marginTop: "auto" }}>
+          <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap", marginTop: "auto", marginBottom: "0.25rem" }}>
             {plugin.modules.map((module) => (
               <span key={module} style={{
                 border: "1px solid rgba(47,49,90,0.12)",
@@ -88,8 +86,9 @@ function PluginCard({ plugin }) {
           </div>
         )}
 
-        <div style={{ color: "#a8abcc", fontSize: "0.76rem", fontWeight: 650 }}>
-          Developed by {plugin.dealer}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", padding: "0.85rem", background: "rgba(201,168,76,0.08)", borderRadius: 10, border: "1px solid rgba(201,168,76,0.2)" }}>
+          <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#2f315a" }}>RM600 <span style={{ fontWeight: 500, color: "#6b6f91" }}>/ first account book</span></div>
+          <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#2f315a" }}>RM300 <span style={{ fontWeight: 500, color: "#6b6f91" }}>/ second or after account book</span></div>
         </div>
 
         <div style={{ display: "flex", gap: "0.65rem", flexWrap: "wrap", paddingTop: "0.2rem" }}>
