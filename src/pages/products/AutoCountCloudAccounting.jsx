@@ -616,7 +616,7 @@ export default function AutoCountCloudAccountingPage() {
           iconSrc="/images/products/cloudaccounting-icon.png"
           iconAlt="AutoCount CloudAccounting"
           backgroundImage="/images/products/autocount-accounting-hero.webp"
-          primaryCta={{ label: "Start Free Trial", href: FREE_TRIAL_URL, target: "_blank" }}
+          primaryCta={{ label: "Start Free Trial", href: FREE_TRIAL_URL, target: "_blank", className: "ks-btn-cloud" }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
         />
       </div>
@@ -795,7 +795,7 @@ export default function AutoCountCloudAccountingPage() {
                     No releases match "{search}"
                   </div>
                 )}
-                {filtered.map((release) => (
+                {filtered.slice(0, visibleLimit).map((release) => (
                   <ReleaseCard
                     key={release.version}
                     release={release}
@@ -803,6 +803,17 @@ export default function AutoCountCloudAccountingPage() {
                     onToggle={() => setExpanded(expanded === release.version ? null : release.version)}
                   />
                 ))}
+                {visibleLimit < filtered.length && (
+                  <div style={{ textAlign: "center", paddingTop: "1rem" }}>
+                    <button
+                      type="button"
+                      onClick={() => setVisibleLimit(l => l + 5)}
+                      className="ks-btn ks-btn-outline ks-btn-md"
+                    >
+                      View more releases
+                    </button>
+                  </div>
+                )}
               </div>
             </>
           )}

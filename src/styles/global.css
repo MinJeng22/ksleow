@@ -1863,11 +1863,12 @@ body.has-active-modal .back-to-top-glass {
   border-radius: 14px;
   border: 1px solid rgba(47,49,90,0.08);
   box-shadow: 0 4px 20px rgba(47,49,90,0.05);
-  overflow: hidden;
 }
 
 .ks-compare-wrap {
   overflow-x: auto;
+  max-height: 75vh;
+  overflow-y: auto;
 }
 
 .ks-compare-table {
