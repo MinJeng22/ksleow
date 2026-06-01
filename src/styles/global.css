@@ -1885,7 +1885,7 @@ body.has-active-modal .back-to-top-glass {
 .ks-compare-th {
   position: sticky;
   top: 0;
-  background: inherit;
+  background: var(--th-bg, #2f315a);
   z-index: 3;
   padding: 0.7rem;
   color: #ffffff;
@@ -1950,4 +1950,82 @@ body.has-active-modal .back-to-top-glass {
   left: 0;
   z-index: 2;
   background: inherit;
+}
+
+.ks-btn-cloud {
+  background: #16a14b;
+  border-color: #16a14b;
+  color: white;
+}
+.ks-btn-cloud:hover {
+  background: #19b554;
+  border-color: #19b554;
+  color: white;
+}
+
+/* Mobile Compare Table Overrides */
+@media (max-width: 768px) {
+  .ks-compare-table, 
+  .ks-compare-thead, 
+  .ks-compare-tbody, 
+  .ks-compare-th, 
+  .ks-compare-td, 
+  .ks-compare-tr,
+  .ks-compare-tr-data,
+  .ks-compare-tr-book,
+  .ks-compare-tr-section {
+    display: block;
+    width: 100%;
+  }
+  
+  .ks-compare-thead tr {
+    display: flex;
+  }
+  .ks-compare-thead .ks-compare-th-left {
+    display: none;
+  }
+  .ks-compare-thead .ks-compare-th:not(.ks-compare-th-left) {
+    width: 20%;
+    padding: 0.5rem 0.2rem;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ks-compare-tr-data, .ks-compare-tr-book {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(47,49,90,0.05);
+  }
+  
+  .ks-compare-td-left {
+    width: 100%;
+    text-align: center;
+    position: static !important;
+    background: #f0f0f5 !important;
+    padding: 0.7rem;
+    border-bottom: 1px solid rgba(47,49,90,0.05);
+  }
+  
+  .ks-compare-td-data:not(.ks-compare-td-left),
+  .ks-compare-td-book:not(.ks-compare-td-left) {
+    width: 20%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(47,49,90,0.05);
+    padding: 0.5rem 0;
+  }
+  .ks-compare-td-data:not(.ks-compare-td-left):last-child,
+  .ks-compare-td-book:not(.ks-compare-td-left):last-child {
+    border-right: none;
+  }
+  
+  .ks-compare-td-section {
+    width: 100%;
+    text-align: center;
+    display: block;
+  }
 }

@@ -4,8 +4,10 @@ import ProductHero from "../../components/ProductHero.jsx";
 import ParticleBackground from "../../components/ParticleBackground.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
-import SectionDivider, { IconVideo, IconGrid, IconLedger, IconStar } from "../../components/SectionDivider.jsx";
+import SectionDivider, { IconVideo, IconGrid, IconLedger, IconStar, IconHandshake } from "../../components/SectionDivider.jsx";
 import cloudReleases from "../../content/autocountCloudReleases.json";
+import WhyChooseUs from "../../components/WhyChooseUs.jsx";
+import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -19,11 +21,18 @@ const TRAINING_URL = "https://youtu.be/zHstLv2-ATw?si=tSfLxwPCw1YvYKSg";
 
 const CLOUD_VIDEOS = [
   {
-    id: 'zHstLv2-ATw',
-    label: 'CloudAccounting Tutorial',
+    id: 'pHRMw-oo0o0?start=39',
+    label: 'General Tutorial',
     description: 'Learn AutoCount CloudAccounting in Just 30 Minutes. A fast orientation for owners and accounts teams who want to understand the workflow before starting a trial.',
     note: 'Quick-Start Guide',
     icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+  },
+  {
+    id: 'pHRMw-oo0o0',
+    label: 'e-Invoice Tutorial',
+    description: 'Learn how to generate e-Invoices with AutoCount CloudAccounting seamlessly.',
+    note: 'e-Invoice Guide',
+    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
   }
 ];
 
@@ -326,7 +335,7 @@ function EditionTable({ selected = null, diffOnly = false }) {
       <div className="ks-compare-wrap">
         <table className="ks-compare-table">
           <thead className="ks-compare-thead">
-            <tr style={{ background: "#2f315a" }}>
+            <tr style={{ "--th-bg": "#16a14b" }}>
               <th className="ks-compare-th ks-compare-th-left"></th>
               {cols.map(e => (
                 <th key={e} className="ks-compare-th">{e}</th>
@@ -541,7 +550,7 @@ export default function AutoCountCloudAccountingPage() {
   const [compareMode, setCompareMode] = useState(false);
   const [compareA, setCompareA] = useState(RELEASES[RELEASES.length - 1]?.version || "");
   const [compareB, setCompareB] = useState(RELEASES[0]?.version || "");
-  const [expanded, setExpanded] = useState(RELEASES[0]?.version || null);
+  const [expanded, setExpanded] = useState(null);
   const [search, setSearch] = useState("");
   const [visibleLimit, setVisibleLimit] = useState(5);
   useEffect(() => {
@@ -802,30 +811,12 @@ export default function AutoCountCloudAccountingPage() {
         </div>
       </div>
 
-      <div className="enquire-now-section">
-        <ParticleBackground
-          theme="light"
-          vignetteStart="rgba(240,240,245,0)"
-          vignetteEnd="rgba(47,49,90,0.08)"
-          densityScale={0.78}
-          mobileDensityScale={2.2}
-          lineAlphaScale={0.38}
-          dotAlpha={0.6}
-        />
-        <div className="enquire-now-content content-wrap">
-          <h2 className="enquire-now-heading">
-            Move accounting work into the cloud with proper guidance.
-          </h2>
-          <p className="enquire-now-body">
-            KSL can help you choose the right edition, start the free trial, and prepare the account book for daily use.
-          </p>
-          <div style={{ display: "flex", justifyContent: "center", gap: "0.9rem", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
-            <a href={WA_LINK} target="_blank" rel="noreferrer" className="btn-ghost-base btn-ghost-dark">
-              Enquire Now
-            </a>
-          </div>
-        </div>
-      </div>
+      <WhyChooseUs sectionFrom="var(--ks-page-cloud)" sectionTo="var(--ks-page-warm)" />
+      <EnquireNowCTA 
+        heading="Move accounting work into the cloud with proper guidance."
+        body="KSL can help you choose the right edition, start the free trial, and prepare the account book for daily use."
+        buttons={[{ label: "Enquire Now", href: WA_LINK, className: "btn-ghost-base btn-ghost-dark" }]}
+      />
 
       <Footer />
       </main>

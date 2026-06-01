@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
+import WhyChooseUs from "../../components/WhyChooseUs.jsx";
+import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import SectionDivider, { IconLedger, IconVideo, IconGrid, IconStar, IconHandshake } from "../../components/SectionDivider.jsx";
 import ParticleBackground from "../../components/ParticleBackground.jsx";
@@ -468,7 +470,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
       <div className="ks-compare-wrap">
         <table className="ks-compare-table">
           <thead className="ks-compare-thead">
-            <tr style={{ background: "#80c31e" }}>
+            <tr style={{ "--th-bg": "#80c31e" }}>
               <th className="ks-compare-th ks-compare-th-left"></th>
               {cols.map(e => (
                 <th key={e} className="ks-compare-th">{e}</th>

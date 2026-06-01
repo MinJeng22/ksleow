@@ -139,7 +139,7 @@ function PrimaryButton({ cta }) {
   if (cta.disabled) {
     return (
       <button type="button" aria-disabled="true"
-        className="ks-btn ks-btn-primary"
+        className={"ks-btn ks-btn-primary " + (cta.className || "")}
         style={{ cursor: "default", opacity: 0.72 }}
       >
         {icon}
@@ -153,7 +153,7 @@ function PrimaryButton({ cta }) {
         download={cta.download || undefined}
         target={cta.target}
         rel={cta.target === "_blank" ? "noreferrer" : undefined}
-        className="ks-btn ks-btn-primary"
+        className={"ks-btn ks-btn-primary " + (cta.className || "")}
       >
         {icon}
         {cta.label}
@@ -162,7 +162,7 @@ function PrimaryButton({ cta }) {
   }
   return (
     <button type="button" onClick={cta.onClick}
-      className="ks-btn ks-btn-primary"
+      className={"ks-btn ks-btn-primary " + (cta.className || "")}
     >
       {icon}
       {cta.label}
