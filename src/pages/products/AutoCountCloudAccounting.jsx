@@ -543,6 +543,7 @@ export default function AutoCountCloudAccountingPage() {
   const [compareB, setCompareB] = useState(RELEASES[0]?.version || "");
   const [expanded, setExpanded] = useState(RELEASES[0]?.version || null);
   const [search, setSearch] = useState("");
+  const [visibleLimit, setVisibleLimit] = useState(5);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const eaName = CODE_TO_EDITION[params.get("cea")] || params.get("editionA");
@@ -618,7 +619,7 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-        <SectionDivider icon={IconVideo} targetId="training" />
+        <SectionDivider icon={IconVideo} color="#16a14b" targetId="training" />
       </div>
 
       <div className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
@@ -635,7 +636,7 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
-        <SectionDivider icon={IconGrid} targetId="editions" />
+        <SectionDivider icon={IconGrid} color="#2f315a" targetId="editions" />
       </div>
 
       <div id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ overflow: "visible" }}>
@@ -716,7 +717,7 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-cloud)" }}>
-        <SectionDivider icon={IconLedger} targetId="releases" />
+        <SectionDivider icon={IconLedger} color="#16a14b" targetId="releases" />
       </div>
 
       <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud">
@@ -743,17 +744,7 @@ export default function AutoCountCloudAccountingPage() {
                   {label}
                 </button>
               ))}
-              <a 
-                href={OFFICIAL_RELEASE_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="ks-tab-button"
-                style={{ background: "rgba(47,49,90,0.06)", color: "#2f315a" }}
-                onMouseOver={e => e.currentTarget.style.background = "rgba(47,49,90,0.1)"}
-                onMouseOut={e => e.currentTarget.style.background = "rgba(47,49,90,0.06)"}
-              >
-                View more releases
-              </a>
+
             </div>
           </div>
 
@@ -830,10 +821,7 @@ export default function AutoCountCloudAccountingPage() {
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: "0.9rem", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
             <a href={WA_LINK} target="_blank" rel="noreferrer" className="btn-ghost-base btn-ghost-dark">
-              WhatsApp KSL Support
-            </a>
-            <a href={OFFICIAL_PRODUCT_URL} target="_blank" rel="noreferrer" className="btn-ghost-base btn-ghost-dark">
-              Official Product Page
+              Enquire Now
             </a>
           </div>
         </div>
