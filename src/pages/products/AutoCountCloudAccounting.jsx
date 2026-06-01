@@ -398,7 +398,7 @@ function ReleaseList({ title, items, type, copy }) {
       {items.map((item, index) => (
         <div key={index} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.55rem" }}>
           <ReleaseNumber number={index + 1} type={type} />
-          <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{item}</span>
+          <span className="ks-list-text">{item}</span>
         </div>
       ))}
     </div>
@@ -753,7 +753,6 @@ function EditionSelect({ label, value, onChange }) {
         value={value}
         onChange={(event) => onChange(event.target.value)}
         className="ks-field"
-        style={{ padding: "0 0.85rem", cursor: "pointer" }}
       >
         {EDITIONS.map((edition) => <option key={edition} value={edition}>{edition}</option>)}
       </select>
@@ -834,7 +833,6 @@ function ReleaseSelect({ label, value, onChange }) {
         value={value}
         onChange={(event) => onChange(event.target.value)}
         className="ks-field"
-        style={{ padding: "0 0.85rem", cursor: "pointer" }}
       >
         {RELEASES.map((release) => (
           <option key={release.version} value={release.version}>{release.version} ({release.rev})</option>
@@ -862,7 +860,7 @@ function CompareList({ title, items, type, copy }) {
           <span style={{ fontSize: "0.6rem", fontWeight: 800, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: gold ? "rgba(0,158,57,0.12)" : "rgba(47,49,90,0.08)", color: gold ? "#009e39" : "#2f315a", flexShrink: 0, marginTop: 2 }}>
             {item.rev}
           </span>
-          <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{item.text}</span>
+          <span className="ks-list-text">{item.text}</span>
         </div>
       ))}
     </div>

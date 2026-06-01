@@ -312,7 +312,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
               {r.features.map((f, i) => (
                 <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.5rem" }}>
                   <ReleaseNumber number={i + 1} type="feature" />
-                  <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{f}</span>
+                  <span className="ks-list-text">{f}</span>
                 </div>
               ))}
             </div>
@@ -327,7 +327,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
               {r.fixes.map((f, i) => (
                 <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.5rem" }}>
                   <ReleaseNumber number={i + 1} type="fix" />
-                  <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{f}</span>
+                  <span className="ks-list-text">{f}</span>
                 </div>
               ))}
             </div>
@@ -890,7 +890,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                 <div>
                   <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>Edition A</label>
                   <select value={editionA} onChange={e => setEditionA(e.target.value)}
-                    style={{ width: "100%", height: 40, borderRadius: 10, border: "1px solid rgba(47,49,90,0.2)", padding: "0 0.85rem", fontSize: "0.88rem", fontFamily: "inherit", color: "#2f315a", background: "#ffffff", cursor: "pointer" }}>
+                    className="ks-field">
                     {EDITIONS.map(e => <option key={e} value={e}>{e}</option>)}
                   </select>
                 </div>
@@ -898,7 +898,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                 <div>
                   <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>Edition B</label>
                   <select value={editionB} onChange={e => setEditionB(e.target.value)}
-                    style={{ width: "100%", height: 40, borderRadius: 10, border: "1px solid rgba(47,49,90,0.2)", padding: "0 0.85rem", fontSize: "0.88rem", fontFamily: "inherit", color: "#2f315a", background: "#ffffff", cursor: "pointer" }}>
+                    className="ks-field">
                     {EDITIONS.map(e => <option key={e} value={e}>{e}</option>)}
                   </select>
                 </div>
@@ -1000,7 +1000,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                   <div>
                     <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>From version</label>
                     <select value={compareA} onChange={e => setCompareA(e.target.value)}
-                      style={{ width: "100%", height: 40, borderRadius: 10, border: "1px solid rgba(47,49,90,0.2)", padding: "0 0.85rem", fontSize: "0.88rem", fontFamily: "inherit", color: "#2f315a", background: "#ffffff", cursor: "pointer" }}>
+                      className="ks-field">
                       {RELEASES.map(r => <option key={r.version} value={r.version}>{r.version} ({r.rev})</option>)}
                     </select>
                   </div>
@@ -1008,7 +1008,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                   <div>
                     <label style={{ fontSize: "0.68rem", fontWeight: 600, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.08em", display: "block", marginBottom: "0.4rem" }}>To version</label>
                     <select value={compareB} onChange={e => setCompareB(e.target.value)}
-                      style={{ width: "100%", height: 40, borderRadius: 10, border: "1px solid rgba(47,49,90,0.2)", padding: "0 0.85rem", fontSize: "0.88rem", fontFamily: "inherit", color: "#2f315a", background: "#ffffff", cursor: "pointer" }}>
+                      className="ks-field">
                       {RELEASES.map(r => <option key={r.version} value={r.version}>{r.version} ({r.rev})</option>)}
                     </select>
                   </div>
@@ -1049,7 +1049,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                     {allFeatures.map((f, i) => (
                       <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
                         <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(47,49,90,0.08)", color: "#2f315a", flexShrink: 0, marginTop: 2 }}>{f.rev}</span>
-                        <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{f.text}</span>
+                        <span className="ks-list-text">{f.text}</span>
                       </div>
                     ))}
                   </div>
@@ -1062,7 +1062,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                     {allFixes.map((f, i) => (
                       <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
                         <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(128,195,30,0.12)", color: "#4a6e0e", flexShrink: 0, marginTop: 2 }}>{f.rev}</span>
-                        <span style={{ fontSize: "0.83rem", color: "#444", lineHeight: 1.6 }}>{f.text}</span>
+                        <span className="ks-list-text">{f.text}</span>
                       </div>
                     ))}
                   </div>

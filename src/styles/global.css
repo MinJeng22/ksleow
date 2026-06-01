@@ -1382,6 +1382,12 @@ body.partner-modal-open .back-to-top-glass {
 
 .ks-body-light { color: rgba(255,255,255,0.78); }
 
+.ks-list-text {
+  font-size: 0.83rem;
+  color: #444;
+  line-height: 1.6;
+}
+
 .ks-card-title {
   color: var(--brand);
   font-size: var(--text-base);
@@ -1525,7 +1531,13 @@ body.partner-modal-open .back-to-top-glass {
   background: #ffffff;
   color: var(--brand);
   font-size: var(--text-base);
+  font-family: inherit;
+  padding: 0 0.85rem;
   outline: none;
+}
+
+select.ks-field {
+  cursor: pointer;
 }
 
 .ks-field:focus {

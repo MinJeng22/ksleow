@@ -134,14 +134,14 @@ function Step({ n, children, gold }) {
   return (
     <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", marginBottom: "0.9rem" }}>
       <StepNum n={n} color={gold ? "#c9a84c" : "#2f315a"} />
-      <div style={{ ...S.body, paddingTop: 3, flex: 1 }}>{children}</div>
+      <div className="ks-body-text" style={{ paddingTop: 3, flex: 1 }}>{children}</div>
     </div>
   );
 }
 function BulletList({ items }) {
   return (
     <ul style={{ paddingLeft: "1.1rem", margin: "0.5rem 0" }}>
-      {items.map((item, i) => <li key={i} style={{ ...S.body, marginBottom: "0.4rem" }}>{item}</li>)}
+      {items.map((item, i) => <li key={i} className="ks-body-text" style={{ marginBottom: "0.4rem" }}>{item}</li>)}
     </ul>
   );
 }
@@ -411,11 +411,11 @@ function VideoGuide() {
         <div className="vg-text-wrap" style={{ paddingTop: "0.25rem" }}>
           <div style={{ ...S.label, marginBottom: "0.35rem" }}>{seg.group}</div>
           <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2f315a", lineHeight: 1.3, marginBottom: "0.6rem" }}>{seg.title}</h3>
-          <p style={{ ...S.body, color: "#6b6f91", fontStyle: "italic", marginBottom: "1.1rem" }}>{seg.desc}</p>
+          <p className="ks-body-text" style={{ color: "#6b6f91", fontStyle: "italic", marginBottom: "1.1rem" }}>{seg.desc}</p>
           {seg.steps.map((step, i) => (
             <div key={i} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", marginBottom: "0.8rem" }}>
               <StepNum n={i + 1} color="#c9a84c" />
-              <div style={{ ...S.body, paddingTop: 4, flex: 1 }}>{step}</div>
+              <div className="ks-body-text" style={{ paddingTop: 4, flex: 1 }}>{step}</div>
             </div>
           ))}
           <div style={{ marginTop: "1.25rem", fontSize: "0.7rem", color: "#a8abcc", fontWeight: 500 }}>
@@ -588,7 +588,7 @@ export default function Sales2DOPage({ onContact }) {
       <div id="overview" className="product-app-section product-app-section-paper product-app-section-to-mist">
         <div className="content-wrap">
           <div style={{ ...S.label, marginBottom: "0.5rem" }}>{overview.label}</div>
-          <h2 style={{ ...S.h2, marginBottom: "1.5rem" }}>{overview.heading}</h2>
+          <h2 className="ks-section-title" style={{ marginBottom: "1.5rem" }}>{overview.heading}</h2>
           <VideoGuide />
         </div>
       </div>
@@ -600,22 +600,22 @@ export default function Sales2DOPage({ onContact }) {
       {/* ── Outstanding Delivery Order ── */}
       <div id="outstanding" className="product-app-section product-app-section-mist product-app-section-to-ice">
         <div className="content-wrap">
-          <div style={S.label}>{outstanding.label}</div>
-          <h2 style={S.h2}>{outstanding.heading}</h2>
+          <div className="ks-eyebrow">{outstanding.label}</div>
+          <h2 className="ks-section-title">{outstanding.heading}</h2>
 
           <SectionRow image={outstanding.image || imgOutstanding} alt={outstanding.imageAlt} caption={outstanding.imageCaption}>
-            <p style={{ ...S.body, marginBottom: "1rem" }}><RichText>{outstanding.intro}</RichText></p>
+            <p className="ks-body-text" style={{ marginBottom: "1rem" }}><RichText>{outstanding.intro}</RichText></p>
 
-            <h3 style={{ ...S.h3, marginTop: "1.5rem" }}>{outstanding.filterTitle}</h3>
+            <h3 className="ks-card-title" style={{ marginTop: "1.5rem" }}>{outstanding.filterTitle}</h3>
             <BulletList items={richList(outstanding.filterItems)} />
 
-            <h3 style={{ ...S.h3, marginTop: "1.75rem" }}>{outstanding.drillTitle}</h3>
-            <p style={{ ...S.body, marginBottom: "1rem" }}><RichText>{outstanding.drillIntro}</RichText></p>
+            <h3 className="ks-card-title" style={{ marginTop: "1.75rem" }}>{outstanding.drillTitle}</h3>
+            <p className="ks-body-text" style={{ marginBottom: "1rem" }}><RichText>{outstanding.drillIntro}</RichText></p>
             {(outstanding.tierCards || []).map(({ tier, title, color, items }) => (
               <div key={tier} style={{ background: "#f5f5f8", borderRadius: 14, padding: "1rem 1.2rem", marginBottom: "0.7rem", border: "1px solid rgba(47,49,90,0.09)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "0.5rem", flexWrap: "wrap" }}>
                   <span style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", background: color, color: "#fff", padding: "0.2rem 0.65rem", borderRadius: 50 }}>{tier}</span>
-                  <h3 style={{ ...S.h3, marginBottom: 0, fontSize: "0.95rem" }}>{title}</h3>
+                  <h3 className="ks-card-title" style={{ marginBottom: 0, fontSize: "0.95rem" }}>{title}</h3>
                 </div>
                 <BulletList items={richList(items)} />
               </div>
@@ -631,17 +631,17 @@ export default function Sales2DOPage({ onContact }) {
       {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
       <div id="preset" className="product-app-section product-app-section-ice product-app-section-to-cloud">
         <div className="content-wrap">
-          <div style={S.label}>{preset.label}</div>
-          <h2 style={S.h2}>{preset.heading}</h2>
+          <div className="ks-eyebrow">{preset.label}</div>
+          <h2 className="ks-section-title">{preset.heading}</h2>
 
           <SectionRow image={preset.image || imgPreset} alt={preset.imageAlt} caption={preset.imageCaption}>
-            <p style={{ ...S.body, marginBottom: "1rem" }}><RichText>{preset.intro}</RichText></p>
+            <p className="ks-body-text" style={{ marginBottom: "1rem" }}><RichText>{preset.intro}</RichText></p>
             {(preset.steps || []).map((step, i) => (
               <Step key={i} n={i + 1}><RichText>{step}</RichText></Step>
             ))}
             <BulletList items={richList(preset.bulletItems)} />
             <div style={{ marginTop: "1rem", padding: "0.85rem 1.1rem", borderRadius: 10, background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.25)" }}>
-              <p style={{ fontSize: "0.83rem", color: "#6b6f91", lineHeight: 1.65, margin: 0 }}>
+              <p className="ks-list-text" style={{ margin: 0 }}>
                 <RichText>{preset.note}</RichText>
               </p>
             </div>
@@ -656,22 +656,22 @@ export default function Sales2DOPage({ onContact }) {
       {/* ── Plugin Settings ── */}
       <div id="settings" className="product-app-section product-app-section-cloud product-app-section-to-warm">
         <div className="content-wrap">
-          <div style={S.label}>{settings.label}</div>
-          <h2 style={S.h2}>{settings.heading}</h2>
+          <div className="ks-eyebrow">{settings.label}</div>
+          <h2 className="ks-section-title">{settings.heading}</h2>
           <p style={{ ...S.body }}><RichText>{settings.intro}</RichText></p>
 
           <SectionRow image={settings.image || imgSettings} alt={settings.imageAlt} caption={settings.imageCaption}>
-            <h3 style={{ ...S.h3, marginBottom: "0.4rem" }}>{settings.transferTitle}</h3>
-            <p style={{ ...S.body, marginBottom: "0.9rem" }}><RichText>{settings.transferIntro}</RichText></p>
+            <h3 className="ks-card-title" style={{ marginBottom: "0.4rem" }}>{settings.transferTitle}</h3>
+            <p className="ks-body-text" style={{ marginBottom: "0.9rem" }}><RichText>{settings.transferIntro}</RichText></p>
             <BulletList items={richList(settings.transferItems)} />
             <div style={{ marginTop: "0.5rem", marginBottom: "1.75rem", padding: "0.85rem 1.1rem", borderRadius: 10, background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.25)" }}>
-              <p style={{ fontSize: "0.83rem", color: "#6b6f91", lineHeight: 1.65, margin: 0 }}>
+              <p className="ks-list-text" style={{ margin: 0 }}>
                 <RichText>{settings.transferNote}</RichText>
               </p>
             </div>
 
-            <h3 style={{ ...S.h3, marginBottom: "0.4rem" }}><RichText>{settings.deliveryTitle}</RichText></h3>
-            <p style={{ ...S.body, marginBottom: "0.9rem" }}><RichText>{settings.deliveryIntro}</RichText></p>
+            <h3 className="ks-card-title" style={{ marginBottom: "0.4rem" }}><RichText>{settings.deliveryTitle}</RichText></h3>
+            <p className="ks-body-text" style={{ marginBottom: "0.9rem" }}><RichText>{settings.deliveryIntro}</RichText></p>
             <BulletList items={richList(settings.deliveryItems)} />
           </SectionRow>
         </div>
@@ -684,8 +684,8 @@ export default function Sales2DOPage({ onContact }) {
       {/* ── Activate Plugin License ── */}
       <div id="license" className="product-app-section product-app-section-warm">
         <div className="content-wrap">
-          <div style={S.label}>{license.label}</div>
-          <h2 style={S.h2}>{license.heading}</h2>
+          <div className="ks-eyebrow">{license.label}</div>
+          <h2 className="ks-section-title">{license.heading}</h2>
 
           {/* Tabs — only shown on tablet/mobile (hidden on desktop via CSS) */}
           <div className="license-tabs" style={{ display: "flex", background: "#e8e8f0", borderRadius: 50, padding: 4, gap: 2, marginBottom: "2rem", width: "fit-content" }}>
@@ -723,14 +723,14 @@ export default function Sales2DOPage({ onContact }) {
           <div className="license-grid">
             {/* ── Online block ── */}
             <div className="license-block-online" style={{ maxWidth: 680, display: licenseTab === "online" ? "block" : "none" }}>
-              <h3 className="license-col-title" style={{ ...S.h3, fontSize: "1.1rem", color: "#2f315a", marginBottom: "0.85rem", display: "none" }}>{license.onlineTitle}</h3>
+              <h3 className="license-col-title ks-card-title" style={{ fontSize: "1.1rem", color: "#2f315a", marginBottom: "0.85rem", display: "none" }}>{license.onlineTitle}</h3>
               <ImgSlot src={license.onlineImage || imgLicenseOnline} alt={license.onlineAlt} caption={license.onlineCaption} />
-              <p style={{ ...S.body, margin: "1.25rem 0 1rem" }}><RichText>{license.onlineIntro}</RichText></p>
+              <p className="ks-body-text" style={{ margin: "1.25rem 0 1rem" }}><RichText>{license.onlineIntro}</RichText></p>
               {(license.onlineSteps || []).map((step, i) => (
                 <Step key={i} n={i + 1}><RichText>{step}</RichText></Step>
               ))}
               <div style={{ marginTop: "1.25rem", padding: "1rem 1.25rem", borderRadius: 10, background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.25)" }}>
-                <p style={{ fontSize: "0.83rem", color: "#6b6f91", lineHeight: 1.65 }}>
+                <p className="ks-list-text">
                   <RichText>{license.onlineNote}</RichText>
                 </p>
               </div>
@@ -738,14 +738,14 @@ export default function Sales2DOPage({ onContact }) {
 
             {/* ── Offline block ── */}
             <div className="license-block-offline" style={{ maxWidth: 680, display: licenseTab === "offline" ? "block" : "none" }}>
-              <h3 className="license-col-title" style={{ ...S.h3, fontSize: "1.1rem", color: "#2f315a", marginBottom: "0.85rem", display: "none" }}>{license.offlineTitle}</h3>
+              <h3 className="license-col-title ks-card-title" style={{ fontSize: "1.1rem", color: "#2f315a", marginBottom: "0.85rem", display: "none" }}>{license.offlineTitle}</h3>
               <ImgSlot src={license.offlineImage || imgLicenseOffline} alt={license.offlineAlt} caption={license.offlineCaption} />
-              <p style={{ ...S.body, margin: "1.25rem 0 1rem" }}><RichText>{license.offlineIntro}</RichText></p>
+              <p className="ks-body-text" style={{ margin: "1.25rem 0 1rem" }}><RichText>{license.offlineIntro}</RichText></p>
               {(license.offlineSteps || []).map((step, i) => (
                 <Step key={i} n={i + 1}><RichText>{step}</RichText></Step>
               ))}
               <div style={{ marginTop: "1.25rem", padding: "1rem 1.25rem", borderRadius: 10, background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.25)" }}>
-                <p style={{ fontSize: "0.83rem", color: "#6b6f91", lineHeight: 1.65 }}>
+                <p className="ks-list-text">
                   <RichText>{license.offlineNote}</RichText>
                 </p>
               </div>
