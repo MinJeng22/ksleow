@@ -246,6 +246,7 @@ export default function KSLOmniPage() {
     if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
       clearTimeout(qrHoverTimer.current);
       setShowQR(true);
+      window.dispatchEvent(new Event("closeGlobalMenu"));
     }
   };
 
@@ -271,13 +272,6 @@ export default function KSLOmniPage() {
   const chatScrollRef = useRef(null);
 
   const isEmpty = messages.length === 0;
-
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, []);
 
   function focusInputSoon(delay = 50) {
     window.setTimeout(() => {
@@ -363,14 +357,23 @@ export default function KSLOmniPage() {
     document.documentElement.style.background = "#0c0e1a";
 
     const onOpenQR = () => setShowQR(true);
+    const onCloseQR = () => setShowQR(false);
+    const onToggleQR = () => setShowQR(prev => {
+      if (!prev) window.dispatchEvent(new Event("closeGlobalMenu"));
+      return !prev;
+    });
     const onMenuChange = (e) => setMenuOpen(e.detail);
     window.addEventListener("openOmniQR", onOpenQR);
+    window.addEventListener("closeOmniQR", onCloseQR);
+    window.addEventListener("toggleOmniQR", onToggleQR);
     window.addEventListener("globalMenuStateChange", onMenuChange);
     
     return () => {
       document.body.style.background = savedBodyBg;
       document.documentElement.style.background = savedHtmlBg;
       window.removeEventListener("openOmniQR", onOpenQR);
+      window.removeEventListener("closeOmniQR", onCloseQR);
+      window.removeEventListener("toggleOmniQR", onToggleQR);
       window.removeEventListener("globalMenuStateChange", onMenuChange);
     };
   }, []);
@@ -446,6 +449,15 @@ export default function KSLOmniPage() {
       }
       return next;
     });
+  }
+
+  function deleteAllSessions() {
+    if (window.confirm("Are you sure you want to delete all chat history?")) {
+      sessions.forEach(s => localStorage.removeItem(getSessionMessagesKey(machineId, s.id)));
+      localStorage.setItem(getSessionsListKey(machineId), JSON.stringify([]));
+      setSessions([]);
+      startNewChat();
+    }
   }
 
   /* Try the browser back stack first — keeps users on whatever page
@@ -775,6 +787,12 @@ export default function KSLOmniPage() {
                  </div>
               </div>
             ))}
+            {sessions.length > 0 && (
+              <button onClick={deleteAllSessions} style={{ marginTop: "1rem", background: "transparent", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "12px", color: "#e17d7d", padding: "0.75rem", cursor: "pointer", fontSize: "0.85rem", fontWeight: 600, display: "flex", alignItems: "center", justifyContent: "center", gap: "0.4rem", transition: "background 0.2s" }} onMouseEnter={e => e.target.style.background = "rgba(225, 125, 125, 0.1)"} onMouseLeave={e => e.target.style.background = "transparent"}>
+                <DeleteIcon size={14} />
+                <span>Clear History</span>
+              </button>
+            )}
             {sessions.length === 0 && (
               <div style={{ color: "#6b6f91", fontSize: "0.85rem", textAlign: "center", marginTop: "2rem" }}>No history found</div>
             )}

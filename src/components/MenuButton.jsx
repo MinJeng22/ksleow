@@ -646,6 +646,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
       if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
         clearTimeout(hoverTimeoutRef.current);
         setOpen(true);
+        window.dispatchEvent(new Event("closeOmniQR"));
       }
     };
     const handleHoverLeave = () => {
@@ -653,12 +654,15 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
         hoverTimeoutRef.current = setTimeout(() => setOpen(false), 200);
       }
     };
+    const handleCloseMenu = () => setOpen(false);
     window.addEventListener("openGlobalMenu", handleOpenMenu);
+    window.addEventListener("closeGlobalMenu", handleCloseMenu);
     window.addEventListener("toggleGlobalMenu", handleToggleMenu);
     window.addEventListener("globalMenuEnter", handleHoverEnter);
     window.addEventListener("globalMenuLeave", handleHoverLeave);
     return () => {
       window.removeEventListener("openGlobalMenu", handleOpenMenu);
+      window.removeEventListener("closeGlobalMenu", handleCloseMenu);
       window.removeEventListener("toggleGlobalMenu", handleToggleMenu);
       window.removeEventListener("globalMenuEnter", handleHoverEnter);
       window.removeEventListener("globalMenuLeave", handleHoverLeave);
@@ -676,7 +680,9 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
       if (
         panelRef.current && !panelRef.current.contains(e.target) &&
         fabRef.current && !fabRef.current.contains(e.target) &&
-        !e.target.closest(".mobile-float-bar")
+        !e.target.closest(".mobile-float-bar") &&
+        !e.target.closest(".menu-fab") &&
+        !e.target.closest(".mfb-btn")
       ) {
         setOpen(false);
       }
@@ -874,7 +880,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
             
             <button 
               className="mfb-btn" 
-              onClick={() => window.dispatchEvent(new Event("openOmniQR"))} 
+              onClick={() => window.dispatchEvent(new Event("toggleOmniQR"))} 
               aria-label="Open on Phone"
               style={{ color: isMobileDark ? "#e1c87d" : "#a17f1e" }}
             >

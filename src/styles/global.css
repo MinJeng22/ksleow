@@ -49,12 +49,20 @@
 
 html { scroll-behavior: smooth; }
 
-@media (min-width: 641px) and (max-width: 1024px) {
+/* Desktop: > 1024px uses default 16px */
+/* Tablet */
+@media (max-width: 1024px) {
   html { font-size: 14px; }
 }
 
-@media (min-width: 641px) and (max-width: 900px) {
+/* Small Tablet / Large Mobile */
+@media (max-width: 768px) {
   html { font-size: 13px; }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  html { font-size: 12px; }
 }
 
 body {
