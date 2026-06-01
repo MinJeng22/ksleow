@@ -28,7 +28,7 @@ const CLOUD_VIDEOS = [
     icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
   },
   {
-    id: 'M8j_39IEpjQ',
+    id: 'zHstLv2-ATw',
     label: 'General Tutorial',
     description: 'Learn AutoCount CloudAccounting in Just 30 Minutes. A fast orientation for owners and accounts teams who want to understand the workflow before starting a trial.',
     note: 'Quick-Start Guide',
@@ -643,10 +643,10 @@ export default function AutoCountCloudAccountingPage() {
           <AutoCountTrainingWebGL 
             customVideos={CLOUD_VIDEOS} 
             title="AutoCount CloudAccounting Quick-Start Guide"
-            themeColor="#0d6efd" 
-            themeHoverColor="#0b5ed7" 
-            activeTabBg="#0d6efd"
-            playBtnBg="#0d6efd" 
+            themeColor="#16a14b" 
+            themeHoverColor="#19b554" 
+            activeTabBg="#2f315a"
+            playBtnBg="#16a14b" 
             playIconColor="#ffffff" 
           />
         </div>
