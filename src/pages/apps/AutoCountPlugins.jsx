@@ -70,7 +70,7 @@ function PluginCard({ plugin }) {
         </p>
 
         {plugin.modules?.length > 0 && (
-          <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap", marginTop: "auto", marginBottom: "0.25rem" }}>
+          <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap", marginBottom: "0.25rem" }}>
             {plugin.modules.map((module) => (
               <span key={module} style={{
                 border: "1px solid rgba(47,49,90,0.12)",
@@ -86,9 +86,21 @@ function PluginCard({ plugin }) {
           </div>
         )}
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", padding: "0.85rem", background: "rgba(201,168,76,0.08)", borderRadius: 10, border: "1px solid rgba(201,168,76,0.2)" }}>
-          <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#2f315a" }}>RM600 <span style={{ fontWeight: 500, color: "#6b6f91" }}>/ first account book</span></div>
-          <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "#2f315a" }}>RM300 <span style={{ fontWeight: 500, color: "#6b6f91" }}>/ second or after account book</span></div>
+        <div style={{ background: "#f8f9fc", borderRadius: 12, border: "1px solid rgba(47,49,90,0.08)", marginTop: "auto" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.55rem 0.85rem", borderBottom: "1px solid rgba(47,49,90,0.05)" }}>
+            <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "#6b6f91", textTransform: "uppercase", letterSpacing: "0.04em" }}>Account Book Based</span>
+            <span style={{ fontSize: "0.65rem", fontWeight: 750, color: "#c9a84c", background: "rgba(201,168,76,0.12)", padding: "0.15rem 0.5rem", borderRadius: 50 }}>28-Day Trial</span>
+          </div>
+          <div style={{ padding: "0.75rem 0.85rem", display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: "0.78rem", color: "#4a5090", fontWeight: 650 }}>1st Account Book</span>
+              <span style={{ fontSize: "0.85rem", fontWeight: 750, color: "#2f315a" }}>RM 600</span>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span style={{ fontSize: "0.78rem", color: "#6b6f91", fontWeight: 600 }}>2nd or after</span>
+              <span style={{ fontSize: "0.85rem", fontWeight: 750, color: "#2f315a" }}>RM 300</span>
+            </div>
+          </div>
         </div>
 
         <div style={{ display: "flex", gap: "0.65rem", flexWrap: "wrap", paddingTop: "0.2rem" }}>
