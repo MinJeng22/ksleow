@@ -688,18 +688,28 @@ export default function Sales2DOPage({ onContact }) {
           <h2 className="ks-section-title">{license.heading}</h2>
 
           {/* ── General License Info (Pricing, Trial, Transfer) ── */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.5rem", marginBottom: "3rem" }}>
-            <div style={{ background: "#ffffff", padding: "1.5rem", borderRadius: 14, border: "1px solid rgba(47,49,90,0.08)", boxShadow: "0 8px 24px rgba(47,49,90,0.04)" }}>
-              <h3 className="ks-card-title">{license.pricingTitle}</h3>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem", marginBottom: "3.5rem" }}>
+            <div style={{ background: "#f5f5f8", borderRadius: 14, padding: "1.25rem 1.4rem", border: "1px solid rgba(47,49,90,0.09)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "0.65rem", flexWrap: "wrap" }}>
+                <span style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", background: "#2f315a", color: "#fff", padding: "0.2rem 0.65rem", borderRadius: 50 }}>Pricing</span>
+                <h3 className="ks-card-title" style={{ marginBottom: 0, fontSize: "1.05rem" }}>{license.pricingTitle}</h3>
+              </div>
               <BulletList items={richList(license.pricingInfo)} />
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-              <div style={{ background: "#ffffff", padding: "1.5rem", borderRadius: 14, border: "1px solid rgba(47,49,90,0.08)", boxShadow: "0 8px 24px rgba(47,49,90,0.04)" }}>
-                <h3 className="ks-card-title">{license.trialTitle}</h3>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <div style={{ background: "#f5f5f8", borderRadius: 14, padding: "1.25rem 1.4rem", border: "1px solid rgba(47,49,90,0.09)", flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "0.65rem", flexWrap: "wrap" }}>
+                  <span style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", background: "#4a5090", color: "#fff", padding: "0.2rem 0.65rem", borderRadius: 50 }}>Trial</span>
+                  <h3 className="ks-card-title" style={{ marginBottom: 0, fontSize: "1.05rem" }}>{license.trialTitle}</h3>
+                </div>
                 <p className="ks-body-text" style={{ margin: 0 }}><RichText>{license.trialInfo}</RichText></p>
               </div>
-              <div style={{ background: "#ffffff", padding: "1.5rem", borderRadius: 14, border: "1px solid rgba(47,49,90,0.08)", boxShadow: "0 8px 24px rgba(47,49,90,0.04)" }}>
-                <h3 className="ks-card-title">{license.transferTitle}</h3>
+              <div style={{ background: "#f5f5f8", borderRadius: 14, padding: "1.25rem 1.4rem", border: "1px solid rgba(47,49,90,0.09)", flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "0.65rem", flexWrap: "wrap" }}>
+                  <span style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", background: "#6b6f91", color: "#fff", padding: "0.2rem 0.65rem", borderRadius: 50 }}>Transfer</span>
+                  <h3 className="ks-card-title" style={{ marginBottom: 0, fontSize: "1.05rem" }}>{license.transferTitle}</h3>
+                </div>
                 <p className="ks-body-text" style={{ margin: 0 }}><RichText>{license.transferInfo}</RichText></p>
               </div>
             </div>
