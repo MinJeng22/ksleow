@@ -163,11 +163,11 @@ function SectionRow({ image, alt, caption, children, sticky = true }) {
   return (
     <>
       <style>{`
-        .sr-grid { display: grid; grid-template-columns: 58% 1fr; gap: 2.5rem; margin-top: 1.5rem; }
+        .sr-grid { display: grid; grid-template-columns: 58% 1fr; gap: 2.5rem; align-items: start; margin-top: 1.5rem; }
         @media (max-width: 760px) { .sr-grid { grid-template-columns: 1fr; gap: 1.25rem; } }
       `}</style>
       <div className="sr-grid">
-        <div style={sticky ? { position: "sticky", top: 120, alignSelf: "start" } : {}}>
+        <div style={sticky ? { position: "sticky", top: 90 } : undefined}>
           <ImgSlot src={image} alt={alt} caption={caption} maxWidth={720} maxHeight={560} />
         </div>
         <div>{children}</div>
@@ -585,7 +585,7 @@ export default function Sales2DOPage({ onContact }) {
       <main className="pinned-page-content product-app-content">
 
       {/* ── Overview + Video Guide ── */}
-      <div id="overview" className="product-app-section product-app-section-paper product-app-section-to-mist" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="overview" className="product-app-section product-app-section-paper product-app-section-to-mist">
         <div className="content-wrap">
           <div style={{ ...S.label, marginBottom: "0.5rem" }}>{overview.label}</div>
           <h2 style={{ ...S.h2, marginBottom: "1.5rem" }}>{overview.heading}</h2>
@@ -598,7 +598,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       {/* ── Outstanding Delivery Order ── */}
-      <div id="outstanding" className="product-app-section product-app-section-mist product-app-section-to-ice" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="outstanding" className="product-app-section product-app-section-mist product-app-section-to-ice">
         <div className="content-wrap">
           <div style={S.label}>{outstanding.label}</div>
           <h2 style={S.h2}>{outstanding.heading}</h2>
@@ -629,7 +629,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
-      <div id="preset" className="product-app-section product-app-section-ice product-app-section-to-cloud" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="preset" className="product-app-section product-app-section-ice product-app-section-to-cloud">
         <div className="content-wrap">
           <div style={S.label}>{preset.label}</div>
           <h2 style={S.h2}>{preset.heading}</h2>
@@ -654,7 +654,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       {/* ── Plugin Settings ── */}
-      <div id="settings" className="product-app-section product-app-section-cloud product-app-section-to-warm" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="settings" className="product-app-section product-app-section-cloud product-app-section-to-warm">
         <div className="content-wrap">
           <div style={S.label}>{settings.label}</div>
           <h2 style={S.h2}>{settings.heading}</h2>
@@ -682,7 +682,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       {/* ── Activate Plugin License ── */}
-      <div id="license" className="product-app-section product-app-section-warm" style={{ ...S.section, scrollMarginTop: 24 }}>
+      <div id="license" className="product-app-section product-app-section-warm">
         <div className="content-wrap">
           <div style={S.label}>{license.label}</div>
           <h2 style={S.h2}>{license.heading}</h2>

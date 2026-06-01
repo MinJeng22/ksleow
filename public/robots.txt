@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://ksleow.com.my/sitemap.xml
-
-# Do not crawl admin or private pages
-Disallow: /admin
-Disallow: /quotation

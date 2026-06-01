@@ -36,29 +36,28 @@ function PluginCard({ plugin }) {
       transition: "transform 0.2s, box-shadow 0.2s, border-color 0.2s",
     }}>
       <div style={{
-        minHeight: 120,
-        background: "#fdfdfd",
-        color: "#2f315a",
-        padding: "1.35rem 1.35rem 0.5rem 1.35rem",
+        minHeight: 150,
+        background: "linear-gradient(135deg, rgba(47,49,90,0.98), rgba(47,49,90,0.82))",
+        color: "#ffffff",
+        padding: "1.35rem",
         display: "flex",
         alignItems: "flex-end",
         justifyContent: "space-between",
         gap: "1rem",
-        borderBottom: "1px solid rgba(47,49,90,0.06)",
       }}>
         <div>
           <div style={{ fontSize: "0.68rem", fontWeight: 750, letterSpacing: "0.1em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.5rem" }}>
             {plugin.tag}
           </div>
-          <h3 style={{ fontSize: "1.65rem", fontWeight: 800, color: "#2f315a", lineHeight: 1.05 }}>
+          <h3 style={{ fontSize: "1.65rem", fontWeight: 800, color: "#ffffff", lineHeight: 1.05 }}>
             {plugin.name}
           </h3>
         </div>
         <span style={{
           borderRadius: 50,
           padding: "0.28rem 0.7rem",
-          background: "rgba(47,49,90,0.06)",
-          color: "#2f315a",
+          background: "rgba(255,255,255,0.14)",
+          color: "#ffffff",
           fontSize: "0.68rem",
           fontWeight: 750,
           whiteSpace: "nowrap",
@@ -89,6 +88,9 @@ function PluginCard({ plugin }) {
           </div>
         )}
 
+        <div style={{ color: "#a8abcc", fontSize: "0.76rem", fontWeight: 650 }}>
+          Developed by {plugin.dealer}
+        </div>
 
         <div style={{ display: "flex", gap: "0.65rem", flexWrap: "wrap", paddingTop: "0.2rem" }}>
           {plugin.downloadHref && (
@@ -155,7 +157,7 @@ export default function AutoCountPluginsPage() {
       </div>
 
       <main className="pinned-page-content product-app-content">
-        <section id="plugin-library" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-cloud" style={{ padding: "3.5rem 0 4.5rem" }}>
+        <section id="plugin-library" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-cloud">
         <div className="content-wrap">
           {plugins.length > 0 ? (
             <div style={{

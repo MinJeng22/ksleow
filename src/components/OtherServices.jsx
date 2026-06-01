@@ -369,9 +369,6 @@ export default function OtherServices({ onContact }) {
                 opacity: 1,
                 transform: "none",
                 transition: "border-color 0.2s",
-                display: "flex",
-                flexDirection: "column",
-                height: "100%"
               }}
               onMouseEnter={clickable ? e => e.currentTarget.style.borderColor = "rgba(201,168,76,0.5)" : undefined}
               onMouseLeave={clickable ? e => e.currentTarget.style.borderColor = "rgba(47,49,90,0.1)" : undefined}
@@ -390,26 +387,16 @@ export default function OtherServices({ onContact }) {
                 )}
               </div>
               {/* body */}
-              <div className="site-card-body" style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                {c.tag && (
-                  <div style={{ fontSize: "0.67rem", fontWeight: 600, letterSpacing: "0.1em", color: "#c9a84c", textTransform: "uppercase", marginBottom: "0.5rem" }}>
-                    {c.tag}
-                  </div>
-                )}
+              <div className="site-card-body">
+                <div style={{ fontSize: "0.67rem", fontWeight: 600, letterSpacing: "0.1em", color: "#c9a84c", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+                  {c.tag}
+                </div>
                 <h3 className="site-card-title" style={{ marginBottom: "0.55rem" }}>
                   {c.title}
                 </h3>
                 <p className="site-card-copy">
                   {c.desc}
                 </p>
-                <div style={{ marginTop: "auto", paddingTop: "0.75rem", textAlign: "right" }}>
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.78rem", fontWeight: 600, color: "#c9a84c", letterSpacing: "0.04em" }}>
-                    Learn more
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  </span>
-                </div>
               </div>
             </div>
           );

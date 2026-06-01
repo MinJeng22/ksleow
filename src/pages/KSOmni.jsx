@@ -27,11 +27,11 @@ function getQrUrl(pageUrl) {
  * Anything else (Excel, Word, ZIP, …) is rejected client-side with a
  * friendly message that matches the worker's server-side check. */
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
-const IMAGE_FILE_ACCEPT = "image/png,image/jpeg,image/webp,image/gif";
+const IMAGE_FILE_ACCEPT = "image/*";
 const IMAGE_EXTENSION_RE = /\.(avif|bmp|gif|heic|heif|jpe?g|png|tiff?|webp)$/i;
 /* Extensions for the file picker's `accept` attribute — covers the
- * common document types we handle. */
-const ACCEPT_ATTR = "image/png,image/jpeg,image/webp,image/gif,application/pdf,text/plain,.csv";
+ * cases where mobile browsers don't send the right MIME type. */
+const ACCEPT_ATTR = IMAGE_FILE_ACCEPT;
 
 function isImageFile(f) {
   return !!f && (f.type?.startsWith("image/") || IMAGE_EXTENSION_RE.test(f.name || ""));
@@ -238,7 +238,6 @@ export default function KSLOmniPage() {
   const [pasteError, setPasteError]        = useState("");
   const [keyboardOpen, setKeyboardOpen]    = useState(false);
   const [menuOpen, setMenuOpen]            = useState(false);
-  const [showFileMenu, setShowFileMenu]    = useState(false);
   const containerRef = useRef(null);
   const contentRef = useRef(null);
   const maxHeights = useRef({ portrait: 0, landscape: 0 });
@@ -253,7 +252,9 @@ export default function KSLOmniPage() {
   const isEmpty = messages.length === 0;
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
     return () => {
+      document.body.style.overflow = '';
     };
   }, []);
 
@@ -537,10 +538,14 @@ export default function KSLOmniPage() {
 
   /* ── Trigger hidden file input from the upload button ── */
   const fileInputRef = useRef(null);
-  const fileInputCameraRef = useRef(null);
+  const cameraInputRef = useRef(null);
   function openFilePicker() {
     if (loading || attachedImage?.uploading) return;
     fileInputRef.current?.click();
+  }
+  function openCameraPicker() {
+    if (loading || attachedImage?.uploading) return;
+    cameraInputRef.current?.click();
   }
   async function handleFileSelected(e) {
     const file = e.target.files?.[0];
@@ -811,7 +816,7 @@ export default function KSLOmniPage() {
               aria-label="Open on Mobile"
             >
               <QRIcon />
-              <span>Open on Mobile</span>
+              <span>Mobile QR</span>
             </button>
             <button 
               className="menu-fab lg-glass lg-glass-btn" 
@@ -828,23 +833,23 @@ export default function KSLOmniPage() {
         </>
       )}
 
-      {/* Hidden file input for manual picking */}
+      {/* Hidden file input shared by both desktop & mobile InputRow upload buttons */}
       <input
-        type="file"
         ref={fileInputRef}
-        style={{ display: "none" }}
+        type="file"
         accept={ACCEPT_ATTR}
         onChange={handleFileSelected}
+        style={{ display: "none" }}
       />
       <input
+        ref={cameraInputRef}
         type="file"
-        ref={fileInputCameraRef}
-        style={{ display: "none" }}
-        accept="image/*"
+        accept={IMAGE_FILE_ACCEPT}
         capture="environment"
         onChange={handleFileSelected}
+        style={{ display: "none" }}
       />
-      
+
       {/* ── Main Flex Container for Chat + Input ── */}
       <div style={{
         flex: 1, 
@@ -859,6 +864,7 @@ export default function KSLOmniPage() {
         <div ref={chatScrollRef} style={{
           flex: isEmpty ? "none" : 1, 
           overflowY: isEmpty ? "visible" : "auto",
+          overscrollBehavior: "none",
           WebkitOverflowScrolling: "touch",
           padding: isEmpty ? "0 1.25rem 1.5rem" : "1rem 1.25rem 0",
           display: "flex", flexDirection: "column",
@@ -928,12 +934,12 @@ export default function KSLOmniPage() {
             }}
           />
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, position: "relative" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <button
-                onClick={() => setShowFileMenu(!showFileMenu)}
+                onClick={openFilePicker}
                 disabled={loading || attachedImage?.uploading}
-                title="Upload image or file"
-                aria-label="Upload image or file"
+                title="Upload image"
+                aria-label="Upload image"
                 style={{
                   width: 34, height: 34, borderRadius: "50%", flexShrink: 0,
                   background: "transparent",
@@ -942,43 +948,7 @@ export default function KSLOmniPage() {
                   cursor: (loading || attachedImage?.uploading) ? "not-allowed" : "pointer",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}
-              >
-                <ImageUploadIcon />
-              </button>
-
-              {showFileMenu && !loading && !attachedImage?.uploading && (
-                <>
-                  <div 
-                    style={{ position: "fixed", inset: 0, zIndex: 99 }} 
-                    onClick={() => setShowFileMenu(false)} 
-                  />
-                  <div style={{
-                    position: "absolute", bottom: "100%", left: 0, marginBottom: "0.5rem",
-                    background: "#2f315a", borderRadius: "12px", border: "1px solid rgba(255,255,255,0.15)",
-                    padding: "0.4rem", display: "flex", flexDirection: "column", gap: "2px",
-                    zIndex: 100, boxShadow: "0 4px 16px rgba(0,0,0,0.3)"
-                  }}>
-                    <style>{`
-                      .omni-file-btn {
-                        display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem;
-                        color: #fff; background: transparent; border: none; border-radius: 8px;
-                        font-size: 0.9rem; font-weight: 500; cursor: pointer; text-align: left;
-                        white-space: nowrap; transition: background 0.2s;
-                      }
-                      .omni-file-btn:hover { background: rgba(255,255,255,0.1); }
-                      @media (min-width: 1024px) {
-                        .omni-file-btn.camera-btn { display: none !important; }
-                      }
-                    `}</style>
-                    <button className="omni-file-btn camera-btn" onClick={() => { fileInputCameraRef.current?.click(); setShowFileMenu(false); }}>
-                      <CameraIcon /> Camera
-                    </button>
-                    <button className="omni-file-btn" onClick={() => { openFilePicker(); setShowFileMenu(false); }}>
-                      <ImageUploadIcon /> Photos
-                    </button>
-                  </div>
-                </>
-              )}
+              ><ImageUploadIcon /></button>
             </div>
             <button
               onClick={sendMessage}

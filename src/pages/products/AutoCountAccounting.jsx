@@ -479,67 +479,21 @@ function EditionsTable({ selected = null, diffOnly = false }) {
 
   return (
     <div style={{ background: "#ffffff", borderRadius: 14, border: "1px solid rgba(47,49,90,0.08)", boxShadow: "0 4px 20px rgba(47,49,90,0.05)" }}>
-      <style>{`
-        @media (max-width: 760px) {
-          .editions-responsive-table, 
-          .editions-responsive-table thead, 
-          .editions-responsive-table tbody, 
-          .editions-responsive-table tr {
-            display: block;
-            width: 100%;
-          }
-          .editions-responsive-table tr {
-            display: flex;
-            flex-wrap: wrap;
-          }
-          .editions-responsive-table thead th.th-feature-col {
-            display: none;
-          }
-          .editions-responsive-table thead th.th-edition-col {
-            flex: 1;
-            min-width: 0 !important;
-            font-size: 0.72rem;
-            padding: 0.6rem 0.2rem !important;
-            word-wrap: break-word;
-          }
-          .editions-responsive-table td[colspan] {
-            width: 100%;
-            text-align: center;
-          }
-          .editions-responsive-table tbody td.td-feature-name {
-            width: 100%;
-            text-align: center;
-            border-bottom: 1px dashed rgba(47,49,90,0.1);
-            padding: 0.75rem 0.5rem 0.4rem !important;
-          }
-          .editions-responsive-table tbody td.td-marker {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0.5rem 0.2rem 0.75rem !important;
-            border-right: 1px solid rgba(47,49,90,0.05);
-          }
-          .editions-responsive-table tbody td.td-marker:last-child {
-            border-right: none;
-          }
-        }
-      `}</style>
-      <div className="editions-table-wrap editions-responsive-table">
+      <div className="editions-table-wrap">
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.84rem" }}>
           <thead style={{ position: "sticky", top: 0, zIndex: 3 }}>
             <tr style={{ background: "#80c31e" }}>
-              <th className="th-feature-col" style={{ ...stickyHeaderCell, padding: cellPad, textAlign: "left", color: "#ffffff", fontWeight: 600, minWidth: 190 }}></th>
+              <th style={{ ...stickyHeaderCell, padding: cellPad, textAlign: "left", color: "#ffffff", fontWeight: 600, minWidth: 190 }}></th>
               {cols.map(e => (
-                <th key={e} className="th-edition-col" style={{ ...stickyHeaderCell, padding: cellPad, color: "#ffffff", fontWeight: 700, textAlign: "center", minWidth: 86, lineHeight: 1.25 }}>{e}</th>
+                <th key={e} style={{ ...stickyHeaderCell, padding: cellPad, color: "#ffffff", fontWeight: 700, textAlign: "center", minWidth: 86, lineHeight: 1.25 }}>{e}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             <tr style={{ background: "#fafafb", borderBottom: "1px solid rgba(47,49,90,0.08)" }}>
-              <td className="td-feature-name" style={{ ...stickyBookCell, padding: cellPad, color: "#2f315a", fontWeight: 500 }}>Default Account Book</td>
+              <td style={{ ...stickyBookCell, padding: cellPad, color: "#2f315a", fontWeight: 500 }}>Default Account Book</td>
               {filterRow(EDITION_TABLE.defaultAccountBook).map((v, i) => (
-                <td key={i} className="td-marker" style={{ ...stickyBookCell, padding: cellPad, color: "#2f315a", fontWeight: 600, textAlign: "center" }}>{v}</td>
+                <td key={i} style={{ ...stickyBookCell, padding: cellPad, color: "#2f315a", fontWeight: 600, textAlign: "center" }}>{v}</td>
               ))}
             </tr>
             {EDITION_TABLE.sections.map((section) => {
@@ -550,7 +504,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
               return (
                 <React.Fragment key={section.name}>
                   <tr style={{ background: "#eaeaef" }}>
-                    <td colSpan={cols.length + 1} style={{ padding: "0.55rem 0.85rem", color: "#6b6f91", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", textAlign: "center" }}>
+                    <td colSpan={cols.length + 1} style={{ padding: "0.55rem 0.85rem", color: "#6b6f91", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>
                       {section.name}
                     </td>
                   </tr>
@@ -558,9 +512,9 @@ function EditionsTable({ selected = null, diffOnly = false }) {
                     const visibleVals = filterRow(values);
                     return (
                       <tr key={rowName} style={{ background: ri % 2 === 0 ? "#ffffff" : "#fafafb", borderBottom: "1px solid rgba(47,49,90,0.05)" }}>
-                        <td className="td-feature-name" style={{ padding: cellPad, color: "#2f315a" }}>{rowName}</td>
+                        <td style={{ padding: cellPad, color: "#2f315a" }}>{rowName}</td>
                         {visibleVals.map((v, vi) => (
-                          <td key={vi} className="td-marker" style={{ padding: cellPad, textAlign: "center" }}>
+                          <td key={vi} style={{ padding: cellPad, textAlign: "center" }}>
                             <EditionMarker value={v} />
                           </td>
                         ))}
@@ -620,20 +574,20 @@ const BRAND_LOGOS = [
 ];
 
 const AWARDS_IMAGES = [
-  "/images/awards/ac-medal.jpg",
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-medal.jpg",
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-medal.jpg",
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-medal.jpg",
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-medal.jpg",
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-medal.jpg",
-  "/images/awards/ac-trophy.png",
-  "/images/awards/ac-medal.jpg",
-  "/images/awards/ac-trophy.png",
+  "/images/awards/ksl-award-1.png",
+  "/images/awards/ksl-award-2.jpg",
+  "/images/awards/ksl-award-3.jpg",
+  "/images/awards/ksl-award-4.jpg",
+  "/images/awards/ksl-award-5.png",
+  "/images/awards/ksl-award-6.png",
+  "/images/awards/ksl-award-7.png",
+  "/images/awards/ksl-award-8.png",
+  "/images/awards/ksl-award-9.png",
+  "/images/awards/ksl-award-10.png",
+  "/images/awards/ksl-award-11.png",
+  "/images/awards/ksl-award-12.png",
+  "/images/awards/ksl-award-13.jpg",
+  "/images/awards/ksl-award-14.jpg",
 ];
 
 function FeatureHighlights() {
@@ -887,7 +841,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       {/* ══════════════════════════════════════════════════════════
        * COMPARING 5 EDITIONS OF ACCOUNTING 2.2
        * ══════════════════════════════════════════════════════════ */}
-      <div id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ padding: "4.5rem 0 2rem 0", scrollMarginTop: 24, overflow: "visible" }}>
+      <div id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ overflow: "visible" }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
 
@@ -991,7 +945,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       {/* ── Release Notes ── */}
-      <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-to-warm" style={{ padding: "2rem 0 4rem 0", scrollMarginTop: 24 }}>
+      <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-to-warm">
         <div className="content-wrap">
 
           {/* ── Title + tab switcher ── */}
@@ -1174,81 +1128,73 @@ export default function AutoCountAccountingPage({ onContact }) {
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-cloud)", "--section-to": "var(--ks-page-warm)" }}>
         <SectionDivider icon={IconHandshake} targetId="why-ksl" />
       </div>
-      <div id="why-ksl" className="product-app-section product-app-section-warm" style={{ padding: "4rem 0", scrollMarginTop: 24 }}>
+      <div id="why-ksl" className="product-app-section product-app-section-warm">
         <style>{`
-          .ac-awards-container-new {
-            margin-top: 1.5rem;
-            padding: 2.5rem 0;
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+          .ac-awards-container {
+            position: relative;
+            margin: 2rem auto 0;
+            padding: 1.5rem 0;
+            overflow: hidden;
+            max-width: 1100px;
+          }
+          .ac-awards-track {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
+            gap: 1.5rem;
+            padding-bottom: 1rem;
+          }
+          .ac-awards-track::-webkit-scrollbar {
+            display: none;
           }
           .ac-awards-item {
             flex: 0 0 auto;
-            width: 80px;
-            height: 110px;
-            background: transparent;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 0 0.5rem;
-          }
-          .ac-awards-item:nth-child(even) {
-            margin-right: 1.5rem;
+            width: 100px;
+            height: 135px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(47,49,90,0.08);
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid rgba(47,49,90,0.04);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
           }
           .ac-awards-item:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(47,49,90,0.15);
             z-index: 10;
           }
           .ac-awards-item img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.4s ease;
           }
           .ac-awards-item:hover img {
             transform: scale(1.15);
           }
-          .ac-awards-container-new:hover .ac-brand-marquee {
-            animation-play-state: paused !important;
+          .ac-awards-item.dup {
+            display: none;
           }
-
-          /* Desktop: Static, fit 14 items across full width */
-          @media (min-width: 901px) {
-            .ac-awards-container-new {
-              mask-image: none;
-              -webkit-mask-image: none;
-              width: 100%;
-            }
-            .ac-awards-marquee-track {
-              animation: none !important;
-              justify-content: flex-start;
-              width: 100%;
-            }
-            .ac-awards-item.dup {
-              display: none;
-            }
-            .ac-awards-item {
-              width: 74px;
-              height: 100px;
-              padding: 0;
-            }
-            .ac-awards-item:nth-child(odd) {
-              margin-right: 0.25rem;
-            }
-            .ac-awards-item:nth-child(even) {
-              margin-right: auto;
-            }
-            .ac-awards-item:nth-child(14) {
-              margin-right: 0;
-            }
-          }
-          /* Mobile: Keep marquee sizes */
           @media (max-width: 900px) {
+            .ac-awards-container {
+              margin: 2rem -1rem 0;
+              max-width: none;
+              background: linear-gradient(to right, rgba(128,195,30,0.02), rgba(128,195,30,0.06), rgba(128,195,30,0.02));
+            }
+            .ac-awards-track {
+              overflow-x: visible;
+              width: max-content;
+              animation: ac-marquee 30s linear infinite;
+              justify-content: flex-start;
+              gap: 1rem;
+            }
             .ac-awards-item {
               width: 80px;
               height: 110px;
-              padding: 0 0.5rem;
+            }
+            .ac-awards-item.dup {
+              display: block;
             }
           }
         `}</style>
@@ -1262,15 +1208,15 @@ export default function AutoCountAccountingPage({ onContact }) {
             Top AutoCount Dealer in Pahang State for 7 Consecutive Years — Empowering Your Business with 7 Years of Expertise, Prompt On-Site Support & Dedicated Training
           </p>
 
-          <div className="ac-brand-marquee-container ac-awards-container-new">
-            <div className="ac-brand-marquee ac-awards-marquee-track" style={{ animationDuration: "35s" }}>
+          <div className="ac-awards-container">
+            <div className="ac-awards-track">
               {AWARDS_IMAGES.map((src, i) => (
                 <div key={`orig-${i}`} className="ac-awards-item">
                   <img src={src} alt="Top AutoCount Dealer Award" loading="lazy" />
                 </div>
               ))}
-              {[...AWARDS_IMAGES, ...AWARDS_IMAGES, ...AWARDS_IMAGES].map((src, i) => (
-                <div key={`dup-${i}`} className="ac-awards-item dup">
+              {AWARDS_IMAGES.map((src, i) => (
+                <div key={`dup1-${i}`} className="ac-awards-item dup">
                   <img src={src} alt="Top AutoCount Dealer Award" loading="lazy" />
                 </div>
               ))}

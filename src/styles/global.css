@@ -176,6 +176,8 @@ textarea {
   --product-section-end: 70%;
   position: relative;
   overflow: hidden;
+  padding: 4rem 0;
+  scroll-margin-top: 24px;
   background:
     linear-gradient(
       180deg,
@@ -496,6 +498,7 @@ textarea {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .ac-feature-card {
+    min-height: 210px;
   }
 }
 
@@ -586,6 +589,7 @@ textarea {
     gap: 0.8rem;
   }
   .ac-feature-card {
+    min-height: 180px;
     padding: 1.05rem 1.05rem 1.05rem 1.35rem;
   }
   .ac-feature-icon {
