@@ -1866,9 +1866,7 @@ body.has-active-modal .back-to-top-glass {
 }
 
 .ks-compare-wrap {
-  overflow-x: auto;
-  max-height: 75vh;
-  overflow-y: auto;
+  /* No overflow limit, fully displayed */
 }
 
 .ks-compare-table {

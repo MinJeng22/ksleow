@@ -1,5 +1,5 @@
 import React from "react";
-import SectionDivider, { IconHandshake } from "./SectionDivider";
+import SectionDivider, { IconTrophy } from "./SectionDivider";
 
 export const AWARDS_IMAGES = [
   "/images/awards/ac-medal.jpg",
@@ -22,7 +22,7 @@ export default function WhyChooseUs({ sectionFrom = "var(--ks-page-cloud)", sect
   return (
     <>
       <div className="product-app-divider" style={{ "--section-from": sectionFrom, "--section-to": sectionTo }}>
-        <SectionDivider icon={IconHandshake} targetId="why-ksl" />
+        <SectionDivider icon={IconTrophy} targetId="why-ksl" />
       </div>
       <div id="why-ksl" className="product-app-section product-app-section-warm" style={{ padding: "4rem 0", scrollMarginTop: 24 }}>
         <style>{`
@@ -63,26 +63,33 @@ export default function WhyChooseUs({ sectionFrom = "var(--ks-page-cloud)", sect
             animation-play-state: paused !important;
           }
 
-          /* Desktop: Static, fit 14 items */
+          /* Desktop: Static, fit 14 items exactly to screen */
           @media (min-width: 1025px) {
             .ac-awards-container-new {
               mask-image: none;
               -webkit-mask-image: none;
+              max-width: 1400px; /* Limit max width on very large screens */
+              margin-left: auto;
+              margin-right: auto;
             }
             .ac-awards-marquee-track {
               animation: none !important;
-              justify-content: center;
+              justify-content: space-between;
+              width: 100%;
             }
             .ac-awards-item.dup {
               display: none;
             }
             .ac-awards-item {
-              width: 70px;
-              height: 95px;
-              padding: 0 0.15rem;
+              flex: 1;
+              max-width: calc(100% / 14);
+              height: 140px;
+              padding: 0 5px;
+              margin-right: 0 !important;
             }
-            .ac-awards-item:nth-child(14) {
-              margin-right: 0;
+            .ac-awards-item img {
+              width: 100%;
+              object-fit: contain;
             }
           }
           /* Mobile: Keep marquee sizes */
