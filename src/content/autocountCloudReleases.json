@@ -74,7 +74,7 @@
     "version": "1.1.77",
     "rev": "Release 77",
     "date": "2025-12-19",
-    "postedLabel": "5 months ago",
+    "postedLabel": "6 months ago",
     "features": [
       "Added Singapore InvoiceNow function.",
       "Updated the Reset SST Processor hint text to remove the mention of SST on Payment, which is not supported.",
@@ -95,7 +95,7 @@
     "version": "1.1.76",
     "rev": "Release 76",
     "date": "2025-11-18",
-    "postedLabel": "6 months ago",
+    "postedLabel": "7 months ago",
     "features": [
       "Added new setting: “Allow duplicate barcodes”",
       "Restricted date filter for expired subscriptions for Stock Card & Stock Balance Report",
@@ -256,7 +256,7 @@
     "version": "1.1.70",
     "rev": "Release 70",
     "date": "2025-07-22",
-    "postedLabel": "10 months ago",
+    "postedLabel": "11 months ago",
     "features": [
       "Support Automatic ‘Issue Date Time’ setting for Malaysia e-Invoice",
       "Support Default Classification Code for Malaysia e-Invoice",
@@ -988,7 +988,7 @@
     "version": "1.1.21",
     "rev": "Release 21",
     "date": "2023-06-01",
-    "postedLabel": "almost 3 years ago",
+    "postedLabel": "about 3 years ago",
     "features": [],
     "fixes": [],
     "highlights": [],
