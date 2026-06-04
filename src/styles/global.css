@@ -127,7 +127,7 @@ textarea {
 }
 
 .pinned-hero-page {
-  --pinned-hero-height: clamp(430px, 52vh, 540px);
+  --pinned-hero-height: clamp(380px, 45vh, 480px);
   position: relative;
   isolation: isolate;
   min-height: 100vh;
@@ -260,7 +260,7 @@ textarea {
 
 @media (max-width: 768px) {
   .pinned-hero-page {
-    --pinned-hero-height: clamp(430px, 58vh, 520px);
+    --pinned-hero-height: clamp(360px, 50vh, 460px);
   }
 }
 
