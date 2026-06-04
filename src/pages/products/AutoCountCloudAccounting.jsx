@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
@@ -9,6 +9,7 @@ import cloudReleases from "../../content/autocountCloudReleases.json";
 import WhyChooseUs from "../../components/WhyChooseUs.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
+import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to start AutoCount CloudAccounting free trial and compare the available editions. Thank you."
@@ -285,47 +286,6 @@ function copyCompare(items, fromVersion, toVersion, type) {
     ? `*AutoCount CloudAccounting Enhancements (${fromVersion} to ${toVersion})*`
     : `*AutoCount CloudAccounting Bug Fixes (${fromVersion} to ${toVersion})*`;
   navigator.clipboard.writeText(`${title}\n${items.map((item) => `[${item.rev}] - ${item.text}`).join("\n")}`).catch(() => {});
-}
-
-function FeatureHighlights() {
-  const gridRef = useRef(null);
-  const [inView, setInView] = useState(true);
-
-  useEffect(() => {
-    const node = gridRef.current;
-    if (!node) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setInView(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((entry) => setInView(entry.isIntersecting)),
-      { threshold: 0.22 }
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <div id="features" className="ac-section-tight ac-features-showcase" style={{ scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
-      <div className="content-wrap">
-        <div ref={gridRef} className={`ac-features-grid${inView ? " is-in-view" : ""}`}>
-          {FEATURES.map((feature, index) => (
-            <article
-              key={feature.title}
-              className="ac-feature-card"
-              style={{ "--feature-delay": `${index * 90}ms` }}
-            >
-              <span className="ac-feature-copy">
-                <span className="ac-feature-title">{feature.title}</span>
-                <span className="ac-feature-desc">{feature.desc}</span>
-              </span>
-            </article>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
 }
 
 function EditionTable({ selected = null, diffOnly = false }) {
@@ -632,7 +592,7 @@ export default function AutoCountCloudAccountingPage() {
       <main className="pinned-page-content product-app-content">
       {/* ── Feature highlights ── */}
       <div className="product-app-section product-app-section-paper product-app-section-clean" style={{ '--feature-strip-bg': 'linear-gradient(180deg, #16a14b 0%, #0d7032 100%)', '--feature-strip-shadow': '0 0 16px rgba(22, 161, 75, 0.4)' }}>
-        <FeatureHighlights />
+        <FeatureShowcase features={FEATURES} />
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>

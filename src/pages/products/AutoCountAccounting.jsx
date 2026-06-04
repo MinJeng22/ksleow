@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
@@ -11,6 +11,7 @@ import { IconLedger, IconVideo, IconGrid, IconStar, IconTrophy } from "../../com
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
+import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 /* AutoCount Accounting page — product-aware WhatsApp link to KSL Support Team */
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to learn more about AutoCount Accounting. Thank you."
@@ -578,77 +579,6 @@ const AWARDS_IMAGES = [
     "/images/awards/ac-trophy.png",
   ];
 
-function FeatureHighlights() {
-  const gridRef = useRef(null);
-  const [inView, setInView] = useState(true);
-  useEffect(() => {
-    const node = gridRef.current;
-    if (!node) return;
-    if (typeof IntersectionObserver === "undefined") { setInView(true); return; }
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach(e => setInView(e.isIntersecting)),
-      { threshold: 0.25 }
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, []);
-
-  const [isMarqueePaused, setIsMarqueePaused] = useState(false);
-
-  return (
-    <div className="ac-section-wrapper" style={{ background: "#ffffff" }}>
-      <div className="ac-container">
-        <div id="features" className="ac-section-tight ac-features-showcase" style={{ scrollMarginTop: 24, position: "relative", zIndex: 1 }}>
-          <div className="content-wrap">
-            <div ref={gridRef} className={`ac-features-grid${inView ? " is-in-view" : ""}`}>
-              {FEATURES.map((f, i) => (
-                <article
-                  key={f.title}
-                  className="ac-feature-card"
-                  style={{ "--feature-delay": `${i * 90}ms` }}
-                >
-                  <span className="ac-feature-copy" style={{ position: "relative", zIndex: 2 }}>
-                    <span className="ac-feature-title" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      {f.icon && (
-                        <img src={f.icon} alt="" style={{ width: "22px", height: "22px", objectFit: "contain", flexShrink: 0 }} />
-                      )}
-                      {f.title}
-                    </span>
-                    <span className="ac-feature-desc">{f.desc}</span>
-                  </span>
-                </article>
-              ))}
-            </div>
-
-            {/* Brand Marquee */}
-            <div style={{ marginTop: "2rem", position: "relative" }}>
-              <p style={{
-                textAlign: "center", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.15em",
-                color: "#6b6f91", textTransform: "uppercase", marginBottom: "2.5rem"
-              }}>
-                Over 240,000 businesses trust AutoCount to drive their growth
-              </p>
-              <div className="ac-brand-marquee-container" style={{
-                maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-                WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-                cursor: "pointer"
-              }} onClick={() => setIsMarqueePaused(!isMarqueePaused)}>
-                <div className="ac-brand-marquee" style={{ animationPlayState: isMarqueePaused ? "paused" : "running" }}>
-                  {[...BRAND_LOGOS, ...BRAND_LOGOS, ...BRAND_LOGOS, ...BRAND_LOGOS].map((src, i) => (
-                    <div key={i} className="ac-brand-item">
-                      <img src={src} alt="Brand logo" />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /* AutoCount sidebar anchor items */
 const AC_SECTIONS = [
   { id: "features", label: "Features", icon: IconStar, color: "#80c31e" },
@@ -806,7 +736,12 @@ export default function AutoCountAccountingPage({ onContact }) {
 
       {/* ── Feature highlights ── */}
       <div className="product-app-section product-app-section-paper product-app-section-clean">
-        <FeatureHighlights />
+        <FeatureShowcase
+          features={FEATURES}
+          brandLogos={BRAND_LOGOS}
+          brandText="Over 240,000 businesses trust AutoCount to drive their growth"
+          wrapper
+        />
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
