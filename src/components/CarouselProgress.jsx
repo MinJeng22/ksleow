@@ -9,6 +9,7 @@ export default function CarouselProgress({
   onTogglePlay,
   onSelect,
   getTitle,
+  fillProgress,
   playLabel = "Start autoplay",
   pauseLabel = "Pause autoplay",
   className = "",
@@ -30,6 +31,14 @@ export default function CarouselProgress({
       <div className="carousel-progress-track" role="tablist" aria-label="Carousel progress">
         {Array.from({ length: total }, (_, index) => {
           const selected = index === active;
+          const fillStyle = {
+            animationDuration: `${durationMs}ms`,
+            animationPlayState: isPlaying ? "running" : "paused",
+          };
+          if (typeof fillProgress === "number") {
+            fillStyle.width = `${Math.max(0, Math.min(1, fillProgress)) * 100}%`;
+            fillStyle.animationName = "none";
+          }
           const marker = (
             <span
               className={`carousel-progress-marker${selected ? " is-active" : ""}${isVisible(index) && !selected ? " is-visible" : ""}`}
@@ -38,10 +47,7 @@ export default function CarouselProgress({
                 <span
                   key={`progress-${active}-${isPlaying ? "play" : "pause"}`}
                   className="carousel-progress-fill"
-                  style={{
-                    animationDuration: `${durationMs}ms`,
-                    animationPlayState: isPlaying ? "running" : "paused",
-                  }}
+                  style={fillStyle}
                 />
               )}
             </span>

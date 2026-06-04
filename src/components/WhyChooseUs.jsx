@@ -18,11 +18,11 @@ export const AWARDS_IMAGES = [
   "/images/awards/ac-trophy.png",
 ];
 
-export default function WhyChooseUs({ sectionFrom = "var(--ks-page-cloud)", sectionTo = "var(--ks-page-warm)" }) {
+export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-cloud)", sectionTo = "var(--ks-page-warm)" }) {
   return (
     <>
       <div className="product-app-divider" style={{ "--section-from": sectionFrom, "--section-to": sectionTo }}>
-        <SectionDivider icon={IconTrophy} targetId="why-ksl" />
+        <SectionDivider section={section || { id: "why-ksl", icon: IconTrophy }} />
       </div>
       <div id="why-ksl" className="product-app-section product-app-section-warm" style={{ padding: "4rem 0", scrollMarginTop: 24 }}>
         <style>{`

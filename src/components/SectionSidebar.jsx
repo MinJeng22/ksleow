@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import useDarkBg from "../hooks/useDarkBg";
+import { getSectionNavItems } from "./PageSections.jsx";
 
 /**
  * SectionSidebar — floating right-rail anchor nav for long product pages.
@@ -19,8 +20,24 @@ import useDarkBg from "../hooks/useDarkBg";
  *
  * Hidden on screens < 1280px via the .ac-sidebar media query in global.css.
  */
-export default function SectionSidebar({ items, theme = "gold" }) {
-  const [active, setActive] = useState(items[0]?.id || "");
+function hexToRgb(hex) {
+  const clean = hex.replace("#", "");
+  const value = clean.length === 3
+    ? clean.split("").map((char) => char + char).join("")
+    : clean;
+  const number = Number.parseInt(value, 16);
+  if (Number.isNaN(number)) return "201,168,76";
+  return `${(number >> 16) & 255},${(number >> 8) & 255},${number & 255}`;
+}
+
+export default function SectionSidebar({ items, sections, theme = "gold", themeColor }) {
+  const navItems = React.useMemo(
+    () => items || getSectionNavItems(sections || []),
+    [items, sections]
+  );
+  const activeColor = themeColor || (theme === "green" ? "#16a14b" : "#c9a84c");
+  const activeRgb = hexToRgb(activeColor);
+  const [active, setActive] = useState(navItems[0]?.id || "");
   const lockedRef = useRef(false);
   const navRef = useRef(null);
   const isDark = useDarkBg(navRef);
@@ -32,9 +49,9 @@ export default function SectionSidebar({ items, theme = "gold" }) {
       // Find the section whose top is closest to (but above) the viewport
       // top + 55% buffer. That section is the one the user is "in".
       const probe = window.innerHeight * 0.55;
-      let bestId = items[0]?.id;
+      let bestId = navItems[0]?.id;
       let bestTop = -Infinity;
-      for (const s of items) {
+      for (const s of navItems) {
         const el = document.getElementById(s.id);
         if (!el) continue;
         const top = el.getBoundingClientRect().top;
@@ -57,7 +74,7 @@ export default function SectionSidebar({ items, theme = "gold" }) {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [items]);
+  }, [navItems]);
 
   function go(id) {
     setActive(prev => {
@@ -87,16 +104,18 @@ export default function SectionSidebar({ items, theme = "gold" }) {
       padding: "0.75rem 0.5rem",
       minWidth: 168,
     }}>
-      {items.map(s => {
+      {navItems.map(s => {
         const isActive = active === s.id;
+        const activeBg = `rgba(${activeRgb}, ${isDark ? 0.25 : 0.15})`;
+        const hoverBg = `rgba(${activeRgb}, ${isDark ? 0.18 : 0.1})`;
         return (
           <button key={s.id} onClick={() => go(s.id)}
             style={{
               display: "flex", alignItems: "center", gap: 8,
               padding: "0.5rem 0.85rem",
               border: "none",
-              background: isActive ? (theme === "green" ? "rgba(22,161,75,0.15)" : (isDark ? "rgba(201,168,76,0.25)" : "rgba(201,168,76,0.15)")) : "transparent",
-              color: isActive ? (theme === "green" ? "#16a14b" : (isDark ? "#c9a84c" : "#a17f1e")) : (isDark ? "#ffffff" : "#6b6f91"),
+              background: isActive ? activeBg : "transparent",
+              color: isActive ? activeColor : (isDark ? "#ffffff" : "#6b6f91"),
               /* Constant font-weight prevents layout shift between states */
               fontWeight: 600,
               fontSize: "0.78rem",
@@ -105,15 +124,29 @@ export default function SectionSidebar({ items, theme = "gold" }) {
               textAlign: "left",
               transition: "background 0.18s, color 0.18s",
             }}
-            onMouseOver={e => { if (!isActive) e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.1)" : "rgba(47,49,90,0.05)"; }}
-            onMouseOut={e => { if (!isActive) e.currentTarget.style.background = "transparent"; }}
+            onMouseOver={e => {
+              if (!isActive) {
+                e.currentTarget.style.background = hoverBg;
+                e.currentTarget.style.color = activeColor;
+                const iconEl = e.currentTarget.querySelector("svg");
+                if (iconEl) iconEl.style.color = activeColor;
+              }
+            }}
+            onMouseOut={e => {
+              if (!isActive) {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = isDark ? "#ffffff" : "#6b6f91";
+                const iconEl = e.currentTarget.querySelector("svg");
+                if (iconEl) iconEl.style.color = isDark ? "rgba(255,255,255,0.6)" : "#cfd0e0";
+              }
+            }}
           >
             {s.icon ? (
               React.cloneElement(s.icon, {
                 width: 16, height: 16,
                 style: {
                   flexShrink: 0,
-                  color: isActive ? (isDark ? "#e1c87d" : "#c9a84c") : (isDark ? "rgba(255,255,255,0.6)" : "#cfd0e0"),
+                  color: isActive ? activeColor : (isDark ? "rgba(255,255,255,0.6)" : "#cfd0e0"),
                   transition: "color 0.18s, transform 0.18s",
                   transform: isActive ? "translateX(2px)" : "translateX(0)",
                 }
@@ -121,7 +154,7 @@ export default function SectionSidebar({ items, theme = "gold" }) {
             ) : (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{
                 flexShrink: 0,
-                color: isActive ? (isDark ? "#e1c87d" : "#c9a84c") : (isDark ? "rgba(255,255,255,0.6)" : "#cfd0e0"),
+                color: isActive ? activeColor : (isDark ? "rgba(255,255,255,0.6)" : "#cfd0e0"),
                 transition: "color 0.18s, transform 0.18s",
                 transform: isActive ? "translateX(2px)" : "translateX(0)",
               }}>

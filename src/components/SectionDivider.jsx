@@ -12,14 +12,17 @@ import React, { useRef, useState, useEffect } from "react";
  * The `icon` prop should be a React element (inline SVG). The component
  * applies CSS filter transitions on the wrapper so any SVG works.
  */
-export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
+export default function SectionDivider({ icon, color, targetId, section }) {
+  const dividerIcon = icon || section?.icon;
+  const dividerColor = color || section?.color || "#2f315a";
+  const dividerTargetId = targetId || section?.id;
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    if (targetId) {
+    if (dividerTargetId) {
       const handleSectionChange = (e) => {
-        setInView(e.detail === targetId);
+        setInView(e.detail === dividerTargetId);
       };
       window.addEventListener("sectionChange", handleSectionChange);
       return () => window.removeEventListener("sectionChange", handleSectionChange);
@@ -37,7 +40,7 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
       if (ref.current) io.observe(ref.current);
       return () => io.disconnect();
     }
-  }, [targetId]);
+  }, [dividerTargetId]);
 
   return (
     <div
@@ -62,7 +65,7 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
           right: 0,
           top: 0,
           height: 2,
-          background: `linear-gradient(90deg, transparent, ${color}, transparent)`,
+          background: `linear-gradient(90deg, transparent, ${dividerColor}, transparent)`,
           opacity: inView ? 0.8 : 0.25,
           filter: inView ? "grayscale(0)" : "grayscale(1)",
           transition: "filter 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.65s",
@@ -79,8 +82,8 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
           width: 58,
           height: 58,
           borderRadius: "50%",
-          background: `linear-gradient(135deg, ${color}, ${color}d9)`,
-          boxShadow: `0 0 0 8px ${color}18, 0 12px 28px rgba(47,49,90,0.1), inset 0 0 0 1px rgba(255,255,255,0.28)`,
+          background: `linear-gradient(135deg, ${dividerColor}, ${dividerColor}d9)`,
+          boxShadow: `0 0 0 8px ${dividerColor}18, 0 12px 28px rgba(47,49,90,0.1), inset 0 0 0 1px rgba(255,255,255,0.28)`,
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
           filter: inView ? "grayscale(0)" : "grayscale(1)",
@@ -97,13 +100,13 @@ export default function SectionDivider({ icon, color = "#2f315a", targetId }) {
           position: "absolute",
           inset: "-30%",
           borderRadius: "50%",
-          background: `radial-gradient(circle, ${color}20 0%, transparent 70%)`,
+          background: `radial-gradient(circle, ${dividerColor}20 0%, transparent 70%)`,
           opacity: 0.55,
           pointerEvents: "none",
         }} />
 
         <div style={{ position: "relative", zIndex: 1, color: "#ffffff" }}>
-          {icon || <div style={{ width: 28, height: 28 }} />}
+          {dividerIcon || <div style={{ width: 28, height: 28 }} />}
         </div>
       </div>
     </div>

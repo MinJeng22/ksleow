@@ -6,7 +6,8 @@ import ProductHero from "../../components/ProductHero.jsx";
 import WhyChooseUs from "../../components/WhyChooseUs.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
-import SectionDivider, { IconLedger, IconVideo, IconGrid, IconStar, IconHandshake } from "../../components/SectionDivider.jsx";
+import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
+import { IconLedger, IconVideo, IconGrid, IconStar, IconTrophy } from "../../components/SectionDivider.jsx";
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
@@ -649,12 +650,12 @@ function FeatureHighlights() {
 }
 
 /* AutoCount sidebar anchor items */
-const AC_SIDEBAR_ITEMS = [
-  { id: "features",      label: "Features",        icon: IconStar },
-  { id: "training",      label: "Quick-Start Guide", icon: IconVideo },
-  { id: "editions",      label: "Edition Compare", icon: IconGrid },
-  { id: "releases",      label: "Release Notes",   icon: IconLedger },
-  { id: "why-ksl",       label: "Why Choose Us",   icon: IconHandshake },
+const AC_SECTIONS = [
+  { id: "features", label: "Features", icon: IconStar, color: "#80c31e" },
+  { id: "training", label: "Quick-Start Guide", icon: IconVideo, color: "#80c31e" },
+  { id: "editions", label: "Edition Compare", icon: IconGrid, color: "#2f315a" },
+  { id: "releases", label: "Release Notes", icon: IconLedger, color: "#4a6e0e" },
+  { id: "why-ksl", label: "Why Choose Us", icon: IconTrophy, color: "#80c31e" },
 ];
 
 export default function AutoCountAccountingPage({ onContact }) {
@@ -786,7 +787,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       `}</style>
 
       {/* Floating section sidebar — desktop only (≥1280px), hidden via media query otherwise */}
-      <SectionSidebar items={AC_SIDEBAR_ITEMS} />
+      <SectionSidebar sections={AC_SECTIONS} themeColor="#80c31e" />
 
       {/* ── Hero banner — shared ProductHero component ── */}
       <div className="pinned-hero-stage">
@@ -809,7 +810,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-        <SectionDivider icon={IconVideo} color="#80c31e" targetId="training" />
+        <PageSectionDivider sections={AC_SECTIONS} id="training" />
       </div>
 
       {/* ══════════════════════════════════════════════════════════
@@ -822,7 +823,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
-        <SectionDivider icon={IconGrid} color="#2f315a" targetId="editions" />
+        <PageSectionDivider sections={AC_SECTIONS} id="editions" />
       </div>
 
       {/* ══════════════════════════════════════════════════════════
@@ -928,7 +929,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-cloud)" }}>
-        <SectionDivider icon={IconLedger} color="#4a6e0e" targetId="releases" />
+        <PageSectionDivider sections={AC_SECTIONS} id="releases" />
       </div>
 
       {/* ── Release Notes ── */}
@@ -1112,7 +1113,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       {/* ── Why Choose Us ── */}
-      <WhyChooseUs />
+      <WhyChooseUs section={getSection(AC_SECTIONS, "why-ksl")} />
 
       <EnquireNowCTA
         heading="Ready to get started with AutoCount?"

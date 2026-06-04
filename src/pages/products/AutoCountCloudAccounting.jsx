@@ -3,7 +3,8 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
-import SectionDivider, { IconVideo, IconGrid, IconLedger, IconStar, IconHandshake } from "../../components/SectionDivider.jsx";
+import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
+import { IconVideo, IconGrid, IconLedger, IconStar, IconTrophy } from "../../components/SectionDivider.jsx";
 import cloudReleases from "../../content/autocountCloudReleases.json";
 import WhyChooseUs from "../../components/WhyChooseUs.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
@@ -44,11 +45,12 @@ const CLOUD_VIDEOS = [
 
 const RELEASES = cloudReleases;
 
-const SIDEBAR_ITEMS = [
-  { id: "features", label: "Advantages",    icon: IconStar },
-  { id: "training", label: "30-Min Guide",  icon: IconVideo },
-  { id: "editions", label: "Editions",      icon: IconGrid },
-  { id: "releases", label: "Release Notes", icon: IconLedger },
+const CLOUD_SECTIONS = [
+  { id: "features", label: "Advantages", icon: IconStar, color: "#16a14b" },
+  { id: "training", label: "30-Min Guide", icon: IconVideo, color: "#16a14b" },
+  { id: "editions", label: "Editions", icon: IconGrid, color: "#2f315a" },
+  { id: "releases", label: "Release Notes", icon: IconLedger, color: "#16a14b" },
+  { id: "why-ksl", label: "Why Choose Us", icon: IconTrophy, color: "#16a14b" },
 ];
 
 const FEATURES = [
@@ -612,7 +614,7 @@ export default function AutoCountCloudAccountingPage() {
 
   return (
     <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
-      <SectionSidebar items={SIDEBAR_ITEMS} theme="green" />
+      <SectionSidebar sections={CLOUD_SECTIONS} themeColor="#16a14b" />
 
       <div className="pinned-hero-stage">
         <ProductHero
@@ -634,7 +636,7 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-        <SectionDivider icon={IconVideo} color="#16a14b" targetId="training" />
+        <PageSectionDivider sections={CLOUD_SECTIONS} id="training" />
       </div>
 
       <div className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
@@ -652,7 +654,7 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
-        <SectionDivider icon={IconGrid} color="#2f315a" targetId="editions" />
+        <PageSectionDivider sections={CLOUD_SECTIONS} id="editions" />
       </div>
 
       <div id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ overflow: "visible" }}>
@@ -733,7 +735,7 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-cloud)" }}>
-        <SectionDivider icon={IconLedger} color="#16a14b" targetId="releases" />
+        <PageSectionDivider sections={CLOUD_SECTIONS} id="releases" />
       </div>
 
       <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud">
@@ -829,7 +831,7 @@ export default function AutoCountCloudAccountingPage() {
         </div>
       </div>
 
-      <WhyChooseUs sectionFrom="var(--ks-page-cloud)" sectionTo="var(--ks-page-warm)" />
+      <WhyChooseUs section={getSection(CLOUD_SECTIONS, "why-ksl")} sectionFrom="var(--ks-page-cloud)" sectionTo="var(--ks-page-warm)" />
       <EnquireNowCTA 
         heading="Move accounting work into the cloud with proper guidance."
         body="KSL can help you choose the right edition, start the free trial, and prepare the account book for daily use."

@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
-import SectionDivider, { IconLayers, IconLink, IconHandshake, IconStar } from "../../components/SectionDivider.jsx";
+import { PageSectionDivider } from "../../components/PageSections.jsx";
+import { IconLayers, IconLink, IconHandshake, IconStar } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 
 /* FeedMe POS page — product-aware WhatsApp link to Sales Agent Elise */
@@ -14,11 +15,11 @@ const HERO_PHOTO = "/images/products/feedme-pos-showcase.png";
 const FEEDME_LOGO = "/images/logos/feedme-logo.png";
 
 /* Sidebar anchors */
-const SIDEBAR_ITEMS = [
-  { id: "features",     label: "Features",        icon: IconStar },
-  { id: "modules",      label: "Modules",         icon: IconLayers },
-  { id: "integration",  label: "AutoCount Sync",  icon: IconLink },
-  { id: "why-ksl",      label: "Why KSL",         icon: IconHandshake },
+const FEEDME_SECTIONS = [
+  { id: "features", label: "Features", icon: IconStar, color: "#c9a84c" },
+  { id: "modules", label: "Modules", icon: IconLayers, color: "#c9a84c" },
+  { id: "integration", label: "AutoCount Sync", icon: IconLink, color: "#c9a84c" },
+  { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: "#c9a84c" },
 ];
 
 /* ── Shared style tokens (lifted from AutoCount page for visual parity) ── */
@@ -138,7 +139,7 @@ export default function FeedMePOSPage() {
   return (
     <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
 
-      <SectionSidebar items={SIDEBAR_ITEMS} />
+      <SectionSidebar sections={FEEDME_SECTIONS} themeColor="#c9a84c" />
 
       {/* ── Hero ── */}
       <div className="pinned-hero-stage">
@@ -240,7 +241,7 @@ export default function FeedMePOSPage() {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)" }}>
-        <SectionDivider icon={IconLayers} targetId="modules" />
+        <PageSectionDivider sections={FEEDME_SECTIONS} id="modules" />
       </div>
 
       {/* ── Module spotlight ── */}
@@ -308,7 +309,7 @@ export default function FeedMePOSPage() {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
-        <SectionDivider icon={IconLink} targetId="integration" />
+        <PageSectionDivider sections={FEEDME_SECTIONS} id="integration" />
       </div>
 
       {/* ── AutoCount integration ── */}
@@ -344,7 +345,7 @@ export default function FeedMePOSPage() {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-warm)" }}>
-        <SectionDivider icon={IconHandshake} targetId="why-ksl" />
+        <PageSectionDivider sections={FEEDME_SECTIONS} id="why-ksl" />
       </div>
 
       {/* ── Why partner with KSL ── */}

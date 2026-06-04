@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
+import { PageSectionDivider } from "../../components/PageSections.jsx";
 import CarouselProgress from "../../components/CarouselProgress.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import StepRow from "../../components/StepRow.jsx";
@@ -13,7 +14,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 import AIChatbot from "../../components/AIChatbot.jsx";
 import sales2doContent from "../../content/sales2do.json";
 import acPluginIcon     from "../../assets/images/apps/ac-plugin-icon.png";
-import SectionDivider, { IconClipboard, IconSettings, IconStar, IconShield, IconVideo } from "../../components/SectionDivider.jsx";
+import { IconClipboard, IconSettings, IconStar, IconShield, IconVideo } from "../../components/SectionDivider.jsx";
 import imgOutstanding   from "../../assets/images/apps/sales2do/outstanding.png";
 import imgPreset        from "../../assets/images/apps/sales2do/preset-delivery.png";
 import imgSettings      from "../../assets/images/apps/sales2do/settings.png";
@@ -25,12 +26,12 @@ import imgLicenseOnline  from "../../assets/images/apps/sales2do/license-offline
 import imgLicenseOffline from "../../assets/images/apps/sales2do/license-online.png";
 
 /* Sales2DO sidebar anchor items */
-const S2D_SIDEBAR_ITEMS = [
-  { id: "overview",    label: "Overview",       icon: IconVideo },
-  { id: "outstanding", label: "Outstanding DO", icon: IconClipboard },
-  { id: "preset",      label: "Preset",         icon: IconStar },
-  { id: "settings",    label: "Settings",       icon: IconSettings },
-  { id: "license",     label: "License",        icon: IconShield },
+const S2D_SECTIONS = [
+  { id: "overview", label: "Overview", icon: IconVideo, color: "#c9a84c" },
+  { id: "outstanding", label: "Outstanding DO", icon: IconClipboard, color: "#c9a84c" },
+  { id: "preset", label: "Preset", icon: IconStar, color: "#c9a84c" },
+  { id: "settings", label: "Settings", icon: IconSettings, color: "#c9a84c" },
+  { id: "license", label: "License", icon: IconShield, color: "#c9a84c" },
 ];
 
 /* ── Video segments ── */
@@ -183,6 +184,7 @@ function VideoGuide() {
   const [idx,    setIdx]    = useState(0);
   const [active, setActive] = useState("a");   // which slot is visible
   const [paused, setPaused] = useState(false); // play/pause toggle
+  const [videoRemaining, setVideoRemaining] = useState(1);
 
   const aRef         = useRef(null);
   const bRef         = useRef(null);
@@ -191,6 +193,7 @@ function VideoGuide() {
   const idxRef    = useRef(0);
   const activeRef = useRef("a");
   const busyRef   = useRef(false);
+  const videoRemainingRef = useRef(1);
   idxRef.current    = idx;
   activeRef.current = active;
 
@@ -220,6 +223,28 @@ function VideoGuide() {
     }
   }, []);
 
+  useEffect(() => {
+    let frameId;
+    const updateRemaining = () => {
+      const vid = activeRef.current === "a" ? aRef.current : bRef.current;
+      if (vid && Number.isFinite(vid.duration) && vid.duration > 0) {
+        const remaining = Math.max(0, Math.min(1, 1 - (vid.currentTime / vid.duration)));
+        if (Math.abs(videoRemainingRef.current - remaining) > 0.004) {
+          videoRemainingRef.current = remaining;
+          setVideoRemaining(remaining);
+        }
+      } else {
+        if (videoRemainingRef.current !== 1) {
+          videoRemainingRef.current = 1;
+          setVideoRemaining(1);
+        }
+      }
+      frameId = requestAnimationFrame(updateRemaining);
+    };
+    updateRemaining();
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
   /* Transition to a target segment with crossfade. */
   const transitionTo = (rawIdx) => {
     const N = VIDEO_SEGMENTS.length;
@@ -244,6 +269,8 @@ function VideoGuide() {
       const fireSwap = () => {
         setActive(toSlot);
         setIdx(toIdx);
+        videoRemainingRef.current = 1;
+        setVideoRemaining(1);
         /* Switching segments always auto-plays the new clip — sync the
          * pause-button icon back to "playing" so it doesn't stick on the
          * play-triangle from a previous pause. */
@@ -525,6 +552,7 @@ function VideoGuide() {
             className="sales2do-video-progress"
             count={VIDEO_SEGMENTS.length}
             activeIndex={idx}
+            fillProgress={videoRemaining}
             tone="light"
             onSelect={goTo}
             getTitle={(i) => VIDEO_SEGMENTS[i]?.title}
@@ -555,7 +583,7 @@ export default function Sales2DOPage({ onContact }) {
   return (
     <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
 
-      <SectionSidebar items={S2D_SIDEBAR_ITEMS} />
+      <SectionSidebar sections={S2D_SECTIONS} themeColor="#c9a84c" />
 
       {/* ── Hero banner — shared ProductHero component (same look as AutoCount) ── */}
       <div className="pinned-hero-stage">
@@ -582,7 +610,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)" }}>
-        <SectionDivider icon={IconClipboard} targetId="outstanding" />
+        <PageSectionDivider sections={S2D_SECTIONS} id="outstanding" />
       </div>
 
       {/* ── Outstanding Delivery Order ── */}
@@ -613,7 +641,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
-        <SectionDivider icon={IconStar} targetId="preset" />
+        <PageSectionDivider sections={S2D_SECTIONS} id="preset" />
       </div>
 
       {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
@@ -638,7 +666,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-cloud)" }}>
-        <SectionDivider icon={IconSettings} targetId="settings" />
+        <PageSectionDivider sections={S2D_SECTIONS} id="settings" />
       </div>
 
       {/* ── Plugin Settings ── */}
@@ -666,7 +694,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-cloud)", "--section-to": "var(--ks-page-warm)" }}>
-        <SectionDivider icon={IconShield} targetId="license" />
+        <PageSectionDivider sections={S2D_SECTIONS} id="license" />
       </div>
 
       {/* ── Activate Plugin License ── */}
