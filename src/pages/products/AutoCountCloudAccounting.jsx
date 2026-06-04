@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
-import ParticleBackground from "../../components/ParticleBackground.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
 import SectionDivider, { IconVideo, IconGrid, IconLedger, IconStar, IconHandshake } from "../../components/SectionDivider.jsx";

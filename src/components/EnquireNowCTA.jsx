@@ -25,7 +25,7 @@ export default function EnquireNowCTA({
         <h2 className="enquire-now-heading">{heading}</h2>
         <p className="enquire-now-body">{body}</p>
         {buttons.length > 0 && (
-          <div style={{ display: "flex", justifyContent: "center", gap: "0.9rem", flexWrap: "wrap", position: "relative", zIndex: 2 }}>
+          <div className="enquire-now-actions">
             {buttons.map((btn, i) => (
               <a key={i} href={btn.href} target={btn.target || "_blank"} rel="noreferrer" className={btn.className || "btn-ghost-base btn-ghost-dark"}>
                 {btn.label}

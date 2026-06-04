@@ -3,7 +3,8 @@ import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
 import CarouselProgress from "../../components/CarouselProgress.jsx";
-import ParticleBackground from "../../components/ParticleBackground.jsx";
+import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
+import StepRow from "../../components/StepRow.jsx";
 import { Vid, Img } from "../../components/Media.jsx";
 /* Sales2DO-specific WhatsApp link — addressed to KSL Support Team with a product-aware message */
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -126,19 +127,6 @@ function ImgSlot({ src, alt, caption, maxWidth = 860, maxHeight = 480 }) {
   );
 }
 
-function StepNum({ n, color = "#2f315a" }) {
-  return (
-    <div style={{ width: 28, height: 28, borderRadius: "50%", background: color, color: color === "#2f315a" ? "#fff" : "#1e2040", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "0.78rem", fontWeight: 700, flexShrink: 0 }}>{n}</div>
-  );
-}
-function Step({ n, children, gold }) {
-  return (
-    <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", marginBottom: "0.9rem" }}>
-      <StepNum n={n} color={gold ? "#c9a84c" : "#2f315a"} />
-      <div className="ks-body-text" style={{ paddingTop: 3, flex: 1 }}>{children}</div>
-    </div>
-  );
-}
 function BulletList({ items }) {
   return (
     <ul style={{ paddingLeft: "1.1rem", margin: "0.5rem 0" }}>
@@ -414,10 +402,9 @@ function VideoGuide() {
           <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2f315a", lineHeight: 1.3, marginBottom: "0.6rem" }}>{seg.title}</h3>
           <p className="ks-body-text" style={{ color: "#6b6f91", fontStyle: "italic", marginBottom: "1.1rem" }}>{seg.desc}</p>
           {seg.steps.map((step, i) => (
-            <div key={i} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start", marginBottom: "0.8rem" }}>
-              <StepNum n={i + 1} color="#c9a84c" />
-              <div className="ks-body-text" style={{ paddingTop: 4, flex: 1 }}>{step}</div>
-            </div>
+            <StepRow key={i} n={i + 1} color="#c9a84c" className="step-row-compact">
+              {step}
+            </StepRow>
           ))}
           <div style={{ marginTop: "1.25rem", fontSize: "0.7rem", color: "#a8abcc", fontWeight: 500 }}>
             {idx + 1} / {VIDEO_SEGMENTS.length}
@@ -638,7 +625,7 @@ export default function Sales2DOPage({ onContact }) {
           <SectionRow image={preset.image || imgPreset} alt={preset.imageAlt} caption={preset.imageCaption}>
             <p className="ks-body-text" style={{ marginBottom: "1rem" }}><RichText>{preset.intro}</RichText></p>
             {(preset.steps || []).map((step, i) => (
-              <Step key={i} n={i + 1}><RichText>{step}</RichText></Step>
+              <StepRow key={i} n={i + 1}><RichText>{step}</RichText></StepRow>
             ))}
             <BulletList items={richList(preset.bulletItems)} />
             <div style={{ marginTop: "1rem", padding: "0.85rem 1.1rem", borderRadius: 10, background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.25)" }}>
@@ -758,7 +745,7 @@ export default function Sales2DOPage({ onContact }) {
               <ImgSlot src={license.onlineImage || imgLicenseOnline} alt={license.onlineAlt} caption={license.onlineCaption} />
               <p className="ks-body-text" style={{ margin: "1.25rem 0 1rem" }}><RichText>{license.onlineIntro}</RichText></p>
               {(license.onlineSteps || []).map((step, i) => (
-                <Step key={i} n={i + 1}><RichText>{step}</RichText></Step>
+                <StepRow key={i} n={i + 1}><RichText>{step}</RichText></StepRow>
               ))}
               <div style={{ marginTop: "1.25rem", padding: "1rem 1.25rem", borderRadius: 10, background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.25)" }}>
                 <p className="ks-list-text">
@@ -773,7 +760,7 @@ export default function Sales2DOPage({ onContact }) {
               <ImgSlot src={license.offlineImage || imgLicenseOffline} alt={license.offlineAlt} caption={license.offlineCaption} />
               <p className="ks-body-text" style={{ margin: "1.25rem 0 1rem" }}><RichText>{license.offlineIntro}</RichText></p>
               {(license.offlineSteps || []).map((step, i) => (
-                <Step key={i} n={i + 1}><RichText>{step}</RichText></Step>
+                <StepRow key={i} n={i + 1}><RichText>{step}</RichText></StepRow>
               ))}
               <div style={{ marginTop: "1.25rem", padding: "1rem 1.25rem", borderRadius: 10, background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.25)" }}>
                 <p className="ks-list-text">
@@ -787,30 +774,11 @@ export default function Sales2DOPage({ onContact }) {
 
 
       {/* ── CTA ── */}
-      <div className="enquire-now-section">
-        <ParticleBackground
-          paused={false}
-          backgroundStart="#f8f9fd"
-          backgroundEnd="#eef1f8"
-          lineRgb="47,49,90"
-          dotRgb="201,168,76"
-          highlightRgb="201,168,76"
-          vignetteEnd="rgba(47,49,90,0.08)"
-          densityScale={0.78}
-          mobileDensityScale={2.2}
-          lineAlphaScale={0.38}
-          dotAlpha={0.6}
-        />
-        <div className="enquire-now-content content-wrap">
-          <h2 className="enquire-now-heading">{cta.heading}</h2>
-          <p className="enquire-now-body">
-            {cta.body}
-          </p>
-          <a href={WA_LINK} target="_blank" rel="noreferrer" className="enquire-now-btn">
-            {cta.buttonLabel}
-          </a>
-        </div>
-      </div>
+      <EnquireNowCTA
+        heading={cta.heading}
+        body={cta.body}
+        buttons={[{ label: cta.buttonLabel, href: WA_LINK, className: "enquire-now-btn" }]}
+      />
 
       <Footer />
       </main>

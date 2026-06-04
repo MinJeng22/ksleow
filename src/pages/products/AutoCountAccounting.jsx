@@ -7,7 +7,6 @@ import WhyChooseUs from "../../components/WhyChooseUs.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import SectionDivider, { IconLedger, IconVideo, IconGrid, IconStar, IconHandshake } from "../../components/SectionDivider.jsx";
-import ParticleBackground from "../../components/ParticleBackground.jsx";
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
@@ -1115,34 +1114,11 @@ export default function AutoCountAccountingPage({ onContact }) {
       {/* ── Why Choose Us ── */}
       <WhyChooseUs />
 
-      {/* CTA band */}
-      <div className="enquire-now-section">
-        <ParticleBackground
-          paused={false}
-          backgroundStart="#f8f9fd"
-          backgroundEnd="#eef1f8"
-          lineRgb="47,49,90"
-          dotRgb="201,168,76"
-          highlightRgb="201,168,76"
-          vignetteEnd="rgba(47,49,90,0.08)"
-          densityScale={0.78}
-          mobileDensityScale={2.2}
-          lineAlphaScale={0.38}
-          dotAlpha={0.6}
-        />
-        <div className="enquire-now-content content-wrap">
-          <h2 className="enquire-now-heading">
-            Ready to get started with AutoCount?
-          </h2>
-          <p className="enquire-now-body">
-            KSL Business Solutions provides full AutoCount implementation,
-            training, and support across Pahang.
-          </p>
-          <a href={WA_LINK} target="_blank" rel="noreferrer" className="btn-ghost-base btn-ghost-dark">
-            Enquire Now
-          </a>
-        </div>
-      </div>
+      <EnquireNowCTA
+        heading="Ready to get started with AutoCount?"
+        body="KSL Business Solutions provides full AutoCount implementation, training, and support across Pahang."
+        buttons={[{ label: "Enquire Now", href: WA_LINK, className: "btn-ghost-base btn-ghost-dark" }]}
+      />
 
       <Footer />
       </main>
