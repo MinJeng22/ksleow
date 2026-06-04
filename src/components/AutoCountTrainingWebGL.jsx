@@ -59,6 +59,10 @@ function warmMorphImage(videoId) {
   return Promise.race([decodePromise, maxWait]);
 }
 
+function wait(ms) {
+  return new Promise(resolve => window.setTimeout(resolve, ms));
+}
+
 function toPlainRect(rect) {
   return {
     left: rect.left,
@@ -278,6 +282,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   const [morphSettling, setMorphSettling] = useState(false);
   const [stageConcealed, setStageConcealed] = useState(false);
   const [shadowIn, setShadowIn] = useState(false);
+  const [closingHandoff, setClosingHandoff] = useState(false);
   const tabletRef = useRef(null);
   const openTargetRef = useRef(null);
   const collapseTargetRef = useRef(null);
@@ -435,6 +440,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
       setPlayerOpen(true);
       setIframeMounted(true);
       setIframeReady(false);
+      setClosingHandoff(false);
       setStageConcealed(false);
       setStageHeight(null);
       // NOTE: setShadowIn(true) is intentionally DELAYED to the 2-RAF callback below.
@@ -459,6 +465,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
 
     setPlayerOpen(false);
     setShadowIn(false);
+    setClosingHandoff(false);
     setIframeMounted(false);
     setIframeReady(false);
     setStageConcealed(false);
@@ -525,6 +532,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
     preparingMorphRef.current = true;
 
     if (window.innerWidth <= 900) {
+      setClosingHandoff(false);
       setPlayerOpen(false);
       setIframeMounted(false);
       setIframeReady(false);
@@ -535,6 +543,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
     const startSource = videoFrameRef.current || videoRef.current;
     const startDomRect = startSource?.getBoundingClientRect();
     if (!startDomRect) {
+      setClosingHandoff(false);
       setPlayerOpen(false);
       setIframeMounted(false);
       setIframeReady(false);
@@ -558,11 +567,14 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
 
     window.clearTimeout(iframeReadyTimerRef.current);
     await warmMorphImage(activeVideo);
+    setClosingHandoff(true);
+    await wait(120);
     setMorph({ direction: 'close', videoId: activeVideo, startRect, endRect });
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         animateStageHeight(currentStageHeight, nextStageHeight, MORPH_CLOSE_MS);
         setStageConcealed(true);
+        setClosingHandoff(false);
         setIframeMounted(false);
         setIframeReady(false);
         setPlayerOpen(false);
@@ -667,6 +679,10 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
         }
         .tutorial-video-cover.is-hidden {
           opacity: 0;
+        }
+        .tutorial-video-cover.is-closing-handoff {
+          opacity: 1;
+          transition-duration: 140ms;
         }
         .tutorial-video-cover img {
           width: 100%;
@@ -977,7 +993,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
                   />
                 )}
 
-                  <div className={`tutorial-video-cover${iframeReady ? ' is-hidden' : ''}`}>
+                  <div className={`tutorial-video-cover${iframeReady && !closingHandoff ? ' is-hidden' : ''}${closingHandoff ? ' is-closing-handoff' : ''}`}>
                     <img
                       src={getThumbnailUrl(activeVideo)}
                       alt=""

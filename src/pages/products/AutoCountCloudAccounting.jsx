@@ -93,7 +93,9 @@ const CODE_TO_EDITION = Object.fromEntries(
 
 const CLOUD_EDITION_TABLE = {
   topRows: [
-    ["Monthly price", ["RM 70 /mo", "RM 100 /mo", "RM 140 /mo", "RM 180 /mo", "RM 10 /mo"]],
+    ["Monthly Price", ["RM 70 /mo", "RM 100 /mo", "RM 140 /mo", "RM 180 /mo", "RM 10 /mo"]],
+    ["12 Months Price (65% off)", ["RM 294", "RM 420", "RM 588", "RM 756", "RM 120"]],
+    ["24 Months Price (75% off)", ["RM 420", "RM 600", "RM 840", "RM 1,080", "RM 240"]],
     ["Best for", ["Start-up / Micro Company", "Professional Services", "Trading of products", "Multi-warehouse", "Accounting firm"]],
     ["Included users", ["1 user", "2 users", "3 users", "3 users", "2 users"]],
     ["Accountant access", ["1 accountant", "1 accountant", "1 accountant", "1 accountant", ""]],
@@ -216,20 +218,21 @@ function EditionTable({ selected = null, diffOnly = false }) {
           <tbody>
             {CLOUD_EDITION_TABLE.topRows.map(([rowName, values], idx) => {
               const isFirst = idx === 0;
+              const isPriceRow = rowName.includes("Price");
               return (
-                <tr key={rowName} className={isFirst ? "ks-compare-tr-book" : "ks-compare-tr-data"}>
-                  <td className={`ks-compare-td-left ${isFirst ? 'ks-compare-td-book' : 'ks-compare-td-data'}`} style={{ fontWeight: 500 }}>
+                <tr key={rowName} className={isPriceRow ? "ks-compare-tr-book" : "ks-compare-tr-data"}>
+                  <td className={`ks-compare-td-left ${isPriceRow ? 'ks-compare-td-book' : 'ks-compare-td-data'}`} style={{ fontWeight: 500 }}>
                     {rowName}
                   </td>
                   {filterRow(values).map((v, i) => (
-                    <td key={i} className={isFirst ? "ks-compare-td-book" : "ks-compare-td-data"}>
+                    <td key={i} className={isPriceRow ? "ks-compare-td-book" : "ks-compare-td-data"}>
                       {isFirst && v.includes("More info") ? (
                         <>
                           <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" }}>RM 10 /mo</div>
                           <a href="#" style={{ fontSize: "0.75rem", color: "#16a14b", textDecoration: "underline" }}>More info</a>
                         </>
                       ) : (
-                        <span style={isFirst ? { fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" } : {}}>{v}</span>
+                        <span style={isPriceRow ? { fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" } : {}}>{v}</span>
                       )}
                     </td>
                   ))}
