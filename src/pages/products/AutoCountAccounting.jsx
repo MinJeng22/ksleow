@@ -208,19 +208,28 @@ function ReleaseCard({ r, expanded, onToggle }) {
 }
 
 /* ══════════════════════════════════════════════════════════════
- * Comparing 5 Editions of Accounting 2.2 — feature matrix
+ * Comparing 6 Editions of Accounting 2.2 — feature matrix
  * ──────────────────────────────────────────────────────────────
  * Marker codes:
  *   "●" = included module
  *   "+" = optional / paid add-on
  *   "−" = not available in this edition
- * Order of editions (columns): Account Plus | Express Plus | Basic | Pro | Premium
+ * Order of editions (columns): 1 Account Plus | Account Plus | Express Plus | Basic | Pro | Premium
  * ══════════════════════════════════════════════════════════════ */
-const EDITIONS = ["Account Plus", "Express Plus", "Basic", "Pro", "Premium"];
+const EDITIONS = ["1 Account Plus", "Account Plus", "Express Plus", "Basic", "Pro", "Premium"];
+const EDITION_PRICES = {
+  "1 Account Plus": "RM1600",
+  "Account Plus": "RM2200",
+  "Express Plus": "RM2800",
+  "Basic": "RM4200",
+  "Pro": "RM6000",
+  "Premium": "RM9000",
+};
 
 /* Short codes used by the Share-Link URL params so the link stays
  * compact (e.g. ?em=c&ea=ap&eb=pm instead of editionA=Account+Plus). */
 const EDITION_CODE = {
+  "1 Account Plus": "1ap",
   "Account Plus": "ap",
   "Express Plus": "xp",
   "Basic":        "b",
@@ -236,77 +245,77 @@ const CODE_TO_EDITION = Object.fromEntries(
 const revNumber  = (r) => String(r.rev).replace(/^Rev\s*/i, "").trim();
 const findByRev  = (n) => RELEASES.find(r => revNumber(r) === String(n));
 const EDITION_TABLE = {
-  defaultAccountBook: ["3", "3", "5", "5", "5"],
+  defaultAccountBook: ["1", "3", "3", "5", "5", "5"],
   sections: [
     {
       name: "Modules",
       rows: [
-        ["Plug-In",                            ["●", "●", "●", "●", "●"]],
-        ["SST, Project, Multi-Currency",       ["●", "●", "●", "●", "●"]],
-        ["GL, AR, AP, Recurrence GL",          ["●", "●", "●", "●", "●"]],
-        ["Budget & Advanced Financial Report", ["+", "+", "●", "●", "●"]],
-        ["Formula, UDF",                       ["+", "+", "●", "●", "●"]],
-        ["Simple Sales",                       ["●", "●", "●", "●", "●"]],
-        ["Simple Purchase",                    ["●", "●", "●", "●", "●"]],
-        ["Simple Stock",                       ["−", "●", "●", "●", "●"]],
-        ["Complete Sales",                     ["+", "+", "●", "●", "●"]],
-        ["Complete Purchase",                  ["+", "+", "●", "●", "●"]],
-        ["Complete Stock",                     ["+", "+", "●", "●", "●"]],
-        ["Basic Multi-UOM",                    ["+", "+", "●", "●", "●"]],
-        ["Activity Stream",                    ["+", "+", "+", "●", "●"]],
-        ["Advanced Multi-UOM",                 ["+", "+", "+", "●", "●"]],
-        ["Advanced Quotation",                 ["+", "+", "+", "●", "●"]],
-        ["Consignment",                        ["+", "+", "+", "●", "●"]],
-        ["FOC Quantity",                       ["+", "+", "+", "●", "●"]],
-        ["Landing Cost",                       ["+", "+", "+", "●", "●"]],
-        ["Multi Location",                     ["+", "+", "+", "●", "●"]],
-        ["Recurrence (Sales & Purchase)",      ["+", "+", "+", "●", "●"]],
-        ["Scripting",                          ["+", "+", "+", "●", "●"]],
-        ["Advance Item",                       ["+", "+", "+", "+", "●"]],
-        ["Filter by salesman",                 ["+", "+", "+", "+", "●"]],
-        ["Item Batch",                         ["+", "+", "+", "+", "●"]],
-        ["Item Package / Item Template",       ["+", "+", "+", "+", "●"]],
-        ["Multi-Dimensional Analysis",         ["+", "+", "+", "+", "●"]],
-        ["Remote Credit Control",              ["+", "+", "+", "+", "●"]],
-        ["Stock Assembly",                     ["+", "+", "+", "+", "●"]],
+        ["Plug-In",                            ["−", "●", "●", "●", "●", "●"]],
+        ["SST, Project, Multi-Currency",       ["●", "●", "●", "●", "●", "●"]],
+        ["GL, AR, AP, Recurrence GL",          ["●", "●", "●", "●", "●", "●"]],
+        ["Budget & Advanced Financial Report", ["−", "+", "+", "●", "●", "●"]],
+        ["Formula, UDF",                       ["−", "+", "+", "●", "●", "●"]],
+        ["Simple Sales",                       ["●", "●", "●", "●", "●", "●"]],
+        ["Simple Purchase",                    ["●", "●", "●", "●", "●", "●"]],
+        ["Simple Stock",                       ["−", "−", "●", "●", "●", "●"]],
+        ["Complete Sales",                     ["−", "+", "+", "●", "●", "●"]],
+        ["Complete Purchase",                  ["−", "+", "+", "●", "●", "●"]],
+        ["Complete Stock",                     ["−", "+", "+", "●", "●", "●"]],
+        ["Basic Multi-UOM",                    ["−", "+", "+", "●", "●", "●"]],
+        ["Activity Stream",                    ["−", "+", "+", "+", "●", "●"]],
+        ["Advanced Multi-UOM",                 ["−", "+", "+", "+", "●", "●"]],
+        ["Advanced Quotation",                 ["−", "+", "+", "+", "●", "●"]],
+        ["Consignment",                        ["−", "+", "+", "+", "●", "●"]],
+        ["FOC Quantity",                       ["−", "+", "+", "+", "●", "●"]],
+        ["Landing Cost",                       ["−", "+", "+", "+", "●", "●"]],
+        ["Multi Location",                     ["−", "+", "+", "+", "●", "●"]],
+        ["Recurrence (Sales & Purchase)",      ["−", "+", "+", "+", "●", "●"]],
+        ["Scripting",                          ["−", "+", "+", "+", "●", "●"]],
+        ["Advance Item",                       ["−", "+", "+", "+", "+", "●"]],
+        ["Filter by salesman",                 ["−", "+", "+", "+", "+", "●"]],
+        ["Item Batch",                         ["−", "+", "+", "+", "+", "●"]],
+        ["Item Package / Item Template",       ["−", "+", "+", "+", "+", "●"]],
+        ["Multi-Dimensional Analysis",         ["−", "+", "+", "+", "+", "●"]],
+        ["Remote Credit Control",              ["−", "+", "+", "+", "+", "●"]],
+        ["Stock Assembly",                     ["−", "+", "+", "+", "+", "●"]],
       ],
     },
     {
       name: "Optional Module",
       rows: [
-        ["Intelligent Costing",                ["+", "+", "+", "+", "+"]],
-        ["Advanced Multi-Currency",            ["+", "+", "+", "+", "+"]],
-        ["API",                                ["+", "+", "+", "+", "+"]],
-        ["Bonus Point",                        ["+", "+", "+", "+", "+"]],
-        ["Consolidated Financial Report",      ["+", "+", "+", "+", "+"]],
-        ["Department",                         ["+", "+", "+", "+", "+"]],
-        ["Export Account",                     ["+", "+", "+", "+", "+"]],
-        ["Export Stock",                       ["+", "+", "+", "+", "+"]],
-        ["Filter by account",                  ["+", "+", "+", "+", "+"]],
-        ["Import Third Party Xml",             ["+", "+", "+", "+", "+"]],
-        ["Multi-Dimensional Price Book",       ["+", "+", "+", "+", "+"]],
-        ["Multi-Level Assembly",               ["+", "+", "+", "+", "+"]],
-        ["Serial Number",                      ["+", "+", "+", "+", "+"]],
-        ["Stock Disassembly",                  ["+", "+", "+", "+", "+"]],
-        ["Unrealized Gain/Loss",               ["+", "+", "+", "+", "+"]],
-        ["Sales Order Processing",             ["+", "+", "+", "+", "+"]],
-        ["Assembly Order Processing",          ["+", "+", "+", "+", "+"]],
+        ["Intelligent Costing",                ["−", "+", "+", "+", "+", "+"]],
+        ["Advanced Multi-Currency",            ["−", "+", "+", "+", "+", "+"]],
+        ["API",                                ["−", "+", "+", "+", "+", "+"]],
+        ["Bonus Point",                        ["−", "+", "+", "+", "+", "+"]],
+        ["Consolidated Financial Report",      ["−", "+", "+", "+", "+", "+"]],
+        ["Department",                         ["−", "+", "+", "+", "+", "+"]],
+        ["Export Account",                     ["−", "+", "+", "+", "+", "+"]],
+        ["Export Stock",                       ["−", "+", "+", "+", "+", "+"]],
+        ["Filter by account",                  ["−", "+", "+", "+", "+", "+"]],
+        ["Import Third Party Xml",             ["−", "+", "+", "+", "+", "+"]],
+        ["Multi-Dimensional Price Book",       ["−", "+", "+", "+", "+", "+"]],
+        ["Multi-Level Assembly",               ["−", "+", "+", "+", "+", "+"]],
+        ["Serial Number",                      ["−", "+", "+", "+", "+", "+"]],
+        ["Stock Disassembly",                  ["−", "+", "+", "+", "+", "+"]],
+        ["Unrealized Gain/Loss",               ["−", "+", "+", "+", "+", "+"]],
+        ["Sales Order Processing",             ["−", "+", "+", "+", "+", "+"]],
+        ["Assembly Order Processing",          ["−", "+", "+", "+", "+", "+"]],
       ],
     },
     {
       name: "POS Counter",
       rows: [
-        ["POS A",      ["+", "+", "+", "+", "+"]],
-        ["POS B",      ["+", "+", "+", "+", "+"]],
-        ["POS Branch", ["+", "+", "+", "+", "+"]],
+        ["POS A",      ["−", "+", "+", "+", "+", "+"]],
+        ["POS B",      ["−", "+", "+", "+", "+", "+"]],
+        ["POS Branch", ["−", "+", "+", "+", "+", "+"]],
       ],
     },
     {
       name: "POS Modules",
       rows: [
-        ["POS Serial Number",  ["+", "+", "+", "+", "+"]],
-        ["POS Item Batch",     ["+", "+", "+", "+", "+"]],
-        ["POS Item Package",   ["+", "+", "+", "+", "+"]],
+        ["POS Serial Number",  ["−", "+", "+", "+", "+", "+"]],
+        ["POS Item Batch",     ["−", "+", "+", "+", "+", "+"]],
+        ["POS Item Package",   ["−", "+", "+", "+", "+", "+"]],
       ],
     },
   ],
@@ -335,12 +344,21 @@ function EditionsTable({ selected = null, diffOnly = false }) {
   return (
     <div className="ks-compare-panel">
       <div className="ks-compare-wrap">
-        <table className="ks-compare-table">
+        <table className="ks-compare-table" style={{ "--edition-count": cols.length }}>
+          <colgroup>
+            <col className="ks-compare-col-feature" />
+            {cols.map((edition) => (
+              <col key={edition} className="ks-compare-col-edition" />
+            ))}
+          </colgroup>
           <thead className="ks-compare-thead">
             <tr style={{ "--th-bg": "#80c31e" }}>
               <th className="ks-compare-th ks-compare-th-left"></th>
               {cols.map(e => (
-                <th key={e} className="ks-compare-th">{e}</th>
+                <th key={e} className="ks-compare-th">
+                  <span className="ks-compare-edition-name">{e}</span>
+                  <span className="ks-compare-edition-price">{EDITION_PRICES[e]}</span>
+                </th>
               ))}
             </tr>
           </thead>
@@ -628,15 +646,18 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       {/* ══════════════════════════════════════════════════════════
-       * COMPARING 5 EDITIONS OF ACCOUNTING 2.2
+       * COMPARING 6 EDITIONS OF ACCOUNTING 2.2
        * ══════════════════════════════════════════════════════════ */}
       <div id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ overflow: "visible" }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
 
             <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem" }}>
-              Comparing 5 Editions of Accounting 2.2
+              Comparing 6 Editions of Accounting 2.2
             </h2>
+            <p className="ks-card-text" style={{ margin: "-0.45rem 0 1rem", fontWeight: 700, color: "#4a6e0e" }}>
+              Prices exclude 8% SST.
+            </p>
             <div style={{ display: "inline-flex", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center", fontSize: "0.78rem", color: "#6b6f91" }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                 <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#80c31e", display: "inline-block" }} />

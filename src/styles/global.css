@@ -2025,8 +2025,13 @@ body.has-active-modal .back-to-top-glass {
 
 .ks-compare-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   font-size: var(--text-sm, 0.84rem);
+}
+
+.ks-compare-col-feature {
+  width: clamp(170px, 22%, 240px);
 }
 
 .ks-compare-thead {
@@ -2045,6 +2050,23 @@ body.has-active-modal .back-to-top-glass {
   font-weight: 700;
   text-align: center;
   line-height: 1.25;
+}
+
+.ks-compare-edition-name,
+.ks-compare-edition-price {
+  display: block;
+}
+
+.ks-compare-edition-name {
+  min-height: 2.35em;
+}
+
+.ks-compare-edition-price {
+  margin-top: 0.28rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  opacity: 0.9;
+  white-space: nowrap;
 }
 
 .ks-compare-th-left {
@@ -2118,6 +2140,14 @@ body.has-active-modal .back-to-top-glass {
 
 /* Mobile Compare Table Overrides */
 @media (max-width: 768px) {
+  .ks-compare-table {
+    table-layout: auto;
+  }
+
+  .ks-compare-table colgroup {
+    display: none;
+  }
+
   .ks-compare-table, 
   .ks-compare-thead, 
   .ks-compare-tbody, 
@@ -2139,11 +2169,22 @@ body.has-active-modal .back-to-top-glass {
   }
   .ks-compare-thead .ks-compare-th:not(.ks-compare-th-left) {
     flex: 1;
+    min-width: 0;
     padding: 0.5rem 0.1rem;
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-wrap: anywhere;
+  }
+
+  .ks-compare-edition-name {
+    min-height: 0;
+  }
+
+  .ks-compare-edition-price {
+    font-size: 0.6rem;
+    white-space: normal;
   }
 
   .ks-compare-tr-data, .ks-compare-tr-book {
@@ -2164,6 +2205,7 @@ body.has-active-modal .back-to-top-glass {
   .ks-compare-td-data:not(.ks-compare-td-left),
   .ks-compare-td-book:not(.ks-compare-td-left) {
     flex: 1;
+    min-width: 0;
     box-sizing: border-box;
     display: flex;
     align-items: center;
