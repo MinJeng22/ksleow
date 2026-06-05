@@ -1,0 +1,11 @@
+KS Omni AI Assistant
+K.S. Leow Group AI Assistant for web chat, WhatsApp handoff, document/image support, quotation workflows, and customer self-service.
+URL: https://ksleow.vercel.app/omni
+Category: AI Assistant
+assistantName: K.S. Leow Group AI Assistant
+supportedChannels: Web chat; WhatsApp handoff
+supportedInputs: Text; Images; PDF/document upload; Quotation request workflows
+Purpose
+KS Omni helps customers ask product, software, service, and quotation questions through a guided AI assistant experience.
+Knowledge base integration
+The assistant can use the public /kb structured content layer for clean retrieval of product, service, plugin, and quotation information.

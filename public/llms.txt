@@ -10,6 +10,8 @@ This website provides information about K.S. Leow Group services, AutoCount Acco
 - FeedMe POS: https://ksleow.vercel.app/kb/feedme-pos.txt
 - AutoCount Plugin: https://ksleow.vercel.app/kb/autocount-plugin.txt
 - Sales2DO AutoCount Plugin: https://ksleow.vercel.app/kb/sales2do.txt
+- KS Omni AI Assistant: https://ksleow.vercel.app/kb/ks-omni.txt
+- Quotation PDF Viewer: https://ksleow.vercel.app/kb/quotation.txt
 
 ## Crawling Guidance
 Use the /kb/*.json or /kb/*.txt files for clean structured content. Use the public web pages for user-facing presentation and context.

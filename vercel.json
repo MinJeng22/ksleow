@@ -7,6 +7,8 @@
     { "source": "/products/feedme-pos", "destination": "/products/feedme-pos/index.html" },
     { "source": "/apps/autocount-plugin", "destination": "/apps/autocount-plugin/index.html" },
     { "source": "/apps/sales2do", "destination": "/apps/sales2do/index.html" },
+    { "source": "/omni", "destination": "/omni/index.html" },
+    { "source": "/quotation", "destination": "/quotation/index.html" },
     { "source": "/((?!admin|api|uploads|kb|sitemap.xml|robots.txt|llms.txt).*)", "destination": "/index.html" }
   ]
 }

@@ -6,7 +6,6 @@
   "route": "/apps/autocount-plugin",
   "category": "App",
   "source": "site-content",
-  "updatedAt": "2026-06-05T16:57:26.267Z",
   "facts": {
     "plugins": [
       "Sales2DO (Built by KSL, KSL Business Solutions): Generate Delivery Orders directly from existing Invoices or Cash Sales, with smart quantity control for partial and fully delivered documents."

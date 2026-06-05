@@ -38,7 +38,6 @@ function doc({ slug, title, description, route, category, sections = [], facts =
     route,
     category,
     source,
-    updatedAt: new Date().toISOString(),
     facts,
     sections: sections.map((section) => ({
       heading: section.heading,
@@ -89,7 +88,8 @@ function releaseText(release) {
 async function main() {
   await mkdir(kbDir, { recursive: true });
 
-  const [products, services, otherServices, plugins, releases, cloudReleases, sales2do] = await Promise.all([
+  const [siteRoutes, products, services, otherServices, plugins, releases, cloudReleases, sales2do] = await Promise.all([
+    readJson("src/content/siteRoutes.json"),
     readJson("src/content/products.json"),
     readJson("src/content/services.json"),
     readJson("src/content/otherServices.json"),
@@ -105,16 +105,17 @@ async function main() {
   const pluginItems = (plugins.sections || []).flatMap((section) =>
     (section.items || []).map((item) => ({ ...item, collection: section.label }))
   );
+  const routeById = Object.fromEntries(siteRoutes.map((route) => [route.id, route]));
   const latestAccountingRelease = releases[0];
   const latestCloudRelease = cloudReleases[0];
 
   const documents = [
     doc({
       slug: "home",
-      title: "K.S. Leow Group",
-      description: "K.S. Leow Group official website for accounting, taxation, company secretarial, AutoCount software, IT, training, and business workflow services in Pahang.",
-      route: "/",
-      category: "Company",
+      title: routeById.home.title,
+      description: routeById.home.description,
+      route: routeById.home.route,
+      category: routeById.home.category,
       facts: {
         products: productItems.map((item) => `${item.name}: ${item.desc}`),
         services: serviceItems.map((item) => `${item.title}: ${item.desc}`),
@@ -128,10 +129,10 @@ async function main() {
     }),
     doc({
       slug: "autocount-accounting",
-      title: "AutoCount Accounting 2.2",
-      description: "Desktop accounting software for Malaysian SMEs with SST, e-Invoice, inventory, sales, purchase, and reporting workflows.",
-      route: "/products/autocount-accounting",
-      category: "Product",
+      title: routeById["autocount-accounting"].title,
+      description: routeById["autocount-accounting"].description,
+      route: routeById["autocount-accounting"].route,
+      category: routeById["autocount-accounting"].category,
       facts: {
         whatsapp: "+60 17-905 2323",
         latestRelease: summarizeRelease(latestAccountingRelease),
@@ -149,10 +150,10 @@ async function main() {
     }),
     doc({
       slug: "autocount-cloud-accounting",
-      title: "AutoCount CloudAccounting",
-      description: "Browser-based AutoCount CloudAccounting with e-Invoice, AI SmartScan, bank connection, and anytime access.",
-      route: "/products/autocount-cloud-accounting",
-      category: "Product",
+      title: routeById["autocount-cloud-accounting"].title,
+      description: routeById["autocount-cloud-accounting"].description,
+      route: routeById["autocount-cloud-accounting"].route,
+      category: routeById["autocount-cloud-accounting"].category,
       facts: {
         officialProductUrl: "https://www.autocountsoft.com/pro-cloud-acc.html",
         officialApiUrl: "https://accounting-api.autocountcloud.com/documentation/",
@@ -179,20 +180,20 @@ async function main() {
     }),
     doc({
       slug: "feedme-pos",
-      title: "FeedMe POS",
-      description: "Cloud F&B POS for restaurants with table management, kitchen display, and online ordering integration.",
-      route: "/products/feedme-pos",
-      category: "Product",
+      title: routeById["feedme-pos"].title,
+      description: routeById["feedme-pos"].description,
+      route: routeById["feedme-pos"].route,
+      category: routeById["feedme-pos"].category,
       sections: [
         { heading: "Overview", body: productItems.find((item) => item.name === "FeedMe POS")?.desc || "" },
       ],
     }),
     doc({
       slug: "autocount-plugin",
-      title: "AutoCount Plugin",
-      description: "AutoCount Accounting plugin collection including KSL-built plugins and selected dealer plugins.",
-      route: "/apps/autocount-plugin",
-      category: "App",
+      title: routeById["autocount-plugin"].title,
+      description: routeById["autocount-plugin"].description,
+      route: routeById["autocount-plugin"].route,
+      category: routeById["autocount-plugin"].category,
       facts: {
         plugins: pluginItems.map((item) => `${item.name} (${item.collection}, ${item.dealer}): ${item.summary}`),
       },
@@ -202,10 +203,10 @@ async function main() {
     }),
     doc({
       slug: "sales2do",
-      title: "Sales2DO AutoCount Plugin",
-      description: "Sales2DO copies Invoice or Cash Sale documents to Delivery Order with outstanding quantity checking and delivery workflow controls.",
-      route: "/apps/sales2do",
-      category: "App",
+      title: routeById.sales2do.title,
+      description: routeById.sales2do.description,
+      route: routeById.sales2do.route,
+      category: routeById.sales2do.category,
       facts: {
         whatsapp: "+60 17-905 2323",
         download: "/downloads/app/Sales2DO.app",
@@ -213,6 +214,36 @@ async function main() {
       sections: [
         { heading: "Overview", body: sales2do.hero?.body || pluginItems.find((item) => item.name === "Sales2DO")?.summary || "" },
         { heading: "Features", body: pluginItems.find((item) => item.name === "Sales2DO")?.features || [] },
+      ],
+    }),
+    doc({
+      slug: "ks-omni",
+      title: routeById["ks-omni"].title,
+      description: routeById["ks-omni"].description,
+      route: routeById["ks-omni"].route,
+      category: routeById["ks-omni"].category,
+      facts: {
+        assistantName: "K.S. Leow Group AI Assistant",
+        supportedChannels: ["Web chat", "WhatsApp handoff"],
+        supportedInputs: ["Text", "Images", "PDF/document upload", "Quotation request workflows"],
+      },
+      sections: [
+        { heading: "Purpose", body: "KS Omni helps customers ask product, software, service, and quotation questions through a guided AI assistant experience." },
+        { heading: "Knowledge base integration", body: "The assistant can use the public /kb structured content layer for clean retrieval of product, service, plugin, and quotation information." },
+      ],
+    }),
+    doc({
+      slug: "quotation",
+      title: routeById.quotation.title,
+      description: routeById.quotation.description,
+      route: routeById.quotation.route,
+      category: routeById.quotation.category,
+      facts: {
+        generatedBy: "KS Omni",
+        usage: "Opens signed quotation PDF links generated from quotation JSON payloads.",
+      },
+      sections: [
+        { heading: "Quotation workflow", body: "KS Omni can generate an official PDF quotation link that users can open, download, or share from ksleow.vercel.app." },
       ],
     }),
   ];
@@ -224,6 +255,8 @@ async function main() {
     url: document.url,
     route: document.route,
     category: document.category,
+    changefreq: routeById[document.id]?.changefreq || "weekly",
+    priority: routeById[document.id]?.priority || "0.7",
     kbJson: `${siteUrl}/kb/${document.id}.json`,
     kbText: `${siteUrl}/kb/${document.id}.txt`,
   }));
@@ -238,7 +271,7 @@ async function main() {
   const sitemap = [
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
     "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
-    ...documents.map((document) => `  <url><loc>${document.url}</loc><changefreq>weekly</changefreq><priority>${document.route === "/" ? "1.0" : "0.8"}</priority></url>`),
+    ...index.map((item) => `  <url><loc>${item.url}</loc><changefreq>${item.changefreq}</changefreq><priority>${item.priority}</priority></url>`),
     "  <url><loc>https://ksleow.vercel.app/kb/index.json</loc><changefreq>daily</changefreq><priority>0.7</priority></url>",
     "</urlset>",
   ].join("\n");
