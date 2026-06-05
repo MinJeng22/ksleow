@@ -2,6 +2,11 @@
   "rewrites": [
     { "source": "/admin",      "destination": "/admin/index.html" },
     { "source": "/admin/",     "destination": "/admin/index.html" },
-    { "source": "/((?!admin|api|uploads).*)", "destination": "/index.html" }
+    { "source": "/products/autocount-accounting", "destination": "/products/autocount-accounting/index.html" },
+    { "source": "/products/autocount-cloud-accounting", "destination": "/products/autocount-cloud-accounting/index.html" },
+    { "source": "/products/feedme-pos", "destination": "/products/feedme-pos/index.html" },
+    { "source": "/apps/autocount-plugin", "destination": "/apps/autocount-plugin/index.html" },
+    { "source": "/apps/sales2do", "destination": "/apps/sales2do/index.html" },
+    { "source": "/((?!admin|api|uploads|kb|sitemap.xml|robots.txt|llms.txt).*)", "destination": "/index.html" }
   ]
 }

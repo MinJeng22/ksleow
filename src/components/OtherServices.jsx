@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Img } from "./Media.jsx";
 import { CASE_IMAGES } from "../assets/assets.js";
 import { CONTACT } from "../constants/contact.js";
 import otherServicesContent from "../content/otherServices.json";
+import { BentoGrid } from "./ui/BentoGrid.jsx";
+import SectionHeader from "./ui/SectionHeader.jsx";
 
 const CASES = (otherServicesContent.items || []).filter((item) => {
   return !!(item?.title && item?.desc);
@@ -296,207 +297,30 @@ export default function OtherServices({ onContact }) {
     };
   }, [partnerOpen, sitegiantOpen]);
 
-  const displayCases = [...CASES];
-  while (displayCases.length < 4) {
-    displayCases.push({ isEmpty: true, key: `empty-${displayCases.length}` });
-  }
-
   const openService = (service) => {
     if (service.modal === "supaprintz") setPartnerOpen(true);
     else if (service.modal === "sitegiant") setSitegiantOpen(true);
     else if (service.route) navigate(service.route);
   };
 
-  const renderBentoCard = (service, index, layoutClass) => {
-    const isEmpty = service.isEmpty;
-    const imgSrc = !isEmpty ? (service.image || CASE_IMAGES[service.key]) : null;
-    const clickable = !isEmpty && !!(service.route || service.modal);
-
-    return (
-      <article
-        id={service.modal ? `${service.modal}-card` : undefined}
-        key={service.key || index}
-        className={`other-services-bento-card ${layoutClass}${clickable ? " is-clickable" : ""}${isEmpty ? " is-empty" : ""}`}
-        onClick={clickable ? () => openService(service) : undefined}
-        onKeyDown={clickable ? (event) => {
-          if (event.key !== "Enter" && event.key !== " ") return;
-          event.preventDefault();
-          openService(service);
-        } : undefined}
-        role={clickable ? "button" : undefined}
-        tabIndex={clickable ? 0 : undefined}
-        aria-hidden={isEmpty ? "true" : undefined}
-      >
-        <div className="other-services-bento-media">
-          {imgSrc && !isEmpty ? (
-            <Img
-              src={imgSrc}
-              alt={service.title}
-              className="other-services-bento-img"
-              protect={false}
-              onError={event => { event.currentTarget.style.display = "none"; }}
-            />
-          ) : (
-            <div className="other-services-bento-placeholder" />
-          )}
-        </div>
-        <div className="other-services-bento-body">
-          {!isEmpty && (
-            <>
-              <h3 className="site-card-title other-services-bento-title">{service.title}</h3>
-              <p className="site-card-copy other-services-bento-copy">{service.desc}</p>
-              {clickable && (
-                <span className="ks-learn-more other-services-bento-link">
-                  Learn more
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </span>
-              )}
-            </>
-          )}
-        </div>
-      </article>
-    );
-  };
-
   return (
     <>
     <section id="other-services" className="home-section" style={{ position: "relative", overflow: "hidden", background: "#f5f5f8", padding: "var(--section-py) 0" }}>
-    <style>{`
-      .other-services-bento {
-        display: grid;
-        grid-template-columns: minmax(0, 1.05fr) minmax(0, 2.05fr) minmax(0, 1.05fr);
-        grid-template-rows: repeat(2, minmax(240px, 1fr));
-        gap: 1.25rem;
-        min-height: 560px;
-      }
-      .other-services-bento-card {
-        min-width: 0;
-        overflow: hidden;
-        background: #ffffff;
-        border: 1px solid rgba(47,49,90,0.12);
-        border-radius: 18px;
-        box-shadow: 0 18px 46px rgba(47,49,90,0.06);
-        transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.22s ease;
-      }
-      .other-services-bento-card.is-clickable { cursor: pointer; }
-      .other-services-bento-card.is-clickable:hover {
-        transform: translateY(-4px);
-        border-color: rgba(201,168,76,0.5);
-        box-shadow: 0 24px 58px rgba(47,49,90,0.11);
-      }
-      .other-services-bento-card.is-empty { pointer-events: none; }
-      .other-services-bento-card.is-tall {
-        display: grid;
-        grid-template-rows: 56% 44%;
-      }
-      .other-services-bento-card.is-wide {
-        display: grid;
-        grid-template-columns: 56% 44%;
-      }
-      .other-services-bento-left { grid-column: 1; grid-row: 1 / span 2; }
-      .other-services-bento-mid-top { grid-column: 2; grid-row: 1; }
-      .other-services-bento-mid-bottom { grid-column: 2; grid-row: 2; }
-      .other-services-bento-right { grid-column: 3; grid-row: 1 / span 2; }
-      .other-services-bento-media {
-        position: relative;
-        min-height: 0;
-        background: var(--bento-accent, #e7e7ea);
-      }
-      .other-services-bento-img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-      .other-services-bento-placeholder {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        background:
-          linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0)),
-          #e6e6e9;
-        opacity: 0.76;
-      }
-      .other-services-bento-body {
-        min-width: 0;
-        padding: clamp(1.25rem, 2vw, 1.8rem);
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .other-services-bento-title { margin-bottom: 0.55rem; }
-      .other-services-bento-copy { margin-bottom: 0; }
-      .other-services-bento-link {
-        margin-top: auto;
-        padding-top: 1rem;
-        align-self: flex-end;
-      }
-      @media (max-width: 1180px) {
-        .other-services-bento {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          grid-template-rows: auto;
-          min-height: 0;
-        }
-        .other-services-bento-left,
-        .other-services-bento-mid-top,
-        .other-services-bento-mid-bottom,
-        .other-services-bento-right {
-          grid-column: auto;
-          grid-row: auto;
-        }
-        .other-services-bento-card.is-tall,
-        .other-services-bento-card.is-wide {
-          min-height: 360px;
-          display: grid;
-          grid-template-rows: 52% 48%;
-          grid-template-columns: 1fr;
-        }
-      }
-      @media (max-width: 640px) {
-        .other-services-bento {
-          grid-template-columns: 1fr;
-          gap: 1rem;
-        }
-        .other-services-bento-card.is-tall,
-        .other-services-bento-card.is-wide {
-          min-height: 340px;
-        }
-        .other-services-bento-body { padding: 1.2rem; }
-      }
-    `}</style>
-
     <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
-      {/* header */}
-      <div style={{ marginBottom: "3rem" }}>
-        <div style={{
-          fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.12em",
-          textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.75rem",
-        }}>
-          {otherServicesContent.eyebrow}
-        </div>
-        <h2 style={{
-          fontSize: "clamp(1.8rem, 3vw, 2.6rem)", fontWeight: 700,
-          color: "#2f315a", lineHeight: 1.2, marginBottom: "0.75rem",
-        }}>
-          {otherServicesContent.heading}
-        </h2>
-        <p style={{ fontSize: "1rem", color: "#6b6f91", lineHeight: 1.78 }}>
-          {otherServicesContent.intro}
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow={otherServicesContent.eyebrow}
+        title={otherServicesContent.heading}
+        style={{ marginBottom: "3rem" }}
+      >
+        {otherServicesContent.intro}
+      </SectionHeader>
 
       {/* Desktop bento: left tall card, center stacked cards, right reserved empty slot. */}
-      <div className="other-services-bento">
-        {renderBentoCard(displayCases[0], 0, "is-tall other-services-bento-left")}
-        {renderBentoCard(displayCases[1], 1, "is-wide other-services-bento-mid-top")}
-        {renderBentoCard(displayCases[2], 2, "is-wide other-services-bento-mid-bottom")}
-        {renderBentoCard(displayCases[3], 3, "is-tall other-services-bento-right")}
-      </div>
+      <BentoGrid
+        items={CASES}
+        imageFor={(service) => service.image || CASE_IMAGES[service.key]}
+        onOpen={openService}
+      />
 
       {otherServicesContent.ctaLabel && (
         <button

@@ -1,0 +1,13 @@
+Sales2DO AutoCount Plugin
+Sales2DO copies Invoice or Cash Sale documents to Delivery Order with outstanding quantity checking and delivery workflow controls.
+URL: https://ksleow.vercel.app/apps/sales2do
+Category: App
+whatsapp: +60 17-905 2323
+download: /downloads/app/Sales2DO.app
+Overview
+In AutoCount Accounting's standard business workflow, the process typically flows from Delivery Orders (DO) to Sales (Invoices or Cash Sales). However, for companies that operate with a Sales-to-DO workflow, the Sales2DO plugin bridges this gap. It enables users to generate a DO directly from existing Invoices or Cash Sales via integrated "Copy to DO" and "Copy from Invoice / Cash Sale" functions.
+Features
+Copy Invoice or Cash Sale to Delivery Order
+Prevent over-delivery with outstanding quantity checks
+Preset delivery quantity and transfer remark settings
+Includes KS Omni support and feedback entry point
