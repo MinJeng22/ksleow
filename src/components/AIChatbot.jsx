@@ -16,6 +16,7 @@ import {
 void WORKER_URL;
 
 export default function AIChatbot({ app }) {
+  const isCompactViewport = typeof window !== "undefined" && window.innerWidth < 640;
   const [open, setOpen]         = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput]       = useState("");
@@ -139,15 +140,15 @@ export default function AIChatbot({ app }) {
       {open && (
         <div style={{
           position: "fixed",
-          bottom: window.innerWidth < 640 ? 0 : 92,
-          right:  window.innerWidth < 640 ? 0 : 28,
-          left:   window.innerWidth < 640 ? 0 : "auto",
-          top:    window.innerWidth < 640 ? 0 : "auto",
+          bottom: isCompactViewport ? 0 : 92,
+          right:  isCompactViewport ? 0 : 28,
+          left:   isCompactViewport ? 0 : "auto",
+          top:    isCompactViewport ? 0 : "auto",
           zIndex: 600,
-          width:  window.innerWidth < 640 ? "100vw" : "min(380px, calc(100vw - 32px))",
-          height: window.innerWidth < 640 ? "100dvh" : "min(560px, calc(100vh - 120px))",
+          width:  isCompactViewport ? "100vw" : "min(380px, calc(100vw - 32px))",
+          height: isCompactViewport ? "100dvh" : "min(560px, calc(100vh - 120px))",
           background: "#ffffff",
-          borderRadius: window.innerWidth < 640 ? 0 : 20,
+          borderRadius: isCompactViewport ? 0 : 20,
           boxShadow: "0 24px 72px rgba(47,49,90,0.22), 0 0 0 1px rgba(47,49,90,0.08)",
           display: "flex", flexDirection: "column", overflow: "hidden",
           animation: "chatSlideUp 0.25s ease",
@@ -205,7 +206,7 @@ export default function AIChatbot({ app }) {
                 border: "1px solid rgba(47,49,90,0.18)",
                 fontSize: "0.86rem", fontFamily: "inherit",
                 resize: "none", outline: "none", lineHeight: 1.5,
-                maxHeight: window.innerWidth < 640 ? "34dvh" : 240,
+                maxHeight: isCompactViewport ? "34dvh" : 240,
                 overflowY: "hidden",
                 background: loading ? "#f5f5f8" : "#ffffff",
                 color: "#2f315a", transition: "border-color 0.2s",

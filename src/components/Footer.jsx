@@ -85,7 +85,7 @@ export default function Footer() {
               <img src={branding.footerLogo || LOGO_FOOTER} alt="KSL Business Solutions"
                 loading="lazy"
                 decoding="async"
-                fetchPriority="low"
+                fetchpriority="low"
                 style={{ height: 46, objectFit: "contain", display: "block", marginBottom: "1.1rem", filter: branding.footerLogo ? "none" : "brightness(0) invert(1)" }} />
               <p style={{ fontSize: "0.83rem", color: "#7b7fa8", lineHeight: 1.82, maxWidth: 300 }}>
                 {footer.tagline}

@@ -254,7 +254,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
               alt=""
               decoding="async"
               loading="eager"
-              fetchPriority="high"
+              fetchpriority="high"
               crossOrigin="anonymous"
             />
             <div className="tutorial-morph-dim" />

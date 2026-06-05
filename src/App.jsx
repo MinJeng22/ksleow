@@ -23,7 +23,7 @@ const routePath = Object.fromEntries(siteRoutes.map((route) => [route.id, route.
 
 /* The site Nav is shown ONLY on the homepage. Every other route (including
  * /omni, product pages, app pages) provides its own page header. */
-function AppShell({ openContact, modalOpen, setModalOpen, searchOpen, setSearchOpen }) {
+export function AppShell({ openContact, modalOpen, setModalOpen, searchOpen, setSearchOpen }) {
   const { pathname } = useLocation();
   const showNav = pathname === "/";
 
@@ -50,7 +50,7 @@ function AppShell({ openContact, modalOpen, setModalOpen, searchOpen, setSearchO
   );
 }
 
-export default function App() {
+export function AppContent() {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const openContact = () => setModalOpen(true);
@@ -64,14 +64,20 @@ export default function App() {
   }, [modalOpen, searchOpen]);
 
   return (
+    <AppShell
+      openContact={openContact}
+      modalOpen={modalOpen}
+      setModalOpen={setModalOpen}
+      searchOpen={searchOpen}
+      setSearchOpen={setSearchOpen}
+    />
+  );
+}
+
+export default function App() {
+  return (
     <BrowserRouter>
-      <AppShell 
-        openContact={openContact} 
-        modalOpen={modalOpen} 
-        setModalOpen={setModalOpen} 
-        searchOpen={searchOpen}
-        setSearchOpen={setSearchOpen}
-      />
+      <AppContent />
     </BrowserRouter>
   );
 }

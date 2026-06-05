@@ -614,6 +614,7 @@ const STYLES = `
 
 /* ── Component ──────────────────────────────────────────── */
 export default function MenuButton({ onOpenSearch, hideBar }) {
+  const isBrowser = typeof window !== "undefined";
   const [open, setOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState([0]);
@@ -774,7 +775,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     }
   };
 
-  const hasHistory = window.history.state && window.history.state.idx > 0;
+  const hasHistory = isBrowser && window.history.state && window.history.state.idx > 0;
   const isHomeHero = pathname === "/" && scrollY < 10;
   const mobileActionMode = hasHistory && !isHomeHero ? "back" : null;
 

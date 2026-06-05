@@ -100,7 +100,7 @@ export default function Hero({ onContact }) {
             alt="KSL Business Solutions"
             loading="eager"
             decoding="async"
-            fetchPriority="high"
+            fetchpriority="high"
             style={{
               height: logoH,
               objectFit: "contain",

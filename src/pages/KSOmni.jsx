@@ -166,7 +166,9 @@ function EmptyGreeting() {
 
 /* ── Mobile detection ── */
 function useIsMobile() {
-  const [mobile, setMobile] = useState(window.innerWidth < 768);
+  const [mobile, setMobile] = useState(() => (
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  ));
   useEffect(() => {
     const fn = () => setMobile(window.innerWidth < 768);
     window.addEventListener("resize", fn);
@@ -191,12 +193,16 @@ export default function KSLOmniPage() {
   const navigate = useNavigate();
 
   const [machineId] = useState(() => {
+    if (typeof window === "undefined") return null;
     const params = new URLSearchParams(window.location.search);
     return params.get("mid") || null;
   });
 
-  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
+  const [sidebarOpen, setSidebarOpen] = useState(() => (
+    typeof window !== "undefined" ? window.innerWidth >= 768 : true
+  ));
   const [sessions, setSessions] = useState(() => {
+    if (typeof localStorage === "undefined") return [];
     try {
       const saved = localStorage.getItem(getSessionsListKey(machineId));
       if (saved) return JSON.parse(saved);
@@ -205,6 +211,7 @@ export default function KSLOmniPage() {
   });
   const [activeSessionId, setActiveSessionId] = useState(() => generateId());
   const [messages, setMessages] = useState(() => {
+    if (typeof localStorage === "undefined") return [];
     try {
       const saved = localStorage.getItem(getSessionMessagesKey(machineId, activeSessionId));
       if (saved) return JSON.parse(saved);
@@ -740,7 +747,7 @@ export default function KSLOmniPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
               <div style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "1.5px solid rgba(201,168,76,0.5)", flexShrink: 0 }}>
-                <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchPriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchpriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.15rem" }}>
                 <span style={{ color: "rgba(255,255,255,0.95)", fontWeight: 700, fontSize: "0.95rem", letterSpacing: "0.02em", whiteSpace: "nowrap", lineHeight: 1 }}>KS Omni</span>

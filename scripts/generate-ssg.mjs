@@ -1,9 +1,11 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 const root = process.cwd();
 const distDir = path.join(root, "dist");
 const kbDir = path.join(root, "public", "kb");
+const serverEntry = path.join(root, "dist", "server", "entry-server.js");
 const siteName = "K.S. Leow Group";
 
 function escapeHtml(value) {
@@ -12,47 +14,6 @@ function escapeHtml(value) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
-}
-
-function renderSection(section) {
-  return `
-    <section>
-      <h2>${escapeHtml(section.heading)}</h2>
-      ${(section.body || []).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("\n")}
-    </section>`;
-}
-
-function renderFacts(facts = {}) {
-  const entries = Object.entries(facts).filter(([, value]) => value !== undefined && value !== null && value !== "");
-  if (!entries.length) return "";
-
-  return `
-    <section>
-      <h2>Structured Facts</h2>
-      <dl>
-        ${entries.map(([key, value]) => {
-          const body = Array.isArray(value)
-            ? `<ul>${value.map((item) => `<li>${escapeHtml(typeof item === "string" ? item : JSON.stringify(item))}</li>`).join("")}</ul>`
-            : typeof value === "object"
-              ? `<pre>${escapeHtml(JSON.stringify(value, null, 2))}</pre>`
-              : escapeHtml(value);
-          return `<dt>${escapeHtml(key)}</dt><dd>${body}</dd>`;
-        }).join("\n")}
-      </dl>
-    </section>`;
-}
-
-function renderStaticRoot(doc) {
-  return `
-    <main class="ssg-content" data-ssg-route="${escapeHtml(doc.route)}">
-      <article>
-        <p class="ssg-kicker">${escapeHtml(doc.category)}</p>
-        <h1>${escapeHtml(doc.title)}</h1>
-        <p>${escapeHtml(doc.description)}</p>
-        ${renderFacts(doc.facts)}
-        ${(doc.sections || []).map(renderSection).join("\n")}
-      </article>
-    </main>`;
 }
 
 function injectHead(html, doc) {
@@ -89,8 +50,9 @@ function injectHead(html, doc) {
   return next;
 }
 
-async function writeRouteHtml(template, doc) {
-  const html = injectHead(template, doc).replace('<div id="root"></div>', `<div id="root">${renderStaticRoot(doc)}</div>`);
+async function writeRouteHtml(template, doc, render) {
+  const appHtml = render(doc.route);
+  const html = injectHead(template, doc).replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
   if (doc.route === "/") {
     await writeFile(path.join(distDir, "index.html"), html);
     return;
@@ -104,10 +66,11 @@ async function writeRouteHtml(template, doc) {
 async function main() {
   const template = await readFile(path.join(distDir, "index.html"), "utf8");
   const index = JSON.parse(await readFile(path.join(kbDir, "index.json"), "utf8"));
+  const { render } = await import(pathToFileURL(serverEntry).href);
 
   for (const item of index) {
     const doc = JSON.parse(await readFile(path.join(kbDir, `${item.id}.json`), "utf8"));
-    await writeRouteHtml(template, doc);
+    await writeRouteHtml(template, doc, render);
   }
 
   console.log(`Generated SSG HTML for ${index.length} routes`);

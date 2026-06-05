@@ -55,7 +55,7 @@ export default function Nav({ onContact }) {
             alt="KSL Business Solutions"
             loading="eager"
             decoding="async"
-            fetchPriority="high"
+            fetchpriority="high"
             style={{ height: 40, objectFit: "contain" }}
           />
         </a>
