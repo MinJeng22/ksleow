@@ -2031,7 +2031,7 @@ body.has-active-modal .back-to-top-glass {
 }
 
 .ks-compare-col-feature {
-  width: clamp(170px, 22%, 240px);
+  width: clamp(230px, 31%, 360px);
 }
 
 .ks-compare-thead {
@@ -2078,8 +2078,11 @@ body.has-active-modal .back-to-top-glass {
 }
 
 .ks-compare-td-price {
-  color: #0e63c7;
-  font-weight: 800;
+  color: #66738f;
+  font-size: 0.82em;
+  font-weight: 700;
+  margin-left: 0.55rem;
+  opacity: 0.92;
   white-space: nowrap;
 }
 
@@ -2087,6 +2090,7 @@ body.has-active-modal .back-to-top-glass {
   text-align: left;
   font-weight: 600;
   min-width: 190px;
+  width: clamp(230px, 31%, 360px);
 }
 
 .ks-compare-tr-book {

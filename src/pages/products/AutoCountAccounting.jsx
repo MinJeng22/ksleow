@@ -14,6 +14,7 @@ import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx"
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
 import { CopyReleaseButton, ReleaseNumber, ShareLinkButton } from "../../components/ReleaseTools.jsx";
+import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
 /* AutoCount Accounting page — product-aware WhatsApp link to KSL Support Team */
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to learn more about AutoCount Accounting. Thank you."
@@ -375,22 +376,18 @@ function EditionMarker({ value }) {
 
 function EditionsTable({ selected = null, diffOnly = false }) {
   const cols = (selected && selected.length > 0) ? selected : EDITIONS;
-  const colIdx = cols.map(c => EDITIONS.indexOf(c));
-
-  const filterRow = (values) => colIdx.map(i => values[i]);
-  const rowDiffers = (values) => {
-    const subset = filterRow(values);
-    return !subset.every(v => v === subset[0]);
-  };
+  const colIdx = getEditionColumnIndexes(EDITIONS, selected);
+  const filterRow = (values) => filterEditionValues(values, colIdx);
+  const rowDiffers = (values) => editionRowDiffers(values, colIdx);
 
   return (
     <div className="ks-compare-panel">
       <div className="ks-compare-wrap">
         <table className="ks-compare-table" style={{ "--edition-count": cols.length }}>
           <colgroup>
-            <col className="ks-compare-col-feature" />
+            <col className="ks-compare-col-feature" width="31%" />
             {cols.map((edition) => (
-              <col key={edition} className="ks-compare-col-edition" />
+              <col key={edition} className="ks-compare-col-edition" width={`${69 / cols.length}%`} />
             ))}
           </colgroup>
           <thead className="ks-compare-thead">
@@ -434,14 +431,9 @@ function EditionsTable({ selected = null, diffOnly = false }) {
                     const visibleVals = filterRow(values);
                     return (
                       <tr key={rowName} className="ks-compare-tr-data">
-                        <td className="ks-compare-td-left ks-compare-td-data" style={{ fontWeight: 500 }}>
+                        <CompareFeatureCell style={{ fontWeight: 500 }} meta={MODULE_PRICES[rowName]}>
                           {rowName}
-                          {MODULE_PRICES[rowName] && (
-                            <span className="ks-compare-td-price" style={{ marginLeft: "0.6rem", fontSize: "0.85em" }}>
-                              {MODULE_PRICES[rowName]}
-                            </span>
-                          )}
-                        </td>
+                        </CompareFeatureCell>
                         {visibleVals.map((v, vi) => (
                           <td key={vi} className="ks-compare-td-data">
                             <EditionMarker value={v} />

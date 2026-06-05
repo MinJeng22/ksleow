@@ -12,6 +12,7 @@ import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx"
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
 import { CompareRevBadge, CopyReleaseButton, ReleaseNumber, ShareLinkButton } from "../../components/ReleaseTools.jsx";
+import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to start AutoCount CloudAccounting free trial and compare the available editions. Thank you."
@@ -195,13 +196,9 @@ function copyCompare(items, fromVersion, toVersion, type) {
 
 function EditionTable({ selected = null, diffOnly = false }) {
   const cols = selected?.length ? selected : EDITIONS;
-  const colIdx = cols.map((col) => EDITIONS.indexOf(col));
-
-  const filterRow = (values) => colIdx.map(i => values[i]);
-  const rowDiffers = (values) => {
-    const subset = filterRow(values);
-    return !subset.every(v => v === subset[0]);
-  };
+  const colIdx = getEditionColumnIndexes(EDITIONS, selected);
+  const filterRow = (values) => filterEditionValues(values, colIdx);
+  const rowDiffers = (values) => editionRowDiffers(values, colIdx);
 
   return (
     <div className="ks-compare-panel">
@@ -221,9 +218,9 @@ function EditionTable({ selected = null, diffOnly = false }) {
               const isPriceRow = rowName.includes("Price");
               return (
                 <tr key={rowName} className={isPriceRow ? "ks-compare-tr-book" : "ks-compare-tr-data"}>
-                  <td className={`ks-compare-td-left ${isPriceRow ? 'ks-compare-td-book' : 'ks-compare-td-data'}`} style={{ fontWeight: 500 }}>
+                  <CompareFeatureCell className={isPriceRow ? "ks-compare-td-book" : "ks-compare-td-data"} style={{ fontWeight: 500 }}>
                     {rowName}
-                  </td>
+                  </CompareFeatureCell>
                   {filterRow(values).map((v, i) => (
                     <td key={i} className={isPriceRow ? "ks-compare-td-book" : "ks-compare-td-data"}>
                       {isFirst && v.includes("More info") ? (
@@ -256,9 +253,9 @@ function EditionTable({ selected = null, diffOnly = false }) {
                     const visibleVals = filterRow(values);
                     return (
                       <tr key={rowName} className="ks-compare-tr-data">
-                        <td className="ks-compare-td-left ks-compare-td-data" style={{ fontWeight: 500 }}>
+                        <CompareFeatureCell style={{ fontWeight: 500 }}>
                           {rowName}
-                        </td>
+                        </CompareFeatureCell>
                         {rowName === "Phone Support" ? (
                           <td colSpan={cols.length} className="ks-compare-td-data" style={{ fontStyle: "italic", color: "#6b6f91" }}>
                             A fee is chargeable for Phone Support
@@ -275,7 +272,7 @@ function EditionTable({ selected = null, diffOnly = false }) {
                   })}
                   {section.name === "SUPPORT" && (
                     <tr className="ks-compare-tr-data">
-                      <td className="ks-compare-td-left ks-compare-td-data" style={{ fontWeight: 500 }}>API for Integration</td>
+                      <CompareFeatureCell style={{ fontWeight: 500 }}>API for Integration</CompareFeatureCell>
                       <td colSpan={cols.length} className="ks-compare-td-data">
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
                            {/* Render the check under PLUS if needed, but it's simpler to just center the text as requested */}
