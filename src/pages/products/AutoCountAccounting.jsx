@@ -494,22 +494,7 @@ const BRAND_LOGOS = [
   "/images/brands/ac-brand-15.png",
 ];
 
-const AWARDS_IMAGES = [
-    "/images/awards/ac-medal.jpg",
-    "/images/awards/ac-trophy.png",
-    "/images/awards/ac-medal.jpg",
-    "/images/awards/ac-trophy.png",
-    "/images/awards/ac-medal.jpg",
-    "/images/awards/ac-trophy.png",
-    "/images/awards/ac-medal.jpg",
-    "/images/awards/ac-trophy.png",
-    "/images/awards/ac-medal.jpg",
-    "/images/awards/ac-trophy.png",
-    "/images/awards/ac-medal.jpg",
-    "/images/awards/ac-trophy.png",
-    "/images/awards/ac-medal.jpg",
-    "/images/awards/ac-trophy.png",
-  ];
+
 
 /* AutoCount sidebar anchor items */
 const AC_SECTIONS = [

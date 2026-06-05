@@ -14,8 +14,6 @@ export const AWARDS_IMAGES = [
   "/images/awards/ac-trophy.png",
   "/images/awards/ac-medal.jpg",
   "/images/awards/ac-trophy.png",
-  "/images/awards/ac-medal.jpg",
-  "/images/awards/ac-trophy.png",
 ];
 
 export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-cloud)", sectionTo = "var(--ks-page-warm)" }) {
@@ -63,12 +61,12 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             animation-play-state: paused !important;
           }
 
-          /* Desktop: Static, fit 14 items exactly to screen */
+          /* Desktop: Static, fit 12 items exactly to screen */
           @media (min-width: 1025px) {
             .ac-awards-container-new {
               mask-image: none;
               -webkit-mask-image: none;
-              max-width: 1400px; /* Limit max width on very large screens */
+              max-width: 1200px; /* Limit max width on very large screens */
               margin-left: auto;
               margin-right: auto;
             }
@@ -82,7 +80,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             }
             .ac-awards-item {
               flex: 1;
-              max-width: calc(100% / 14);
+              max-width: calc(100% / 12);
               height: 140px;
               padding: 0 5px;
               margin-right: 0 !important;
