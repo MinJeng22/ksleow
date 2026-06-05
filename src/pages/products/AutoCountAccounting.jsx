@@ -244,6 +244,47 @@ const CODE_TO_EDITION = Object.fromEntries(
  * can be shared as ?va=36 instead of va=2.2.25.36 — much shorter. */
 const revNumber  = (r) => String(r.rev).replace(/^Rev\s*/i, "").trim();
 const findByRev  = (n) => RELEASES.find(r => revNumber(r) === String(n));
+const MODULE_PRICES = {
+  "Complete Sales": "RM600",
+  "Complete Purchase": "RM600",
+  "Complete Stock": "RM600",
+  "Formula, UDF": "RM400",
+  "Basic Multi-UOM": "RM600",
+  "Budget & Advanced Financial Report": "RM600",
+  "Activity Stream": "RM800",
+  "Advanced Multi-UOM": "RM1200",
+  "Advanced Quotation": "RM1200",
+  "Consignment": "RM600",
+  "FOC Quantity": "RM600",
+  "Landing Cost": "RM600",
+  "Multi Location": "RM600",
+  "Recurrence (Sales & Purchase)": "RM1200",
+  "Scripting": "RM600",
+  "Filter by salesman": "RM1200",
+  "Advance Item": "RM1200",
+  "Item Batch": "RM1200",
+  "Item Package / Item Template": "RM1200",
+  "Multi-Dimensional Analysis": "RM1600",
+  "Remote Credit Control": "RM1200",
+  "Stock Assembly": "RM1200",
+  "Advanced Multi-Currency": "RM1600",
+  "API": "RM400",
+  "Bonus Point": "RM2000",
+  "Consolidated Financial Report": "RM4000",
+  "Department": "RM1200",
+  "Export Account": "RM400",
+  "Export Stock": "RM800",
+  "Filter by account": "RM1600",
+  "Import Third Party Xml": "RM1600",
+  "Multi-Dimensional Price Book": "RM1600",
+  "Multi-Level Assembly": "RM2000",
+  "Serial Number": "RM2000",
+  "Stock Disassembly": "RM1600",
+  "Unrealized Gain/Loss": "RM800",
+  "Sales Order Processing": "RM6000",
+  "Assembly Order Processing": "RM6000",
+  "Intelligent Costing": "RM3000",
+};
 const EDITION_TABLE = {
   oneTimePayment: EDITIONS.map((edition) => EDITION_PRICES[edition]),
   defaultAccountBook: ["1", "3", "3", "5", "5", "5"],
@@ -348,13 +389,15 @@ function EditionsTable({ selected = null, diffOnly = false }) {
         <table className="ks-compare-table" style={{ "--edition-count": cols.length }}>
           <colgroup>
             <col className="ks-compare-col-feature" />
+            <col className="ks-compare-col-price" />
             {cols.map((edition) => (
               <col key={edition} className="ks-compare-col-edition" />
             ))}
           </colgroup>
           <thead className="ks-compare-thead">
             <tr style={{ "--th-bg": "#80c31e" }}>
-              <th className="ks-compare-th ks-compare-th-left"></th>
+              <th className="ks-compare-th ks-compare-th-left">Module</th>
+              <th className="ks-compare-th ks-compare-th-price">Price</th>
               {cols.map(e => (
                 <th key={e} className="ks-compare-th">
                   <span className="ks-compare-edition-name">{e}</span>
@@ -367,12 +410,14 @@ function EditionsTable({ selected = null, diffOnly = false }) {
               <td className="ks-compare-td-left ks-compare-td-book" style={{ background: "inherit", fontWeight: 500 }}>
                 <span>One-Time Payment</span>
               </td>
+              <td className="ks-compare-td-price ks-compare-td-book">Price</td>
               {filterRow(EDITION_TABLE.oneTimePayment).map((v, i) => (
                 <td key={i} className="ks-compare-td-book">{v}</td>
               ))}
             </tr>
             <tr className="ks-compare-tr-book">
               <td className="ks-compare-td-left ks-compare-td-book" style={{ background: "inherit", fontWeight: 500 }}>Default Account Book</td>
+              <td className="ks-compare-td-price ks-compare-td-book">-</td>
               {filterRow(EDITION_TABLE.defaultAccountBook).map((v, i) => (
                 <td key={i} className="ks-compare-td-book">{v}</td>
               ))}
@@ -385,7 +430,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
               return (
                 <React.Fragment key={section.name}>
                   <tr className="ks-compare-tr-section">
-                    <td colSpan={cols.length + 1} className="ks-compare-td-section">
+                    <td colSpan={cols.length + 2} className="ks-compare-td-section">
                       {section.name}
                     </td>
                   </tr>
@@ -394,6 +439,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
                     return (
                       <tr key={rowName} className="ks-compare-tr-data">
                         <td className="ks-compare-td-left ks-compare-td-data" style={{ fontWeight: 500 }}>{rowName}</td>
+                        <td className="ks-compare-td-price ks-compare-td-data">{MODULE_PRICES[rowName] || "-"}</td>
                         {visibleVals.map((v, vi) => (
                           <td key={vi} className="ks-compare-td-data">
                             <EditionMarker value={v} />
