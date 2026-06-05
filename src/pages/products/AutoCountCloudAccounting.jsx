@@ -80,6 +80,17 @@ const FEATURES = [
   },
 ];
 
+const FEATURE_PROMOS = [
+  {
+    src: "/images/promotions/ksl-referral-program.jpg",
+    alt: "KSL Business Solutions referral program",
+  },
+  {
+    src: "/images/promotions/autocount-cloudaccounting-75-promo.png",
+    alt: "AutoCount CloudAccounting 75 percent promotion for 2 years subscription",
+  },
+];
+
 const EDITIONS = ["Lite", "Basic", "Plus", "Pro", "Accountant"];
 const EDITION_CODE = {
   Lite: "lite",
@@ -495,7 +506,7 @@ export default function AutoCountCloudAccountingPage() {
       <main className="pinned-page-content product-app-content">
       {/* ── Feature highlights ── */}
       <div className="product-app-section product-app-section-paper product-app-section-clean" style={{ '--feature-strip-bg': 'linear-gradient(180deg, #16a14b 0%, #0d7032 100%)', '--feature-strip-shadow': '0 0 16px rgba(22, 161, 75, 0.4)' }}>
-        <FeatureShowcase features={FEATURES} />
+        <FeatureShowcase features={FEATURES} promoSlides={FEATURE_PROMOS} />
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>

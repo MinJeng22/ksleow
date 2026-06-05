@@ -484,6 +484,115 @@ textarea {
   color: #2f315a;
 }
 
+.feature-showcase-carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-showcase-track {
+  position: relative;
+}
+
+.feature-showcase-slide {
+  min-width: 100%;
+}
+
+.feature-showcase-slide.is-active {
+  animation: feature-showcase-fade 0.36s ease both;
+}
+
+@keyframes feature-showcase-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.feature-showcase-promo {
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(47,49,90,0.1);
+  border-radius: 8px;
+  box-shadow: 0 18px 46px rgba(47,49,90,0.08);
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.feature-showcase-promo-img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.feature-showcase-promo-caption {
+  background: linear-gradient(180deg, rgba(15,17,40,0), rgba(15,17,40,0.68));
+  bottom: 0;
+  color: #ffffff;
+  display: grid;
+  gap: 0.2rem;
+  left: 0;
+  padding: 2rem 1.4rem 1.2rem;
+  position: absolute;
+  right: 0;
+}
+
+.feature-showcase-promo-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.feature-showcase-promo-copy {
+  color: rgba(255,255,255,0.82);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.feature-showcase-nav {
+  align-items: center;
+  background: rgba(255,255,255,0.86);
+  border: 1px solid rgba(47,49,90,0.12);
+  border-radius: 50%;
+  box-shadow: 0 10px 24px rgba(47,49,90,0.12);
+  color: #2f315a;
+  cursor: pointer;
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  width: 40px;
+  z-index: 3;
+}
+
+.feature-showcase-nav:hover {
+  background: #ffffff;
+  color: var(--gold);
+  transform: translateY(-50%) scale(1.04);
+}
+
+.feature-showcase-nav-prev { left: 0.85rem; }
+.feature-showcase-nav-next { right: 0.85rem; }
+
+.feature-showcase-progress {
+  margin-top: 1.4rem;
+}
+
+@media (max-width: 768px) {
+  .feature-showcase-nav {
+    height: 34px;
+    width: 34px;
+  }
+
+  .feature-showcase-nav-prev { left: 0.45rem; }
+  .feature-showcase-nav-next { right: 0.45rem; }
+
+  .feature-showcase-progress {
+    margin-top: 1rem;
+  }
+}
+
 .ac-features-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

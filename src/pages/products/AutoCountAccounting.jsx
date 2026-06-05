@@ -476,6 +476,13 @@ const FEATURES = [
   },
 ];
 
+const FEATURE_PROMOS = [
+  {
+    src: "/images/promotions/ksl-referral-program.jpg",
+    alt: "KSL Business Solutions referral program",
+  },
+];
+
 const BRAND_LOGOS = [
   "/images/brands/ac-brand-1.png",
   "/images/brands/ac-brand-2.png",
@@ -655,6 +662,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       <div className="product-app-section product-app-section-paper product-app-section-clean">
         <FeatureShowcase
           features={FEATURES}
+          promoSlides={FEATURE_PROMOS}
           brandLogos={BRAND_LOGOS}
           brandText="Over 240,000 businesses trust AutoCount to drive their growth"
           wrapper
