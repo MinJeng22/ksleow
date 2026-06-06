@@ -21,9 +21,9 @@ const BENTO_CAROUSEL_STYLES = `
 }
 @media (min-width: 1181px) {
   .other-services-carousel.ks-bento-carousel {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    width: auto;
+    margin-left: calc((50% - 50vw) / 2);
+    margin-right: calc((50% - 50vw) / 2);
   }
   .other-services-carousel .ks-bento-carousel-viewport {
     margin-right: 0;
@@ -58,7 +58,7 @@ const BENTO_CAROUSEL_STYLES = `
 }
 @media (min-width: 1181px) {
   .other-services-carousel .ks-bento-carousel-slide {
-    flex: 0 0 max(100%, 1600px);
+    flex: 0 0 max(100%, 1920px);
   }
 }
 .ks-bento-carousel-track:active .ks-bento-carousel-slide {
@@ -106,7 +106,7 @@ const BENTO_CAROUSEL_STYLES = `
   position: absolute;
   right: 0;
 }
-@media (min-width: 1601px) {
+@media (min-width: 2400px) {
   .other-services-carousel .ks-bento-carousel-controls {
     display: none;
   }

@@ -7,7 +7,7 @@ import WhyChooseUs from "../../components/WhyChooseUs.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
-import { IconLedger, IconVideo, IconGrid, IconStar, IconTrophy } from "../../components/SectionDivider.jsx";
+import { IconLedger, IconVideo, IconGrid, IconStar, IconTrophy, IconRocket } from "../../components/SectionDivider.jsx";
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
@@ -524,6 +524,7 @@ const BRAND_LOGOS = [
 /* AutoCount sidebar anchor items */
 const AC_SECTIONS = [
   { id: "features", label: "Advantages", icon: IconStar, color: "#80c31e" },
+  { id: "promotions", label: "Promotions", icon: IconRocket, color: "#80c31e" },
   { id: "training", label: "Quick-Start Guide", icon: IconVideo, color: "#80c31e" },
   { id: "editions", label: "Edition Compare", icon: IconGrid, color: "#2f315a" },
   { id: "releases", label: "Release Notes", icon: IconLedger, color: "#4a6e0e" },
@@ -679,7 +680,15 @@ export default function AutoCountAccountingPage({ onContact }) {
           brandText="Over 240,000 businesses trust AutoCount to drive their growth"
           wrapper
         />
+      </div>
+
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <PageSectionDivider sections={AC_SECTIONS} id="promotions" />
+      </div>
+
+      <div className="product-app-section product-app-section-paper product-app-section-clean">
         <ProductPromotionBento
+          id="promotions"
           eyebrow="Promotion"
           title="Current AutoCount Accounting Offers"
           accent="#80c31e"

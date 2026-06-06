@@ -2,6 +2,7 @@ import React from "react";
 import { Img } from "./Media.jsx";
 
 export default function ProductPromotionBento({
+  id = "promotions",
   eyebrow = "Promotion",
   title = "Current Promotions",
   items = [],
@@ -12,11 +13,12 @@ export default function ProductPromotionBento({
   if (!cards.length) return null;
 
   return (
-    <section className="product-promo-bento" style={{ "--promo-accent": accent }}>
+    <section id={id} className="product-promo-bento" style={{ "--promo-accent": accent }}>
       <style suppressHydrationWarning>{`
         .product-promo-bento {
-          margin: clamp(2.2rem, 5vw, 4.5rem) auto 0;
+          margin: 0 auto;
           width: min(1180px, 100%);
+          scroll-margin-top: 24px;
         }
 
         .product-promo-head {
@@ -47,14 +49,15 @@ export default function ProductPromotionBento({
 
         .product-promo-grid {
           display: grid;
-          grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
-          grid-template-rows: repeat(2, minmax(180px, 1fr));
+          grid-template-columns: minmax(0, 1.14fr) minmax(320px, 0.86fr);
+          grid-template-rows: repeat(2, auto);
           gap: clamp(0.85rem, 1.8vw, 1.15rem);
+          align-items: stretch;
         }
 
         .product-promo-card {
           position: relative;
-          min-height: 180px;
+          min-height: 0;
           overflow: hidden;
           border: 1px solid rgba(47, 49, 90, 0.11);
           border-radius: 22px;
@@ -67,7 +70,15 @@ export default function ProductPromotionBento({
 
         .product-promo-card.is-featured {
           grid-row: span 2;
-          min-height: 380px;
+          min-height: 100%;
+        }
+
+        .product-promo-card:not(.is-featured) {
+          aspect-ratio: 16 / 9;
+        }
+
+        .product-promo-card.is-featured {
+          aspect-ratio: 4 / 3;
         }
 
         .product-promo-card::before {
@@ -195,7 +206,8 @@ export default function ProductPromotionBento({
           .product-promo-card,
           .product-promo-card.is-featured {
             grid-row: auto;
-            min-height: 220px;
+            min-height: 0;
+            aspect-ratio: 16 / 9;
           }
         }
 
@@ -207,7 +219,8 @@ export default function ProductPromotionBento({
           .product-promo-card,
           .product-promo-card.is-featured {
             border-radius: 18px;
-            min-height: 210px;
+            min-height: 0;
+            aspect-ratio: 16 / 10;
           }
 
           .product-promo-content {

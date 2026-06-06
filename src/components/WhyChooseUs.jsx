@@ -71,12 +71,12 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.38rem;
+            gap: 0.18rem;
           }
           .ac-awards-item {
             flex: 0 0 auto;
-            width: 80px;
-            height: 110px;
+            width: auto;
+            height: 126px;
             background: transparent;
             display: flex;
             align-items: center;
@@ -89,8 +89,10 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             z-index: 10;
           }
           .ac-awards-item img {
-            max-width: 100%;
-            max-height: 100%;
+            width: auto;
+            height: 100%;
+            max-width: none;
+            max-height: none;
             object-fit: contain;
             transition: transform 0.4s ease;
           }
@@ -123,7 +125,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               display: none;
             }
             .ac-awards-year {
-              gap: clamp(0.16rem, 0.4vw, 0.36rem);
+              gap: clamp(0.08rem, 0.22vw, 0.22rem);
               justify-content: center;
             }
             .ac-awards-year:first-child {
@@ -134,18 +136,19 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             }
             .ac-awards-item {
               flex: 0 0 auto;
-              height: clamp(118px, 8.4vw, 148px);
+              height: clamp(132px, 9.4vw, 170px);
               padding: 0;
               margin-right: 0;
             }
             .ac-awards-item-trophy {
-              width: clamp(46px, 4.2vw, 72px);
+              width: auto;
             }
             .ac-awards-item-modal {
-              width: clamp(54px, 4.8vw, 82px);
+              width: auto;
             }
             .ac-awards-item img {
-              width: 100%;
+              width: auto;
+              height: 100%;
               object-fit: contain;
             }
           }
@@ -155,11 +158,11 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               gap: 1rem;
             }
             .ac-awards-year {
-              gap: 0.34rem;
+              gap: 0.18rem;
             }
             .ac-awards-item {
-              width: 80px;
-              height: 110px;
+              width: auto;
+              height: 122px;
               padding: 0;
             }
           }
