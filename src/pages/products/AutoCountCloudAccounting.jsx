@@ -301,7 +301,7 @@ function EditionTable({ selected = null, diffOnly = false }) {
                       <td colSpan={cols.length} className="ks-compare-td-data">
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
                            {/* Render the check under PLUS if needed, but it's simpler to just center the text as requested */}
-                           <a href="#" style={{ color: "#16a14b", textDecoration: "underline", fontWeight: 500 }}>More information on Open API available</a>
+                           <a href="https://accounting-api.autocountcloud.com/documentation/" target="_blank" rel="noopener noreferrer" style={{ color: "#16a14b", textDecoration: "underline", fontWeight: 500 }}>More information on Open API available</a>
                         </div>
                       </td>
                     </tr>
