@@ -644,7 +644,7 @@ export default function AutoCountCloudAccountingPage() {
         <PageSectionDivider sections={CLOUD_SECTIONS} id="releases" />
       </div>
 
-      <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud">
+      <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-to-warm">
         <div className="content-wrap">
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
             <div>
