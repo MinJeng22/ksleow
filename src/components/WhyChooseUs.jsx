@@ -1,20 +1,51 @@
 import React from "react";
 import SectionDivider, { IconTrophy } from "./SectionDivider";
 
-export const AWARDS_IMAGES = [
-  "/images/awards/top-dealer-2019-trophy.png",
-  "/images/awards/top-dealer-2019-modal.png",
-  "/images/awards/top-dealer-2021-trophy.png",
-  "/images/awards/top-dealer-2021-modal.png",
-  "/images/awards/top-dealer-2022-trophy.png",
-  "/images/awards/top-dealer-2022-modal.png",
-  "/images/awards/top-dealer-2023-trophy.png",
-  "/images/awards/top-dealer-2023-modal.png",
-  "/images/awards/top-dealer-2024-trophy.png",
-  "/images/awards/top-dealer-2024-modal.png",
-  "/images/awards/top-dealer-2025-trophy.png",
-  "/images/awards/top-dealer-2025-modal.png",
+export const AWARD_YEARS = [
+  {
+    year: "2019",
+    trophy: "/images/awards/top-dealer-2019-trophy.png",
+    modal: "/images/awards/top-dealer-2019-modal.png",
+  },
+  {
+    year: "2021",
+    trophy: "/images/awards/top-dealer-2021-trophy.png",
+    modal: "/images/awards/top-dealer-2021-modal.png",
+  },
+  {
+    year: "2022",
+    trophy: "/images/awards/top-dealer-2022-trophy.png",
+    modal: "/images/awards/top-dealer-2022-modal.png",
+  },
+  {
+    year: "2023",
+    trophy: "/images/awards/top-dealer-2023-trophy.png",
+    modal: "/images/awards/top-dealer-2023-modal.png",
+  },
+  {
+    year: "2024",
+    trophy: "/images/awards/top-dealer-2024-trophy.png",
+    modal: "/images/awards/top-dealer-2024-modal.png",
+  },
+  {
+    year: "2025",
+    trophy: "/images/awards/top-dealer-2025-trophy.png",
+    modal: "/images/awards/top-dealer-2025-modal.png",
+  },
 ];
+
+function AwardYear({ award, duplicate = false }) {
+  return (
+    <div className={`ac-awards-year${duplicate ? " dup" : ""}`} aria-label={`AutoCount Dealer Award ${award.year}`}>
+      <div className="ac-awards-item ac-awards-item-trophy">
+        <img src={award.trophy} alt={`AutoCount Top Dealer trophy ${award.year}`} loading="lazy" />
+      </div>
+      <div className="ac-awards-item ac-awards-item-modal">
+        <img src={award.modal} alt={`AutoCount Top Dealer certificate ${award.year}`} loading="lazy" />
+      </div>
+    </div>
+  );
+}
 
 export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-cloud)", sectionTo = "var(--ks-page-warm)" }) {
   return (
@@ -26,9 +57,21 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
         <style>{`
           .ac-awards-container-new {
             margin-top: 1.5rem;
-            padding: 2.5rem 0;
+            padding: 2.2rem 0;
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+          }
+          .ac-awards-marquee-track {
+            display: flex;
+            align-items: center;
+            gap: 1.4rem;
+          }
+          .ac-awards-year {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.38rem;
           }
           .ac-awards-item {
             flex: 0 0 auto;
@@ -39,10 +82,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             align-items: center;
             justify-content: center;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            padding: 0 0.5rem;
-          }
-          .ac-awards-item:nth-child(even) {
-            margin-right: 1.5rem;
+            padding: 0;
           }
           .ac-awards-item:hover {
             transform: translateY(-5px);
@@ -66,27 +106,43 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             .ac-awards-container-new {
               mask-image: none;
               -webkit-mask-image: none;
-              max-width: min(1060px, calc(100vw - 8rem));
+              max-width: min(1520px, calc(100vw - 3rem));
               margin-left: auto;
               margin-right: auto;
+              overflow: visible;
             }
             .ac-awards-marquee-track {
+              display: grid;
+              grid-template-columns: repeat(6, minmax(0, 1fr));
               animation: none !important;
-              gap: clamp(0.3rem, 0.75vw, 0.75rem);
-              justify-content: center;
+              column-gap: clamp(0.5rem, 1vw, 1rem);
+              justify-content: stretch;
               width: 100%;
             }
-            .ac-awards-item.dup {
+            .ac-awards-year.dup {
               display: none;
             }
+            .ac-awards-year {
+              gap: clamp(0.16rem, 0.4vw, 0.36rem);
+              justify-content: center;
+            }
+            .ac-awards-year:first-child {
+              justify-content: flex-start;
+            }
+            .ac-awards-year:nth-child(6) {
+              justify-content: flex-end;
+            }
             .ac-awards-item {
-              flex: 0 0 clamp(58px, 5.5vw, 78px);
-              height: 140px;
-              padding: 0 5px;
+              flex: 0 0 auto;
+              height: clamp(118px, 8.4vw, 148px);
+              padding: 0;
               margin-right: 0;
             }
-            .ac-awards-item:nth-child(even) {
-              margin-right: clamp(0.95rem, 1.8vw, 2rem);
+            .ac-awards-item-trophy {
+              width: clamp(46px, 4.2vw, 72px);
+            }
+            .ac-awards-item-modal {
+              width: clamp(54px, 4.8vw, 82px);
             }
             .ac-awards-item img {
               width: 100%;
@@ -95,10 +151,16 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
           }
           /* Mobile: Keep marquee sizes */
           @media (max-width: 1024px) {
+            .ac-awards-marquee-track {
+              gap: 1rem;
+            }
+            .ac-awards-year {
+              gap: 0.34rem;
+            }
             .ac-awards-item {
               width: 80px;
               height: 110px;
-              padding: 0 0.5rem;
+              padding: 0;
             }
           }
         `}</style>
@@ -114,15 +176,9 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
 
           <div className="ac-brand-marquee-container ac-awards-container-new">
             <div className="ac-brand-marquee ac-awards-marquee-track" style={{ animationDuration: "35s" }}>
-              {AWARDS_IMAGES.map((src, i) => (
-                <div key={`orig-${i}`} className="ac-awards-item">
-                  <img src={src} alt="Top AutoCount Dealer Award" loading="lazy" />
-                </div>
-              ))}
-              {[...AWARDS_IMAGES, ...AWARDS_IMAGES, ...AWARDS_IMAGES].map((src, i) => (
-                <div key={`dup-${i}`} className="ac-awards-item dup">
-                  <img src={src} alt="Top AutoCount Dealer Award" loading="lazy" />
-                </div>
+              {AWARD_YEARS.map((award) => <AwardYear key={`orig-${award.year}`} award={award} />)}
+              {[...AWARD_YEARS, ...AWARD_YEARS, ...AWARD_YEARS].map((award, i) => (
+                <AwardYear key={`dup-${award.year}-${i}`} award={award} duplicate />
               ))}
             </div>
           </div>
