@@ -35,8 +35,9 @@ export default function ProductPromotionBento({
 
         .product-promo-head {
           display: flex;
-          align-items: end;
-          justify-content: space-between;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
           gap: 1.25rem;
           margin-bottom: clamp(1rem, 2.2vw, 1.5rem);
         }
@@ -71,11 +72,10 @@ export default function ProductPromotionBento({
           isolation: isolate;
           display: block;
           text-decoration: none;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition: box-shadow 0.3s ease;
         }
 
         .product-promo-card:hover {
-          transform: translateY(-4px);
           box-shadow: 0 32px 84px rgba(31, 34, 74, 0.14);
         }
 
@@ -98,12 +98,6 @@ export default function ProductPromotionBento({
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transform: scale(1.0);
-          transition: transform 0.4s ease;
-        }
-        
-        .product-promo-card:hover .product-promo-media img {
-          transform: scale(1.03);
         }
 
         .product-promo-content {

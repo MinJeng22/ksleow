@@ -497,6 +497,7 @@ const ACCOUNTING_PROMOTIONS = [
     badge: "Setup Support",
     title: "Remote installation with KSL Support Team",
     description: "Prepare AnyDesk or UltraViewer and reserve around 30 minutes. Our team can help you get the trial ready to test properly.",
+    image: "/images/products/autocount-onesales.png",
     cta: { label: "WhatsApp Support", href: WA_LINK, target: "_blank" },
   },
 ];
