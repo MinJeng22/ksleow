@@ -69,29 +69,6 @@ const BENTO_CAROUSEL_STYLES = `
   position: absolute;
   right: 0;
 }
-.ks-bento-carousel-btn {
-  align-items: center;
-  background: rgba(255,255,255,0.82);
-  border: 1px solid rgba(47,49,90,0.14);
-  border-radius: 999px;
-  box-shadow: 0 16px 38px rgba(47,49,90,0.1);
-  color: #2f315a;
-  cursor: pointer;
-  display: inline-flex;
-  height: 46px;
-  justify-content: center;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
-  width: 46px;
-}
-.ks-bento-carousel-btn:hover {
-  border-color: rgba(201,168,76,0.55);
-  box-shadow: 0 20px 44px rgba(47,49,90,0.14);
-  transform: translateY(-2px);
-}
-.ks-bento-carousel-btn:focus-visible {
-  outline: 2px solid rgba(201,168,76,0.72);
-  outline-offset: 4px;
-}
 @media (max-width: 1180px) {
   .ks-bento-carousel-slide {
     flex-basis: calc(100% + 128px);
@@ -113,10 +90,6 @@ const BENTO_CAROUSEL_STYLES = `
   }
   .ks-bento-carousel-slide {
     flex-basis: calc(100% + 88px);
-  }
-  .ks-bento-carousel-btn {
-    height: 42px;
-    width: 42px;
   }
 }
 `;
@@ -185,10 +158,10 @@ export function BentoCarousel({
         </div>
       </div>
       <div className="ks-bento-carousel-controls" aria-label={controlsLabel}>
-        <button type="button" className="ks-bento-carousel-btn" onClick={() => scrollByBento(-1)} aria-label="Previous item">
+        <button type="button" className="ks-carousel-btn" onClick={() => scrollByBento(-1)} aria-label="Previous item">
           <ArrowIcon direction="left" />
         </button>
-        <button type="button" className="ks-bento-carousel-btn" onClick={() => scrollByBento(1)} aria-label="Next item">
+        <button type="button" className="ks-carousel-btn" onClick={() => scrollByBento(1)} aria-label="Next item">
           <ArrowIcon direction="right" />
         </button>
       </div>

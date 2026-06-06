@@ -50,7 +50,7 @@ function CarouselControls({ onPrevious, onNext, className = "" }) {
         type="button"
         onClick={onPrevious}
         aria-label="Previous software"
-        className="products-carousel-button"
+        className="ks-carousel-btn"
       >
         <Chevron direction="previous" />
       </button>
@@ -58,7 +58,7 @@ function CarouselControls({ onPrevious, onNext, className = "" }) {
         type="button"
         onClick={onNext}
         aria-label="Next software"
-        className="products-carousel-button"
+        className="ks-carousel-btn"
       >
         <Chevron direction="next" />
       </button>
@@ -244,6 +244,12 @@ export default function Products({ onContact }) {
     setSlideDirection(null);
   };
 
+  const handlePillSelect = (targetIndex) => {
+    if (!canSlide || slideDirection || targetIndex === progressIndex) return;
+    setStartIndex(targetIndex);
+    setProgressIndex(targetIndex);
+  };
+
   useEffect(() => {
     let interval;
     if (isPlaying && canSlide && !slideDirection) {
@@ -258,6 +264,8 @@ export default function Products({ onContact }) {
   const gridRef = useRef(null);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
+  const accumulatedWheel = useRef(0);
+
   const onTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
@@ -269,6 +277,20 @@ export default function Products({ onContact }) {
     touchStartX.current = null;
     if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
     if (dx > 0) showPrevious(); else showNext();
+  };
+
+  const onWheel = (e) => {
+    if (!canSlide || slideDirection) return;
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      accumulatedWheel.current += e.deltaX;
+      if (Math.abs(accumulatedWheel.current) > 80) {
+        if (accumulatedWheel.current > 0) showNext();
+        else showPrevious();
+        accumulatedWheel.current = 0;
+      }
+    } else {
+      accumulatedWheel.current = 0;
+    }
   };
 
   useEffect(() => {
@@ -345,6 +367,7 @@ export default function Products({ onContact }) {
             className="products-carousel-shell"
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
+            onWheel={onWheel}
             style={{ touchAction: "pan-y" }}
           >
             <div
@@ -385,6 +408,7 @@ export default function Products({ onContact }) {
           tone="dark"
           showPlayToggle
           onTogglePlay={() => setIsPlaying(!isPlaying)}
+          onSelect={handlePillSelect}
         />
 
       </div>

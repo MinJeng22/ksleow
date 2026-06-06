@@ -2576,3 +2576,46 @@ body.has-active-modal .back-to-top-glass {
 .ks-bento-carousel-slide.ks-bento {
   background: transparent !important;
 }
+
+/* Generic Carousel Button (used in BentoGrid and Products) */
+.ks-carousel-btn {
+  align-items: center;
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(47,49,90,0.14);
+  border-radius: 999px;
+  box-shadow: 0 16px 38px rgba(47,49,90,0.1);
+  color: #2f315a;
+  cursor: pointer;
+  display: inline-flex;
+  height: 46px;
+  justify-content: center;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+  width: 46px;
+}
+.ks-carousel-btn:hover {
+  border-color: rgba(201,168,76,0.55);
+  box-shadow: 0 20px 44px rgba(47,49,90,0.14);
+  transform: translateY(-2px);
+}
+.ks-carousel-btn:focus-visible {
+  outline: 2px solid rgba(201,168,76,0.72);
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  .ks-carousel-btn {
+    height: 42px;
+    width: 42px;
+  }
+}
+
+/* Dark mode overrides for Products carousel */
+.products-section .ks-carousel-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+.products-section .ks-carousel-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(201,168,76,0.55);
+}
+

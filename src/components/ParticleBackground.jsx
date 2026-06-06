@@ -245,7 +245,7 @@ export default function ParticleBackground({
         ctx.stroke(paths[b]);
       }
 
-      /* mouse highlight lines */
+      /* mouse highlight lines and glowing particle */
       const hasMouse = mx > -999 && my > -999;
       if (hasMouse) {
         for (let i = 0; i < particles.length; i++) {
@@ -261,6 +261,17 @@ export default function ParticleBackground({
             ctx.stroke();
           }
         }
+        
+        /* Draw glowing light particle at mouse cursor */
+        ctx.beginPath();
+        ctx.arc(mx, my, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${highlightRgb}, 0.9)`;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(mx, my, 8, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${highlightRgb}, 0.25)`;
+        ctx.fill();
       }
 
       /* dots — single batch */
