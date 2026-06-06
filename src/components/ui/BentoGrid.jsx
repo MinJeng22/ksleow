@@ -13,7 +13,6 @@ const LAYOUT_CLASSES = [
 const BENTO_CAROUSEL_STYLES = `
 .ks-bento-carousel {
   position: relative;
-  padding-bottom: 4.25rem;
 }
 .ks-bento-carousel-viewport {
   margin-right: calc(-1 * min(4vw, 3rem));
@@ -38,7 +37,6 @@ const BENTO_CAROUSEL_STYLES = `
   margin-top: -1rem;
   scroll-behavior: smooth;
   scroll-padding-left: 0;
-  scroll-snap-type: x proximity;
   scrollbar-width: none;
   will-change: scroll-position;
 }
@@ -53,7 +51,6 @@ const BENTO_CAROUSEL_STYLES = `
 }
 .ks-bento-carousel-slide {
   flex: 0 0 calc(100% + min(18vw, 180px));
-  scroll-snap-align: start;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 @media (min-width: 1181px) {
@@ -65,7 +62,6 @@ const BENTO_CAROUSEL_STYLES = `
   transform: scale(0.995);
 }
 .ks-bento-carousel-slide .ks-bento-card {
-  scroll-snap-align: none;
 }
 .other-services-carousel .ks-bento-carousel-slide.ks-bento {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 0.9fr) minmax(0, 0.9fr) !important;
@@ -99,12 +95,13 @@ const BENTO_CAROUSEL_STYLES = `
   background: linear-gradient(145deg, rgba(255,255,255,1), rgba(255,250,235,0.98));
 }
 .ks-bento-carousel-controls {
-  bottom: 0;
+  bottom: 1.5rem;
   display: flex;
   gap: 0.65rem;
   justify-content: flex-end;
   position: absolute;
-  right: 0;
+  right: 2.5rem;
+  z-index: 10;
 }
 @media (min-width: 2400px) {
   .other-services-carousel .ks-bento-carousel-controls {
@@ -117,9 +114,6 @@ const BENTO_CAROUSEL_STYLES = `
   }
 }
 @media (max-width: 640px) {
-  .ks-bento-carousel {
-    padding-bottom: 3.75rem;
-  }
   .ks-bento-carousel-viewport {
     margin-right: -1rem;
   }

@@ -4,7 +4,7 @@ import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
 import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
-import { IconVideo, IconGrid, IconLedger, IconStar, IconTrophy } from "../../components/SectionDivider.jsx";
+import { IconVideo, IconGrid, IconLedger, IconStar, IconTrophy, IconRocket } from "../../components/SectionDivider.jsx";
 import cloudReleases from "../../content/autocountCloudReleases.json";
 import WhyChooseUs from "../../components/WhyChooseUs.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
@@ -52,6 +52,7 @@ const RELEASES = cloudReleases;
 
 const CLOUD_SECTIONS = [
   { id: "features", label: "Advantages", icon: IconStar, color: "#16a14b" },
+  { id: "promotions", label: "Promotions", icon: IconRocket, color: "#16a14b" },
   { id: "training", label: "30-Min Guide", icon: IconVideo, color: "#16a14b" },
   { id: "editions", label: "Editions", icon: IconGrid, color: "#2f315a" },
   { id: "releases", label: "Release Notes", icon: IconLedger, color: "#16a14b" },
@@ -520,7 +521,15 @@ export default function AutoCountCloudAccountingPage() {
       {/* ── Feature highlights ── */}
       <div className="product-app-section product-app-section-paper product-app-section-clean" style={{ '--feature-strip-bg': 'linear-gradient(180deg, #16a14b 0%, #0d7032 100%)', '--feature-strip-shadow': '0 0 16px rgba(22, 161, 75, 0.4)' }}>
         <FeatureShowcase features={FEATURES} />
+      </div>
+
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <PageSectionDivider sections={CLOUD_SECTIONS} id="promotions" />
+      </div>
+
+      <div className="product-app-section product-app-section-paper product-app-section-clean">
         <ProductPromotionBento
+          id="promotions"
           eyebrow="Promotion"
           title="CloudAccounting Subscription Offers"
           accent="#16a14b"
