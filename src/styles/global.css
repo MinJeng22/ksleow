@@ -971,7 +971,7 @@ textarea {
 }
 
 .ks-bento-card.is-wide .ks-bento-img {
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .ks-bento-card.is-wide .ks-bento-media {
