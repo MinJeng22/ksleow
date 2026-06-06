@@ -66,6 +66,14 @@ export default function ProductPromotionBento({
             #ffffff;
           box-shadow: 0 24px 70px rgba(31, 34, 74, 0.09);
           isolation: isolate;
+          display: block;
+          text-decoration: none;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-promo-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 32px 84px rgba(31, 34, 74, 0.14);
         }
 
         .product-promo-card.is-featured {
@@ -91,16 +99,6 @@ export default function ProductPromotionBento({
           z-index: 2;
         }
 
-        .product-promo-card.has-image::after {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background:
-            linear-gradient(90deg, rgba(8, 10, 32, 0.72), rgba(8, 10, 32, 0.26) 58%, rgba(8, 10, 32, 0.08)),
-            linear-gradient(0deg, rgba(8, 10, 32, 0.68), rgba(8, 10, 32, 0.02) 58%);
-          z-index: 1;
-        }
-
         .product-promo-media {
           position: absolute;
           inset: 0;
@@ -111,7 +109,12 @@ export default function ProductPromotionBento({
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transform: scale(1.02);
+          transform: scale(1.0);
+          transition: transform 0.4s ease;
+        }
+        
+        .product-promo-card:hover .product-promo-media img {
+          transform: scale(1.03);
         }
 
         .product-promo-content {
@@ -125,11 +128,6 @@ export default function ProductPromotionBento({
           padding: clamp(1.25rem, 2.6vw, 2rem);
         }
 
-        .product-promo-card.has-image .product-promo-content {
-          color: #ffffff;
-          text-shadow: 0 1px 18px rgba(0, 0, 0, 0.2);
-        }
-
         .product-promo-badge {
           width: fit-content;
           border-radius: 999px;
@@ -140,10 +138,6 @@ export default function ProductPromotionBento({
           letter-spacing: 0.12em;
           padding: 0.36rem 0.72rem;
           text-transform: uppercase;
-        }
-
-        .product-promo-card.has-image .product-promo-badge {
-          background: rgba(255,255,255,0.88);
         }
 
         .product-promo-card-title {
@@ -159,20 +153,12 @@ export default function ProductPromotionBento({
           font-size: clamp(1.55rem, 3vw, 2.45rem);
         }
 
-        .product-promo-card.has-image .product-promo-card-title {
-          color: #ffffff;
-        }
-
         .product-promo-copy {
           margin: 0;
           max-width: 60ch;
           color: #656a8f;
           font-size: clamp(0.88rem, 1.2vw, 0.98rem);
           line-height: 1.68;
-        }
-
-        .product-promo-card.has-image .product-promo-copy {
-          color: rgba(255,255,255,0.9);
         }
 
         .product-promo-link {
@@ -237,38 +223,46 @@ export default function ProductPromotionBento({
       </div>
 
       <div className="product-promo-grid">
-        {cards.map((item, index) => (
-          <article
-            key={`${item.title}-${index}`}
-            className={`product-promo-card ${index === 0 ? "is-featured" : ""} ${item.image ? "has-image" : ""}`}
-          >
-            {item.image && (
-              <div className="product-promo-media" aria-hidden="true">
-                <Img
-                  src={item.image}
-                  alt=""
-                  protect={false}
-                  priority={index === 0}
-                />
-              </div>
-            )}
-            <div className="product-promo-content">
-              {item.badge && <span className="product-promo-badge">{item.badge}</span>}
-              <h3 className="product-promo-card-title">{item.title}</h3>
-              {item.description && <p className="product-promo-copy">{item.description}</p>}
-              {item.cta && (
-                <a
-                  className="product-promo-link"
-                  href={item.cta.href}
-                  target={item.cta.target}
-                  rel={item.cta.target === "_blank" ? "noreferrer" : undefined}
-                >
-                  {item.cta.label}
-                </a>
+        {cards.map((item, index) => {
+          const CardTag = item.cta?.href ? "a" : "article";
+          const cardProps = item.cta?.href
+            ? {
+                href: item.cta.href,
+                target: item.cta.target,
+                rel: item.cta.target === "_blank" ? "noreferrer" : undefined,
+              }
+            : {};
+
+          return (
+            <CardTag
+              key={`${item.title}-${index}`}
+              className={`product-promo-card ${index === 0 ? "is-featured" : ""} ${item.image ? "has-image" : ""}`}
+              {...cardProps}
+            >
+              {item.image ? (
+                <div className="product-promo-media" aria-hidden="true">
+                  <Img
+                    src={item.image}
+                    alt={item.title}
+                    protect={false}
+                    priority={index === 0}
+                  />
+                </div>
+              ) : (
+                <div className="product-promo-content">
+                  {item.badge && <span className="product-promo-badge">{item.badge}</span>}
+                  <h3 className="product-promo-card-title">{item.title}</h3>
+                  {item.description && <p className="product-promo-copy">{item.description}</p>}
+                  {item.cta && (
+                    <span className="product-promo-link">
+                      {item.cta.label}
+                    </span>
+                  )}
+                </div>
               )}
-            </div>
-          </article>
-        ))}
+            </CardTag>
+          );
+        })}
       </div>
     </section>
   );
