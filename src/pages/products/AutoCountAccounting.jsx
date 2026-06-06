@@ -691,7 +691,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       <div className="product-app-section product-app-section-paper product-app-section-clean">
         <div id="promotions" style={{ paddingBottom: "2rem" }}>
           <div className="ac-section-header ac-container" style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-            <span className="ac-eyebrow" style={{ color: "#80c31e" }}>Promotion</span>
+            
             <h2 className="ac-section-title">Current AutoCount Accounting Offers</h2>
           </div>
           <div style={{ maxWidth: "1240px", margin: "0 auto", padding: "0 1.5rem", "--bento-accent": "#80c31e" }}>
