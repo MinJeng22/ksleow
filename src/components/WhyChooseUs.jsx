@@ -66,24 +66,27 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             .ac-awards-container-new {
               mask-image: none;
               -webkit-mask-image: none;
-              max-width: 1200px; /* Limit max width on very large screens */
+              max-width: min(1060px, calc(100vw - 8rem));
               margin-left: auto;
               margin-right: auto;
             }
             .ac-awards-marquee-track {
               animation: none !important;
-              justify-content: space-between;
+              gap: clamp(0.3rem, 0.75vw, 0.75rem);
+              justify-content: center;
               width: 100%;
             }
             .ac-awards-item.dup {
               display: none;
             }
             .ac-awards-item {
-              flex: 1;
-              max-width: calc(100% / 12);
+              flex: 0 0 clamp(58px, 5.5vw, 78px);
               height: 140px;
               padding: 0 5px;
-              margin-right: 0 !important;
+              margin-right: 0;
+            }
+            .ac-awards-item:nth-child(even) {
+              margin-right: clamp(0.95rem, 1.8vw, 2rem);
             }
             .ac-awards-item img {
               width: 100%;
