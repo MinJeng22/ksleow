@@ -20,6 +20,11 @@ const BENTO_CAROUSEL_STYLES = `
   overflow: hidden;
 }
 @media (min-width: 1181px) {
+  .other-services-carousel.ks-bento-carousel {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
   .other-services-carousel .ks-bento-carousel-viewport {
     margin-right: 0;
   }
@@ -42,7 +47,8 @@ const BENTO_CAROUSEL_STYLES = `
 }
 @media (min-width: 1181px) {
   .other-services-carousel .ks-bento-carousel-track {
-    padding-right: 0;
+    padding-left: min(4vw, 3rem);
+    padding-right: min(4vw, 3rem);
     overflow-x: visible;
   }
 }
