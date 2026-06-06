@@ -2611,13 +2611,13 @@ body.has-active-modal .back-to-top-glass {
 
 /* Dark mode overrides for Products carousel */
 .products-section .ks-carousel-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.35);
   color: #ffffff;
 }
 .products-section .ks-carousel-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(201,168,76,0.55);
+  background: rgba(255, 255, 255, 0.35);
+  border-color: rgba(201,168,76,0.65);
 }
 
 .service-card-shell {

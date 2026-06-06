@@ -4,6 +4,8 @@ import { CONTACT, WA_LINK } from "../constants/contact.js";
 import footer from "../content/footer.json";
 import branding from "../content/branding.json";
 
+const COPYRIGHT_YEAR = 2026;
+
 const Icon = ({ d, size = 14 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24"
     fill="none" stroke="currentColor" strokeWidth="2"
@@ -138,7 +140,7 @@ export default function Footer() {
       </footer>
 
       <div style={{ background: "#13142a", padding: "0.45rem 0 0.55rem", textAlign: "center", fontSize: "0.75rem", color: "#55587a", lineHeight: 1.55 }}>
-        <div>© {new Date().getFullYear()} {footer.copyrightLine}</div>
+        <div>© {COPYRIGHT_YEAR} {footer.copyrightLine}</div>
         <div>{footer.locationLine}</div>
       </div>
     </>

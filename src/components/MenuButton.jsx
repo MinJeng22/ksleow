@@ -615,9 +615,9 @@ const STYLES = `
 
 /* ── Component ──────────────────────────────────────────── */
 export default function MenuButton({ onOpenSearch, hideBar }) {
-  const isBrowser = typeof window !== "undefined";
   const [open, setOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [hasHistory, setHasHistory] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState([0]);
   const panelRef = useRef(null);
   const fabRef = useRef(null);
@@ -641,6 +641,10 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    setHasHistory(Boolean(window.history.state && window.history.state.idx > 0));
+  }, [pathname]);
 
   useEffect(() => {
     const handleOpenMenu = () => setOpen(true);
@@ -776,7 +780,6 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     }
   };
 
-  const hasHistory = isBrowser && window.history.state && window.history.state.idx > 0;
   const isHomeHero = pathname === "/" && scrollY < 10;
   const mobileActionMode = hasHistory && !isHomeHero ? "back" : null;
 
