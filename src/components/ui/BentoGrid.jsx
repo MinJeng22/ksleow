@@ -22,7 +22,8 @@ const BENTO_CAROUSEL_STYLES = `
   gap: 1.25rem;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  padding: 0 min(4vw, 3rem) 1rem 0;
+  padding: 1rem min(4vw, 3rem) 1rem 0;
+  margin-top: -1rem;
   scroll-behavior: smooth;
   scroll-padding-left: 0;
   scroll-snap-type: x proximity;

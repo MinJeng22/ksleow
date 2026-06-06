@@ -819,7 +819,7 @@ textarea {
 }
 
 .ks-section-header {
-  max-width: 760px;
+  max-width: none;
 }
 
 .ks-section-header--center {
@@ -2571,4 +2571,8 @@ body.has-active-modal .back-to-top-glass {
     text-align: center;
     display: block;
   }
+}
+
+.ks-bento-carousel-slide.ks-bento {
+  background: transparent !important;
 }
