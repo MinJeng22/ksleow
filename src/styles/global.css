@@ -971,7 +971,11 @@ textarea {
 }
 
 .ks-bento-card.is-wide .ks-bento-img {
-  object-fit: cover;
+  object-fit: contain;
+}
+
+.ks-bento-card.is-wide .ks-bento-media {
+  background: #ffffff;
 }
 
 .ks-bento-placeholder {
@@ -1001,7 +1005,7 @@ textarea {
 @media (max-width: 1180px) {
   .ks-bento {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: auto;
+    grid-template-rows: repeat(2, 1fr);
     min-height: 0;
   }
 
