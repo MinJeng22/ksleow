@@ -21,21 +21,24 @@ export default function ProductPromotionBento({
           scroll-margin-top: 24px;
         }
 
+        @media (min-width: 1600px) {
+          .product-promo-bento {
+            width: min(1380px, 100%);
+          }
+        }
+
+        @media (min-width: 1900px) {
+          .product-promo-bento {
+            width: min(1560px, 100%);
+          }
+        }
+
         .product-promo-head {
           display: flex;
           align-items: end;
           justify-content: space-between;
           gap: 1.25rem;
           margin-bottom: clamp(1rem, 2.2vw, 1.5rem);
-        }
-
-        .product-promo-eyebrow {
-          margin: 0 0 0.4rem;
-          color: var(--promo-accent);
-          font-size: 0.72rem;
-          font-weight: 850;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
         }
 
         .product-promo-title {
@@ -83,20 +86,6 @@ export default function ProductPromotionBento({
 
         .product-promo-card:not(.is-featured) {
           aspect-ratio: 16 / 9;
-        }
-
-        .product-promo-card.is-featured {
-          aspect-ratio: 4 / 3;
-        }
-
-        .product-promo-card::before {
-          content: "";
-          position: absolute;
-          inset: 0 auto 0 0;
-          width: 6px;
-          background: var(--promo-accent);
-          opacity: 0.95;
-          z-index: 2;
         }
 
         .product-promo-media {
@@ -217,7 +206,6 @@ export default function ProductPromotionBento({
 
       <div className="product-promo-head">
         <div>
-          <p className="product-promo-eyebrow">{eyebrow}</p>
           <h2 className="product-promo-title">{title}</h2>
         </div>
       </div>

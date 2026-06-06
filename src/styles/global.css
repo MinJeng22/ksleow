@@ -338,6 +338,53 @@ textarea {
   padding-right: var(--px);
 }
 
+@media (min-width: 1600px) {
+  :root {
+    --content-max-w: 1640px;
+    --px: clamp(20px, 2vw, 44px);
+    --section-py: 5rem;
+    --section-py-sm: 3.2rem;
+  }
+
+  .product-app-section {
+    padding-top: 3.35rem;
+    padding-bottom: 3.35rem;
+  }
+
+  .ac-section-tight {
+    padding-top: 3.1rem !important;
+    padding-bottom: 3.1rem !important;
+  }
+
+  .ac-features-showcase {
+    padding-bottom: 2.75rem !important;
+  }
+
+  .feature-showcase-promo-carousel {
+    max-width: 960px;
+  }
+
+  .ks-bento {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1900px) {
+  :root {
+    --content-max-w: 1760px;
+    --px: clamp(24px, 2vw, 52px);
+  }
+
+  .product-app-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .feature-showcase-promo-carousel {
+    max-width: 1080px;
+  }
+}
+
 .products-carousel-controls-side {
   position: absolute;
   top: 50%;
