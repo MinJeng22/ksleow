@@ -58,7 +58,7 @@ const BENTO_CAROUSEL_STYLES = `
 }
 @media (min-width: 1181px) {
   .other-services-carousel .ks-bento-carousel-slide {
-    flex: 1 1 auto;
+    flex: 0 0 max(100%, 1600px);
   }
 }
 .ks-bento-carousel-track:active .ks-bento-carousel-slide {
@@ -105,6 +105,11 @@ const BENTO_CAROUSEL_STYLES = `
   justify-content: flex-end;
   position: absolute;
   right: 0;
+}
+@media (min-width: 1601px) {
+  .other-services-carousel .ks-bento-carousel-controls {
+    display: none;
+  }
 }
 @media (max-width: 1180px) {
   .ks-bento-carousel-slide {
