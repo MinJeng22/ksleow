@@ -11,7 +11,11 @@ const app = (
 );
 
 if (root?.hasChildNodes()) {
-  hydrateRoot(root, app);
+  hydrateRoot(root, app, {
+    onRecoverableError(error, errorInfo) {
+      console.error("[hydration-debug]", error.message, errorInfo?.componentStack || "");
+    },
+  });
 } else {
   createRoot(root).render(app);
 }
