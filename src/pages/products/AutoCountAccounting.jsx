@@ -12,6 +12,7 @@ import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
+import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
 import { CopyReleaseButton, ReleaseNumber, ShareLinkButton } from "../../components/ReleaseTools.jsx";
 import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
@@ -454,7 +455,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
   );
 }
 
-/* AutoCount feature highlights. */
+/* AutoCount advantage highlights. */
 const FEATURES = [
   {
     icon: "/images/services/lhdn-logo.png",
@@ -478,10 +479,25 @@ const FEATURES = [
   },
 ];
 
-const FEATURE_PROMOS = [
+const ACCOUNTING_PROMOTIONS = [
   {
-    src: "/images/promotions/ksl-referral-program.jpg",
-    alt: "KSL Business Solutions referral program",
+    badge: "Free Trial",
+    title: "Start AutoCount Accounting 2.2 Free Trial",
+    description: "Try AutoCount Accounting 2.2 with a 500 transactions trial. KSL Support Team can help prepare remote installation and basic setup for testing.",
+    image: "/images/products/autocount-accounting-showcase.webp",
+    cta: { label: "Start Free Trial", href: WA_LINK, target: "_blank" },
+  },
+  {
+    badge: "Referral Program",
+    title: "Earn rewards when you refer AutoCount users",
+    description: "Introduce a business that needs AutoCount Accounting, POS, Payroll, or CloudAccounting and let KSL handle the consultation.",
+    image: "/images/promotions/ksl-referral-program.jpg",
+  },
+  {
+    badge: "Setup Support",
+    title: "Remote installation with KSL Support Team",
+    description: "Prepare AnyDesk or UltraViewer and reserve around 30 minutes. Our team can help you get the trial ready to test properly.",
+    cta: { label: "WhatsApp Support", href: WA_LINK, target: "_blank" },
   },
 ];
 
@@ -507,7 +523,7 @@ const BRAND_LOGOS = [
 
 /* AutoCount sidebar anchor items */
 const AC_SECTIONS = [
-  { id: "features", label: "Features", icon: IconStar, color: "#80c31e" },
+  { id: "features", label: "Advantages", icon: IconStar, color: "#80c31e" },
   { id: "training", label: "Quick-Start Guide", icon: IconVideo, color: "#80c31e" },
   { id: "editions", label: "Edition Compare", icon: IconGrid, color: "#2f315a" },
   { id: "releases", label: "Release Notes", icon: IconLedger, color: "#4a6e0e" },
@@ -659,10 +675,15 @@ export default function AutoCountAccountingPage({ onContact }) {
       <div className="product-app-section product-app-section-paper product-app-section-clean">
         <FeatureShowcase
           features={FEATURES}
-          /* promoSlides={FEATURE_PROMOS} */
           brandLogos={BRAND_LOGOS}
           brandText="Over 240,000 businesses trust AutoCount to drive their growth"
           wrapper
+        />
+        <ProductPromotionBento
+          eyebrow="Promotion"
+          title="Current AutoCount Accounting Offers"
+          accent="#80c31e"
+          items={ACCOUNTING_PROMOTIONS}
         />
       </div>
 

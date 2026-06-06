@@ -10,6 +10,7 @@ import WhyChooseUs from "../../components/WhyChooseUs.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
+import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
 import { CompareRevBadge, CopyReleaseButton, ReleaseNumber, ShareLinkButton } from "../../components/ReleaseTools.jsx";
 import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
@@ -80,14 +81,26 @@ const FEATURES = [
   },
 ];
 
-const FEATURE_PROMOS = [
+const CLOUD_PROMOTIONS = [
   {
-    src: "/images/promotions/ksl-referral-program.jpg",
-    alt: "KSL Business Solutions referral program",
+    badge: "Best Value",
+    title: "24 Months Subscription with 75% Off",
+    description: "Lock in the strongest CloudAccounting promotion rate for teams that are ready to run accounting online for the long term.",
+    image: "/images/promotions/autocount-cloudaccounting-75-promo.png",
+    cta: { label: "Start Free Trial", href: FREE_TRIAL_URL, target: "_blank" },
   },
   {
-    src: "/images/promotions/autocount-cloudaccounting-75-promo.png",
-    alt: "AutoCount CloudAccounting 75 percent promotion for 2 years subscription",
+    badge: "Annual Plan",
+    title: "12 Months Subscription with 65% Off",
+    description: "A practical annual option for SMEs that want a lower commitment while moving accounting, SST, and e-Invoice workflows to the cloud.",
+    cta: { label: "Compare Editions", href: "#editions" },
+  },
+  {
+    badge: "Free Trial",
+    title: "Try CloudAccounting with KSL dealer support",
+    description: "Register using KSL's dealer link, explore CloudAccounting, and speak with our team when you need help choosing the right edition.",
+    image: "/images/products/autocount-cloudaccounting-hero.jpg",
+    cta: { label: "Register Trial", href: FREE_TRIAL_URL, target: "_blank" },
   },
 ];
 
@@ -506,7 +519,13 @@ export default function AutoCountCloudAccountingPage() {
       <main className="pinned-page-content product-app-content">
       {/* ── Feature highlights ── */}
       <div className="product-app-section product-app-section-paper product-app-section-clean" style={{ '--feature-strip-bg': 'linear-gradient(180deg, #16a14b 0%, #0d7032 100%)', '--feature-strip-shadow': '0 0 16px rgba(22, 161, 75, 0.4)' }}>
-        <FeatureShowcase features={FEATURES} /* promoSlides={FEATURE_PROMOS} */ />
+        <FeatureShowcase features={FEATURES} />
+        <ProductPromotionBento
+          eyebrow="Promotion"
+          title="CloudAccounting Subscription Offers"
+          accent="#16a14b"
+          items={CLOUD_PROMOTIONS}
+        />
       </div>
 
       <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
