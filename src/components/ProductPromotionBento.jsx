@@ -23,13 +23,13 @@ export default function ProductPromotionBento({
 
         @media (min-width: 1600px) {
           .product-promo-bento {
-            width: min(1380px, 100%);
+            width: min(1460px, 100%);
           }
         }
 
         @media (min-width: 1900px) {
           .product-promo-bento {
-            width: min(1560px, 100%);
+            width: min(1680px, 100%);
           }
         }
 

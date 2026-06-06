@@ -154,23 +154,23 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
           }
           @media (min-width: 1600px) {
             .ac-awards-container-new {
-              max-width: min(1680px, calc(100vw - 5rem));
-              padding-top: 1.75rem;
-              padding-bottom: 1.75rem;
+              max-width: min(1780px, calc(100vw - 4rem));
+              padding-top: 1.45rem;
+              padding-bottom: 1.45rem;
             }
             .ac-awards-marquee-track {
-              column-gap: clamp(0.35rem, 0.55vw, 0.75rem);
+              column-gap: clamp(0.28rem, 0.45vw, 0.65rem);
             }
             .ac-awards-item {
-              height: clamp(158px, 8.4vw, 190px);
+              height: clamp(174px, 8.9vw, 205px);
             }
           }
           @media (min-width: 1900px) {
             .ac-awards-container-new {
-              max-width: min(1800px, calc(100vw - 6rem));
+              max-width: min(1960px, calc(100vw - 4.5rem));
             }
             .ac-awards-item {
-              height: clamp(176px, 8vw, 208px);
+              height: clamp(198px, 8.6vw, 226px);
             }
           }
           /* Mobile: Keep marquee sizes */
