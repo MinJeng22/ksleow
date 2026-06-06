@@ -96,6 +96,13 @@ collections:
                 fields:
                   - { name: email, label: Email Address, widget: string }
               - { name: facebook, label: Facebook Link (Optional), widget: string, required: false }
+              - name: addresses
+                label: Addresses (Optional, up to 2)
+                widget: list
+                required: false
+                max: 2
+                fields:
+                  - { name: address, label: Address, widget: string }
 
       # ───────── Services ─────────
       - file: src/content/services.json

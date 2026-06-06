@@ -16,7 +16,7 @@ const PRODUCTS = (productsContent.items || []).map(p => ({
 }));
 
 function getViewportWidth() {
-  return typeof window === "undefined" ? 1440 : window.innerWidth;
+  return 1440;
 }
 
 function getCarouselCount(width) {
