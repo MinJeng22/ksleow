@@ -100,22 +100,11 @@ function ServiceCard({ service }) {
   const contact = SERVICE_CONTACTS[service.key] || {};
   const office  = (service.officeKey && OFFICES[service.officeKey]) || null;
   
-  const cmsPhones = office?.phones?.map(p => p.number).filter(Boolean);
-  const phoneArray = (cmsPhones && cmsPhones.length > 0)
-    ? cmsPhones
+  const cmsPhone = office?.phone;
+  const phoneArray = cmsPhone
+    ? [cmsPhone]
     : (Array.isArray(contact.phone) ? contact.phone : (contact.phone || "017-905 2323").split(/[,/]/).map(s => s.trim()));
   const primaryPhone = phoneArray[0];
-
-  const cmsAddresses = office?.addresses?.map(a => a.address).filter(Boolean);
-  const addressArray = (cmsAddresses && cmsAddresses.length > 0)
-    ? cmsAddresses
-    : [
-        (contact.address || "Taman Zabidin, Mentakab, Pahang")
-          .replace("No.8-9, Ground Floor, ", "")
-          .replace("No.8-9, 1st Floor, ", "")
-          .replace("No.8-9, 2nd Floor, ", "")
-          .replace("Kampung Catin, 28400 ", "")
-      ];
 
   const cmsEmails = office?.emails?.map(e => e.email).filter(Boolean);
   const emailArray = (cmsEmails && cmsEmails.length > 0)
@@ -414,20 +403,10 @@ function ServiceCard({ service }) {
                 overflowY: "auto", paddingRight: "4px"
               }}
             >
-              {phoneArray.map((phone, idx) => (
-                <ContactLine
-                  key={idx}
-                  icon={idx === 0 ? <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l1-1a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /> : <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l1-1a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />}
-                  label={phone}
-                />
-              ))}
-              {addressArray.map((addr, idx) => (
-                <ContactLine
-                  key={`addr-${idx}`}
-                  icon={<><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></>}
-                  label={addr}
-                />
-              ))}
+              <ContactLine
+                icon={<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l1-1a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />}
+                label={primaryPhone}
+              />
               {emailArray.map((email, idx) => (
                 <ContactLine
                   key={`email-${idx}`}

@@ -87,13 +87,7 @@ collections:
               - { name: name,    label: Company full name (UPPERCASE), widget: string }
               - { name: tagline, label: Short tagline shown above the name, widget: string, required: false }
               - { name: logo,    label: Company logo (shown on card back), widget: image, required: false }
-              - name: phones
-                label: Phone Numbers (Optional, up to 2)
-                widget: list
-                required: false
-                max: 2
-                fields:
-                  - { name: number, label: Phone Number, widget: string }
+              - { name: phone,   label: Phone Number (Optional), widget: string, required: false }
               - name: emails
                 label: Emails (Optional, up to 2)
                 widget: list
@@ -102,13 +96,6 @@ collections:
                 fields:
                   - { name: email, label: Email Address, widget: string }
               - { name: facebook, label: Facebook Link (Optional), widget: string, required: false }
-              - name: addresses
-                label: Addresses (Optional, up to 2)
-                widget: list
-                required: false
-                max: 2
-                fields:
-                  - { name: address, label: Address, widget: string }
 
       # ───────── Services ─────────
       - file: src/content/services.json

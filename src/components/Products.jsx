@@ -203,6 +203,7 @@ export default function Products({ onContact }) {
   const [startIndex, setStartIndex] = useState(0);
   const [progressIndex, setProgressIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState(null);
+  const [slideOffset, setSlideOffset] = useState(1);
   const [viewportWidth, setViewportWidth] = useState(getViewportWidth);
   const [revealSettled, setRevealSettled] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -218,36 +219,53 @@ export default function Products({ onContact }) {
 
   const visibleCount = Math.min(getCarouselCount(viewportWidth), PRODUCTS.length);
   const renderCount = Math.min(visibleCount + 2, PRODUCTS.length + 2);
+  const currentRenderCount = renderCount + (slideOffset > 1 ? slideOffset - 1 : 0);
   const canSlide = PRODUCTS.length > 1;
-  const visibleProducts = Array.from({ length: renderCount }, (_, order) => {
-    const productIndex = (startIndex + order - 2 + PRODUCTS.length) % PRODUCTS.length;
+  const visibleProducts = Array.from({ length: currentRenderCount }, (_, order) => {
+    // If direction is previous, we need to prepend the array with the extra items
+    const renderOffset = slideDirection === "previous" ? (slideOffset - 1) : 0;
+    const productIndex = (startIndex + order - 2 - renderOffset + PRODUCTS.length * 10) % PRODUCTS.length;
     return { product: PRODUCTS[productIndex], productIndex, order };
   });
-  const startSlide = (direction) => {
+
+  const startSlide = (direction, offset = 1) => {
     if (!canSlide || slideDirection) return;
+    setSlideOffset(offset);
     setSlideDirection(direction);
     setProgressIndex(i => (
       direction === "next"
-        ? (i + 1) % PRODUCTS.length
-        : (i - 1 + PRODUCTS.length) % PRODUCTS.length
+        ? (i + offset) % PRODUCTS.length
+        : (i - offset + PRODUCTS.length * offset) % PRODUCTS.length
     ));
   };
-  const showPrevious = () => startSlide("previous");
-  const showNext = () => startSlide("next");
+  const showPrevious = () => startSlide("previous", 1);
+  const showNext = () => startSlide("next", 1);
   const finishSlide = () => {
     if (!slideDirection) return;
     setStartIndex(i => (
       slideDirection === "next"
-        ? (i + 1) % PRODUCTS.length
-        : (i - 1 + PRODUCTS.length) % PRODUCTS.length
+        ? (i + slideOffset) % PRODUCTS.length
+        : (i - slideOffset + PRODUCTS.length * slideOffset) % PRODUCTS.length
     ));
     setSlideDirection(null);
+    setSlideOffset(1);
   };
 
   const handlePillSelect = (targetIndex) => {
     if (!canSlide || slideDirection || targetIndex === progressIndex) return;
-    setStartIndex(targetIndex);
-    setProgressIndex(targetIndex);
+    
+    let diff = targetIndex - progressIndex;
+    if (diff < 0) diff += PRODUCTS.length;
+    
+    let direction = "next";
+    let offset = diff;
+    
+    if (PRODUCTS.length - diff < diff) {
+      direction = "previous";
+      offset = PRODUCTS.length - diff;
+    }
+    
+    startSlide(direction, offset);
   };
 
   useEffect(() => {
@@ -375,9 +393,10 @@ export default function Products({ onContact }) {
               className={`products-grid products-grid-carousel${slideDirection ? ` is-sliding-${slideDirection}` : ""}`}
               onAnimationEnd={finishSlide}
               style={{
-                "--products-render-count": renderCount,
+                "--products-render-count": currentRenderCount,
+                "--slide-offset": slideOffset,
                 display: "grid",
-                gridTemplateColumns: `repeat(${renderCount}, 1fr)`,
+                gridTemplateColumns: `repeat(${currentRenderCount}, 1fr)`,
                 gridAutoRows: "1fr",
                 gap: "0.9rem",
               }}

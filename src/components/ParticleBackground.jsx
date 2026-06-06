@@ -264,12 +264,12 @@ export default function ParticleBackground({
         
         /* Draw glowing light particle at mouse cursor */
         ctx.beginPath();
-        ctx.arc(mx, my, 2.5, 0, Math.PI * 2);
+        ctx.arc(mx, my, 1.5, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${highlightRgb}, 0.9)`;
         ctx.fill();
 
         ctx.beginPath();
-        ctx.arc(mx, my, 8, 0, Math.PI * 2);
+        ctx.arc(mx, my, 5, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${highlightRgb}, 0.25)`;
         ctx.fill();
       }

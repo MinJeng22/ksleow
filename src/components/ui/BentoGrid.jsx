@@ -132,7 +132,24 @@ export function BentoCarousel({
     const slide = track.querySelector(".ks-bento-carousel-slide");
     const slideWidth = slide?.getBoundingClientRect().width || track.clientWidth;
     const distance = Math.min(track.clientWidth * 0.86, slideWidth * 0.38);
-    track.scrollBy({ left: direction * distance, behavior: "smooth" });
+    
+    // Manual JS smooth scroll to guarantee animation across all browsers
+    const start = track.scrollLeft;
+    const end = start + direction * distance;
+    const duration = 450;
+    const startTime = performance.now();
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    
+    const animateScroll = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      if (elapsed < duration) {
+        track.scrollLeft = start + (end - start) * easeOutCubic(elapsed / duration);
+        requestAnimationFrame(animateScroll);
+      } else {
+        track.scrollLeft = end;
+      }
+    };
+    requestAnimationFrame(animateScroll);
   };
 
   return (
