@@ -43,6 +43,24 @@ const BENTO_CAROUSEL_STYLES = `
 .ks-bento-carousel-slide .ks-bento-card {
   scroll-snap-align: none;
 }
+.other-services-carousel .ks-bento-carousel-slide.ks-bento {
+  grid-template-columns: minmax(0, 1.38fr) minmax(0, 1.78fr) minmax(0, 0.94fr);
+}
+.other-services-carousel .ks-bento-card {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.96), rgba(250,248,241,0.94));
+  border-color: rgba(47,49,90,0.1);
+  box-shadow: 0 24px 60px rgba(47,49,90,0.08);
+}
+.other-services-carousel .ks-bento-card.is-empty {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.42), rgba(229,230,237,0.54));
+  border-color: rgba(47,49,90,0.08);
+}
+.other-services-carousel .ks-bento-card.is-clickable:hover {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,1), rgba(255,250,235,0.98));
+}
 .ks-bento-carousel-controls {
   bottom: 0;
   display: flex;
@@ -77,6 +95,9 @@ const BENTO_CAROUSEL_STYLES = `
 @media (max-width: 1180px) {
   .ks-bento-carousel-slide {
     flex-basis: calc(100% + 128px);
+  }
+  .other-services-carousel .ks-bento-carousel-slide.ks-bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (max-width: 640px) {
