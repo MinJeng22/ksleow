@@ -15,36 +15,18 @@ const BENTO_CAROUSEL_STYLES = `
   position: relative;
 }
 .ks-bento-carousel-viewport {
-  margin-right: calc(-1 * min(4vw, 3rem));
-  overflow: hidden;
-}
-@media (min-width: 1181px) {
-  .other-services-carousel.ks-bento-carousel {
-    width: auto;
-    margin-left: calc((50% - 50vw) / 2);
-    margin-right: calc((50% - 50vw) / 2);
-  }
-  .other-services-carousel .ks-bento-carousel-viewport {
-    margin-right: 0;
-  }
 }
 .ks-bento-carousel-track {
   display: flex;
   gap: 1.25rem;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  padding: 1rem min(4vw, 3rem) 1rem 0;
-  margin-top: -1rem;
+  padding: 1.5rem 0.5rem;
+  margin: -1.5rem -0.5rem;
   scroll-behavior: smooth;
   scroll-padding-left: 0;
   scrollbar-width: none;
   will-change: scroll-position;
-}
-@media (min-width: 1181px) {
-  .other-services-carousel .ks-bento-carousel-track {
-    padding-left: min(4vw, 3rem);
-    padding-right: min(4vw, 3rem);
-  }
 }
 .ks-bento-carousel-track::-webkit-scrollbar {
   display: none;
@@ -82,17 +64,17 @@ const BENTO_CAROUSEL_STYLES = `
   .other-services-carousel .ks-bento-layout-6 { grid-column: 3 / span 2 !important; grid-row: 2 !important; }
 }
 .other-services-carousel .ks-bento-card {
-  background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(250,248,241,0.94));
+  background: #f5f5f8;
   border-color: rgba(47,49,90,0.1);
   box-shadow: 0 24px 60px rgba(47,49,90,0.08);
 }
 .other-services-carousel .ks-bento-card.is-empty {
   /* User wants empty cards to be visible as filled shapes to fill negative space */
-  background: linear-gradient(145deg, rgba(255,255,255,0.96), rgba(250,248,241,0.94));
+  background: #f5f5f8;
   border-color: rgba(47,49,90,0.1);
 }
 .other-services-carousel .ks-bento-card.is-clickable:hover {
-  background: linear-gradient(145deg, rgba(255,255,255,1), rgba(255,250,235,0.98));
+  background: #ffffff;
 }
 .ks-bento-carousel-controls {
   bottom: 1.5rem;
@@ -100,7 +82,7 @@ const BENTO_CAROUSEL_STYLES = `
   gap: 0.65rem;
   justify-content: flex-end;
   position: absolute;
-  right: 2.5rem;
+  right: 1.5rem;
   z-index: 10;
 }
 @media (min-width: 2400px) {
@@ -114,12 +96,8 @@ const BENTO_CAROUSEL_STYLES = `
   }
 }
 @media (max-width: 640px) {
-  .ks-bento-carousel-viewport {
-    margin-right: -1rem;
-  }
   .ks-bento-carousel-track {
     gap: 1rem;
-    padding-right: 1rem;
   }
   .ks-bento-carousel-slide {
     flex-basis: 350%;
