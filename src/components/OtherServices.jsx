@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { CASE_IMAGES } from "../assets/assets.js";
 import { CONTACT } from "../constants/contact.js";
 import otherServicesContent from "../content/otherServices.json";
-import { BentoGrid } from "./ui/BentoGrid.jsx";
+import { BentoCarousel } from "./ui/BentoGrid.jsx";
 import SectionHeader from "./ui/SectionHeader.jsx";
 
 const CASES = (otherServicesContent.items || []).filter((item) => {
@@ -315,11 +315,11 @@ export default function OtherServices({ onContact }) {
         {otherServicesContent.intro}
       </SectionHeader>
 
-      {/* Desktop bento: left tall card, center stacked cards, right reserved empty slot. */}
-      <BentoGrid
+      <BentoCarousel
         items={CASES}
         imageFor={(service) => service.image || CASE_IMAGES[service.key]}
         onOpen={openService}
+        className="other-services-carousel"
       />
 
       {otherServicesContent.ctaLabel && (

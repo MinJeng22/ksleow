@@ -5,19 +5,19 @@
   "ctaLabel": "",
   "items": [
     {
+      "key": "plugin",
+      "title": "AutoCount Plugin",
+      "desc": "Custom AutoCount plugin development and workflow extensions designed to automate repetitive document flows, reduce manual entry, and adapt AutoCount Accounting to real business operations.",
+      "image": "/images/other-services/acplugin.png",
+      "route": "/apps/autocount-plugin"
+    },
+    {
       "key": "networking",
       "title": "Printing / Advertising / Design",
       "desc": "Our partner for business-ready printing, advertising material, and visual design support for signboards, campaigns, corporate stationery, and promotional collateral.",
       "image": "/images/case-studies/supaprintz.my.png",
       "route": "",
       "modal": "supaprintz"
-    },
-    {
-      "key": "plugin",
-      "title": "AutoCount Plugin",
-      "desc": "Custom AutoCount plugin development and workflow extensions designed to automate repetitive document flows, reduce manual entry, and adapt AutoCount Accounting to real business operations.",
-      "image": "/images/other-services/acplugin.png",
-      "route": "/apps/autocount-plugin"
     },
     {
       "key": "sitegiant",
