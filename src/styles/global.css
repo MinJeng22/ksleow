@@ -881,7 +881,7 @@ textarea {
 }
 
 .ks-bento-card.is-clickable:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: translateY(-4px) scale(1.01);
   border-color: rgba(201,168,76,0.5);
   box-shadow: 0 24px 58px rgba(47,49,90,0.11);
 }
@@ -925,10 +925,7 @@ textarea {
   inset: 0;
   display: grid;
   place-items: center;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0)),
-    #e6e6e9;
-  opacity: 0.76;
+  background: transparent;
 }
 
 .ks-bento-body {
