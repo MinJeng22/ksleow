@@ -5,7 +5,8 @@ const LAYOUT_CLASSES = [
   "ks-bento-left",
   "ks-bento-mid-top",
   "ks-bento-mid-bottom",
-  "ks-bento-right",
+  "ks-bento-right-1",
+  "ks-bento-right-2",
 ];
 
 const BENTO_CAROUSEL_STYLES = `
@@ -16,6 +17,14 @@ const BENTO_CAROUSEL_STYLES = `
 .ks-bento-carousel-viewport {
   margin-right: calc(-1 * min(4vw, 3rem));
   overflow: hidden;
+}
+@media (min-width: 1181px) {
+  .other-services-carousel .ks-bento-carousel-viewport {
+    margin-right: 0;
+  }
+  .other-services-carousel .ks-bento-carousel-controls {
+    display: none;
+  }
 }
 .ks-bento-carousel-track {
   display: flex;
@@ -30,6 +39,12 @@ const BENTO_CAROUSEL_STYLES = `
   scrollbar-width: none;
   will-change: scroll-position;
 }
+@media (min-width: 1181px) {
+  .other-services-carousel .ks-bento-carousel-track {
+    padding-right: 0;
+    overflow-x: visible;
+  }
+}
 .ks-bento-carousel-track::-webkit-scrollbar {
   display: none;
 }
@@ -38,6 +53,11 @@ const BENTO_CAROUSEL_STYLES = `
   scroll-snap-align: start;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
+@media (min-width: 1181px) {
+  .other-services-carousel .ks-bento-carousel-slide {
+    flex: 1 1 auto;
+  }
+}
 .ks-bento-carousel-track:active .ks-bento-carousel-slide {
   transform: scale(0.995);
 }
@@ -45,7 +65,7 @@ const BENTO_CAROUSEL_STYLES = `
   scroll-snap-align: none;
 }
 .other-services-carousel .ks-bento-carousel-slide.ks-bento {
-  grid-template-columns: minmax(0, 1.38fr) minmax(0, 1.78fr) minmax(0, 0.94fr);
+  grid-template-columns: minmax(0, 1.38fr) minmax(0, 1.78fr) minmax(0, 0.94fr) minmax(0, 0.94fr);
 }
 .other-services-carousel .ks-bento-card {
   background:
@@ -71,10 +91,7 @@ const BENTO_CAROUSEL_STYLES = `
 }
 @media (max-width: 1180px) {
   .ks-bento-carousel-slide {
-    flex-basis: calc(100% + 128px);
-  }
-  .other-services-carousel .ks-bento-carousel-slide.ks-bento {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex-basis: 180%;
   }
 }
 @media (max-width: 640px) {
@@ -89,7 +106,7 @@ const BENTO_CAROUSEL_STYLES = `
     padding-right: 1rem;
   }
   .ks-bento-carousel-slide {
-    flex-basis: calc(100% + 88px);
+    flex-basis: 250%;
   }
 }
 `;

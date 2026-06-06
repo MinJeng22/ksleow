@@ -8,6 +8,7 @@ import useDarkBg from "../hooks/useDarkBg";
  * On mobile: rendered inside the FloatingBar, so this component hides itself.
  */
 export default function BackToTop({ hideBar }) {
+  const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const btnRef = useRef(null);
   const isDark = useDarkBg(btnRef);
@@ -15,16 +16,20 @@ export default function BackToTop({ hideBar }) {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (pathname === "/omni") return null;
+  if (!mounted || pathname === "/omni") return null;
 
   return (
     <>
-      <style>{`
+      <style suppressHydrationWarning>{`
         .back-to-top-glass {
           position: fixed;
           bottom: 28px;

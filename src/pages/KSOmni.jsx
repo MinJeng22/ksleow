@@ -157,7 +157,7 @@ const CloseSmallIcon = () => (
 function EmptyGreeting() {
   return (
     <div className="omni-dark-greeting">
-      <style>{`
+      <style suppressHydrationWarning>{`
         .omni-dark-greeting > div > div:first-child { color: rgba(255,255,255,0.35) !important; }
         .omni-dark-greeting > div > div:last-child { background: linear-gradient(90deg, rgba(255,255,255,0.85) 0%, #c9a84c 100%) !important; -webkit-background-clip: text !important; }
       `}</style>
@@ -807,7 +807,7 @@ export default function KSLOmniPage() {
         <div ref={contentRef} style={{ position: isIOS ? "absolute" : "relative", top: 0, left: 0, right: 0, height: isIOS ? "100dvh" : "100%", display: "flex", flexDirection: "column" }}>
           <div style={{ flex: 1, display: "flex", flexDirection: "column", maxWidth: "100%", overflowX: "hidden" }}>
             <ChatbotKeyframes />
-            <style>{`
+            <style suppressHydrationWarning>{`
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
         @keyframes spin{to{transform:rotate(360deg)}}

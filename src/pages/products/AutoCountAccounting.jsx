@@ -621,7 +621,7 @@ export default function AutoCountAccountingPage({ onContact }) {
 
   return (
     <div id="page-autocount-accounting" className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
-      <style>{`
+      <style suppressHydrationWarning>{`
         /* Local overrides for Start Free Trial (primary button) and Navigator focus */
         #page-autocount-accounting .ks-btn-primary {
           background: #80c31e !important;

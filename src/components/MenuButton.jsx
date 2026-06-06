@@ -615,6 +615,7 @@ const STYLES = `
 
 /* ── Component ──────────────────────────────────────────── */
 export default function MenuButton({ onOpenSearch, hideBar }) {
+  const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [hasHistory, setHasHistory] = useState(false);
@@ -632,6 +633,10 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   const navigate = useNavigate();
   const [scrollY, setScrollY] = useState(0);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -801,9 +806,11 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     navigate(-1);
   };
 
+  if (!mounted) return null;
+
   return (
     <>
-      <style>{STYLES}</style>
+      <style suppressHydrationWarning>{STYLES}</style>
 
       {/* ── Desktop/Tablet Controls ────────────────────────── */}
       <div 
