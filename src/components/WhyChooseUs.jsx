@@ -38,10 +38,10 @@ function AwardYear({ award, duplicate = false }) {
   return (
     <div className={`ac-awards-year${duplicate ? " dup" : ""}`} aria-label={`AutoCount Dealer Award ${award.year}`}>
       <div className="ac-awards-item ac-awards-item-trophy">
-        <img src={award.trophy} alt={`AutoCount Top Dealer trophy ${award.year}`} loading="lazy" />
+        <img src={award.trophy} alt={`AutoCount Top Dealer trophy ${award.year}`} decoding="async" />
       </div>
       <div className="ac-awards-item ac-awards-item-modal">
-        <img src={award.modal} alt={`AutoCount Top Dealer certificate ${award.year}`} loading="lazy" />
+        <img src={award.modal} alt={`AutoCount Top Dealer certificate ${award.year}`} decoding="async" />
       </div>
     </div>
   );

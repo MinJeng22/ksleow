@@ -57,15 +57,15 @@ export default function ProductPromotionBento({
           background:
             linear-gradient(135deg, rgba(255,255,255,0.96), rgba(247,248,253,0.88)),
             #ffffff;
-          box-shadow: 0 24px 70px rgba(31, 34, 74, 0.09);
+          box-shadow: none;
           isolation: isolate;
           display: block;
           text-decoration: none;
-          transition: box-shadow 0.3s ease;
+          transition: border-color 0.3s ease;
         }
 
         .product-promo-card:hover {
-          box-shadow: 0 32px 84px rgba(31, 34, 74, 0.14);
+          border-color: color-mix(in srgb, var(--promo-accent) 34%, rgba(47, 49, 90, 0.11));
         }
 
         .product-promo-card.is-featured {
@@ -146,13 +146,12 @@ export default function ProductPromotionBento({
           font-weight: 850;
           padding: 0.68rem 1rem;
           text-decoration: none;
-          transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+          transition: transform 180ms ease, border-color 180ms ease;
         }
 
         .product-promo-link:hover {
           transform: translateY(-1px);
           border-color: color-mix(in srgb, var(--promo-accent) 58%, white);
-          box-shadow: 0 14px 32px rgba(47, 49, 90, 0.12);
         }
 
         @media (max-width: 980px) {
