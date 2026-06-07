@@ -39,7 +39,9 @@ export default function ProductPromotionBento({
 
         .product-promo-grid {
           display: grid;
-          grid-template-columns: minmax(0, 1.17fr) minmax(320px, 0.83fr);
+          max-width: 980px;
+          margin: 0 auto;
+          grid-template-columns: minmax(0, 1.15fr) minmax(320px, 1fr);
           grid-template-rows: repeat(2, auto);
           gap: clamp(0.85rem, 1.8vw, 1.15rem);
           align-items: stretch;
@@ -157,7 +159,7 @@ export default function ProductPromotionBento({
             overflow-x: auto;
             padding-bottom: 1rem;
             scrollbar-width: none;
-            grid-template-columns: minmax(380px, 1.17fr) minmax(300px, 0.83fr);
+            grid-template-columns: minmax(380px, 1.15fr) minmax(300px, 1fr);
             /* Ensure the grid takes full width of its tracks */
             display: grid;
           }
