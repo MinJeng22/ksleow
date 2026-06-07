@@ -91,13 +91,19 @@ const BENTO_CAROUSEL_STYLES = `
   }
 }
 @media (max-width: 640px) {
-  .ks-bento-carousel-track {
-    gap: 1rem;
+    .ks-bento-carousel-track {
+      gap: 1rem;
+      scroll-snap-type: x mandatory;
+    }
+    .ks-bento-carousel-slide {
+      display: contents;
+    }
+    .other-services-carousel .ks-bento-card {
+      flex: 0 0 85vw;
+      max-width: 340px;
+      scroll-snap-align: center;
+    }
   }
-  .ks-bento-carousel-slide {
-    flex-basis: 350%;
-  }
-}
 `;
 
 export function BentoGrid({ items = [], minItems = 4, imageFor, onOpen, className = "" }) {
