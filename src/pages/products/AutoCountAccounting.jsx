@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
@@ -349,17 +349,17 @@ const EDITION_TABLE = {
     {
       name: "POS Counter",
       rows: [
-        ["POS A (RM2000)",      ["−", "+", "+", "+", "+", "+"]],
-        ["POS B (RM1000)",      ["−", "+", "+", "+", "+", "+"]],
-        ["POS Branch (RM2500)", ["−", "+", "+", "+", "+", "+"]],
+        [\"POS A\",      ["−", "+", "+", "+", "+", "+"]],
+        [\"POS B\",      ["−", "+", "+", "+", "+", "+"]],
+        [\"POS Branch\", ["−", "+", "+", "+", "+", "+"]],
       ],
     },
     {
       name: "POS Modules",
       rows: [
-        ["POS Serial Number (RM1000)",  ["−", "+", "+", "+", "+", "+"]],
-        ["POS Item Batch (RM600)",     ["−", "+", "+", "+", "+", "+"]],
-        ["POS Item Package (RM600)",   ["−", "+", "+", "+", "+", "+"]],
+        [\"POS Serial Number\",  ["−", "+", "+", "+", "+", "+"]],
+        [\"POS Item Batch\",     ["−", "+", "+", "+", "+", "+"]],
+        [\"POS Item Package\",   ["−", "+", "+", "+", "+", "+"]],
       ],
     },
   ],
