@@ -357,9 +357,9 @@ const EDITION_TABLE = {
     {
       name: "POS Modules",
       rows: [
-        [\"POS Serial Number\",  ["−", "+", "+", "+", "+", "+"]],
-        [\"POS Item Batch\",     ["−", "+", "+", "+", "+", "+"]],
-        [\"POS Item Package\",   ["−", "+", "+", "+", "+", "+"]],
+        ["POS Serial Number",  ["−", "+", "+", "+", "+", "+"]],
+        ["POS Item Batch",     ["−", "+", "+", "+", "+", "+"]],
+        ["POS Item Package",   ["−", "+", "+", "+", "+", "+"]],
       ],
     },
   ],
