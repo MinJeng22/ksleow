@@ -415,7 +415,7 @@ textarea {
   height: var(--carousel-btn-size);
   border-radius: 50%;
   border: 1px solid rgba(47,49,90,0.14);
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.88);
   color: rgba(47,49,90,0.78);
   box-shadow: 0 8px 22px rgba(47,49,90,0.09);
   backdrop-filter: blur(10px);
