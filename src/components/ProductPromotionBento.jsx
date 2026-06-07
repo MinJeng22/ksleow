@@ -39,7 +39,7 @@ export default function ProductPromotionBento({
 
         .product-promo-grid {
           display: grid;
-          max-width: 980px;
+          max-width: 1080px;
           margin: 0 auto;
           grid-template-columns: minmax(0, 1.15fr) minmax(320px, 1fr);
           grid-template-rows: repeat(2, auto);

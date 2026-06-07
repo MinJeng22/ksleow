@@ -38,6 +38,7 @@ export default function SectionSidebar({ items, sections, theme = "gold", themeC
   const activeColor = themeColor || (theme === "green" ? "#16a14b" : "#c9a84c");
   const activeRgb = hexToRgb(activeColor);
   const [active, setActive] = useState(navItems[0]?.id || "");
+  const [expanded, setExpanded] = useState(false);
   const lockedRef = useRef(false);
   const navRef = useRef(null);
   const isDark = useDarkBg(navRef);
@@ -94,15 +95,29 @@ export default function SectionSidebar({ items, sections, theme = "gold", themeC
   }
 
   return (
-    <nav ref={navRef} className="ac-sidebar lg-glass" style={{
+    <nav
+      ref={navRef}
+      className={`ac-sidebar lg-glass${expanded ? " is-expanded" : ""}`}
+      aria-label="Product page sections"
+      onMouseEnter={() => setExpanded(true)}
+      onMouseLeave={() => setExpanded(false)}
+      onFocusCapture={() => setExpanded(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setExpanded(false);
+      }}
+      style={{
       position: "fixed",
       top: "50%", right: 28,
       transform: "translateY(-50%)",
       zIndex: 150,
       display: "flex", flexDirection: "column", gap: 4,
-      borderRadius: 14,
-      padding: "0.75rem 0.5rem",
-      minWidth: 168,
+      alignItems: "stretch",
+      borderRadius: 18,
+      padding: "0.55rem",
+      width: expanded ? 178 : 48,
+      overflow: "hidden",
+      transition: "width 0.28s cubic-bezier(0.16, 1, 0.3, 1), padding 0.22s ease, border-radius 0.22s ease",
+      willChange: "width",
     }}>
       {navItems.map(s => {
         const isActive = active === s.id;
@@ -110,9 +125,15 @@ export default function SectionSidebar({ items, sections, theme = "gold", themeC
         const hoverBg = `rgba(${activeRgb}, ${isDark ? 0.18 : 0.1})`;
         return (
           <button key={s.id} onClick={() => go(s.id)}
+            aria-label={s.label}
+            title={expanded ? undefined : s.label}
             style={{
-              display: "flex", alignItems: "center", gap: 8,
-              padding: "0.5rem 0.85rem",
+              display: "flex", alignItems: "center", gap: expanded ? 8 : 0,
+              justifyContent: expanded ? "flex-start" : "center",
+              minWidth: 0,
+              width: "100%",
+              height: 38,
+              padding: expanded ? "0.5rem 0.75rem" : "0.5rem",
               border: "none",
               background: isActive ? activeBg : "transparent",
               color: isActive ? activeColor : (isDark ? "#ffffff" : "#6b6f91"),
@@ -122,7 +143,8 @@ export default function SectionSidebar({ items, sections, theme = "gold", themeC
               borderRadius: 8, cursor: "pointer",
               fontFamily: "inherit",
               textAlign: "left",
-              transition: "background 0.18s, color 0.18s",
+              whiteSpace: "nowrap",
+              transition: "background 0.18s, color 0.18s, gap 0.22s ease, padding 0.22s ease",
             }}
             onMouseOver={e => {
               if (!isActive) {
@@ -161,7 +183,16 @@ export default function SectionSidebar({ items, sections, theme = "gold", themeC
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             )}
-            {s.label}
+            <span style={{
+              display: "inline-block",
+              maxWidth: expanded ? 118 : 0,
+              opacity: expanded ? 1 : 0,
+              overflow: "hidden",
+              transform: expanded ? "translateX(0)" : "translateX(-4px)",
+              transition: "max-width 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.16s ease, transform 0.22s ease",
+            }}>
+              {s.label}
+            </span>
           </button>
         );
       })}

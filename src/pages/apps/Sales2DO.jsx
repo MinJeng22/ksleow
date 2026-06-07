@@ -810,7 +810,7 @@ export default function Sales2DOPage({ onContact }) {
 
       <Footer />
       </main>
-      <AIChatbot app="Sales2DO" />
+      {/* <AIChatbot app="Sales2DO" /> */}
     </div>
   );
 }
