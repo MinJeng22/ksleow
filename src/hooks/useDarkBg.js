@@ -5,6 +5,7 @@ const DARK_SELECTORS = [
   "#hero",
   ".product-hero",
   ".products-section",
+  ".product-card-media",
   "footer",
 ];
 

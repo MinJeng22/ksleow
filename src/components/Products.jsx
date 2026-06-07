@@ -105,9 +105,10 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
         flexDirection: "column",
       }}
     >
-      <div
-        style={{
-          paddingBottom: "56%",
+        <div
+          className="product-card-media"
+          style={{
+            paddingBottom: "56%",
           position: "relative",
           overflow: "hidden",
           outline: (product.img || product.background) ? "none" : "2px dashed rgba(255,255,255,0.15)",
