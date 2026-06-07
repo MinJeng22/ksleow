@@ -937,6 +937,13 @@ textarea {
 
 .ks-bento-card.is-empty {
   pointer-events: none;
+  background: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.ks-bento-card.is-empty .ks-bento-media {
+  background: transparent !important;
 }
 
 .ks-bento-card.is-tall {
@@ -968,6 +975,8 @@ textarea {
   height: 100%;
   object-fit: cover;
   display: block;
+  outline: 1px solid rgba(47, 49, 90, 0.08);
+  outline-offset: -1px;
 }
 
 .ks-bento-card.is-wide .ks-bento-img {
