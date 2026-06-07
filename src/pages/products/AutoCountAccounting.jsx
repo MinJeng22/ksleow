@@ -481,24 +481,19 @@ const FEATURES = [
 
 const ACCOUNTING_PROMOTIONS = [
   {
-    badge: "Free Trial",
-    title: "Start AutoCount Accounting 2.2 Free Trial",
-    description: "Try AutoCount Accounting 2.2 with a 500 transactions trial. KSL Support Team can help prepare remote installation and basic setup for testing.",
-    image: "/images/products/autocount-accounting-showcase.webp",
-    cta: { label: "Start Free Trial", href: WA_LINK, target: "_blank" },
+    title: "Upgrade to ACC V2 with 35% OFF",
+    image: "/images/promotions/autocount-accounting-35-promo.png",
+    cta: { href: WA_LINK, target: "_blank" },
   },
   {
-    badge: "Referral Program",
     title: "Earn rewards when you refer AutoCount users",
-    description: "Introduce a business that needs AutoCount Accounting, POS, Payroll, or CloudAccounting and let KSL handle the consultation.",
-    image: "/images/promotions/ksl-referral-program.jpg",
-    cta: { label: "Learn More", href: WA_LINK, target: "_blank" },
+    image: "/images/promotions/ksl-referral-program.png",
+    cta: { href: WA_LINK, target: "_blank" },
   },
   {
     badge: "Setup Support",
     title: "Remote installation with KSL Support Team",
     description: "Prepare AnyDesk or UltraViewer and reserve around 30 minutes. Our team can help you get the trial ready to test properly.",
-    image: "/images/products/autocount-onesales.png",
     cta: { label: "WhatsApp Support", href: WA_LINK, target: "_blank" },
   },
 ];

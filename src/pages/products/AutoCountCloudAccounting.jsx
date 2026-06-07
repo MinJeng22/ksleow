@@ -84,23 +84,19 @@ const FEATURES = [
 
 const CLOUD_PROMOTIONS = [
   {
-    badge: "Best Value",
     title: "24 Months Subscription with 75% Off",
-    description: "Lock in the strongest CloudAccounting promotion rate for teams that are ready to run accounting online for the long term.",
     image: "/images/promotions/autocount-cloudaccounting-75-promo.png",
-    cta: { label: "Start Free Trial", href: FREE_TRIAL_URL, target: "_blank" },
+    cta: { href: FREE_TRIAL_URL, target: "_blank" },
   },
   {
-    badge: "Annual Plan",
-    title: "12 Months Subscription with 65% Off",
-    description: "A practical annual option for SMEs that want a lower commitment while moving accounting, SST, and e-Invoice workflows to the cloud.",
-    cta: { label: "Compare Editions", href: "#editions" },
+    title: "Earn rewards when you refer AutoCount users",
+    image: "/images/promotions/ksl-referral-program.png",
+    cta: { href: FREE_TRIAL_URL, target: "_blank" },
   },
   {
     badge: "Free Trial",
     title: "Try CloudAccounting with KSL dealer support",
     description: "Register using KSL's dealer link, explore CloudAccounting, and speak with our team when you need help choosing the right edition.",
-    image: "/images/products/autocount-cloudaccounting-hero.jpg",
     cta: { label: "Register Trial", href: FREE_TRIAL_URL, target: "_blank" },
   },
 ];
