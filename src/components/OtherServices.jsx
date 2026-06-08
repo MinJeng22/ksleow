@@ -30,10 +30,11 @@ const SITEGIANT_PARTNER = {
   whatsappUrl: `https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent("Hi! I'm interested in Sitegiant Integration. Could you provide more details?")}`,
   websiteUrl: "https://sitegiant.my/",
   headline: "Connect your online sales channels with Accounting Software",
-  intro: "Bring marketplace orders, stock movement, and business reporting closer together with a cleaner e-commerce workflow.",
+  intro: "Empower your business with a unified ecosystem. Sitegiant seamlessly connects your multi-channel operations into one centralized platform.",
   benefits: [
-    ["Marketplace order sync", "Centralize online orders from marketplaces and webstore channels so your team can process them faster."],
-    ["Inventory confidence", "Keep stock visibility tighter across sales channels and reduce manual checks before fulfilment."],
+    ["Operational Control", "Streamline product, inventory, and order management across all your webstores and marketplaces."],
+    ["Customer & Team Sync", "Empower your workforce with integrated staff management and dynamic customer management tools."],
+    ["Data-Driven Growth", "Leverage integrated marketing, analytics, and accounting software to scale your business."],
   ],
 };
 const SUPAPRINTZ_COLORS = {
