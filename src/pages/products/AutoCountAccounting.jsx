@@ -497,10 +497,9 @@ const ACCOUNTING_PROMOTIONS = [
     cta: { href: WA_LINK, target: "_blank" },
   },
   {
-    badge: "Setup Support",
-    title: "Remote installation with KSL Support Team",
-    description: "Prepare AnyDesk or UltraViewer and reserve around 30 minutes. Our team can help you get the trial ready to test properly.",
-    cta: { label: "WhatsApp Support", href: WA_LINK, target: "_blank" },
+    title: "Get AutoCount Accounting for Free",
+    image: "/images/promotions/autocountaccounting-free.webp",
+    cta: { href: WA_LINK, target: "_blank" },
   },
 ];
 

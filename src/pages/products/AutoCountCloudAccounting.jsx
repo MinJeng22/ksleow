@@ -94,10 +94,9 @@ const CLOUD_PROMOTIONS = [
     cta: { href: FREE_TRIAL_URL, target: "_blank" },
   },
   {
-    badge: "Free Trial",
-    title: "Try CloudAccounting with KSL dealer support",
-    description: "Register using KSL's dealer link, explore CloudAccounting, and speak with our team when you need help choosing the right edition.",
-    cta: { label: "Register Trial", href: FREE_TRIAL_URL, target: "_blank" },
+    title: "CloudAccounting 65 Promo",
+    image: "/images/promotions/autocount-cloudaccounting-65-promo.webp",
+    cta: { href: FREE_TRIAL_URL, target: "_blank" },
   },
 ];
 
