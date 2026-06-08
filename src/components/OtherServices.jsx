@@ -232,14 +232,6 @@ function SitegiantPartnerModal({ open, onClose }) {
         {SITEGIANT_PARTNER.headline}
       </h3>
       <p className="partner-modal-intro">{SITEGIANT_PARTNER.intro}</p>
-      <div className="partner-modal-benefit-list">
-        {SITEGIANT_PARTNER.benefits.map(([title, copy]) => (
-          <div className="partner-modal-benefit" key={title}>
-            <div className="partner-modal-benefit-title">{title}</div>
-            <div className="partner-modal-benefit-copy">{copy}</div>
-          </div>
-        ))}
-      </div>
     </PartnerModal>
   );
 }
