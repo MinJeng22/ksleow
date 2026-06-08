@@ -2618,8 +2618,9 @@ body.has-active-modal .back-to-top-glass {
   color: white;
 }
 
-/* Mobile Compare Table Overrides — uses flexbox (not grid) for
-   reliable column alignment on <tr> elements across all browsers. */
+/* Mobile Compare Table Overrides — Uses a continuous Flexbox chain 
+   (Table -> TBody -> Tr) to bypass Safari's table rendering bugs and 
+   force explicit widths. */
 @media (max-width: 768px) {
   .ks-compare-wrap {
     overflow-x: auto;
@@ -2627,7 +2628,8 @@ body.has-active-modal .back-to-top-glass {
   }
 
   .ks-compare-table {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column;
     width: var(--mobile-table-width, 100%) !important;
     min-width: 100%;
   }
@@ -2635,18 +2637,19 @@ body.has-active-modal .back-to-top-glass {
   .ks-compare-table colgroup { display: none !important; }
 
   .ks-compare-thead,
-  .ks-compare-tbody,
-  .ks-compare-tr,
-  .ks-compare-tr-section {
-    display: block !important;
+  .ks-compare-tbody {
+    display: flex !important;
+    flex-direction: column;
     width: 100% !important;
+    flex: 1 1 auto;
   }
 
-  /* ── Header row: flex, hide the feature-label column ── */
+  /* ── Header row ── */
   .ks-compare-thead tr {
     display: flex !important;
     flex-wrap: nowrap;
     width: 100% !important;
+    flex: 0 0 auto;
   }
   .ks-compare-thead .ks-compare-th-left {
     display: none !important;
@@ -2663,13 +2666,15 @@ body.has-active-modal .back-to-top-glass {
     text-align: center;
   }
 
-  /* ── Data / book rows: flex-wrap so td-left takes first line,
-       data cells share the second line equally ── */
+  /* ── Data / book rows ── */
+  .ks-compare-tr,
   .ks-compare-tr-data,
-  .ks-compare-tr-book {
+  .ks-compare-tr-book,
+  .ks-compare-tr-section {
     display: flex !important;
     flex-wrap: wrap;
     width: 100% !important;
+    flex: 0 0 auto;
     border-bottom: 1px solid rgba(47,49,90,0.05);
   }
 
@@ -2709,9 +2714,10 @@ body.has-active-modal .back-to-top-glass {
   }
 
   .ks-compare-td-section {
-    width: 100%;
+    flex: 0 0 100% !important;
+    width: 100% !important;
     text-align: center;
-    display: block;
+    display: block !important;
   }
 }
 
