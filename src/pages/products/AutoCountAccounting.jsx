@@ -487,8 +487,8 @@ const FEATURES = [
 
 const ACCOUNTING_PROMOTIONS = [
   {
-    title: "Upgrade to ACC V2 with 35% OFF",
-    image: "/images/promotions/autocount-accounting-35-promo.webp",
+    title: "AutoCount 1 Account Plus 1 Promo",
+    image: "/images/promotions/autocount-1accountplus-1.webp",
     cta: { href: WA_LINK, target: "_blank" },
   },
   {
