@@ -274,35 +274,7 @@ export default function ParticleBackground({
         ctx.fill();
       }
 
-      /* Liquid Glass Reflection Interaction */
-      const glassElements = document.querySelectorAll('#hero .lg-glass');
-      if (glassElements.length > 0) {
-        const canvasRect = canvas.getBoundingClientRect();
-        for (let g = 0; g < glassElements.length; g++) {
-          const el = glassElements[g];
-          const rect = el.getBoundingClientRect();
-          const left = rect.left - canvasRect.left;
-          const top = rect.top - canvasRect.top;
-          const right = left + rect.width;
-          const bottom = top + rect.height;
-          
-          // Expand bounding box slightly to start glowing before entering
-          const pad = 20;
-          for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            if (p.x >= left - pad && p.x <= right + pad && p.y >= top - pad && p.y <= bottom + pad) {
-              const glowRadius = p.r * 22; // Large soft glow
-              const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowRadius);
-              grad.addColorStop(0, `rgba(${highlightRgb}, 0.65)`);
-              grad.addColorStop(1, `rgba(${highlightRgb}, 0)`);
-              ctx.beginPath();
-              ctx.arc(p.x, p.y, glowRadius, 0, Math.PI * 2);
-              ctx.fillStyle = grad;
-              ctx.fill();
-            }
-          }
-        }
-      }
+
 
       /* dots — single batch */
       const dotPath = new Path2D();
