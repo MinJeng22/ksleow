@@ -391,7 +391,10 @@ function EditionsTable({ selected = null, diffOnly = false }) {
   return (
     <div className="ks-compare-panel" style={{ maxWidth: cols.length <= 3 ? 1080 : 'none', margin: cols.length <= 3 ? '0 auto' : '0' }}>
       <div className="ks-compare-wrap">
-        <table className="ks-compare-table" style={{ "--edition-count": cols.length }}>
+        <table className="ks-compare-table" style={{ 
+          "--edition-count": cols.length,
+          "--mobile-table-width": cols.length > 3 ? `${cols.length * 120}px` : "100%"
+        }}>
           <colgroup>
             <col className="ks-compare-col-feature" width="31%" />
             {cols.map((edition) => (
