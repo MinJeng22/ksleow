@@ -274,27 +274,31 @@ export default function ParticleBackground({
         ctx.fill();
       }
 
-      /* Liquid Glass Interaction */
+      /* Liquid Glass Reflection Interaction */
       const glassElements = document.querySelectorAll('#hero .lg-glass');
       if (glassElements.length > 0) {
         const canvasRect = canvas.getBoundingClientRect();
         for (let g = 0; g < glassElements.length; g++) {
           const el = glassElements[g];
           const rect = el.getBoundingClientRect();
-          const gx = rect.left - canvasRect.left + rect.width / 2;
-          const gy = rect.top - canvasRect.top + rect.height / 2;
+          const left = rect.left - canvasRect.left;
+          const top = rect.top - canvasRect.top;
+          const right = left + rect.width;
+          const bottom = top + rect.height;
           
+          // Expand bounding box slightly to start glowing before entering
+          const pad = 20;
           for (let i = 0; i < particles.length; i++) {
-            const dx = particles[i].x - gx, dy = particles[i].y - gy;
-            const dSq = dx*dx + dy*dy;
-            if (dSq < MOUSE_R_SQ) {
-              const alpha = (1 - dSq / MOUSE_R_SQ) * 0.45;
-              ctx.strokeStyle = `rgba(${highlightRgb},${alpha})`;
-              ctx.lineWidth = 1.0;
+            const p = particles[i];
+            if (p.x >= left - pad && p.x <= right + pad && p.y >= top - pad && p.y <= bottom + pad) {
+              const glowRadius = p.r * 22; // Large soft glow
+              const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowRadius);
+              grad.addColorStop(0, `rgba(${highlightRgb}, 0.65)`);
+              grad.addColorStop(1, `rgba(${highlightRgb}, 0)`);
               ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(gx, gy);
-              ctx.stroke();
+              ctx.arc(p.x, p.y, glowRadius, 0, Math.PI * 2);
+              ctx.fillStyle = grad;
+              ctx.fill();
             }
           }
         }
