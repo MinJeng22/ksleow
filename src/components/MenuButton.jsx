@@ -1011,3 +1011,4 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     </>
   );
 }
+
