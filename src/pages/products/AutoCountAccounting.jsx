@@ -296,6 +296,7 @@ const MODULE_PRICES = {
 const EDITION_TABLE = {
   oneTimePayment: EDITIONS.map((edition) => EDITION_PRICES[edition]),
   defaultAccountBook: ["1", "3", "3", "5", "5", "5"],
+  defaultEInvoiceAccountBook: ["1", "1", "1", "1", "1", "1"],
   sections: [
     {
       name: "Modules",
@@ -355,17 +356,17 @@ const EDITION_TABLE = {
     {
       name: "POS Counter",
       rows: [
-        ["POS A RM2000",      ["−", "+", "+", "+", "+", "+"]],
-        ["POS B RM1000",      ["−", "+", "+", "+", "+", "+"]],
-        ["POS Branch RM2500", ["−", "+", "+", "+", "+", "+"]],
+        ["POS A",      ["−", "+", "+", "+", "+", "+"]],
+        ["POS B",      ["−", "+", "+", "+", "+", "+"]],
+        ["POS Branch", ["−", "+", "+", "+", "+", "+"]],
       ],
     },
     {
       name: "POS Modules",
       rows: [
-        ["POS Serial Number RM1000",  ["−", "+", "+", "+", "+", "+"]],
-        ["POS Item Batch RM600",     ["−", "+", "+", "+", "+", "+"]],
-        ["POS Item Package RM600",   ["−", "+", "+", "+", "+", "+"]],
+        ["POS Serial Number",  ["−", "+", "+", "+", "+", "+"]],
+        ["POS Item Batch",     ["−", "+", "+", "+", "+", "+"]],
+        ["POS Item Package",   ["−", "+", "+", "+", "+", "+"]],
       ],
     },
   ],
@@ -421,6 +422,12 @@ function EditionsTable({ selected = null, diffOnly = false }) {
             <tr className="ks-compare-tr-book">
               <td className="ks-compare-td-left ks-compare-td-book" style={{ background: "inherit", fontWeight: 500 }}>Default Account Book</td>
               {filterRow(EDITION_TABLE.defaultAccountBook).map((v, i) => (
+                <td key={i} className="ks-compare-td-book">{v}</td>
+              ))}
+            </tr>
+            <tr className="ks-compare-tr-book">
+              <td className="ks-compare-td-left ks-compare-td-book" style={{ background: "inherit", fontWeight: 500 }}>Default E-Invoice Account Book</td>
+              {filterRow(EDITION_TABLE.defaultEInvoiceAccountBook).map((v, i) => (
                 <td key={i} className="ks-compare-td-book">{v}</td>
               ))}
             </tr>
