@@ -2620,15 +2620,21 @@ body.has-active-modal .back-to-top-glass {
 
 /* Mobile Compare Table Overrides */
 @media (max-width: 768px) {
+  .ks-compare-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .ks-compare-table {
     display: block;
     width: var(--mobile-table-width, 100%);
     min-width: 100%;
   }
-  .ks-compare-thead, 
-  .ks-compare-tbody, 
-  .ks-compare-th, 
-  .ks-compare-td, 
+
+  .ks-compare-table colgroup { display: none; }
+
+  .ks-compare-thead,
+  .ks-compare-tbody,
   .ks-compare-tr,
   .ks-compare-tr-data,
   .ks-compare-tr-book,
@@ -2636,27 +2642,65 @@ body.has-active-modal .back-to-top-glass {
     display: block;
     width: 100%;
   }
-  
-  .ks-compare-thead tr { display: grid; grid-template-columns: repeat(var(--edition-count, 2), minmax(0, 1fr)); width: 100%; }
-  .ks-compare-thead .ks-compare-th-left {
-    display: none;
-  }
-  .ks-compare-thead .ks-compare-th:not(.ks-compare-th-left) { word-break: break-word; padding: 0.5rem 0.1rem; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; text-align: center; min-width: 0; }
 
-  .ks-compare-tr-data, .ks-compare-tr-book { display: grid; grid-template-columns: repeat(var(--edition-count, 2), minmax(0, 1fr)); width: 100%; border-bottom: 1px solid rgba(47,49,90,0.05); }
-  
-  .ks-compare-td-left { grid-column: 1 / -1; text-align: center; position: sticky !important; left: 0; z-index: 2; background: #f0f0f5 !important; padding: 0.7rem; border-bottom: 1px solid rgba(47,49,90,0.05); }
-  
+  /* Header row: hide the feature-label column, show only edition columns */
+  .ks-compare-thead tr {
+    display: grid;
+    grid-template-columns: repeat(var(--edition-count, 2), 1fr);
+    width: 100%;
+  }
+  .ks-compare-thead .ks-compare-th-left { display: none; }
+  .ks-compare-thead .ks-compare-th:not(.ks-compare-th-left) {
+    word-break: break-word;
+    padding: 0.5rem 0.1rem;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 0;
+  }
+
+  /* Data / book rows: SAME 1fr grid as the header.
+     td-left spans full width on its own implicit row;
+     the remaining data cells sit in the next implicit row
+     and share the identical column template -> guaranteed alignment. */
+  .ks-compare-tr-data,
+  .ks-compare-tr-book {
+    display: grid;
+    grid-template-columns: repeat(var(--edition-count, 2), 1fr);
+    width: 100%;
+    border-bottom: 1px solid rgba(47,49,90,0.05);
+  }
+
+  .ks-compare-td-left {
+    grid-column: 1 / -1;
+    text-align: center;
+    background: #f0f0f5 !important;
+    padding: 0.7rem;
+    border-bottom: 1px solid rgba(47,49,90,0.05);
+  }
+
   .ks-compare-td-data:not(.ks-compare-td-left),
-  .ks-compare-td-book:not(.ks-compare-td-left) { word-break: break-word; box-sizing: border-box; display: flex; align-items: center; justify-content: center; text-align: center; border-right: 1px solid rgba(47,49,90,0.05); padding: 0.5rem 0; min-width: 0; }
+  .ks-compare-td-book:not(.ks-compare-td-left) {
+    word-break: break-word;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-right: 1px solid rgba(47,49,90,0.05);
+    padding: 0.5rem 0;
+    min-width: 0;
+  }
   .ks-compare-td-data:not(.ks-compare-td-left):last-child,
   .ks-compare-td-book:not(.ks-compare-td-left):last-child {
     border-right: none;
   }
 
-  /* Specific rule for full-width API rows */
+  /* Full-width colspan rows */
   .ks-compare-td-data[colspan] { grid-column: 1 / -1; padding: 1rem !important; }
-  
+
   .ks-compare-td-section {
     width: 100%;
     text-align: center;
