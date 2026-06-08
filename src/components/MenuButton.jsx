@@ -683,6 +683,11 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
 
   useEffect(() => {
     window.dispatchEvent(new CustomEvent("globalMenuStateChange", { detail: open }));
+    if (open) {
+      document.body.classList.add("has-mobile-menu-open");
+    } else {
+      document.body.classList.remove("has-mobile-menu-open");
+    }
   }, [open]);
 
   /* Close on outside click (mobile) */

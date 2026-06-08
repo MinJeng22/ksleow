@@ -389,7 +389,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
   const rowDiffers = (values) => editionRowDiffers(values, colIdx);
 
   return (
-    <div className="ks-compare-panel">
+    <div className="ks-compare-panel" style={{ maxWidth: cols.length <= 3 ? 1080 : 'none', margin: cols.length <= 3 ? '0 auto' : '0' }}>
       <div className="ks-compare-wrap">
         <table className="ks-compare-table" style={{ "--edition-count": cols.length }}>
           <colgroup>

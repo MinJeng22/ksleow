@@ -21,7 +21,7 @@ const SUPAPRINTZ_PARTNER = {
 };
 const SUPAPRINTZ_MODAL_IMAGES = [
   "/images/partners/supaprintz-desktop.webp",
-  "/images/partners/supaprintz-tablet.webp",
+  "/images/partners/supaprintz-desktop.webp",
 ];
 const SITEGIANT_PARTNER = {
   name: "Sitegiant",
