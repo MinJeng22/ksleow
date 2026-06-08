@@ -2241,19 +2241,17 @@ select.ks-field {
   --lg-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
     0 1px 3px rgba(0, 0, 0, 0.06),
-    0 0 24px rgba(232, 201, 122, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.6),
     inset 0 -1px 0 rgba(0, 0, 0, 0.04);
   --lg-shadow-hover:
     0 16px 46px rgba(0,0,0,0.14),
     0 3px 8px rgba(0,0,0,0.08),
-    0 0 36px rgba(232, 201, 122, 0.35),
     inset 0 1px 0 rgba(255,255,255,0.72),
     inset 0 -1px 0 rgba(0,0,0,0.05);
   border: 0.5px solid rgba(255, 255, 255, 0.45);
   background: var(--lg-bg);
-  backdrop-filter: blur(40px) saturate(1.8);
-  -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  backdrop-filter: blur(16px) saturate(1.8);
+  -webkit-backdrop-filter: blur(16px) saturate(1.8);
   box-shadow: var(--lg-shadow);
 }
 
