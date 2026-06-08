@@ -131,7 +131,7 @@ export default function Footer() {
               <h4 style={H4}>{footer.followHeading}</h4>
               <ContactRow icon={IC.facebook} href={CONTACT.facebook}  label="Facebook"  external />
               <ContactRow iconNode={<InstagramIcon />} href={CONTACT.instagram} label="Instagram" external />
-              <ContactRow iconNode={<YoutubeIcon />}   href={CONTACT.youtube}   label="YouTube"   external />
+              {/* <ContactRow iconNode={<YoutubeIcon />}   href={CONTACT.youtube}   label="YouTube"   external /> */}
               <ContactRow icon={IC.whatsapp} href={WA_LINK}           label="WhatsApp"  external />
             </div>
 

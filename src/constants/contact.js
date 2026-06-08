@@ -15,7 +15,7 @@ export const CONTACT = {
   phone:    "017-905 2323",
   whatsapp: "60179052323",
   facebook:  "https://www.facebook.com/ksleowbs",
-  instagram: "https://www.instagram.com/ksleowbs",
+  instagram: "https://www.instagram.com/ks.grocer/",
   youtube:   "https://www.youtube.com/@ksleowbs",
   linkedin:  "",
   mapsUrl:   "https://maps.app.goo.gl/9WmvATAcFRusdXZb8",
