@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Img } from "./Media.jsx";
 
 export default function ProductPromotionBento({
@@ -8,6 +8,7 @@ export default function ProductPromotionBento({
   items = [],
   accent = "#80c31e",
 }) {
+  const [lightboxImage, setLightboxImage] = useState(null);
   const cards = items.slice(0, 3);
 
   if (!cards.length) return null;
@@ -62,6 +63,10 @@ export default function ProductPromotionBento({
           display: block;
           text-decoration: none;
           transition: border-color 0.3s ease;
+        }
+
+        .product-promo-card.has-image {
+          cursor: pointer;
         }
 
         .product-promo-card:hover {
@@ -153,6 +158,63 @@ export default function ProductPromotionBento({
           transform: translateY(-1px);
           border-color: color-mix(in srgb, var(--promo-accent) 58%, white);
         }
+
+        .promo-lightbox {
+          position: fixed;
+          inset: 0;
+          z-index: 99999;
+          background: rgba(15, 17, 40, 0.9);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 2rem;
+          opacity: 0;
+          animation: promo-lightbox-fade 0.2s ease forwards;
+          cursor: zoom-out;
+        }
+
+        @keyframes promo-lightbox-fade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        .promo-lightbox-img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+          border-radius: 12px;
+          box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+          transform: scale(0.95);
+          animation: promo-lightbox-zoom 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes promo-lightbox-zoom {
+          from { transform: scale(0.95); }
+          to { transform: scale(1); }
+        }
+
+        .promo-lightbox-close {
+          position: absolute;
+          top: 1.5rem;
+          right: 1.5rem;
+          background: rgba(255,255,255,0.1);
+          border: none;
+          color: white;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+
+        .promo-lightbox-close:hover {
+          background: rgba(255,255,255,0.2);
+        }
       `}</style>
 
       <div className="product-promo-head">
@@ -167,6 +229,7 @@ export default function ProductPromotionBento({
             <article
               key={`${item.title}-${index}`}
               className={`product-promo-card ${index === 0 ? "is-featured" : ""} ${item.image ? "has-image" : ""}`}
+              onClick={item.image ? () => setLightboxImage(item.image) : undefined}
             >
               {item.image ? (
                 <div className="product-promo-media" aria-hidden="true">
@@ -198,6 +261,18 @@ export default function ProductPromotionBento({
           );
         })}
       </div>
+
+      {lightboxImage && (
+        <div className="promo-lightbox" onClick={() => setLightboxImage(null)}>
+          <button className="promo-lightbox-close" onClick={() => setLightboxImage(null)} aria-label="Close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <img src={lightboxImage} alt="Promotion Fullscreen" className="promo-lightbox-img" />
+        </div>
+      )}
     </section>
   );
 }
