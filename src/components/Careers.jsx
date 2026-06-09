@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CONTACT } from "../constants/contact.js";
 import ParticleBackground from "./ParticleBackground";
 import careers from "../content/careers.json";

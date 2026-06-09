@@ -1,4 +1,4 @@
-﻿export default function CarouselProgress({
+export default function CarouselProgress({
   count,
   activeIndex,
   visibleCount = 1,

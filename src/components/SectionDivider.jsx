@@ -1,4 +1,4 @@
-﻿import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 /**
  * SectionDivider â€” horizontal rule with a centred SVG icon.

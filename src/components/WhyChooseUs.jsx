@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import SectionDivider, { IconTrophy } from "./SectionDivider";
 
 export const AWARD_YEARS = [

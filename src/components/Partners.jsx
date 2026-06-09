@@ -1,4 +1,4 @@
-﻿import { PARTNER_LOGOS } from "../assets/assets.js";
+import { PARTNER_LOGOS } from "../assets/assets.js";
 import partnersContent from "../content/partners.json";
 
 const PARTNERS = (partnersContent.items || []).map((p, i) => ({

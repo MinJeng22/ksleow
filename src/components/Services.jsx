@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SERVICE_CONTACTS, CONTACT } from "../constants/contact.js";
 import servicesContent from "../content/services.json";
 import officesContent  from "../content/offices.json";

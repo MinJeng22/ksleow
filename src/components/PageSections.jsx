@@ -1,4 +1,4 @@
-﻿import SectionDivider from "./SectionDivider.jsx";
+import SectionDivider from "./SectionDivider.jsx";
 
 export function getSection(sections, id) {
   return sections.find((section) => section.id === id);

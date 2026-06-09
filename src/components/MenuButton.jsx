@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import useDarkBg from "../hooks/useDarkBg";
 import { SearchIcon, BackIcon, MenuIcon, ToTopIcon, ScrollDownIcon } from "./icons";

@@ -1,4 +1,4 @@
-﻿import branding from "../content/branding.json";
+import branding from "../content/branding.json";
 import { CONTACT, WA_LINK } from "../constants/contact.js";
 
 /* Use the same small icon as the service-card backs */

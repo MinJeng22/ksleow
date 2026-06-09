@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import stats from "../content/stats.json";
 
 /* Parse a stat string like "500+", "40+", "6", "100%" into:

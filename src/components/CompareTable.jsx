@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 
 export function getEditionColumnIndexes(allEditions, selected) {
   const visibleEditions = selected?.length ? selected : allEditions;

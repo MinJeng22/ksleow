@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import {

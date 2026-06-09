@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ParticleBackground from "./ParticleBackground";
 import { LOGO_HERO } from "../assets/assets.js";
 import hero from "../content/hero.json";

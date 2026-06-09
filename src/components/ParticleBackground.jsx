@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 /* â”€â”€â”€ Calibrated density â€” fewer particles on mobile/tablet â”€â”€â”€â”€
  * Mobile (< 640): ~22 particles, density 0.00007 pxâ»Â²

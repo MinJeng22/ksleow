@@ -1,4 +1,4 @@
-﻿export function StepNum({ n, color = "#2f315a" }) {
+export function StepNum({ n, color = "#2f315a" }) {
   const textColor = color === "#2f315a" ? "#ffffff" : "#1e2040";
 
   return (

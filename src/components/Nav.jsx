@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { LOGO_NAV } from "../assets/assets.js";
 import branding from "../content/branding.json";
 

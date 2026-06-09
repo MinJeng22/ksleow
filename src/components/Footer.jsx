@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { LOGO_FOOTER } from "../assets/assets.js";
 import { CONTACT, WA_LINK } from "../constants/contact.js";
 import footer from "../content/footer.json";
