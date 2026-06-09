@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Img } from "./Media.jsx";
 
 export default function ProductPromotionBento({
@@ -9,6 +9,16 @@ export default function ProductPromotionBento({
   accent = "#80c31e",
 }) {
   const [lightboxImage, setLightboxImage] = useState(null);
+
+  useEffect(() => {
+    if (lightboxImage) {
+      document.body.classList.add("partner-modal-open");
+    } else {
+      document.body.classList.remove("partner-modal-open");
+    }
+    return () => document.body.classList.remove("partner-modal-open");
+  }, [lightboxImage]);
+
   const cards = items.slice(0, 3);
 
   if (!cards.length) return null;
@@ -159,35 +169,28 @@ export default function ProductPromotionBento({
           border-color: color-mix(in srgb, var(--promo-accent) 58%, white);
         }
 
-        .promo-lightbox {
-          position: fixed;
-          inset: 0;
-          z-index: 99999;
-          background: rgba(15, 17, 40, 0.9);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 2rem;
-          opacity: 0;
-          animation: promo-lightbox-fade 0.2s ease forwards;
-          cursor: zoom-out;
-        }
-
         @keyframes promo-lightbox-fade {
           from { opacity: 0; }
           to { opacity: 1; }
         }
 
+        .promo-lightbox-frame {
+          position: relative;
+          max-width: 95vw;
+          max-height: 95vh;
+          border-radius: 20px;
+          display: inline-flex;
+          animation: promo-lightbox-zoom 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+          background: #ffffff;
+          box-shadow: 0 36px 100px rgba(10,11,24,0.36);
+        }
+
         .promo-lightbox-img {
           max-width: 100%;
-          max-height: 100%;
+          max-height: 95vh;
           object-fit: contain;
-          border-radius: 12px;
-          box-shadow: 0 24px 64px rgba(0,0,0,0.4);
-          transform: scale(0.95);
-          animation: promo-lightbox-zoom 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+          border-radius: 20px;
+          display: block;
         }
 
         @keyframes promo-lightbox-zoom {
@@ -195,25 +198,10 @@ export default function ProductPromotionBento({
           to { transform: scale(1); }
         }
 
-        .promo-lightbox-close {
-          position: absolute;
-          top: 1.5rem;
-          right: 1.5rem;
-          background: rgba(255,255,255,0.1);
-          border: none;
-          color: white;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: background 0.2s;
-        }
-
-        .promo-lightbox-close:hover {
-          background: rgba(255,255,255,0.2);
+        @media (max-width: 640px) {
+          .product-promo-card {
+            border-radius: 12px;
+          }
         }
       `}</style>
 
@@ -263,14 +251,20 @@ export default function ProductPromotionBento({
       </div>
 
       {lightboxImage && (
-        <div className="promo-lightbox" onClick={() => setLightboxImage(null)}>
-          <button className="promo-lightbox-close" onClick={() => setLightboxImage(null)} aria-label="Close">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-          <img src={lightboxImage} alt="Promotion Fullscreen" className="promo-lightbox-img" />
+        <div 
+          className="partner-modal-backdrop" 
+          onClick={() => setLightboxImage(null)} 
+          style={{ zIndex: 99999, animation: "promo-lightbox-fade 0.2s ease forwards", cursor: "zoom-out" }}
+        >
+          <div className="promo-lightbox-frame" onClick={(e) => e.stopPropagation()} style={{ cursor: "default" }}>
+            <button className="partner-modal-close" onClick={() => setLightboxImage(null)} aria-label="Close" style={{ top: 16, right: 16 }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+            <img src={lightboxImage} alt="Promotion Fullscreen" className="promo-lightbox-img" />
+          </div>
         </div>
       )}
     </section>
