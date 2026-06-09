@@ -42,9 +42,9 @@ export default function ProductPromotionBento({
           width: 100%;
           max-width: 1280px;
           margin: 0 auto;
-          grid-template-columns: minmax(0, 1.15fr) minmax(320px, 1fr);
+          grid-template-columns: 1.15fr 1fr;
           grid-template-rows: repeat(2, auto);
-          gap: clamp(0.85rem, 1.8vw, 1.15rem);
+          gap: clamp(0.5rem, 1.8vw, 1.15rem);
           align-items: stretch;
         }
 
@@ -97,7 +97,7 @@ export default function ProductPromotionBento({
           flex-direction: column;
           justify-content: flex-end;
           gap: 0.8rem;
-          padding: clamp(1.25rem, 2.6vw, 2rem);
+          padding: clamp(0.8rem, 2.6vw, 2rem);
         }
 
         .product-promo-badge {
@@ -115,21 +115,21 @@ export default function ProductPromotionBento({
         .product-promo-card-title {
           margin: 0;
           color: #2f315a;
-          font-size: clamp(1.15rem, 2vw, 1.7rem);
+          font-size: clamp(0.9rem, 2vw, 1.7rem);
           font-weight: 850;
           line-height: 1.08;
           letter-spacing: 0;
         }
 
         .product-promo-card.is-featured .product-promo-card-title {
-          font-size: clamp(1.55rem, 3vw, 2.45rem);
+          font-size: clamp(1.1rem, 3vw, 2.45rem);
         }
 
         .product-promo-copy {
           margin: 0;
           max-width: 60ch;
           color: #656a8f;
-          font-size: clamp(0.88rem, 1.2vw, 0.98rem);
+          font-size: clamp(0.7rem, 1.2vw, 0.98rem);
           line-height: 1.68;
         }
 
@@ -152,48 +152,6 @@ export default function ProductPromotionBento({
         .product-promo-link:hover {
           transform: translateY(-1px);
           border-color: color-mix(in srgb, var(--promo-accent) 58%, white);
-        }
-
-        @media (max-width: 980px) {
-          .product-promo-grid {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding-bottom: 1.5rem;
-            scrollbar-width: none;
-          }
-          .product-promo-grid::-webkit-scrollbar {
-            display: none;
-          }
-          .product-promo-card {
-            flex: 0 0 85%;
-            max-width: 400px;
-            scroll-snap-align: center;
-          }
-          .product-promo-card.is-featured {
-            grid-row: auto;
-            min-height: auto;
-          }
-          .product-promo-card:not(.is-featured) {
-            aspect-ratio: auto;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .product-promo-head {
-            display: block;
-          }
-
-          .product-promo-card,
-          .product-promo-card.is-featured {
-            border-radius: 18px;
-            min-height: 280px;
-          }
-
-          .product-promo-content {
-            padding: 1.15rem;
-          }
         }
       `}</style>
 
