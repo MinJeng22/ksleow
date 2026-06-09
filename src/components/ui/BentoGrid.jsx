@@ -34,6 +34,7 @@ const BENTO_CAROUSEL_STYLES = `
 .ks-bento-carousel-slide {
   flex: 0 0 calc(100% + min(18vw, 180px));
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
 @media (min-width: 1181px) {
   .other-services-carousel .ks-bento-carousel-slide {
     flex: 0 0 max(100%, 1920px);
