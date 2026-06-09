@@ -969,6 +969,7 @@ textarea {
   grid-template-columns: 56% 44%;
 }
 
+
 .ks-bento-left { grid-column: 1; grid-row: 1 / span 2; }
 .ks-bento-mid-top { grid-column: 2; grid-row: 1; }
 .ks-bento-mid-bottom { grid-column: 2; grid-row: 2; }
@@ -1056,7 +1057,7 @@ textarea {
 
   .ks-bento-card.is-wide {
     min-height: 220px;
-    grid-template-columns: 56% 44%;
+    grid-template-columns: 38% 62%;
   }
 }
 
