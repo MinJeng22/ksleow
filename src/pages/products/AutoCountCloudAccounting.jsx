@@ -807,19 +807,21 @@ function ReleaseCompare({ compareA, setCompareA, compareB, setCompareB }) {
           items={allFeatures}
           type="feature"
           copy={() => copyCompare(allFeatures, compareA, compareB, "features")}
+          releases={between}
         />
         <CompareList
           title={`Bug Fixes (${allFixes.length})`}
           items={allFixes}
           type="fix"
           copy={() => copyCompare(allFixes, compareA, compareB, "fixes")}
+          releases={between}
         />
       </div>
     </div>
   );
 }
 
-function CompareList({ title, items, type, copy }) {
+function CompareList({ title, items, type, copy, releases }) {
   const gold = type === "fix";
   return (
     <div className="ks-panel" style={{ padding: "1.4rem" }}>
@@ -832,14 +834,25 @@ function CompareList({ title, items, type, copy }) {
       {items.length === 0 && (
         <div style={{ fontSize: "0.82rem", color: "#a8abcc", lineHeight: 1.6 }}>No items listed in this range.</div>
       )}
-      {items.map((item, index) => (
-        <div key={`${item.rev}-${index}`} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
-          <CompareRevBadge type={type}>
-            {String(item.rev || "").replace(/^(Rev|Release|Revision)\s*/i, "").trim()}
-          </CompareRevBadge>
-          <span className="ks-list-text">{item.text}</span>
-        </div>
-      ))}
+      {releases.map((release) => {
+        const releaseItems = type === "feature" ? release.features : release.fixes;
+        if (!releaseItems || releaseItems.length === 0) return null;
+        return (
+          <div key={release.version} style={{ marginBottom: "1.25rem" }}>
+            <div style={{ textAlign: "center", fontSize: "0.75rem", fontWeight: 700, color: "#8c8fae", marginBottom: "0.85rem", paddingBottom: "0.45rem", borderBottom: "1px dashed rgba(47,49,90,0.15)" }}>
+              {release.rev}
+            </div>
+            {releaseItems.map((text, index) => (
+              <div key={index} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
+                <CompareRevBadge type={type}>
+                  {index + 1}
+                </CompareRevBadge>
+                <span className="ks-list-text">{text}</span>
+              </div>
+            ))}
+          </div>
+        );
+      })}
     </div>
   );
 }

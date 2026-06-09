@@ -921,12 +921,22 @@ export default function AutoCountAccountingPage({ onContact }) {
                       {allFeatures.length > 0 && <CopyReleaseButton onClick={() => copyCompare(allFeatures, compareA, compareB, "features")} />}
                     </div>
                     {allFeatures.length === 0 && <div style={{ fontSize: "0.82rem", color: "#a8abcc" }}>No new features in this range.</div>}
-                    {allFeatures.map((f, i) => (
-                      <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
-                        <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(47,49,90,0.08)", color: "#2f315a", flexShrink: 0, marginTop: 2 }}>{f.rev}</span>
-                        <span className="ks-list-text">{f.text}</span>
-                      </div>
-                    ))}
+                    {between.map((release) => {
+                      if (!release.features || release.features.length === 0) return null;
+                      return (
+                        <div key={release.version} style={{ marginBottom: "1.25rem" }}>
+                          <div style={{ textAlign: "center", fontSize: "0.75rem", fontWeight: 700, color: "#8c8fae", marginBottom: "0.85rem", paddingBottom: "0.45rem", borderBottom: "1px dashed rgba(47,49,90,0.15)" }}>
+                            {release.rev}
+                          </div>
+                          {release.features.map((text, i) => (
+                            <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
+                              <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(47,49,90,0.08)", color: "#2f315a", flexShrink: 0, marginTop: 2 }}>{i + 1}</span>
+                              <span className="ks-list-text">{text}</span>
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    })}
                   </div>
                   <div style={{ background: "#ffffff", borderRadius: 14, padding: "1.4rem", border: "1px solid rgba(47,49,90,0.1)" }}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1rem" }}>
@@ -934,12 +944,22 @@ export default function AutoCountAccountingPage({ onContact }) {
                       {allFixes.length > 0 && <CopyReleaseButton onClick={() => copyCompare(allFixes, compareA, compareB, "fixes")} gold />}
                     </div>
                     {allFixes.length === 0 && <div style={{ fontSize: "0.82rem", color: "#a8abcc" }}>No bug fixes in this range.</div>}
-                    {allFixes.map((f, i) => (
-                      <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
-                        <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(128,195,30,0.12)", color: "#4a6e0e", flexShrink: 0, marginTop: 2 }}>{f.rev}</span>
-                        <span className="ks-list-text">{f.text}</span>
-                      </div>
-                    ))}
+                    {between.map((release) => {
+                      if (!release.fixes || release.fixes.length === 0) return null;
+                      return (
+                        <div key={release.version} style={{ marginBottom: "1.25rem" }}>
+                          <div style={{ textAlign: "center", fontSize: "0.75rem", fontWeight: 700, color: "#8c8fae", marginBottom: "0.85rem", paddingBottom: "0.45rem", borderBottom: "1px dashed rgba(47,49,90,0.15)" }}>
+                            {release.rev}
+                          </div>
+                          {release.fixes.map((text, i) => (
+                            <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
+                              <span style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.06em", padding: "0.2rem 0.5rem", borderRadius: 50, background: "rgba(128,195,30,0.12)", color: "#4a6e0e", flexShrink: 0, marginTop: 2 }}>{i + 1}</span>
+                              <span className="ks-list-text">{text}</span>
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
