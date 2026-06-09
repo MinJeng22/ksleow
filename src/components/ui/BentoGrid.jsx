@@ -77,16 +77,6 @@ const BENTO_CAROUSEL_STYLES = `
     display: none;
   }
 }
-@media (max-width: 1180px) {
-  .ks-bento-carousel-slide {
-    flex-basis: 220%;
-  }
-
-  .other-services-carousel .ks-bento-carousel-slide {
-    flex-basis: max(220%, 1400px);
-    min-width: 1400px;
-  }
-}
 @media (max-width: 640px) {
     .other-services-carousel .ks-bento-carousel-track {
       gap: 1rem;
