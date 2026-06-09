@@ -244,7 +244,7 @@ const CODE_TO_EDITION = Object.fromEntries(
 
 /* Pull just the numeric portion of a "Rev N" string so version selects
  * can be shared as ?va=36 instead of va=2.2.25.36 — much shorter. */
-const revNumber  = (r) => String(r.rev).replace(/^Rev\s*/i, "").trim();
+const revNumber  = (r) => String(r.rev || "").replace(/^(Rev|Release|Revision)\s*/i, "").trim();
 const findByRev  = (n) => RELEASES.find(r => revNumber(r) === String(n));
 const MODULE_PRICES = {
   "Complete Sales": "RM600",

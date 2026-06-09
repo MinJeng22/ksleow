@@ -835,7 +835,7 @@ function CompareList({ title, items, type, copy }) {
       {items.map((item, index) => (
         <div key={`${item.rev}-${index}`} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.65rem" }}>
           <CompareRevBadge type={type}>
-            {item.rev}
+            {String(item.rev || "").replace(/^(Rev|Release|Revision)\s*/i, "").trim()}
           </CompareRevBadge>
           <span className="ks-list-text">{item.text}</span>
         </div>
