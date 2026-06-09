@@ -43,4 +43,3 @@ export default function HomeImagePreloader() {
 
   return null;
 }
-

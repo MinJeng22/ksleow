@@ -275,4 +275,3 @@ function ChecklistItem({ children }) {
     </div>
   );
 }
-

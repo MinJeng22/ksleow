@@ -15,4 +15,3 @@ export function PageSectionDivider({ sections, id, section, ...props }) {
   if (!resolvedSection) return null;
   return <SectionDivider section={resolvedSection} {...props} />;
 }
-

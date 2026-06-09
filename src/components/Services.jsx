@@ -28,12 +28,12 @@ const SERVICES = (servicesContent.items || []).map(s => {
   };
 });
 
-/* â”€â”€ Badge row â€” used for both Authorized Dealer and Certified By â”€â”€ */
+/* ── Badge row — used for both Authorized Dealer and Certified By ── */
 function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
   /* Both labels use the same neutral grey (per design spec) */
   const labelColor = forceWhiteLabel ? "#ffffff" : (onImage ? "#2f315a" : "#6b6f91");
 
-  /* Filter out logos whose src starts with /cert- (placeholders â€” hide until file exists) */
+  /* Filter out logos whose src starts with /cert- (placeholders — hide until file exists) */
   const visibleLogos = badge.logos.filter(l => !l.src.startsWith("/cert-"));
   const showPlaceholder = visibleLogos.length === 0;
 
@@ -88,7 +88,7 @@ function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
   );
 }
 
-/* â”€â”€ Flip card â”€â”€ */
+/* ── Flip card ── */
 function ServiceCard({ service }) {
   const [flipped, setFlipped] = useState(false);
   const [flipDirection, setFlipDirection] = useState(1);
@@ -128,7 +128,7 @@ function ServiceCard({ service }) {
   const waMessage = `Hi! I'm interested in ${service.title}. Could you provide more details?`;
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
 
-  // QR code points to the same WhatsApp link â€” scan with phone to open chat
+  // QR code points to the same WhatsApp link — scan with phone to open chat
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=2&bgcolor=ffffff&color=2f315a&data=${encodeURIComponent(waLink)}`;
 
   const isWebinar = service.key === "webinar";
@@ -210,7 +210,7 @@ function ServiceCard({ service }) {
         willChange: "transform",
       }}>
 
-        {/* â”€â”€ FRONT â€” click anywhere to flip â”€â”€ */}
+        {/* ── FRONT — click anywhere to flip ── */}
         <div
           onClick={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
@@ -260,7 +260,7 @@ function ServiceCard({ service }) {
             </div>
           )}
 
-          {/* Top row â€” badge centered horizontally */}
+          {/* Top row — badge centered horizontally */}
           {showBadge && (
             <div className="service-badge-wrap" style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start", marginBottom: "1rem" }}>
               {activeBadge
@@ -288,7 +288,7 @@ function ServiceCard({ service }) {
             color: isActive ? "rgba(255,255,255,0.9)" : (hasFrontBackground ? "#4f577f" : "#6b6f91"),
             lineHeight: 1.6,
             margin: 0,
-            /* Clamp to 4 lines max â€” paired with shorter descriptions in
+            /* Clamp to 4 lines max — paired with shorter descriptions in
                services.json so lines never get visually cut. */
             display: "-webkit-box",
             WebkitLineClamp: 4,
@@ -299,7 +299,7 @@ function ServiceCard({ service }) {
             {service.desc}
           </p>
 
-          {/* Subtle "tap to flip" hint â€” bottom-right */}
+          {/* Subtle "tap to flip" hint — bottom-right */}
           <div style={{
             position: "relative", zIndex: 1,
             display: "inline-flex", alignItems: "center", gap: "0.35rem",
@@ -317,15 +317,15 @@ function ServiceCard({ service }) {
           </div>
         </div>
 
-        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         * BACK â€” premium business card design.
+        {/* ══════════════════════════════════════════════════════════════
+         * BACK — premium business card design.
          * Layout:
-         *   â€¢ Decorative gold geometric shapes in the upper-right corner
-         *   â€¢ Top header strip: small office logo + tagline + company name
-         *   â€¢ Two-column body: contact details (left) | QR code panel (right)
-         *   â€¢ Bottom: WhatsApp + Email CTA buttons
+         *   • Decorative gold geometric shapes in the upper-right corner
+         *   • Top header strip: small office logo + tagline + company name
+         *   • Two-column body: contact details (left) | QR code panel (right)
+         *   • Bottom: WhatsApp + Email CTA buttons
          * Click anywhere on the back to flip; CTAs and QR stop propagation.
-         * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+         * ══════════════════════════════════════════════════════════════ */}
         <div
           onClick={() => setFlipped(false)}
           style={{
@@ -344,9 +344,9 @@ function ServiceCard({ service }) {
             boxShadow: "0 10px 32px rgba(15,17,40,0.22)",
           }}
         >
-          {/* Decorative background â€” defaults to the WebP at /images/branding/service-card-back.webp.
+          {/* Decorative background — defaults to the WebP at /images/branding/service-card-back.webp.
            * Place your image at:  public/images/branding/service-card-back.webp
-           * Admins can also override via CMS â†’ Brand Logos â†’ Service card back. */}
+           * Admins can also override via CMS → Brand Logos → Service card back. */}
           <div style={{
             position: "absolute", inset: 0,
             backgroundImage: `url(${branding.serviceCardBack || "/images/branding/service-card-back.webp"})`,
@@ -355,7 +355,7 @@ function ServiceCard({ service }) {
             pointerEvents: "none",
           }} aria-hidden="true" />
 
-          {/* Top header strip â€” office identity (sits above the gold accents thanks to z-index) */}
+          {/* Top header strip — office identity (sits above the gold accents thanks to z-index) */}
           <div style={{
             position: "relative", zIndex: 1,
             padding: "0.95rem 1.15rem 0.7rem",
@@ -523,7 +523,7 @@ function ServiceCard({ service }) {
   );
 }
 
-/* Single contact line on the back of the card â€” icon chip + label.
+/* Single contact line on the back of the card — icon chip + label.
  * All rows share identical typography (size / weight / colour). */
 function ContactLine({ icon, label, isSingleItem }) {
   return (
@@ -627,4 +627,3 @@ export default function Services() {
     </>
   );
 }
-

@@ -7,7 +7,7 @@ import branding from "../content/branding.json";
 export default function Hero({ onContact }) {
   const [paused, setPaused]     = useState(false);
   const [visible, setVisible]   = useState(false);
-  /* Scroll hint appears 5 seconds after the page settles â€” gives the
+  /* Scroll hint appears 5 seconds after the page settles — gives the
    * viewer time to read the hero copy first, then quietly invites
    * them downward. Fades out as soon as they start scrolling. */
   const [hintShown, setHintShown] = useState(false);
@@ -90,7 +90,7 @@ export default function Hero({ onContact }) {
           transition: "opacity 1.1s ease, transform 1.1s ease",
         }}
       >
-        {/* â”€â”€ Logo + badge group â”€â”€ */}
+        {/* ── Logo + badge group ── */}
         <div className="hero-logo-group">
 
         {/* Logo */}
@@ -111,7 +111,7 @@ export default function Hero({ onContact }) {
           />
         </div>
 
-        {/* â”€â”€ Badge â€” directly below logo â”€â”€ */}
+        {/* ── Badge — directly below logo ── */}
         <div className="hero-badge" style={{
           display: "inline-flex", alignItems: "center",
           background: "rgba(201,168,76,0.15)",
@@ -127,10 +127,10 @@ export default function Hero({ onContact }) {
 
         </div>{/* end hero-logo-group */}
 
-        {/* â”€â”€ Spacer â€” pushes text block to bottom on desktop â”€â”€ */}
+        {/* ── Spacer — pushes text block to bottom on desktop ── */}
         <div className="hero-spacer" style={{ flex: 1, minHeight: "1.5rem", maxHeight: "6vh" }} />
 
-        {/* â”€â”€ Text + buttons block â€” bottom-left on desktop â”€â”€ */}
+        {/* ── Text + buttons block — bottom-left on desktop ── */}
         <div
           className="hero-content"
           style={{
@@ -164,7 +164,7 @@ export default function Hero({ onContact }) {
             {hero.body}
           </p>
 
-          {/* Buttons â€” always side-by-side */}
+          {/* Buttons — always side-by-side */}
           <div className="hero-btns" style={{ display: "flex", gap: "0.85rem", flexWrap: "nowrap" }}>
             <button
               onClick={onContact}
@@ -190,14 +190,14 @@ export default function Hero({ onContact }) {
         </div>
       </div>
 
-      {/* â”€â”€ Scroll-for-more hint â€” premium minimal design â”€â”€
-       *   â€¢ "SCROLL" wordmark in fine letter-spacing (gold)
-       *   â€¢ Thin vertical hairline with a small gold dot that travels
-       *     from the top of the line to the bottom on a slow loop â€”
+      {/* ── Scroll-for-more hint — premium minimal design ──
+       *   • "SCROLL" wordmark in fine letter-spacing (gold)
+       *   • Thin vertical hairline with a small gold dot that travels
+       *     from the top of the line to the bottom on a slow loop —
        *     reads as "this is where to go next" without being noisy
-       *   â€¢ Appears 5 s after page load, fades out the moment the
+       *   • Appears 5 s after page load, fades out the moment the
        *     viewer starts scrolling
-       *   â€¢ Click scrolls ~72% of the viewport (keeps the bottom of
+       *   • Click scrolls ~72% of the viewport (keeps the bottom of
        *     the hero visible above the next section) */}
       <style>{`
         @keyframes scrollHintFadeIn {
@@ -232,7 +232,7 @@ export default function Hero({ onContact }) {
       <button
         className="hero-scroll-hint lg-glass lg-glass-btn lg-glass-pill"
         onClick={() => {
-          /* Hand-paced scroll â€” native "smooth" is too fast and feels
+          /* Hand-paced scroll — native "smooth" is too fast and feels
            * like a jump cut. We RAF a slow ease-in-out over ~1.8s so it
            * reads as "someone gently dragging the page down". Distance
            * is 72% of the viewport so the bottom of the hero stays
@@ -265,7 +265,7 @@ export default function Hero({ onContact }) {
             : "none",
         }}
       >
-        {/* Static chevron â€” no animation */}
+        {/* Static chevron — no animation */}
         <span className="lg-glass-icon" aria-hidden="true">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="6 9 12 15 18 9" />
@@ -309,4 +309,3 @@ export default function Hero({ onContact }) {
     </section>
   );
 }
-

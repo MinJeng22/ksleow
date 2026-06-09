@@ -3,20 +3,20 @@ import useDarkBg from "../hooks/useDarkBg";
 import { getSectionNavItems } from "./PageSections.jsx";
 
 /**
- * SectionSidebar â€” floating right-rail anchor nav for long product pages.
+ * SectionSidebar — floating right-rail anchor nav for long product pages.
  *
  * Props:
  *   items: [{ id, label }]   anchor IDs and visible labels
  *
  * Behaviour:
- *   â€¢ Scroll listener picks the section closest to the top of the viewport
+ *   • Scroll listener picks the section closest to the top of the viewport
  *     and marks it active. (Uses scroll position rather than IntersectionObserver
  *     because the latter fires multiple times during smooth-scroll, causing
  *     the active highlight to flicker.)
- *   â€¢ Clicking a button locks the active state to the clicked id for 900ms,
+ *   • Clicking a button locks the active state to the clicked id for 900ms,
  *     so the smooth-scroll doesn't briefly re-highlight intermediate sections.
- *   â€¢ Visual styling never changes font-weight on active â€” only colour and
- *     background â€” so the row width stays constant and the panel doesn't jump.
+ *   • Visual styling never changes font-weight on active — only colour and
+ *     background — so the row width stays constant and the panel doesn't jump.
  *
  * Hidden on screens < 1280px via the .ac-sidebar media query in global.css.
  */
@@ -199,4 +199,3 @@ export default function SectionSidebar({ items, sections, theme = "gold", themeC
     </nav>
   );
 }
-

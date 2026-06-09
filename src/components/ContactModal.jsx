@@ -5,7 +5,7 @@ import { CONTACT, WA_LINK } from "../constants/contact.js";
 const HEADER_LOGO_SRC = "/images/icons/favicon.webp";
 const CARD_BACK_BG = branding.serviceCardBack || "/images/branding/service-card-back.webp";
 
-/* â”€â”€ Inline SVG icons â”€â”€ */
+/* ── Inline SVG icons ── */
 const PinIcon = () => (
   <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#e8c97a" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
@@ -38,7 +38,7 @@ const CloseIcon = () => (
   </svg>
 );
 
-/* Single contact line â€” same gold-chip + label pattern as the service card back */
+/* Single contact line — same gold-chip + label pattern as the service card back */
 function ContactLine({ icon, label, href }) {
   const inner = (
     <>
@@ -112,7 +112,7 @@ export default function ContactModal({ open, onClose }) {
           overflow: "hidden",
         }}
       >
-        {/* Decorative geometric background â€” same image as service-card backs */}
+        {/* Decorative geometric background — same image as service-card backs */}
         <div
           aria-hidden="true"
           style={{
@@ -144,7 +144,7 @@ export default function ContactModal({ open, onClose }) {
           <CloseIcon />
         </button>
 
-        {/* â”€â”€ Header strip â€” same compact pattern as card back â”€â”€ */}
+        {/* ── Header strip — same compact pattern as card back ── */}
         <div style={{ position: "relative", zIndex: 1, padding: "1.5rem 1.6rem 1rem", display: "flex", alignItems: "center", gap: "0.8rem" }}>
           <div style={{ width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <img src={HEADER_LOGO_SRC} alt="KSL" loading="eager" decoding="async" style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }} />
@@ -162,20 +162,20 @@ export default function ContactModal({ open, onClose }) {
           </div>
         </div>
 
-        {/* â”€â”€ Contact rows â€” gold-chip icons, same as card back â”€â”€ */}
+        {/* ── Contact rows — gold-chip icons, same as card back ── */}
         <div style={{ position: "relative", zIndex: 1, padding: "0 1.6rem 1.4rem", display: "flex", flexDirection: "column", gap: "0.7rem" }}>
           <ContactLine icon={<PhoneIcon />} label={CONTACT.phone} href={telHref} />
           <ContactLine icon={<MailIcon />} label={CONTACT.email} href={mailHref} />
           <ContactLine icon={<PinIcon />} label={CONTACT.address} />
         </div>
 
-        {/* â”€â”€ Bottom CTA buttons â€” WhatsApp + Email side-by-side â”€â”€ */}
+        {/* ── Bottom CTA buttons — WhatsApp + Email side-by-side ── */}
         <div style={{
           position: "relative", zIndex: 1,
           padding: "0.4rem 1.6rem 1.5rem",
           display: "flex", gap: "0.55rem",
         }}>
-          {/* WhatsApp â€” gold pill */}
+          {/* WhatsApp — gold pill */}
           <a
             href={WA_LINK} target="_blank" rel="noreferrer"
             style={{
@@ -195,7 +195,7 @@ export default function ContactModal({ open, onClose }) {
             WhatsApp
           </a>
 
-          {/* Email â€” ghost outline */}
+          {/* Email — ghost outline */}
           <a
             href={mailHref}
             style={{
@@ -221,4 +221,3 @@ export default function ContactModal({ open, onClose }) {
     </div>
   );
 }
-

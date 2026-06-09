@@ -1025,7 +1025,7 @@ textarea {
 }
 
 .ks-bento-title { margin-bottom: 0.55rem; }
-.ks-bento-copy { margin-bottom: 0; text-align: justify; }
+.ks-bento-copy { margin-bottom: 0; text-align: left; }
 .ks-bento-link {
   margin-top: auto;
   padding-top: 1rem;

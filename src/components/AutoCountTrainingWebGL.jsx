@@ -158,7 +158,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
       ? 'translate3d(0, 0, 0) scale(1, 1)'
       : initialTransform);
   // opacity is always in transition-property (see CSS), duration is 0ms normally
-  // and 200ms when settling via .is-settling class â€” this avoids instant-jump bug
+  // and 200ms when settling via .is-settling class — this avoids instant-jump bug
   // caused by changing transitionProperty and opacity in the same React render.
 
   const finishMorph = useCallback(() => {
@@ -202,7 +202,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
         boxShadow: VIDEO_SHADOW,
         pointerEvents: 'none',
         zIndex: 9998,
-        // opacity always has a transition â€” reliably fires when isSettling changes
+        // opacity always has a transition — reliably fires when isSettling changes
         opacity: isSettling ? 0 : 1,
         transition: `border-radius ${duration}ms ${APPLE_EASE}, transform ${duration}ms ${APPLE_EASE}, opacity 200ms ease`,
       }}
@@ -453,13 +453,13 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
       setStageHeight(null);
       // NOTE: setShadowIn(true) is intentionally DELAYED to the 2-RAF callback below.
       // If called here (same render as setPlayerOpen), the element is newly created with
-      // shadow-in already applied â€” the browser has no "before" state, so the CSS
+      // shadow-in already applied — the browser has no "before" state, so the CSS
       // box-shadow transition never fires and the shadow pops in instantly at full opacity,
       // causing a double-shadow flash with the portal shadow.
       morphPaintRafRef.current = window.requestAnimationFrame(() => {
         morphPaintRafRef.current = window.requestAnimationFrame(() => {
           // Now the real frame is in the DOM. Add shadow-in here so the transition fires.
-          // Simultaneously start the portal fade-out. Both are 200ms â†’ cross-fade is 1x constant.
+          // Simultaneously start the portal fade-out. Both are 200ms → cross-fade is 1x constant.
           setShadowIn(true);
           setMorphSettling(true);
           morphSettleTimerRef.current = window.setTimeout(() => {
@@ -1133,5 +1133,3 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
     </section>
   );
 }
-
-

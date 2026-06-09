@@ -3,17 +3,17 @@ import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
- * chatbotShared â€” primitives shared by AIChatbot (modal) and KSOmni
+/* ══════════════════════════════════════════════════════════════
+ * chatbotShared — primitives shared by AIChatbot (modal) and KSOmni
  * (full page). Keep this file dependency-light: no react-router, no
  * global styles. Everything here is a pure helper or a presentational
  * component the two callers can drop into their own layouts.
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-/* â”€â”€ Cloudflare Worker that proxies KS Omni / Gemini â”€â”€ */
+ * ══════════════════════════════════════════════════════════════ */
+/* ── Cloudflare Worker that proxies KS Omni / Gemini ── */
 export const WORKER_URL = "https://ks-omni.kslbs.workers.dev";
 
-/* â”€â”€ Icons (only the ones both callers need; page-only icons live
-       in their respective files) â”€â”€ */
+/* ── Icons (only the ones both callers need; page-only icons live
+       in their respective files) ── */
 export const SendIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" />
@@ -28,7 +28,7 @@ export const CloseIcon = () => (
 export const GREETING_PHRASES = [
   { hello: "Hello", prompt: "How can I help you today?" },
   { hello: "Hai", prompt: "Ada apa-apa yang boleh saya bantu?" },
-  { hello: "ä½ å¥½ä¸«", prompt: "ä»Šå¤©èƒ½å¸®åˆ°ä½ ä»€ä¹ˆï¼Ÿ" },
+  { hello: "你好丫", prompt: "今天能帮到你什么？" },
 ];
 
 export function autoResizeTextarea(textarea) {
@@ -203,7 +203,7 @@ export function renderText(text, options = {}) {
   return <MarkdownText text={text} isUser={options.isUser} fontSize={options.fontSize} />;
 }
 
-/* â”€â”€ Typing indicator (three pulsing dots, gray bubble) â”€â”€ */
+/* ── Typing indicator (three pulsing dots, gray bubble) ── */
 export function TypingDots() {
   return (
     <div style={{
@@ -223,7 +223,7 @@ export function TypingDots() {
   );
 }
 
-/* â”€â”€ Message bubble â€” supports optional inline image preview â”€â”€ */
+/* ── Message bubble — supports optional inline image preview ── */
 export function Message({ msg, fontSize = "0.86rem" }) {
   const isUser     = msg.role === "user";
   const showTyping = !isUser && msg.streaming && !msg.text;
@@ -291,8 +291,8 @@ export function Message({ msg, fontSize = "0.86rem" }) {
   );
 }
 
-/* â”€â”€ Pull a text token out of any of the response shapes the worker
-       might return (Gemini chunk, OpenAI chunk, plain string, â€¦). â”€â”€ */
+/* ── Pull a text token out of any of the response shapes the worker
+       might return (Gemini chunk, OpenAI chunk, plain string, …). ── */
 function extractText(obj) {
   if (!obj) return "";
   if (typeof obj === "string") return obj;
@@ -304,22 +304,22 @@ function extractText(obj) {
   return obj.text || obj.message || obj.response || obj.output || obj.delta || "";
 }
 
-/* â”€â”€ streamChat â€” POST /chat and pump streaming tokens into onToken.
+/* ── streamChat — POST /chat and pump streaming tokens into onToken.
  *
- *   payload  { messages: [{role, text}], app?, machine_id?, â€¦ }
- *   onToken  (acc: string) => void   â€” called for every accumulated update
- *   signal   AbortSignal             â€” optional, cancels the fetch
+ *   payload  { messages: [{role, text}], app?, machine_id?, … }
+ *   onToken  (acc: string) => void   — called for every accumulated update
+ *   signal   AbortSignal             — optional, cancels the fetch
  *
  *   Returns the final accumulated string.
  *
  *   Handles:
- *     â€¢ SSE / chunked-text streams (the production shape)
- *     â€¢ application/json single-shot replies
- *     â€¢ plain-text replies
- *     â€¢ multiple response payload shapes (Gemini, OpenAI, ad-hoc)
+ *     • SSE / chunked-text streams (the production shape)
+ *     • application/json single-shot replies
+ *     • plain-text replies
+ *     • multiple response payload shapes (Gemini, OpenAI, ad-hoc)
  *
  *   Throws an Error with a worker-supplied detail string on non-2xx.
- * â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+ * ────────────────────────────────────────────────────────────── */
 export async function streamChat({ payload, onToken, signal }) {
   const res = await fetch(`${WORKER_URL}/chat`, {
     method: "POST",
@@ -374,9 +374,9 @@ export async function streamChat({ payload, onToken, signal }) {
   return acc.trim();
 }
 
-/* â”€â”€ Inject the @keyframes used by Message + TypingDots once per page. â”€â”€ */
+/* ── Inject the @keyframes used by Message + TypingDots once per page. ── */
 export function ChatbotKeyframes() {
-  // returning a <style> tag is enough â€” React dedupes identical children
+  // returning a <style> tag is enough — React dedupes identical children
   // when the component renders multiple times in the same tree.
   return <style>{`
     @keyframes typingPulse{0%,80%,100%{opacity:0.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
@@ -389,5 +389,4 @@ export function ChatbotKeyframes() {
     .ks-chat-markdown table p{margin:0}
   `}</style>;
 }
-
 

@@ -16,39 +16,39 @@ import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
 import { CopyReleaseButton, ReleaseNumber, ShareLinkButton } from "../../components/ReleaseTools.jsx";
 import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
-/* AutoCount Accounting page â€” product-aware WhatsApp link to KSL Support Team */
+/* AutoCount Accounting page — product-aware WhatsApp link to KSL Support Team */
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to learn more about AutoCount Accounting. Thank you."
 )}`;
 import { PRODUCT_IMAGES } from "../../assets/assets.js";
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
- * AUTOCOUNT ACCOUNTING â€” PRODUCT PAGE
+/* ═══════════════════════════════════════════════════════════════
+ * AUTOCOUNT ACCOUNTING — PRODUCT PAGE
  *
  * RELEASE NOTE DATA
- * â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+ * ─────────────────
  * Release notes are stored in src/content/autocountReleases.json and
  * refreshed by scripts/update-autocount-releases.mjs from the official
  * AutoCount Wiki.
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+ * ═══════════════════════════════════════════════════════════════ */
 const RELEASES = autocountReleases;
 
-/* â”€â”€ Copy release notes to clipboard (WhatsApp format) â”€â”€ */
+/* ── Copy release notes to clipboard (WhatsApp format) ── */
 function copyToClipboard(r, type) {
   const lines = type === "features" ? r.features : r.fixes;
   const header = type === "features"
-    ? `*AutoCount ${r.version} â€” New Features*`
-    : `*AutoCount ${r.version} â€” Bug Fixes*`;
-  const text = header + "\n" + lines.map(l => `â€¢ ${l}`).join("\n");
+    ? `*AutoCount ${r.version} — New Features*`
+    : `*AutoCount ${r.version} — Bug Fixes*`;
+  const text = header + "\n" + lines.map(l => `• ${l}`).join("\n");
   navigator.clipboard.writeText(text).catch(() => { });
 }
 
-/* â”€â”€ Copy compare-mode results (array of {ver, rev, text}) â”€â”€ */
+/* ── Copy compare-mode results (array of {ver, rev, text}) ── */
 function copyCompare(items, fromVer, toVer, type) {
   const header = type === "features"
-    ? `*AutoCount New Features (${fromVer} â†’ ${toVer})*`
-    : `*AutoCount Bug Fixes (${fromVer} â†’ ${toVer})*`;
-  const text = header + "\n" + items.map(f => `[${f.rev}] â€¢ ${f.text}`).join("\n");
+    ? `*AutoCount New Features (${fromVer} → ${toVer})*`
+    : `*AutoCount Bug Fixes (${fromVer} → ${toVer})*`;
+  const text = header + "\n" + items.map(f => `[${f.rev}] • ${f.text}`).join("\n");
   navigator.clipboard.writeText(text).catch(() => { });
 }
 
@@ -153,7 +153,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
             />
           </div>
           <div className="release-card-meta" style={{ fontSize: "0.78rem", color: "#a8abcc", marginTop: 2 }}>
-            Released {r.date} Â· DB {r.dbVer} Â· Server {r.server}
+            Released {r.date} · DB {r.dbVer} · Server {r.server}
           </div>
         </div>
         {/* counts */}
@@ -209,15 +209,15 @@ function ReleaseCard({ r, expanded, onToggle }) {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
- * Comparing 6 Editions of Accounting 2.2 â€” feature matrix
- * â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ══════════════════════════════════════════════════════════════
+ * Comparing 6 Editions of Accounting 2.2 — feature matrix
+ * ──────────────────────────────────────────────────────────────
  * Marker codes:
- *   "â—" = included module
+ *   "●" = included module
  *   "+" = optional / paid add-on
- *   "âˆ’" = not available in this edition
+ *   "−" = not available in this edition
  * Order of editions (columns): 1 Account Plus | Account Plus | Express Plus | Basic | Pro | Premium
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+ * ══════════════════════════════════════════════════════════════ */
 const EDITIONS = ["1 Account Plus", "Account Plus", "Express Plus", "Basic", "Pro", "Premium"];
 const EDITION_PRICES = {
   "1 Account Plus": "RM1600",
@@ -243,7 +243,7 @@ const CODE_TO_EDITION = Object.fromEntries(
 );
 
 /* Pull just the numeric portion of a "Rev N" string so version selects
- * can be shared as ?va=36 instead of va=2.2.25.36 â€” much shorter. */
+ * can be shared as ?va=36 instead of va=2.2.25.36 — much shorter. */
 const revNumber  = (r) => String(r.rev).replace(/^Rev\s*/i, "").trim();
 const findByRev  = (n) => RELEASES.find(r => revNumber(r) === String(n));
 const MODULE_PRICES = {
@@ -301,85 +301,85 @@ const EDITION_TABLE = {
     {
       name: "Modules",
       rows: [
-        ["Plug-In",                            ["âˆ’", "â—", "â—", "â—", "â—", "â—"]],
-        ["SST, Project, Multi-Currency",       ["â—", "â—", "â—", "â—", "â—", "â—"]],
-        ["GL, AR, AP, Recurrence GL",          ["â—", "â—", "â—", "â—", "â—", "â—"]],
-        ["Budget & Advanced Financial Report", ["âˆ’", "+", "+", "â—", "â—", "â—"]],
-        ["Formula, UDF",                       ["âˆ’", "+", "+", "â—", "â—", "â—"]],
-        ["Simple Sales",                       ["â—", "â—", "â—", "â—", "â—", "â—"]],
-        ["Simple Purchase",                    ["â—", "â—", "â—", "â—", "â—", "â—"]],
-        ["Simple Stock",                       ["âˆ’", "âˆ’", "â—", "â—", "â—", "â—"]],
-        ["Complete Sales",                     ["âˆ’", "+", "+", "â—", "â—", "â—"]],
-        ["Complete Purchase",                  ["âˆ’", "+", "+", "â—", "â—", "â—"]],
-        ["Complete Stock",                     ["âˆ’", "+", "+", "â—", "â—", "â—"]],
-        ["Basic Multi-UOM",                    ["âˆ’", "+", "+", "â—", "â—", "â—"]],
-        ["Activity Stream",                    ["âˆ’", "+", "+", "+", "â—", "â—"]],
-        ["Advanced Multi-UOM",                 ["âˆ’", "+", "+", "+", "â—", "â—"]],
-        ["Advanced Quotation",                 ["âˆ’", "+", "+", "+", "â—", "â—"]],
-        ["Consignment",                        ["âˆ’", "+", "+", "+", "â—", "â—"]],
-        ["FOC Quantity",                       ["âˆ’", "+", "+", "+", "â—", "â—"]],
-        ["Landing Cost",                       ["âˆ’", "+", "+", "+", "â—", "â—"]],
-        ["Multi Location",                     ["âˆ’", "+", "+", "+", "â—", "â—"]],
-        ["Recurrence (Sales & Purchase)",      ["âˆ’", "+", "+", "+", "â—", "â—"]],
-        ["Scripting",                          ["âˆ’", "+", "+", "+", "â—", "â—"]],
-        ["Advance Item",                       ["âˆ’", "+", "+", "+", "+", "â—"]],
-        ["Filter by salesman",                 ["âˆ’", "+", "+", "+", "+", "â—"]],
-        ["Item Batch",                         ["âˆ’", "+", "+", "+", "+", "â—"]],
-        ["Item Package / Item Template",       ["âˆ’", "+", "+", "+", "+", "â—"]],
-        ["Multi-Dimensional Analysis",         ["âˆ’", "+", "+", "+", "+", "â—"]],
-        ["Remote Credit Control",              ["âˆ’", "+", "+", "+", "+", "â—"]],
-        ["Stock Assembly",                     ["âˆ’", "+", "+", "+", "+", "â—"]],
+        ["Plug-In",                            ["−", "●", "●", "●", "●", "●"]],
+        ["SST, Project, Multi-Currency",       ["●", "●", "●", "●", "●", "●"]],
+        ["GL, AR, AP, Recurrence GL",          ["●", "●", "●", "●", "●", "●"]],
+        ["Budget & Advanced Financial Report", ["−", "+", "+", "●", "●", "●"]],
+        ["Formula, UDF",                       ["−", "+", "+", "●", "●", "●"]],
+        ["Simple Sales",                       ["●", "●", "●", "●", "●", "●"]],
+        ["Simple Purchase",                    ["●", "●", "●", "●", "●", "●"]],
+        ["Simple Stock",                       ["−", "−", "●", "●", "●", "●"]],
+        ["Complete Sales",                     ["−", "+", "+", "●", "●", "●"]],
+        ["Complete Purchase",                  ["−", "+", "+", "●", "●", "●"]],
+        ["Complete Stock",                     ["−", "+", "+", "●", "●", "●"]],
+        ["Basic Multi-UOM",                    ["−", "+", "+", "●", "●", "●"]],
+        ["Activity Stream",                    ["−", "+", "+", "+", "●", "●"]],
+        ["Advanced Multi-UOM",                 ["−", "+", "+", "+", "●", "●"]],
+        ["Advanced Quotation",                 ["−", "+", "+", "+", "●", "●"]],
+        ["Consignment",                        ["−", "+", "+", "+", "●", "●"]],
+        ["FOC Quantity",                       ["−", "+", "+", "+", "●", "●"]],
+        ["Landing Cost",                       ["−", "+", "+", "+", "●", "●"]],
+        ["Multi Location",                     ["−", "+", "+", "+", "●", "●"]],
+        ["Recurrence (Sales & Purchase)",      ["−", "+", "+", "+", "●", "●"]],
+        ["Scripting",                          ["−", "+", "+", "+", "●", "●"]],
+        ["Advance Item",                       ["−", "+", "+", "+", "+", "●"]],
+        ["Filter by salesman",                 ["−", "+", "+", "+", "+", "●"]],
+        ["Item Batch",                         ["−", "+", "+", "+", "+", "●"]],
+        ["Item Package / Item Template",       ["−", "+", "+", "+", "+", "●"]],
+        ["Multi-Dimensional Analysis",         ["−", "+", "+", "+", "+", "●"]],
+        ["Remote Credit Control",              ["−", "+", "+", "+", "+", "●"]],
+        ["Stock Assembly",                     ["−", "+", "+", "+", "+", "●"]],
       ],
     },
     {
       name: "Optional Module",
       rows: [
-        ["Intelligent Costing",                ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Advanced Multi-Currency",            ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["API",                                ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Bonus Point",                        ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Consolidated Financial Report",      ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Department",                         ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Export Account",                     ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Export Stock",                       ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Filter by account",                  ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Import Third Party Xml",             ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Multi-Dimensional Price Book",       ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Multi-Level Assembly",               ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Serial Number",                      ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Stock Disassembly",                  ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Unrealized Gain/Loss",               ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Sales Order Processing",             ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["Assembly Order Processing",          ["âˆ’", "+", "+", "+", "+", "+"]],
+        ["Intelligent Costing",                ["−", "+", "+", "+", "+", "+"]],
+        ["Advanced Multi-Currency",            ["−", "+", "+", "+", "+", "+"]],
+        ["API",                                ["−", "+", "+", "+", "+", "+"]],
+        ["Bonus Point",                        ["−", "+", "+", "+", "+", "+"]],
+        ["Consolidated Financial Report",      ["−", "+", "+", "+", "+", "+"]],
+        ["Department",                         ["−", "+", "+", "+", "+", "+"]],
+        ["Export Account",                     ["−", "+", "+", "+", "+", "+"]],
+        ["Export Stock",                       ["−", "+", "+", "+", "+", "+"]],
+        ["Filter by account",                  ["−", "+", "+", "+", "+", "+"]],
+        ["Import Third Party Xml",             ["−", "+", "+", "+", "+", "+"]],
+        ["Multi-Dimensional Price Book",       ["−", "+", "+", "+", "+", "+"]],
+        ["Multi-Level Assembly",               ["−", "+", "+", "+", "+", "+"]],
+        ["Serial Number",                      ["−", "+", "+", "+", "+", "+"]],
+        ["Stock Disassembly",                  ["−", "+", "+", "+", "+", "+"]],
+        ["Unrealized Gain/Loss",               ["−", "+", "+", "+", "+", "+"]],
+        ["Sales Order Processing",             ["−", "+", "+", "+", "+", "+"]],
+        ["Assembly Order Processing",          ["−", "+", "+", "+", "+", "+"]],
       ],
     },
     {
       name: "POS Counter",
       rows: [
-        ["POS A",      ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["POS B",      ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["POS Branch", ["âˆ’", "+", "+", "+", "+", "+"]],
+        ["POS A",      ["−", "+", "+", "+", "+", "+"]],
+        ["POS B",      ["−", "+", "+", "+", "+", "+"]],
+        ["POS Branch", ["−", "+", "+", "+", "+", "+"]],
       ],
     },
     {
       name: "POS Modules",
       rows: [
-        ["POS Serial Number",  ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["POS Item Batch",     ["âˆ’", "+", "+", "+", "+", "+"]],
-        ["POS Item Package",   ["âˆ’", "+", "+", "+", "+", "+"]],
+        ["POS Serial Number",  ["−", "+", "+", "+", "+", "+"]],
+        ["POS Item Batch",     ["−", "+", "+", "+", "+", "+"]],
+        ["POS Item Package",   ["−", "+", "+", "+", "+", "+"]],
       ],
     },
   ],
 };
 
 function EditionMarker({ value }) {
-  if (value === "â—") {
+  if (value === "●") {
     return <span style={{ display: "inline-block", width: 11, height: 11, borderRadius: "50%", background: "#80c31e" }} />;
   }
   if (value === "+") {
     return <span style={{ color: "#80c31e", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>+</span>;
   }
-  return <span style={{ color: "#9aa", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>âˆ’</span>;
+  return <span style={{ color: "#9aa", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>−</span>;
 }
 
 function EditionsTable({ selected = null, diffOnly = false }) {
@@ -429,7 +429,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
               ))}
             </tr>
             <tr className="ks-compare-tr-book">
-              <td className="ks-compare-td-left ks-compare-td-book" style={{ background: "inherit", fontWeight: 500 }}>Default e‑Invoice Account Book</td>
+              <td className="ks-compare-td-left ks-compare-td-book" style={{ background: "inherit", fontWeight: 500 }}>Default E-Invoice Account Book</td>
               {filterRow(EDITION_TABLE.defaultEInvoiceAccountBook).map((v, i) => (
                 <td key={i} className="ks-compare-td-book">{v}</td>
               ))}
@@ -554,7 +554,7 @@ export default function AutoCountAccountingPage({ onContact }) {
   const [compareB, setCompareB] = useState(RELEASES[0].version);                   /* newest */
   const [visibleLimit, setVisibleLimit] = useState(5);
   const [trialOpen, setTrialOpen] = useState(false);
-  /* Edition compare mode â€” same Browse/Compare pattern as Release Notes */
+  /* Edition compare mode — same Browse/Compare pattern as Release Notes */
   const [editionCompareMode, setEditionCompareMode] = useState(false);
   const [editionA, setEditionA] = useState(EDITIONS[0]);                  /* Account Plus */
   const [editionB, setEditionB] = useState(EDITIONS[EDITIONS.length - 1]); /* Premium */
@@ -562,7 +562,7 @@ export default function AutoCountAccountingPage({ onContact }) {
   
 
 
-  /* â”€â”€ Init from URL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  /* ── Init from URL ───────────────────────────────────────────────
    * Read query params on mount. Anyone landing on a shared link gets
    * the compare mode + selections pre-applied AND the page auto-
    * scrolls to the right section. Falls back to top-of-page when no
@@ -581,11 +581,11 @@ export default function AutoCountAccountingPage({ onContact }) {
    * Long-name params from older shared links are still accepted as a
    * fallback (editionMode / editionA / editionB / editionDiff / vMode /
    * vA / vB), so links shared before the short-code switch keep working.
-   * â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+   * ─────────────────────────────────────────────────────────────── */
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
-    // Editions section â€” short codes first, then long-name fallback.
+    // Editions section — short codes first, then long-name fallback.
     const eaCode = params.get("ea");
     const ebCode = params.get("eb");
     const eaName = (eaCode && CODE_TO_EDITION[eaCode]) || params.get("editionA");
@@ -600,7 +600,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       }
     }
 
-    // Releases section â€” short codes first, then long-name fallback.
+    // Releases section — short codes first, then long-name fallback.
     const vaCode = params.get("va");
     const vbCode = params.get("vb");
     const vaRel  = (vaCode && findByRev(vaCode)) ||
@@ -666,15 +666,15 @@ export default function AutoCountAccountingPage({ onContact }) {
         }
       `}</style>
 
-      {/* Floating section sidebar â€” desktop only (â‰¥1280px), hidden via media query otherwise */}
+      {/* Floating section sidebar — desktop only (≥1280px), hidden via media query otherwise */}
       <SectionSidebar sections={AC_SECTIONS} themeColor="#80c31e" />
 
-      {/* â”€â”€ Hero banner â€” shared ProductHero component â”€â”€ */}
+      {/* ── Hero banner — shared ProductHero component ── */}
       <div className="pinned-hero-stage">
         <ProductHero
           eyebrow="Software We Specialize In"
           title="AutoCount Accounting 2.2"
-          body="Malaysia's leading SME accounting software â€” cloud‑connected, SST & e‑Invoice compliant, and deeply integrated with AutoCount POS and Payroll. As an authorized dealer, KSL Business Solutions provides full installation, configuration, training, and ongoing support."
+          body="Malaysia's leading SME accounting software — cloud‑connected, SST & e‑Invoice compliant, and deeply integrated with AutoCount POS and Payroll. As an authorized dealer, KSL Business Solutions provides full installation, configuration, training, and ongoing support."
           iconSrc={PRODUCT_IMAGES.autocountAccountingIcon}
           iconAlt="AutoCount Accounting"
           primaryCta={{ label: "Start Free Trial", onClick: () => setTrialOpen(true) }}
@@ -684,7 +684,7 @@ export default function AutoCountAccountingPage({ onContact }) {
 
       <main className="pinned-page-content product-app-content">
 
-      {/* â”€â”€ Feature highlights â”€â”€ */}
+      {/* ── Feature highlights ── */}
       <div className="product-app-section product-app-section-paper product-app-section-clean">
         <FeatureShowcase
           features={FEATURES}
@@ -711,9 +711,9 @@ export default function AutoCountAccountingPage({ onContact }) {
         <PageSectionDivider sections={AC_SECTIONS} id="training" />
       </div>
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-       * LEARN AUTOCOUNT IN 60 MINUTES â€” WebGL Scroll Experience
-       * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      {/* ══════════════════════════════════════════════════════════
+       * LEARN AUTOCOUNT IN 60 MINUTES — WebGL Scroll Experience
+       * ══════════════════════════════════════════════════════════ */}
       <div className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
         <div id="training">
           <AutoCountTrainingWebGL />
@@ -724,9 +724,9 @@ export default function AutoCountAccountingPage({ onContact }) {
         <PageSectionDivider sections={AC_SECTIONS} id="editions" />
       </div>
 
-      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+      {/* ══════════════════════════════════════════════════════════
        * COMPARING 6 EDITIONS OF ACCOUNTING 2.2
-       * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+       * ══════════════════════════════════════════════════════════ */}
       <div id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ overflow: "visible" }}>
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
@@ -744,13 +744,13 @@ export default function AutoCountAccountingPage({ onContact }) {
                 = available optional (add-on) module
               </span>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                <span style={{ color: "#9aa", fontWeight: 700, fontSize: "1rem", lineHeight: 1 }}>âˆ’</span>
+                <span style={{ color: "#9aa", fontWeight: 700, fontSize: "1rem", lineHeight: 1 }}>−</span>
                 = module not available
               </span>
             </div>
           </div>
 
-          {/* Mode toggle â€” Browse All / Compare Editions */}
+          {/* Mode toggle — Browse All / Compare Editions */}
           <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.75rem" }}>
             <SegmentedControl
               ariaLabel="Edition view mode"
@@ -826,19 +826,19 @@ export default function AutoCountAccountingPage({ onContact }) {
         <PageSectionDivider sections={AC_SECTIONS} id="releases" />
       </div>
 
-      {/* â”€â”€ Release Notes â”€â”€ */}
+      {/* ── Release Notes ── */}
       <div id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-to-warm">
         <div className="content-wrap">
 
-          {/* â”€â”€ Title + tab switcher â”€â”€ */}
+          {/* ── Title + tab switcher ── */}
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
             <div>
 
               <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontWeight: 700, color: "#2f315a" }}>
-                Release Notes â€” Ver 2.2
+                Release Notes — Ver 2.2
               </h2>
               <p style={{ fontSize: "0.85rem", color: "#6b6f91", marginTop: "0.35rem" }}>
-                {RELEASES.length} revisions Â· {highlightCount} highlights Â· Rev {revNumber(RELEASES[RELEASES.length - 1])} â†’ Rev {revNumber(RELEASES[0])} Â· Newest first
+                {RELEASES.length} revisions · {highlightCount} highlights · Rev {revNumber(RELEASES[RELEASES.length - 1])} → Rev {revNumber(RELEASES[0])} · Newest first
               </p>
             </div>
             {/* Mode toggle */}
@@ -854,7 +854,7 @@ export default function AutoCountAccountingPage({ onContact }) {
             />
           </div>
 
-          {/* â”€â”€ COMPARE MODE â”€â”€ */}
+          {/* ── COMPARE MODE ── */}
           {compareMode && (() => {
             const rA = RELEASES.find(r => r.version === compareA);
             const rB = RELEASES.find(r => r.version === compareB);
@@ -862,7 +862,7 @@ export default function AutoCountAccountingPage({ onContact }) {
             const idxB = RELEASES.indexOf(rB);
             const older = idxA > idxB ? rA : rB;
             const newer = idxA > idxB ? rB : rA;
-            /* collect all items from olderâ†’newer (exclusive) */
+            /* collect all items from older→newer (exclusive) */
             const olderIdx = RELEASES.indexOf(older);
             const newerIdx = RELEASES.indexOf(newer);
             const between = olderIdx === newerIdx
@@ -880,7 +880,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                     onChange={setCompareA}
                     options={RELEASES.map((release) => ({ value: release.version, label: `${release.version} (${release.rev})` }))}
                   />
-                  <div style={{ textAlign: "center", fontSize: "1.3rem", color: "#80c31e", marginTop: "1.2rem" }}>â†’</div>
+                  <div style={{ textAlign: "center", fontSize: "1.3rem", color: "#80c31e", marginTop: "1.2rem" }}>→</div>
                   <SelectField
                     label="To version"
                     value={compareB}
@@ -946,7 +946,7 @@ export default function AutoCountAccountingPage({ onContact }) {
             );
           })()}
 
-          {/* â”€â”€ BROWSE MODE â”€â”€ */}
+          {/* ── BROWSE MODE ── */}
           {!compareMode && <>
             {/* Search + collapse */}
             <div style={{ display: "flex", gap: "0.6rem", alignItems: "center", flexWrap: "wrap", marginBottom: "1.5rem" }}>
@@ -955,7 +955,7 @@ export default function AutoCountAccountingPage({ onContact }) {
                   style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
                   <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
                 </svg>
-                <input type="text" placeholder="Search version or keywordâ€¦"
+                <input type="text" placeholder="Search version or keyword…"
                   value={search} onChange={e => setSearch(e.target.value)}
                   style={{ width: "100%", paddingLeft: 30, paddingRight: 12, height: 36, borderRadius: 50, border: "1px solid rgba(47,49,90,0.18)", fontSize: "0.82rem", fontFamily: "inherit", color: "#2f315a", outline: "none" }}
                 />
@@ -999,7 +999,7 @@ export default function AutoCountAccountingPage({ onContact }) {
         </div>
       </div>
 
-      {/* â”€â”€ Why Choose Us â”€â”€ */}
+      {/* ── Why Choose Us ── */}
       <WhyChooseUs section={getSection(AC_SECTIONS, "why-ksl")} />
 
       <EnquireNowCTA
@@ -1015,6 +1015,4 @@ export default function AutoCountAccountingPage({ onContact }) {
     </div>
   );
 }
-
-
 

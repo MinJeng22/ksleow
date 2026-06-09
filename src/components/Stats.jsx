@@ -16,7 +16,7 @@ function parseStat(raw) {
   };
 }
 
-/* Count-up number that animates 0 â†’ target every time it scrolls
+/* Count-up number that animates 0 → target every time it scrolls
  * into view. Resets to 0 when it leaves the viewport so re-entry
  * triggers a fresh count. Falls back to the raw string if not numeric. */
 function CountUp({ raw, duration = 1800 }) {
@@ -107,4 +107,3 @@ export default function Stats() {
     </div>
   );
 }
-

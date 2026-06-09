@@ -22,4 +22,3 @@ export function CompareFeatureCell({ children, meta, className = "ks-compare-td-
     </td>
   );
 }
-

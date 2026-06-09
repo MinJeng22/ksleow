@@ -1,7 +1,7 @@
 import { Img } from "./Media.jsx";
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
- * ProductHero â€” shared hero band used by every product / app page
+/* ══════════════════════════════════════════════════════════════
+ * ProductHero — shared hero band used by every product / app page
  *
  * Composition (matches the AutoCount Accounting design):
  *   1. Full-bleed lifestyle photo (background-image, cover, centered)
@@ -16,10 +16,10 @@ import { Img } from "./Media.jsx";
  *   iconSrc         logo chip image, omit for no chip          (string?)
  *   iconAlt         alt text for the logo chip                 (string?)
  *   backgroundImage hero photo URL                             (string?)
- *   overlayOpacity  0â€“1, defaults to 0.6                       (number?)
+ *   overlayOpacity  0–1, defaults to 0.6                       (number?)
  *   primaryCta      { label, href?, onClick?, disabled?, download?, icon? }
  *   secondaryCta    { label, href, target? }
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+ * ══════════════════════════════════════════════════════════════ */
 
 const DEFAULT_BG = "/images/products/autocount-accounting-hero.webp";
 
@@ -78,7 +78,7 @@ export default function ProductHero({
         }
       `}</style>
 
-      {/* Dark overlay â€” keeps white copy legible against the photo */}
+      {/* Dark overlay — keeps white copy legible against the photo */}
       <div aria-hidden="true" style={{
         position: "absolute", inset: 0,
         background: `rgba(0,0,0,${overlayOpacity})`,
@@ -129,10 +129,10 @@ export default function ProductHero({
   );
 }
 
-/* â”€â”€ Primary CTA â€” gold pill â”€â”€
- *   If cta.href â†’ renders as <a> (with optional download attribute)
- *   If cta.onClick â†’ renders as <button>
- *   If cta.disabled â†’ renders as inert button (no handler, default cursor) */
+/* ── Primary CTA — gold pill ──
+ *   If cta.href → renders as <a> (with optional download attribute)
+ *   If cta.onClick → renders as <button>
+ *   If cta.disabled → renders as inert button (no handler, default cursor) */
 function PrimaryButton({ cta }) {
   const icon = cta.icon ?? (cta.download ? <DownloadIcon /> : null);
 
@@ -170,7 +170,7 @@ function PrimaryButton({ cta }) {
   );
 }
 
-/* â”€â”€ Secondary CTA â€” ghost outline â”€â”€ */
+/* ── Secondary CTA — ghost outline ── */
 function SecondaryButton({ cta }) {
   return (
     <a href={cta.href}
@@ -182,4 +182,3 @@ function SecondaryButton({ cta }) {
     </a>
   );
 }
-

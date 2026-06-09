@@ -181,7 +181,7 @@ const CLOUD_EDITION_TABLE = {
 
 function EditionMarker({ value }) {
   if (value === "+") {
-    return <span style={{ color: "#16a14b", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>âœ”</span>;
+    return <span style={{ color: "#16a14b", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>✔</span>;
   }
   if (!value) {
     return null;
@@ -516,7 +516,7 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <main className="pinned-page-content product-app-content">
-      {/* â”€â”€ Feature highlights â”€â”€ */}
+      {/* ── Feature highlights ── */}
       <div className="product-app-section product-app-section-paper product-app-section-clean" style={{ '--feature-strip-bg': 'linear-gradient(180deg, #16a14b 0%, #0d7032 100%)', '--feature-strip-shadow': '0 0 16px rgba(22, 161, 75, 0.4)' }}>
         <FeatureShowcase features={FEATURES} />
       </div>
@@ -843,6 +843,4 @@ function CompareList({ title, items, type, copy }) {
     </div>
   );
 }
-
-
 

@@ -2,13 +2,13 @@ import { useState } from "react";
 import { LOGO_NAV } from "../assets/assets.js";
 import { CONTACT } from "../constants/contact.js";
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════════════════
  * ServiceContactModal
- * â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+ * ──────────────────────────────────────────────────────────────
  * A lightweight contact modal that shows per-service contact
  * details. Accepts a `service` object with label/address/phone/
  * whatsapp/email fields. Falls back to global CONTACT values.
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+ * ══════════════════════════════════════════════════════════════ */
 
 const IC = {
   mapPin: "M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z M12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z",
@@ -106,7 +106,7 @@ export default function ServiceContactModal({ service, onClose }) {
             onMouseOver={e => e.currentTarget.style.opacity = "0.88"}
             onMouseOut={e => e.currentTarget.style.opacity = "1"}
           >
-            WhatsApp â€” {phone}
+            WhatsApp — {phone}
           </a>
 
           <a
@@ -140,4 +140,3 @@ export default function ServiceContactModal({ service, onClose }) {
     </div>
   );
 }
-

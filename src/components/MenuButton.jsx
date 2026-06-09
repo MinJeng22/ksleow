@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import useDarkBg from "../hooks/useDarkBg";
 import { SearchIcon, BackIcon, MenuIcon, ToTopIcon, ScrollDownIcon } from "./icons";
 
-/* â”€â”€ Mega Menu Data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Mega Menu Data ─────────────────────────────────────── */
 const MEGA_MENU = [
   {
     title: "Service Pillars",
@@ -113,7 +113,7 @@ function NavIcon({ name, size = 16 }) {
   }
 }
 
-/* â”€â”€ MenuGlyph icon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── MenuGlyph icon ─────────────────────────────────────── */
 function MenuGlyph({ open, size = 17 }) {
   return (
     <svg
@@ -145,9 +145,9 @@ function MenuGlyph({ open, size = 17 }) {
   );
 }
 
-/* â”€â”€ CSS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── CSS ─────────────────────────────────────────────────── */
 const STYLES = `
-/* â”€â”€â”€ Desktop/Tablet Controls â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Desktop/Tablet Controls ───────────────────────────── */
 .top-right-controls {
   position: fixed;
   z-index: 1000;
@@ -199,7 +199,7 @@ const STYLES = `
   padding: 0 1rem;
 }
 
-/* â”€â”€â”€ Mobile floating bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Mobile floating bar ──────────────────────────────── */
 
 .mobile-float-bar {
   display: none;
@@ -303,7 +303,7 @@ const STYLES = `
   }
 }
 
-/* â”€â”€â”€ Menu Overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Menu Overlay ─────────────────────────────────────── */
 .menu-overlay-backdrop {
   position: fixed;
   inset: 0;
@@ -322,12 +322,12 @@ const STYLES = `
   -webkit-backdrop-filter: blur(12px) saturate(1.08);
   pointer-events: auto;
 }
-/* No backdrop overlay needed on desktop â€” hover-leave handles close */
+/* No backdrop overlay needed on desktop — hover-leave handles close */
 @media (min-width: 768px) {
   .menu-overlay-backdrop { display: none !important; }
 }
 
-/* â”€â”€â”€ Mega Menu Panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Mega Menu Panel ──────────────────────────────────── */
 .menu-panel {
   position: fixed;
   z-index: 1101;
@@ -379,7 +379,7 @@ const STYLES = `
   }
 }
 
-/* â”€â”€â”€ Menu Column â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Menu Column ──────────────────────────────────────── */
 .menu-column {
   display: flex;
   flex-direction: column;
@@ -516,7 +516,7 @@ const STYLES = `
   }
 }
 
-/* â”€â”€â”€ Menu Sub-item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Menu Sub-item ────────────────────────────────────── */
 .menu-sub-item {
   align-items: center;
   display: flex;
@@ -603,7 +603,7 @@ const STYLES = `
   }
 }
 
-/* â”€â”€â”€ Menu Glyph icon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ─── Menu Glyph icon ──────────────────────────────────── */
 .menu-glyph {
   flex-shrink: 0;
   transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
@@ -613,7 +613,7 @@ const STYLES = `
 }
 `;
 
-/* â”€â”€ Component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Component ──────────────────────────────────────────── */
 export default function MenuButton({ onOpenSearch, hideBar }) {
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
@@ -721,7 +721,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     return () => clearTimeout(hoverTimeoutRef.current);
   }, []);
 
-  /* â”€â”€ Hover handlers (desktop only) â”€â”€ */
+  /* ── Hover handlers (desktop only) ── */
   const handleMenuEnter = () => {
     if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
       clearTimeout(hoverTimeoutRef.current);
@@ -734,7 +734,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     }
   };
 
-  /* â”€â”€ Menu item action handler â”€â”€ */
+  /* ── Menu item action handler ── */
   const handleMenuAction = (item) => {
     setOpen(false);
 
@@ -770,7 +770,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     }
   };
 
-  /* â”€â”€ Mobile accordion toggle â”€â”€ */
+  /* ── Mobile accordion toggle ── */
   const toggleMobileSection = (index) => {
     const isExpanding = !expandedMobile.includes(index);
     setExpandedMobile((prev) =>
@@ -817,7 +817,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     <>
       <style suppressHydrationWarning>{STYLES}</style>
 
-      {/* â”€â”€ Desktop/Tablet Controls â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Desktop/Tablet Controls ────────────────────────── */}
       <div 
         className="top-right-controls" 
         ref={fabRef}
@@ -870,7 +870,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
         </div>
       )}
 
-      {/* â”€â”€ Mobile floating bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Mobile floating bar ───────────────────────── */}
       <div
         ref={mobileBarRef}
         className={`mobile-float-bar lg-glass${showScrollTop && mobileActionMode === "back" ? " has-scrolltop" : ""}`}
@@ -963,13 +963,13 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
         )}
       </div>
 
-      {/* â”€â”€ Backdrop (mobile only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Backdrop (mobile only) ─────────────────────── */}
       <div
         className={`menu-overlay-backdrop${open ? " is-open" : ""}`}
         onClick={() => setOpen(false)}
       />
 
-      {/* â”€â”€ Mega Menu Panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Mega Menu Panel ────────────────────────────── */}
       <div
         ref={panelRef}
         className={`menu-panel ks-nav-glass-panel${open ? " is-open" : ""}`}
@@ -1016,5 +1016,4 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     </>
   );
 }
-
 

@@ -21,17 +21,17 @@ function getQrUrl(pageUrl) {
 }
 
 /* Upload limits + accepted types.
- *   â€¢ Images:    5 MB cap (jpg / png / webp / gif / etc.)
- *   â€¢ Documents: 10 MB cap (PDF / CSV / TXT). The Cloudflare Worker
+ *   • Images:    5 MB cap (jpg / png / webp / gif / etc.)
+ *   • Documents: 10 MB cap (PDF / CSV / TXT). The Cloudflare Worker
  *     routes these to Gemini's document API and the response is
  *     truncated at 2 000 chars on the way back, so a hard cap on the
  *     way up keeps memory + bandwidth sane.
- * Anything else (Excel, Word, ZIP, â€¦) is rejected client-side with a
+ * Anything else (Excel, Word, ZIP, …) is rejected client-side with a
  * friendly message that matches the worker's server-side check. */
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const IMAGE_FILE_ACCEPT = "image/*";
 const IMAGE_EXTENSION_RE = /\.(avif|bmp|gif|heic|heif|jpe?g|png|tiff?|webp)$/i;
-/* Extensions for the file picker's `accept` attribute â€” covers the
+/* Extensions for the file picker's `accept` attribute — covers the
  * cases where mobile browsers don't send the right MIME type. */
 const ACCEPT_ATTR = IMAGE_FILE_ACCEPT;
 
@@ -39,7 +39,7 @@ function isImageFile(f) {
   return !!f && (f.type?.startsWith("image/") || IMAGE_EXTENSION_RE.test(f.name || ""));
 }
 
-/* â”€â”€ QR Code modal â”€â”€ */
+/* ── QR Code modal ── */
 function QRModal({ onClose, pageUrl, qrUrl, qrReady, onMouseEnter, onMouseLeave }) {
   return (
     <div 
@@ -91,7 +91,7 @@ function QRModal({ onClose, pageUrl, qrUrl, qrReady, onMouseEnter, onMouseLeave 
   );
 }
 
-/* â”€â”€ Page-specific icons (Send / Close come from chatbotShared) â”€â”€ */
+/* ── Page-specific icons (Send / Close come from chatbotShared) ── */
 const HistoryIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
@@ -132,7 +132,7 @@ const QRIcon = () => (
     <path d="M14 14h1v1h-1zM18 14h2v2h-2zM14 19h3v2h-1v-1h-2zM21 19v2h-1v-1" />
   </svg>
 );
-/* Paperclip â€” generic "attach a file" since the picker accepts both
+/* Paperclip — generic "attach a file" since the picker accepts both
  * images and documents (PDF / CSV / TXT) now. */
 const ImageUploadIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -151,7 +151,7 @@ const CloseSmallIcon = () => (
   </svg>
 );
 
-/* â”€â”€ Gemini-style two-line greeting â”€â”€
+/* ── Gemini-style two-line greeting ──
  * Rendered above the centered input box on the empty state.
  * Mirrors Gemini's home screen: small lighter top line + large gradient prompt. */
 function EmptyGreeting() {
@@ -166,7 +166,7 @@ function EmptyGreeting() {
   );
 }
 
-/* â”€â”€ Mobile detection â”€â”€ */
+/* ── Mobile detection ── */
 function useIsMobile() {
   const [mobile, setMobile] = useState(false);
   useEffect(() => {
@@ -188,7 +188,7 @@ function getSessionMessagesKey(machineId, sessionId) {
   return `ks_omni_chat_${machineId || "default"}_${sessionId}`;
 }
 
-/* â”€â”€ Main page â”€â”€ */
+/* ── Main page ── */
 export default function KSLOmniPage() {
   const isMobile = useIsMobile();
   const navigate = useNavigate();
@@ -457,7 +457,7 @@ export default function KSLOmniPage() {
     }
   }
 
-  /* Try the browser back stack first â€” keeps users on whatever page
+  /* Try the browser back stack first — keeps users on whatever page
    * they came from (Sales2DO, AutoCount, homepage). Falls back to "/"
    * when /omni was opened directly (no prior history entry). */
   function goHome() {
@@ -466,11 +466,11 @@ export default function KSLOmniPage() {
     else navigate("/");
   }
 
-  /* â”€â”€ Shared upload pipeline (paste OR file picker) â”€â”€
+  /* ── Shared upload pipeline (paste OR file picker) ──
    * Accepts both images and supported documents (PDF / CSV / TXT) and
    * sends them to the worker's /upload endpoint. The returned gsUri is
-   * later embedded in the user's chat text â€” `[image:gs://...]` for
-   * images or `[document:gs://...]` for docs â€” and the worker routes
+   * later embedded in the user's chat text — `[image:gs://...]` for
+   * images or `[document:gs://...]` for docs — and the worker routes
    * each to the correct Gemini API (vision vs document). */
   async function uploadFile(file) {
     if (!file) return;
@@ -486,7 +486,7 @@ export default function KSLOmniPage() {
     if (!asImage && !asDoc) {
       setPasteError(
         `Unsupported file type. We accept images, PDF, CSV, and plain text. ` +
-        `Excel / Word files aren't supported â€” please export to PDF or take a screenshot.`
+        `Excel / Word files aren't supported — please export to PDF or take a screenshot.`
       );
       return;
     }
@@ -503,7 +503,7 @@ export default function KSLOmniPage() {
 
     try {
       // Images get a local preview thumbnail (data URL). Documents skip
-      // the FileReader pass â€” we'd just be reading 5â€“10 MB to throw away.
+      // the FileReader pass — we'd just be reading 5–10 MB to throw away.
       let dataUrl = null;
       if (asImage) {
         dataUrl = await new Promise((resolve, reject) => {
@@ -521,7 +521,7 @@ export default function KSLOmniPage() {
         filename: file.name || (asImage ? "image" : "document"),
       });
 
-      // Multipart upload â€” browser sets the correct Content-Type with boundary
+      // Multipart upload — browser sets the correct Content-Type with boundary
       const formData = new FormData();
       // Ensure the file has a name with an extension so the worker can detect mime
       const named = file.name && file.name.includes(".")
@@ -550,8 +550,8 @@ export default function KSLOmniPage() {
     }
   }
 
-  /* â”€â”€ Capture file from clipboard paste (images only â€” paste of a doc
-   * is exceedingly rare and browsers usually don't expose it) â”€â”€ */
+  /* ── Capture file from clipboard paste (images only — paste of a doc
+   * is exceedingly rare and browsers usually don't expose it) ── */
   async function handlePaste(e) {
     const items = e.clipboardData?.items;
     if (!items) return;
@@ -565,7 +565,7 @@ export default function KSLOmniPage() {
     }
   }
 
-  /* â”€â”€ Trigger hidden file input from the upload button â”€â”€ */
+  /* ── Trigger hidden file input from the upload button ── */
   const fileInputRef = useRef(null);
   const cameraInputRef = useRef(null);
   function openFilePicker() {
@@ -669,9 +669,9 @@ export default function KSLOmniPage() {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   }
 
-  /* â”€â”€ Reusable attachment preview tile.
-   * Image attachments â†’ square thumbnail.
-   * Document attachments â†’ square card showing the file-type letters
+  /* ── Reusable attachment preview tile.
+   * Image attachments → square thumbnail.
+   * Document attachments → square card showing the file-type letters
    * (PDF / CSV / TXT) above a truncated filename.
    * Spinner state is identical to the old image-only behaviour. */
   function renderAttachmentTile(size) {
@@ -723,9 +723,9 @@ export default function KSLOmniPage() {
     );
   }
 
-  /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  /* ══════════════════════════════════════════════════════════
    * UNIFIED LAYOUT: Fullscreen chat for both Desktop and Mobile
-   * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   * ══════════════════════════════════════════════════════════ */
   return (
     <div suppressHydrationWarning style={{ position: "absolute", inset: 0, zIndex: 300, background: "radial-gradient(ellipse at 50% 0%, rgba(47, 49, 90, 0.5) 0%, transparent 60%), radial-gradient(circle at 85% 15%, rgba(201, 168, 76, 0.08) 0%, transparent 45%), linear-gradient(to bottom, #111328, #0c0e1a)", display: "flex", overflow: "hidden" }}>
       
@@ -828,7 +828,7 @@ export default function KSLOmniPage() {
         }
       `}</style>
 
-      {/* â”€â”€ Desktop & Tablet Controls â”€â”€ */}
+      {/* ── Desktop & Tablet Controls ── */}
       {!isMobile && (
         <>
           <div className="top-left-controls" style={{ transition: "transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)", transform: sidebarOpen ? "translateX(300px)" : "none" }}>
@@ -888,7 +888,7 @@ export default function KSLOmniPage() {
         style={{ display: "none" }}
       />
 
-      {/* â”€â”€ Main Flex Container for Chat + Input â”€â”€ */}
+      {/* ── Main Flex Container for Chat + Input ── */}
       <div style={{
         flex: 1, 
         display: "flex", 
@@ -898,7 +898,7 @@ export default function KSLOmniPage() {
         paddingBottom: (isEmpty && !keyboardOpen) ? "15vh" : 0,
         minHeight: 0
       }}>
-        {/* â”€â”€ Chat Content Area â”€â”€ */}
+        {/* ── Chat Content Area ── */}
         <div ref={chatScrollRef} style={{
           flex: isEmpty ? "none" : 1, 
           overflowY: isEmpty ? "visible" : "auto",
@@ -915,7 +915,7 @@ export default function KSLOmniPage() {
           }
         </div>
 
-        {/* â”€â”€ Liquid Glass Input Row â”€â”€ */}
+        {/* ── Liquid Glass Input Row ── */}
         <div style={{ maxWidth: 900, margin: "0 auto", width: "100%", padding: "0.5rem 1rem" }}>
           <div style={{
             position: "relative",
@@ -1015,10 +1015,10 @@ export default function KSLOmniPage() {
       </div>
     </div>
 
-      {/* â”€â”€ QR Modal â”€â”€ */}
+      {/* ── QR Modal ── */}
       {showQR && <QRModal onClose={() => setShowQR(false)} pageUrl={pageUrl} qrUrl={qrUrl} qrReady={qrReady} onMouseEnter={handleQREnter} onMouseLeave={handleQRLeave} />}
 
-      {/* â”€â”€ Mobile Float Bar (Back, Search, Menu) â”€â”€ */}
+      {/* ── Mobile Float Bar (Back, Search, Menu) ── */}
       {isMobile && !keyboardOpen && (
         <div className="mobile-float-bar lg-glass" style={{ display: "flex" }}>
           <button className="mfb-btn mfb-action" style={{ color: "#ffffff" }} onClick={goHome} aria-label="Back">
@@ -1047,4 +1047,3 @@ export default function KSLOmniPage() {
     </div>
   );
 }
-

@@ -15,4 +15,3 @@ if (root?.hasChildNodes()) {
 } else {
   createRoot(root).render(app);
 }
-

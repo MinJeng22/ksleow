@@ -5,12 +5,12 @@ import { PageSectionDivider } from "../../components/PageSections.jsx";
 import { IconLayers, IconLink, IconHandshake, IconStar } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 
-/* FeedMe POS page â€” product-aware WhatsApp link to Sales Agent Elise */
+/* FeedMe POS page — product-aware WhatsApp link to Sales Agent Elise */
 const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
   "Hi Elise, I would like to learn more about FeedMe POS. Thank you."
 )}`;
 
-/* Hero photo + brand logo â€” already in /public/images/products/ */
+/* Hero photo + brand logo — already in /public/images/products/ */
 const HERO_PHOTO = "/images/products/feedme-pos-showcase.webp";
 const FEEDME_LOGO = "/images/logos/feedme-logo.webp";
 
@@ -22,7 +22,7 @@ const FEEDME_SECTIONS = [
   { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: "#c9a84c" },
 ];
 
-/* â”€â”€ Shared style tokens (lifted from AutoCount page for visual parity) â”€â”€ */
+/* ── Shared style tokens (lifted from AutoCount page for visual parity) ── */
 const S = {
   label:   { fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.5rem" },
   h2:      { fontSize: "clamp(1.4rem, 2.6vw, 2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem" },
@@ -31,7 +31,7 @@ const S = {
   section: { padding: "4rem 0" },
 };
 
-/* â”€â”€ Inline SVG icon set â”€â”€ */
+/* ── Inline SVG icon set ── */
 const Icon = {
   Tables: (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -68,7 +68,7 @@ const Icon = {
   ),
 };
 
-/* â”€â”€ Reusable: feature card (icon chip + title + body) â”€â”€ */
+/* ── Reusable: feature card (icon chip + title + body) ── */
 function FeatureCard({ title, children }) {
   return (
     <div style={{
@@ -91,7 +91,7 @@ function FeatureCard({ title, children }) {
   );
 }
 
-/* â”€â”€ Reusable: alternating image / text spotlight row â”€â”€ */
+/* ── Reusable: alternating image / text spotlight row ── */
 function Spotlight({ eyebrow, title, body, bullets, imageSide = "right" }) {
   return (
     <>
@@ -101,7 +101,7 @@ function Spotlight({ eyebrow, title, body, bullets, imageSide = "right" }) {
       `}</style>
       <div className="spot-row" style={{ borderBottom: "0.5px solid rgba(47,49,90,0.07)" }}>
         <div style={{ order: imageSide === "left" ? 0 : 1 }}>
-          {/* Placeholder gradient panel â€” admins can swap in real screenshots later */}
+          {/* Placeholder gradient panel — admins can swap in real screenshots later */}
           <div style={{
             width: "100%", aspectRatio: "4 / 3",
             borderRadius: 16,
@@ -130,9 +130,9 @@ function Spotlight({ eyebrow, title, body, bullets, imageSide = "right" }) {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ══════════════════════════════════════════════════════════════
  * Page
- * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+ * ══════════════════════════════════════════════════════════════ */
 export default function FeedMePOSPage() {
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, []);
 
@@ -141,7 +141,7 @@ export default function FeedMePOSPage() {
 
       <SectionSidebar sections={FEEDME_SECTIONS} themeColor="#c9a84c" />
 
-      {/* â”€â”€ Hero â”€â”€ */}
+      {/* ── Hero ── */}
       <div className="pinned-hero-stage">
         <div className="product-hero" style={{ background: "#2f315a", paddingTop: "7rem", paddingBottom: "5rem" }}>
           <div className="content-wrap">
@@ -165,12 +165,12 @@ export default function FeedMePOSPage() {
                   FeedMe POS
                 </h1>
                 <p className="product-hero-body" style={{ fontSize: "1rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.78, maxWidth: 600, marginBottom: "1.5rem" }}>
-                  Cloud-based F&amp;B point-of-sale built for cafÃ©s, restaurants, and food courts.
-                  Table management, kitchen display, online ordering, and member loyalty â€”
+                  Cloud-based F&amp;B point-of-sale built for cafés, restaurants, and food courts.
+                  Table management, kitchen display, online ordering, and member loyalty —
                   all in one tablet-friendly system that syncs straight to AutoCount Accounting.
                 </p>
                 <div className="product-hero-btns" style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-                  {/* Demo Now â€” inert for now (will be wired to a Calendly / form later) */}
+                  {/* Demo Now — inert for now (will be wired to a Calendly / form later) */}
                   <button
                     type="button"
                     aria-disabled="true"
@@ -201,27 +201,27 @@ export default function FeedMePOSPage() {
       </div>
 
       <main className="pinned-page-content product-app-content">
-      {/* â”€â”€ Key Features â”€â”€ */}
+      {/* ── Key Features ── */}
       <div id="features" className="product-app-section product-app-section-paper product-app-section-clean">
         <div className="content-wrap">
           <div className="ks-eyebrow">What's Inside</div>
           <h2 className="ks-section-title" style={{ marginBottom: "0.75rem" }}>Everything an F&amp;B Outlet Needs</h2>
           <p className="ks-body-text" style={{ marginBottom: "2.25rem", maxWidth: 720 }}>
-            Six core modules that run on iPad, Android tablet, or Windows touchscreen â€” and stay
+            Six core modules that run on iPad, Android tablet, or Windows touchscreen — and stay
             in sync across every device, every outlet, in real time.
           </p>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.1rem" }}>
             <FeatureCard icon={Icon.Tables}    title="Table & Floor Plan">
               Drag-and-drop floor layout, table-status colours, transferring orders between tables
-              and merging bills â€” all from the waiter's tablet.
+              and merging bills — all from the waiter's tablet.
             </FeatureCard>
             <FeatureCard icon={Icon.Kitchen}   title="Kitchen Display System">
               Orders fire straight to the KDS the moment they're punched in. Mark items ready,
               colour-code by station, and route by category.
             </FeatureCard>
             <FeatureCard icon={Icon.Online}    title="Online Ordering & QR">
-              Customer-facing menu, QR table ordering, take-away pickup, and delivery integration â€”
+              Customer-facing menu, QR table ordering, take-away pickup, and delivery integration —
               all flowing into the same backend.
             </FeatureCard>
             <FeatureCard icon={Icon.Inventory} title="Recipe & Inventory">
@@ -229,7 +229,7 @@ export default function FeedMePOSPage() {
               alerts surface before you run out.
             </FeatureCard>
             <FeatureCard icon={Icon.Reports}   title="Real-Time Reports">
-              Daily sales, hourly heatmaps, top sellers, and shift cash-up â€” all from a phone.
+              Daily sales, hourly heatmaps, top sellers, and shift cash-up — all from a phone.
               Schedule report emails to owners and accountants automatically.
             </FeatureCard>
             <FeatureCard icon={Icon.Outlets}   title="Multi-Outlet & Member">
@@ -244,7 +244,7 @@ export default function FeedMePOSPage() {
         <PageSectionDivider sections={FEEDME_SECTIONS} id="modules" />
       </div>
 
-      {/* â”€â”€ Module spotlight â”€â”€ */}
+      {/* ── Module spotlight ── */}
       <div id="modules" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
         <div className="content-wrap">
           <div className="ks-eyebrow">How It Flows</div>
@@ -261,7 +261,7 @@ export default function FeedMePOSPage() {
             bullets={[
               "Visual floor plan with live table status (free / seated / pay / cleaning)",
               "Bill splitting by item, by guest, or by amount",
-              "Built-in modifiers & set meals â€” combo deals fire as a single line",
+              "Built-in modifiers & set meals — combo deals fire as a single line",
               "Offline mode keeps orders flowing if Wi-Fi drops",
             ]}
             imageSide="right"
@@ -272,7 +272,7 @@ export default function FeedMePOSPage() {
             title="Kitchen Display, Recipe Deduction"
             body="Every order routes to the right station automatically. Recipes deduct ingredient stock the moment the cashier takes payment, so closing stock reconciles to the cent."
             bullets={[
-              "Multi-station KDS â€” hot kitchen, cold kitchen, bar, dessert",
+              "Multi-station KDS — hot kitchen, cold kitchen, bar, dessert",
               "Order timing badges so you can spot bottlenecks",
               "Recipe / Bill-of-Material costing per menu item",
               "Inventory countdown for limited-quantity specials",
@@ -283,12 +283,12 @@ export default function FeedMePOSPage() {
           <Spotlight
             eyebrow="Digital Channels"
             title="Online Ordering, QR Table, Delivery"
-            body="Open a second revenue stream without buying a second system. Your dine-in menu doubles as the QR-table menu, the take-away menu, and the delivery menu â€” managed once, deployed everywhere."
+            body="Open a second revenue stream without buying a second system. Your dine-in menu doubles as the QR-table menu, the take-away menu, and the delivery menu — managed once, deployed everywhere."
             bullets={[
-              "QR table ordering â€” guests order from their phone, payment optional",
+              "QR table ordering — guests order from their phone, payment optional",
               "Self-pickup and take-away with prep-time queue",
               "Direct integrations with food-delivery platforms",
-              "Branded online storefront â€” your menu, your colours",
+              "Branded online storefront — your menu, your colours",
             ]}
             imageSide="right"
           />
@@ -299,7 +299,7 @@ export default function FeedMePOSPage() {
             body="A clean phone-friendly dashboard for owners and area managers. Drill from group total down to a single voided receipt in three taps."
             bullets={[
               "Real‑time daily / weekly / monthly sales by outlet",
-              "Hourly sales heatmap â€” staff your peaks, cut your dips",
+              "Hourly sales heatmap — staff your peaks, cut your dips",
               "Top sellers, slow movers, profit margin per item",
               "Cash-up reconciliation, void / discount audit trail",
             ]}
@@ -312,7 +312,7 @@ export default function FeedMePOSPage() {
         <PageSectionDivider sections={FEEDME_SECTIONS} id="integration" />
       </div>
 
-      {/* â”€â”€ AutoCount integration â”€â”€ */}
+      {/* ── AutoCount integration ── */}
       <div id="integration" className="product-app-section product-app-section-ice product-app-section-to-warm">
         <div className="content-wrap" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2.5rem", alignItems: "center" }}>
           <div>
@@ -327,7 +327,7 @@ export default function FeedMePOSPage() {
                 "Daily sales summary posted as one consolidated invoice or per-receipt detail",
                 "Payment-method split mapped to your AutoCount bank / cash accounts",
                 "Item-level COGS push for accurate margin reporting",
-                "SST / e‑Invoice compliant â€” KLN-ready out of the box",
+                "SST / e‑Invoice compliant — KLN-ready out of the box",
               ].map((b, i) => <li key={i} className="ks-body-text" style={{ marginBottom: "0.45rem" }}>{b}</li>)}
             </ul>
           </div>
@@ -348,7 +348,7 @@ export default function FeedMePOSPage() {
         <PageSectionDivider sections={FEEDME_SECTIONS} id="why-ksl" />
       </div>
 
-      {/* â”€â”€ Why partner with KSL â”€â”€ */}
+      {/* ── Why partner with KSL ── */}
       <div id="why-ksl" className="product-app-section product-app-section-warm">
         <div className="content-wrap">
           <div className="ks-eyebrow">Why Partner With KSL</div>
@@ -360,10 +360,10 @@ export default function FeedMePOSPage() {
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
             {[
-              { title: "On-Site Setup",        body: "Hardware, network, printers, KDS screens â€” we wire it up and stress-test before opening day." },
+              { title: "On-Site Setup",        body: "Hardware, network, printers, KDS screens — we wire it up and stress-test before opening day." },
               { title: "Menu & Recipe Build",  body: "We sit with your chef to load every dish, modifier, set meal, and recipe so day-one is plug-and-play." },
-              { title: "Staff Training",       body: "Hands-on training for cashiers, waiters, and managers â€” no jargon, in Mandarin / English / Malay." },
-              { title: "Long-Term Support",    body: "Backed by 40+ years of accounting experience in Pahang â€” you don't get a hotline overseas." },
+              { title: "Staff Training",       body: "Hands-on training for cashiers, waiters, and managers — no jargon, in Mandarin / English / Malay." },
+              { title: "Long-Term Support",    body: "Backed by 40+ years of accounting experience in Pahang — you don't get a hotline overseas." },
             ].map((c, i) => (
               <div key={i} style={{ background: "#ffffff", border: "1px solid rgba(47,49,90,0.09)", borderRadius: 14, padding: "1.3rem 1.4rem" }}>
                 <h3 className="ks-card-title" style={{ fontSize: "1rem" }}>{c.title}</h3>
@@ -386,5 +386,3 @@ export default function FeedMePOSPage() {
     </div>
   );
 }
-
-

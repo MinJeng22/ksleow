@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import useDarkBg from "../hooks/useDarkBg";
 
 /**
- * BackToTop â€” Apple Liquid Glass style.
+ * BackToTop — Apple Liquid Glass style.
  * On desktop/tablet: fixed bottom-right circle.
  * On mobile: rendered inside the FloatingBar, so this component hides itself.
  */
@@ -91,4 +91,3 @@ export default function BackToTop({ hideBar }) {
     </>
   );
 }
-
