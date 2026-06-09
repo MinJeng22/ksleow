@@ -486,11 +486,6 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
       setPlayerOpen(true);
       setIframeMounted(true);
       preparingMorphRef.current = false;
-      setTimeout(() => {
-        if (stageRef.current) {
-          stageRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 50);
       return;
     }
 
@@ -924,6 +919,9 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
           .tutorial-play-button {
             width: 54px;
             height: 54px;
+          }
+          .tutorial-copy-panel {
+            display: none !important;
           }
         }
       `}</style>
