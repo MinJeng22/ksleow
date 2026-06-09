@@ -1,4 +1,4 @@
-export function SegmentedControl({
+﻿export function SegmentedControl({
   options,
   value,
   onChange,
@@ -42,3 +42,4 @@ export function SelectField({ label, value, onChange, options }) {
     </div>
   );
 }
+

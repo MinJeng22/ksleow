@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import CarouselProgress from "./CarouselProgress.jsx";
 import { Img } from "./Media.jsx";
 
@@ -212,3 +212,4 @@ export default function FeatureShowcase({
     </div>
   );
 }
+

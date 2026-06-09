@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 
@@ -60,7 +60,7 @@ function buildPath(width, height, variant) {
       ]
     : [
         // Optimized Services curve: softer loop + broad waves only.
-        // Shape: subtle teardrop loop on the left → large middle sweep → large right sweep.
+        // Shape: subtle teardrop loop on the left â†’ large middle sweep â†’ large right sweep.
         { x: -0.1 * width, y: 0.34 * height },
         { x: 0.04 * width, y: 0.26 * height },
         { x: 0.18 * width, y: 0.36 * height },
@@ -316,3 +316,4 @@ export default function ServiceRibbonBackground({
     />
   );
 }
+

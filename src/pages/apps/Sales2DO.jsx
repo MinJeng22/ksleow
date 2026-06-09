@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
@@ -7,7 +7,7 @@ import CarouselProgress from "../../components/CarouselProgress.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import StepRow from "../../components/StepRow.jsx";
 import { Vid, Img } from "../../components/Media.jsx";
-/* Sales2DO-specific WhatsApp link — addressed to KSL Support Team with a product-aware message */
+/* Sales2DO-specific WhatsApp link â€” addressed to KSL Support Team with a product-aware message */
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to learn more about AutoCount Plugin Sales2DO. Thank you."
 )}`;
@@ -18,7 +18,7 @@ import { IconClipboard, IconSettings, IconStar, IconShield, IconVideo } from "..
 import imgOutstanding   from "../../assets/images/apps/sales2do/outstanding.webp";
 import imgPreset        from "../../assets/images/apps/sales2do/preset-delivery.webp";
 import imgSettings      from "../../assets/images/apps/sales2do/settings.webp";
-/* Online/Offline activation screenshots are swapped — the file named
+/* Online/Offline activation screenshots are swapped â€” the file named
  * `license-online.webp` was originally captured for the offline flow and
  * vice versa. Re-binding the imports is cheaper than renaming the files
  * on disk. */
@@ -34,24 +34,24 @@ const S2D_SECTIONS = [
   { id: "license", label: "License", icon: IconShield, color: "#c9a84c" },
 ];
 
-/* ── Video segments ── */
+/* â”€â”€ Video segments â”€â”€ */
 const VIDEO_SEGMENTS = [
   {
     src: "/videos/sales2do/copy-to-do-method1.mp4",
     group: "3 Ways to Copy a Sales Document",
-    title: "Method 1 — Via Right-Click Menu",
+    title: "Method 1 â€” Via Right-Click Menu",
     desc: "The fastest method for processing single documents.",
     steps: [
-      <span key="a">Navigate to <strong>Sales → Invoice</strong> or <strong>Cash Sale</strong> to open the document listing.</span>,
+      <span key="a">Navigate to <strong>Sales â†’ Invoice</strong> or <strong>Cash Sale</strong> to open the document listing.</span>,
       <span key="b">Right-click on the specific row you wish to copy and select <strong>"Copy to a new Delivery Order"</strong>.</span>,
-      <span key="c"><em>Note: this option is only visible for <strong>Approved</strong> documents — not Draft or Voided entries.</em></span>,
+      <span key="c"><em>Note: this option is only visible for <strong>Approved</strong> documents â€” not Draft or Voided entries.</em></span>,
       <span key="d">A new Delivery Order entry screen opens with all details pre-filled.</span>,
     ],
   },
   {
     src: "/videos/sales2do/copy-to-do-method2.mp4",
     group: "3 Ways to Copy a Sales Document",
-    title: 'Method 2 — Via the "Copy To" Icon',
+    title: 'Method 2 â€” Via the "Copy To" Icon',
     desc: "Ideal when you are already reviewing a document.",
     steps: [
       <span key="a">Open any Invoice or Cash Sale in <strong>View Mode</strong>.</span>,
@@ -62,10 +62,10 @@ const VIDEO_SEGMENTS = [
   {
     src: "/videos/sales2do/copy-to-do-method3.mp4",
     group: "3 Ways to Copy a Sales Document",
-    title: 'Method 3 — Via "Copy From" in DO Entry',
+    title: 'Method 3 â€” Via "Copy From" in DO Entry',
     desc: "The best way to combine multiple sales documents into a single Delivery Order.",
     steps: [
-      <span key="a">Go to <strong>Sales → Delivery Order</strong> and create a <strong>New</strong> entry.</span>,
+      <span key="a">Go to <strong>Sales â†’ Delivery Order</strong> and create a <strong>New</strong> entry.</span>,
       <span key="b">On the top ribbon under the <strong>Home</strong> tab, click <strong>"Copy from Invoice"</strong> or <strong>"Copy from Cash Sale"</strong>.</span>,
       <span key="c">A search window will appear. Select the desired source document(s) and click <strong>OK</strong>. <em>(Search results only include Approved invoices by default.)</em></span>,
       <span key="d">All items from the selected documents will automatically populate the Delivery Order.</span>,
@@ -74,7 +74,7 @@ const VIDEO_SEGMENTS = [
   {
     src: "/videos/sales2do/smart-quantity-control.mp4",
     group: "Smart Quantity Control",
-    title: "Smart Quantity Control — Partial Copy & Full Copy Warning",
+    title: "Smart Quantity Control â€” Partial Copy & Full Copy Warning",
     desc: "Prevents accidental over-delivery when copying partially or fully delivered documents.",
     steps: [
       <span key="a"><strong>Partial Copy:</strong> When copying a partially delivered document, the system calculates the remaining balance and only loads the <strong>Outstanding Quantity</strong>.</span>,
@@ -84,10 +84,10 @@ const VIDEO_SEGMENTS = [
   {
     src: "/videos/sales2do/ks-omni.mp4",
     group: "AI Assistant and Feedback",
-    title: "KS-Omni — 24-Hour AI Support & Feedback",
+    title: "KS-Omni â€” 24-Hour AI Support & Feedback",
     desc: "Access 24-hour AI support or send feedback directly to the KSL developer team.",
     steps: [
-      <span key="a">Navigate to <strong>Sales2DO → AI Assistant and Feedback</strong>.</span>,
+      <span key="a">Navigate to <strong>Sales2DO â†’ AI Assistant and Feedback</strong>.</span>,
       <span key="b">The AI <strong>Chatbot</strong> will open.</span>,
       <span key="c"><strong>Support:</strong> Ask questions or upload images / screenshots for troubleshooting.</span>,
       <span key="d"><strong>Feedback:</strong> Submit bug reports or feature suggestions directly to the <strong>KSL Development Team</strong>.</span>,
@@ -95,7 +95,7 @@ const VIDEO_SEGMENTS = [
   },
 ];
 
-/* ── Shared styles ── */
+/* â”€â”€ Shared styles â”€â”€ */
 const S = {
   label: { fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c", marginBottom: "0.5rem" },
   h2:    { fontSize: "clamp(1.4rem, 2.6vw, 2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem" },
@@ -104,7 +104,7 @@ const S = {
   section: { padding: "4rem 0" },
 };
 
-/* ── Screenshot slot ── */
+/* â”€â”€ Screenshot slot â”€â”€ */
 function ImgSlot({ src, alt, caption, maxWidth = 860, maxHeight = 480 }) {
   return (
     <div style={{ margin: "1.25rem 0 0.5rem" }}>
@@ -118,7 +118,7 @@ function ImgSlot({ src, alt, caption, maxWidth = 860, maxHeight = 480 }) {
         {src
           ? <Img src={src} alt={alt || ""} style={{ width: "100%", display: "block", maxHeight, objectFit: "contain", objectPosition: "top" }} />
           : <div style={{ padding: "1.75rem", textAlign: "center" }}>
-              <div style={{ fontSize: "1.6rem", opacity: 0.25, marginBottom: "0.4rem" }}>🖼️</div>
+              <div style={{ fontSize: "1.6rem", opacity: 0.25, marginBottom: "0.4rem" }}>ðŸ–¼ï¸</div>
               <div style={{ fontSize: "0.72rem", color: "#a8abcc", fontWeight: 500 }}>{alt || "Screenshot"}</div>
             </div>
         }
@@ -144,7 +144,7 @@ function richList(items = []) {
   return items.map((item, i) => <RichText key={i}>{item}</RichText>);
 }
 
-/* ── Two-column layout: image on the LEFT, text on the RIGHT ──
+/* â”€â”€ Two-column layout: image on the LEFT, text on the RIGHT â”€â”€
  * Used by Outstanding DO, Preset Delivery, and Plugin Settings sections.
  * Column proportions mirror the Video Tutorial grid (58% image, 42%
  * text) so screenshots and the video player feel like the same size.
@@ -166,8 +166,8 @@ function SectionRow({ image, alt, caption, children, sticky = true }) {
   );
 }
 
-/* ══════════════════════════════════════════════════════════════
- * VideoGuide — seamless dual-video crossfade
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+ * VideoGuide â€” seamless dual-video crossfade
  *
  * Two <video> elements stay mounted permanently. The active one is
  * visible (opacity 1); the inactive one preloads the next segment in
@@ -175,11 +175,11 @@ function SectionRow({ image, alt, caption, children, sticky = true }) {
  *   1. Seek inactive video to 0 and call play()
  *   2. Wait for requestVideoFrameCallback to confirm an actual painted
  *      first frame on the inactive video
- *   3. Flip the `active` state — both videos stay on screen during the
+ *   3. Flip the `active` state â€” both videos stay on screen during the
  *      0.3s opacity crossfade, so the viewer never sees a black gap
  *      (the previous video keeps showing its last frame until faded out)
  *   4. After fade, pause the now-idle slot and preload the next-next seg
- * ══════════════════════════════════════════════════════════════ */
+ * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 function VideoGuide() {
   const [idx,    setIdx]    = useState(0);
   const [active, setActive] = useState("a");   // which slot is visible
@@ -188,7 +188,7 @@ function VideoGuide() {
 
   const aRef         = useRef(null);
   const bRef         = useRef(null);
-  const containerRef = useRef(null);  // wraps both videos — what we send fullscreen
+  const containerRef = useRef(null);  // wraps both videos â€” what we send fullscreen
   /* Mutable mirrors for stale-closure-free callback access. */
   const idxRef    = useRef(0);
   const activeRef = useRef("a");
@@ -261,7 +261,7 @@ function VideoGuide() {
 
     const targetSrc = VIDEO_SEGMENTS[toIdx].src;
 
-    /* Once toVid has its target loaded — start playback then crossfade. */
+    /* Once toVid has its target loaded â€” start playback then crossfade. */
     const playAndSwap = () => {
       try { toVid.currentTime = 0; } catch { /* ignore */ }
       const playPromise = toVid.play();
@@ -271,11 +271,11 @@ function VideoGuide() {
         setIdx(toIdx);
         videoRemainingRef.current = 1;
         setVideoRemaining(1);
-        /* Switching segments always auto-plays the new clip — sync the
+        /* Switching segments always auto-plays the new clip â€” sync the
          * pause-button icon back to "playing" so it doesn't stick on the
          * play-triangle from a previous pause. */
         setPaused(false);
-        /* Instant cut — pause the old slot and preload next-next on the
+        /* Instant cut â€” pause the old slot and preload next-next on the
          * idle slot right away, on the next animation frame. */
         requestAnimationFrame(() => {
           try { fromVid.pause(); } catch { /* ignore */ }
@@ -319,10 +319,10 @@ function VideoGuide() {
   const goPrev = () => transitionTo(idxRef.current - 1);
   const goNext = () => transitionTo(idxRef.current + 1);
 
-  /* ── Fullscreen toggle — targets the container so the play/pause
+  /* â”€â”€ Fullscreen toggle â€” targets the container so the play/pause
    * overlay stays reachable while fullscreen. Safari uses the webkit
    * vendor-prefixed APIs (different element + Element method names),
-   * so handle both branches. ── */
+   * so handle both branches. â”€â”€ */
   const [isFullscreen, setIsFullscreen] = useState(false);
   useEffect(() => {
     const onChange = () => {
@@ -347,7 +347,7 @@ function VideoGuide() {
     }
   };
 
-  /* ── Play / pause toggle ── */
+  /* â”€â”€ Play / pause toggle â”€â”€ */
   const togglePlay = () => {
     const vid = (activeRef.current === "a" ? aRef.current : bRef.current);
     if (!vid) return;
@@ -360,7 +360,7 @@ function VideoGuide() {
     }
   };
 
-  /* ── Touch-swipe handlers — swipe left = next, swipe right = previous ── */
+  /* â”€â”€ Touch-swipe handlers â€” swipe left = next, swipe right = previous â”€â”€ */
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
   const onTouchStart = (e) => {
@@ -379,7 +379,7 @@ function VideoGuide() {
     if (dx > 0) goPrev(); else goNext();
   };
 
-  /* Per-slot ended handlers — only react if event is from active slot. */
+  /* Per-slot ended handlers â€” only react if event is from active slot. */
   const onEndedA = () => { if (activeRef.current === "a") transitionTo(idxRef.current + 1); };
   const onEndedB = () => { if (activeRef.current === "b") transitionTo(idxRef.current + 1); };
 
@@ -423,7 +423,7 @@ function VideoGuide() {
       </div>
 
       <div className="vg-grid">
-        {/* ── Left: text description (min-height locked to prevent layout jitter) ── */}
+        {/* â”€â”€ Left: text description (min-height locked to prevent layout jitter) â”€â”€ */}
         <div className="vg-text-wrap" style={{ paddingTop: "0.25rem" }}>
           <div style={{ ...S.label, marginBottom: "0.35rem" }}>{seg.group}</div>
           <h3 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#2f315a", lineHeight: 1.3, marginBottom: "0.6rem" }}>{seg.title}</h3>
@@ -436,15 +436,15 @@ function VideoGuide() {
           <div style={{ marginTop: "1.25rem", fontSize: "0.7rem", color: "#a8abcc", fontWeight: 500 }}>
             {idx + 1} / {VIDEO_SEGMENTS.length}
             {idx < VIDEO_SEGMENTS.length - 1
-              ? <span style={{ marginLeft: 6 }}>— Next: {VIDEO_SEGMENTS[idx + 1].title}</span>
-              : <span style={{ marginLeft: 6 }}>— End of guide</span>
+              ? <span style={{ marginLeft: 6 }}>â€” Next: {VIDEO_SEGMENTS[idx + 1].title}</span>
+              : <span style={{ marginLeft: 6 }}>â€” End of guide</span>
             }
           </div>
         </div>
 
-        {/* ── Right: dual-video crossfade ── */}
+        {/* â”€â”€ Right: dual-video crossfade â”€â”€ */}
         <div className="vg-video-col">
-          {/* 16 : 9 container — swipe left/right to navigate. Also the
+          {/* 16 : 9 container â€” swipe left/right to navigate. Also the
               element we send fullscreen so the overlay buttons stay visible. */}
           <div
             ref={containerRef}
@@ -462,7 +462,7 @@ function VideoGuide() {
                <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.05em" }}>Loading Video...</div>
             </div>
 
-            {/* Slot A — instant z-index/opacity swap (no fade) so we never
+            {/* Slot A â€” instant z-index/opacity swap (no fade) so we never
                 blend two videos against the black backdrop. requestVideoFrameCallback
                 guarantees the new slot has painted before the swap, so the cut is
                 imperceptible. */}
@@ -494,7 +494,7 @@ function VideoGuide() {
               }}
             />
 
-            {/* ── Fullscreen toggle (bottom-left, mirrors play/pause style) ── */}
+            {/* â”€â”€ Fullscreen toggle (bottom-left, mirrors play/pause style) â”€â”€ */}
             <button
               onClick={toggleFullscreen}
               title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
@@ -512,19 +512,19 @@ function VideoGuide() {
               onMouseOut={e => e.currentTarget.style.background = "rgba(0,0,0,0.45)"}
             >
               {isFullscreen ? (
-                /* exit-fullscreen — inward-facing corner brackets */
+                /* exit-fullscreen â€” inward-facing corner brackets */
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 3v3a2 2 0 0 1-2 2H4M15 3v3a2 2 0 0 0 2 2h3M9 21v-3a2 2 0 0 0-2-2H4M15 21v-3a2 2 0 0 1 2-2h3"/>
                 </svg>
               ) : (
-                /* enter-fullscreen — outward-facing corner brackets */
+                /* enter-fullscreen â€” outward-facing corner brackets */
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M3 9V5a2 2 0 0 1 2-2h4M21 9V5a2 2 0 0 0-2-2h-4M3 15v4a2 2 0 0 0 2 2h4M21 15v4a2 2 0 0 1-2 2h-4"/>
                 </svg>
               )}
             </button>
 
-            {/* ── Play / Pause toggle (bottom-right, same look as Hero pause) ── */}
+            {/* â”€â”€ Play / Pause toggle (bottom-right, same look as Hero pause) â”€â”€ */}
             <button
               onClick={togglePlay}
               title={paused ? "Play" : "Pause"}
@@ -564,9 +564,9 @@ function VideoGuide() {
   );
 }
 
-/* ══════════════════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
  * Page
- * ══════════════════════════════════════════════════════════════ */
+ * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 export default function Sales2DOPage({ onContact }) {
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, []);
   const [licenseTab, setLicenseTab] = useState("online");
@@ -585,7 +585,7 @@ export default function Sales2DOPage({ onContact }) {
 
       <SectionSidebar sections={S2D_SECTIONS} themeColor="#c9a84c" />
 
-      {/* ── Hero banner — shared ProductHero component (same look as AutoCount) ── */}
+      {/* â”€â”€ Hero banner â€” shared ProductHero component (same look as AutoCount) â”€â”€ */}
       <div className="pinned-hero-stage">
         <ProductHero
           eyebrow={hero.eyebrow}
@@ -600,7 +600,7 @@ export default function Sales2DOPage({ onContact }) {
 
       <main className="pinned-page-content product-app-content">
 
-      {/* ── Overview + Video Guide ── */}
+      {/* â”€â”€ Overview + Video Guide â”€â”€ */}
       <div id="overview" className="product-app-section product-app-section-paper product-app-section-to-mist">
         <div className="content-wrap">
           <div style={{ ...S.label, marginBottom: "0.5rem" }}>{overview.label}</div>
@@ -613,7 +613,7 @@ export default function Sales2DOPage({ onContact }) {
         <PageSectionDivider sections={S2D_SECTIONS} id="outstanding" />
       </div>
 
-      {/* ── Outstanding Delivery Order ── */}
+      {/* â”€â”€ Outstanding Delivery Order â”€â”€ */}
       <div id="outstanding" className="product-app-section product-app-section-mist product-app-section-to-ice">
         <div className="content-wrap">
           <div className="ks-eyebrow">{outstanding.label}</div>
@@ -644,7 +644,7 @@ export default function Sales2DOPage({ onContact }) {
         <PageSectionDivider sections={S2D_SECTIONS} id="preset" />
       </div>
 
-      {/* ── Preset "Delivery?" in Stock Item Maintenance ── */}
+      {/* â”€â”€ Preset "Delivery?" in Stock Item Maintenance â”€â”€ */}
       <div id="preset" className="product-app-section product-app-section-ice product-app-section-to-cloud">
         <div className="content-wrap">
           <div className="ks-eyebrow">{preset.label}</div>
@@ -669,7 +669,7 @@ export default function Sales2DOPage({ onContact }) {
         <PageSectionDivider sections={S2D_SECTIONS} id="settings" />
       </div>
 
-      {/* ── Plugin Settings ── */}
+      {/* â”€â”€ Plugin Settings â”€â”€ */}
       <div id="settings" className="product-app-section product-app-section-cloud product-app-section-to-warm">
         <div className="content-wrap">
           <div className="ks-eyebrow">{settings.label}</div>
@@ -697,13 +697,13 @@ export default function Sales2DOPage({ onContact }) {
         <PageSectionDivider sections={S2D_SECTIONS} id="license" />
       </div>
 
-      {/* ── Activate Plugin License ── */}
+      {/* â”€â”€ Activate Plugin License â”€â”€ */}
       <div id="license" className="product-app-section product-app-section-warm">
         <div className="content-wrap">
           <div className="ks-eyebrow">{license.label}</div>
           <h2 className="ks-section-title">{license.heading}</h2>
 
-          {/* ── General License Info (Pricing, Trial, Transfer) ── */}
+          {/* â”€â”€ General License Info (Pricing, Trial, Transfer) â”€â”€ */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem", marginBottom: "3.5rem" }}>
             <div style={{ background: "#f5f5f8", borderRadius: 14, padding: "1.25rem 1.4rem", border: "1px solid rgba(47,49,90,0.09)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", marginBottom: "0.65rem", flexWrap: "wrap" }}>
@@ -733,7 +733,7 @@ export default function Sales2DOPage({ onContact }) {
 
           <h3 className="ks-card-title" style={{ marginBottom: "1rem" }}>Activation Instructions</h3>
 
-          {/* Tabs — only shown on tablet/mobile (hidden on desktop via CSS) */}
+          {/* Tabs â€” only shown on tablet/mobile (hidden on desktop via CSS) */}
           <div className="license-tabs" style={{ display: "flex", background: "#e8e8f0", borderRadius: 50, padding: 4, gap: 2, marginBottom: "2rem", width: "fit-content" }}>
             {[["online", "Online Activation"], ["offline", "Offline Activation"]].map(([key, label]) => (
               <button key={key} onClick={() => setLicenseTab(key)} style={{
@@ -767,7 +767,7 @@ export default function Sales2DOPage({ onContact }) {
           `}</style>
 
           <div className="license-grid">
-            {/* ── Online block ── */}
+            {/* â”€â”€ Online block â”€â”€ */}
             <div className="license-block-online" style={{ maxWidth: 680, display: licenseTab === "online" ? "block" : "none" }}>
               <h3 className="license-col-title ks-card-title" style={{ fontSize: "1.1rem", color: "#2f315a", marginBottom: "0.85rem", display: "none" }}>{license.onlineTitle}</h3>
               <ImgSlot src={license.onlineImage || imgLicenseOnline} alt={license.onlineAlt} caption={license.onlineCaption} />
@@ -782,7 +782,7 @@ export default function Sales2DOPage({ onContact }) {
               </div>
             </div>
 
-            {/* ── Offline block ── */}
+            {/* â”€â”€ Offline block â”€â”€ */}
             <div className="license-block-offline" style={{ maxWidth: 680, display: licenseTab === "offline" ? "block" : "none" }}>
               <h3 className="license-col-title ks-card-title" style={{ fontSize: "1.1rem", color: "#2f315a", marginBottom: "0.85rem", display: "none" }}>{license.offlineTitle}</h3>
               <ImgSlot src={license.offlineImage || imgLicenseOffline} alt={license.offlineAlt} caption={license.offlineCaption} />
@@ -801,7 +801,7 @@ export default function Sales2DOPage({ onContact }) {
       </div>
 
 
-      {/* ── CTA ── */}
+      {/* â”€â”€ CTA â”€â”€ */}
       <EnquireNowCTA
         heading={cta.heading}
         body={cta.body}
@@ -814,3 +814,4 @@ export default function Sales2DOPage({ onContact }) {
     </div>
   );
 }
+

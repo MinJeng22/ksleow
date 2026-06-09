@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+﻿import React, { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
@@ -36,14 +36,14 @@ const CLOUD_VIDEOS = [
     id: 'zHstLv2-ATw',
     label: 'General Tutorial',
     description: 'Learn AutoCount CloudAccounting in Just 30 Minutes. A fast orientation for owners and accounts teams who want to understand the workflow before starting a trial.',
-    note: 'Quick-Start Guide',
+    note: 'Quick‑Start Guide',
     icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
   },
   {
     id: 'pHRMw-oo0o0',
-    label: 'e-Invoice Tutorial',
-    description: 'Learn how to generate e-Invoices with AutoCount CloudAccounting seamlessly.',
-    note: 'e-Invoice Guide',
+    label: 'e‑Invoice Tutorial',
+    description: 'Learn how to generate e‑Invoices with AutoCount CloudAccounting seamlessly.',
+    note: 'e‑Invoice Guide',
     icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
   }
 ];
@@ -62,8 +62,8 @@ const CLOUD_SECTIONS = [
 const FEATURES = [
   {
     icon: "/images/services/lhdn-logo.webp",
-    title: "LHDN e-Invoice Ready",
-    desc: "Directly supports Malaysia e-Invoice workflows so daily billing can stay compliant without a separate add-on.",
+    title: "LHDN e‑Invoice Ready",
+    desc: "Directly supports Malaysia e‑Invoice workflows so daily billing can stay compliant without a separate add-on.",
   },
   {
     icon: "/images/icons/feature-device.svg",
@@ -78,7 +78,7 @@ const FEATURES = [
   {
     icon: "/images/icons/feature-bank.svg",
     title: "Bank Connection",
-    desc: "Connect supported business bank feeds for faster reconciliation and clearer real-time cash visibility.",
+    desc: "Connect supported business bank feeds for faster reconciliation and clearer real‑time cash visibility.",
   },
 ];
 
@@ -149,7 +149,7 @@ const CLOUD_EDITION_TABLE = {
     {
       name: "OTHERS MODULES",
       rows: [
-        ["LHDN e-Invoice", ["+", "+", "+", "+", "+"]],
+        ["LHDN e‑Invoice", ["+", "+", "+", "+", "+"]],
         ["SST", ["", "+", "+", "+", "+"]],
         ["Recurring Transaction", ["", "+", "+", "+", "+"]],
         ["Multi-Currency", ["", "", "+", "+", "+"]],
@@ -181,7 +181,7 @@ const CLOUD_EDITION_TABLE = {
 
 function EditionMarker({ value }) {
   if (value === "+") {
-    return <span style={{ color: "#16a14b", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>✔</span>;
+    return <span style={{ color: "#16a14b", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>âœ”</span>;
   }
   if (!value) {
     return null;
@@ -506,7 +506,7 @@ export default function AutoCountCloudAccountingPage() {
         <ProductHero
           eyebrow="Cloud Accounting"
           title="AutoCount CloudAccounting"
-          body="A secure browser-based accounting platform for Malaysian SMEs that need e-Invoice compliance, real-time access, document capture, and bank-connected bookkeeping without maintaining an office server."
+          body="A secure browser‑based accounting platform for Malaysian SMEs that need e‑Invoice compliance, real‑time access, document capture, and bank-connected bookkeeping without maintaining an office server."
           iconSrc="/images/products/cloudaccounting-icon.webp"
           iconAlt="AutoCount CloudAccounting"
           backgroundImage="/images/products/autocount-cloudaccounting-hero.webp"
@@ -516,7 +516,7 @@ export default function AutoCountCloudAccountingPage() {
       </div>
 
       <main className="pinned-page-content product-app-content">
-      {/* ── Feature highlights ── */}
+      {/* â”€â”€ Feature highlights â”€â”€ */}
       <div className="product-app-section product-app-section-paper product-app-section-clean" style={{ '--feature-strip-bg': 'linear-gradient(180deg, #16a14b 0%, #0d7032 100%)', '--feature-strip-shadow': '0 0 16px rgba(22, 161, 75, 0.4)' }}>
         <FeatureShowcase features={FEATURES} />
       </div>
@@ -542,7 +542,7 @@ export default function AutoCountCloudAccountingPage() {
         <div id="training">
           <AutoCountTrainingWebGL 
             customVideos={CLOUD_VIDEOS} 
-            title="AutoCount CloudAccounting Quick-Start Guide"
+            title="AutoCount CloudAccounting Quick‑Start Guide"
             themeColor="#16a14b" 
             themeHoverColor="#19b554" 
             activeTabBg="#2f315a"
@@ -843,4 +843,6 @@ function CompareList({ title, items, type, copy }) {
     </div>
   );
 }
+
+
 

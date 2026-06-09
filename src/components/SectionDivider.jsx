@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+﻿import React, { useRef, useState, useEffect } from "react";
 
 /**
- * SectionDivider — horizontal rule with a centred SVG icon.
+ * SectionDivider â€” horizontal rule with a centred SVG icon.
  *
  * Usage:
  *   <SectionDivider icon={<MyIcon />} />
@@ -113,7 +113,7 @@ export default function SectionDivider({ icon, color, targetId, section }) {
   );
 }
 
-/* ─── Pre-built icon library (inline SVGs with colour) ──────────────── */
+/* â”€â”€â”€ Pre-built icon library (inline SVGs with colour) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 /** Accounting / ledger book */
 export const IconLedger = (
@@ -262,3 +262,4 @@ export const IconTrophy = (
     <path d="M18 2H6v7c0 3.31 2.69 6 6 6s6-2.69 6-6V2z" stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1" />
   </svg>
 );
+

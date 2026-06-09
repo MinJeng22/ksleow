@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+﻿import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SEARCH_INDEX = [
@@ -332,3 +332,4 @@ export default function GlobalSearch({ open, onClose }) {
     </>
   );
 }
+

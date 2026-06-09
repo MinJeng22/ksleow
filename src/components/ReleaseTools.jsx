@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 
 const DEFAULT_COLORS = {
   feature: { bg: "rgba(47,49,90,0.08)", color: "#2f315a" },
@@ -242,3 +242,4 @@ function LinkIcon({ width = 12, height = 12 }) {
     </svg>
   );
 }
+

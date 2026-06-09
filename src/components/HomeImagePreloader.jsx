@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+﻿import { useEffect } from "react";
 import branding from "../content/branding.json";
 import otherServicesContent from "../content/otherServices.json";
 import productsContent from "../content/products.json";
@@ -43,3 +43,4 @@ export default function HomeImagePreloader() {
 
   return null;
 }
+

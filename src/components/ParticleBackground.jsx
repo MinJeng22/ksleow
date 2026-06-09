@@ -1,17 +1,17 @@
-import { useEffect, useRef } from "react";
+﻿import { useEffect, useRef } from "react";
 
-/* ─── Calibrated density — fewer particles on mobile/tablet ────
- * Mobile (< 640): ~22 particles, density 0.00007 px⁻²
- * Tablet (640–1024): ~35 particles, density 0.00010 px⁻²
- * Desktop (> 1024): up to 70 particles, density 0.000152 px⁻²
+/* â”€â”€â”€ Calibrated density â€” fewer particles on mobile/tablet â”€â”€â”€â”€
+ * Mobile (< 640): ~22 particles, density 0.00007 pxâ»Â²
+ * Tablet (640â€“1024): ~35 particles, density 0.00010 pxâ»Â²
+ * Desktop (> 1024): up to 70 particles, density 0.000152 pxâ»Â²
  *
  * JUMP-FIX: The resize() handler was reinitialising all particles
- * whenever the viewport height changed — on mobile/tablet this
+ * whenever the viewport height changed â€” on mobile/tablet this
  * fires on every scroll because the browser chrome (address bar)
  * shows/hides, causing particles to teleport.
  * Fix: debounce resize, and only reinitialise if the canvas
  * WIDTH changes (not height-only changes caused by scrolling).
- * ─────────────────────────────────────────────────────────────*/
+ * â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€*/
 function densityFor(W) {
   if (W < 640)  return 0.00007;
   if (W < 1024) return 0.00010;
@@ -39,9 +39,9 @@ const MOUSE_R_SQ  = MOUSE_R * MOUSE_R;
 function rand(a, b) { return Math.random() * (b - a) + a; }
 
 /* Particle radius scales with screen width:
- * mobile (< 640px) → 1.55–2.8
- * tablet (640–1024) → 1.85–3.25
- * desktop (> 1024) → 1.55–2.85                         */
+ * mobile (< 640px) â†’ 1.55â€“2.8
+ * tablet (640â€“1024) â†’ 1.85â€“3.25
+ * desktop (> 1024) â†’ 1.55â€“2.85                         */
 function particleRadius(W) {
   if (W < 640)  return rand(1.55, 2.8);
   if (W < 1024) return rand(1.85, 3.25);
@@ -90,7 +90,7 @@ export default function ParticleBackground({
     const s   = stateRef.current;
     const ctx = canvas.getContext("2d", { alpha: true });
 
-    /* ── Full canvas init (only when WIDTH changes or first run) ── */
+    /* â”€â”€ Full canvas init (only when WIDTH changes or first run) â”€â”€ */
     function initCanvas(W, H) {
       const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       canvas.width  = W * dpr;
@@ -158,8 +158,8 @@ export default function ParticleBackground({
       }
     }
 
-    /* ── Height-only resize: just update canvas height & gradients,
-     *    DO NOT reinitialise particles (prevents jump on mobile scroll) ── */
+    /* â”€â”€ Height-only resize: just update canvas height & gradients,
+     *    DO NOT reinitialise particles (prevents jump on mobile scroll) â”€â”€ */
     function updateHeightOnly(W, H) {
       const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       canvas.height = H * dpr;
@@ -175,14 +175,14 @@ export default function ParticleBackground({
       s.vigGrad.addColorStop(0, "rgba(0,0,0,0)");
       s.vigGrad.addColorStop(1, vignetteEnd);
 
-      /* clamp existing particles to new height — no jump */
+      /* clamp existing particles to new height â€” no jump */
       for (const p of s.particles) {
         if (p.y > H) p.y = H;
       }
       updateObstacles();
     }
 
-    /* ── Debounced resize handler ── */
+    /* â”€â”€ Debounced resize handler â”€â”€ */
     function onResize() {
       clearTimeout(s.resizeTimer);
       s.resizeTimer = setTimeout(() => {
@@ -195,10 +195,10 @@ export default function ParticleBackground({
           /* Height-only change (mobile browser chrome appearing/hiding): soft update */
           updateHeightOnly(W, H);
         }
-      }, 80); /* 80ms debounce — ignores rapid transient changes */
+      }, 80); /* 80ms debounce â€” ignores rapid transient changes */
     }
 
-    /* ── Draw loop ── */
+    /* â”€â”€ Draw loop â”€â”€ */
     function draw(ts) {
       if (ts - s.lastTs < FRAME_MS) { s.frameId = requestAnimationFrame(draw); return; }
       s.lastTs = ts;
@@ -223,7 +223,7 @@ export default function ParticleBackground({
         }
       }
 
-      /* particle-to-particle lines — 4 alpha buckets batched */
+      /* particle-to-particle lines â€” 4 alpha buckets batched */
       const BUCKETS = 4;
       const paths   = Array.from({ length: BUCKETS }, () => new Path2D());
       for (let i = 0; i < particles.length - 1; i++) {
@@ -276,7 +276,7 @@ export default function ParticleBackground({
 
 
 
-      /* dots — single batch */
+      /* dots â€” single batch */
       const dotPath = new Path2D();
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -297,7 +297,7 @@ export default function ParticleBackground({
 
     /* Track mouse via window so the overlay content-wrap div
        doesn't block events from reaching the canvas.
-       We translate page coords → canvas-relative coords. */
+       We translate page coords â†’ canvas-relative coords. */
     function onMouseMove(e) {
       const rect = canvas.getBoundingClientRect();
       s.mx = e.clientX - rect.left;
@@ -336,3 +336,4 @@ export default function ParticleBackground({
     />
   );
 }
+

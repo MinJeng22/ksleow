@@ -1,4 +1,4 @@
-import { useRef } from "react";
+﻿import { useRef } from "react";
 import { Img } from "../Media.jsx";
 
 const LAYOUT_CLASSES = [
@@ -303,3 +303,4 @@ export function BentoCard({ item, index, layoutClass = "", image, onOpen, varian
     </CardTag>
   );
 }
+

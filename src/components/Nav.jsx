@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { LOGO_NAV } from "../assets/assets.js";
 import branding from "../content/branding.json";
 
-/* ── NAV LOGO
+/* â”€â”€ NAV LOGO
  * To swap: replace  src/assets/logos/logo-nav.webp
  * Natural logo colours are used here (no filter).                  */
 
@@ -77,3 +77,4 @@ export default function Nav({ onContact }) {
     </nav>
   );
 }
+

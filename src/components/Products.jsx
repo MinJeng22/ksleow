@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+﻿import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import CarouselProgress from "./CarouselProgress.jsx";
 import { Img } from "./Media.jsx";
@@ -435,3 +435,4 @@ export default function Products({ onContact }) {
     </section>
   );
 }
+

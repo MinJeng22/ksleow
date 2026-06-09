@@ -1,15 +1,15 @@
-import { useState, useRef, useEffect } from "react";
+﻿import { useState, useRef, useEffect } from "react";
 import {
   WORKER_URL, SendIcon, CloseIcon,
   Message, ChatbotKeyframes, streamChat,
   AnimatedGreeting, autoResizeTextarea,
 } from "./chatbotShared.jsx";
 
-/* ══════════════════════════════════════════════════════════════
- * AIChatbot — floating in-page assistant for product / app pages.
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+ * AIChatbot â€” floating in-page assistant for product / app pages.
  * Shares messaging primitives with the full /omni page via
  * chatbotShared.jsx so logic stays in one place.
- * ══════════════════════════════════════════════════════════════ */
+ * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 // Suppress unused-import lint for the no-op alias. WORKER_URL is consumed
 // indirectly through streamChat but kept exported for downstream callers.
@@ -99,7 +99,7 @@ export default function AIChatbot({ app }) {
         next[next.length - 1] = {
           role: "assistant", text: "",
           error: err?.message
-            ? `Connection error — ${err.message}`
+            ? `Connection error â€” ${err.message}`
             : "Connection error. Please check your internet and try again.",
           streaming: false,
         };
@@ -114,7 +114,7 @@ export default function AIChatbot({ app }) {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   }
 
-  /* Floating Action Button — same in-page modal on every device. */
+  /* Floating Action Button â€” same in-page modal on every device. */
   const fab = (
     <button
       onClick={() => setOpen(o => !o)}
@@ -143,7 +143,7 @@ export default function AIChatbot({ app }) {
       <ChatbotKeyframes />
       <style>{`@keyframes chatSlideUp{from{opacity:0;transform:translateY(16px) scale(0.96)}to{opacity:1;transform:translateY(0) scale(1)}}`}</style>
 
-      {/* Modal — opens on every device (mobile / tablet / desktop). */}
+      {/* Modal â€” opens on every device (mobile / tablet / desktop). */}
       {open && (
         <div style={{
           position: "fixed",
@@ -206,7 +206,7 @@ export default function AIChatbot({ app }) {
               value={input}
               onChange={handleInputChange}
               onKeyDown={e => { if (loading) { e.preventDefault(); return; } handleKey(e); }}
-              placeholder={loading ? "Waiting for AI reply…" : "Ask KS Omni..."}
+              placeholder={loading ? "Waiting for AI replyâ€¦" : "Ask KS Omni..."}
               disabled={loading} readOnly={loading} rows={1}
               style={{
                 flex: 1, padding: "0.55rem 0.8rem", borderRadius: 12,
@@ -254,3 +254,4 @@ export default function AIChatbot({ app }) {
     </>
   );
 }
+

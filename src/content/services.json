@@ -1,7 +1,7 @@
-{
+﻿{
   "eyebrow": "What we do",
   "heading": "Our Service Offerings",
-  "intro": "Every essential service your business needs — all under one roof since 1981.",
+  "intro": "Every essential service your business needs â€” all under one roof since 1981.",
   "items": [
     {
       "officeKey": "ksl_tax",
@@ -22,7 +22,7 @@
       ],
       "backgroundImage": "/images/services/webinar.webp",
       "badgeLabel": "Certified By",
-      "desc": "Bookkeeping, financial statements, tax filing, SST & e-Invoice compliance, and LHDN liaison.",
+      "desc": "Bookkeeping, financial statements, tax filing, SST & e‑Invoice compliance, and LHDN liaison.",
       "title": "Taxation & Accounting",
       "badgeType": "certified",
       "key": "taxation"
@@ -74,7 +74,7 @@
     {
       "key": "hardware",
       "title": "Computer Hardware & Technical",
-      "desc": "Hardware wholesale, IT infrastructure, networking, and on-site SME support across Pahang.",
+      "desc": "Hardware wholesale, IT infrastructure, networking, and on‑site SME support across Pahang.",
       "backgroundImage": "/images/services/webinar.webp",
       "officeKey": "ksl_bs",
       "badgeType": "dealer",
@@ -95,7 +95,7 @@
     {
       "key": "software",
       "title": "Software Training & Support",
-      "desc": "Authorized AutoCount & FeedMe dealer — installation, licensing, training, and support.",
+      "desc": "Authorized AutoCount & FeedMe dealer â€” installation, licensing, training, and support.",
       "backgroundImage": "/images/services/webinar.webp",
       "officeKey": "ksl_bs",
       "badgeType": "dealer",
@@ -121,10 +121,12 @@
       "logos": [],
       "backgroundImage": "/images/services/webinar.webp",
       "badgeLabel": "",
-      "desc": "Live webinars and on-demand training on accounting, tax, and business software.",
+      "desc": "Live webinars and on‑demand training on accounting, tax, and business software.",
       "title": "Webinar & Workshops",
       "badgeType": "none",
       "key": "webinar"
     }
   ]
 }
+
+

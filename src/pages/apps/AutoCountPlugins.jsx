@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+﻿import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
@@ -200,3 +200,4 @@ export default function AutoCountPluginsPage() {
     </div>
   );
 }
+

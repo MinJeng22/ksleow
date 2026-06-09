@@ -1,4 +1,4 @@
-import HomeImagePreloader from "../components/HomeImagePreloader";
+﻿import HomeImagePreloader from "../components/HomeImagePreloader";
 import Hero from "../components/Hero";
 import Stats from "../components/Stats";
 import Services from "../components/Services";
@@ -27,3 +27,4 @@ export default function Home({ onContact }) {
     </>
   );
 }
+

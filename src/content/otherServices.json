@@ -1,4 +1,4 @@
-{
+﻿{
   "eyebrow": "WHAT WE ALSO DO",
   "heading": "Other Services",
   "intro": "Explore additional services that support your business operations, customer reach, and AutoCount workflows.",
@@ -14,7 +14,7 @@
     {
       "key": "networking",
       "title": "Printing / Advertising / Design",
-      "desc": "Our partner for business-ready printing, advertising material, and visual design support for signboards, campaigns, corporate stationery, and promotional collateral.",
+      "desc": "Our partner for business‑ready printing, advertising material, and visual design support for signboards, campaigns, corporate stationery, and promotional collateral.",
       "image": "/images/case-studies/supaprintz.my.webp",
       "route": "",
       "modal": "supaprintz"
@@ -22,10 +22,12 @@
     {
       "key": "sitegiant",
       "title": "Sitegiant Integration",
-      "desc": "Omnichannel e-commerce synchronization with AutoCount Accounting, streamlining inventory, sales, and fulfillment across multiple marketplaces.",
+      "desc": "Omnichannel e‑commerce synchronization with AutoCount Accounting, streamlining inventory, sales, and fulfillment across multiple marketplaces.",
       "image": "/images/other-services/sitegiant.webp",
       "route": "",
       "modal": "sitegiant"
     }
   ]
 }
+
+

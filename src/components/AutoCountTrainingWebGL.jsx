@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+﻿import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 const VIDEOS = [
@@ -7,15 +7,15 @@ const VIDEOS = [
     playlistId: 'PLuc8uVTiaUHO9pW9dW0vUgHDZOtzXuB2E',
     label: 'General Tutorial',
     description: "Skip the long manuals. AutoCount's quick-start guide covers everything you need to know to navigate AutoCount Accounting with confidence - from basic setup to daily transactions.",
-    note: 'Quick-Start Guide',
+    note: 'Quick‑Start Guide',
     icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
   },
   {
     id: 'dA9fzUg6OYU',
     playlistId: 'PLuc8uVTiaUHMTeJC2qWOJHE7QIxBmDSTx',
-    label: 'e-Invoice Tutorial',
-    description: 'Learn the AutoCount e-Invoice workflow for Malaysia, including setup checks, transaction preparation, submission flow, and the daily steps your accounts team should understand before going live.',
-    note: 'e-Invoice Guide',
+    label: 'e‑Invoice Tutorial',
+    description: 'Learn the AutoCount e‑Invoice workflow for Malaysia, including setup checks, transaction preparation, submission flow, and the daily steps your accounts team should understand before going live.',
+    note: 'e‑Invoice Guide',
     icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
   },
   {
@@ -158,7 +158,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
       ? 'translate3d(0, 0, 0) scale(1, 1)'
       : initialTransform);
   // opacity is always in transition-property (see CSS), duration is 0ms normally
-  // and 200ms when settling via .is-settling class — this avoids instant-jump bug
+  // and 200ms when settling via .is-settling class â€” this avoids instant-jump bug
   // caused by changing transitionProperty and opacity in the same React render.
 
   const finishMorph = useCallback(() => {
@@ -202,7 +202,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
         boxShadow: VIDEO_SHADOW,
         pointerEvents: 'none',
         zIndex: 9998,
-        // opacity always has a transition — reliably fires when isSettling changes
+        // opacity always has a transition â€” reliably fires when isSettling changes
         opacity: isSettling ? 0 : 1,
         transition: `border-radius ${duration}ms ${APPLE_EASE}, transform ${duration}ms ${APPLE_EASE}, opacity 200ms ease`,
       }}
@@ -270,7 +270,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
   );
 }
 
-export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCount Accounting Quick-Start Guide', themeColor = '#80c31e', themeHoverColor = '#8bc34a', activeTabBg = '#2f315a', playIconColor = '#2f315a', playBtnBg = '#e8c97a' }) {
+export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCount Accounting Quick‑Start Guide', themeColor = '#80c31e', themeHoverColor = '#8bc34a', activeTabBg = '#2f315a', playIconColor = '#2f315a', playBtnBg = '#e8c97a' }) {
   const videos = customVideos || VIDEOS;
   const [activeVideo, setActiveVideo] = useState(videos[0].id);
   const [playerOpen, setPlayerOpen] = useState(false);
@@ -453,13 +453,13 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
       setStageHeight(null);
       // NOTE: setShadowIn(true) is intentionally DELAYED to the 2-RAF callback below.
       // If called here (same render as setPlayerOpen), the element is newly created with
-      // shadow-in already applied — the browser has no "before" state, so the CSS
+      // shadow-in already applied â€” the browser has no "before" state, so the CSS
       // box-shadow transition never fires and the shadow pops in instantly at full opacity,
       // causing a double-shadow flash with the portal shadow.
       morphPaintRafRef.current = window.requestAnimationFrame(() => {
         morphPaintRafRef.current = window.requestAnimationFrame(() => {
           // Now the real frame is in the DOM. Add shadow-in here so the transition fires.
-          // Simultaneously start the portal fade-out. Both are 200ms → cross-fade is 1x constant.
+          // Simultaneously start the portal fade-out. Both are 200ms â†’ cross-fade is 1x constant.
           setShadowIn(true);
           setMorphSettling(true);
           morphSettleTimerRef.current = window.setTimeout(() => {
@@ -1133,3 +1133,5 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
     </section>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+﻿import { StrictMode } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App.jsx";
 
@@ -15,3 +15,4 @@ if (root?.hasChildNodes()) {
 } else {
   createRoot(root).render(app);
 }
+

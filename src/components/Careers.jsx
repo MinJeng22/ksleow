@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { CONTACT } from "../constants/contact.js";
 import ParticleBackground from "./ParticleBackground";
 import careers from "../content/careers.json";
@@ -7,14 +7,14 @@ import careers from "../content/careers.json";
 function parseQuote(raw) {
   if (!raw) return ["", ""];
   let txt = String(raw).trim();
-  txt = txt.replace(/^["“”'‘’]/, "").replace(/["“”'‘’]$/, "");
+  txt = txt.replace(/^["â€œâ€'â€˜â€™]/, "").replace(/["â€œâ€'â€˜â€™]$/, "");
   txt = txt.replace(/\.$/, "");
   const i = txt.indexOf(",");
   if (i === -1) return [txt, ""];
   return [txt.slice(0, i).trim(), txt.slice(i + 1).trim()];
 }
 
-/* Animated word reveal — each word fades + slides in sequentially.
+/* Animated word reveal â€” each word fades + slides in sequentially.
  * Words only animate when `visible` is true; before that they're
  * invisible (opacity 0) so layout is stable. */
 function AnimatedWords({ text, startDelay = 0, stepMs = 60, visible }) {
@@ -60,7 +60,7 @@ export default function Careers() {
   }, []);
 
   const [line1, line2] = parseQuote(careers.heading);
-  /* Line-by-line reveal — each line fades in as a whole. */
+  /* Line-by-line reveal â€” each line fades in as a whole. */
   const LINE_FADE_MS = 550;
   const line1Start = 0;
   const line2Start = line1Start + LINE_FADE_MS + 250;       /* line1 finishes, brief pause */
@@ -133,7 +133,7 @@ export default function Careers() {
               transition: `opacity ${LINE_FADE_MS}ms ease, transform ${LINE_FADE_MS}ms ease`,
               transitionDelay: visible ? `${line1Start}ms` : "0ms",
             }}>
-              <span aria-hidden="true">“</span>{line1}
+              <span aria-hidden="true">â€œ</span>{line1}
             </span>
             <br />
             <span className="careers-line2" style={{
@@ -144,11 +144,11 @@ export default function Careers() {
               transition: `opacity ${LINE_FADE_MS}ms ease, transform ${LINE_FADE_MS}ms ease`,
               transitionDelay: visible ? `${line2Start}ms` : "0ms",
             }}>
-              {line2}<span aria-hidden="true">”</span>
+              {line2}<span aria-hidden="true">â€</span>
             </span>
           </h2>
 
-          {/* Supporting body — words fade in sequentially */}
+          {/* Supporting body â€” words fade in sequentially */}
           <p style={{ color: "#6b6f91", fontSize: "0.95rem", lineHeight: 1.75 }}>
             <AnimatedWords text={careers.body} startDelay={bodyStart} stepMs={BODY_STEP} visible={visible} />
           </p>
@@ -165,7 +165,7 @@ export default function Careers() {
             pointerEvents: buttonsClickable ? undefined : "none",
           }}
         >
-          {/* Primary — career enquiry */}
+          {/* Primary â€” career enquiry */}
           <a
             href={`mailto:${CONTACT.email}?subject=Career Enquiry`}
             style={{
@@ -181,7 +181,7 @@ export default function Careers() {
             {careers.careerButtonLabel || careers.buttonLabel || "Join Our Team"}
           </a>
 
-          {/* Secondary — partnership enquiry */}
+          {/* Secondary â€” partnership enquiry */}
           <a
             href={`mailto:${careers.partnerEmail || CONTACT.email}?subject=Partnership Enquiry`}
             className="btn-ghost-base btn-ghost-dark"
@@ -193,3 +193,4 @@ export default function Careers() {
     </div>
   );
 }
+

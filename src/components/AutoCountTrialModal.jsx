@@ -1,4 +1,4 @@
-import { LOGO_FOOTER as LOGO } from "../assets/assets.js";
+﻿import { LOGO_FOOTER as LOGO } from "../assets/assets.js";
 
 const SUPPORT_WHATSAPP = "60179052323";
 const SUPPORT_MESSAGE = "HI KS Support Team, I would like to start the AutoCount Accounting 2.2 Free Trial and schedule an installation session. I can prepare AnyDesk / UltraViewer. I want to try ... edition.";
@@ -275,3 +275,4 @@ function ChecklistItem({ children }) {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "id": "home",
     "route": "/",
@@ -12,7 +12,7 @@
     "id": "autocount-accounting",
     "route": "/products/autocount-accounting",
     "title": "AutoCount Accounting 2.2",
-    "description": "Desktop accounting software for Malaysian SMEs with SST, e-Invoice, inventory, sales, purchase, and reporting workflows.",
+    "description": "Desktop accounting software for Malaysian SMEs with SST, e‑Invoice, inventory, sales, purchase, and reporting workflows.",
     "category": "Product",
     "priority": "0.8",
     "changefreq": "weekly"
@@ -21,7 +21,7 @@
     "id": "autocount-cloud-accounting",
     "route": "/products/autocount-cloud-accounting",
     "title": "AutoCount CloudAccounting",
-    "description": "Browser-based AutoCount CloudAccounting with e-Invoice, AI SmartScan, bank connection, and anytime access.",
+    "description": "Browser‑based AutoCount CloudAccounting with e‑Invoice, AI SmartScan, bank connection, and anytime access.",
     "category": "Product",
     "priority": "0.8",
     "changefreq": "weekly"
@@ -72,3 +72,5 @@
     "changefreq": "monthly"
   }
 ]
+
+

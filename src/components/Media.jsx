@@ -1,22 +1,22 @@
-/* ══════════════════════════════════════════════════════════════
- * Media — protected <img> and <video> wrappers
+﻿/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+ * Media â€” protected <img> and <video> wrappers
  *
  * Two concerns rolled into one place:
  *
  *   1. Load speed
- *      • <img> default to loading="lazy" + decoding="async" so off-
+ *      â€¢ <img> default to loading="lazy" + decoding="async" so off-
  *        screen images don't block first paint.
- *      • <video> default to preload="metadata" — only the size/duration
+ *      â€¢ <video> default to preload="metadata" â€” only the size/duration
  *        header is fetched up front; the body downloads when play starts.
- *      • Optional `priority` prop opts an above-the-fold image out of
+ *      â€¢ Optional `priority` prop opts an above-the-fold image out of
  *        lazy mode and adds fetchPriority="high".
  *
  *   2. Casual anti-download
- *      • Right-click "Save image as…" → suppressed (onContextMenu).
- *      • Drag-to-desktop → suppressed (draggable={false}).
- *      • Native video controls download button → suppressed
+ *      â€¢ Right-click "Save image asâ€¦" â†’ suppressed (onContextMenu).
+ *      â€¢ Drag-to-desktop â†’ suppressed (draggable={false}).
+ *      â€¢ Native video controls download button â†’ suppressed
  *        (controlsList="nodownload") on Chromium browsers.
- *      • Picture-in-picture → disabled for videos.
+ *      â€¢ Picture-in-picture â†’ disabled for videos.
  *
  *      Caveat: these stop casual saves. A determined visitor can still
  *      grab assets via DevTools Network tab or a screen capture. For
@@ -27,7 +27,7 @@
  *   YouTube exception: YouTube <iframe> embeds are out-of-scope on
  *   purpose. They live on youtube.com, have their own protections,
  *   and trying to wrap them only breaks the player.
- * ══════════════════════════════════════════════════════════════ */
+ * â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 
 import { forwardRef } from "react";
 
@@ -81,12 +81,12 @@ function splitProtectedImageStyle(style = {}) {
   };
 }
 
-/* ── <Img /> — drop-in replacement for <img>
+/* â”€â”€ <Img /> â€” drop-in replacement for <img>
  *
  *   <Img src="..." alt="..." />              lazy + decode-async (default)
  *   <Img src="..." alt="..." priority />     eager + fetchPriority high
  *
- * All other native <img> props pass through (width / height / style / className…).
+ * All other native <img> props pass through (width / height / style / classNameâ€¦).
  * forwardRef so caller-side refs reach the underlying <img>.
  */
 export const Img = forwardRef(function Img({
@@ -147,7 +147,7 @@ export const Img = forwardRef(function Img({
   );
 });
 
-/* ── <Vid /> — drop-in replacement for <video>
+/* â”€â”€ <Vid /> â€” drop-in replacement for <video>
  *
  *   <Vid src="..." />                 preload metadata, no download UI
  *   <Vid src="..." poster="..." />    same + custom poster image
@@ -160,7 +160,7 @@ export const Img = forwardRef(function Img({
  * controlsList="nodownload".
  *
  * forwardRef so callers can grab the underlying <video> for play /
- * pause / currentTime control — Sales2DO's dual-slot crossfade
+ * pause / currentTime control â€” Sales2DO's dual-slot crossfade
  * depends on this.
  */
 export const Vid = forwardRef(function Vid({
@@ -182,3 +182,4 @@ export const Vid = forwardRef(function Vid({
     />
   );
 });
+
