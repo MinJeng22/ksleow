@@ -1127,6 +1127,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
           endRect={morph.endRect}
           onComplete={completeMorph}
           isSettling={morphSettling}
+          playIconColor={playIconColor}
         />
       )}
     </section>
