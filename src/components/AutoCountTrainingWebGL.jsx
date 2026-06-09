@@ -283,6 +283,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   const [stageConcealed, setStageConcealed] = useState(false);
   const [shadowIn, setShadowIn] = useState(false);
   const [closingHandoff, setClosingHandoff] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
   const tabletRef = useRef(null);
   const openTargetRef = useRef(null);
   const collapseTargetRef = useRef(null);
@@ -299,6 +300,13 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   const morphPaintRafRef = useRef(0);
   const lastClosedStageHeightRef = useRef(null);
   const preparingMorphRef = useRef(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobileView(window.innerWidth <= 900);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     videos.forEach(video => {
@@ -586,6 +594,49 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   };
 
   const activeVideoMeta = videos.find(video => video.id === activeVideo) || videos[0];
+
+  const renderPlayerShell = () => (
+    <div ref={videoRef} className="tutorial-player-shell">
+      <div
+        ref={videoFrameRef}
+        className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}${shadowIn ? ' shadow-in' : ''}`}
+      >
+        <button
+          className="tutorial-close-btn"
+          type="button"
+          onClick={handleClose}
+          disabled={Boolean(morph)}
+        >
+          <svg className="tutorial-close-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <polyline points="4 14 10 14 10 20" />
+            <polyline points="20 10 14 10 14 4" />
+            <line x1="14" y1="10" x2="21" y2="3" />
+            <line x1="3" y1="21" x2="10" y2="14" />
+          </svg>
+          Minimize
+        </button>
+
+      {iframeMounted && (
+        <iframe
+          src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0&modestbranding=1${activeVideoMeta.start ? '&start=' + activeVideoMeta.start : ''}${activeVideoMeta.playlistId ? '&list=' + activeVideoMeta.playlistId : ''}`}
+          title="AutoCount Training Video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          onLoad={handleIframeLoad}
+        />
+      )}
+
+        <div className={`tutorial-video-cover${iframeReady && !closingHandoff ? ' is-hidden' : ''}${closingHandoff ? ' is-closing-handoff' : ''}`}>
+          <img
+            src={getThumbnailUrl(activeVideo)}
+            alt=""
+            decoding="async"
+            crossOrigin="anonymous"
+          />
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <section
@@ -920,9 +971,6 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
             width: 54px;
             height: 54px;
           }
-          .tutorial-copy-panel {
-            display: none !important;
-          }
         }
       `}</style>
       <div className="content-wrap" ref={contentWrapRef}>
@@ -960,54 +1008,18 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
             </div>
           </div>
           <div className="tutorial-stage-content">
-            {playerOpen ? (
-              <div ref={videoRef} className="tutorial-player-shell">
-                <div
-                  ref={videoFrameRef}
-                  className={`tutorial-video-frame${iframeReady ? ' is-ready' : ''}${shadowIn ? ' shadow-in' : ''}`}
-                >
-                  <button
-                    className="tutorial-close-btn"
-                    type="button"
-                    onClick={handleClose}
-                    disabled={Boolean(morph)}
-                  >
-                    <svg className="tutorial-close-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <polyline points="4 14 10 14 10 20" />
-                      <polyline points="20 10 14 10 14 4" />
-                      <line x1="14" y1="10" x2="21" y2="3" />
-                      <line x1="3" y1="21" x2="10" y2="14" />
-                    </svg>
-                    Minimize
-                  </button>
-
-                {iframeMounted && (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0&modestbranding=1${activeVideoMeta.start ? '&start=' + activeVideoMeta.start : ''}${activeVideoMeta.playlistId ? '&list=' + activeVideoMeta.playlistId : ''}`}
-                    title="AutoCount Training Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    onLoad={handleIframeLoad}
-                  />
-                )}
-
-                  <div className={`tutorial-video-cover${iframeReady && !closingHandoff ? ' is-hidden' : ''}${closingHandoff ? ' is-closing-handoff' : ''}`}>
-                    <img
-                      src={getThumbnailUrl(activeVideo)}
-                      alt=""
-                      decoding="async"
-                      crossOrigin="anonymous"
-                    />
-                  </div>
-                </div>
-              </div>
+            {playerOpen && !isMobileView ? (
+              renderPlayerShell()
             ) : (
               <div className="training-grid">
               <div>
-                <div
-                  ref={tabletRef}
-                  className="ipad-frame"
-                  onClick={handlePlay}
+                {playerOpen && isMobileView ? (
+                  renderPlayerShell()
+                ) : (
+                  <div
+                    ref={tabletRef}
+                    className="ipad-frame"
+                    onClick={handlePlay}
                   style={{
                     opacity: morph ? 0 : 1,
                     pointerEvents: morph ? 'none' : 'auto',
