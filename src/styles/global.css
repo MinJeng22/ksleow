@@ -1063,7 +1063,7 @@ textarea {
 
 @media (max-width: 1400px) {
   .ks-bento-card.is-wide {
-    grid-template-columns: 38% 62%;
+    grid-template-columns: 30% 70%;
   }
 }
 
