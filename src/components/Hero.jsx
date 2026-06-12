@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ParticleBackground from "./ParticleBackground";
 import { LOGO_HERO } from "../assets/assets.js";
 import hero from "../content/hero.json";
@@ -11,7 +11,7 @@ export default function Hero({ onContact }) {
    * viewer time to read the hero copy first, then quietly invites
    * them downward. Fades out as soon as they start scrolling. */
   const [hintShown, setHintShown] = useState(false);
-  const [scrollY,   setScrollY]   = useState(0);
+  const hintRef = useRef(null);
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 120);
@@ -19,18 +19,27 @@ export default function Hero({ onContact }) {
   }, []);
 
   useEffect(() => {
-    const t = setTimeout(() => setHintShown(true), 5000);
+    const t = setTimeout(() => {
+      setHintShown(true);
+      if (hintRef.current) {
+        const opacity = Math.max(0, 1 - Math.max(0, window.scrollY - 40) / 120);
+        hintRef.current.style.opacity = opacity;
+        hintRef.current.style.pointerEvents = opacity > 0 ? "auto" : "none";
+      }
+    }, 5000);
     return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
+    const onScroll = () => {
+      if (!hintShown || !hintRef.current) return;
+      const opacity = Math.max(0, 1 - Math.max(0, window.scrollY - 40) / 120);
+      hintRef.current.style.opacity = opacity;
+      hintRef.current.style.pointerEvents = opacity > 0 ? "auto" : "none";
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  const hintOpacity = hintShown
-    ? Math.max(0, 1 - Math.max(0, scrollY - 40) / 120)
-    : 0;
+  }, [hintShown]);
 
   const logoH = "clamp(80px, 11vw, 140px)";
 
@@ -230,6 +239,7 @@ export default function Hero({ onContact }) {
         }
       `}</style>
       <button
+        ref={hintRef}
         className="hero-scroll-hint lg-glass lg-glass-btn lg-glass-pill"
         onClick={() => {
           /* Hand-paced scroll — native "smooth" is too fast and feels
@@ -257,10 +267,9 @@ export default function Hero({ onContact }) {
           "--lg-rest-transform": "translateX(-50%) translateY(0) scale(1)",
           "--lg-hover-transform": "translateX(-50%) translateY(-2px) scale(1.018)",
           "--lg-active-transform": "translateX(-50%) translateY(0) scale(0.97)",
-          opacity: visible ? hintOpacity : 0,
-          pointerEvents: hintOpacity > 0.2 ? "auto" : "none",
-          /* Fade-in entrance only on first appearance (5 s after load) */
-          animation: hintShown && hintOpacity > 0.9
+          opacity: 0,
+          pointerEvents: "none",
+          animation: hintShown
             ? "scrollHintFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both"
             : "none",
         }}

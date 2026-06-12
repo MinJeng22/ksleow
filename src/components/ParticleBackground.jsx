@@ -200,6 +200,10 @@ export default function ParticleBackground({
 
     /* ── Draw loop ── */
     function draw(ts) {
+      if (!s.isIntersecting) {
+        s.frameId = null;
+        return;
+      }
       if (ts - s.lastTs < FRAME_MS) { s.frameId = requestAnimationFrame(draw); return; }
       s.lastTs = ts;
 
@@ -311,16 +315,29 @@ export default function ParticleBackground({
        does not swallow mouse events before they reach the canvas */
     window.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mouseleave", onMouseLeave);
-    s.frameId = requestAnimationFrame(draw);
+
+    const observer = new IntersectionObserver(([entry]) => {
+      s.isIntersecting = entry.isIntersecting;
+      if (s.isIntersecting && !s.frameId) {
+        s.lastTs = performance.now();
+        s.frameId = requestAnimationFrame(draw);
+      }
+    }, { threshold: 0 });
+    observer.observe(canvas);
 
     return () => {
-      cancelAnimationFrame(s.frameId);
+      observer.disconnect();
+      if (s.frameId) cancelAnimationFrame(s.frameId);
       clearTimeout(s.resizeTimer);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, [densityScale, mobileDensityScale]);
+  }, [
+    backgroundStart, backgroundEnd, lineRgb, dotRgb, highlightRgb, vignetteEnd,
+    dotOutlineRgb, dotOutlineAlpha, dotOutlineWidth, densityScale, mobileDensityScale,
+    lineAlphaScale, dotAlpha, obstacleSelector, obstaclePadding
+  ]);
 
   return (
     <canvas
