@@ -65,16 +65,34 @@ export default function ProductHero({
       position: "relative",
       paddingTop: "7rem", paddingBottom: "5rem",
       display: "flex", alignItems: "center",
-      backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: "cover",
-      backgroundPosition: "center center",
+      overflow: "hidden",
     }}>
+      {/* 
+        Using an actual <img> tag instead of CSS backgroundImage ensures the browser's
+        preload scanner discovers and downloads the LCP image immediately during HTML parsing.
+      */}
+      <img
+        className="product-hero-bg"
+        src={backgroundImage}
+        alt=""
+        fetchPriority="high"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center center",
+          zIndex: 0,
+        }}
+      />
+
       {/* Mobile-only bump: shift the hero photo to the right so the
        * laptop / monitor scene stays in frame at narrow widths. Desktop
        * keeps the inline "center center" above. */}
       <style>{`
         @media (max-width: 760px) {
-          .product-hero { background-position: 78% center !important; }
+          .product-hero-bg { object-position: 78% center !important; }
         }
       `}</style>
 
@@ -83,6 +101,7 @@ export default function ProductHero({
         position: "absolute", inset: 0,
         background: `rgba(0,0,0,${overlayOpacity})`,
         pointerEvents: "none",
+        zIndex: 0,
       }} />
 
       <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>

@@ -148,7 +148,7 @@ export default function FeatureShowcase({
               <span className="ac-feature-copy" style={{ position: "relative", zIndex: 2 }}>
                 <span className="ac-feature-title" style={feature.icon ? { display: "flex", alignItems: "center", gap: "0.5rem" } : undefined}>
                   {feature.icon && (
-                    <img src={feature.icon} alt="" style={{ width: 22, height: 22, objectFit: "contain", flexShrink: 0 }} />
+                    <img src={feature.icon} alt="" loading="lazy" decoding="async" style={{ width: 22, height: 22, objectFit: "contain", flexShrink: 0 }} />
                   )}
                   {feature.title}
                 </span>
