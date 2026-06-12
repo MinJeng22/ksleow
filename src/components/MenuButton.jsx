@@ -631,7 +631,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   const isMobileDark = useDarkBg(mobileBarRef);
 
   const navigate = useNavigate();
-  const [scrollY, setScrollY] = useState(0);
+  const [isHomeHeroTop, setIsHomeHeroTop] = useState(window.scrollY < 10);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -640,7 +640,11 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrollY(window.scrollY);
+      const isTop = window.scrollY < 10;
+      setIsHomeHeroTop(prev => {
+        if (prev !== isTop) return isTop;
+        return prev;
+      });
       setShowScrollTop(window.scrollY > 400);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -790,7 +794,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     }
   };
 
-  const isHomeHero = pathname === "/" && scrollY < 10;
+  const isHomeHero = pathname === "/" && isHomeHeroTop;
   const mobileActionMode = hasHistory && !isHomeHero ? "back" : null;
 
   const scrollForMore = () => {
