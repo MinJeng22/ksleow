@@ -97,6 +97,7 @@ export default function ParticleBackground({
       canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       s.W = W; s.H = H; s.lastW = W;
+      s.maxH = H;
 
       s.bgGrad = ctx.createLinearGradient(0, 0, W * 0.5, H);
       s.bgGrad.addColorStop(0, backgroundStart);
@@ -165,6 +166,7 @@ export default function ParticleBackground({
       canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       s.H = H;
+      s.maxH = Math.max(s.maxH || 0, H);
 
       /* rebuild gradients for new height */
       s.bgGrad = ctx.createLinearGradient(0, 0, W * 0.5, H);
@@ -175,10 +177,6 @@ export default function ParticleBackground({
       s.vigGrad.addColorStop(0, "rgba(0,0,0,0)");
       s.vigGrad.addColorStop(1, vignetteEnd);
 
-      /* clamp existing particles to new height — no jump */
-      for (const p of s.particles) {
-        if (p.y > H) p.y = H;
-      }
       updateObstacles();
     }
 
@@ -223,11 +221,13 @@ export default function ParticleBackground({
           const p = particles[i];
           const prevX = p.x;
           const prevY = p.y;
-          p.x += p.vx; p.y += p.vy;
+          p.x += p.vx;
+          p.y += p.vy;
+          const boundH = s.maxH || H;
           if (p.x < 0) { p.x = 0; p.vx =  Math.abs(p.vx); }
           if (p.x > W) { p.x = W; p.vx = -Math.abs(p.vx); }
           if (p.y < 0) { p.y = 0; p.vy =  Math.abs(p.vy); }
-          if (p.y > H) { p.y = H; p.vy = -Math.abs(p.vy); }
+          if (p.y > boundH) { p.y = boundH; p.vy = -Math.abs(p.vy); }
           collideWithObstacles(p, prevX, prevY);
         }
       }

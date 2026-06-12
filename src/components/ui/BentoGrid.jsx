@@ -148,9 +148,18 @@ export function BentoCarousel({
   const scrollByBento = (direction) => {
     const track = trackRef.current;
     if (!track) return;
-    const slide = track.querySelector(".ks-bento-carousel-slide");
-    const slideWidth = slide?.getBoundingClientRect().width || track.clientWidth;
-    const distance = Math.min(track.clientWidth * 0.86, slideWidth * 0.38);
+    
+    let distance;
+    if (window.innerWidth <= 1400) {
+      // On tablet/mobile, CSS scroll-snap is active and slides have display:contents.
+      // Scroll by ~85% of viewport to reliably cross the next snap threshold.
+      distance = track.clientWidth * 0.85;
+    } else {
+      // On desktop, smoothly scroll a portion of the Bento grid slide.
+      const slide = track.querySelector(".ks-bento-carousel-slide");
+      const slideWidth = slide?.getBoundingClientRect().width || track.clientWidth;
+      distance = Math.min(track.clientWidth * 0.86, slideWidth * 0.38);
+    }
     
     // Manual JS smooth scroll to guarantee animation across all browsers
     const start = track.scrollLeft;
