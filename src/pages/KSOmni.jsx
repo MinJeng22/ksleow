@@ -804,7 +804,7 @@ export default function KSLOmniPage() {
 
       {/* -- Main Chat Area -- */}
       <div style={{ flex: 1, position: "relative" }}>
-        <div ref={contentRef} style={{ position: isIOS ? "absolute" : "relative", top: 0, left: 0, right: 0, height: isIOS ? "100dvh" : "100%", display: "flex", flexDirection: "column" }}>
+        <div ref={contentRef} style={{ position: isIOS ? "absolute" : "relative", top: 0, left: 0, right: 0, height: isIOS ? "100svh" : "100%", display: "flex", flexDirection: "column" }}>
           <div style={{ flex: 1, display: "flex", flexDirection: "column", maxWidth: "100%", overflowX: "hidden" }}>
             <ChatbotKeyframes />
             <style suppressHydrationWarning>{`

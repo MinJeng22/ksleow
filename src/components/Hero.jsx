@@ -62,7 +62,7 @@ export default function Hero({ onContact }) {
       id="hero"
       style={{
         position: "relative",
-        minHeight: "100dvh",
+        minHeight: "100svh",
         display: "flex",
         flexDirection: "column",
         alignItems: "flex-start",
