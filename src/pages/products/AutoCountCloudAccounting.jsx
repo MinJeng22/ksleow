@@ -12,7 +12,7 @@ import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx"
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
-import { CompareRevBadge, CopyReleaseButton, ReleaseNumber, ShareLinkButton } from "../../components/ReleaseTools.jsx";
+import { CompareRevBadge, CopyReleaseButton, ReleaseNumber, ShareLinkButton, HighlightText } from "../../components/ReleaseTools.jsx";
 import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -314,7 +314,7 @@ function EditionTable({ selected = null, diffOnly = false }) {
   );
 }
 
-function ReleaseCard({ release, expanded, onToggle }) {
+function ReleaseCard({ release, expanded, onToggle, search }) {
   const isLatest = release === RELEASES[0];
   const hasHighlights = release.highlights?.length > 0;
 
@@ -396,14 +396,14 @@ function ReleaseCard({ release, expanded, onToggle }) {
               </div>
               {release.highlights.slice(0, 4).map((item, index) => (
                 <div key={index} style={{ fontSize: "0.82rem", lineHeight: 1.6, color: "#4d4f68", marginBottom: index === release.highlights.slice(0, 4).length - 1 ? 0 : "0.35rem" }}>
-                  {item}
+                  <HighlightText text={item} search={search} />
                 </div>
               ))}
             </div>
           )}
           <div className="cloud-release-detail-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem", marginTop: hasHighlights ? 0 : "1.1rem" }}>
-            <ReleaseList title="New Features" items={release.features} type="feature" copy={() => copyRelease(release, "features")} />
-            <ReleaseList title="Bug Fixes" items={release.fixes} type="fix" copy={() => copyRelease(release, "fixes")} />
+            <ReleaseList title="New Features" items={release.features} type="feature" copy={() => copyRelease(release, "features")} search={search} />
+            <ReleaseList title="Bug Fixes" items={release.fixes} type="fix" copy={() => copyRelease(release, "fixes")} search={search} />
           </div>
         </div>
       )}
@@ -411,7 +411,7 @@ function ReleaseCard({ release, expanded, onToggle }) {
   );
 }
 
-function ReleaseList({ title, items, type, copy }) {
+function ReleaseList({ title, items, type, copy, search }) {
   const gold = type === "fix";
   return (
     <div>
@@ -429,7 +429,7 @@ function ReleaseList({ title, items, type, copy }) {
       {items.map((item, index) => (
         <div key={index} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.55rem" }}>
           <ReleaseNumber number={index + 1} type={type} fixColor="#009e39" fixBg="rgba(0,158,57,0.12)" />
-          <span className="ks-list-text">{item}</span>
+          <span className="ks-list-text"><HighlightText text={item} search={search} /></span>
         </div>
       ))}
     </div>
@@ -709,8 +709,9 @@ export default function AutoCountCloudAccountingPage() {
                   <ReleaseCard
                     key={release.version}
                     release={release}
-                    expanded={expanded === release.version}
+                    expanded={!!search || expanded === release.version}
                     onToggle={() => setExpanded(expanded === release.version ? null : release.version)}
+                    search={search}
                   />
                 ))}
                 {visibleLimit < filtered.length && (

@@ -14,7 +14,7 @@ import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx"
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
-import { CopyReleaseButton, ReleaseNumber, ShareLinkButton } from "../../components/ReleaseTools.jsx";
+import { CopyReleaseButton, ReleaseNumber, ShareLinkButton, HighlightText } from "../../components/ReleaseTools.jsx";
 import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
 /* AutoCount Accounting page — product-aware WhatsApp link to KSL Support Team */
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -99,7 +99,7 @@ function ReleaseAssetLink({ url }) {
   );
 }
 
-function ReleaseCard({ r, expanded, onToggle }) {
+function ReleaseCard({ r, expanded, onToggle, search }) {
   const isLatest = r === RELEASES[0];
   const releaseRev = revNumber(r);
   return (
@@ -183,7 +183,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
               {r.features.map((f, i) => (
                 <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.5rem" }}>
                   <ReleaseNumber number={i + 1} type="feature" />
-                  <span className="ks-list-text">{f}</span>
+                  <span className="ks-list-text"><HighlightText text={f} search={search} /></span>
                 </div>
               ))}
             </div>
@@ -198,7 +198,7 @@ function ReleaseCard({ r, expanded, onToggle }) {
               {r.fixes.map((f, i) => (
                 <div key={i} style={{ display: "flex", gap: "0.55rem", alignItems: "flex-start", marginBottom: "0.5rem" }}>
                   <ReleaseNumber number={i + 1} type="fix" />
-                  <span className="ks-list-text">{f}</span>
+                  <span className="ks-list-text"><HighlightText text={f} search={search} /></span>
                 </div>
               ))}
             </div>
@@ -997,8 +997,9 @@ export default function AutoCountAccountingPage({ onContact }) {
                 <ReleaseCard
                   key={r.version}
                   r={r}
-                  expanded={expanded === r.version}
+                  expanded={!!search || expanded === r.version}
                   onToggle={() => setExpanded(expanded === r.version ? null : r.version)}
+                  search={search}
                 />
               ))}
               {!search && visibleLimit < filtered.length && (

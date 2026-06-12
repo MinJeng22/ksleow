@@ -1,5 +1,29 @@
 import { useState } from "react";
 
+export function HighlightText({ text, search }) {
+  if (!search) return <>{text}</>;
+  
+  // Escape regex specials
+  const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${escapeRegExp(search)})`, 'gi');
+  
+  const parts = text.split(regex);
+  
+  return (
+    <>
+      {parts.map((part, i) => 
+        part.toLowerCase() === search.toLowerCase() ? (
+          <mark key={i} style={{ background: "rgba(201,168,76,0.35)", color: "inherit", borderRadius: 3, padding: "1px 2px" }}>
+            {part}
+          </mark>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </>
+  );
+}
+
 const DEFAULT_COLORS = {
   feature: { bg: "rgba(47,49,90,0.08)", color: "#2f315a" },
   fix: { bg: "rgba(128,195,30,0.12)", color: "#4a6e0e" },
