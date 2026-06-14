@@ -9,9 +9,11 @@ export default function Hero({ onContact }) {
   const [visible, setVisible]   = useState(false);
   /* Scroll hint appears 5 seconds after the page settles — gives the
    * viewer time to read the hero copy first, then quietly invites
-   * them downward. Fades out as soon as they start scrolling. */
+  * them downward. Fades out as soon as they start scrolling. */
   const [hintShown, setHintShown] = useState(false);
   const hintRef = useRef(null);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const [suspendParticles, setSuspendParticles] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 120);
@@ -31,22 +33,42 @@ export default function Hero({ onContact }) {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => {
-      if (!hintShown || !hintRef.current) return;
-      const opacity = Math.max(0, 1 - Math.max(0, window.scrollY - 40) / 120);
-      hintRef.current.style.opacity = opacity;
-      hintRef.current.style.pointerEvents = opacity > 0 ? "auto" : "none";
+    let rafId = 0;
+    const updateScrollState = () => {
+      rafId = 0;
+      const y = window.scrollY || 0;
+      const opacity = Math.max(0, 1 - Math.max(0, y - 40) / 120);
+
+      if (hintShown && hintRef.current) {
+        hintRef.current.style.opacity = opacity;
+        hintRef.current.style.pointerEvents = opacity > 0 ? "auto" : "none";
+      }
+
+      const shouldSuspend = isMobileViewport && y > 120;
+      setSuspendParticles((current) => (current === shouldSuspend ? current : shouldSuspend));
     };
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(updateScrollState);
+    };
+    updateScrollState();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [hintShown]);
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [hintShown, isMobileViewport]);
 
   const logoH = "clamp(80px, 11vw, 140px)";
 
   const [density, setDensity] = useState(1.35);
   useEffect(() => {
     const update = () => {
-      if (window.innerWidth >= 640 && window.innerWidth < 1280) {
+      const width = window.innerWidth;
+      setIsMobileViewport(width < 768);
+      if (width < 640) {
+        setDensity(0.42);
+      } else if (width < 1280) {
         setDensity(0.7); // reduced on tablet
       } else {
         setDensity(1.35);
@@ -70,7 +92,12 @@ export default function Hero({ onContact }) {
         overflow: "hidden",
       }}
     >
-      <ParticleBackground paused={paused} densityScale={density} />
+      <ParticleBackground
+        active={!paused && !suspendParticles}
+        paused={paused || suspendParticles}
+        densityScale={density}
+        mobileDensityScale={0.45}
+      />
 
       {/*
        * DESKTOP layout (>640px):

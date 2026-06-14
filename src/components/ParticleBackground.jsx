@@ -49,6 +49,7 @@ function particleRadius(W) {
 }
 
 export default function ParticleBackground({
+  active = true,
   paused,
   backgroundStart = "#0f1128",
   backgroundEnd = "#07080f",
@@ -86,6 +87,7 @@ export default function ParticleBackground({
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!active) return;
     if (!canvas) return;
     const s   = stateRef.current;
     const ctx = canvas.getContext("2d", { alpha: true });
@@ -339,6 +341,7 @@ export default function ParticleBackground({
       canvas.removeEventListener("mouseleave", onMouseLeave);
     };
   }, [
+    active,
     backgroundStart, backgroundEnd, lineRgb, dotRgb, highlightRgb, vignetteEnd,
     dotOutlineRgb, dotOutlineAlpha, dotOutlineWidth, densityScale, mobileDensityScale,
     lineAlphaScale, dotAlpha, obstacleSelector, obstaclePadding

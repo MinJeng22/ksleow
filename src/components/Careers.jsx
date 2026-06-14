@@ -89,6 +89,7 @@ export default function Careers() {
       borderTop: "0.5px solid rgba(47,49,90,0.1)",
     }}>
       <ParticleBackground
+        active={visible}
         paused={false}
         backgroundStart="#f8f9fd"
         backgroundEnd="#eef1f8"
@@ -97,7 +98,7 @@ export default function Careers() {
         highlightRgb="201,168,76"
         vignetteEnd="rgba(47,49,90,0.08)"
         densityScale={0.78}
-        mobileDensityScale={2.2}
+        mobileDensityScale={0.45}
         lineAlphaScale={0.38}
         dotAlpha={0.6}
       />
