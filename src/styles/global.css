@@ -356,6 +356,32 @@ textarea {
   }
 }
 
+@media (max-width: 767px) {
+  .pinned-hero-page {
+    isolation: auto;
+  }
+
+  .pinned-hero-stage {
+    position: relative;
+    inset: auto;
+    height: auto;
+    min-height: 0;
+    z-index: 1;
+    overflow: visible;
+  }
+
+  .pinned-hero-stage > * {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .pinned-page-content {
+    margin-top: 0;
+    box-shadow: none;
+    isolation: isolate;
+  }
+}
+
 .content-wrap {
   max-width: var(--content-max-w);
   margin: 0 auto;

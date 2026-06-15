@@ -97,10 +97,10 @@ export default function Careers() {
         dotRgb="201,168,76"
         highlightRgb="201,168,76"
         vignetteEnd="rgba(47,49,90,0.08)"
-        densityScale={0.78}
-        mobileDensityScale={0.45}
-        lineAlphaScale={0.38}
-        dotAlpha={0.6}
+        densityScale={1.02}
+        mobileDensityScale={0.6}
+        lineAlphaScale={0.46}
+        dotAlpha={0.66}
       />
       <div
         className="content-wrap"

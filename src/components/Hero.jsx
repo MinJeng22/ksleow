@@ -56,16 +56,16 @@ export default function Hero({ onContact }) {
 
   const logoH = "clamp(80px, 11vw, 140px)";
 
-  const [density, setDensity] = useState(1.35);
+  const [density, setDensity] = useState(1.6);
   useEffect(() => {
     const update = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        setDensity(0.42);
+        setDensity(0.58);
       } else if (width < 1280) {
-        setDensity(0.7); // reduced on tablet
+        setDensity(0.92);
       } else {
-        setDensity(1.35);
+        setDensity(1.6);
       }
     };
     update();
@@ -90,7 +90,7 @@ export default function Hero({ onContact }) {
         active={!paused}
         paused={paused}
         densityScale={density}
-        mobileDensityScale={0.85}
+        mobileDensityScale={1.08}
       />
 
       {/*

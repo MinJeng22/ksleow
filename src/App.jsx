@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Nav           from "./components/Nav";
 import ContactModal  from "./components/ContactModal";
 import BackToTop     from "./components/BackToTop";
 import MenuButton    from "./components/MenuButton";
@@ -22,16 +21,9 @@ import "./styles/global.css";
 
 const routePath = Object.fromEntries(siteRoutes.map((route) => [route.id, route.route]));
 
-/* The site Nav is shown ONLY on the homepage. Every other route (including
- * /omni, product pages, app pages) provides its own page header. */
 export function AppShell({ openContact, modalOpen, setModalOpen, searchOpen, setSearchOpen }) {
-  const { pathname } = useLocation();
-  const showNav = pathname === "/";
-
   return (
     <div className="app">
-      {showNav && <Nav onContact={openContact} />}
-
       <Routes>
         <Route path={routePath.home} element={<HomePage onContact={openContact} />} />
         <Route path={routePath["autocount-accounting"]} element={<AutoCountAccountingPage onContact={openContact} />} />
