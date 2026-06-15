@@ -9,9 +9,10 @@ export default function Hero({ onContact }) {
   const [visible, setVisible]   = useState(false);
   /* Scroll hint appears 5 seconds after the page settles — gives the
    * viewer time to read the hero copy first, then quietly invites
-  * them downward. Fades out as soon as they start scrolling. */
+   * them downward. Fades out as soon as they start scrolling. */
   const [hintShown, setHintShown] = useState(false);
   const hintRef = useRef(null);
+  const suspendParticlesRef = useRef(false);
   const [isMobileViewport, setIsMobileViewport] = useState(false);
   const [suspendParticles, setSuspendParticles] = useState(false);
 
@@ -45,7 +46,10 @@ export default function Hero({ onContact }) {
       }
 
       const shouldSuspend = isMobileViewport && y > 120;
-      setSuspendParticles((current) => (current === shouldSuspend ? current : shouldSuspend));
+      if (suspendParticlesRef.current !== shouldSuspend) {
+        suspendParticlesRef.current = shouldSuspend;
+        setSuspendParticles(shouldSuspend);
+      }
     };
     const onScroll = () => {
       if (rafId) return;
