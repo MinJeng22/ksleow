@@ -1091,7 +1091,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
                   </p>
                   <div className="tutorial-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', maxWidth: 480 }}>
                     <button
-                      onClick={handlePlay}
+                      onClick={() => window.open(`https://www.youtube.com/watch?v=${activeVideo}`, '_blank')}
                       disabled={Boolean(morph)}
                       style={{
                         display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
