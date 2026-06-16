@@ -388,6 +388,16 @@ function EditionsTable({ selected = null, diffOnly = false, showPrices = false }
   const filterRow = (values) => filterEditionValues(values, colIdx);
   const rowDiffers = (values) => editionRowDiffers(values, colIdx);
 
+  const theadRef = React.useRef(null);
+  const tbodyRef = React.useRef(null);
+
+  const handleHeadScroll = (e) => {
+    if (tbodyRef.current) tbodyRef.current.scrollLeft = e.target.scrollLeft;
+  };
+  const handleBodyScroll = (e) => {
+    if (theadRef.current) theadRef.current.scrollLeft = e.target.scrollLeft;
+  };
+
   return (
     <div className="ks-compare-panel" style={{ maxWidth: cols.length <= 3 ? 1080 : 'none', margin: cols.length <= 3 ? '0 auto' : '0' }}>
       <div className="ks-compare-wrap">
@@ -401,7 +411,7 @@ function EditionsTable({ selected = null, diffOnly = false, showPrices = false }
               <col key={edition} className="ks-compare-col-edition" width={`${69 / cols.length}%`} />
             ))}
           </colgroup>
-          <thead className="ks-compare-thead">
+          <thead className="ks-compare-thead" ref={theadRef} onScroll={handleHeadScroll}>
             <tr style={{ "--th-bg": "#80c31e" }}>
               <th className="ks-compare-th ks-compare-th-left">Module</th>
               {cols.map(e => (
@@ -412,7 +422,7 @@ function EditionsTable({ selected = null, diffOnly = false, showPrices = false }
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="ks-compare-tbody" ref={tbodyRef} onScroll={handleBodyScroll}>
             <tr className="ks-compare-tr-book">
               <td className="ks-compare-td-left ks-compare-td-book" style={{ background: "inherit", fontWeight: 500 }}>
                 <span>One-Time Payment</span>

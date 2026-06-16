@@ -215,10 +215,20 @@ function copyCompare(items, fromVersion, toVersion, type) {
 }
 
 function EditionTable({ selected = null, diffOnly = false }) {
-  const cols = selected?.length ? selected : EDITIONS;
+  const cols = (selected && selected.length > 0) ? selected : EDITIONS;
   const colIdx = getEditionColumnIndexes(EDITIONS, selected);
   const filterRow = (values) => filterEditionValues(values, colIdx);
   const rowDiffers = (values) => editionRowDiffers(values, colIdx);
+
+  const theadRef = React.useRef(null);
+  const tbodyRef = React.useRef(null);
+
+  const handleHeadScroll = (e) => {
+    if (tbodyRef.current) tbodyRef.current.scrollLeft = e.target.scrollLeft;
+  };
+  const handleBodyScroll = (e) => {
+    if (theadRef.current) theadRef.current.scrollLeft = e.target.scrollLeft;
+  };
 
   return (
     <div className="ks-compare-panel" style={{ maxWidth: cols.length <= 3 ? 1080 : 'none', margin: cols.length <= 3 ? '0 auto' : '0' }}>
@@ -227,7 +237,7 @@ function EditionTable({ selected = null, diffOnly = false }) {
           "--edition-count": cols.length,
           "--mobile-table-width": cols.length > 3 ? `${cols.length * 75}px` : "100%"
         }}>
-          <thead className="ks-compare-thead">
+          <thead className="ks-compare-thead" ref={theadRef} onScroll={handleHeadScroll}>
             <tr style={{ "--th-bg": "#16a14b" }}>
               <th className="ks-compare-th ks-compare-th-left"></th>
               {cols.map(e => (
@@ -235,7 +245,7 @@ function EditionTable({ selected = null, diffOnly = false }) {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="ks-compare-tbody" ref={tbodyRef} onScroll={handleBodyScroll}>
             {CLOUD_EDITION_TABLE.topRows.map(([rowName, values], idx) => {
               const isFirst = idx === 0;
               const isPriceRow = rowName.includes("Price");
