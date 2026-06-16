@@ -124,7 +124,10 @@ function ServiceCard({ service }) {
 
   const fbLink = office?.facebook || CONTACT.facebook;
 
-  const waNumber  = primaryPhone.replace(/\D/g, "");
+  let waNumber = office?.whatsapp || contact.whatsapp || CONTACT.whatsapp || primaryPhone.replace(/\D/g, "");
+  if (waNumber.startsWith("0")) {
+    waNumber = "6" + waNumber;
+  }
   const waMessage = `Hi! I'm interested in ${service.title}. Could you provide more details?`;
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
 
