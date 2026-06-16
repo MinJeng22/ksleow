@@ -2691,15 +2691,12 @@ body.has-active-modal .back-to-top-glass {
    force explicit widths. */
 @media (max-width: 768px) {
   .ks-compare-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    max-height: 80vh;
-    overflow-y: auto;
+    width: 100%;
   }
 
   .ks-compare-thead {
     position: sticky !important;
-    top: 0 !important;
+    top: 65px !important;
     z-index: 10 !important;
   }
 
