@@ -382,7 +382,7 @@ function EditionMarker({ value }) {
   return <span style={{ color: "#9aa", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>−</span>;
 }
 
-function EditionsTable({ selected = null, diffOnly = false }) {
+function EditionsTable({ selected = null, diffOnly = false, showPrices = false }) {
   const cols = (selected && selected.length > 0) ? selected : EDITIONS;
   const colIdx = getEditionColumnIndexes(EDITIONS, selected);
   const filterRow = (values) => filterEditionValues(values, colIdx);
@@ -450,7 +450,7 @@ function EditionsTable({ selected = null, diffOnly = false }) {
                     const visibleVals = filterRow(values);
                     return (
                       <tr key={rowName} className="ks-compare-tr-data">
-                        <CompareFeatureCell style={{ fontWeight: 500 }} meta={MODULE_PRICES[rowName]}>
+                        <CompareFeatureCell style={{ fontWeight: 500 }} meta={showPrices ? MODULE_PRICES[rowName] : null}>
                           {rowName}
                         </CompareFeatureCell>
                         {visibleVals.map((v, vi) => (
@@ -559,6 +559,7 @@ export default function AutoCountAccountingPage({ onContact }) {
   const [editionA, setEditionA] = useState(EDITIONS[0]);                  /* Account Plus */
   const [editionB, setEditionB] = useState(EDITIONS[EDITIONS.length - 1]); /* Premium */
   const [editionDiffOnly, setEditionDiffOnly] = useState(false);
+  const [browseClicks, setBrowseClicks] = useState(0);
   
 
 
@@ -755,7 +756,14 @@ export default function AutoCountAccountingPage({ onContact }) {
             <SegmentedControl
               ariaLabel="Edition view mode"
               value={editionCompareMode ? "compare" : "browse"}
-              onChange={(mode) => setEditionCompareMode(mode === "compare")}
+              onChange={(mode) => {
+                setEditionCompareMode(mode === "compare");
+                if (mode === "browse") {
+                  setBrowseClicks(prev => prev + 1);
+                } else {
+                  setBrowseClicks(0);
+                }
+              }}
               options={[
                 { value: "browse", label: "Browse All Editions" },
                 { value: "compare", label: "Compare Editions" },
@@ -815,6 +823,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           <EditionsTable
             selected={editionCompareMode ? [editionA, editionB] : null}
             diffOnly={editionCompareMode && editionA !== editionB && editionDiffOnly}
+            showPrices={browseClicks >= 5}
           />
           <p className="ks-card-text" style={{ margin: "1rem 0 0", fontWeight: 700, textAlign: "left" }}>
             *Prices exclude 8% SST.
