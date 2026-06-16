@@ -81,6 +81,7 @@ export default function ParticleBackground({
     obstacles: [],
     resizeTimer: null,  /* debounce handle */
     obstacleFrame: 0,
+    retryFrame: 0,
   });
 
   useEffect(() => { stateRef.current.pausedRef = paused; }, [paused]);
@@ -92,8 +93,39 @@ export default function ParticleBackground({
     const s   = stateRef.current;
     const ctx = canvas.getContext("2d", { alpha: true });
 
+    function measureCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const parentRect = canvas.parentElement?.getBoundingClientRect();
+      const W = Math.round(rect.width || canvas.offsetWidth || parentRect?.width || 0);
+      const H = Math.round(rect.height || canvas.offsetHeight || parentRect?.height || 0);
+      if (W < 2 || H < 2) return null;
+      return { W, H, rect };
+    }
+
+    function startLoop(forcePaint = false) {
+      if (s.frameId) return;
+      s.lastTs = performance.now();
+      s.frameId = requestAnimationFrame((ts) => draw(ts, forcePaint));
+    }
+
+    function retryWhenSized() {
+      if (s.retryFrame) return;
+      s.retryFrame = requestAnimationFrame(() => {
+        s.retryFrame = 0;
+        const size = measureCanvas();
+        if (!size) {
+          retryWhenSized();
+          return;
+        }
+        initCanvas(size.W, size.H);
+        s.isIntersecting = true;
+        startLoop(true);
+      });
+    }
+
     /* ── Full canvas init (only when WIDTH changes or first run) ── */
     function initCanvas(W, H) {
+      if (W < 2 || H < 2) return false;
       const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       canvas.width  = W * dpr;
       canvas.height = H * dpr;
@@ -119,6 +151,7 @@ export default function ParticleBackground({
         r:  particleRadius(W),
       }));
       updateObstacles();
+      return true;
     }
 
     function updateObstacles() {
@@ -164,6 +197,7 @@ export default function ParticleBackground({
     /* ── Height-only resize: just update canvas height & gradients,
      *    DO NOT reinitialise particles (prevents jump on mobile scroll) ── */
     function updateHeightOnly(W, H) {
+      if (W < 2 || H < 2) return false;
       const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       canvas.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -180,17 +214,21 @@ export default function ParticleBackground({
       s.vigGrad.addColorStop(1, vignetteEnd);
 
       updateObstacles();
+      return true;
     }
 
     /* ── Debounced resize handler ── */
     function onResize() {
       clearTimeout(s.resizeTimer);
       s.resizeTimer = setTimeout(() => {
-        const W = canvas.offsetWidth;
-        const H = canvas.offsetHeight;
+        const size = measureCanvas();
+        if (!size) {
+          retryWhenSized();
+          return;
+        }
+        const { W, H, rect } = size;
 
         // Manually verify viewport intersection on resize (safeguard for mobile/Safari 0x0 startup)
-        const rect = canvas.getBoundingClientRect();
         const inViewport = (
           rect.width > 0 &&
           rect.height > 0 &&
@@ -212,8 +250,7 @@ export default function ParticleBackground({
         }
         
         if (s.isIntersecting && !s.frameId) {
-          s.lastTs = performance.now();
-          s.frameId = requestAnimationFrame(draw);
+          startLoop(true);
         } else if (!s.isIntersecting && !s.frameId) {
           draw(performance.now(), true);
         }
@@ -230,6 +267,11 @@ export default function ParticleBackground({
       s.lastTs = ts;
 
       const { W, H, particles, pausedRef, bgGrad, vigGrad, mx, my } = s;
+      if (!W || !H || !bgGrad || !vigGrad) {
+        s.frameId = null;
+        retryWhenSized();
+        return;
+      }
 
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, W, H);
@@ -333,32 +375,55 @@ export default function ParticleBackground({
     }
     function onMouseLeave() { s.mx = -9999; s.my = -9999; }
 
-    initCanvas(canvas.offsetWidth, canvas.offsetHeight);
+    const initialSize = measureCanvas();
+    if (initialSize) {
+      initCanvas(initialSize.W, initialSize.H);
+      draw(performance.now(), true);
+    } else {
+      retryWhenSized();
+    }
+
     const ro = new ResizeObserver(() => {
       onResize();
     });
     ro.observe(canvas);
+    if (canvas.parentElement) ro.observe(canvas.parentElement);
 
     /* Use window-level listener so the overlaid content div
        does not swallow mouse events before they reach the canvas */
     window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("orientationchange", onResize, { passive: true });
     canvas.addEventListener("mouseleave", onMouseLeave);
 
     const observer = new IntersectionObserver(([entry]) => {
       s.isIntersecting = entry.isIntersecting;
       if (s.isIntersecting && !s.frameId) {
-        s.lastTs = performance.now();
-        s.frameId = requestAnimationFrame(draw);
+        startLoop(true);
       }
     }, { threshold: 0 });
     observer.observe(canvas);
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        onResize();
+        if (s.isIntersecting) startLoop(true);
+      }
+    };
+    window.addEventListener("pageshow", onResize, { passive: true });
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
       observer.disconnect();
       ro.disconnect();
       if (s.frameId) cancelAnimationFrame(s.frameId);
+      if (s.retryFrame) cancelAnimationFrame(s.retryFrame);
       clearTimeout(s.resizeTimer);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+      window.removeEventListener("pageshow", onResize);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
       canvas.removeEventListener("mouseleave", onMouseLeave);
     };
   }, [
