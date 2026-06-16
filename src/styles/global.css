@@ -2808,7 +2808,7 @@ body.has-active-modal .back-to-top-glass {
 .ks-bento-carousel-slide.ks-bento {
   background: #f5f5f8 !important;
   border-radius: 24px;
-  padding: 0.5rem;
+  padding: 0;
 }
 
 /* Generic Carousel Button (used in BentoGrid and Products) */
