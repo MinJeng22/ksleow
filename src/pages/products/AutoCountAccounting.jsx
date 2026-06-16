@@ -560,6 +560,7 @@ export default function AutoCountAccountingPage({ onContact }) {
   const [editionB, setEditionB] = useState(EDITIONS[EDITIONS.length - 1]); /* Premium */
   const [editionDiffOnly, setEditionDiffOnly] = useState(false);
   const [browseClicks, setBrowseClicks] = useState(0);
+  const [compareClicks, setCompareClicks] = useState(0);
   
 
 
@@ -760,7 +761,9 @@ export default function AutoCountAccountingPage({ onContact }) {
                 setEditionCompareMode(mode === "compare");
                 if (mode === "browse") {
                   setBrowseClicks(prev => prev + 1);
+                  setCompareClicks(0);
                 } else {
+                  setCompareClicks(prev => prev + 1);
                   setBrowseClicks(0);
                 }
               }}
@@ -823,7 +826,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           <EditionsTable
             selected={editionCompareMode ? [editionA, editionB] : null}
             diffOnly={editionCompareMode && editionA !== editionB && editionDiffOnly}
-            showPrices={browseClicks >= 5}
+            showPrices={browseClicks >= 5 || compareClicks >= 5}
           />
           <p className="ks-card-text" style={{ margin: "1rem 0 0", fontWeight: 700, textAlign: "left" }}>
             *Prices exclude 8% SST.
