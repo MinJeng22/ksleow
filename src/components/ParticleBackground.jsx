@@ -317,7 +317,11 @@ export default function ParticleBackground({
     function onMouseLeave() { s.mx = -9999; s.my = -9999; }
 
     initCanvas(canvas.offsetWidth, canvas.offsetHeight);
-    window.addEventListener("resize", onResize);
+    const ro = new ResizeObserver(() => {
+      onResize();
+    });
+    ro.observe(canvas);
+
     /* Use window-level listener so the overlaid content div
        does not swallow mouse events before they reach the canvas */
     window.addEventListener("mousemove", onMouseMove);
@@ -334,9 +338,9 @@ export default function ParticleBackground({
 
     return () => {
       observer.disconnect();
+      ro.disconnect();
       if (s.frameId) cancelAnimationFrame(s.frameId);
       clearTimeout(s.resizeTimer);
-      window.removeEventListener("resize", onResize);
       window.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("mouseleave", onMouseLeave);
     };
