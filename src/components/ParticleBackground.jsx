@@ -188,6 +188,21 @@ export default function ParticleBackground({
       s.resizeTimer = setTimeout(() => {
         const W = canvas.offsetWidth;
         const H = canvas.offsetHeight;
+
+        // Manually verify viewport intersection on resize (safeguard for mobile/Safari 0x0 startup)
+        const rect = canvas.getBoundingClientRect();
+        const inViewport = (
+          rect.width > 0 &&
+          rect.height > 0 &&
+          rect.top < window.innerHeight &&
+          rect.bottom > 0 &&
+          rect.left < window.innerWidth &&
+          rect.right > 0
+        );
+        if (inViewport) {
+          s.isIntersecting = true;
+        }
+
         if (W !== s.lastW) {
           /* Genuine width change (orientation flip, window resize): full reinit */
           initCanvas(W, H);
@@ -196,8 +211,10 @@ export default function ParticleBackground({
           updateHeightOnly(W, H);
         }
         
-        /* If paused (out of view), force a single paint so it doesn't flicker when scrolling back */
-        if (!s.isIntersecting && !s.frameId) {
+        if (s.isIntersecting && !s.frameId) {
+          s.lastTs = performance.now();
+          s.frameId = requestAnimationFrame(draw);
+        } else if (!s.isIntersecting && !s.frameId) {
           draw(performance.now(), true);
         }
       }, 80); /* 80ms debounce — ignores rapid transient changes */
