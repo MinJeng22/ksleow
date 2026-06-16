@@ -67,12 +67,12 @@ async function main() {
   const template = await readFile(path.join(distDir, "index.html"), "utf8");
   const index = JSON.parse(await readFile(path.join(kbDir, "index.json"), "utf8"));
   
-  // 💡 针对 Vite 6 ESM 的默认导出结构进行双重兼容解析
-  const rawModule = await import(pathToFileURL(serverEntry).href);
-  const render = rawModule.render || rawModule.default;
+  // 💡 最标准纯粹的 ESM 具名解构赋值
+  const { render } = await import(pathToFileURL(serverEntry).href);
 
+  // 严格的类型标准检查
   if (typeof render !== 'function') {
-    throw new Error("Could not find render function. Check entry-server export structure.");
+    throw new Error(`SSG Error: 'render' must be a function, but got '${typeof render}'. Please check 'src/entry-server.jsx' has 'export function render'.`);
   }
 
   for (const item of index) {
