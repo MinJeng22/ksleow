@@ -75,7 +75,7 @@ export default function ProductHero({
         className="product-hero-bg"
         src={backgroundImage}
         alt=""
-        fetchPriority="high"
+        fetchpriority="high"
         style={{
           position: "absolute",
           inset: 0,

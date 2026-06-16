@@ -1,21 +1,44 @@
-// Polyfill DOM for SSR
+// Polyfill the small DOM surface ReactDOM probes during SSR.
+function createSsgElement() {
+  return {
+    style: {},
+    children: [],
+    setAttribute: () => {},
+    removeAttribute: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    appendChild(child) {
+      this.children.push(child);
+      return child;
+    },
+  };
+}
+
 global.window = global.window || {
   addEventListener: () => {},
   removeEventListener: () => {},
   requestAnimationFrame: (cb) => setTimeout(cb, 0),
+  cancelAnimationFrame: (id) => clearTimeout(id),
   setTimeout: setTimeout,
   clearTimeout: clearTimeout,
 };
 global.document = global.document || {
-  createElement: () => ({ style: {} }),
+  createElement: createSsgElement,
+  createElementNS: createSsgElement,
+  createTextNode: (text = "") => ({ textContent: text }),
   documentElement: { style: {} },
-  body: { style: {} },
+  body: createSsgElement(),
   querySelector: () => null,
   addEventListener: () => {},
   removeEventListener: () => {},
 };
 global.window.document = global.document;
-global.navigator = global.navigator || { userAgent: "node.js" };
+const nodeNavigator = globalThis.navigator || { userAgent: "node.js" };
+Object.defineProperty(globalThis, "navigator", {
+  value: nodeNavigator,
+  configurable: true,
+});
+global.window.navigator = nodeNavigator;
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
