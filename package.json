@@ -1,7 +1,7 @@
 {
   "name": "ksl-business-solutions",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "KSL Business Solutions Sdn. Bhd. — Official Website",
   "type": "module",
   "scripts": {
