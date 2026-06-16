@@ -1090,15 +1090,20 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
                     {activeVideoMeta.description}
                   </p>
                   <div className="tutorial-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', maxWidth: 480 }}>
-                    <button
-                      onClick={() => window.open(`https://www.youtube.com/watch?v=${activeVideo}`, '_blank')}
-                      disabled={Boolean(morph)}
+                    <a
+                      href={`https://www.youtube.com/watch?v=${activeVideo}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => {
+                        if (morph) e.preventDefault();
+                      }}
                       style={{
                         display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
                         background: themeColor, color: '#fff', padding: '0.75rem 1.75rem',
                         borderRadius: 50, fontSize: '0.88rem', fontWeight: 600,
                         border: 'none', cursor: morph ? 'default' : 'pointer',
-                        transition: 'transform 0.15s, background 0.15s'
+                        transition: 'transform 0.15s, background 0.15s',
+                        textDecoration: 'none'
                       }}
                       onMouseOver={e => { if (!morph) e.currentTarget.style.background = themeHoverColor; }}
                       onMouseOut={e => { if (!morph) e.currentTarget.style.background = themeColor; }}
@@ -1107,7 +1112,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
                         <polygon points="5,3 19,12 5,21" />
                       </svg>
                       Watch on Youtube
-                    </button>
+                    </a>
 
                   </div>
                 </div>
