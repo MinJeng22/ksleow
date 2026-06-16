@@ -1,12 +1,14 @@
 ﻿import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { pathToFileURL } from "node:url";
+import { createRequire } from "node:module"; // 💡 引入原生的 CommonJS 加载器
 
 const root = process.cwd();
 const distDir = path.join(root, "dist");
 const kbDir = path.join(root, "public", "kb");
-const serverEntry = path.join(root, "dist", "server", "entry-server.js");
 const siteName = "K.S. Leow Group";
+
+// 💡 实例化 require
+const require = createRequire(import.meta.url);
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -67,15 +69,15 @@ async function main() {
   const template = await readFile(path.join(distDir, "index.html"), "utf8");
   const index = JSON.parse(await readFile(path.join(kbDir, "index.json"), "utf8"));
   
-  const rawModule = await import(pathToFileURL(serverEntry).href);
+  // 💡 100% 防弹的 CommonJS 引入方式！(注意后缀变成了 .cjs)
+  const serverEntry = path.join(distDir, "server", "entry-server.cjs");
+  const ssrModule = require(serverEntry);
 
-  let render = rawModule.render 
-            || (rawModule.default && rawModule.default.render) 
-            || (typeof rawModule.default === 'function' ? rawModule.default : undefined);
+  // 稳稳地拿出 render 函数
+  const render = ssrModule.render || ssrModule.default?.render || ssrModule.default;
 
   if (typeof render !== 'function') {
-    console.error("🚨 抓取失败，当前模块的真实结构是:", rawModule);
-    throw new Error(`SSG Error: 依然无法找到 render 函数，当前获取到的类型是 '${typeof render}'。`);
+    throw new Error(`SSG 严重错误: 模块暴露的属性有 [${Object.keys(ssrModule)}]`);
   }
 
   for (const item of index) {
