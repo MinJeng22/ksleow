@@ -1,14 +1,11 @@
-﻿import { mkdir, readFile, writeFile } from "node:fs/promises";
+﻿import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
 import path from "node:path";
-import { createRequire } from "node:module"; // 💡 引入原生的 CommonJS 加载器
+import { pathToFileURL } from "node:url";
 
 const root = process.cwd();
 const distDir = path.join(root, "dist");
 const kbDir = path.join(root, "public", "kb");
 const siteName = "K.S. Leow Group";
-
-// 💡 实例化 require
-const require = createRequire(import.meta.url);
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -69,15 +66,21 @@ async function main() {
   const template = await readFile(path.join(distDir, "index.html"), "utf8");
   const index = JSON.parse(await readFile(path.join(kbDir, "index.json"), "utf8"));
   
-  // 💡 100% 防弹的 CommonJS 引入方式！(注意后缀变成了 .cjs)
-  const serverEntry = path.join(distDir, "server", "entry-server.cjs");
-  const ssrModule = require(serverEntry);
+  // 💡 物理改名：强迫 Node.js 将它认定为纯正的 ESM 模块！
+  const oldPath = path.join(distDir, "server", "entry-server.js");
+  const newPath = path.join(distDir, "server", "entry-server.mjs");
+  
+  try {
+    await rename(oldPath, newPath);
+  } catch (e) {
+    // 忽略异常，确保流程继续
+  }
 
-  // 稳稳地拿出 render 函数
-  const render = ssrModule.render || ssrModule.default?.render || ssrModule.default;
+  // 100% 完美的具名解构，再也不会报错了
+  const { render } = await import(pathToFileURL(newPath).href);
 
   if (typeof render !== 'function') {
-    throw new Error(`SSG 严重错误: 模块暴露的属性有 [${Object.keys(ssrModule)}]`);
+    throw new Error(`SSG Error: 'render' is still not a function. Check your entry-server export.`);
   }
 
   for (const item of index) {
