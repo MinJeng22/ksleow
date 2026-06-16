@@ -67,10 +67,12 @@ async function main() {
   const index = JSON.parse(await readFile(path.join(kbDir, "index.json"), "utf8"));
   
   const serverEntry = path.join(distDir, "server", "entry-server.js");
-  const { render } = await import(pathToFileURL(serverEntry).href);
+  const ssrModule = await import(pathToFileURL(serverEntry).href);
+  console.log("SSR Module exports:", Object.keys(ssrModule));
+  const render = ssrModule.render || ssrModule.default?.render || (typeof ssrModule.default === "function" ? ssrModule.default : undefined);
 
   if (typeof render !== 'function') {
-    throw new Error(`SSG Error: 'render' is not a function. Check your entry-server export.`);
+    throw new Error(`SSG Error: 'render' is not a function. Check your entry-server export. Actual exports: ${Object.keys(ssrModule)}`);
   }
 
   for (const item of index) {
