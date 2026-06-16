@@ -1,3 +1,22 @@
+// Polyfill DOM for SSR
+global.window = global.window || {
+  addEventListener: () => {},
+  removeEventListener: () => {},
+  requestAnimationFrame: (cb) => setTimeout(cb, 0),
+  setTimeout: setTimeout,
+  clearTimeout: clearTimeout,
+};
+global.document = global.document || {
+  createElement: () => ({ style: {} }),
+  documentElement: { style: {} },
+  body: { style: {} },
+  querySelector: () => null,
+  addEventListener: () => {},
+  removeEventListener: () => {},
+};
+global.window.document = global.document;
+global.navigator = global.navigator || { userAgent: "node.js" };
+
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
