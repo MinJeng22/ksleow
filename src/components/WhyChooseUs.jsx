@@ -71,7 +71,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.18rem;
+            gap: 0;
           }
           .ac-awards-item {
             flex: 0 0 auto;
@@ -108,7 +108,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             .ac-awards-container-new {
               mask-image: none;
               -webkit-mask-image: none;
-              max-width: min(1500px, calc(100vw - clamp(3rem, 6vw, 6rem)));
+              max-width: min(1480px, calc(100vw - clamp(3rem, 7vw, 8rem)));
               margin-left: auto;
               margin-right: auto;
               overflow: visible;
@@ -117,7 +117,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               display: grid;
               grid-template-columns: repeat(6, minmax(0, 1fr));
               animation: none !important;
-              column-gap: clamp(0.45rem, 0.75vw, 0.9rem);
+              column-gap: clamp(0.65rem, 1vw, 1.35rem);
               justify-content: stretch;
               width: 100%;
             }
@@ -125,7 +125,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               display: none;
             }
             .ac-awards-year {
-              gap: clamp(0.06rem, 0.16vw, 0.16rem);
+              gap: 0;
               justify-content: center;
             }
             .ac-awards-year:first-child {
@@ -136,15 +136,20 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             }
             .ac-awards-item {
               flex: 0 0 auto;
-              height: clamp(128px, 8.6vw, 164px);
+              height: clamp(132px, 8.4vw, 168px);
               padding: 0;
-              margin-right: 0;
+              margin-right: -0.2rem;
             }
             .ac-awards-item-trophy {
               width: auto;
+              margin-right: -0.55rem;
+              position: relative;
+              z-index: 2;
             }
             .ac-awards-item-modal {
               width: auto;
+              position: relative;
+              z-index: 1;
             }
             .ac-awards-item img {
               width: auto;
@@ -154,23 +159,31 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
           }
           @media (min-width: 1600px) {
             .ac-awards-container-new {
-              max-width: min(1780px, calc(100vw - 4rem));
+              max-width: min(1560px, calc(100vw - clamp(7rem, 10vw, 14rem)));
               padding-top: 1.45rem;
               padding-bottom: 1.45rem;
             }
             .ac-awards-marquee-track {
-              column-gap: clamp(0.28rem, 0.45vw, 0.65rem);
+              column-gap: clamp(0.55rem, 0.8vw, 1rem);
             }
             .ac-awards-item {
-              height: clamp(174px, 8.9vw, 205px);
+              height: clamp(160px, 7.8vw, 185px);
             }
           }
           @media (min-width: 1900px) {
             .ac-awards-container-new {
-              max-width: min(1960px, calc(100vw - 4.5rem));
+              max-width: min(1680px, calc(100vw - clamp(10rem, 14vw, 22rem)));
             }
             .ac-awards-item {
-              height: clamp(198px, 8.6vw, 226px);
+              height: clamp(172px, 7.2vw, 195px);
+            }
+          }
+          @media (min-width: 2400px) {
+            .ac-awards-container-new {
+              max-width: 1760px;
+            }
+            .ac-awards-item {
+              height: 198px;
             }
           }
           /* Mobile: Keep marquee sizes */
