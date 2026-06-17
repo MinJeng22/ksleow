@@ -2,10 +2,12 @@ import branding from "../content/branding.json";
 import otherServicesContent from "../content/otherServices.json";
 import productsContent from "../content/products.json";
 import servicesContent from "../content/services.json";
+import { PRODUCT_IMAGES } from "../assets/assets.js";
+import acPluginIcon from "../assets/images/apps/ac-plugin-icon.webp";
 
 const DEFAULT_PRODUCT_HERO = "/images/products/autocount-accounting-hero.webp";
 const TRANSITION_DELAY_MS = 500;
-const CRITICAL_ASSET_TIMEOUT_MS = 1200;
+const CRITICAL_ASSET_TIMEOUT_MS = 2400;
 const warmedImages = new Map();
 const preloadLinks = new Set();
 const imageReadyPromises = new Map();
@@ -68,6 +70,36 @@ const routeAssets = {
   ],
 };
 
+const routeCriticalAssets = {
+  "/": [
+    branding.heroLogo,
+    branding.navLogo,
+  ],
+  "/products/autocount-accounting": [
+    DEFAULT_PRODUCT_HERO,
+    PRODUCT_IMAGES.autocountAccountingIcon,
+  ],
+  "/products/autocount-cloud-accounting": [
+    "/images/products/autocount-cloudaccounting-hero.webp",
+    "/images/products/cloudaccounting-icon.webp",
+  ],
+  "/products/feedme-pos": [
+    "/images/products/feedme-pos-showcase.webp",
+    "/images/logos/feedme-logo.webp",
+  ],
+  "/apps/autocount-plugin": [
+    DEFAULT_PRODUCT_HERO,
+    acPluginIcon,
+  ],
+  "/apps/sales2do": [
+    DEFAULT_PRODUCT_HERO,
+    acPluginIcon,
+  ],
+  "/gallery": [
+    "/images/branding/service-card-back.webp",
+  ],
+};
+
 function compactUnique(values) {
   return [...new Set(values.filter((src) => typeof src === "string" && src.trim()))];
 }
@@ -109,9 +141,7 @@ function requestImage(src, priority = "low") {
   const previousRank = warmedImages.get(src) || 0;
   if (previousRank < rank) {
     warmedImages.set(src, rank);
-    if (previousRank > 0) {
-      addImagePreloadLink(src, priority);
-    }
+    addImagePreloadLink(src, priority);
   }
 
   if (imageReadyPromises.has(src)) {
@@ -171,13 +201,22 @@ export function preloadRouteAssets(to, priority = "low") {
   const pathname = getPathname(to);
   if (!pathname) return;
 
-  preloadImages(routeAssets[pathname] || [], priority);
+  preloadImages([
+    ...(routeCriticalAssets[pathname] || []),
+    ...(routeAssets[pathname] || []),
+  ], priority);
 }
 
 function getRouteAssets(to) {
   const pathname = getPathname(to);
   if (!pathname) return [];
   return routeAssets[pathname] || [];
+}
+
+function getRouteCriticalAssets(to) {
+  const pathname = getPathname(to);
+  if (!pathname) return [];
+  return routeCriticalAssets[pathname] || getRouteAssets(pathname).slice(0, 2);
 }
 
 async function waitForCriticalImages(sources, options = {}) {
@@ -206,13 +245,27 @@ async function waitForCriticalImages(sources, options = {}) {
 async function waitForTransitionReadiness({ assets = [], route = "", minDelay = TRANSITION_DELAY_MS, timeout = CRITICAL_ASSET_TIMEOUT_MS } = {}) {
   const criticalAssets = compactUnique([
     ...assets,
-    ...(route ? getRouteAssets(route) : []),
+    ...(route ? getRouteCriticalAssets(route) : []),
   ]);
 
   await Promise.all([
     wait(minDelay),
     waitForCriticalImages(criticalAssets, { priority: "high", timeout }),
   ]);
+}
+
+export function waitForRouteAssets(to, options = {}) {
+  const {
+    assets = [],
+    priority = "high",
+    timeout = CRITICAL_ASSET_TIMEOUT_MS,
+  } = options;
+  const criticalAssets = compactUnique([
+    ...assets,
+    ...getRouteCriticalAssets(to),
+  ]);
+
+  return waitForCriticalImages(criticalAssets, { priority, timeout });
 }
 
 export function signalRouteProgressStart(to) {

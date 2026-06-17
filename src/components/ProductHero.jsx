@@ -66,6 +66,7 @@ export default function ProductHero({
       paddingTop: "7rem", paddingBottom: "5rem",
       display: "flex", alignItems: "center",
       overflow: "hidden",
+      background: "#1f2142",
     }}>
       {/* 
         Using an actual <img> tag instead of CSS backgroundImage ensures the browser's
@@ -75,7 +76,10 @@ export default function ProductHero({
         className="product-hero-bg"
         src={backgroundImage}
         alt=""
+        loading="eager"
+        decoding="sync"
         fetchpriority="high"
+        draggable={false}
         style={{
           position: "absolute",
           inset: 0,

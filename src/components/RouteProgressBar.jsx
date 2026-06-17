@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { preloadRouteAssets } from "../utils/routeTransitions.js";
+import { preloadRouteAssets, waitForRouteAssets } from "../utils/routeTransitions.js";
 
 const MIN_VISIBLE_MS = 360;
 const HIDE_DELAY_MS = 180;
@@ -12,6 +12,7 @@ export default function RouteProgressBar() {
   const timers = useRef([]);
   const startedAt = useRef(0);
   const visibleRef = useRef(false);
+  const routeLoadRun = useRef(0);
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(false);
   const [finishing, setFinishing] = useState(false);
@@ -77,6 +78,7 @@ export default function RouteProgressBar() {
 
   useEffect(() => {
     preloadRouteAssets(location.pathname, "high");
+    const runId = ++routeLoadRun.current;
 
     if (firstRender.current) {
       firstRender.current = false;
@@ -87,7 +89,11 @@ export default function RouteProgressBar() {
       beginProgress();
     }
 
-    completeProgress();
+    waitForRouteAssets(location.pathname, { timeout: 2200 }).then(() => {
+      if (runId === routeLoadRun.current) {
+        completeProgress();
+      }
+    });
   }, [routeKey, location.pathname]);
 
   return (
