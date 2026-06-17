@@ -269,7 +269,7 @@ export default function ProductPromotionBento({
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
             </button>
-            <img src={lightboxImage} alt="Promotion Fullscreen" className="promo-lightbox-img" loading="eager" decoding="async" fetchPriority="high" />
+            <img src={lightboxImage} alt="Promotion Fullscreen" className="promo-lightbox-img" loading="eager" decoding="async" fetchpriority="high" />
           </div>
         </div>,
         document.body

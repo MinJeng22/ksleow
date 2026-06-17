@@ -235,12 +235,12 @@ export function Message({ msg, fontSize = "0.86rem" }) {
     }}>
       {!isUser && (
         <div style={{ width: 28, height: 28, borderRadius: "50%", overflow: "hidden", flexShrink: 0, border: "1px solid rgba(47,49,90,0.1)" }}>
-        <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchPriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+        <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchpriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
         </div>
       )}
       <div style={{ maxWidth: "78%", display: "flex", flexDirection: "column", gap: "0.35rem", alignItems: isUser ? "flex-end" : "flex-start" }}>
         {msg.imagePreviewUrl && (
-          <img src={msg.imagePreviewUrl} alt="attachment" loading="eager" decoding="async" fetchPriority="high"
+          <img src={msg.imagePreviewUrl} alt="attachment" loading="eager" decoding="async" fetchpriority="high"
             style={{ maxWidth: 220, maxHeight: 220, borderRadius: 12, border: "1px solid rgba(47,49,90,0.12)", objectFit: "cover", display: "block" }}
           />
         )}

@@ -74,7 +74,7 @@ function QRModal({ onClose, pageUrl, qrUrl, qrReady, onMouseEnter, onMouseLeave 
         background: "#f8f8fb",
       }}>
         {qrReady ? (
-          <img src={qrUrl} alt="QR code" width={180} height={180} loading="eager" decoding="async" fetchPriority="high" style={{ display: "block", borderRadius: 8 }} />
+          <img src={qrUrl} alt="QR code" width={180} height={180} loading="eager" decoding="async" fetchpriority="high" style={{ display: "block", borderRadius: 8 }} />
         ) : (
           <div aria-label="Loading QR code" style={{
             width: 34, height: 34,
@@ -753,7 +753,7 @@ export default function KSLOmniPage() {
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
               <div style={{ width: 32, height: 32, borderRadius: "50%", overflow: "hidden", border: "1.5px solid rgba(201,168,76,0.5)", flexShrink: 0 }}>
-                <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchPriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                <img src="/images/branding/ksl-logo-circle.webp" alt="KSL" loading="eager" decoding="async" fetchpriority="high" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.15rem" }}>
                 <span style={{ color: "rgba(255,255,255,0.95)", fontWeight: 700, fontSize: "0.95rem", letterSpacing: "0.02em", whiteSpace: "nowrap", lineHeight: 1 }}>KS Omni</span>

@@ -73,11 +73,6 @@ const BENTO_CAROUSEL_STYLES = `
   right: 1.5rem;
   z-index: 10;
 }
-@media (min-width: 2400px) {
-  .other-services-carousel .ks-bento-carousel-controls {
-    display: none;
-  }
-}
 @media (max-width: 1400px) {
     .other-services-carousel .ks-bento-carousel-track {
       gap: 1rem;

@@ -9,7 +9,7 @@
  *      • <video> default to preload="metadata" — only the size/duration
  *        header is fetched up front; the body downloads when play starts.
  *      • Optional `priority` prop opts an above-the-fold image out of
- *        lazy mode and adds fetchPriority="high".
+ *        lazy mode and adds fetchpriority="high".
  *
  *   2. Casual anti-download
  *      • Right-click "Save image as…" → suppressed (onContextMenu).

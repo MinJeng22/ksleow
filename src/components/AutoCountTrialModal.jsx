@@ -176,7 +176,7 @@ export default function AutoCountTrialModal({ open, onClose }) {
           overflow: "hidden",
           position: "relative",
         }}>
-          <img className="trial-modal-logo" src={LOGO} alt="K.S. Leow Group" loading="eager" decoding="async" fetchPriority="high" style={{ height: 64, objectFit: "contain", display: "block", margin: "0 auto 1.35rem" }} />
+          <img className="trial-modal-logo" src={LOGO} alt="K.S. Leow Group" loading="eager" decoding="async" fetchpriority="high" style={{ height: 64, objectFit: "contain", display: "block", margin: "0 auto 1.35rem" }} />
           <div className="ks-eyebrow" style={{ color: "#e8c97a", textAlign: "left" }}>
             AutoCount Accounting 2.2
           </div>

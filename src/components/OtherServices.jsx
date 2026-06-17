@@ -101,7 +101,7 @@ function PartnerModal({
               alt={bannerAlt}
               loading="eager"
               decoding="async"
-              fetchPriority="high"
+              fetchpriority="high"
             />
           </picture>
         </div>
