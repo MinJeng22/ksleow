@@ -5,10 +5,14 @@ import servicesContent from "../content/services.json";
 
 const DEFAULT_PRODUCT_HERO = "/images/products/autocount-accounting-hero.webp";
 const TRANSITION_DELAY_MS = 500;
+const CRITICAL_ASSET_TIMEOUT_MS = 1200;
 const warmedImages = new Map();
 const preloadLinks = new Set();
+const imageReadyPromises = new Map();
 let pendingNavigationTimer = null;
 let pendingFeedbackTimer = null;
+let pendingNavigationRun = 0;
+let pendingFeedbackRun = 0;
 
 const productAssetsByRoute = Object.fromEntries(
   (productsContent.items || [])
@@ -86,6 +90,66 @@ function addImagePreloadLink(src, priority) {
   document.head.appendChild(link);
 }
 
+function wait(ms) {
+  return new Promise((resolve) => {
+    if (typeof window === "undefined") {
+      resolve();
+      return;
+    }
+    window.setTimeout(resolve, Math.max(0, ms));
+  });
+}
+
+function requestImage(src, priority = "low") {
+  if (typeof window === "undefined" || typeof Image === "undefined") {
+    return Promise.resolve({ src, loaded: false });
+  }
+
+  const rank = getPriorityRank(priority);
+  const previousRank = warmedImages.get(src) || 0;
+  if (previousRank < rank) {
+    warmedImages.set(src, rank);
+    if (previousRank > 0) {
+      addImagePreloadLink(src, priority);
+    }
+  }
+
+  if (imageReadyPromises.has(src)) {
+    return imageReadyPromises.get(src);
+  }
+
+  const promise = new Promise((resolve) => {
+    const img = new Image();
+    let settled = false;
+
+    const finish = async (loaded) => {
+      if (settled) return;
+      settled = true;
+      if (loaded && typeof img.decode === "function") {
+        try {
+          await img.decode();
+        } catch {
+          /* decode can fail for cached/cross-origin edge cases; the image still loaded. */
+        }
+      }
+      resolve({ src, loaded });
+    };
+
+    img.decoding = "async";
+    img.fetchPriority = priority;
+    img.onload = () => finish(true);
+    img.onerror = () => finish(false);
+    img.src = src;
+
+    if (img.complete) {
+      finish(img.naturalWidth > 0);
+    }
+  });
+
+  imageReadyPromises.set(src, promise);
+  return promise;
+}
+
 function getPathname(to) {
   if (!to || typeof to !== "string") return "";
   try {
@@ -99,19 +163,7 @@ export function preloadImages(sources, priority = "low") {
   if (typeof window === "undefined" || typeof Image === "undefined") return;
 
   compactUnique(sources).forEach((src) => {
-    const rank = getPriorityRank(priority);
-    const previousRank = warmedImages.get(src) || 0;
-    if (previousRank >= rank) return;
-    warmedImages.set(src, rank);
-
-    if (previousRank > 0) {
-      addImagePreloadLink(src, priority);
-    }
-
-    const img = new Image();
-    img.decoding = "async";
-    img.fetchPriority = priority;
-    img.src = src;
+    requestImage(src, priority);
   });
 }
 
@@ -120,6 +172,47 @@ export function preloadRouteAssets(to, priority = "low") {
   if (!pathname) return;
 
   preloadImages(routeAssets[pathname] || [], priority);
+}
+
+function getRouteAssets(to) {
+  const pathname = getPathname(to);
+  if (!pathname) return [];
+  return routeAssets[pathname] || [];
+}
+
+async function waitForCriticalImages(sources, options = {}) {
+  const {
+    priority = "high",
+    timeout = CRITICAL_ASSET_TIMEOUT_MS,
+  } = options;
+  const assets = compactUnique(sources);
+  if (assets.length === 0) return { total: 0, loaded: 0, timedOut: false };
+
+  const loadPromise = Promise.allSettled(assets.map((src) => requestImage(src, priority))).then((results) => ({
+    total: assets.length,
+    loaded: results.filter((result) => result.status === "fulfilled" && result.value?.loaded).length,
+    timedOut: false,
+  }));
+
+  const timeoutPromise = wait(timeout).then(() => ({
+    total: assets.length,
+    loaded: 0,
+    timedOut: true,
+  }));
+
+  return Promise.race([loadPromise, timeoutPromise]);
+}
+
+async function waitForTransitionReadiness({ assets = [], route = "", minDelay = TRANSITION_DELAY_MS, timeout = CRITICAL_ASSET_TIMEOUT_MS } = {}) {
+  const criticalAssets = compactUnique([
+    ...assets,
+    ...(route ? getRouteAssets(route) : []),
+  ]);
+
+  await Promise.all([
+    wait(minDelay),
+    waitForCriticalImages(criticalAssets, { priority: "high", timeout }),
+  ]);
 }
 
 export function signalRouteProgressStart(to) {
@@ -149,6 +242,7 @@ export function runWithProgressFeedback(action, options = {}) {
     assets = [],
     route = "",
   } = options;
+  const runId = ++pendingFeedbackRun;
 
   preloadImages(assets, "high");
   if (route) preloadRouteAssets(route, "high");
@@ -158,16 +252,20 @@ export function runWithProgressFeedback(action, options = {}) {
     window.clearTimeout(pendingFeedbackTimer);
   }
 
-  pendingFeedbackTimer = window.setTimeout(() => {
+  pendingFeedbackTimer = null;
+
+  waitForTransitionReadiness({ assets, route, minDelay: delay }).then(() => {
+    if (runId !== pendingFeedbackRun) return;
     pendingFeedbackTimer = null;
     action?.();
     signalRouteProgressComplete();
-  }, Math.max(0, delay));
+  });
 }
 
 export function navigateWithRouteFeedback(navigate, to, options = {}) {
   if (typeof to !== "string") {
     const { delay = TRANSITION_DELAY_MS } = options;
+    const runId = ++pendingNavigationRun;
 
     signalRouteProgressStart("");
 
@@ -175,10 +273,14 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
       window.clearTimeout(pendingNavigationTimer);
     }
 
-    pendingNavigationTimer = window.setTimeout(() => {
+    pendingNavigationTimer = null;
+
+    waitForTransitionReadiness({ minDelay: delay }).then(() => {
+      if (runId !== pendingNavigationRun) return;
       pendingNavigationTimer = null;
       navigate(to);
-    }, Math.max(0, delay));
+      signalRouteProgressComplete();
+    });
     return;
   }
 
@@ -187,6 +289,7 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
     replace = false,
     scrollTop = true,
   } = options;
+  const runId = ++pendingNavigationRun;
 
   const pathname = getPathname(to);
   const alreadyHere = pathname && pathname === window.location.pathname && !to.includes("?");
@@ -205,9 +308,12 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
     window.clearTimeout(pendingNavigationTimer);
   }
 
-  pendingNavigationTimer = window.setTimeout(() => {
+  pendingNavigationTimer = null;
+
+  waitForTransitionReadiness({ route: to, minDelay: delay }).then(() => {
+    if (runId !== pendingNavigationRun) return;
     pendingNavigationTimer = null;
     navigate(to, { replace });
     if (scrollTop) window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "instant" }));
-  }, delay);
+  });
 }
