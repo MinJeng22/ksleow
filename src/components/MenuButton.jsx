@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import useDarkBg from "../hooks/useDarkBg";
 import { SearchIcon, BackIcon, MenuIcon, ToTopIcon, ScrollDownIcon } from "./icons";
+import { navigateWithRouteFeedback, preloadRouteAssets } from "../utils/routeTransitions.js";
 
 /* ── Mega Menu Data ─────────────────────────────────────── */
 const MEGA_MENU = [
@@ -747,8 +748,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     setOpen(false);
 
     if (item.path) {
-      navigate(item.path);
-      window.scrollTo({ top: 0, behavior: "instant" });
+      navigateWithRouteFeedback(navigate, item.path);
       return;
     }
 
@@ -772,8 +772,8 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
       if (pathname === "/") {
         doScroll();
       } else {
-        navigate("/");
-        setTimeout(doScroll, 400);
+        navigateWithRouteFeedback(navigate, "/", { delay: 180, scrollTop: false });
+        setTimeout(doScroll, 520);
       }
     }
   };
@@ -1011,6 +1011,8 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
                   key={ii}
                   className={`menu-sub-item${item.path === pathname ? " is-active" : ""}`}
                   onClick={() => handleMenuAction(item)}
+                  onMouseEnter={() => item.path && preloadRouteAssets(item.path)}
+                  onFocus={() => item.path && preloadRouteAssets(item.path)}
                   role="menuitem"
                 >
                   <span className="menu-sub-icon"><NavIcon name={item.icon} size={14} /></span>

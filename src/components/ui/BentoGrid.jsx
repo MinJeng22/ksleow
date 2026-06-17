@@ -113,7 +113,7 @@ const BENTO_CAROUSEL_STYLES = `
   }
 `;
 
-export function BentoGrid({ items = [], minItems = 4, imageFor, onOpen, className = "" }) {
+export function BentoGrid({ items = [], minItems = 4, imageFor, onOpen, onPreload, className = "" }) {
   const displayItems = normalizeBentoItems(items, minItems);
 
   return (
@@ -126,6 +126,7 @@ export function BentoGrid({ items = [], minItems = 4, imageFor, onOpen, classNam
           layoutClass={LAYOUT_CLASSES[index] || ""}
           image={imageFor ? imageFor(item) : item?.image}
           onOpen={onOpen}
+          onPreload={onPreload}
           variant="grid"
         />
       ))}
@@ -138,6 +139,7 @@ export function BentoCarousel({
   minItems = 4,
   imageFor,
   onOpen,
+  onPreload,
   className = "",
   controlsLabel = "Browse items",
 }) {
@@ -195,6 +197,7 @@ export function BentoCarousel({
                   layoutClass={LAYOUT_CLASSES[index] || ""}
                   image={imageFor ? imageFor(item) : item?.image}
                   onOpen={onOpen}
+                  onPreload={onPreload}
                   variant="grid"
                 />
               ))}
@@ -238,7 +241,7 @@ function ArrowIcon({ direction }) {
   );
 }
 
-export function BentoCard({ item, index, layoutClass = "", image, onOpen, variant = "grid" }) {
+export function BentoCard({ item, index, layoutClass = "", image, onOpen, onPreload, variant = "grid" }) {
   const isEmpty = item?.isEmpty;
   const linkHref = item?.href || item?.cta?.href;
   const linkTarget = item?.target || item?.cta?.target || "_self";
@@ -256,6 +259,12 @@ export function BentoCard({ item, index, layoutClass = "", image, onOpen, varian
     }
   };
 
+  const handlePreload = () => {
+    if (clickable && onPreload) {
+      onPreload(item, index);
+    }
+  };
+
   const CardTag = linkHref ? "a" : "article";
   const cardProps = linkHref ? {
     href: linkHref,
@@ -268,6 +277,8 @@ export function BentoCard({ item, index, layoutClass = "", image, onOpen, varian
       id={item?.modal ? `${item.modal}-card` : undefined}
       className={`ks-bento-card ${layoutClass}${shapeClass}${clickable ? " is-clickable" : ""}${isEmpty ? " is-empty" : ""}`}
       onClick={clickable ? handleOpen : undefined}
+      onPointerEnter={clickable ? handlePreload : undefined}
+      onFocus={clickable ? handlePreload : undefined}
       onKeyDown={clickable ? (event) => {
         if (event.key !== "Enter" && event.key !== " ") return;
         if (!linkHref) {

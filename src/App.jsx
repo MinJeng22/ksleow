@@ -5,6 +5,7 @@ import ContactModal  from "./components/ContactModal";
 import BackToTop     from "./components/BackToTop";
 import MenuButton    from "./components/MenuButton";
 import GlobalSearch  from "./components/GlobalSearch";
+import RouteProgressBar from "./components/RouteProgressBar";
 
 import HomePage from "./pages/Home";
 import AutoCountAccountingPage from "./pages/products/AutoCountAccounting";
@@ -24,6 +25,8 @@ const routePath = Object.fromEntries(siteRoutes.map((route) => [route.id, route.
 export function AppShell({ openContact, modalOpen, setModalOpen, searchOpen, setSearchOpen }) {
   return (
     <div className="app">
+      <RouteProgressBar />
+
       <Routes>
         <Route path={routePath.home} element={<HomePage onContact={openContact} />} />
         <Route path={routePath["autocount-accounting"]} element={<AutoCountAccountingPage onContact={openContact} />} />

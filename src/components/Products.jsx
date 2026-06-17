@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CarouselProgress from "./CarouselProgress.jsx";
 import { Img } from "./Media.jsx";
 import productsContent from "../content/products.json";
+import { navigateWithRouteFeedback, preloadRouteAssets } from "../utils/routeTransitions.js";
 
 const PRODUCTS = (productsContent.items || []).map(p => ({
 
@@ -66,7 +67,7 @@ function CarouselControls({ onPrevious, onNext, className = "" }) {
   );
 }
 
-function ProductCard({ product, productIndex, order, hovered, revealed, animateReveal, onHover, onLeave, onOpen }) {
+function ProductCard({ product, productIndex, order, hovered, revealed, animateReveal, onHover, onLeave, onOpen, onPreload }) {
   const isHov = hovered === productIndex;
   const clickable = !!product.route;
 
@@ -85,13 +86,27 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
     setMousePos({ x: 0, y: 0 });
   };
 
+  const handlePreload = () => {
+    onHover(productIndex);
+    if (!clickable) return;
+    onPreload?.(product.route);
+  };
+
   return (
     <div
-      onMouseEnter={() => onHover(productIndex)}
+      onMouseEnter={handlePreload}
+      onFocus={handlePreload}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       id={product.name.replace(/\s+/g, '').toLowerCase() + '-card'}
-                onClick={() => clickable && onOpen(product.route)}
+      onClick={() => clickable && onOpen(product.route)}
+      onKeyDown={(event) => {
+        if (!clickable || (event.key !== "Enter" && event.key !== " ")) return;
+        event.preventDefault();
+        onOpen(product.route);
+      }}
+      role={clickable ? "button" : undefined}
+      tabIndex={clickable ? 0 : undefined}
       className="product-card"
       style={{
         borderRadius: 0, overflow: "hidden",
@@ -406,7 +421,8 @@ export default function Products({ onContact }) {
                 animateReveal={!revealSettled}
                 onHover={setHovered}
                 onLeave={() => setHovered(null)}
-                onOpen={(route) => route ? navigate(route) : null}
+                onOpen={(route) => route ? navigateWithRouteFeedback(navigate, route) : null}
+                onPreload={(route) => preloadRouteAssets(route)}
               />
             ))}
             </div>

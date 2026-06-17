@@ -74,6 +74,53 @@ body {
 
 .app { /* overflow-x: clip; removed for sticky */ }
 
+.route-progress-shell {
+  height: 3px;
+  left: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translateZ(0);
+  transition: opacity 0.16s ease;
+  z-index: 3000;
+}
+
+.route-progress-shell.is-visible {
+  opacity: 1;
+}
+
+.route-progress-bar {
+  background: linear-gradient(90deg, #c9a84c 0%, #ffe28f 46%, #2f315a 100%);
+  box-shadow:
+    0 0 10px rgba(201,168,76,0.4),
+    0 1px 0 rgba(255,255,255,0.48);
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 100%;
+}
+
+.route-progress-shell.is-finishing .route-progress-bar {
+  transition-duration: 0.18s;
+}
+
+@media (max-width: 767px) {
+  .route-progress-shell {
+    height: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-progress-shell,
+  .route-progress-bar {
+    transition: none !important;
+  }
+}
+
 .ssg-content {
   min-height: 100vh;
   padding: clamp(2rem, 6vw, 5rem) var(--px);

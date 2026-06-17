@@ -3,26 +3,15 @@ import branding from "../content/branding.json";
 import otherServicesContent from "../content/otherServices.json";
 import productsContent from "../content/products.json";
 import servicesContent from "../content/services.json";
-
-function compactUnique(values) {
-  return [...new Set(values.filter(src => typeof src === "string" && src.trim()))];
-}
-
-function warmImages(sources, priority = "low") {
-  compactUnique(sources).forEach(src => {
-    const img = new Image();
-    img.decoding = "async";
-    img.fetchPriority = priority;
-    img.src = src;
-  });
-}
+import { preloadImages, preloadRouteAssets } from "../utils/routeTransitions.js";
 
 export default function HomeImagePreloader() {
   useEffect(() => {
-    warmImages([branding.heroLogo, branding.navLogo], "high");
+    preloadImages([branding.heroLogo, branding.navLogo], "high");
+    preloadRouteAssets(window.location.pathname, "high");
 
     const preloadLater = () => {
-      warmImages([
+      preloadImages([
         branding.footerLogo,
         branding.serviceCardBack,
         ...(servicesContent.items || []).map(item => item.backgroundImage),

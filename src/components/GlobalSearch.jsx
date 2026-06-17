@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { navigateWithRouteFeedback, preloadRouteAssets } from "../utils/routeTransitions.js";
 
 const SEARCH_INDEX = [
   {
@@ -134,8 +135,7 @@ export default function GlobalSearch({ open, onClose }) {
       } else if (e.key === "Enter") {
         e.preventDefault();
         if (results.length > 0 && results[selectedIndex]) {
-          navigate(results[selectedIndex].path);
-          window.scrollTo({ top: 0, behavior: "instant" });
+          navigateWithRouteFeedback(navigate, results[selectedIndex].path);
           onClose();
         }
       }
@@ -315,11 +315,13 @@ export default function GlobalSearch({ open, onClose }) {
                   key={item.path} 
                   className={`search-result-item ${index === selectedIndex ? 'is-selected' : ''}`}
                   onClick={() => {
-                    navigate(item.path);
-                    window.scrollTo({ top: 0, behavior: "instant" });
+                    navigateWithRouteFeedback(navigate, item.path);
                     onClose();
                   }}
-                  onMouseEnter={() => setSelectedIndex(index)}
+                  onMouseEnter={() => {
+                    setSelectedIndex(index);
+                    preloadRouteAssets(item.path);
+                  }}
                 >
                   <div className="search-result-icon">
                     {item.icon}

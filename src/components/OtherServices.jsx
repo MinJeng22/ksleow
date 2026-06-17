@@ -5,6 +5,7 @@ import { CONTACT } from "../constants/contact.js";
 import otherServicesContent from "../content/otherServices.json";
 import { BentoCarousel } from "./ui/BentoGrid.jsx";
 import SectionHeader from "./ui/SectionHeader.jsx";
+import { navigateWithRouteFeedback, preloadImages, preloadRouteAssets } from "../utils/routeTransitions.js";
 
 const CASES = (otherServicesContent.items || []).filter((item) => {
   return !!(item?.title && item?.desc);
@@ -258,11 +259,7 @@ export default function OtherServices({ onContact }) {
 
 
   useEffect(() => {
-    [...SUPAPRINTZ_MODAL_IMAGES, SITEGIANT_PARTNER.image].forEach((src) => {
-      const img = new Image();
-      img.decoding = "async";
-      img.src = src;
-    });
+    preloadImages([...SUPAPRINTZ_MODAL_IMAGES, SITEGIANT_PARTNER.image]);
   }, []);
 
   useEffect(() => {
@@ -284,7 +281,13 @@ export default function OtherServices({ onContact }) {
   const openService = (service) => {
     if (service.modal === "supaprintz") setPartnerOpen(true);
     else if (service.modal === "sitegiant") setSitegiantOpen(true);
-    else if (service.route) navigate(service.route);
+    else if (service.route) navigateWithRouteFeedback(navigate, service.route);
+  };
+
+  const preloadService = (service) => {
+    if (service.route) preloadRouteAssets(service.route);
+    else if (service.modal === "supaprintz") preloadImages(SUPAPRINTZ_MODAL_IMAGES, "high");
+    else if (service.modal === "sitegiant") preloadImages([SITEGIANT_PARTNER.image], "high");
   };
 
   return (
@@ -304,6 +307,7 @@ export default function OtherServices({ onContact }) {
         minItems={6}
         imageFor={(service) => service.image || CASE_IMAGES[service.key]}
         onOpen={openService}
+        onPreload={preloadService}
         className="other-services-carousel"
       />
 
