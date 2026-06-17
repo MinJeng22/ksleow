@@ -41,7 +41,7 @@ function AwardYear({ award, duplicate = false }) {
         <img src={award.trophy} alt={`AutoCount Top Dealer trophy ${award.year}`} loading="lazy" decoding="async" />
       </div>
       <div className="ac-awards-item ac-awards-item-modal">
-        <img src={award.modal} alt={`AutoCount Top Dealer certificate ${award.year}`} loading="lazy" decoding="async" />
+        <img src={award.modal} alt={`AutoCount Top Dealer certificate ${award.year}`} loading="eager" decoding="async" fetchPriority="high" />
       </div>
     </div>
   );

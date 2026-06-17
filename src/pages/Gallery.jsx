@@ -147,7 +147,7 @@ export default function GalleryPage() {
             <div className="gallery-lightbox__photos">
               {selectedItem.photos.map((photo, index) => (
                 <figure key={`${photo.image}-${index}`}>
-                  <img src={photo.image} alt={photo.alt || photo.caption || selectedItem.title} />
+                  <img src={photo.image} alt={photo.alt || photo.caption || selectedItem.title} loading="eager" decoding="async" fetchPriority="high" />
                   {photo.caption ? <figcaption>{photo.caption}</figcaption> : null}
                 </figure>
               ))}

@@ -254,7 +254,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
               alt=""
               decoding="async"
               loading="eager"
-              fetchpriority="high"
+              fetchPriority="high"
               crossOrigin="anonymous"
             />
             <div className="tutorial-morph-dim" />
@@ -631,6 +631,8 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
             src={getThumbnailUrl(activeVideo)}
             alt=""
             decoding="async"
+            loading="eager"
+            fetchPriority="high"
             crossOrigin="anonymous"
           />
         </div>
@@ -1029,7 +1031,8 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
                     <img
                       src={getThumbnailUrl(activeVideo)}
                       alt="AutoCount Tutorial"
-                      loading="lazy"
+                      loading="eager"
+                      fetchPriority="high"
                       crossOrigin="anonymous"
                       decoding="async"
                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}

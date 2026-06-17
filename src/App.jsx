@@ -65,7 +65,7 @@ export function AppContent() {
     () => setModalOpen(true),
     { assets: ["/images/icons/favicon.webp", "/images/branding/service-card-back.webp"] }
   );
-  const openSearch = () => runWithProgressFeedback(() => setSearchOpen(true));
+  const openSearch = () => setSearchOpen(true);
 
   useEffect(() => {
     if (modalOpen || searchOpen) {

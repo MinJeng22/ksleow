@@ -129,8 +129,11 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
     >
       <div style={{
         position: "absolute", inset: 0, zIndex: 10, pointerEvents: "none",
-        border: `1px solid ${isHov ? "rgba(47,49,90,0.3)" : "rgba(47,49,90,0.11)"}`,
-        transition: "border-color 0.26s",
+        border: `1px solid ${isHov ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.68)"}`,
+        boxShadow: isHov
+          ? "inset 0 0 0 1px rgba(47,49,90,0.24), 0 0 0 1px rgba(255,255,255,0.36)"
+          : "inset 0 0 0 1px rgba(47,49,90,0.1), 0 0 0 1px rgba(255,255,255,0.24)",
+        transition: "border-color 0.26s, box-shadow 0.26s",
       }} />
         <div
           className="product-card-media"
