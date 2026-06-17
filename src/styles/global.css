@@ -503,24 +503,24 @@ textarea {
 
 @media (min-width: 1600px) {
   :root {
-    --content-max-w: 1700px;
-    --px: clamp(48px, 3.5vw, 64px);
-    --section-py: 4.6rem;
-    --section-py-sm: 3rem;
+    --content-max-w: 1560px;
+    --px: clamp(72px, 5vw, 104px);
+    --section-py: 6.8rem;
+    --section-py-sm: 4.6rem;
   }
 
   .product-app-section {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 4.8rem;
+    padding-bottom: 4.8rem;
   }
 
   .ac-section-tight {
-    padding-top: 2.8rem !important;
-    padding-bottom: 2.8rem !important;
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
   }
 
   .ac-features-showcase {
-    padding-bottom: 2.45rem !important;
+    padding-bottom: 4.1rem !important;
   }
 
   .feature-showcase-promo-carousel {
@@ -534,15 +534,15 @@ textarea {
 
 @media (min-width: 1900px) {
   :root {
-    --content-max-w: 1880px;
-    --px: clamp(48px, 3.5vw, 64px);
-    --section-py: 4.25rem;
-    --section-py-sm: 2.75rem;
+    --content-max-w: 1640px;
+    --px: clamp(96px, 5.8vw, 128px);
+    --section-py: 7.4rem;
+    --section-py-sm: 5.1rem;
   }
 
   .product-app-section {
-    padding-top: 2.6rem;
-    padding-bottom: 2.6rem;
+    padding-top: 5.2rem;
+    padding-bottom: 5.2rem;
   }
 
   .feature-showcase-promo-carousel {
