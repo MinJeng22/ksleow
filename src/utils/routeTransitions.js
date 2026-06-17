@@ -4,7 +4,7 @@ import productsContent from "../content/products.json";
 import servicesContent from "../content/services.json";
 
 const DEFAULT_PRODUCT_HERO = "/images/products/autocount-accounting-hero.webp";
-const TRANSITION_DELAY_MS = 300;
+const TRANSITION_DELAY_MS = 500;
 const warmedImages = new Map();
 const preloadLinks = new Set();
 let pendingNavigationTimer = null;

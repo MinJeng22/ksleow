@@ -116,10 +116,10 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
       tabIndex={clickable ? 0 : undefined}
       className="product-card"
       style={{
+        position: "relative",
         borderRadius: 0, overflow: "hidden",
-        border: `1px solid ${isHov ? "rgba(47,49,90,0.3)" : "rgba(47,49,90,0.11)"}`,
+        border: "none",
         background: "#ffffff",
-        transition: "border-color 0.26s",
         cursor: clickable ? "pointer" : "default",
         height: "100%",
         minHeight: 350,
@@ -127,6 +127,11 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
         flexDirection: "column",
       }}
     >
+      <div style={{
+        position: "absolute", inset: 0, zIndex: 10, pointerEvents: "none",
+        border: `1px solid ${isHov ? "rgba(47,49,90,0.3)" : "rgba(47,49,90,0.11)"}`,
+        transition: "border-color 0.26s",
+      }} />
         <div
           className="product-card-media"
           style={{

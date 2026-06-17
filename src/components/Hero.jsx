@@ -121,13 +121,9 @@ export default function Hero({ onContact }) {
           paddingTop: "clamp(76px, 10vh, 110px)",
           paddingBottom: "clamp(56px, 9vh, 90px)",
           opacity: visible ? 1 : 0,
-          transform: visible
-            ? introSettled ? "none" : "translate3d(0, 0, 0)"
-            : "translate3d(0, 28px, 0)",
-          transition: introSettled
-            ? "opacity 1.1s ease"
-            : "opacity 1.1s ease, transform 1.1s ease",
-          willChange: introSettled ? "auto" : "opacity, transform",
+          transform: visible ? "translate3d(0, 0, 0)" : "translate3d(0, 28px, 0)",
+          transition: "opacity 1.1s ease, transform 1.1s ease",
+          willChange: "opacity, transform",
           backfaceVisibility: "hidden",
           WebkitBackfaceVisibility: "hidden",
         }}
