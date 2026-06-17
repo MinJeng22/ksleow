@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import pluginContent from "../../content/autocountPlugins.json";
 import acPluginIcon from "../../assets/images/apps/ac-plugin-icon.webp";
+import { navigateWithRouteFeedback, preloadRouteAssets } from "../../utils/routeTransitions.js";
 
 const SUPPORT_WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to ask about AutoCount Accounting plugins. Thank you."
@@ -18,11 +19,16 @@ function PluginCard({ plugin }) {
     ? "KSL Developed"
     : "Dealer Developed";
   const openRoute = () => {
-    if (hasRoute) navigate(plugin.route);
+    if (hasRoute) {
+      preloadRouteAssets(plugin.route, "high");
+      navigateWithRouteFeedback(navigate, plugin.route);
+    }
   };
   return (
     <article
       onClick={openRoute}
+      onMouseEnter={() => hasRoute && preloadRouteAssets(plugin.route, "low")}
+      onPointerDown={() => hasRoute && preloadRouteAssets(plugin.route, "high")}
       style={{
       background: "#ffffff",
       border: "1px solid rgba(47,49,90,0.1)",
