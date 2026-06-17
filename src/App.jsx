@@ -57,7 +57,7 @@ export function AppContent() {
     const currentRoute = siteRoutes.find((r) => r.route === location.pathname);
     if (currentRoute) {
       document.title = currentRoute.route === "/" 
-        ? "K.S. Leow Group | AutoCount Authorized Dealer, Mentakab, Pahang"
+        ? "K.S. Leow Group"
         : `${currentRoute.title} | K.S. Leow Group`;
     }
   }, [location.pathname]);

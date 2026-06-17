@@ -59,7 +59,7 @@ function escapeHtml(value) {
 
 function injectHead(html, doc) {
   const title = doc.route === "/" 
-    ? "K.S. Leow Group | AutoCount Authorized Dealer, Mentakab, Pahang"
+    ? "K.S. Leow Group"
     : `${doc.title} | ${siteName}`;
   const description = doc.description || `${doc.title} from ${siteName}`;
   const canonical = doc.url;
