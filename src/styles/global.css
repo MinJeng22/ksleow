@@ -93,10 +93,10 @@ body {
 }
 
 .route-progress-bar {
-  background: linear-gradient(90deg, #c9a84c 0%, #ffe28f 46%, #2f315a 100%);
+  background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 48%, #93c5fd 100%);
   box-shadow:
-    0 0 10px rgba(201,168,76,0.4),
-    0 1px 0 rgba(255,255,255,0.48);
+    0 0 10px rgba(59,130,246,0.42),
+    0 1px 0 rgba(255,255,255,0.5);
   height: 100%;
   transform: scaleX(0);
   transform-origin: left center;

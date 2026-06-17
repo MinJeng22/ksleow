@@ -4,9 +4,10 @@ import productsContent from "../content/products.json";
 import servicesContent from "../content/services.json";
 
 const DEFAULT_PRODUCT_HERO = "/images/products/autocount-accounting-hero.webp";
-const TRANSITION_DELAY_MS = 280;
+const TRANSITION_DELAY_MS = 300;
 const warmedImages = new Set();
 let pendingNavigationTimer = null;
+let pendingFeedbackTimer = null;
 
 const productAssetsByRoute = Object.fromEntries(
   (productsContent.items || [])
@@ -106,9 +107,53 @@ export function signalRouteProgressStart(to) {
   );
 }
 
+export function signalRouteProgressComplete() {
+  if (typeof window === "undefined") return;
+
+  window.dispatchEvent(new Event("ks-route-progress:complete"));
+}
+
+export function runWithProgressFeedback(action, options = {}) {
+  if (typeof window === "undefined") {
+    action?.();
+    return;
+  }
+
+  const {
+    delay = TRANSITION_DELAY_MS,
+    assets = [],
+    route = "",
+  } = options;
+
+  preloadImages(assets, "high");
+  if (route) preloadRouteAssets(route, "high");
+  signalRouteProgressStart(route);
+
+  if (pendingFeedbackTimer) {
+    window.clearTimeout(pendingFeedbackTimer);
+  }
+
+  pendingFeedbackTimer = window.setTimeout(() => {
+    pendingFeedbackTimer = null;
+    action?.();
+    signalRouteProgressComplete();
+  }, Math.max(0, delay));
+}
+
 export function navigateWithRouteFeedback(navigate, to, options = {}) {
   if (typeof to !== "string") {
-    navigate(to);
+    const { delay = TRANSITION_DELAY_MS } = options;
+
+    signalRouteProgressStart("");
+
+    if (pendingNavigationTimer) {
+      window.clearTimeout(pendingNavigationTimer);
+    }
+
+    pendingNavigationTimer = window.setTimeout(() => {
+      pendingNavigationTimer = null;
+      navigate(to);
+    }, Math.max(0, delay));
     return;
   }
 

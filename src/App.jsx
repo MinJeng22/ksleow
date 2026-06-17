@@ -17,12 +17,13 @@ import KSOmniPage              from "./pages/KSOmni";
 import QuotationViewerPage     from "./pages/QuotationViewer";
 import GalleryPage             from "./pages/Gallery";
 import siteRoutes from "./content/siteRoutes.json";
+import { runWithProgressFeedback } from "./utils/routeTransitions.js";
 
 import "./styles/global.css";
 
 const routePath = Object.fromEntries(siteRoutes.map((route) => [route.id, route.route]));
 
-export function AppShell({ openContact, modalOpen, setModalOpen, searchOpen, setSearchOpen }) {
+export function AppShell({ openContact, openSearch, modalOpen, setModalOpen, searchOpen, setSearchOpen }) {
   return (
     <div className="app">
       <RouteProgressBar />
@@ -42,7 +43,7 @@ export function AppShell({ openContact, modalOpen, setModalOpen, searchOpen, set
       <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
       <BackToTop hideBar={modalOpen || searchOpen} />
-      <MenuButton onOpenSearch={() => setSearchOpen(true)} hideBar={modalOpen || searchOpen} />
+      <MenuButton onOpenSearch={openSearch} hideBar={modalOpen || searchOpen} />
     </div>
   );
 }
@@ -50,7 +51,11 @@ export function AppShell({ openContact, modalOpen, setModalOpen, searchOpen, set
 export function AppContent() {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const openContact = () => setModalOpen(true);
+  const openContact = () => runWithProgressFeedback(
+    () => setModalOpen(true),
+    { assets: ["/images/icons/favicon.webp", "/images/branding/service-card-back.webp"] }
+  );
+  const openSearch = () => runWithProgressFeedback(() => setSearchOpen(true));
 
   useEffect(() => {
     if (modalOpen || searchOpen) {
@@ -63,6 +68,7 @@ export function AppContent() {
   return (
     <AppShell
       openContact={openContact}
+      openSearch={openSearch}
       modalOpen={modalOpen}
       setModalOpen={setModalOpen}
       searchOpen={searchOpen}

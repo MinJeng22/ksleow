@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import Footer from "../components/Footer";
 import galleryData from "../content/gallery.json";
+import { preloadImages, runWithProgressFeedback } from "../utils/routeTransitions.js";
 
 const FALLBACK_IMAGE = "/images/branding/service-card-back.webp";
 
@@ -59,6 +60,11 @@ export default function GalleryPage() {
     return items.filter((item) => item.category === activeCategory);
   }, [activeCategory, items]);
 
+  const getAlbumImages = (item) => [item.cover, ...(item.photos || []).map((photo) => photo.image)];
+  const openGalleryItem = (item) => {
+    runWithProgressFeedback(() => setSelectedItem(item), { assets: getAlbumImages(item) });
+  };
+
   return (
     <main className="gallery-page">
       <style>{GALLERY_STYLES}</style>
@@ -100,7 +106,8 @@ export default function GalleryPage() {
                 className={`gallery-card gallery-card--${index % 5}`}
                 type="button"
                 key={`${item.title}-${index}`}
-                onClick={() => setSelectedItem(item)}
+                onClick={() => openGalleryItem(item)}
+                onPointerEnter={() => preloadImages(getAlbumImages(item), "high")}
               >
                 <span className="gallery-card__media">
                   <img src={item.cover} alt={item.title} loading={index < 4 ? "eager" : "lazy"} />

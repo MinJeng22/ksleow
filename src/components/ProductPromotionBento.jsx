@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Img } from "./Media.jsx";
+import { preloadImages, runWithProgressFeedback } from "../utils/routeTransitions.js";
 
 export default function ProductPromotionBento({
   id = "promotions",
@@ -10,6 +11,9 @@ export default function ProductPromotionBento({
   accent = "#80c31e",
 }) {
   const [lightboxImage, setLightboxImage] = useState(null);
+  const openLightbox = (image) => {
+    runWithProgressFeedback(() => setLightboxImage(image), { assets: [image] });
+  };
 
   useEffect(() => {
     if (lightboxImage) {
@@ -218,7 +222,8 @@ export default function ProductPromotionBento({
             <article
               key={`${item.title}-${index}`}
               className={`product-promo-card ${index === 0 ? "is-featured" : ""} ${item.image ? "has-image" : ""}`}
-              onClick={item.image ? () => setLightboxImage(item.image) : undefined}
+              onClick={item.image ? () => openLightbox(item.image) : undefined}
+              onPointerEnter={item.image ? () => preloadImages([item.image], "high") : undefined}
             >
               {item.image ? (
                 <div className="product-promo-media" aria-hidden="true">

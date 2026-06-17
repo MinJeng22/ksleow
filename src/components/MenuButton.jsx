@@ -816,7 +816,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   };
 
   const handleMobileBack = () => {
-    navigate(-1);
+    navigateWithRouteFeedback(navigate, -1);
   };
 
   if (!mounted) return null;
@@ -868,7 +868,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
         >
           <button
             className="back-fab lg-glass lg-glass-btn"
-            onClick={() => navigate(-1)}
+            onClick={() => navigateWithRouteFeedback(navigate, -1)}
             aria-label="Back"
             style={{ color: isLeftDesktopDark ? "#ffffff" : "rgba(0, 0, 0, 0.6)" }}
           >

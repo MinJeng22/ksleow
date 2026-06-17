@@ -37,6 +37,9 @@ export default function RouteProgressBar() {
   };
 
   const completeProgress = () => {
+    if (!visibleRef.current) return;
+    clearTimers();
+
     const elapsed = performance.now() - startedAt.current;
     const wait = Math.max(80, MIN_VISIBLE_MS - elapsed);
 
@@ -59,10 +62,15 @@ export default function RouteProgressBar() {
       preloadRouteAssets(event.detail?.to, "high");
       beginProgress();
     };
+    const handleComplete = () => {
+      completeProgress();
+    };
 
     window.addEventListener("ks-route-progress:start", handleStart);
+    window.addEventListener("ks-route-progress:complete", handleComplete);
     return () => {
       window.removeEventListener("ks-route-progress:start", handleStart);
+      window.removeEventListener("ks-route-progress:complete", handleComplete);
       clearTimers();
     };
   }, []);
@@ -79,7 +87,6 @@ export default function RouteProgressBar() {
       beginProgress();
     }
 
-    clearTimers();
     completeProgress();
   }, [routeKey, location.pathname]);
 

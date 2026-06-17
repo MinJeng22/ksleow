@@ -16,6 +16,7 @@ import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
 import { CopyReleaseButton, ReleaseNumber, ShareLinkButton, HighlightText } from "../../components/ReleaseTools.jsx";
 import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
+import { runWithProgressFeedback } from "../../utils/routeTransitions.js";
 /* AutoCount Accounting page — product-aware WhatsApp link to KSL Support Team */
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to learn more about AutoCount Accounting. Thank you."
@@ -689,7 +690,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           body="Malaysia's leading SME accounting software — cloud‑connected, SST & e‑Invoice compliant, and deeply integrated with AutoCount POS and Payroll. As an authorized dealer, KSL Business Solutions provides full installation, configuration, training, and ongoing support."
           iconSrc={PRODUCT_IMAGES.autocountAccountingIcon}
           iconAlt="AutoCount Accounting"
-          primaryCta={{ label: "Start Free Trial", onClick: () => setTrialOpen(true) }}
+          primaryCta={{ label: "Start Free Trial", onClick: () => runWithProgressFeedback(() => setTrialOpen(true), { assets: ["/images/branding/ksleow-gold.webp"] }) }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
         />
       </div>

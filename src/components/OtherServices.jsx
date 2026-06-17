@@ -5,7 +5,7 @@ import { CONTACT } from "../constants/contact.js";
 import otherServicesContent from "../content/otherServices.json";
 import { BentoCarousel } from "./ui/BentoGrid.jsx";
 import SectionHeader from "./ui/SectionHeader.jsx";
-import { navigateWithRouteFeedback, preloadImages, preloadRouteAssets } from "../utils/routeTransitions.js";
+import { navigateWithRouteFeedback, preloadImages, preloadRouteAssets, runWithProgressFeedback } from "../utils/routeTransitions.js";
 
 const CASES = (otherServicesContent.items || []).filter((item) => {
   return !!(item?.title && item?.desc);
@@ -246,8 +246,8 @@ export default function OtherServices({ onContact }) {
     window.addEventListener('hashchange', handleHash);
 
     const handleCustomOpen = (e) => {
-      if (e.detail === 'supaprintz') setPartnerOpen(true);
-      if (e.detail === 'sitegiant') setSitegiantOpen(true);
+      if (e.detail === 'supaprintz') openPartnerModal("supaprintz");
+      if (e.detail === 'sitegiant') openPartnerModal("sitegiant");
     };
     window.addEventListener('openOtherServiceModal', handleCustomOpen);
 
@@ -278,9 +278,17 @@ export default function OtherServices({ onContact }) {
     };
   }, [partnerOpen, sitegiantOpen]);
 
+  const openPartnerModal = (modal) => {
+    if (modal === "supaprintz") {
+      runWithProgressFeedback(() => setPartnerOpen(true), { assets: SUPAPRINTZ_MODAL_IMAGES });
+    } else if (modal === "sitegiant") {
+      runWithProgressFeedback(() => setSitegiantOpen(true), { assets: [SITEGIANT_PARTNER.image] });
+    }
+  };
+
   const openService = (service) => {
-    if (service.modal === "supaprintz") setPartnerOpen(true);
-    else if (service.modal === "sitegiant") setSitegiantOpen(true);
+    if (service.modal === "supaprintz") openPartnerModal("supaprintz");
+    else if (service.modal === "sitegiant") openPartnerModal("sitegiant");
     else if (service.route) navigateWithRouteFeedback(navigate, service.route);
   };
 

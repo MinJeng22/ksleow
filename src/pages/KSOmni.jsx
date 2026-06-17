@@ -7,6 +7,7 @@ import {
   AnimatedGreeting, autoResizeTextarea,
 } from "../components/chatbotShared.jsx";
 import { BackIcon, MenuGlyph } from "../components/icons.jsx";
+import { navigateWithRouteFeedback, runWithProgressFeedback } from "../utils/routeTransitions.js";
 
 const DEFAULT_OMNI_ORIGIN = "https://ksleow.vercel.app";
 const SSR_SESSION_ID = "pending-session";
@@ -250,6 +251,9 @@ export default function KSLOmniPage() {
   const chatScrollRef = useRef(null);
 
   const isEmpty = messages.length === 0;
+  const openQRWithProgress = () => {
+    runWithProgressFeedback(() => setShowQR(true), { assets: [qrUrl] });
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -353,12 +357,16 @@ export default function KSLOmniPage() {
     document.body.style.background = "#0c0e1a";
     document.documentElement.style.background = "#0c0e1a";
 
-    const onOpenQR = () => setShowQR(true);
+    const onOpenQR = () => openQRWithProgress();
     const onCloseQR = () => setShowQR(false);
-    const onToggleQR = () => setShowQR(prev => {
-      if (!prev) window.dispatchEvent(new Event("closeGlobalMenu"));
-      return !prev;
-    });
+    const onToggleQR = () => {
+      if (showQR) {
+        setShowQR(false);
+      } else {
+        window.dispatchEvent(new Event("closeGlobalMenu"));
+        openQRWithProgress();
+      }
+    };
     const onMenuChange = (e) => setMenuOpen(e.detail);
     window.addEventListener("openOmniQR", onOpenQR);
     window.addEventListener("closeOmniQR", onCloseQR);
@@ -373,7 +381,7 @@ export default function KSLOmniPage() {
       window.removeEventListener("toggleOmniQR", onToggleQR);
       window.removeEventListener("globalMenuStateChange", onMenuChange);
     };
-  }, []);
+  }, [showQR, qrUrl]);
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.visualViewport) return;
@@ -462,8 +470,8 @@ export default function KSLOmniPage() {
    * when /omni was opened directly (no prior history entry). */
   function goHome() {
     abortRef.current?.abort();
-    if (window.history.length > 1) navigate(-1);
-    else navigate("/");
+    if (window.history.length > 1) navigateWithRouteFeedback(navigate, -1);
+    else navigateWithRouteFeedback(navigate, "/");
   }
 
   /* ── Shared upload pipeline (paste OR file picker) ──
@@ -848,7 +856,7 @@ export default function KSLOmniPage() {
             <button 
               className="search-fab lg-glass lg-glass-btn omni-qr-fab" 
               style={{ color: "#ffffff" }}
-              onClick={() => setShowQR(true)} 
+              onClick={openQRWithProgress}
               onMouseEnter={handleQREnter}
               onMouseLeave={handleQRLeave}
               aria-label="Open on Mobile"
