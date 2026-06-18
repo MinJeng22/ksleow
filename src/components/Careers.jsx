@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CONTACT } from "../constants/contact.js";
 import ParticleBackground from "./ParticleBackground";
+import { CTA_PARTICLE_PROPS } from "./ctaParticleConfig.js";
 import careers from "../content/careers.json";
 
 /* Strip surrounding quotes / trailing period, then split on first comma. */
@@ -89,18 +90,9 @@ export default function Careers() {
       borderTop: "0.5px solid rgba(47,49,90,0.1)",
     }}>
       <ParticleBackground
+        {...CTA_PARTICLE_PROPS}
         active={visible}
         paused={false}
-        backgroundStart="#f8f9fd"
-        backgroundEnd="#eef1f8"
-        lineRgb="47,49,90"
-        dotRgb="201,168,76"
-        highlightRgb="201,168,76"
-        vignetteEnd="rgba(47,49,90,0.08)"
-        densityScale={1.02}
-        mobileDensityScale={0.6}
-        lineAlphaScale={0.46}
-        dotAlpha={0.66}
       />
       <div
         className="content-wrap"

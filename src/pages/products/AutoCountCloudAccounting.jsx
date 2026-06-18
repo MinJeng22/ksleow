@@ -589,6 +589,17 @@ export default function AutoCountCloudAccountingPage() {
             />
           </div>
 
+          {!editionCompareMode && (
+            <div style={{ display: "flex", justifyContent: "center", margin: "-0.65rem 0 1.45rem" }}>
+              <ShareLinkButton
+                variant="button"
+                hash="#editions"
+                params={{ cem: "b" }}
+                title="Copy a shareable link to Browse All Editions"
+              />
+            </div>
+          )}
+
           {editionCompareMode && (
             <div style={{ maxWidth: 760, margin: "0 auto 1.5rem" }}>
               <div className="cloud-compare-selectors" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "1rem", alignItems: "center" }}>

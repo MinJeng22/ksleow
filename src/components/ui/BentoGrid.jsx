@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Img } from "../Media.jsx";
 
 const LAYOUT_CLASSES = [
@@ -23,7 +23,7 @@ const BENTO_CAROUSEL_STYLES = `
   overscroll-behavior-x: contain;
   padding: 1.5rem 0.5rem;
   margin: -1.5rem -0.5rem;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   scroll-padding-left: 0;
   scrollbar-width: none;
   will-change: scroll-position;
@@ -77,6 +77,8 @@ const BENTO_CAROUSEL_STYLES = `
     .other-services-carousel .ks-bento-carousel-track {
       gap: 1rem;
       scroll-snap-type: x mandatory;
+      scroll-padding-left: max(0px, calc((100vw - min(85vw, 340px)) / 2));
+      touch-action: pan-y;
     }
     .other-services-carousel .ks-bento-carousel-slide {
       display: contents;
@@ -85,6 +87,7 @@ const BENTO_CAROUSEL_STYLES = `
       flex: 0 0 85vw;
       max-width: 340px;
       scroll-snap-align: center;
+      scroll-snap-stop: always;
       display: flex !important;
       flex-direction: column !important;
       min-height: 380px !important;
@@ -139,8 +142,50 @@ export function BentoCarousel({
   controlsLabel = "Browse items",
 }) {
   const trackRef = useRef(null);
+  const animationRef = useRef(null);
+  const touchRef = useRef({ x: 0, y: 0, active: false });
   const displayItems = normalizeBentoItems(items, minItems);
   const slides = chunkBentoItems(displayItems, minItems);
+  const isOtherServices = className.split(/\s+/).includes("other-services-carousel");
+
+  useEffect(() => () => {
+    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+  }, []);
+
+  const getMobileCardStep = (track) => {
+    const card = track.querySelector(".ks-bento-card");
+    if (!card) return track.clientWidth * 0.85;
+    const styles = window.getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+    return card.getBoundingClientRect().width + gap;
+  };
+
+  const animateTrackTo = (track, end, duration) => {
+    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    const max = Math.max(0, track.scrollWidth - track.clientWidth);
+    const start = track.scrollLeft;
+    const target = Math.max(0, Math.min(max, end));
+    const delta = target - start;
+    if (Math.abs(delta) < 1) return;
+
+    const startTime = performance.now();
+    const easeInOutCubic = (t) => (
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+    );
+
+    const tick = (currentTime) => {
+      const progress = Math.min(1, (currentTime - startTime) / duration);
+      track.scrollLeft = start + delta * easeInOutCubic(progress);
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(tick);
+      } else {
+        track.scrollLeft = target;
+        animationRef.current = null;
+      }
+    };
+
+    animationRef.current = requestAnimationFrame(tick);
+  };
 
   const scrollByBento = (direction) => {
     const track = trackRef.current;
@@ -148,40 +193,46 @@ export function BentoCarousel({
     
     let distance;
     if (window.innerWidth <= 1400) {
-      // On tablet/mobile, CSS scroll-snap is active and slides have display:contents.
-      // Scroll by ~85% of viewport to reliably cross the next snap threshold.
-      distance = track.clientWidth * 0.85;
+      distance = getMobileCardStep(track);
     } else {
-      // On desktop, smoothly scroll a portion of the Bento grid slide.
       const slide = track.querySelector(".ks-bento-carousel-slide");
       const slideWidth = slide?.getBoundingClientRect().width || track.clientWidth;
-      distance = Math.min(track.clientWidth * 0.86, slideWidth * 0.38);
+      distance = Math.min(track.clientWidth * 0.72, slideWidth * 0.34);
     }
     
-    // Manual JS smooth scroll to guarantee animation across all browsers
-    const start = track.scrollLeft;
-    const end = start + direction * distance;
-    const duration = 450;
-    const startTime = performance.now();
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-    
-    const animateScroll = (currentTime) => {
-      const elapsed = currentTime - startTime;
-      if (elapsed < duration) {
-        track.scrollLeft = start + (end - start) * easeOutCubic(elapsed / duration);
-        requestAnimationFrame(animateScroll);
-      } else {
-        track.scrollLeft = end;
-      }
-    };
-    requestAnimationFrame(animateScroll);
+    const duration = window.innerWidth <= 1400 ? 420 : 680;
+    animateTrackTo(track, track.scrollLeft + direction * distance, duration);
+  };
+
+  const handleTouchStart = (event) => {
+    if (!isOtherServices || window.innerWidth > 1400) return;
+    const touch = event.touches?.[0];
+    if (!touch) return;
+    touchRef.current = { x: touch.clientX, y: touch.clientY, active: true };
+  };
+
+  const handleTouchEnd = (event) => {
+    if (!isOtherServices || window.innerWidth > 1400 || !touchRef.current.active) return;
+    const touch = event.changedTouches?.[0];
+    touchRef.current.active = false;
+    if (!touch) return;
+    const dx = touch.clientX - touchRef.current.x;
+    const dy = touch.clientY - touchRef.current.y;
+    if (Math.abs(dx) < 38 || Math.abs(dx) < Math.abs(dy) * 1.15) return;
+    event.preventDefault();
+    scrollByBento(dx < 0 ? 1 : -1);
   };
 
   return (
     <div className={`ks-bento-carousel${className ? ` ${className}` : ""}`}>
       <style>{BENTO_CAROUSEL_STYLES}</style>
       <div className="ks-bento-carousel-viewport">
-        <div className="ks-bento-carousel-track" ref={trackRef}>
+        <div
+          className="ks-bento-carousel-track"
+          ref={trackRef}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           {slides.map((slideItems, slideIndex) => (
             <div className="ks-bento-carousel-slide ks-bento" key={`bento-slide-${slideIndex}`}>
               {slideItems.map((item, index) => (

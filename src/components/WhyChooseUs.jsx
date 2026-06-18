@@ -99,8 +99,14 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
           .ac-awards-item:hover img {
             transform: scale(1.15);
           }
-          .ac-awards-container-new:hover .ac-brand-marquee {
-            animation-play-state: paused !important;
+          @keyframes ac-awards-marquee-loop {
+            from { transform: translate3d(0, 0, 0); }
+            to { transform: translate3d(-50%, 0, 0); }
+          }
+          @media (hover: hover) and (pointer: fine) {
+            .ac-awards-container-new:hover .ac-brand-marquee {
+              animation-play-state: paused !important;
+            }
           }
 
           /* Desktop: Static, fit 12 items exactly to screen */
@@ -188,6 +194,16 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
           }
           /* Mobile: Keep marquee sizes */
           @media (max-width: 1024px) {
+            .ac-awards-marquee-track {
+              width: max-content;
+              animation-name: ac-awards-marquee-loop !important;
+              animation-timing-function: linear !important;
+              animation-iteration-count: infinite !important;
+              will-change: transform;
+              transform: translate3d(0, 0, 0);
+              backface-visibility: hidden;
+              -webkit-backface-visibility: hidden;
+            }
             .ac-awards-marquee-track {
               gap: 1rem;
             }

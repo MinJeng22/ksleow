@@ -786,6 +786,16 @@ export default function AutoCountAccountingPage({ onContact }) {
             />
           </div>
 
+          {!editionCompareMode && (
+            <div style={{ display: "flex", justifyContent: "center", margin: "-0.75rem 0 1.5rem" }}>
+              <ShareLinkButton
+                hash="#editions"
+                params={{ em: "b" }}
+                title="Copy a shareable link to Browse All Editions"
+              />
+            </div>
+          )}
+
           {/* Compare-mode controls: 2 dropdowns + diff-only toggle */}
           {editionCompareMode && (
             <div style={{ maxWidth: 720, margin: "0 auto 1.5rem" }}>
