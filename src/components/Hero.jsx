@@ -4,6 +4,14 @@ import { LOGO_HERO } from "../assets/assets.js";
 import hero from "../content/hero.json";
 import branding from "../content/branding.json";
 
+function getHeroParticleDensity() {
+  if (typeof window === "undefined") return 1.6;
+  const width = window.innerWidth;
+  if (width < 640) return 0.58;
+  if (width < 1280) return 0.92;
+  return 1.6;
+}
+
 export default function Hero({ onContact }) {
   const [paused, setPaused]     = useState(false);
   const [visible, setVisible]   = useState(false);
@@ -61,19 +69,12 @@ export default function Hero({ onContact }) {
 
   const logoH = "clamp(80px, 11vw, 140px)";
 
-  const [density, setDensity] = useState(1.6);
+  const [density, setDensity] = useState(getHeroParticleDensity);
   useEffect(() => {
     const update = () => {
-      const width = window.innerWidth;
-      if (width < 640) {
-        setDensity(0.58);
-      } else if (width < 1280) {
-        setDensity(0.92);
-      } else {
-        setDensity(1.6);
-      }
+      const nextDensity = getHeroParticleDensity();
+      setDensity((current) => current === nextDensity ? current : nextDensity);
     };
-    update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);

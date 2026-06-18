@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 /* ─── Calibrated density — fewer particles on mobile/tablet ────
  * Mobile (< 640): ~22 particles, density 0.00007 px⁻²
@@ -86,7 +86,7 @@ export default function ParticleBackground({
 
   useEffect(() => { stateRef.current.pausedRef = paused; }, [paused]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const canvas = canvasRef.current;
     if (!active) return;
     if (!canvas) return;
