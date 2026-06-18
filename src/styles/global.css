@@ -2973,6 +2973,26 @@ body.has-active-modal .back-to-top-glass {
   scroll-margin-top: 80px;
 }
 
+.other-services-section {
+  isolation: isolate;
+}
+
+.stealth-honeycomb-grid {
+  display: block;
+  height: 100%;
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+@media (max-width: 767px) {
+  .stealth-honeycomb-grid {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
   .service-card-shell {
     scroll-margin-top: calc(50vh - 145px);

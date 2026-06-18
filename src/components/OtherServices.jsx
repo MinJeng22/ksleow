@@ -5,6 +5,7 @@ import { CONTACT } from "../constants/contact.js";
 import otherServicesContent from "../content/otherServices.json";
 import { BentoCarousel } from "./ui/BentoGrid.jsx";
 import SectionHeader from "./ui/SectionHeader.jsx";
+import StealthHoneycombGrid from "./StealthHoneycombGrid.jsx";
 import { navigateWithRouteFeedback, preloadImages, preloadRouteAssets, runWithProgressFeedback } from "../utils/routeTransitions.js";
 
 const CASES = (otherServicesContent.items || []).filter((item) => {
@@ -301,7 +302,8 @@ export default function OtherServices({ onContact }) {
 
   return (
     <>
-    <section id="other-services" className="home-section" style={{ position: "relative", overflow: "hidden", background: "transparent", padding: "var(--section-py) 0" }}>
+    <section id="other-services" className="home-section other-services-section" style={{ position: "relative", overflow: "hidden", background: "transparent", padding: "var(--section-py) 0" }}>
+    <StealthHoneycombGrid />
     <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
       <SectionHeader
         eyebrow={otherServicesContent.eyebrow}
