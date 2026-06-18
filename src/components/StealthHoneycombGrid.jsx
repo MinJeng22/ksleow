@@ -20,6 +20,7 @@ export default function StealthHoneycombGrid({
   lineRgb = "47,49,90",
   glowRgb = "201,168,76",
   titleGlow = true,
+  titleGlowBounds,
   className = "",
 }) {
   const canvasRef = useRef(null);
@@ -69,15 +70,23 @@ export default function StealthHoneycombGrid({
 
       s.radius = radius;
       s.cells = cells;
-      const titleBandBottom = Math.min(h * 0.34, w < 768 ? 210 : 280);
-      const titleBandTop = w < 768 ? 18 : 32;
+      const glowBounds = {
+        left: -radius,
+        right: Math.min(w - radius, w < 768 ? w + radius : Math.min(820, w * 0.62)),
+        top: w < 768 ? 4 : 12,
+        bottom: Math.min(h, w < 768 ? 176 : 190),
+        step: w < 768 ? 3 : 4,
+        ...(titleGlowBounds || {}),
+      };
       s.persistentGlow = titleGlow
         ? cells
           .map((cell, index) => ({ cell, index }))
           .filter(({ cell, index }) => (
-            cell.y >= titleBandTop &&
-            cell.y <= titleBandBottom &&
-            index % (w < 768 ? 4 : 5) === 0
+            cell.x >= glowBounds.left &&
+            cell.x <= glowBounds.right &&
+            cell.y >= glowBounds.top &&
+            cell.y <= glowBounds.bottom &&
+            index % glowBounds.step === 0
           ))
           .map(({ index }) => index)
         : [];
@@ -235,7 +244,7 @@ export default function StealthHoneycombGrid({
       window.removeEventListener("resize", resize);
       finePointerMedia.removeEventListener?.("change", resize);
     };
-  }, [background, glowRgb, lineRgb, titleGlow]);
+  }, [background, glowRgb, lineRgb, titleGlow, titleGlowBounds]);
 
   return (
     <canvas
