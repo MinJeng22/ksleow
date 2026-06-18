@@ -7,7 +7,7 @@ import {
   AnimatedGreeting, autoResizeTextarea,
 } from "../components/chatbotShared.jsx";
 import { BackIcon, MenuGlyph } from "../components/icons.jsx";
-import { navigateWithRouteFeedback, runWithProgressFeedback } from "../utils/routeTransitions.js";
+import { navigateBackWithRouteFeedback, navigateWithRouteFeedback, runWithProgressFeedback } from "../utils/routeTransitions.js";
 
 const DEFAULT_OMNI_ORIGIN = "https://ksleow.vercel.app";
 const SSR_SESSION_ID = "pending-session";
@@ -470,7 +470,7 @@ export default function KSLOmniPage() {
    * when /omni was opened directly (no prior history entry). */
   function goHome() {
     abortRef.current?.abort();
-    if (window.history.length > 1) navigateWithRouteFeedback(navigate, -1);
+    if (window.history.length > 1) navigateBackWithRouteFeedback(navigate);
     else navigateWithRouteFeedback(navigate, "/");
   }
 

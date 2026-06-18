@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import useDarkBg from "../hooks/useDarkBg";
 import { SearchIcon, BackIcon, MenuIcon, ToTopIcon, ScrollDownIcon } from "./icons";
-import { navigateWithRouteFeedback, preloadImages, preloadRouteAssets } from "../utils/routeTransitions.js";
+import { navigateBackWithRouteFeedback, navigateWithRouteFeedback, preloadImages, preloadRouteAssets } from "../utils/routeTransitions.js";
 
 /* ── Mega Menu Data ─────────────────────────────────────── */
 const MEGA_MENU = [
@@ -824,7 +824,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   };
 
   const handleMobileBack = () => {
-    navigateWithRouteFeedback(navigate, -1);
+    navigateBackWithRouteFeedback(navigate);
   };
 
   const preloadMenuItem = (item, priority = "low") => {
@@ -889,7 +889,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
         >
           <button
             className="back-fab lg-glass lg-glass-btn"
-            onClick={() => navigateWithRouteFeedback(navigate, -1)}
+            onClick={() => navigateBackWithRouteFeedback(navigate)}
             aria-label="Back"
             style={{ color: isLeftDesktopDark ? "#ffffff" : "rgba(0, 0, 0, 0.6)" }}
           >

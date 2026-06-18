@@ -17,6 +17,8 @@ let pendingNavigationRun = 0;
 let pendingFeedbackRun = 0;
 let routeFeedbackPopUntil = 0;
 
+const ROUTE_RETURN_PREFIX = "ks-route-return:";
+
 const productAssetsByRoute = Object.fromEntries(
   (productsContent.items || [])
     .filter((item) => item.route)
@@ -198,6 +200,69 @@ export function preloadImages(sources, priority = "low") {
   });
 }
 
+function getCurrentRouteKey() {
+  if (typeof window === "undefined") return "";
+  return `${window.location.pathname}${window.location.search}`;
+}
+
+function getReturnKey(pathname) {
+  return `${ROUTE_RETURN_PREFIX}${pathname}`;
+}
+
+function saveRouteReturnTarget(pathname, returnAnchor) {
+  if (typeof window === "undefined" || !pathname || !window.sessionStorage) return;
+
+  const currentPath = getCurrentRouteKey();
+  if (!currentPath || pathname === window.location.pathname) return;
+
+  try {
+    window.sessionStorage.setItem(
+      getReturnKey(pathname),
+      JSON.stringify({
+        path: currentPath,
+        y: Math.max(0, window.scrollY || 0),
+        anchor: returnAnchor || "",
+      })
+    );
+  } catch {
+    /* sessionStorage can be unavailable in strict privacy modes. */
+  }
+}
+
+function readRouteReturnTarget(pathname) {
+  if (typeof window === "undefined" || !pathname || !window.sessionStorage) return null;
+
+  try {
+    const raw = window.sessionStorage.getItem(getReturnKey(pathname));
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+function restoreRoutePosition(target) {
+  if (typeof window === "undefined" || !target) return;
+
+  const apply = () => {
+    if (target.anchor) {
+      const el = document.querySelector(target.anchor);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 20;
+        window.scrollTo({ top: Math.max(0, top), left: 0, behavior: "instant" });
+        return;
+      }
+    }
+    window.scrollTo({ top: Math.max(0, Number(target.y) || 0), left: 0, behavior: "instant" });
+  };
+
+  window.requestAnimationFrame(apply);
+  window.setTimeout(apply, 80);
+  window.setTimeout(apply, 260);
+  window.setTimeout(apply, 560);
+  window.setTimeout(apply, 960);
+}
+
 export function preloadRouteAssets(to, priority = "low") {
   const pathname = getPathname(to);
   if (!pathname) return;
@@ -330,7 +395,11 @@ export function runWithProgressFeedback(action, options = {}) {
 
 export function navigateWithRouteFeedback(navigate, to, options = {}) {
   if (typeof to !== "string") {
-    const { delay = TRANSITION_DELAY_MS } = options;
+    const {
+      delay = TRANSITION_DELAY_MS,
+      scrollTop = true,
+      afterNavigate,
+    } = options;
     const runId = ++pendingNavigationRun;
 
     signalRouteProgressStart("");
@@ -346,6 +415,8 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
       pendingNavigationTimer = null;
       markRouteFeedbackPopNavigation();
       navigate(to);
+      if (scrollTop) window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      afterNavigate?.();
       signalRouteProgressComplete();
     });
     return;
@@ -355,6 +426,8 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
     delay = TRANSITION_DELAY_MS,
     replace = false,
     scrollTop = true,
+    returnAnchor = "",
+    afterNavigate,
   } = options;
   const runId = ++pendingNavigationRun;
 
@@ -362,10 +435,12 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
   const alreadyHere = pathname && pathname === window.location.pathname && !to.includes("?");
 
   preloadRouteAssets(to, "high");
+  saveRouteReturnTarget(pathname, returnAnchor);
 
   if (alreadyHere || delay <= 0) {
     navigate(to, { replace });
     if (scrollTop) window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    afterNavigate?.();
     return;
   }
 
@@ -382,5 +457,34 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
     pendingNavigationTimer = null;
     navigate(to, { replace });
     if (scrollTop) window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    afterNavigate?.();
+  });
+}
+
+export function navigateBackWithRouteFeedback(navigate, options = {}) {
+  if (typeof window === "undefined") {
+    navigate(-1);
+    return;
+  }
+
+  const {
+    fallback = "/",
+    delay = TRANSITION_DELAY_MS,
+  } = options;
+  const returnTarget = readRouteReturnTarget(window.location.pathname);
+
+  if (window.history.length > 1) {
+    navigateWithRouteFeedback(navigate, -1, {
+      delay,
+      scrollTop: !returnTarget,
+      afterNavigate: () => restoreRoutePosition(returnTarget),
+    });
+    return;
+  }
+
+  navigateWithRouteFeedback(navigate, returnTarget?.path || fallback, {
+    delay,
+    scrollTop: false,
+    afterNavigate: () => restoreRoutePosition(returnTarget),
   });
 }
