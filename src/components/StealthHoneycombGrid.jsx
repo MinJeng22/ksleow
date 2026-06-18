@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 
 const SQRT_3 = Math.sqrt(3);
 const DPR_LIMIT = 1.25;
-const MOBILE_QUERY = "(max-width: 767px)";
 
 function hexPath(ctx, x, y, r) {
   ctx.beginPath();
@@ -20,18 +19,19 @@ export default function StealthHoneycombGrid({
   background = "#f5f5f8",
   lineRgb = "47,49,90",
   glowRgb = "201,168,76",
+  titleGlow = true,
   className = "",
 }) {
   const canvasRef = useRef(null);
   const stateRef = useRef({
     cells: [],
+    persistentGlow: [],
     active: new Map(),
     frame: 0,
     w: 0,
     h: 0,
     radius: 34,
     pointerFine: false,
-    disabled: false,
     lastActivated: -1,
   });
 
@@ -40,7 +40,6 @@ export default function StealthHoneycombGrid({
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: true });
     const s = stateRef.current;
-    const mobileMedia = window.matchMedia(MOBILE_QUERY);
     const finePointerMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
 
     function measure() {
@@ -52,7 +51,7 @@ export default function StealthHoneycombGrid({
     }
 
     function buildCells(w, h) {
-      const radius = w >= 1600 ? 38 : w >= 1180 ? 34 : 31;
+      const radius = w >= 1600 ? 38 : w >= 1180 ? 34 : w >= 640 ? 31 : 29;
       const dx = radius * 1.5;
       const dy = SQRT_3 * radius;
       const cells = [];
@@ -70,15 +69,21 @@ export default function StealthHoneycombGrid({
 
       s.radius = radius;
       s.cells = cells;
+      const titleBandBottom = Math.min(h * 0.34, w < 768 ? 210 : 280);
+      const titleBandTop = w < 768 ? 18 : 32;
+      s.persistentGlow = titleGlow
+        ? cells
+          .map((cell, index) => ({ cell, index }))
+          .filter(({ cell, index }) => (
+            cell.y >= titleBandTop &&
+            cell.y <= titleBandBottom &&
+            index % (w < 768 ? 4 : 5) === 0
+          ))
+          .map(({ index }) => index)
+        : [];
     }
 
     function resize() {
-      s.disabled = mobileMedia.matches;
-      if (s.disabled) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        return;
-      }
-
       const { w, h } = measure();
       if (w < 2 || h < 2) return;
       const dpr = Math.min(window.devicePixelRatio || 1, DPR_LIMIT);
@@ -110,7 +115,6 @@ export default function StealthHoneycombGrid({
     }
 
     function activateFromEvent(event, force = false) {
-      if (s.disabled) return;
       if (!force && !s.pointerFine) return;
       const rect = canvas.getBoundingClientRect();
       const x = event.clientX - rect.left;
@@ -136,8 +140,26 @@ export default function StealthHoneycombGrid({
       ctx.fillRect(0, 0, s.w, s.h);
     }
 
+    function drawGlowCell(cell, intensity, radiusScale = 2.45) {
+      const glow = ctx.createRadialGradient(cell.x, cell.y, 0, cell.x, cell.y, s.radius * radiusScale);
+      glow.addColorStop(0, `rgba(${glowRgb},${0.24 * intensity})`);
+      glow.addColorStop(0.42, `rgba(${glowRgb},${0.11 * intensity})`);
+      glow.addColorStop(1, `rgba(${glowRgb},0)`);
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(cell.x, cell.y, s.radius * radiusScale, 0, Math.PI * 2);
+      ctx.fill();
+
+      hexPath(ctx, cell.x, cell.y, s.radius * 0.94);
+      ctx.fillStyle = `rgba(${glowRgb},${0.095 * intensity})`;
+      ctx.fill();
+      ctx.lineWidth = 1.05;
+      ctx.strokeStyle = `rgba(${glowRgb},${0.32 * intensity})`;
+      ctx.stroke();
+    }
+
     function draw(ts, force = false) {
-      if (s.disabled || !s.w || !s.h) {
+      if (!s.w || !s.h) {
         s.frame = 0;
         return;
       }
@@ -155,6 +177,11 @@ export default function StealthHoneycombGrid({
       }
       ctx.restore();
 
+      for (const index of s.persistentGlow) {
+        const cell = s.cells[index];
+        if (cell) drawGlowCell(cell, 0.48, 2.1);
+      }
+
       let keepAnimating = false;
       for (const [index, level] of s.active.entries()) {
         const cell = s.cells[index];
@@ -164,21 +191,7 @@ export default function StealthHoneycombGrid({
         }
 
         const intensity = Math.max(0, Math.min(1, level));
-        const glow = ctx.createRadialGradient(cell.x, cell.y, 0, cell.x, cell.y, s.radius * 2.45);
-        glow.addColorStop(0, `rgba(${glowRgb},${0.28 * intensity})`);
-        glow.addColorStop(0.4, `rgba(${glowRgb},${0.13 * intensity})`);
-        glow.addColorStop(1, `rgba(${glowRgb},0)`);
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.arc(cell.x, cell.y, s.radius * 2.45, 0, Math.PI * 2);
-        ctx.fill();
-
-        hexPath(ctx, cell.x, cell.y, s.radius * 0.94);
-        ctx.fillStyle = `rgba(${glowRgb},${0.12 * intensity})`;
-        ctx.fill();
-        ctx.lineWidth = 1.25;
-        ctx.strokeStyle = `rgba(${glowRgb},${0.46 * intensity})`;
-        ctx.stroke();
+        drawGlowCell(cell, intensity, 2.45);
 
         const next = level - 0.022;
         if (next <= 0) {
@@ -212,7 +225,6 @@ export default function StealthHoneycombGrid({
     window.addEventListener("pointermove", activateFromEvent, { passive: true });
     window.addEventListener("pointerdown", handlePointerDown, { passive: true });
     window.addEventListener("resize", resize, { passive: true });
-    mobileMedia.addEventListener?.("change", resize);
     finePointerMedia.addEventListener?.("change", resize);
 
     return () => {
@@ -221,10 +233,9 @@ export default function StealthHoneycombGrid({
       window.removeEventListener("pointermove", activateFromEvent);
       window.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("resize", resize);
-      mobileMedia.removeEventListener?.("change", resize);
       finePointerMedia.removeEventListener?.("change", resize);
     };
-  }, [background, glowRgb, lineRgb]);
+  }, [background, glowRgb, lineRgb, titleGlow]);
 
   return (
     <canvas

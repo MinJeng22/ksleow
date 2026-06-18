@@ -79,6 +79,7 @@ const BENTO_CAROUSEL_STYLES = `
       scroll-snap-type: x mandatory;
       scroll-padding-left: max(0px, calc((100vw - min(85vw, 340px)) / 2));
       touch-action: pan-y;
+      cursor: grab;
     }
     .other-services-carousel .ks-bento-carousel-slide {
       display: contents;
@@ -143,7 +144,8 @@ export function BentoCarousel({
 }) {
   const trackRef = useRef(null);
   const animationRef = useRef(null);
-  const touchRef = useRef({ x: 0, y: 0, active: false });
+  const touchRef = useRef({ x: 0, y: 0, startScroll: 0, active: false, dragging: false, locked: null });
+  const suppressClickRef = useRef(0);
   const displayItems = normalizeBentoItems(items, minItems);
   const slides = chunkBentoItems(displayItems, minItems);
   const isOtherServices = className.split(/\s+/).includes("other-services-carousel");
@@ -208,29 +210,74 @@ export function BentoCarousel({
     if (!isOtherServices || window.innerWidth > 1400) return;
     const touch = event.touches?.[0];
     if (!touch) return;
-    touchRef.current = { x: touch.clientX, y: touch.clientY, active: true };
+    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    animationRef.current = null;
+    touchRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+      startScroll: trackRef.current?.scrollLeft || 0,
+      active: true,
+      dragging: false,
+      locked: null,
+    };
+  };
+
+  const handleTouchMove = (event) => {
+    if (!isOtherServices || window.innerWidth > 1400 || !touchRef.current.active) return;
+    const track = trackRef.current;
+    const touch = event.touches?.[0];
+    if (!track || !touch) return;
+    const dx = touch.clientX - touchRef.current.x;
+    const dy = touch.clientY - touchRef.current.y;
+
+    if (!touchRef.current.locked && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+      touchRef.current.locked = Math.abs(dx) > Math.abs(dy) * 1.12 ? "x" : "y";
+    }
+    if (touchRef.current.locked !== "x") return;
+
+    touchRef.current.dragging = true;
+    event.preventDefault();
+    track.scrollLeft = touchRef.current.startScroll - dx;
   };
 
   const handleTouchEnd = (event) => {
     if (!isOtherServices || window.innerWidth > 1400 || !touchRef.current.active) return;
+    const track = trackRef.current;
     const touch = event.changedTouches?.[0];
+    const wasDragging = touchRef.current.dragging;
     touchRef.current.active = false;
-    if (!touch) return;
+    if (!track || !touch) return;
     const dx = touch.clientX - touchRef.current.x;
     const dy = touch.clientY - touchRef.current.y;
-    if (Math.abs(dx) < 38 || Math.abs(dx) < Math.abs(dy) * 1.15) return;
+    if (!wasDragging || Math.abs(dx) < 24 || Math.abs(dx) < Math.abs(dy) * 1.05) return;
+    suppressClickRef.current = Date.now() + 420;
     event.preventDefault();
-    scrollByBento(dx < 0 ? 1 : -1);
+
+    const step = getMobileCardStep(track);
+    const direction = dx < 0 ? 1 : -1;
+    const target = touchRef.current.startScroll + direction * step;
+    animateTrackTo(track, target, 360);
+  };
+
+  const handleClickCapture = (event) => {
+    if (Date.now() <= suppressClickRef.current) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
   };
 
   return (
-    <div className={`ks-bento-carousel${className ? ` ${className}` : ""}`}>
+    <div
+      className={`ks-bento-carousel${className ? ` ${className}` : ""}`}
+      onClickCapture={handleClickCapture}
+    >
       <style>{BENTO_CAROUSEL_STYLES}</style>
       <div className="ks-bento-carousel-viewport">
         <div
           className="ks-bento-carousel-track"
           ref={trackRef}
           onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
           {slides.map((slideItems, slideIndex) => (

@@ -2988,12 +2988,6 @@ body.has-active-modal .back-to-top-glass {
 }
 
 @media (max-width: 767px) {
-  .stealth-honeycomb-grid {
-    display: none;
-  }
-}
-
-@media (max-width: 767px) {
   .service-card-shell {
     scroll-margin-top: calc(50vh - 145px);
   }
