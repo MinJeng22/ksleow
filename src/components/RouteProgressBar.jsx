@@ -66,12 +66,21 @@ export default function RouteProgressBar() {
     const handleComplete = () => {
       completeProgress();
     };
+    const handleBrowserBack = () => {
+      const to = `${window.location.pathname}${window.location.search}`;
+      preloadRouteAssets(to, "high");
+      if (!visibleRef.current) {
+        beginProgress();
+      }
+    };
 
     window.addEventListener("ks-route-progress:start", handleStart);
     window.addEventListener("ks-route-progress:complete", handleComplete);
+    window.addEventListener("popstate", handleBrowserBack);
     return () => {
       window.removeEventListener("ks-route-progress:start", handleStart);
       window.removeEventListener("ks-route-progress:complete", handleComplete);
+      window.removeEventListener("popstate", handleBrowserBack);
       clearTimers();
     };
   }, []);
