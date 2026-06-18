@@ -15,6 +15,7 @@ let pendingNavigationTimer = null;
 let pendingFeedbackTimer = null;
 let pendingNavigationRun = 0;
 let pendingFeedbackRun = 0;
+let routeFeedbackPopUntil = 0;
 
 const productAssetsByRoute = Object.fromEntries(
   (productsContent.items || [])
@@ -284,6 +285,18 @@ export function signalRouteProgressComplete() {
   window.dispatchEvent(new Event("ks-route-progress:complete"));
 }
 
+export function markRouteFeedbackPopNavigation() {
+  if (typeof performance === "undefined") return;
+  routeFeedbackPopUntil = performance.now() + 1800;
+}
+
+export function consumeRouteFeedbackPopNavigation() {
+  if (typeof performance === "undefined") return false;
+  if (performance.now() > routeFeedbackPopUntil) return false;
+  routeFeedbackPopUntil = 0;
+  return true;
+}
+
 export function runWithProgressFeedback(action, options = {}) {
   if (typeof window === "undefined") {
     action?.();
@@ -331,6 +344,7 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
     waitForTransitionReadiness({ minDelay: delay }).then(() => {
       if (runId !== pendingNavigationRun) return;
       pendingNavigationTimer = null;
+      markRouteFeedbackPopNavigation();
       navigate(to);
       signalRouteProgressComplete();
     });

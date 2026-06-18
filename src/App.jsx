@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { BrowserRouter, Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 
 import ContactModal  from "./components/ContactModal";
 import BackToTop     from "./components/BackToTop";
@@ -17,28 +17,80 @@ import KSOmniPage              from "./pages/KSOmni";
 import QuotationViewerPage     from "./pages/QuotationViewer";
 import GalleryPage             from "./pages/Gallery";
 import siteRoutes from "./content/siteRoutes.json";
-import { runWithProgressFeedback } from "./utils/routeTransitions.js";
+import {
+  consumeRouteFeedbackPopNavigation,
+  preloadRouteAssets,
+  runWithProgressFeedback,
+  waitForRouteAssets,
+} from "./utils/routeTransitions.js";
 
 import "./styles/global.css";
 
 const routePath = Object.fromEntries(siteRoutes.map((route) => [route.id, route.route]));
+const POP_ROUTE_RENDER_DELAY_MS = 500;
+
+function wait(ms) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
+function SiteRoutes({ openContact, displayLocation }) {
+  return (
+    <Routes location={displayLocation}>
+      <Route path={routePath.home} element={<HomePage onContact={openContact} />} />
+      <Route path={routePath["autocount-accounting"]} element={<AutoCountAccountingPage onContact={openContact} />} />
+      <Route path={routePath["autocount-cloud-accounting"]} element={<AutoCountCloudAccountingPage />} />
+      <Route path={routePath["feedme-pos"]} element={<FeedMePOSPage onContact={openContact} />} />
+      <Route path={routePath["autocount-plugin"]} element={<AutoCountPluginsPage />} />
+      <Route path={routePath.sales2do} element={<Sales2DOPage onContact={openContact} />} />
+      <Route path={routePath["ks-omni"]} element={<KSOmniPage onContact={openContact} />} />
+      <Route path={routePath.quotation} element={<QuotationViewerPage />} />
+      <Route path={routePath.gallery} element={<GalleryPage />} />
+    </Routes>
+  );
+}
+
+function DelayedRoutes({ openContact }) {
+  const location = useLocation();
+  const navigationType = useNavigationType();
+  const [displayLocation, setDisplayLocation] = useState(location);
+  const displayKey = useRef(location.key);
+  const renderRun = useRef(0);
+
+  useEffect(() => {
+    if (location.key === displayKey.current) return;
+
+    const runId = ++renderRun.current;
+    const target = `${location.pathname}${location.search}`;
+    const alreadyWaited = navigationType === "POP" && consumeRouteFeedbackPopNavigation();
+    const shouldDelayRender = navigationType === "POP" && !alreadyWaited;
+
+    const applyLocation = () => {
+      if (runId !== renderRun.current) return;
+      displayKey.current = location.key;
+      setDisplayLocation(location);
+    };
+
+    if (!shouldDelayRender) {
+      applyLocation();
+      return;
+    }
+
+    preloadRouteAssets(target, "high");
+    Promise.all([
+      wait(POP_ROUTE_RENDER_DELAY_MS),
+      waitForRouteAssets(target, { timeout: 2200 }),
+    ]).then(applyLocation);
+  }, [location, navigationType]);
+
+  return <SiteRoutes openContact={openContact} displayLocation={displayLocation} />;
+}
 
 export function AppShell({ openContact, openSearch, modalOpen, setModalOpen, searchOpen, setSearchOpen }) {
   return (
     <div className="app">
       <RouteProgressBar />
 
-      <Routes>
-        <Route path={routePath.home} element={<HomePage onContact={openContact} />} />
-        <Route path={routePath["autocount-accounting"]} element={<AutoCountAccountingPage onContact={openContact} />} />
-        <Route path={routePath["autocount-cloud-accounting"]} element={<AutoCountCloudAccountingPage />} />
-        <Route path={routePath["feedme-pos"]} element={<FeedMePOSPage onContact={openContact} />} />
-        <Route path={routePath["autocount-plugin"]} element={<AutoCountPluginsPage />} />
-        <Route path={routePath.sales2do} element={<Sales2DOPage onContact={openContact} />} />
-        <Route path={routePath["ks-omni"]} element={<KSOmniPage onContact={openContact} />} />
-        <Route path={routePath.quotation} element={<QuotationViewerPage />} />
-        <Route path={routePath.gallery} element={<GalleryPage />} />
-      </Routes>
+      <DelayedRoutes openContact={openContact} />
 
       <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
       <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
