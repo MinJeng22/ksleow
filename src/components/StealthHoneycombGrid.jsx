@@ -61,21 +61,19 @@ export default function StealthHoneycombGrid({
         const titleTop = targetRect.top - canvasRect.top;
         const titleWidth = targetRect.width;
         const titleHeight = targetRect.height;
-        const left = Math.max(0, titleLeft - radius * 1.35);
-        const width = Math.max(titleWidth + radius * 4, w < 768 ? w - left - radius * 0.7 : 430);
         return {
-          left,
-          right: Math.min(w, left + width),
-          top: Math.max(0, titleTop - radius * 1.2),
-          bottom: Math.min(h, titleTop + titleHeight + radius * 1.05),
+          centerX: titleLeft + titleWidth * 0.5,
+          centerY: titleTop + titleHeight * 0.5,
+          radiusX: Math.max(titleWidth * 0.52 + radius * 0.85, radius * 3.25),
+          radiusY: Math.max(titleHeight * 0.56 + radius * 0.42, radius * 1.35),
         };
       }
 
       return {
-        left: w < 768 ? 24 : Math.min(w * 0.07, 88),
-        right: w < 768 ? w - 24 : Math.min(w * 0.07 + 430, 520),
-        top: w < 768 ? 42 : 82,
-        bottom: w < 768 ? 170 : 198,
+        centerX: w < 768 ? w * 0.5 : Math.min(w * 0.22, 290),
+        centerY: w < 768 ? 104 : 132,
+        radiusX: w < 768 ? Math.min(w * 0.34, 190) : 235,
+        radiusY: w < 768 ? 86 : 78,
       };
     }
 
@@ -106,22 +104,13 @@ export default function StealthHoneycombGrid({
         ? cells
           .map((cell, index) => ({ cell, index }))
           .map(({ cell, index }) => {
-            if (
-              cell.x < glowArea.left ||
-              cell.x > glowArea.right ||
-              cell.y < glowArea.top ||
-              cell.y > glowArea.bottom
-            ) {
-              return { index, intensity: 0 };
-            }
-            const width = Math.max(1, glowArea.right - glowArea.left);
-            const height = Math.max(1, glowArea.bottom - glowArea.top);
-            const edgeX = Math.min(cell.x - glowArea.left, glowArea.right - cell.x) / width;
-            const edgeY = Math.min(cell.y - glowArea.top, glowArea.bottom - cell.y) / height;
-            const edgeBlend = Math.max(0, Math.min(1, Math.min(edgeX, edgeY) * 4));
+            const nx = (cell.x - glowArea.centerX) / Math.max(1, glowArea.radiusX);
+            const ny = (cell.y - glowArea.centerY) / Math.max(1, glowArea.radiusY);
+            const distance = Math.sqrt(nx * nx + ny * ny);
+            if (distance > 1) return { index, intensity: 0 };
             return {
               index,
-              intensity: 0.62 + edgeBlend * 0.38,
+              intensity: 0.42 + (1 - distance) * 0.58,
             };
           })
           .filter(({ intensity }) => intensity > 0)
@@ -224,7 +213,7 @@ export default function StealthHoneycombGrid({
 
       for (const glowCell of s.persistentGlow) {
         const cell = s.cells[glowCell.index];
-        if (cell) drawGlowCell(cell, 0.18 + glowCell.intensity * 0.28, 1.72);
+        if (cell) drawGlowCell(cell, 0.16 + glowCell.intensity * 0.24, 1.38);
       }
 
       let keepAnimating = false;
