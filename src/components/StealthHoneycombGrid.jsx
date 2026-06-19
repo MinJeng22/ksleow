@@ -27,6 +27,7 @@ export default function StealthHoneycombGrid({
   const stateRef = useRef({
     cells: [],
     persistentGlow: [],
+    titleGlowArea: null,
     active: new Map(),
     frame: 0,
     w: 0,
@@ -75,9 +76,9 @@ export default function StealthHoneycombGrid({
         right: Math.min(w - radius, w < 768 ? w + radius : Math.min(820, w * 0.62)),
         top: w < 768 ? 4 : 12,
         bottom: Math.min(h, w < 768 ? 176 : 190),
-        step: w < 768 ? 3 : 4,
         ...(titleGlowBounds || {}),
       };
+      s.titleGlowArea = titleGlow ? glowBounds : null;
       s.persistentGlow = titleGlow
         ? cells
           .map((cell, index) => ({ cell, index }))
@@ -85,8 +86,7 @@ export default function StealthHoneycombGrid({
             cell.x >= glowBounds.left &&
             cell.x <= glowBounds.right &&
             cell.y >= glowBounds.top &&
-            cell.y <= glowBounds.bottom &&
-            index % glowBounds.step === 0
+            cell.y <= glowBounds.bottom
           ))
           .map(({ index }) => index)
         : [];
@@ -167,6 +167,34 @@ export default function StealthHoneycombGrid({
       ctx.stroke();
     }
 
+    function drawTitleGlowWash() {
+      if (!s.titleGlowArea) return;
+      const area = s.titleGlowArea;
+      const width = Math.max(1, area.right - area.left);
+      const height = Math.max(1, area.bottom - area.top);
+      const centerX = area.left + width * 0.48;
+      const centerY = area.top + height * 0.46;
+      const radius = Math.max(width * 0.72, height * 2.4);
+
+      ctx.save();
+      ctx.globalCompositeOperation = "source-over";
+      const glow = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+      glow.addColorStop(0, `rgba(${glowRgb},0.155)`);
+      glow.addColorStop(0.42, `rgba(${glowRgb},0.092)`);
+      glow.addColorStop(0.78, `rgba(${glowRgb},0.032)`);
+      glow.addColorStop(1, `rgba(${glowRgb},0)`);
+      ctx.fillStyle = glow;
+      ctx.fillRect(area.left - s.radius * 2, area.top - s.radius, width + s.radius * 4, height + s.radius * 2.4);
+
+      const feather = ctx.createLinearGradient(0, area.top, 0, area.bottom + s.radius * 1.6);
+      feather.addColorStop(0, `rgba(${glowRgb},0.018)`);
+      feather.addColorStop(0.46, `rgba(${glowRgb},0.062)`);
+      feather.addColorStop(1, `rgba(${glowRgb},0)`);
+      ctx.fillStyle = feather;
+      ctx.fillRect(area.left - s.radius, area.top, width + s.radius * 2, height + s.radius * 1.8);
+      ctx.restore();
+    }
+
     function draw(ts, force = false) {
       if (!s.w || !s.h) {
         s.frame = 0;
@@ -174,6 +202,7 @@ export default function StealthHoneycombGrid({
       }
 
       drawBackground();
+      drawTitleGlowWash();
 
       ctx.save();
       ctx.lineWidth = 0.75;
@@ -188,7 +217,7 @@ export default function StealthHoneycombGrid({
 
       for (const index of s.persistentGlow) {
         const cell = s.cells[index];
-        if (cell) drawGlowCell(cell, 0.48, 2.1);
+        if (cell) drawGlowCell(cell, 0.18, 1.6);
       }
 
       let keepAnimating = false;
