@@ -21,13 +21,13 @@ export default function StealthHoneycombGrid({
   glowRgb = "201,168,76",
   titleGlow = true,
   titleGlowBounds,
+  titleGlowTarget,
   className = "",
 }) {
   const canvasRef = useRef(null);
   const stateRef = useRef({
     cells: [],
     persistentGlow: [],
-    titleGlowArea: null,
     active: new Map(),
     frame: 0,
     w: 0,
@@ -52,6 +52,31 @@ export default function StealthHoneycombGrid({
       };
     }
 
+    function getTitleGlowArea(w, h, radius) {
+      const target = titleGlowTarget ? document.querySelector(titleGlowTarget) : null;
+      if (target) {
+        const canvasRect = canvas.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const left = targetRect.left - canvasRect.left;
+        const top = targetRect.top - canvasRect.top;
+        const width = targetRect.width;
+        const height = targetRect.height;
+        return {
+          centerX: left + width * 0.5,
+          centerY: top + height * 0.58,
+          radiusX: Math.max(width * 0.82, radius * (w < 768 ? 5.4 : 6.4)),
+          radiusY: Math.max(height * 2.45, radius * (w < 768 ? 3.7 : 4.4)),
+        };
+      }
+
+      return {
+        centerX: w < 768 ? w * 0.5 : Math.min(w * 0.42, 560),
+        centerY: w < 768 ? 86 : 112,
+        radiusX: w < 768 ? w * 0.44 : Math.min(w * 0.23, 360),
+        radiusY: w < 768 ? 118 : 150,
+      };
+    }
+
     function buildCells(w, h) {
       const radius = w >= 1600 ? 38 : w >= 1180 ? 34 : w >= 640 ? 31 : 29;
       const dx = radius * 1.5;
@@ -71,24 +96,23 @@ export default function StealthHoneycombGrid({
 
       s.radius = radius;
       s.cells = cells;
-      const glowBounds = {
-        left: -radius,
-        right: Math.min(w - radius, w < 768 ? w + radius : Math.min(820, w * 0.62)),
-        top: w < 768 ? 4 : 12,
-        bottom: Math.min(h, w < 768 ? 176 : 190),
+      const glowArea = {
+        ...getTitleGlowArea(w, h, radius),
         ...(titleGlowBounds || {}),
       };
-      s.titleGlowArea = titleGlow ? glowBounds : null;
       s.persistentGlow = titleGlow
         ? cells
           .map((cell, index) => ({ cell, index }))
-          .filter(({ cell, index }) => (
-            cell.x >= glowBounds.left &&
-            cell.x <= glowBounds.right &&
-            cell.y >= glowBounds.top &&
-            cell.y <= glowBounds.bottom
-          ))
-          .map(({ index }) => index)
+          .map(({ cell, index }) => {
+            const nx = (cell.x - glowArea.centerX) / glowArea.radiusX;
+            const ny = (cell.y - glowArea.centerY) / glowArea.radiusY;
+            const distance = Math.sqrt(nx * nx + ny * ny);
+            return {
+              index,
+              intensity: Math.max(0, 1 - distance),
+            };
+          })
+          .filter(({ intensity }) => intensity > 0.05)
         : [];
     }
 
@@ -167,34 +191,6 @@ export default function StealthHoneycombGrid({
       ctx.stroke();
     }
 
-    function drawTitleGlowWash() {
-      if (!s.titleGlowArea) return;
-      const area = s.titleGlowArea;
-      const width = Math.max(1, area.right - area.left);
-      const height = Math.max(1, area.bottom - area.top);
-      const centerX = area.left + width * 0.48;
-      const centerY = area.top + height * 0.46;
-      const radius = Math.max(width * 0.72, height * 2.4);
-
-      ctx.save();
-      ctx.globalCompositeOperation = "source-over";
-      const glow = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
-      glow.addColorStop(0, `rgba(${glowRgb},0.155)`);
-      glow.addColorStop(0.42, `rgba(${glowRgb},0.092)`);
-      glow.addColorStop(0.78, `rgba(${glowRgb},0.032)`);
-      glow.addColorStop(1, `rgba(${glowRgb},0)`);
-      ctx.fillStyle = glow;
-      ctx.fillRect(area.left - s.radius * 2, area.top - s.radius, width + s.radius * 4, height + s.radius * 2.4);
-
-      const feather = ctx.createLinearGradient(0, area.top, 0, area.bottom + s.radius * 1.6);
-      feather.addColorStop(0, `rgba(${glowRgb},0.018)`);
-      feather.addColorStop(0.46, `rgba(${glowRgb},0.062)`);
-      feather.addColorStop(1, `rgba(${glowRgb},0)`);
-      ctx.fillStyle = feather;
-      ctx.fillRect(area.left - s.radius, area.top, width + s.radius * 2, height + s.radius * 1.8);
-      ctx.restore();
-    }
-
     function draw(ts, force = false) {
       if (!s.w || !s.h) {
         s.frame = 0;
@@ -202,7 +198,6 @@ export default function StealthHoneycombGrid({
       }
 
       drawBackground();
-      drawTitleGlowWash();
 
       ctx.save();
       ctx.lineWidth = 0.75;
@@ -215,9 +210,9 @@ export default function StealthHoneycombGrid({
       }
       ctx.restore();
 
-      for (const index of s.persistentGlow) {
-        const cell = s.cells[index];
-        if (cell) drawGlowCell(cell, 0.18, 1.6);
+      for (const glowCell of s.persistentGlow) {
+        const cell = s.cells[glowCell.index];
+        if (cell) drawGlowCell(cell, 0.18 + glowCell.intensity * 0.28, 1.72);
       }
 
       let keepAnimating = false;
@@ -273,7 +268,7 @@ export default function StealthHoneycombGrid({
       window.removeEventListener("resize", resize);
       finePointerMedia.removeEventListener?.("change", resize);
     };
-  }, [background, glowRgb, lineRgb, titleGlow, titleGlowBounds]);
+  }, [background, glowRgb, lineRgb, titleGlow, titleGlowBounds, titleGlowTarget]);
 
   return (
     <canvas
