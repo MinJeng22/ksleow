@@ -213,7 +213,7 @@ export default function StealthHoneycombGrid({
 
       for (const glowCell of s.persistentGlow) {
         const cell = s.cells[glowCell.index];
-        if (cell) drawGlowCell(cell, 0.16 + glowCell.intensity * 0.24, 1.38);
+        if (cell) drawGlowCell(cell, 0.26 + glowCell.intensity * 0.36, 1.52);
       }
 
       let keepAnimating = false;
