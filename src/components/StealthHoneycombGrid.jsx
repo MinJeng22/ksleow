@@ -21,6 +21,8 @@ export default function StealthHoneycombGrid({
   glowRgb = "201,168,76",
   lineOpacity = 0.042,
   cellFillOpacity = 0.012,
+  wash = true,
+  fullCellsOnly = false,
   titleGlow = true,
   titleGlowBounds,
   titleGlowTarget,
@@ -177,12 +179,14 @@ export default function StealthHoneycombGrid({
         ctx.fillRect(0, 0, s.w, s.h);
       }
 
-      const wash = ctx.createRadialGradient(s.w * 0.22, s.h * 0.12, 0, s.w * 0.22, s.h * 0.12, s.w * 0.72);
-      wash.addColorStop(0, "rgba(255,255,255,0.46)");
-      wash.addColorStop(0.42, "rgba(255,255,255,0.18)");
-      wash.addColorStop(1, "rgba(255,255,255,0)");
-      ctx.fillStyle = wash;
-      ctx.fillRect(0, 0, s.w, s.h);
+      if (wash) {
+        const washGradient = ctx.createRadialGradient(s.w * 0.22, s.h * 0.12, 0, s.w * 0.22, s.h * 0.12, s.w * 0.72);
+        washGradient.addColorStop(0, "rgba(255,255,255,0.46)");
+        washGradient.addColorStop(0.42, "rgba(255,255,255,0.18)");
+        washGradient.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = washGradient;
+        ctx.fillRect(0, 0, s.w, s.h);
+      }
     }
 
     function drawGlowCell(cell, intensity, radiusScale = 2.45) {
@@ -216,6 +220,17 @@ export default function StealthHoneycombGrid({
       ctx.strokeStyle = `rgba(${lineRgb},${lineOpacity})`;
       ctx.fillStyle = `rgba(255,255,255,${cellFillOpacity})`;
       for (const cell of s.cells) {
+        if (
+          fullCellsOnly
+          && (
+            cell.x - s.radius < 0
+            || cell.x + s.radius > s.w
+            || cell.y - s.radius < 0
+            || cell.y + s.radius > s.h
+          )
+        ) {
+          continue;
+        }
         hexPath(ctx, cell.x, cell.y, s.radius);
         ctx.fill();
         ctx.stroke();
@@ -280,7 +295,7 @@ export default function StealthHoneycombGrid({
       window.removeEventListener("resize", resize);
       finePointerMedia.removeEventListener?.("change", resize);
     };
-  }, [background, cellFillOpacity, glowRgb, lineOpacity, lineRgb, titleGlow, titleGlowBounds, titleGlowTarget]);
+  }, [background, cellFillOpacity, fullCellsOnly, glowRgb, lineOpacity, lineRgb, titleGlow, titleGlowBounds, titleGlowTarget, wash]);
 
   return (
     <canvas
