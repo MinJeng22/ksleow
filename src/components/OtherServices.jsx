@@ -308,6 +308,9 @@ export default function OtherServices({ onContact }) {
       lineRgb="226,227,234"
       glowRgb="201,168,76"
       fullCellsOnly
+      seamTop
+      seamFill="#f5f5f8"
+      seamRows={2}
       titleGlowTarget=".other-services-section .ks-section-title"
       lineOpacity={0.62}
       cellFillOpacity={0}
