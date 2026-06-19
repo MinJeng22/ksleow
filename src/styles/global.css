@@ -2980,8 +2980,8 @@ body.has-active-modal .back-to-top-glass {
 }
 
 .other-services-section .stealth-honeycomb-grid {
-  inset: -6rem 0;
-  height: calc(100% + 12rem);
+  inset: -2rem 0;
+  height: calc(100% + 4rem);
 }
 
 .stealth-honeycomb-grid {
@@ -2996,8 +2996,8 @@ body.has-active-modal .back-to-top-glass {
 
 @media (max-width: 767px) {
   .other-services-section .stealth-honeycomb-grid {
-    inset: -3.5rem 0;
-    height: calc(100% + 7rem);
+    inset: -1.5rem 0;
+    height: calc(100% + 3rem);
   }
 
   .service-card-shell {

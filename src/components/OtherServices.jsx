@@ -305,9 +305,10 @@ export default function OtherServices({ onContact }) {
     <section id="other-services" className="home-section other-services-section" style={{ position: "relative", overflow: "visible", background: "transparent", padding: "var(--section-py) 0" }}>
     <StealthHoneycombGrid
       background="transparent"
+      lineRgb="226,222,217"
       titleGlowTarget=".other-services-section .ks-section-title"
-      lineOpacity={0.07}
-      cellFillOpacity={0.018}
+      lineOpacity={0.72}
+      cellFillOpacity={0.01}
     />
     <div className="content-wrap" style={{ position: "relative", zIndex: 1 }}>
       <SectionHeader
