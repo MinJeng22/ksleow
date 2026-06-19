@@ -57,8 +57,12 @@ const BENTO_CAROUSEL_STYLES = `
   box-shadow: none;
 }
 .other-services-carousel .ks-bento-card.is-empty {
-  /* User wants empty cards to be visible as filled shapes to fill negative space */
-  border-color: rgba(47,49,90,0.1);
+  background: rgba(255,255,255,0.34) !important;
+  border-color: rgba(47,49,90,0.08) !important;
+  backdrop-filter: blur(0.5px);
+}
+.other-services-carousel .ks-bento-card.is-empty .ks-bento-placeholder {
+  background: transparent !important;
 }
 .other-services-carousel .ks-bento-card.is-clickable:hover {
   background: #ffffff;

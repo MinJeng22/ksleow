@@ -19,6 +19,8 @@ export default function StealthHoneycombGrid({
   background = "#f5f5f8",
   lineRgb = "47,49,90",
   glowRgb = "201,168,76",
+  lineOpacity = 0.042,
+  cellFillOpacity = 0.012,
   titleGlow = true,
   titleGlowBounds,
   titleGlowTarget,
@@ -169,8 +171,11 @@ export default function StealthHoneycombGrid({
     }
 
     function drawBackground() {
-      ctx.fillStyle = background;
-      ctx.fillRect(0, 0, s.w, s.h);
+      ctx.clearRect(0, 0, s.w, s.h);
+      if (background && background !== "transparent") {
+        ctx.fillStyle = background;
+        ctx.fillRect(0, 0, s.w, s.h);
+      }
 
       const wash = ctx.createRadialGradient(s.w * 0.22, s.h * 0.12, 0, s.w * 0.22, s.h * 0.12, s.w * 0.72);
       wash.addColorStop(0, "rgba(255,255,255,0.46)");
@@ -208,8 +213,8 @@ export default function StealthHoneycombGrid({
 
       ctx.save();
       ctx.lineWidth = 0.75;
-      ctx.strokeStyle = `rgba(${lineRgb},0.042)`;
-      ctx.fillStyle = "rgba(255,255,255,0.012)";
+      ctx.strokeStyle = `rgba(${lineRgb},${lineOpacity})`;
+      ctx.fillStyle = `rgba(255,255,255,${cellFillOpacity})`;
       for (const cell of s.cells) {
         hexPath(ctx, cell.x, cell.y, s.radius);
         ctx.fill();
@@ -275,7 +280,7 @@ export default function StealthHoneycombGrid({
       window.removeEventListener("resize", resize);
       finePointerMedia.removeEventListener?.("change", resize);
     };
-  }, [background, glowRgb, lineRgb, titleGlow, titleGlowBounds, titleGlowTarget]);
+  }, [background, cellFillOpacity, glowRgb, lineOpacity, lineRgb, titleGlow, titleGlowBounds, titleGlowTarget]);
 
   return (
     <canvas
