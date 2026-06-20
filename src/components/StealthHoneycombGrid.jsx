@@ -36,7 +36,6 @@ export default function StealthHoneycombGrid({
     frame: 0,
     w: 0,
     h: 0,
-    clipPadding: { top: 0, right: 0, bottom: 0, left: 0 },
     radius: 34,
     pointerFine: false,
     lastActivated: -1,
@@ -55,30 +54,6 @@ export default function StealthHoneycombGrid({
         w: Math.round(rect.width || canvas.parentElement?.clientWidth || 0),
         h: Math.round(rect.height || canvas.parentElement?.clientHeight || 0),
       };
-    }
-
-    function measureClipPadding() {
-      const parentRect = canvas.parentElement?.getBoundingClientRect();
-      const canvasRect = canvas.getBoundingClientRect();
-      if (!parentRect) return { top: 0, right: 0, bottom: 0, left: 0 };
-      return {
-        top: Math.max(0, Math.round(parentRect.top - canvasRect.top)),
-        right: Math.max(0, Math.round(canvasRect.right - parentRect.right)),
-        bottom: Math.max(0, Math.round(canvasRect.bottom - parentRect.bottom)),
-        left: Math.max(0, Math.round(parentRect.left - canvasRect.left)),
-      };
-    }
-
-    function isCellInsideClip(cell, radiusScale = 1) {
-      if (!cell) return false;
-      const r = s.radius * radiusScale;
-      const pad = s.clipPadding || { top: 0, right: 0, bottom: 0, left: 0 };
-      return (
-        cell.x - r >= pad.left
-        && cell.x + r <= s.w - pad.right
-        && cell.y - r >= pad.top
-        && cell.y + r <= s.h - pad.bottom
-      );
     }
 
     function getTitleGlowArea(w, h, radius) {
@@ -142,7 +117,7 @@ export default function StealthHoneycombGrid({
             const nx = (cell.x - glowArea.centerX) / Math.max(1, glowArea.radiusX);
             const ny = (cell.y - glowArea.centerY) / Math.max(1, glowArea.radiusY);
             const distance = Math.sqrt(nx * nx + ny * ny);
-            if (distance > 1 || (fullCellsOnly && !isCellInsideClip(cell, 1.66))) return { index, intensity: 0 };
+            if (distance > 1) return { index, intensity: 0 };
             return {
               index,
               intensity: 0.42 + (1 - distance) * 0.58,
@@ -161,7 +136,6 @@ export default function StealthHoneycombGrid({
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       s.w = w;
       s.h = h;
-      s.clipPadding = fullCellsOnly ? measureClipPadding() : { top: 0, right: 0, bottom: 0, left: 0 };
       s.pointerFine = finePointerMedia.matches;
       buildCells(w, h);
       draw(performance.now(), true);
@@ -192,7 +166,6 @@ export default function StealthHoneycombGrid({
       if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
       const index = findNearestCell(x, y);
       if (index < 0) return;
-      if (fullCellsOnly && !isCellInsideClip(s.cells[index], 2.45)) return;
       if (!force && index === s.lastActivated) return;
       s.lastActivated = index;
       s.active.set(index, 1);
@@ -217,7 +190,6 @@ export default function StealthHoneycombGrid({
     }
 
     function drawGlowCell(cell, intensity, radiusScale = 2.45) {
-      if (fullCellsOnly && !isCellInsideClip(cell, radiusScale)) return;
       const glow = ctx.createRadialGradient(cell.x, cell.y, 0, cell.x, cell.y, s.radius * radiusScale);
       glow.addColorStop(0, `rgba(${glowRgb},${0.24 * intensity})`);
       glow.addColorStop(0.42, `rgba(${glowRgb},${0.11 * intensity})`);
@@ -248,7 +220,15 @@ export default function StealthHoneycombGrid({
       ctx.strokeStyle = `rgba(${lineRgb},${lineOpacity})`;
       ctx.fillStyle = `rgba(255,255,255,${cellFillOpacity})`;
       for (const cell of s.cells) {
-        if (fullCellsOnly && !isCellInsideClip(cell, 1)) {
+        if (
+          fullCellsOnly
+          && (
+            cell.x - s.radius < 0
+            || cell.x + s.radius > s.w
+            || cell.y - s.radius < 0
+            || cell.y + s.radius > s.h
+          )
+        ) {
           continue;
         }
         hexPath(ctx, cell.x, cell.y, s.radius);
