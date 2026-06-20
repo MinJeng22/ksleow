@@ -84,9 +84,9 @@ const BENTO_CAROUSEL_STYLES = `
 @media (max-width: 1400px) {
     .other-services-carousel .ks-bento-carousel-track {
       gap: 1rem;
-      scroll-snap-type: x mandatory;
-      scroll-padding-left: max(0px, calc((100vw - min(85vw, 340px)) / 2));
-      touch-action: pan-y;
+      scroll-padding-left: 0;
+      -webkit-overflow-scrolling: touch;
+      touch-action: auto;
       cursor: grab;
     }
     .other-services-carousel .ks-bento-carousel-slide {
@@ -95,8 +95,6 @@ const BENTO_CAROUSEL_STYLES = `
     .other-services-carousel .ks-bento-card {
       flex: 0 0 85vw;
       max-width: 340px;
-      scroll-snap-align: center;
-      scroll-snap-stop: always;
       display: flex !important;
       flex-direction: column !important;
       min-height: 380px !important;
@@ -177,7 +175,6 @@ export function BentoCarousel({
   const trackRef = useRef(null);
   const animationRef = useRef(null);
   const slideTimerRef = useRef(null);
-  const touchRef = useRef({ x: 0, y: 0, startScroll: 0, active: false, dragging: false, locked: null });
   const suppressClickRef = useRef(0);
   const [slideDirection, setSlideDirection] = useState("");
   const displayItems = normalizeBentoItems(items, minItems);
@@ -195,25 +192,6 @@ export function BentoCarousel({
     const styles = window.getComputedStyle(track);
     const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
     return card.getBoundingClientRect().width + gap;
-  };
-
-  const getCenteredCardScrollLeft = (track, direction = 0, baseScroll = track.scrollLeft) => {
-    const cards = Array.from(track.querySelectorAll(".ks-bento-card"));
-    if (!cards.length) return track.scrollLeft;
-
-    const max = Math.max(0, track.scrollWidth - track.clientWidth);
-    const trackRect = track.getBoundingClientRect();
-    const current = cards.reduce((best, card, index) => {
-      const rect = card.getBoundingClientRect();
-      const centeredTarget = track.scrollLeft + rect.left - trackRect.left + rect.width / 2 - track.clientWidth / 2;
-      const snapTarget = Math.max(0, Math.min(max, centeredTarget));
-      const distance = Math.abs(snapTarget - baseScroll);
-      return distance < best.distance ? { index, distance, snapTarget } : best;
-    }, { index: 0, distance: Infinity });
-    const nextIndex = Math.max(0, Math.min(cards.length - 1, current.index + direction));
-    const target = cards[nextIndex];
-    const targetRect = target.getBoundingClientRect();
-    return track.scrollLeft + targetRect.left - trackRect.left + targetRect.width / 2 - track.clientWidth / 2;
   };
 
   const releaseTrackSnap = (track, delay = 90) => {
@@ -278,78 +256,8 @@ export function BentoCarousel({
       if (slideTimerRef.current) window.clearTimeout(slideTimerRef.current);
       slideTimerRef.current = window.setTimeout(() => setSlideDirection(""), duration + 120);
     }
-    const target = window.innerWidth <= 1400 && isOtherServices
-      ? getCenteredCardScrollLeft(track, direction)
-      : track.scrollLeft + direction * distance;
+    const target = track.scrollLeft + direction * distance;
     animateTrackTo(track, target, duration, window.innerWidth <= 1400 ? 140 : 90);
-  };
-
-  const handleTouchStart = (event) => {
-    if (!isOtherServices || window.innerWidth > 1400) return;
-    const touch = event.touches?.[0];
-    if (!touch) return;
-    if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
-      trackRef.current?.classList.remove("is-bento-animating");
-    }
-    animationRef.current = null;
-    trackRef.current?.classList.add("is-bento-animating");
-    touchRef.current = {
-      x: touch.clientX,
-      y: touch.clientY,
-      startScroll: trackRef.current?.scrollLeft || 0,
-      active: true,
-      dragging: false,
-      locked: null,
-    };
-  };
-
-  const handleTouchMove = (event) => {
-    if (!isOtherServices || window.innerWidth > 1400 || !touchRef.current.active) return;
-    const track = trackRef.current;
-    const touch = event.touches?.[0];
-    if (!track || !touch) return;
-    const dx = touch.clientX - touchRef.current.x;
-    const dy = touch.clientY - touchRef.current.y;
-
-    if (!touchRef.current.locked && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
-      touchRef.current.locked = Math.abs(dx) > Math.abs(dy) * 1.12 ? "x" : "y";
-    }
-    if (touchRef.current.locked !== "x") return;
-
-    touchRef.current.dragging = true;
-    event.preventDefault();
-    track.scrollLeft = touchRef.current.startScroll - dx;
-  };
-
-  const handleTouchEnd = (event) => {
-    if (!isOtherServices || window.innerWidth > 1400 || !touchRef.current.active) return;
-    const track = trackRef.current;
-    const touch = event.changedTouches?.[0];
-    const wasDragging = touchRef.current.dragging;
-    touchRef.current.active = false;
-    if (!track || !touch) return;
-    const dx = touch.clientX - touchRef.current.x;
-    const dy = touch.clientY - touchRef.current.y;
-    if (!wasDragging || Math.abs(dx) < 24 || Math.abs(dx) < Math.abs(dy) * 1.05) {
-      releaseTrackSnap(track, 80);
-      return;
-    }
-    suppressClickRef.current = Date.now() + 420;
-    event.preventDefault();
-
-    const direction = dx < 0 ? 1 : -1;
-    const target = getCenteredCardScrollLeft(track, direction, touchRef.current.startScroll);
-    setSlideDirection("");
-    window.requestAnimationFrame(() => setSlideDirection(direction > 0 ? "next" : "prev"));
-    if (slideTimerRef.current) window.clearTimeout(slideTimerRef.current);
-    slideTimerRef.current = window.setTimeout(() => setSlideDirection(""), 480);
-    animateTrackTo(track, target, 380, 150);
-  };
-
-  const handleTouchCancel = () => {
-    touchRef.current.active = false;
-    if (trackRef.current) releaseTrackSnap(trackRef.current, 80);
   };
 
   const handleClickCapture = (event) => {
@@ -369,10 +277,6 @@ export function BentoCarousel({
         <div
           className="ks-bento-carousel-track"
           ref={trackRef}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-          onTouchCancel={handleTouchCancel}
         >
           {slides.map((slideItems, slideIndex) => (
             <div className="ks-bento-carousel-slide ks-bento" key={`bento-slide-${slideIndex}`}>
