@@ -23,7 +23,7 @@ const SUPAPRINTZ_PARTNER = {
 };
 const SUPAPRINTZ_MODAL_IMAGES = [
   "/images/partners/supaprintz-desktop.webp",
-  "/images/partners/supaprintz-desktop.webp",
+  "/images/partners/supaprintz.my-banner.webp",
 ];
 const SITEGIANT_PARTNER = {
   name: "Sitegiant",
