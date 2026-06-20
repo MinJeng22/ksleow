@@ -302,7 +302,7 @@ export default function OtherServices({ onContact }) {
 
   return (
     <>
-    <section id="other-services" className="home-section other-services-section" style={{ position: "relative", overflow: "visible", background: "transparent", padding: "var(--section-py) 0" }}>
+    <section id="other-services" className="home-section other-services-section" style={{ position: "relative", overflow: "hidden", background: "transparent", padding: "var(--section-py) 0" }}>
     <StealthHoneycombGrid
       background="transparent"
       lineRgb="226,227,234"

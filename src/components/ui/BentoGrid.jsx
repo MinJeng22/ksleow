@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Img } from "../Media.jsx";
 
 const LAYOUT_CLASSES = [
@@ -27,6 +27,9 @@ const BENTO_CAROUSEL_STYLES = `
   scroll-padding-left: 0;
   scrollbar-width: none;
   will-change: scroll-position;
+}
+.ks-bento-carousel-track.is-bento-animating {
+  scroll-snap-type: none !important;
 }
 .ks-bento-carousel-track::-webkit-scrollbar {
   display: none;
@@ -97,6 +100,12 @@ const BENTO_CAROUSEL_STYLES = `
       flex-direction: column !important;
       min-height: 380px !important;
     }
+    .other-services-carousel.is-sliding-next .ks-bento-card {
+      animation: ks-bento-mobile-slide-next 460ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .other-services-carousel.is-sliding-prev .ks-bento-card {
+      animation: ks-bento-mobile-slide-prev 460ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
     .other-services-carousel .ks-bento-card .ks-bento-media {
       flex: 1 1 50% !important;
       min-height: 180px !important;
@@ -114,6 +123,20 @@ const BENTO_CAROUSEL_STYLES = `
       flex-basis: 350%;
     }
   }
+@keyframes ks-bento-mobile-slide-next {
+  0% { transform: translate3d(22px, 0, 0) scale(0.988); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes ks-bento-mobile-slide-prev {
+  0% { transform: translate3d(-22px, 0, 0) scale(0.988); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .other-services-carousel.is-sliding-next .ks-bento-card,
+  .other-services-carousel.is-sliding-prev .ks-bento-card {
+    animation: none !important;
+  }
+}
 `;
 
 export function BentoGrid({ items = [], minItems = 4, imageFor, onOpen, onPreload, className = "" }) {
@@ -148,14 +171,17 @@ export function BentoCarousel({
 }) {
   const trackRef = useRef(null);
   const animationRef = useRef(null);
+  const slideTimerRef = useRef(null);
   const touchRef = useRef({ x: 0, y: 0, startScroll: 0, active: false, dragging: false, locked: null });
   const suppressClickRef = useRef(0);
+  const [slideDirection, setSlideDirection] = useState("");
   const displayItems = normalizeBentoItems(items, minItems);
   const slides = chunkBentoItems(displayItems, minItems);
   const isOtherServices = className.split(/\s+/).includes("other-services-carousel");
 
   useEffect(() => () => {
     if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    if (slideTimerRef.current) window.clearTimeout(slideTimerRef.current);
   }, []);
 
   const getMobileCardStep = (track) => {
@@ -167,13 +193,17 @@ export function BentoCarousel({
   };
 
   const animateTrackTo = (track, end, duration) => {
-    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      track.classList.remove("is-bento-animating");
+    }
     const max = Math.max(0, track.scrollWidth - track.clientWidth);
     const start = track.scrollLeft;
     const target = Math.max(0, Math.min(max, end));
     const delta = target - start;
     if (Math.abs(delta) < 1) return;
 
+    track.classList.add("is-bento-animating");
     const startTime = performance.now();
     const easeInOutCubic = (t) => (
       t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
@@ -187,6 +217,7 @@ export function BentoCarousel({
       } else {
         track.scrollLeft = target;
         animationRef.current = null;
+        window.requestAnimationFrame(() => track.classList.remove("is-bento-animating"));
       }
     };
 
@@ -207,6 +238,13 @@ export function BentoCarousel({
     }
     
     const duration = window.innerWidth <= 1400 ? 420 : 680;
+    if (window.innerWidth <= 1400 && isOtherServices) {
+      const nextDirection = direction > 0 ? "next" : "prev";
+      setSlideDirection("");
+      window.requestAnimationFrame(() => setSlideDirection(nextDirection));
+      if (slideTimerRef.current) window.clearTimeout(slideTimerRef.current);
+      slideTimerRef.current = window.setTimeout(() => setSlideDirection(""), duration + 120);
+    }
     animateTrackTo(track, track.scrollLeft + direction * distance, duration);
   };
 
@@ -214,7 +252,10 @@ export function BentoCarousel({
     if (!isOtherServices || window.innerWidth > 1400) return;
     const touch = event.touches?.[0];
     if (!touch) return;
-    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      trackRef.current?.classList.remove("is-bento-animating");
+    }
     animationRef.current = null;
     touchRef.current = {
       x: touch.clientX,
@@ -260,6 +301,10 @@ export function BentoCarousel({
     const step = getMobileCardStep(track);
     const direction = dx < 0 ? 1 : -1;
     const target = touchRef.current.startScroll + direction * step;
+    setSlideDirection("");
+    window.requestAnimationFrame(() => setSlideDirection(direction > 0 ? "next" : "prev"));
+    if (slideTimerRef.current) window.clearTimeout(slideTimerRef.current);
+    slideTimerRef.current = window.setTimeout(() => setSlideDirection(""), 480);
     animateTrackTo(track, target, 360);
   };
 
@@ -272,7 +317,7 @@ export function BentoCarousel({
 
   return (
     <div
-      className={`ks-bento-carousel${className ? ` ${className}` : ""}`}
+      className={`ks-bento-carousel${className ? ` ${className}` : ""}${slideDirection ? ` is-sliding-${slideDirection}` : ""}`}
       onClickCapture={handleClickCapture}
     >
       <style>{BENTO_CAROUSEL_STYLES}</style>
