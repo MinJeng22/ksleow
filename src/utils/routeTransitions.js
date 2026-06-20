@@ -257,6 +257,7 @@ function restoreRoutePosition(target) {
     window.scrollTo({ top: Math.max(0, Number(target.y) || 0), left: 0, behavior: "instant" });
   };
 
+  apply();
   window.requestAnimationFrame(apply);
   window.setTimeout(apply, 80);
   window.setTimeout(apply, 260);

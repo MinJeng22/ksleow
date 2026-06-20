@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { BrowserRouter, Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 
 import ContactModal  from "./components/ContactModal";
@@ -29,6 +29,7 @@ import "./styles/global.css";
 
 const routePath = Object.fromEntries(siteRoutes.map((route) => [route.id, route.route]));
 const POP_ROUTE_RENDER_DELAY_MS = 500;
+const useIsomorphicLayoutEffect = import.meta.env.SSR ? useEffect : useLayoutEffect;
 
 function wait(ms) {
   return new Promise((resolve) => window.setTimeout(resolve, ms));
@@ -83,10 +84,10 @@ function DelayedRoutes({ openContact }) {
     ]).then(applyLocation);
   }, [location, navigationType]);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (typeof window === "undefined") return undefined;
-    const frame = window.requestAnimationFrame(flushPostRouteRenderEffects);
-    return () => window.cancelAnimationFrame(frame);
+    flushPostRouteRenderEffects();
+    return undefined;
   }, [displayLocation.key]);
 
   return <SiteRoutes openContact={openContact} displayLocation={displayLocation} />;
