@@ -23,9 +23,6 @@ export default function StealthHoneycombGrid({
   cellFillOpacity = 0.012,
   wash = true,
   fullCellsOnly = false,
-  seamTop = false,
-  seamFill = "#f5f5f8",
-  seamRows = 2,
   titleGlow = true,
   titleGlowBounds,
   titleGlowTarget,
@@ -72,18 +69,7 @@ export default function StealthHoneycombGrid({
       };
     }
 
-    function isCellInsideCanvas(cell, radiusScale = 1) {
-      if (!cell) return false;
-      const r = s.radius * radiusScale;
-      return (
-        cell.x - r >= 0
-        && cell.x + r <= s.w
-        && cell.y - r >= 0
-        && cell.y + r <= s.h
-      );
-    }
-
-    function isCellInsideParent(cell, radiusScale = 1) {
+    function isCellInsideClip(cell, radiusScale = 1) {
       if (!cell) return false;
       const r = s.radius * radiusScale;
       const pad = s.clipPadding || { top: 0, right: 0, bottom: 0, left: 0 };
@@ -93,19 +79,6 @@ export default function StealthHoneycombGrid({
         && cell.y - r >= pad.top
         && cell.y + r <= s.h - pad.bottom
       );
-    }
-
-    function isTopSeamCell(cell) {
-      if (!seamTop || !cell) return false;
-      const parentTop = s.clipPadding?.top || 0;
-      const dy = SQRT_3 * s.radius;
-      return cell.y >= parentTop - dy * 0.55 && cell.y <= parentTop + dy * Math.max(0.8, seamRows - 0.55);
-    }
-
-    function isCellDrawable(cell, radiusScale = 1, includeSeam = false) {
-      if (!fullCellsOnly) return true;
-      if (includeSeam && isTopSeamCell(cell)) return isCellInsideCanvas(cell, radiusScale);
-      return isCellInsideParent(cell, radiusScale);
     }
 
     function getTitleGlowArea(w, h, radius) {
@@ -169,7 +142,7 @@ export default function StealthHoneycombGrid({
             const nx = (cell.x - glowArea.centerX) / Math.max(1, glowArea.radiusX);
             const ny = (cell.y - glowArea.centerY) / Math.max(1, glowArea.radiusY);
             const distance = Math.sqrt(nx * nx + ny * ny);
-            if (distance > 1 || !isCellDrawable(cell, 1.66, true)) return { index, intensity: 0 };
+            if (distance > 1 || (fullCellsOnly && !isCellInsideClip(cell, 1.66))) return { index, intensity: 0 };
             return {
               index,
               intensity: 0.42 + (1 - distance) * 0.58,
@@ -219,7 +192,7 @@ export default function StealthHoneycombGrid({
       if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
       const index = findNearestCell(x, y);
       if (index < 0) return;
-      if (!isCellDrawable(s.cells[index], 2.45, true)) return;
+      if (fullCellsOnly && !isCellInsideClip(s.cells[index], 2.45)) return;
       if (!force && index === s.lastActivated) return;
       s.lastActivated = index;
       s.active.set(index, 1);
@@ -244,7 +217,7 @@ export default function StealthHoneycombGrid({
     }
 
     function drawGlowCell(cell, intensity, radiusScale = 2.45) {
-      if (!isCellDrawable(cell, radiusScale, true)) return;
+      if (fullCellsOnly && !isCellInsideClip(cell, radiusScale)) return;
       const glow = ctx.createRadialGradient(cell.x, cell.y, 0, cell.x, cell.y, s.radius * radiusScale);
       glow.addColorStop(0, `rgba(${glowRgb},${0.24 * intensity})`);
       glow.addColorStop(0.42, `rgba(${glowRgb},${0.11 * intensity})`);
@@ -262,21 +235,6 @@ export default function StealthHoneycombGrid({
       ctx.stroke();
     }
 
-    function drawTopSeam() {
-      if (!seamTop) return;
-      ctx.save();
-      ctx.lineWidth = 0.82;
-      ctx.strokeStyle = `rgba(${lineRgb},${Math.max(lineOpacity, 0.18)})`;
-      ctx.fillStyle = seamFill;
-      for (const cell of s.cells) {
-        if (!isTopSeamCell(cell) || !isCellInsideCanvas(cell, 1)) continue;
-        hexPath(ctx, cell.x, cell.y, s.radius);
-        ctx.fill();
-        ctx.stroke();
-      }
-      ctx.restore();
-    }
-
     function draw(ts, force = false) {
       if (!s.w || !s.h) {
         s.frame = 0;
@@ -284,14 +242,13 @@ export default function StealthHoneycombGrid({
       }
 
       drawBackground();
-      drawTopSeam();
 
       ctx.save();
       ctx.lineWidth = 0.75;
       ctx.strokeStyle = `rgba(${lineRgb},${lineOpacity})`;
       ctx.fillStyle = `rgba(255,255,255,${cellFillOpacity})`;
       for (const cell of s.cells) {
-        if (!isCellDrawable(cell, 1, false)) {
+        if (fullCellsOnly && !isCellInsideClip(cell, 1)) {
           continue;
         }
         hexPath(ctx, cell.x, cell.y, s.radius);
@@ -358,7 +315,7 @@ export default function StealthHoneycombGrid({
       window.removeEventListener("resize", resize);
       finePointerMedia.removeEventListener?.("change", resize);
     };
-  }, [background, cellFillOpacity, fullCellsOnly, glowRgb, lineOpacity, lineRgb, seamFill, seamRows, seamTop, titleGlow, titleGlowBounds, titleGlowTarget, wash]);
+  }, [background, cellFillOpacity, fullCellsOnly, glowRgb, lineOpacity, lineRgb, titleGlow, titleGlowBounds, titleGlowTarget, wash]);
 
   return (
     <canvas
