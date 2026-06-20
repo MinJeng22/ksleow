@@ -218,9 +218,22 @@ textarea {
 
 .other-services-section {
   isolation: isolate;
+  overflow: hidden !important;
 }
 
-.other-services-section .stealth-honeycomb-grid {
+.other-services-honeycomb-layer {
+  clip-path: inset(0);
+  contain: paint;
+  display: block;
+  inset: 0;
+  overflow: hidden;
+  overflow: clip;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.other-services-honeycomb-layer .stealth-honeycomb-grid {
   display: block;
   height: 100%;
   inset: 0;
