@@ -231,7 +231,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
           <div className="ac-brand-marquee-container ac-awards-container-new">
             <div className="ac-brand-marquee ac-awards-marquee-track" style={{ animationDuration: "35s" }}>
               {AWARD_YEARS.map((award) => <AwardYear key={`orig-${award.year}`} award={award} />)}
-              {[...AWARD_YEARS, ...AWARD_YEARS, ...AWARD_YEARS].map((award, i) => (
+              {AWARD_YEARS.map((award, i) => (
                 <AwardYear key={`dup-${award.year}-${i}`} award={award} duplicate />
               ))}
             </div>
