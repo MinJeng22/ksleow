@@ -20,9 +20,21 @@ export default function BackToTop({ hideBar }) {
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 400);
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        const shouldShow = window.scrollY > 400;
+        setVisible((current) => (current === shouldShow ? current : shouldShow));
+      });
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   if (!mounted || pathname === "/omni") return null;

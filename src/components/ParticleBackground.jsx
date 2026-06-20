@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 
+const useIsomorphicLayoutEffect = import.meta.env.SSR ? useEffect : useLayoutEffect;
+
 /* ─── Calibrated density — fewer particles on mobile/tablet ────
  * Mobile (< 640): ~22 particles, density 0.00007 px⁻²
  * Tablet (640–1024): ~35 particles, density 0.00010 px⁻²
@@ -88,12 +90,13 @@ export default function ParticleBackground({
 
   useEffect(() => { stateRef.current.pausedRef = paused; }, [paused]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const canvas = canvasRef.current;
     if (!active) return;
     if (!canvas) return;
     const s   = stateRef.current;
     const ctx = canvas.getContext("2d", { alpha: true });
+    const finePointerMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
 
     function measureCanvas() {
       const rect = canvas.getBoundingClientRect();
@@ -378,6 +381,7 @@ export default function ParticleBackground({
        doesn't block events from reaching the canvas.
        We translate page coords → canvas-relative coords. */
     function onMouseMove(e) {
+      if (!s.isIntersecting || !finePointerMedia.matches) return;
       const rect = canvas.getBoundingClientRect();
       s.mx = e.clientX - rect.left;
       s.my = e.clientY - rect.top;
@@ -414,10 +418,13 @@ export default function ParticleBackground({
     observer.observe(canvas);
 
     const onVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        onResize();
-        if (s.isIntersecting) startLoop(true);
+      if (document.visibilityState === "hidden") {
+        if (s.frameId) cancelAnimationFrame(s.frameId);
+        s.frameId = null;
+        return;
       }
+      onResize();
+      if (s.isIntersecting) startLoop(true);
     };
     window.addEventListener("pageshow", onResize, { passive: true });
     document.addEventListener("visibilitychange", onVisibilityChange);

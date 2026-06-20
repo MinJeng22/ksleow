@@ -65,6 +65,7 @@ export default function useDarkBg(ref) {
 
   useEffect(() => {
     let ticking = false;
+    let lastCheck = 0;
     const timers = [];
 
     const checkBg = () => {
@@ -102,9 +103,12 @@ export default function useDarkBg(ref) {
       }
     };
 
-    const scheduleCheck = () => {
+    const scheduleCheck = (force = false) => {
+      const now = performance.now();
+      if (!force && now - lastCheck < 80) return;
       if (ticking) return;
       window.requestAnimationFrame(() => {
+        lastCheck = performance.now();
         checkBg();
         ticking = false;
       });
@@ -114,11 +118,11 @@ export default function useDarkBg(ref) {
     window.addEventListener("scroll", scheduleCheck, { passive: true });
     window.addEventListener("resize", scheduleCheck, { passive: true });
 
-    scheduleCheck();
+    scheduleCheck(true);
     timers.push(
-      window.setTimeout(scheduleCheck, 0),
-      window.setTimeout(scheduleCheck, 120),
-      window.setTimeout(scheduleCheck, 320)
+      window.setTimeout(() => scheduleCheck(true), 0),
+      window.setTimeout(() => scheduleCheck(true), 120),
+      window.setTimeout(() => scheduleCheck(true), 320)
     );
 
     return () => {

@@ -650,17 +650,24 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   }, []);
 
   useEffect(() => {
+    let frame = 0;
     const onScroll = () => {
-      const isTop = window.scrollY < 10;
-      setIsHomeHeroTop(prev => {
-        if (prev !== isTop) return isTop;
-        return prev;
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        const scrollY = window.scrollY;
+        const isTop = scrollY < 10;
+        const shouldShowScrollTop = scrollY > 400;
+        setIsHomeHeroTop(prev => (prev === isTop ? prev : isTop));
+        setShowScrollTop(prev => (prev === shouldShowScrollTop ? prev : shouldShowScrollTop));
       });
-      setShowScrollTop(window.scrollY > 400);
     };
     onScroll(); // Sync initial state after hydration
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {

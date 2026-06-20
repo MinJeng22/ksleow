@@ -1,7 +1,4 @@
 import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkBreaks from "remark-breaks";
-import remarkGfm from "remark-gfm";
 
 /* ══════════════════════════════════════════════════════════════
  * chatbotShared — primitives shared by AIChatbot (modal) and KSOmni
@@ -30,6 +27,28 @@ export const GREETING_PHRASES = [
   { hello: "Hai", prompt: "Ada apa-apa yang boleh saya bantu?" },
   { hello: "你好丫", prompt: "今天能帮到你什么？" },
 ];
+
+let markdownModules = null;
+let markdownModulesPromise = null;
+
+function loadMarkdownModules() {
+  if (markdownModules) return Promise.resolve(markdownModules);
+  if (!markdownModulesPromise) {
+    markdownModulesPromise = Promise.all([
+      import("react-markdown"),
+      import("remark-gfm"),
+      import("remark-breaks"),
+    ]).then(([reactMarkdown, remarkGfm, remarkBreaks]) => {
+      markdownModules = {
+        ReactMarkdown: reactMarkdown.default,
+        remarkGfm: remarkGfm.default,
+        remarkBreaks: remarkBreaks.default,
+      };
+      return markdownModules;
+    });
+  }
+  return markdownModulesPromise;
+}
 
 export function autoResizeTextarea(textarea) {
   if (!textarea) return;
@@ -182,16 +201,40 @@ function markdownComponents(isUser) {
 }
 
 export function MarkdownText({ text, isUser = false, fontSize = "0.86rem" }) {
+  const [modules, setModules] = useState(markdownModules);
+
+  useEffect(() => {
+    let alive = true;
+    loadMarkdownModules().then((loaded) => {
+      if (alive) setModules(loaded);
+    });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
   if (!text) return null;
+
+  const contentStyle = {
+    color: isUser ? "#ffffff" : "#2f315a",
+    fontSize,
+    lineHeight: 1.65,
+    maxWidth: "100%",
+    overflowWrap: "anywhere",
+    textAlign: "left",
+  };
+
+  if (!modules) {
+    return (
+      <div className="ks-chat-markdown" style={{ ...contentStyle, whiteSpace: "pre-wrap" }}>
+        {text}
+      </div>
+    );
+  }
+
+  const { ReactMarkdown, remarkGfm, remarkBreaks } = modules;
   return (
-    <div className="ks-chat-markdown" style={{
-      color: isUser ? "#ffffff" : "#2f315a",
-      fontSize,
-      lineHeight: 1.65,
-      maxWidth: "100%",
-      overflowWrap: "anywhere",
-      textAlign: "left",
-    }}>
+    <div className="ks-chat-markdown" style={contentStyle}>
       <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]} components={markdownComponents(isUser)}>
         {text}
       </ReactMarkdown>

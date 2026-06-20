@@ -11,7 +11,6 @@ import { Vid, Img } from "../../components/Media.jsx";
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "HI KS Support Team, I would like to learn more about AutoCount Plugin Sales2DO. Thank you."
 )}`;
-import AIChatbot from "../../components/AIChatbot.jsx";
 import sales2doContent from "../../content/sales2do.json";
 import acPluginIcon     from "../../assets/images/apps/ac-plugin-icon.webp";
 import { IconClipboard, IconSettings, IconStar, IconShield, IconVideo } from "../../components/SectionDivider.jsx";

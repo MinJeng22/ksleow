@@ -11,6 +11,15 @@ export default defineConfig(({ isSsrBuild }) => ({
       output: {
         entryFileNames: isSsrBuild ? "entry-server.cjs" : "assets/[name]-[hash].js",
         format: isSsrBuild ? "cjs" : undefined,
+        manualChunks: isSsrBuild ? undefined : (id) => {
+          if (
+            id.includes("node_modules")
+            && (id.includes("react-markdown") || id.includes("remark-") || id.includes("micromark") || id.includes("mdast") || id.includes("hast") || id.includes("unist"))
+          ) {
+            return "vendor-markdown";
+          }
+          return undefined;
+        },
       },
     },
   },
