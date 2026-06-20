@@ -19,6 +19,7 @@ import GalleryPage             from "./pages/Gallery";
 import siteRoutes from "./content/siteRoutes.json";
 import {
   consumeRouteFeedbackPopNavigation,
+  flushPostRouteRenderEffects,
   preloadRouteAssets,
   runWithProgressFeedback,
   waitForRouteAssets,
@@ -82,6 +83,12 @@ function DelayedRoutes({ openContact }) {
     ]).then(applyLocation);
   }, [location, navigationType]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const frame = window.requestAnimationFrame(flushPostRouteRenderEffects);
+    return () => window.cancelAnimationFrame(frame);
+  }, [displayLocation.key]);
+
   return <SiteRoutes openContact={openContact} displayLocation={displayLocation} />;
 }
 
@@ -104,6 +111,15 @@ export function AppContent() {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !("scrollRestoration" in window.history)) return undefined;
+    const previous = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+    return () => {
+      window.history.scrollRestoration = previous;
+    };
+  }, []);
 
   useEffect(() => {
     const currentRoute = siteRoutes.find((r) => r.route === location.pathname);

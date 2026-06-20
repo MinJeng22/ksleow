@@ -16,6 +16,7 @@ let pendingFeedbackTimer = null;
 let pendingNavigationRun = 0;
 let pendingFeedbackRun = 0;
 let routeFeedbackPopUntil = 0;
+let pendingPostRouteRenderEffects = [];
 
 const ROUTE_RETURN_PREFIX = "ks-route-return:";
 
@@ -263,6 +264,34 @@ function restoreRoutePosition(target) {
   window.setTimeout(apply, 960);
 }
 
+function scrollToTopInstant() {
+  if (typeof window === "undefined") return;
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+}
+
+export function queuePostRouteRenderEffect(effect) {
+  if (typeof window === "undefined" || typeof effect !== "function") return;
+  pendingPostRouteRenderEffects.push(effect);
+}
+
+export function flushPostRouteRenderEffects() {
+  if (typeof window === "undefined" || pendingPostRouteRenderEffects.length === 0) return;
+  const effects = pendingPostRouteRenderEffects;
+  pendingPostRouteRenderEffects = [];
+  effects.forEach((effect) => {
+    try {
+      effect();
+    } catch {
+      /* Post-route effects should never block rendering. */
+    }
+  });
+}
+
+function queueNavigationEffects({ scrollTop = false, afterNavigate } = {}) {
+  if (scrollTop) queuePostRouteRenderEffect(scrollToTopInstant);
+  if (typeof afterNavigate === "function") queuePostRouteRenderEffect(afterNavigate);
+}
+
 export function preloadRouteAssets(to, priority = "low") {
   const pathname = getPathname(to);
   if (!pathname) return;
@@ -414,10 +443,9 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
       if (runId !== pendingNavigationRun) return;
       pendingNavigationTimer = null;
       markRouteFeedbackPopNavigation();
+      queueNavigationEffects({ scrollTop, afterNavigate });
+      queuePostRouteRenderEffect(signalRouteProgressComplete);
       navigate(to);
-      if (scrollTop) window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "instant" }));
-      afterNavigate?.();
-      signalRouteProgressComplete();
     });
     return;
   }
@@ -437,10 +465,16 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
   preloadRouteAssets(to, "high");
   saveRouteReturnTarget(pathname, returnAnchor);
 
-  if (alreadyHere || delay <= 0) {
+  if (alreadyHere) {
     navigate(to, { replace });
-    if (scrollTop) window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "instant" }));
+    if (scrollTop) window.requestAnimationFrame(scrollToTopInstant);
     afterNavigate?.();
+    return;
+  }
+
+  if (delay <= 0) {
+    queueNavigationEffects({ scrollTop, afterNavigate });
+    navigate(to, { replace });
     return;
   }
 
@@ -455,9 +489,8 @@ export function navigateWithRouteFeedback(navigate, to, options = {}) {
   waitForTransitionReadiness({ route: to, minDelay: delay }).then(() => {
     if (runId !== pendingNavigationRun) return;
     pendingNavigationTimer = null;
+    queueNavigationEffects({ scrollTop, afterNavigate });
     navigate(to, { replace });
-    if (scrollTop) window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "instant" }));
-    afterNavigate?.();
   });
 }
 
