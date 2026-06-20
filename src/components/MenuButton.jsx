@@ -768,11 +768,16 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     }
 
     if (item.scrollTo) {
-      const doScroll = () => {
+      const doScroll = (attempt = 0) => {
         const el = document.querySelector(item.scrollTo);
         if (el) {
-          const top = el.getBoundingClientRect().top + window.scrollY - 20;
+          const rect = el.getBoundingClientRect();
+          const centerOffset = Math.max(20, (window.innerHeight - rect.height) / 2);
+          const top = Math.max(0, rect.top + window.scrollY - centerOffset);
           window.scrollTo({ top, behavior: "smooth" });
+        } else if (attempt < 12) {
+          window.setTimeout(() => doScroll(attempt + 1), 90);
+          return;
         }
           
           if (item.scrollTo === '#supaprintz-card') {

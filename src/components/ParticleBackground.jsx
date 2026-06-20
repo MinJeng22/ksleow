@@ -85,6 +85,7 @@ export default function ParticleBackground({
     obstacleFrame: 0,
     retryFrame: 0,
     introStart: 0,
+    touchUntil: 0,
   });
 
   useEffect(() => { stateRef.current.pausedRef = paused; }, [paused]);
@@ -328,7 +329,13 @@ export default function ParticleBackground({
         ctx.stroke(paths[b]);
       }
 
-      /* mouse highlight lines and glowing particle */
+      if (!finePointerMedia.matches && s.touchUntil && ts > s.touchUntil) {
+        s.mx = -9999;
+        s.my = -9999;
+        s.touchUntil = 0;
+      }
+
+      /* pointer highlight lines and glowing particle */
       const hasMouse = mx > -999 && my > -999;
       if (hasMouse) {
         for (let i = 0; i < particles.length; i++) {
@@ -381,13 +388,27 @@ export default function ParticleBackground({
     /* Track mouse via window so the overlay content-wrap div
        doesn't block events from reaching the canvas.
        We translate page coords → canvas-relative coords. */
-    function onMouseMove(e) {
-      if (!s.isIntersecting || !finePointerMedia.matches) return;
+    function applyPointerPosition(e, hold = false) {
+      if (!s.isIntersecting) return;
       const rect = canvas.getBoundingClientRect();
-      s.mx = e.clientX - rect.left;
-      s.my = e.clientY - rect.top;
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      if (x < 0 || y < 0 || x > rect.width || y > rect.height) return;
+      s.mx = x;
+      s.my = y;
+      if (hold) {
+        s.touchUntil = performance.now() + 1500;
+        startLoop(true);
+      }
     }
-    function onMouseLeave() { s.mx = -9999; s.my = -9999; }
+    function onPointerMove(e) {
+      if (!finePointerMedia.matches) return;
+      applyPointerPosition(e);
+    }
+    function onPointerDown(e) {
+      applyPointerPosition(e, true);
+    }
+    function onPointerLeave() { s.mx = -9999; s.my = -9999; s.touchUntil = 0; }
 
     const initialSize = measureCanvas();
     if (initialSize) {
@@ -405,10 +426,11 @@ export default function ParticleBackground({
 
     /* Use window-level listener so the overlaid content div
        does not swallow mouse events before they reach the canvas */
-    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("pointerdown", onPointerDown, { passive: true });
     window.addEventListener("resize", onResize, { passive: true });
     window.addEventListener("orientationchange", onResize, { passive: true });
-    canvas.addEventListener("mouseleave", onMouseLeave);
+    canvas.addEventListener("pointerleave", onPointerLeave);
 
     const observer = new IntersectionObserver(([entry]) => {
       s.isIntersecting = entry.isIntersecting;
@@ -436,12 +458,13 @@ export default function ParticleBackground({
       if (s.frameId) cancelAnimationFrame(s.frameId);
       if (s.retryFrame) cancelAnimationFrame(s.retryFrame);
       clearTimeout(s.resizeTimer);
-      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("orientationchange", onResize);
       window.removeEventListener("pageshow", onResize);
       document.removeEventListener("visibilitychange", onVisibilityChange);
-      canvas.removeEventListener("mouseleave", onMouseLeave);
+      canvas.removeEventListener("pointerleave", onPointerLeave);
     };
   }, [
     active,
