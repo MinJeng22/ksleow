@@ -244,8 +244,24 @@ function readRouteReturnTarget(pathname) {
 
 function restoreRoutePosition(target) {
   if (typeof window === "undefined" || !target) return;
+  let cancelled = false;
+  const timers = [];
+
+  const cleanup = () => {
+    window.removeEventListener("wheel", cancelRestore);
+    window.removeEventListener("touchmove", cancelRestore);
+    window.removeEventListener("pointerdown", cancelRestore);
+    window.removeEventListener("keydown", cancelRestore);
+  };
+
+  const cancelRestore = () => {
+    cancelled = true;
+    timers.forEach((timer) => window.clearTimeout(timer));
+    cleanup();
+  };
 
   const apply = () => {
+    if (cancelled) return;
     if (target.anchor) {
       const el = document.querySelector(target.anchor);
       if (el) {
@@ -257,12 +273,21 @@ function restoreRoutePosition(target) {
     window.scrollTo({ top: Math.max(0, Number(target.y) || 0), left: 0, behavior: "instant" });
   };
 
+  window.addEventListener("wheel", cancelRestore, { passive: true });
+  window.addEventListener("touchmove", cancelRestore, { passive: true });
+  window.addEventListener("pointerdown", cancelRestore, { passive: true });
+  window.addEventListener("keydown", cancelRestore, { passive: true });
+
   apply();
   window.requestAnimationFrame(apply);
-  window.setTimeout(apply, 80);
-  window.setTimeout(apply, 260);
-  window.setTimeout(apply, 560);
-  window.setTimeout(apply, 960);
+  timers.push(
+    window.setTimeout(apply, 80),
+    window.setTimeout(apply, 220),
+    window.setTimeout(() => {
+      apply();
+      cleanup();
+    }, 420)
+  );
 }
 
 function scrollToTopInstant() {
