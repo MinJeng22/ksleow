@@ -360,7 +360,8 @@ export default function ParticleBackground({
 
       /* pointer highlight lines and glowing particle */
       const hasMouse = mx > -999 && my > -999;
-      if (hasMouse) {
+      const suppressPointerHighlight = s.clickDotSuppressUntil && ts <= s.clickDotSuppressUntil;
+      if (hasMouse && !suppressPointerHighlight) {
         for (let i = 0; i < particles.length; i++) {
           const dx = particles[i].x - mx, dy = particles[i].y - my;
           const dSq = dx*dx + dy*dy;
@@ -375,17 +376,15 @@ export default function ParticleBackground({
           }
         }
         
-        if (!s.clickDotSuppressUntil || ts > s.clickDotSuppressUntil) {
-          ctx.beginPath();
-          ctx.arc(mx, my, 1.5, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${highlightRgb}, 0.9)`;
-          ctx.fill();
+        ctx.beginPath();
+        ctx.arc(mx, my, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${highlightRgb}, 0.9)`;
+        ctx.fill();
 
-          ctx.beginPath();
-          ctx.arc(mx, my, 5, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${highlightRgb}, 0.25)`;
-          ctx.fill();
-        }
+        ctx.beginPath();
+        ctx.arc(mx, my, 5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${highlightRgb}, 0.25)`;
+        ctx.fill();
       }
 
 
