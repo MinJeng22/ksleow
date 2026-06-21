@@ -220,7 +220,18 @@ export default function Hero({ onContact }) {
                   e.preventDefault();
                   const el = document.querySelector(targetId);
                   if (el) {
-                    el.scrollIntoView({ behavior: "smooth" });
+                    const distance = el.getBoundingClientRect().top;
+                    const duration = 900;
+                    const startY = window.scrollY;
+                    const t0 = performance.now();
+                    const easeInOut = (t) =>
+                      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                    const tick = (now) => {
+                      const p = Math.min((now - t0) / duration, 1);
+                      window.scrollTo(0, startY + distance * easeInOut(p));
+                      if (p < 1) requestAnimationFrame(tick);
+                    };
+                    requestAnimationFrame(tick);
                   }
                 }
               }}
