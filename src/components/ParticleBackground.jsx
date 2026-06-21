@@ -87,6 +87,7 @@ export default function ParticleBackground({
     retryFrame: 0,
     introStart: 0,
     touchUntil: 0,
+    clickDotSuppressUntil: 0,
   });
 
   useEffect(() => { stateRef.current.pausedRef = paused; }, [paused]);
@@ -374,16 +375,17 @@ export default function ParticleBackground({
           }
         }
         
-        /* Draw glowing light particle at mouse cursor */
-        ctx.beginPath();
-        ctx.arc(mx, my, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${highlightRgb}, 0.9)`;
-        ctx.fill();
+        if (!s.clickDotSuppressUntil || ts > s.clickDotSuppressUntil) {
+          ctx.beginPath();
+          ctx.arc(mx, my, 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${highlightRgb}, 0.9)`;
+          ctx.fill();
 
-        ctx.beginPath();
-        ctx.arc(mx, my, 5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${highlightRgb}, 0.25)`;
-        ctx.fill();
+          ctx.beginPath();
+          ctx.arc(mx, my, 5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${highlightRgb}, 0.25)`;
+          ctx.fill();
+        }
       }
 
 
@@ -420,6 +422,7 @@ export default function ParticleBackground({
       s.my = y;
       if (hold) {
         addClickParticle(x, y);
+        s.clickDotSuppressUntil = performance.now() + 1600;
         s.touchUntil = performance.now() + 1500;
         startLoop(true);
       }
