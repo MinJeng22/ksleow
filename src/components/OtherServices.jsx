@@ -309,7 +309,7 @@ export default function OtherServices({ onContact }) {
         lineRgb="226,227,234"
         glowRgb="201,168,76"
         fullCellsOnly
-        titleGlowTarget=".other-services-section .ks-section-title"
+        titleGlow={false}
         lineOpacity={0.62}
         cellFillOpacity={0}
         wash={false}
