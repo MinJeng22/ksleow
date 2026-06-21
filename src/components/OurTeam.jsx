@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const teamTiles = [
   {
@@ -35,28 +35,70 @@ const teamTiles = [
 
 export default function OurTeam() {
   const leadCardRef = useRef(null);
+  const leadFrameRef = useRef(null);
+  const leadCurrentRef = useRef({ bgX: 0, bgY: 0, personX: 0, personY: 0, active: 0 });
+  const leadTargetRef = useRef({ bgX: 0, bgY: 0, personX: 0, personY: 0, active: 0 });
+
+  const renderLeadDepth = () => {
+    const card = leadCardRef.current;
+    const current = leadCurrentRef.current;
+    const target = leadTargetRef.current;
+
+    leadFrameRef.current = null;
+    if (!card) return;
+
+    const ease = 0.12;
+    current.bgX += (target.bgX - current.bgX) * ease;
+    current.bgY += (target.bgY - current.bgY) * ease;
+    current.personX += (target.personX - current.personX) * ease;
+    current.personY += (target.personY - current.personY) * ease;
+    current.active += (target.active - current.active) * 0.1;
+
+    card.style.setProperty("--team-bg-x", `${current.bgX.toFixed(2)}px`);
+    card.style.setProperty("--team-bg-y", `${current.bgY.toFixed(2)}px`);
+    card.style.setProperty("--team-person-x", `${current.personX.toFixed(2)}px`);
+    card.style.setProperty("--team-person-y", `${current.personY.toFixed(2)}px`);
+    card.style.setProperty("--team-depth-active", current.active.toFixed(3));
+
+    const remaining =
+      Math.abs(target.bgX - current.bgX) +
+      Math.abs(target.bgY - current.bgY) +
+      Math.abs(target.personX - current.personX) +
+      Math.abs(target.personY - current.personY) +
+      Math.abs(target.active - current.active);
+
+    if (remaining > 0.08) {
+      leadFrameRef.current = requestAnimationFrame(renderLeadDepth);
+    }
+  };
+
+  const setLeadTarget = (target) => {
+    leadTargetRef.current = target;
+    if (!leadFrameRef.current) {
+      leadFrameRef.current = requestAnimationFrame(renderLeadDepth);
+    }
+  };
+
+  useEffect(() => () => {
+    if (leadFrameRef.current) cancelAnimationFrame(leadFrameRef.current);
+  }, []);
 
   const handleLeadMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
     const y = ((event.clientY - rect.top) / rect.height) * 2 - 1;
-    const card = leadCardRef.current;
 
-    if (!card) return;
-    card.style.setProperty("--team-bg-x", `${x * -10}px`);
-    card.style.setProperty("--team-bg-y", `${y * -7}px`);
-    card.style.setProperty("--team-person-x", `${x * 13}px`);
-    card.style.setProperty("--team-person-y", `${y * 6}px`);
+    setLeadTarget({
+      bgX: x * -8,
+      bgY: y * -5,
+      personX: x * 11,
+      personY: y * 4.5,
+      active: 1,
+    });
   };
 
   const resetLeadDepth = () => {
-    const card = leadCardRef.current;
-
-    if (!card) return;
-    card.style.setProperty("--team-bg-x", "0px");
-    card.style.setProperty("--team-bg-y", "0px");
-    card.style.setProperty("--team-person-x", "0px");
-    card.style.setProperty("--team-person-y", "0px");
+    setLeadTarget({ bgX: 0, bgY: 0, personX: 0, personY: 0, active: 0 });
   };
 
   return (
@@ -110,9 +152,16 @@ export default function OurTeam() {
           width: 100%;
         }
         .team-lead-card {
+          --team-depth-active: 0;
+          --team-bg-x: 0px;
+          --team-bg-y: 0px;
+          --team-person-x: 0px;
+          --team-person-y: 0px;
           background: #173040;
           border-radius: 28px;
-          box-shadow: 0 34px 88px rgba(47,49,90,0.18);
+          box-shadow:
+            0 34px 88px rgba(47,49,90,0.18),
+            inset 0 0 0 1px rgba(255,255,255,0.12);
           height: 100%;
           isolation: isolate;
           overflow: hidden;
@@ -124,23 +173,54 @@ export default function OurTeam() {
         }
         .team-lead-card::before {
           background:
-            radial-gradient(circle at 48% 25%, rgba(232,201,122,0.2), transparent 34%),
+            radial-gradient(circle at calc(48% + var(--team-person-x, 0px)) 24%, rgba(232,201,122,0.28), transparent 33%),
+            radial-gradient(circle at 36% 18%, rgba(255,255,255,0.14), transparent 28%),
             radial-gradient(circle at 50% 74%, rgba(10,18,28,0.5), transparent 42%);
           content: "";
           inset: 0;
-          opacity: 0.82;
+          opacity: 0.78;
           position: absolute;
           z-index: 2;
         }
         .team-lead-card::after {
           background:
+            radial-gradient(circle at 50% 17%, rgba(255,255,255,0.16), transparent 24%),
             linear-gradient(90deg, rgba(15,17,40,0.34), transparent 30%, transparent 74%, rgba(15,17,40,0.32)),
-            linear-gradient(0deg, rgba(15,17,40,0.56), transparent 45%);
+            linear-gradient(0deg, rgba(15,17,40,0.58), transparent 45%);
           content: "";
           inset: 0;
           pointer-events: none;
           position: absolute;
           z-index: 4;
+        }
+        .team-lead-ambient,
+        .team-lead-rim {
+          pointer-events: none;
+          position: absolute;
+        }
+        .team-lead-ambient {
+          background:
+            radial-gradient(ellipse at 52% 34%, rgba(255,218,134,0.22), transparent 32%),
+            radial-gradient(ellipse at 52% 70%, rgba(255,255,255,0.09), transparent 34%);
+          filter: blur(10px);
+          inset: 0;
+          opacity: calc(0.52 + var(--team-depth-active) * 0.18);
+          transform: translate3d(calc(var(--team-person-x) * 0.28), calc(var(--team-person-y) * 0.22), 0);
+          transition: opacity 0.3s ease;
+          z-index: 2;
+        }
+        .team-lead-rim {
+          border-radius: 999px;
+          box-shadow:
+            0 0 70px rgba(232,201,122,0.24),
+            0 0 22px rgba(255,244,205,0.18);
+          height: 64%;
+          left: 50%;
+          opacity: calc(0.42 + var(--team-depth-active) * 0.18);
+          top: 10%;
+          transform: translate3d(calc(-50% + var(--team-person-x) * 0.38), calc(var(--team-person-y) * 0.24), 0);
+          width: 56%;
+          z-index: 2;
         }
         .team-lead-bg,
         .team-lead-person {
@@ -148,38 +228,44 @@ export default function OurTeam() {
           position: absolute;
         }
         .team-lead-bg {
-          filter: saturate(1.04) contrast(1.04);
+          filter: blur(0.65px) saturate(1.04) contrast(1.05);
           height: 100%;
           object-fit: cover;
           object-position: center;
-          transform: translate3d(var(--team-bg-x, 0px), var(--team-bg-y, 0px), 0) scale(1.04);
-          transition: transform 0.18s ease-out, filter 0.24s ease;
+          transform: translate3d(var(--team-bg-x), var(--team-bg-y), 0) scale(1.055);
+          transition: filter 0.32s ease;
           width: 100%;
           z-index: 1;
         }
         .team-lead-person {
           bottom: -1.5%;
-          filter: drop-shadow(0 34px 48px rgba(2,8,17,0.36));
+          filter:
+            drop-shadow(0 34px 48px rgba(2,8,17,0.34))
+            drop-shadow(0 0 10px rgba(232,201,122,0.12));
           height: 98%;
           left: 50%;
           max-width: none;
           object-fit: contain;
           object-position: center bottom;
-          transform: translate3d(calc(-50% + var(--team-person-x, 0px)), var(--team-person-y, 0px), 0) scale(1.045);
+          transform: translate3d(calc(-50% + var(--team-person-x)), var(--team-person-y), 0) scale(1.045);
           transform-origin: center bottom;
-          transition: transform 0.18s ease-out, filter 0.24s ease;
+          transition: filter 0.32s ease;
           width: auto;
           z-index: 3;
         }
         @media (hover: hover) and (pointer: fine) {
           .team-lead-card:hover {
-            box-shadow: 0 38px 92px rgba(23,25,54,0.23);
+            box-shadow:
+              0 40px 98px rgba(47,49,90,0.22),
+              inset 0 0 0 1px rgba(255,255,255,0.18);
           }
           .team-lead-card:hover .team-lead-bg {
-            filter: saturate(1.08) contrast(1.06);
+            filter: blur(1.15px) saturate(1.08) contrast(1.07);
           }
           .team-lead-card:hover .team-lead-person {
-            filter: drop-shadow(0 38px 56px rgba(2,8,17,0.42));
+            filter:
+              drop-shadow(0 38px 58px rgba(2,8,17,0.4))
+              drop-shadow(0 0 14px rgba(232,201,122,0.2));
           }
         }
         .team-lead-caption {
@@ -363,6 +449,9 @@ export default function OurTeam() {
             border-radius: 22px;
             min-height: 520px;
           }
+          .team-lead-bg {
+            filter: blur(0.35px) saturate(1.04) contrast(1.05);
+          }
           .team-photo-wall {
             gap: 0.55rem;
             grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -420,6 +509,8 @@ export default function OurTeam() {
               decoding="async"
               aria-hidden="true"
             />
+            <span className="team-lead-ambient" aria-hidden="true" />
+            <span className="team-lead-rim" aria-hidden="true" />
             <img
               className="team-lead-person"
               src="/images/team/ch-leow-portrait.webp"
