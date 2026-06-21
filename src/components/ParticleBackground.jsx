@@ -421,8 +421,10 @@ export default function ParticleBackground({
       s.my = y;
       if (hold) {
         addClickParticle(x, y);
-        s.clickDotSuppressUntil = performance.now() + 1600;
-        s.touchUntil = performance.now() + 1500;
+        if (e.pointerType !== "mouse") {
+          s.clickDotSuppressUntil = performance.now() + 1600;
+          s.touchUntil = performance.now() + 1500;
+        }
         startLoop(true);
       }
     }
