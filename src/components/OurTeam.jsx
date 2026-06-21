@@ -40,7 +40,7 @@ export default function OurTeam() {
             radial-gradient(circle at 14% 12%, rgba(201,168,76,0.12), transparent 30%),
             linear-gradient(180deg, #f5f5f8 0%, #ffffff 48%, #f2f3f7 100%);
           overflow: hidden;
-          padding: clamp(4.5rem, 8vw, 7.5rem) 0;
+          padding: clamp(3.25rem, 5vw, 5.25rem) 0;
           position: relative;
         }
         .our-team-section::before,
@@ -65,57 +65,74 @@ export default function OurTeam() {
         .our-team-wrap {
           align-items: center;
           display: grid;
-          gap: clamp(2rem, 5vw, 5.5rem);
-          grid-template-columns: minmax(260px, 0.82fr) minmax(420px, 1.18fr);
+          gap: clamp(1.75rem, 3.8vw, 4rem);
+          grid-template-columns: minmax(480px, 1.18fr) minmax(300px, 0.82fr);
           position: relative;
           z-index: 1;
         }
+        .team-gallery-panel {
+          min-width: 0;
+        }
         .team-lead {
+          justify-self: end;
           perspective: 1200px;
           position: relative;
+          width: min(100%, 430px);
         }
         .team-lead-card {
           aspect-ratio: 0.72;
-          border-radius: 30px;
-          box-shadow: 0 34px 86px rgba(23,25,54,0.26);
+          background: rgba(255,255,255,0.92);
+          border: 1px solid rgba(47,49,90,0.1);
+          border-radius: 26px;
+          box-shadow: 0 30px 76px rgba(23,25,54,0.18);
           isolation: isolate;
           overflow: hidden;
+          padding: 0.55rem;
           position: relative;
-          transform: rotateY(-7deg) rotateX(2deg);
+          transform: translateZ(0);
           transform-origin: center;
+          transition: transform 0.36s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.36s ease;
         }
         .team-lead-card::before {
           background: inherit;
           content: "";
-          filter: blur(18px) saturate(0.92);
-          inset: -10%;
-          opacity: 0.75;
+          filter: blur(24px) saturate(0.9);
+          inset: -7%;
+          opacity: 0.58;
           position: absolute;
-          transform: scale(1.04);
+          transform: scale(1.02);
           z-index: -1;
         }
         .team-lead-card::after {
           background:
             linear-gradient(180deg, rgba(15,17,40,0.04), transparent 36%),
             linear-gradient(0deg, rgba(15,17,40,0.68), transparent 48%);
+          border-radius: 21px;
           content: "";
-          inset: 0;
+          inset: 0.55rem;
           pointer-events: none;
           position: absolute;
         }
         .team-lead-card img {
+          border-radius: 21px;
           height: 100%;
           object-fit: cover;
           object-position: center top;
-          transform: scale(1.025);
+          transform: scale(1.018);
           width: 100%;
         }
+        @media (hover: hover) and (pointer: fine) {
+          .team-lead-card:hover {
+            box-shadow: 0 38px 92px rgba(23,25,54,0.23);
+            transform: translateY(-6px);
+          }
+        }
         .team-lead-caption {
-          bottom: 1.25rem;
+          bottom: 1.65rem;
           color: #fff;
-          left: 1.35rem;
+          left: 1.7rem;
           position: absolute;
-          right: 1.35rem;
+          right: 1.7rem;
           z-index: 2;
         }
         .team-lead-caption span {
@@ -129,8 +146,16 @@ export default function OurTeam() {
         }
         .team-lead-caption strong {
           display: block;
-          font-size: clamp(1.45rem, 2.4vw, 2.15rem);
+          font-size: clamp(1.55rem, 2.35vw, 2.2rem);
           line-height: 1.05;
+        }
+        .team-lead-caption small {
+          color: rgba(255,255,255,0.78);
+          display: block;
+          font-size: 0.88rem;
+          font-weight: 600;
+          line-height: 1.55;
+          margin-top: 0.65rem;
         }
         .team-copy {
           margin-bottom: clamp(1.35rem, 2vw, 2rem);
@@ -146,9 +171,10 @@ export default function OurTeam() {
         }
         .team-copy h2 {
           color: #2f315a;
-          font-size: clamp(2rem, 4vw, 3.65rem);
-          letter-spacing: -0.035em;
-          line-height: 0.98;
+          font-size: var(--heading-lg);
+          font-weight: 800;
+          letter-spacing: 0;
+          line-height: 1.18;
           margin: 0 0 0.85rem;
         }
         .team-copy p {
@@ -268,7 +294,7 @@ export default function OurTeam() {
         }
         @media (max-width: 640px) {
           .our-team-section {
-            padding: 4rem 0;
+            padding: 3.5rem 0;
           }
           .team-lead {
             width: min(86vw, 360px);
@@ -296,28 +322,10 @@ export default function OurTeam() {
         }
       `}</style>
       <div className="content-wrap our-team-wrap">
-        <div className="team-lead" aria-label="Executive Manager">
-          <div
-            className="team-lead-card"
-            style={{ backgroundImage: "url('/images/team/executive-manager.webp')" }}
-          >
-            <img
-              src="/images/team/executive-manager.webp"
-              alt="Executive Manager"
-              loading="lazy"
-              decoding="async"
-            />
-            <div className="team-lead-caption">
-              <span>Executive Manager</span>
-              <strong>Leading with clarity, care, and execution.</strong>
-            </div>
-          </div>
-        </div>
-
-        <div>
+        <div className="team-gallery-panel">
           <div className="team-copy">
-            <p className="section-eyebrow">Our Team</p>
-            <h2 id="our-team-title">People behind every solution.</h2>
+            <p className="section-eyebrow">People Behind K.S. Leow Group</p>
+            <h2 id="our-team-title">Our Team</h2>
             <p>
               From advisory and compliance to software implementation and support, each department brings practical experience to help clients move with confidence.
             </p>
@@ -329,6 +337,25 @@ export default function OurTeam() {
                 <span>{tile.label}</span>
               </figure>
             ))}
+          </div>
+        </div>
+
+        <div className="team-lead" aria-label="Executive Manager Leow Chuen Hock">
+          <div
+            className="team-lead-card"
+            style={{ backgroundImage: "url('/images/team/executive-manager.webp')" }}
+          >
+            <img
+              src="/images/team/executive-manager.webp"
+              alt="Executive Manager Leow Chuen Hock"
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="team-lead-caption">
+              <span>Executive Manager</span>
+              <strong>Leow Chuen Hock</strong>
+              <small>Leading the team with practical direction, responsive service, and steady execution.</small>
+            </div>
           </div>
         </div>
       </div>
