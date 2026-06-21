@@ -21,6 +21,7 @@ export default function Hero({ onContact }) {
    * them downward. Fades out as soon as they start scrolling. */
   const [hintShown, setHintShown] = useState(false);
   const hintRef = useRef(null);
+  const hasScrolledRef = useRef(false);
 
   useEffect(() => {
     const showTimer = setTimeout(() => setVisible(true), 120);
@@ -35,9 +36,14 @@ export default function Hero({ onContact }) {
     const t = setTimeout(() => {
       setHintShown(true);
       if (hintRef.current) {
-        const opacity = Math.max(0, 1 - Math.max(0, window.scrollY - 40) / 120);
-        hintRef.current.style.opacity = opacity;
-        hintRef.current.style.pointerEvents = opacity > 0 ? "auto" : "none";
+        if (hasScrolledRef.current) {
+          hintRef.current.style.opacity = 0;
+          hintRef.current.style.pointerEvents = "none";
+        } else {
+          const opacity = Math.max(0, 1 - Math.max(0, window.scrollY - 40) / 120);
+          hintRef.current.style.opacity = opacity;
+          hintRef.current.style.pointerEvents = opacity > 0 ? "auto" : "none";
+        }
       }
     }, 5000);
     return () => clearTimeout(t);
@@ -48,9 +54,18 @@ export default function Hero({ onContact }) {
     const updateScrollState = () => {
       rafId = 0;
       const y = window.scrollY || 0;
-      const opacity = Math.max(0, 1 - Math.max(0, y - 40) / 120);
+      
+      if (y > 100) {
+        hasScrolledRef.current = true;
+      }
 
       if (hintShown && hintRef.current) {
+        if (hasScrolledRef.current) {
+          hintRef.current.style.opacity = 0;
+          hintRef.current.style.pointerEvents = "none";
+          return;
+        }
+        const opacity = Math.max(0, 1 - Math.max(0, y - 40) / 120);
         hintRef.current.style.opacity = opacity;
         hintRef.current.style.pointerEvents = opacity > 0 ? "auto" : "none";
       }
@@ -59,11 +74,11 @@ export default function Hero({ onContact }) {
       if (rafId) return;
       rafId = requestAnimationFrame(updateScrollState);
     };
-    updateScrollState();
     window.addEventListener("scroll", onScroll, { passive: true });
+    updateScrollState();
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, [hintShown]);
 
@@ -211,8 +226,7 @@ export default function Hero({ onContact }) {
             >
               {hero.primaryButton}
             </button>
-            <a
-              href={hero.secondaryButtonHref || "#services"}
+            <button
               className="btn-ghost-base btn-ghost-light"
               onClick={(e) => {
                 const targetId = hero.secondaryButtonHref || "#services";
@@ -237,7 +251,7 @@ export default function Hero({ onContact }) {
               }}
             >
               {hero.secondaryButton}
-            </a>
+            </button>
           </div>
         </div>
       </div>
