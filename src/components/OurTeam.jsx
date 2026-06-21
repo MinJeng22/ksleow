@@ -94,7 +94,7 @@ export default function OurTeam() {
           align-items: stretch;
           display: grid;
           gap: clamp(1.35rem, 3vw, 3.25rem);
-          grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+          grid-template-columns: minmax(0, 65fr) minmax(300px, 35fr);
           position: relative;
           z-index: 1;
         }
@@ -206,7 +206,7 @@ export default function OurTeam() {
         }
         .team-copy {
           margin-bottom: clamp(1.1rem, 1.8vw, 1.75rem);
-          max-width: 620px;
+          max-width: none;
         }
         .team-copy .section-eyebrow {
           color: #c0a044;
@@ -269,6 +269,7 @@ export default function OurTeam() {
           overflow: hidden;
           position: relative;
           transform: translateZ(0);
+          transform-origin: center;
           transition: transform 0.36s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.36s ease, z-index 0s;
           z-index: 1;
         }
@@ -305,16 +306,23 @@ export default function OurTeam() {
         @media (hover: hover) and (pointer: fine) {
           .team-tile:hover {
             box-shadow: 0 32px 82px rgba(23,25,54,0.2);
-            transform: translateY(-8px) scale(1.075);
+            transform: scale(1.12);
             z-index: 5;
           }
           .team-tile:hover img {
             filter: saturate(1.06) contrast(1.04);
-            transform: scale(1.11);
+            transform: scale(1.18);
           }
-          .team-tile--lift:hover,
+          .team-tile--lift:hover {
+            transform: translateY(-18px) scale(1.12);
+          }
           .team-tile--drop:hover {
-            transform: translateY(-8px) scale(1.075);
+            transform: translateY(20px) scale(1.12);
+          }
+        }
+        @media (min-width: 1025px) {
+          .team-copy p {
+            white-space: nowrap;
           }
         }
         @media (max-width: 1024px) {
@@ -335,6 +343,9 @@ export default function OurTeam() {
             text-align: center;
             margin-left: auto;
             margin-right: auto;
+          }
+          .team-copy p {
+            white-space: normal;
           }
           .team-photo-wall {
             grid-auto-rows: clamp(74px, 13vw, 124px);
@@ -381,7 +392,7 @@ export default function OurTeam() {
             <p className="section-eyebrow">People Behind Every Solution</p>
             <h2 id="our-team-title">Our Team</h2>
             <p>
-              From advisory and compliance to software implementation and support, each department brings practical experience to help clients move with confidence.
+              Practical teams. Clear support. Reliable follow-through.
             </p>
           </div>
           <div className="team-photo-wall" aria-label="Department team gallery">
