@@ -4,6 +4,7 @@ import Stats from "../components/Stats";
 import Services from "../components/Services";
 import Products from "../components/Products";
 import OtherServices from "../components/OtherServices";
+import OurTeam from "../components/OurTeam";
 import Careers from "../components/Careers";
 import Footer from "../components/Footer";
 
@@ -20,6 +21,7 @@ export default function Home({ onContact }) {
           <Services />
           <Products onContact={onContact} />
           <OtherServices onContact={onContact} />
+          <OurTeam />
           <Careers />
           <Footer />
         </main>
