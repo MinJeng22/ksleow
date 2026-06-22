@@ -250,7 +250,7 @@ export default function OurTeam() {
           height: 100%;
           object-fit: cover;
           object-position: center;
-          transform: translate3d(var(--team-bg-x), var(--team-bg-y), 0) scale(1.065);
+          transform: translate3d(var(--team-bg-x), var(--team-bg-y), -20px) scale(1.065);
           transition: filter 0.3s ease;
           width: 100%;
           z-index: 1;
@@ -278,7 +278,7 @@ export default function OurTeam() {
           max-width: none;
           object-fit: contain;
           object-position: center bottom;
-          transform: translate3d(calc(-50% + var(--team-person-x)), var(--team-person-y), 0) scale(1.048);
+          transform: translate3d(calc(-50% + var(--team-person-x)), var(--team-person-y), 30px) scale(1.048) rotateY(calc(var(--team-tilt-y) * 1.8)) rotateX(calc(var(--team-tilt-x) * 1.8));
           transform-origin: center bottom;
           transition: filter 0.3s ease;
           width: auto;

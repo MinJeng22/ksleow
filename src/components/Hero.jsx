@@ -325,7 +325,7 @@ export default function Hero({ onContact }) {
           "--lg-hover-transform": "translateX(-50%) translateY(-2px) scale(1.018)",
           "--lg-active-transform": "translateX(-50%) translateY(0) scale(0.97)",
           opacity: 0,
-          pointerEvents: "none",
+          pointerEvents: hintShown ? "auto" : "none",
           animation: hintShown
             ? "scrollHintFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both"
             : "none",
