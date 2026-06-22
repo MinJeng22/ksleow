@@ -20,14 +20,11 @@ const fragmentShader = `
     vec4 depthData = texture2D(uDepth, vUv);
     float depth = depthData.r;
     
-    // Aggressive smoothstep pushes values towards 0 or 1.
-    // This flattens the person's body so they don't bulge like a jelly balloon.
-    depth = smoothstep(0.1, 0.9, depth);
+    // Smooth depth to avoid harsh edge tearing
+    depth = smoothstep(0.05, 0.95, depth);
 
-    // Subtract 0.5 to set the focal plane in the middle.
-    // This means the background moves opposite to the foreground,
-    // halving the perceived stretching (tearing) at the edges!
-    vec2 offset = uMouse * (depth - 0.5) * uDepthScale;
+    // Subtle 3D bulge (CSS handles the main movement now)
+    vec2 offset = uMouse * depth * uDepthScale;
     
     vec2 distortedUv = vUv - offset;
     
@@ -97,7 +94,7 @@ const DepthDisplacementWebGL = forwardRef(({
       uImage: { value: imgTexture },
       uDepth: { value: depthTexture },
       uMouse: { value: new THREE.Vector2(0, 0) },
-      uDepthScale: { value: 0.016 } // Tune intensity
+      uDepthScale: { value: 0.005 } // Micro intensity for 3D bulge only
     };
 
     const material = new THREE.ShaderMaterial({
