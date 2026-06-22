@@ -1,36 +1,40 @@
 import React, { useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
 
-// VERTEX SHADER: We physically deform the 3D mesh based on the depth map!
 const vertexShader = `
-  uniform sampler2D uDepth;
-  uniform float uDepthScale;
   varying vec2 vUv;
-  
   void main() {
     vUv = uv;
-    // Read depth map (white = 1.0, black = 0.0)
-    float depth = texture2D(uDepth, vUv).r;
-    
-    // Smooth the depth curve gently instead of a hard step to prevent jagged 3D extrusions
-    depth = pow(depth, 1.2);
-
-    vec3 pos = position;
-    // Push vertices outwards along the Z-axis to create a 3D bas-relief!
-    pos.z += depth * uDepthScale;
-    
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
 `;
 
-// FRAGMENT SHADER: Just render the image normally onto the 3D mesh
 const fragmentShader = `
   uniform sampler2D uImage;
+  uniform sampler2D uDepth;
+  uniform vec2 uMouse;
+  uniform float uDepthScale;
   varying vec2 vUv;
 
   void main() {
-    vec4 color = texture2D(uImage, vUv);
-    gl_FragColor = color;
+    float depth = texture2D(uDepth, vUv).r;
+    
+    // Smooth the depth gently
+    depth = smoothstep(0.02, 0.98, depth);
+
+    vec2 offset = uMouse * depth * uDepthScale;
+    vec2 distortedUv = vUv - offset;
+    
+    vec4 distortedColor = texture2D(uImage, distortedUv);
+    vec4 baseColor = texture2D(uImage, vUv);
+    
+    // Alpha compositing: Draw distorted color OVER the base color!
+    // This entirely prevents "alpha tearing" because any transparent gaps left by the displacement
+    // will be perfectly filled by the original un-displaced image underneath.
+    float finalAlpha = distortedColor.a + baseColor.a * (1.0 - distortedColor.a);
+    vec3 finalRgb = (distortedColor.rgb * distortedColor.a + baseColor.rgb * baseColor.a * (1.0 - distortedColor.a)) / max(finalAlpha, 0.00001);
+    
+    gl_FragColor = vec4(finalRgb, finalAlpha);
   }
 `;
 
@@ -48,7 +52,6 @@ const DepthDisplacementWebGL = forwardRef(({
 
   useImperativeHandle(ref, () => ({
     updateMouse: (x, y, active) => {
-      // x and y are -1 to 1
       stateRef.current.targetMouse.set(x, y);
       stateRef.current.active = active;
     }
@@ -58,13 +61,9 @@ const DepthDisplacementWebGL = forwardRef(({
     if (!mountRef.current) return;
 
     const scene = new THREE.Scene();
+    // Orthographic camera for perfect 2D UV mapping
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     
-    // Use PerspectiveCamera so we can actually see the 3D rotation perspective!
-    const camera = new THREE.PerspectiveCamera(30, mountRef.current.clientWidth / mountRef.current.clientHeight, 0.1, 100);
-    // Position camera so a 2x2 plane fills the view. 
-    // At fov=30, height=2, distance = 1 / Math.tan(15 * Math.PI / 180) ≈ 3.73
-    camera.position.z = 3.73;
-
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -80,7 +79,8 @@ const DepthDisplacementWebGL = forwardRef(({
     const uniforms = {
       uImage: { value: imgTexture },
       uDepth: { value: depthTexture },
-      uDepthScale: { value: 0.18 } // Extrude depth physically (increased for more 3D pop)
+      uMouse: { value: new THREE.Vector2(0, 0) },
+      uDepthScale: { value: 0.025 } // We can now use a larger amplitude because gaps are filled!
     };
 
     const material = new THREE.ShaderMaterial({
@@ -88,13 +88,9 @@ const DepthDisplacementWebGL = forwardRef(({
       vertexShader,
       fragmentShader,
       transparent: true,
-      side: THREE.FrontSide
     });
 
-    // Ensure plane aspect ratio matches the image (via the container)
-    const aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
-    // Ultra-high segment count (256x256) to completely eliminate geometry jaggedness!
-    const geometry = new THREE.PlaneGeometry(2 * aspect, 2, 256, 256);
+    const geometry = new THREE.PlaneGeometry(2, 2);
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
@@ -105,10 +101,9 @@ const DepthDisplacementWebGL = forwardRef(({
       currentMouse.lerp(stateRef.current.targetMouse, 0.08);
       const activeMult = stateRef.current.active;
       
-      // ROTATE THE ENTIRE MESH based on mouse!
-      // This is true 3D rotation of a 3D deformed plane, ZERO UV tearing.
-      mesh.rotation.y = currentMouse.x * activeMult * -0.32; // Turn head towards mouse (amplitude increased)
-      mesh.rotation.x = currentMouse.y * activeMult * -0.22; // Tilt head up/down (amplitude increased)
+      uniforms.uMouse.value.x = currentMouse.x * activeMult;
+      // Invert Y because WebGL UV origin is bottom-left
+      uniforms.uMouse.value.y = currentMouse.y * activeMult * -1;
       
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(render);
@@ -117,11 +112,7 @@ const DepthDisplacementWebGL = forwardRef(({
 
     const handleResize = () => {
       if (!mountRef.current) return;
-      const width = mountRef.current.clientWidth;
-      const height = mountRef.current.clientHeight;
-      renderer.setSize(width, height);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
+      renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
     };
     window.addEventListener('resize', handleResize);
 
