@@ -12,8 +12,8 @@ const vertexShader = `
     // Read depth map (white = 1.0, black = 0.0)
     float depth = texture2D(uDepth, vUv).r;
     
-    // Smooth depth to avoid jagged edges on the mesh
-    depth = smoothstep(0.05, 0.95, depth);
+    // Smooth the depth curve gently instead of a hard step to prevent jagged 3D extrusions
+    depth = pow(depth, 1.2);
 
     vec3 pos = position;
     // Push vertices outwards along the Z-axis to create a 3D bas-relief!
@@ -80,7 +80,7 @@ const DepthDisplacementWebGL = forwardRef(({
     const uniforms = {
       uImage: { value: imgTexture },
       uDepth: { value: depthTexture },
-      uDepthScale: { value: 0.12 } // Extrude depth physically
+      uDepthScale: { value: 0.18 } // Extrude depth physically (increased for more 3D pop)
     };
 
     const material = new THREE.ShaderMaterial({
@@ -93,8 +93,8 @@ const DepthDisplacementWebGL = forwardRef(({
 
     // Ensure plane aspect ratio matches the image (via the container)
     const aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
-    // High segment count (128x128) so the mesh deforms smoothly!
-    const geometry = new THREE.PlaneGeometry(2 * aspect, 2, 128, 128);
+    // Ultra-high segment count (256x256) to completely eliminate geometry jaggedness!
+    const geometry = new THREE.PlaneGeometry(2 * aspect, 2, 256, 256);
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
@@ -107,8 +107,8 @@ const DepthDisplacementWebGL = forwardRef(({
       
       // ROTATE THE ENTIRE MESH based on mouse!
       // This is true 3D rotation of a 3D deformed plane, ZERO UV tearing.
-      mesh.rotation.y = currentMouse.x * activeMult * -0.18; // Turn head towards mouse
-      mesh.rotation.x = currentMouse.y * activeMult * -0.12; // Tilt head up/down
+      mesh.rotation.y = currentMouse.x * activeMult * -0.32; // Turn head towards mouse (amplitude increased)
+      mesh.rotation.x = currentMouse.y * activeMult * -0.22; // Tilt head up/down (amplitude increased)
       
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(render);
