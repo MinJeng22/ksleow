@@ -1,38 +1,35 @@
 import React, { useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
 
+// VERTEX SHADER: We physically deform the 3D mesh based on the depth map!
 const vertexShader = `
+  uniform sampler2D uDepth;
+  uniform float uDepthScale;
   varying vec2 vUv;
+  
   void main() {
     vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    // Read depth map (white = 1.0, black = 0.0)
+    float depth = texture2D(uDepth, vUv).r;
+    
+    // Smooth depth to avoid jagged edges on the mesh
+    depth = smoothstep(0.05, 0.95, depth);
+
+    vec3 pos = position;
+    // Push vertices outwards along the Z-axis to create a 3D bas-relief!
+    pos.z += depth * uDepthScale;
+    
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
   }
 `;
 
+// FRAGMENT SHADER: Just render the image normally onto the 3D mesh
 const fragmentShader = `
   uniform sampler2D uImage;
-  uniform sampler2D uDepth;
-  uniform vec2 uMouse;
-  uniform float uDepthScale;
   varying vec2 vUv;
 
   void main() {
-    vec4 depthData = texture2D(uDepth, vUv);
-    float depth = depthData.r;
-    
-    // Smooth depth to avoid harsh edge tearing
-    depth = smoothstep(0.05, 0.95, depth);
-
-    // Subtle 3D bulge (CSS handles the main movement now)
-    vec2 offset = uMouse * depth * uDepthScale;
-    
-    vec2 distortedUv = vUv - offset;
-    
-    // Clamp to prevent edge bleeding or repeating
-    distortedUv = clamp(distortedUv, 0.0, 1.0);
-    
-    vec4 color = texture2D(uImage, distortedUv);
-    
+    vec4 color = texture2D(uImage, vUv);
     gl_FragColor = color;
   }
 `;
@@ -51,7 +48,7 @@ const DepthDisplacementWebGL = forwardRef(({
 
   useImperativeHandle(ref, () => ({
     updateMouse: (x, y, active) => {
-      // x and y are expected to be from -1 to 1
+      // x and y are -1 to 1
       stateRef.current.targetMouse.set(x, y);
       stateRef.current.active = active;
     }
@@ -60,41 +57,30 @@ const DepthDisplacementWebGL = forwardRef(({
   useEffect(() => {
     if (!mountRef.current) return;
 
-    // Scene Setup
     const scene = new THREE.Scene();
-    // Orthographic camera fits the plane perfectly
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+    // Use PerspectiveCamera so we can actually see the 3D rotation perspective!
+    const camera = new THREE.PerspectiveCamera(30, mountRef.current.clientWidth / mountRef.current.clientHeight, 0.1, 100);
+    // Position camera so a 2x2 plane fills the view. 
+    // At fov=30, height=2, distance = 1 / Math.tan(15 * Math.PI / 180) ≈ 3.73
+    camera.position.z = 3.73;
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     mountRef.current.appendChild(renderer.domElement);
 
-    // Textures
     const textureLoader = new THREE.TextureLoader();
-    let imgTexture, depthTexture;
-
-    imgTexture = textureLoader.load(imageSrc);
-    depthTexture = textureLoader.load(depthSrc);
+    const imgTexture = textureLoader.load(imageSrc);
+    const depthTexture = textureLoader.load(depthSrc);
     
     imgTexture.minFilter = THREE.LinearFilter;
     depthTexture.minFilter = THREE.LinearFilter;
-    
-    // We want the texture to cover the plane nicely.
-    // By default, it maps 0-1. The CSS object-fit: contain can be simulated,
-    // but in OurTeam, the image is 'contain' positioned at bottom center.
-    // If we just pass the original image, we'll need to make sure the canvas aspect ratio matches the image,
-    // OR we just use CSS object-fit on the WebGL canvas! Wait, canvas isn't an img.
-    // CSS object-fit works on canvas elements!
-    // But does the ShaderMaterial stretch? Yes, the shader outputs exactly what the texture is.
-    // Wait, if the canvas element is stretched by object-fit, the internal resolution might be warped.
-    // Actually, object-fit on <canvas> works perfectly fine!
 
     const uniforms = {
       uImage: { value: imgTexture },
       uDepth: { value: depthTexture },
-      uMouse: { value: new THREE.Vector2(0, 0) },
-      uDepthScale: { value: 0.005 } // Micro intensity for 3D bulge only
+      uDepthScale: { value: 0.12 } // Extrude depth physically
     };
 
     const material = new THREE.ShaderMaterial({
@@ -102,9 +88,13 @@ const DepthDisplacementWebGL = forwardRef(({
       vertexShader,
       fragmentShader,
       transparent: true,
+      side: THREE.FrontSide
     });
 
-    const geometry = new THREE.PlaneGeometry(2, 2);
+    // Ensure plane aspect ratio matches the image (via the container)
+    const aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
+    // High segment count (128x128) so the mesh deforms smoothly!
+    const geometry = new THREE.PlaneGeometry(2 * aspect, 2, 128, 128);
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
@@ -112,13 +102,13 @@ const DepthDisplacementWebGL = forwardRef(({
     const currentMouse = new THREE.Vector2(0, 0);
 
     const render = () => {
-      // Smoothly interpolate towards target
       currentMouse.lerp(stateRef.current.targetMouse, 0.08);
-      
       const activeMult = stateRef.current.active;
-      uniforms.uMouse.value.x = currentMouse.x * activeMult;
-      // Invert Y because WebGL UV origin is bottom-left
-      uniforms.uMouse.value.y = currentMouse.y * activeMult * -1;
+      
+      // ROTATE THE ENTIRE MESH based on mouse!
+      // This is true 3D rotation of a 3D deformed plane, ZERO UV tearing.
+      mesh.rotation.y = currentMouse.x * activeMult * -0.18; // Turn head towards mouse
+      mesh.rotation.x = currentMouse.y * activeMult * -0.12; // Tilt head up/down
       
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(render);
@@ -127,7 +117,11 @@ const DepthDisplacementWebGL = forwardRef(({
 
     const handleResize = () => {
       if (!mountRef.current) return;
-      renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
+      const width = mountRef.current.clientWidth;
+      const height = mountRef.current.clientHeight;
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
     };
     window.addEventListener('resize', handleResize);
 
