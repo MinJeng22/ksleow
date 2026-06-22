@@ -20,16 +20,19 @@ const fragmentShader = `
     vec4 depthData = texture2D(uDepth, vUv);
     // Depth map is grayscale. Usually white (1.0) is foreground, black (0.0) is background.
     float depth = depthData.r;
+    
+    // Soften extreme edges slightly
+    depth = smoothstep(0.02, 0.98, depth);
 
-    // Offset coordinates.
-    // (depth - 0.5) makes the middle depth stay still.
-    // You can also just use depth if you want the background static.
+    // Subtraction makes the pixels move towards the mouse direction.
+    // We just use 'depth' instead of 'depth - 0.5' so the background stays completely glued,
+    // and only the foreground person moves.
     vec2 offset = uMouse * depth * uDepthScale;
     
-    vec2 distortedUv = vUv + offset;
+    vec2 distortedUv = vUv - offset;
     
-    // Optional: Clamp to prevent edge bleeding or repeating
-    // distortedUv = clamp(distortedUv, 0.0, 1.0);
+    // Clamp to prevent edge bleeding or repeating
+    distortedUv = clamp(distortedUv, 0.0, 1.0);
     
     vec4 color = texture2D(uImage, distortedUv);
     
@@ -94,7 +97,7 @@ const DepthDisplacementWebGL = forwardRef(({
       uImage: { value: imgTexture },
       uDepth: { value: depthTexture },
       uMouse: { value: new THREE.Vector2(0, 0) },
-      uDepthScale: { value: 0.022 } // Tune intensity
+      uDepthScale: { value: 0.008 } // Tune intensity
     };
 
     const material = new THREE.ShaderMaterial({
