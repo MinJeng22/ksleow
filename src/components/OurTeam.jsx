@@ -284,7 +284,7 @@ export default function OurTeam() {
           max-width: none;
           object-fit: contain;
           object-position: center bottom;
-          transform: translate3d(calc(-50% + var(--team-person-x)), var(--team-person-y), 30px) scale(1.048) rotateY(calc(var(--team-tilt-y) * 1.8)) rotateX(calc(var(--team-tilt-x) * 1.8));
+          transform: translate3d(calc(-50% + var(--team-person-x)), var(--team-person-y), 30px) scale(1.048);
           transform-origin: center bottom;
           transition: filter 0.3s ease;
           width: auto;

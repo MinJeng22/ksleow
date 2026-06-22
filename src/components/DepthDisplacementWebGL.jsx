@@ -18,16 +18,16 @@ const fragmentShader = `
 
   void main() {
     vec4 depthData = texture2D(uDepth, vUv);
-    // Depth map is grayscale. Usually white (1.0) is foreground, black (0.0) is background.
     float depth = depthData.r;
     
-    // Soften extreme edges slightly
-    depth = smoothstep(0.02, 0.98, depth);
+    // Aggressive smoothstep pushes values towards 0 or 1.
+    // This flattens the person's body so they don't bulge like a jelly balloon.
+    depth = smoothstep(0.1, 0.9, depth);
 
-    // Subtraction makes the pixels move towards the mouse direction.
-    // We just use 'depth' instead of 'depth - 0.5' so the background stays completely glued,
-    // and only the foreground person moves.
-    vec2 offset = uMouse * depth * uDepthScale;
+    // Subtract 0.5 to set the focal plane in the middle.
+    // This means the background moves opposite to the foreground,
+    // halving the perceived stretching (tearing) at the edges!
+    vec2 offset = uMouse * (depth - 0.5) * uDepthScale;
     
     vec2 distortedUv = vUv - offset;
     
