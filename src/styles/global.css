@@ -3107,7 +3107,7 @@ body.has-active-modal .back-to-top-glass {
 .products-section .ks-carousel-btn {
   background: rgba(255, 255, 255, 0.25);
   border-color: rgba(255, 255, 255, 0.35);
-  color: #ffffff;
+  color: #000000;
 }
 .products-section .ks-carousel-btn:hover {
   background: rgba(255, 255, 255, 0.35);
