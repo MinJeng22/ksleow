@@ -251,10 +251,6 @@ export default function Hero({ onContact }) {
        *   • Click scrolls ~72% of the viewport (keeps the bottom of
        *     the hero visible above the next section) */}
       <style>{`
-        @keyframes scrollHintFadeIn {
-          from { opacity: 0; filter: blur(6px); }
-          to { opacity: 1; filter: blur(0); }
-        }
         .hero-scroll-hint {
           position: absolute;
           left: 50%;
@@ -305,10 +301,7 @@ export default function Hero({ onContact }) {
           pointerEvents: hintShown ? undefined : "none",
           zIndex: 100,
           cursor: "pointer",
-          transition: "opacity 0.6s ease",
-          animation: hintShown
-            ? "scrollHintFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both"
-            : "none",
+          transition: "opacity 0.9s ease",
         }}
       >
         {/* Static chevron — no animation */}
