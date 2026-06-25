@@ -10,6 +10,7 @@ import RouteProgressBar from "./components/RouteProgressBar";
 import HomePage from "./pages/Home";
 import AutoCountAccountingPage from "./pages/products/AutoCountAccounting";
 import AutoCountCloudAccountingPage from "./pages/products/AutoCountCloudAccounting";
+import AutoCountPOSPage          from "./pages/products/AutoCountPOS";
 import FeedMePOSPage           from "./pages/products/FeedMePOS";
 import AutoCountPluginsPage    from "./pages/apps/AutoCountPlugins";
 import Sales2DOPage            from "./pages/apps/Sales2DO";
@@ -41,6 +42,7 @@ function SiteRoutes({ openContact, displayLocation }) {
       <Route path={routePath.home} element={<HomePage onContact={openContact} />} />
       <Route path={routePath["autocount-accounting"]} element={<AutoCountAccountingPage onContact={openContact} />} />
       <Route path={routePath["autocount-cloud-accounting"]} element={<AutoCountCloudAccountingPage />} />
+      <Route path={routePath["autocount-pos"]} element={<AutoCountPOSPage onContact={openContact} />} />
       <Route path={routePath["feedme-pos"]} element={<FeedMePOSPage onContact={openContact} />} />
       <Route path={routePath["autocount-plugin"]} element={<AutoCountPluginsPage />} />
       <Route path={routePath.sales2do} element={<Sales2DOPage onContact={openContact} />} />

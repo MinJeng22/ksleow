@@ -27,6 +27,15 @@
     "changefreq": "weekly"
   },
   {
+    "id": "autocount-pos",
+    "route": "/products/autocount-pos",
+    "title": "AutoCount POS",
+    "description": "Fast and robust Point of Sale system fully integrated with AutoCount Accounting for retail and F&B operations.",
+    "category": "Product",
+    "priority": "0.8",
+    "changefreq": "weekly"
+  },
+  {
     "id": "feedme-pos",
     "route": "/products/feedme-pos",
     "title": "FeedMe POS",
