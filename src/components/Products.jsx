@@ -282,6 +282,13 @@ export default function Products({ onContact }) {
     setSlideOffset(1);
   };
 
+  // Fallback for background tabs where onAnimationEnd might not fire
+  useEffect(() => {
+    if (!slideDirection) return;
+    const timer = setTimeout(finishSlide, 550);
+    return () => clearTimeout(timer);
+  }, [slideDirection, slideOffset]);
+
   const handlePillSelect = (targetIndex) => {
     if (!canSlide || slideDirection || targetIndex === progressIndex) return;
     
