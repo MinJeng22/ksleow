@@ -282,6 +282,7 @@ function POSCompareTable({
   rows,
   sections,
   accent = POS_ACCENT,
+  inlinePrice = false,
   mobileWidth = 760,
 }) {
   const columnCount = columns.length;
@@ -289,7 +290,7 @@ function POSCompareTable({
     const priceRow = row.type === "price";
     return (
       <tr key={row.label} className={priceRow ? "ks-compare-tr-book" : "ks-compare-tr-data"}>
-        <CompareFeatureCell className={priceRow ? "ks-compare-td-book" : "ks-compare-td-data"} style={{ fontWeight: 600 }}>
+        <CompareFeatureCell className={priceRow ? "ks-compare-td-book" : "ks-compare-td-data"} style={{ fontWeight: 600 }} meta={row.meta}>
           {row.label}
         </CompareFeatureCell>
         {row.values.map((value, index) => (
@@ -337,7 +338,12 @@ function POSCompareTable({
                   </td>
                 </tr>
                 {section.rows.map(([label, ...values]) =>
-                  renderRow({ label, values, type: label === "Software" ? "price" : undefined })
+                  renderRow({
+                    label,
+                    meta: inlinePrice ? values[0] : null,
+                    values: inlinePrice ? values.slice(1) : values,
+                    type: label === "Software" ? "price" : undefined,
+                  })
                 )}
               </React.Fragment>
             ))}
@@ -478,6 +484,17 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos {
           --pos-accent: ${POS_ACCENT};
           --pos-navy: ${POS_NAVY};
+          background:
+            linear-gradient(
+              180deg,
+              var(--ks-page-paper) 0%,
+              var(--ks-page-paper) 18%,
+              var(--ks-page-mist) 34%,
+              var(--ks-page-ice) 52%,
+              var(--ks-page-cloud) 70%,
+              var(--ks-page-warm) 86%,
+              var(--ks-page-paper) 100%
+            );
         }
         #page-autocount-pos .ks-btn-primary {
           background: var(--pos-accent) !important;
@@ -824,7 +841,7 @@ export default function AutoCountPOSPage({ onContact }) {
           iconSrc={POS_ICON}
           iconAlt="AutoCount POS"
           backgroundImage={POS_HERO}
-          primaryCta={{ label: "Request Quotation", onClick: handleContact }}
+          primaryCta={{ label: "Start Free Trial", onClick: handleContact }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
         />
       </div>
@@ -885,7 +902,7 @@ export default function AutoCountPOSPage({ onContact }) {
             <SectionIntro
               eyebrow="Accounting Modules"
               title="Backend modules available for POS projects"
-              text="Use the same comparison table style as AutoCount Accounting so module availability, SRP, and add-ons stay easy to scan."
+              text="Use the same comparison table style as AutoCount Accounting so module availability, pricing, and add-ons stay easy to scan."
             />
             <div className="pos-legend">
               <span><POSMarker value="Included" /> included</span>
@@ -893,11 +910,12 @@ export default function AutoCountPOSPage({ onContact }) {
               <span><POSMarker value="-" /> not available</span>
             </div>
             <POSCompareTable
-              columns={["SRP", "POS Basic", "POS Standard"]}
+              columns={["POS Basic", "POS Standard"]}
               leftLabel="Modules"
               sections={ACCOUNTING_MODULE_SECTIONS}
               accent={POS_ACCENT}
-              mobileWidth={920}
+              inlinePrice
+              mobileWidth={760}
             />
           </div>
         </section>
@@ -914,11 +932,12 @@ export default function AutoCountPOSPage({ onContact }) {
               text="Plan your cashier counters together with POS backend modules, branch sync, mobile ordering, and standalone applications."
             />
             <POSCompareTable
-              columns={["SRP", "POS Basic", "POS Standard"]}
+              columns={["POS Basic", "POS Standard"]}
               leftLabel="POS Modules"
               sections={POS_MODULE_SECTIONS}
               accent={POS_ACCENT}
-              mobileWidth={840}
+              inlinePrice
+              mobileWidth={720}
             />
             <NotesPanel title="POS module notes" items={POS_MODULE_NOTES} />
 
@@ -933,11 +952,12 @@ export default function AutoCountPOSPage({ onContact }) {
             />
             <div style={{ height: "1.5rem" }} />
             <POSCompareTable
-              columns={["SRP", "A", "B", "Branch"]}
+              columns={["A", "B", "Branch"]}
               leftLabel="POS Frontend Module"
               sections={FRONTEND_MODULE_SECTIONS}
               accent={POS_NAVY}
-              mobileWidth={980}
+              inlinePrice
+              mobileWidth={820}
             />
             <NotesPanel title="Front-end notes" items={FRONTEND_NOTES} />
           </div>
