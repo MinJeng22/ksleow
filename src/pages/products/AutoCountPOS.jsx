@@ -11,7 +11,6 @@ import {
   IconStar,
   IconTrophy,
 } from "../../components/SectionDivider.jsx";
-import WhyChooseUs from "../../components/WhyChooseUs.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import { CompareFeatureCell } from "../../components/CompareTable.jsx";
@@ -75,6 +74,26 @@ const WORKFLOW = [
     desc: "Your team receives guided training, launch support, and practical troubleshooting after the system goes live.",
   },
 ];
+
+const WHY_KSL_POINTS = [
+  {
+    label: "Counter workflow first",
+    title: "Designed around real cashier flow",
+    desc: "We plan barcode scanning, receipt printing, cash drawer, payment collection, closing, and user access before installation.",
+  },
+  {
+    label: "Backend connected",
+    title: "Sales and stock stay traceable",
+    desc: "POS setup is aligned with AutoCount Accounting, item master, stock movement, account posting, and outlet reporting.",
+  },
+  {
+    label: "Local support",
+    title: "Training and go-live support",
+    desc: "Your team gets guided training, practical checking, and support after launch so daily counter work stays smooth.",
+  },
+];
+
+const POS_SETUP_STEPS = ["Demo", "Quotation", "Setup", "Training", "Go-Live"];
 
 const EDITION_COLUMNS = ["POS Basic", "POS Standard"];
 const EDITION_ROWS = [
@@ -389,6 +408,61 @@ function NotesPanel({ title, items }) {
   );
 }
 
+function POSWhyKSL({ onContact }) {
+  return (
+    <section className="pos-why-ksl">
+      <div className="content-wrap pos-why-layout">
+        <div className="pos-why-copy">
+          <div className="ks-eyebrow" style={{ color: POS_ACCENT }}>
+            Why Choose KSL
+          </div>
+          <h2>POS implementation that fits how your outlet actually works.</h2>
+          <p>
+            AutoCount POS is strongest when front-end counter work, stock control, accounting, and support are planned together.
+          </p>
+          <div className="pos-why-stats" aria-label="KSL POS implementation support summary">
+            <span>
+              <strong>Retail</strong>
+              Counter sales
+            </span>
+            <span>
+              <strong>F&amp;B</strong>
+              Table and waiter flow
+            </span>
+            <span>
+              <strong>Branch</strong>
+              Outlet sync planning
+            </span>
+          </div>
+          <button type="button" className="ks-btn ks-btn-primary pos-why-cta" onClick={onContact}>
+            Discuss POS Setup
+          </button>
+        </div>
+
+        <div className="pos-why-board" aria-label="KSL AutoCount POS implementation highlights">
+          <div className="pos-why-flow">
+            {POS_SETUP_STEPS.map((step, index) => (
+              <span key={step}>
+                <i>{String(index + 1).padStart(2, "0")}</i>
+                {step}
+              </span>
+            ))}
+          </div>
+          <div className="pos-why-cards">
+            {WHY_KSL_POINTS.map((item) => (
+              <article key={item.title} className="pos-why-card">
+                <span>{item.label}</span>
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function AutoCountPOSPage({ onContact }) {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -560,6 +634,145 @@ export default function AutoCountPOSPage({ onContact }) {
           font-size: 0.82rem;
           margin: -0.75rem 0 1.5rem;
         }
+        #page-autocount-pos .pos-why-ksl {
+          background:
+            radial-gradient(circle at 14% 20%, rgba(228, 158, 37, 0.15), transparent 30%),
+            radial-gradient(circle at 86% 18%, rgba(47, 49, 90, 0.08), transparent 32%),
+            linear-gradient(180deg, #fff9ed 0%, #fffdf8 48%, #fff7e7 100%);
+          overflow: hidden;
+          padding: clamp(4rem, 7vw, 6.25rem) 0;
+          position: relative;
+        }
+        #page-autocount-pos .pos-why-ksl::before {
+          background:
+            linear-gradient(120deg, rgba(228, 158, 37, 0.12), transparent 42%),
+            repeating-linear-gradient(90deg, rgba(47, 49, 90, 0.045) 0 1px, transparent 1px 84px);
+          content: "";
+          inset: 0;
+          opacity: 0.68;
+          pointer-events: none;
+          position: absolute;
+        }
+        #page-autocount-pos .pos-why-layout {
+          align-items: stretch;
+          display: grid;
+          gap: clamp(1.35rem, 3vw, 3rem);
+          grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr);
+          position: relative;
+          z-index: 1;
+        }
+        #page-autocount-pos .pos-why-copy {
+          align-self: center;
+        }
+        #page-autocount-pos .pos-why-copy h2 {
+          color: var(--pos-navy);
+          font-size: clamp(1.85rem, 3.6vw, 3.15rem);
+          font-weight: 800;
+          letter-spacing: 0;
+          line-height: 1.08;
+          margin: 0.65rem 0 1rem;
+          max-width: 620px;
+        }
+        #page-autocount-pos .pos-why-copy p {
+          color: #626783;
+          font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+          line-height: 1.75;
+          margin: 0;
+          max-width: 600px;
+        }
+        #page-autocount-pos .pos-why-stats {
+          display: grid;
+          gap: 0.75rem;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          margin: 1.65rem 0;
+        }
+        #page-autocount-pos .pos-why-stats span {
+          background: rgba(255, 255, 255, 0.72);
+          border: 1px solid rgba(228, 158, 37, 0.18);
+          border-radius: 8px;
+          color: #747891;
+          display: grid;
+          gap: 0.18rem;
+          padding: 0.9rem;
+        }
+        #page-autocount-pos .pos-why-stats strong {
+          color: var(--pos-navy);
+          font-size: 0.98rem;
+        }
+        #page-autocount-pos .pos-why-cta {
+          min-width: 190px;
+        }
+        #page-autocount-pos .pos-why-board {
+          background: rgba(255, 255, 255, 0.78);
+          border: 1px solid rgba(47, 49, 90, 0.1);
+          border-radius: 18px;
+          box-shadow: 0 28px 76px rgba(47, 49, 90, 0.11);
+          display: grid;
+          gap: 1rem;
+          padding: clamp(1rem, 2vw, 1.45rem);
+        }
+        #page-autocount-pos .pos-why-flow {
+          background: #2f315a;
+          border-radius: 14px;
+          color: #fff;
+          display: grid;
+          gap: 0.35rem;
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+          padding: 0.65rem;
+        }
+        #page-autocount-pos .pos-why-flow span {
+          align-items: center;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          display: flex;
+          flex-direction: column;
+          font-size: 0.78rem;
+          font-weight: 800;
+          gap: 0.3rem;
+          justify-content: center;
+          min-height: 82px;
+          text-align: center;
+        }
+        #page-autocount-pos .pos-why-flow i {
+          color: #f0c36f;
+          font-size: 0.68rem;
+          font-style: normal;
+          letter-spacing: 0.12em;
+        }
+        #page-autocount-pos .pos-why-cards {
+          display: grid;
+          gap: 1rem;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        #page-autocount-pos .pos-why-card {
+          background: #ffffff;
+          border: 1px solid rgba(47, 49, 90, 0.09);
+          border-radius: 14px;
+          min-height: 240px;
+          padding: 1.1rem;
+        }
+        #page-autocount-pos .pos-why-card span {
+          color: var(--pos-accent);
+          display: block;
+          font-size: 0.68rem;
+          font-weight: 850;
+          letter-spacing: 0.12em;
+          margin-bottom: 0.75rem;
+          text-transform: uppercase;
+        }
+        #page-autocount-pos .pos-why-card h3 {
+          color: var(--pos-navy);
+          font-size: 1.05rem;
+          line-height: 1.3;
+          margin: 0 0 0.65rem;
+        }
+        #page-autocount-pos .pos-why-card p {
+          color: #6b6f91;
+          font-size: 0.9rem;
+          line-height: 1.65;
+          margin: 0;
+        }
         @media (max-width: 980px) {
           #page-autocount-pos .pos-workflow-grid,
           #page-autocount-pos .pos-addon-grid {
@@ -567,6 +780,13 @@ export default function AutoCountPOSPage({ onContact }) {
           }
           #page-autocount-pos .pos-note-panel ul {
             grid-template-columns: 1fr;
+          }
+          #page-autocount-pos .pos-why-layout,
+          #page-autocount-pos .pos-why-cards {
+            grid-template-columns: 1fr;
+          }
+          #page-autocount-pos .pos-why-card {
+            min-height: auto;
           }
         }
         @media (max-width: 640px) {
@@ -576,6 +796,20 @@ export default function AutoCountPOSPage({ onContact }) {
           }
           #page-autocount-pos .pos-section-intro {
             text-align: left;
+          }
+          #page-autocount-pos .pos-why-ksl {
+            padding: 3.5rem 0;
+          }
+          #page-autocount-pos .pos-why-stats,
+          #page-autocount-pos .pos-why-flow {
+            grid-template-columns: 1fr;
+          }
+          #page-autocount-pos .pos-why-flow span {
+            align-items: center;
+            flex-direction: row;
+            justify-content: flex-start;
+            min-height: 52px;
+            padding: 0 0.8rem;
           }
         }
       `}</style>
@@ -713,8 +947,8 @@ export default function AutoCountPOSPage({ onContact }) {
           <PageSectionDivider sections={POS_SECTIONS} id="why-ksl" />
         </div>
 
-        <div id="why-ksl" className="product-app-section product-app-section-paper product-app-section-clean">
-          <WhyChooseUs themeColor={POS_ACCENT} />
+        <div id="why-ksl">
+          <POSWhyKSL onContact={handleContact} />
         </div>
 
         <EnquireNowCTA
