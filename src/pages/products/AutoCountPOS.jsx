@@ -30,7 +30,6 @@ const POS_SECTIONS = [
   { id: "features", label: "Advantages", icon: IconStar, color: POS_ACCENT },
   { id: "workflow", label: "Setup Flow", icon: IconClipboard, color: POS_ACCENT },
   { id: "editions", label: "Editions", icon: IconDollar, color: POS_NAVY },
-  { id: "modules", label: "Modules", icon: IconLayers, color: POS_ACCENT },
   { id: "frontend", label: "Front End", icon: IconGrid, color: POS_NAVY },
   { id: "why-ksl", label: "Why Choose Us", icon: IconTrophy, color: POS_ACCENT },
 ];
@@ -881,50 +880,39 @@ export default function AutoCountPOSPage({ onContact }) {
           <PageSectionDivider sections={POS_SECTIONS} id="editions" />
         </div>
 
-        <section id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ overflow: "visible" }}>
+        <section id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-warm" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
-              eyebrow="Editions & Pricing"
+              eyebrow="Editions, Pricing & Backend Modules"
               title="POS Basic and POS Standard"
-              text="Start with the edition that fits your outlet, then add users, account books, dongle, or e-invoice items when required."
+              text="Start with the edition that fits your outlet, then add backend accounting modules, users, or e-invoice items when required."
             />
-            <POSCompareTable columns={EDITION_COLUMNS} leftLabel="Edition" rows={EDITION_ROWS} mobileWidth={720} />
-            <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
-              *Prices exclude 8% SST. 1 POS Counter A is included for any POS Edition purchase.
-            </p>
-            <AddOnGrid />
-            <NotesPanel title="Excluded products from rebate scheme" items={EXCLUDED_REBATE_ITEMS} />
-          </div>
-        </section>
-
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-cloud)" }}>
-          <PageSectionDivider sections={POS_SECTIONS} id="modules" />
-        </div>
-
-        <section id="modules" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-to-warm" style={{ overflow: "visible" }}>
-          <div className="content-wrap">
-            <SectionIntro
-              eyebrow="Accounting Modules"
-              title="Backend modules available for POS projects"
-              text="Use the same comparison table style as AutoCount Accounting so module availability, pricing, and add-ons stay easy to scan."
-            />
+            
             <div className="pos-legend">
               <span><POSMarker value="Included" /> included</span>
               <span><POSMarker value="+" /> optional add-on</span>
               <span><POSMarker value="-" /> not available</span>
             </div>
+            
             <POSCompareTable
-              columns={["POS Basic", "POS Standard"]}
-              leftLabel="Modules"
+              columns={EDITION_COLUMNS}
+              leftLabel="Edition / Module"
+              rows={EDITION_ROWS}
               sections={ACCOUNTING_MODULE_SECTIONS}
               accent={POS_ACCENT}
               inlinePrice
               mobileWidth={760}
             />
+            <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
+              *Prices exclude 8% SST. 1 POS Counter A is included for any POS Edition purchase.
+            </p>
+            <div style={{ height: "2.5rem" }} />
+            <AddOnGrid />
+            <NotesPanel title="Excluded products from rebate scheme" items={EXCLUDED_REBATE_ITEMS} />
           </div>
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-cloud)", "--section-to": "var(--ks-page-warm)" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-warm)" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="frontend" />
         </div>
 
