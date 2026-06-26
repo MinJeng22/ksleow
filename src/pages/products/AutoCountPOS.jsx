@@ -10,6 +10,7 @@ import {
   IconLedger,
   IconStar,
   IconTrophy,
+  IconVideo,
   IconDatabase,
   IconRegister,
 } from "../../components/SectionDivider.jsx";
@@ -17,6 +18,7 @@ import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import { CompareFeatureCell } from "../../components/CompareTable.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
+import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 import { runWithProgressFeedback } from "../../utils/routeTransitions.js";
 import posReleases from "../../content/autocountPosReleases.json";
@@ -33,6 +35,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 
 const POS_SECTIONS = [
   { id: "features", label: "Advantages", icon: IconStar, color: POS_ACCENT },
+  { id: "training", label: "Tutorial Guide", icon: IconVideo, color: POS_ACCENT },
   { id: "editions", label: "Backend", icon: IconDatabase, color: POS_NAVY },
   { id: "frontend", label: "Front End", icon: IconRegister, color: POS_NAVY },
   { id: "releases", label: "Release Notes", icon: IconLedger, color: "#b97812" },
@@ -40,6 +43,17 @@ const POS_SECTIONS = [
 ];
 
 const POS_RELEASES = posReleases;
+
+const POS_TUTORIAL_VIDEOS = [
+  {
+    id: "YGjATcKe_A0",
+    playlistId: "PLY0HF8flL30zq_OkKerTe_D6q-E5KV911",
+    label: "POS Tutorial",
+    description: "Follow AutoCount POS training videos for front-end cashier flow, backend setup, item and stock handling, and the practical steps your outlet team needs before going live.",
+    note: "POS Guide",
+    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5" /><path d="M8 20v2h8v-2" /><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none" /></svg>,
+  },
+];
 
 const FEATURES = [
   {
@@ -618,11 +632,20 @@ export default function AutoCountPOSPage({ onContact }) {
           font-size: 0.98rem;
           line-height: 1.75;
         }
-        #page-autocount-pos .pos-workflow-grid,
-        #page-autocount-pos .pos-addon-grid {
+        #page-autocount-pos .pos-workflow-grid {
           display: grid;
           grid-template-columns: repeat(4, minmax(0, 1fr));
           gap: 1rem;
+        }
+        #page-autocount-pos .pos-addon-grid {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+        }
+        #page-autocount-pos .pos-addon-grid > .pos-addon-card {
+          flex: 1 1 300px;
+          max-width: 380px;
         }
         #page-autocount-pos .pos-workflow-card,
         #page-autocount-pos .pos-addon-card,
@@ -1095,8 +1118,7 @@ export default function AutoCountPOSPage({ onContact }) {
           margin: 0;
         }
         @media (max-width: 980px) {
-          #page-autocount-pos .pos-workflow-grid,
-          #page-autocount-pos .pos-addon-grid {
+          #page-autocount-pos .pos-workflow-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
           #page-autocount-pos .pos-note-panel ul {
@@ -1125,8 +1147,7 @@ export default function AutoCountPOSPage({ onContact }) {
           }
         }
         @media (max-width: 640px) {
-          #page-autocount-pos .pos-workflow-grid,
-          #page-autocount-pos .pos-addon-grid {
+          #page-autocount-pos .pos-workflow-grid {
             grid-template-columns: 1fr;
           }
           #page-autocount-pos .pos-section-intro {
@@ -1176,7 +1197,25 @@ export default function AutoCountPOSPage({ onContact }) {
           <FeatureShowcase features={FEATURES} wrapper />
         </div>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-ice)", marginTop: "-1.5rem" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+          <PageSectionDivider sections={POS_SECTIONS} id="training" />
+        </div>
+
+        <section className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
+          <div id="training">
+            <AutoCountTrainingWebGL
+              customVideos={POS_TUTORIAL_VIDEOS}
+              title="AutoCount POS Tutorial Guide"
+              themeColor={POS_ACCENT}
+              themeHoverColor="#f0ad32"
+              activeTabBg={POS_NAVY}
+              playIconColor={POS_NAVY}
+              playBtnBg="#f0c36f"
+            />
+          </div>
+        </section>
+
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="editions" />
         </div>
 
