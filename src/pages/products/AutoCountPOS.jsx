@@ -1240,15 +1240,8 @@ export default function AutoCountPOSPage({ onContact }) {
 
             <POSCompareTable
               columns={COUNTER_COLUMNS}
-              leftLabel="POS Counter"
+              leftLabel="POS Counter & Add-ons"
               rows={COUNTER_ROWS}
-              accent={POS_NAVY}
-              mobileWidth={760}
-            />
-            <div style={{ height: "1.5rem" }} />
-            <POSCompareTable
-              columns={["A", "B", "Branch"]}
-              leftLabel="POS Frontend Module"
               sections={FRONTEND_MODULE_SECTIONS}
               accent={POS_NAVY}
               inlinePrice

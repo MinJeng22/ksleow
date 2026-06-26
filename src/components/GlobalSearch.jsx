@@ -1,114 +1,69 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { navigateWithRouteFeedback, preloadRouteAssets } from "../utils/routeTransitions.js";
+import acPluginIcon from "../assets/images/apps/ac-plugin-icon.webp";
+import autocountAccountingIcon from "../assets/images/products/autocount-accounting-icon.webp";
 
 const SEARCH_INDEX = [
   {
     title: "Home",
     path: "/",
     keywords: "home, main, ksl, k.s. leow group, accounting firm",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
-        <polyline points="9 22 9 12 15 12 15 22"/>
-      </svg>
-    )
+    icon: <img src="/images/icons/favicon.webp" alt="Home" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "Company Gallery",
     path: "/gallery",
     keywords: "gallery, photos, photo album, company activity, team building, event, training, celebration, company event, 活动, 团建, 公司活动",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="5" width="18" height="14" rx="2"/>
-        <circle cx="8.5" cy="10.5" r="1.5"/>
-        <path d="m21 15-5-5L5 19"/>
-      </svg>
-    )
+    icon: <img src="/images/icons/favicon.webp" alt="Gallery" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "AutoCount Accounting",
     path: "/products/autocount-accounting",
     keywords: "autocount, accounting, software, ledger, invoice, system, finance, business",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2"/>
-        <line x1="8" y1="21" x2="16" y2="21"/>
-        <line x1="12" y1="17" x2="12" y2="21"/>
-      </svg>
-    )
+    icon: <img src={autocountAccountingIcon} alt="AutoCount Accounting" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "AutoCount Cloud Accounting",
     path: "/products/autocount-cloud-accounting",
     keywords: "cloud, accounting, online, web, remote, anytime, anywhere",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/>
-      </svg>
-    )
+    icon: <img src="/images/products/cloudaccounting-icon.webp" alt="AutoCount Cloud Accounting" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "AutoCount POS",
     path: "/products/autocount-pos",
     keywords: "autocount pos, point of sale, cashier, retail, f&b, counter, barcode, receipt, inventory",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="14" rx="2"/>
-        <path d="M7 20h10"/>
-        <path d="M9 18v2"/>
-        <path d="M15 18v2"/>
-        <path d="M7 8h10"/>
-        <path d="M7 12h3"/>
-        <path d="M14 12h3"/>
-      </svg>
-    )
+    icon: <img src="/images/products/autocountpos.webp" alt="AutoCount POS" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
+  },
+  {
+    title: "FeedMe POS",
+    path: "/products/feedme-pos",
+    keywords: "feedme pos, f&b pos, restaurant, cafe, point of sale, order, receipt",
+    icon: <img src="/images/logos/feedme-logo.webp" alt="FeedMe POS" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "AutoCount Plugins",
     path: "/apps/autocount-plugin",
     keywords: "plugins, extensions, add-on, customize, autocount, app",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect width="7" height="7" x="14" y="3" rx="1"/>
-        <path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"/>
-      </svg>
-    )
+    icon: <img src={acPluginIcon} alt="AutoCount Plugins" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "Sales2DO App",
     path: "/apps/sales2do",
     keywords: "sales2do, mobile, sales, ordering, delivery, agent, app",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-        <line x1="12" y1="18" x2="12.01" y2="18"/>
-      </svg>
-    )
+    icon: <img src={acPluginIcon} alt="Sales2DO" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "KS Omni",
     path: "/omni",
     keywords: "ks omni, ai, chatbot, omnichannel, whatsapp, customer service, support",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/>
-      </svg>
-    )
+    icon: <img src="/images/branding/ksl-logo-circle.webp" alt="KS Omni" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "Quotation Viewer",
     path: "/quotation",
     keywords: "quotation, invoice, billing, viewer, price, pricing",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/>
-        <line x1="16" y1="17" x2="8" y2="17"/>
-        <polyline points="10 9 9 9 8 9"/>
-      </svg>
-    )
+    icon: <img src="/images/branding/ksl-logo-circle.webp" alt="Quotation Viewer" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   }
 ];
 
