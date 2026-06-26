@@ -59,9 +59,7 @@ function escapeHtml(value) {
 }
 
 function injectHead(html, doc) {
-  const title = doc.route === "/" 
-    ? "K.S. Leow Group"
-    : `${doc.title} | ${siteName}`;
+  const title = doc.route === "/" ? doc.title : `${doc.title} | ${siteName}`;
   const description = doc.description || `${doc.title} from ${siteName}`;
   const canonical = doc.url;
   const absoluteUrl = (value) => {
@@ -93,6 +91,30 @@ function injectHead(html, doc) {
   }
 
   const graph = [jsonLd];
+  if (doc.category === "Company") {
+    graph.push({
+      "@type": "Organization",
+      name: siteName,
+      url: siteUrl,
+      logo: `${siteUrl}/images/branding/ksl-logo-circle.webp`,
+      image: `${siteUrl}/images/branding/ksl-logo-circle.webp`,
+      telephone: "+60179052323",
+      email: "support@ksleow.com.my",
+      areaServed: {
+        "@type": "Country",
+        name: "Malaysia",
+      },
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          telephone: "+60179052323",
+          contactType: "customer support",
+          areaServed: "MY",
+          availableLanguage: ["English", "Chinese", "Malay"],
+        },
+      ],
+    });
+  }
   if (Array.isArray(doc.faqs) && doc.faqs.length) {
     graph.push({
       "@type": "FAQPage",
@@ -114,6 +136,7 @@ function injectHead(html, doc) {
 
   const tags = [
     `<link rel="canonical" href="${escapeHtml(canonical)}" />`,
+    `<meta name="robots" content="index, follow, max-image-preview:large" />`,
     Array.isArray(doc.keywords) && doc.keywords.length ? `<meta name="keywords" content="${escapeHtml(doc.keywords.join(", "))}" />` : "",
     `<meta property="og:title" content="${escapeHtml(title)}" />`,
     `<meta property="og:description" content="${escapeHtml(description)}" />`,

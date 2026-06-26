@@ -1,12 +1,26 @@
 {
   "id": "home",
-  "title": "K.S. Leow Group",
-  "description": "K.S. Leow Group official website for accounting, taxation, company secretarial, AutoCount software, IT, training, and business workflow services in Pahang.",
+  "title": "K.S. Leow Group | AutoCount & Business Software Malaysia",
+  "description": "K.S. Leow Group helps Malaysian SMEs with AutoCount Accounting, POS, CloudAccounting, tax, accounting, company secretarial, IT support and training.",
   "url": "https://ksleow.com.my/",
   "route": "/",
   "category": "Company",
   "source": "site-content",
+  "image": "https://ksleow.com.my/images/branding/ksl-logo-circle.webp",
+  "keywords": [
+    "K.S. Leow Group",
+    "AutoCount Malaysia",
+    "AutoCount Accounting Malaysia",
+    "Accounting software Malaysia",
+    "POS system Malaysia",
+    "Tax consultant Pahang",
+    "Company secretarial services Malaysia",
+    "IT support Malaysia"
+  ],
   "facts": {
+    "phone": "+60 17-905 2323",
+    "email": "support@ksleow.com.my",
+    "serviceArea": "Malaysia, with local support in Pahang including Mentakab and Temerloh.",
     "products": [
       "AutoCount Accounting: Malaysia's leading desktop accounting software. Full SST and e‑Invoice ready.",
       "FeedMe POS: Cloud F&B POS with table management, kitchen display, and online ordering integration.",
