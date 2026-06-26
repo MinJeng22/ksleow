@@ -4,10 +4,15 @@ import productsContent from "../content/products.json";
 import servicesContent from "../content/services.json";
 import { PRODUCT_IMAGES } from "../assets/assets.js";
 import acPluginIcon from "../assets/images/apps/ac-plugin-icon.webp";
+import sales2doLicenseOffline from "../assets/images/apps/sales2do/license-offline.webp";
+import sales2doLicenseOnline from "../assets/images/apps/sales2do/license-online.webp";
+import sales2doOutstanding from "../assets/images/apps/sales2do/outstanding.webp";
+import sales2doPresetDelivery from "../assets/images/apps/sales2do/preset-delivery.webp";
+import sales2doSettings from "../assets/images/apps/sales2do/settings.webp";
 
 const DEFAULT_PRODUCT_HERO = "/images/products/autocount-accounting-hero.webp";
 const TRANSITION_DELAY_MS = 500;
-const CRITICAL_ASSET_TIMEOUT_MS = 2400;
+const CRITICAL_ASSET_TIMEOUT_MS = 3400;
 const warmedImages = new Map();
 const preloadLinks = new Set();
 const imageReadyPromises = new Map();
@@ -58,8 +63,12 @@ const routeAssets = {
   ],
   "/products/autocount-pos": [
     "/images/products/autocount-pos-showcase.webp",
-    "/images/products/autocountpos.webp",
+    "/images/products/autocount-pos.webp",
     ...(productAssetsByRoute["/products/autocount-pos"] || []),
+    "/images/icons/feature-device.svg",
+    "/images/icons/feature-integration.svg",
+    "/images/icons/feature-bank.svg",
+    "/images/branding/ksl-logo-circle.webp",
   ],
   "/products/feedme-pos": [
     "/images/products/feedme-pos-showcase.webp",
@@ -73,6 +82,12 @@ const routeAssets = {
   "/apps/sales2do": [
     DEFAULT_PRODUCT_HERO,
     "/images/other-services/acplugin.webp",
+    acPluginIcon,
+    sales2doOutstanding,
+    sales2doPresetDelivery,
+    sales2doSettings,
+    sales2doLicenseOffline,
+    sales2doLicenseOnline,
   ],
   "/gallery": [
     "/images/branding/service-card-back.webp",
@@ -94,7 +109,7 @@ const routeCriticalAssets = {
   ],
   "/products/autocount-pos": [
     "/images/products/autocount-pos-showcase.webp",
-    "/images/products/autocountpos.webp",
+    "/images/products/autocount-pos.webp",
   ],
   "/products/feedme-pos": [
     "/images/products/feedme-pos-showcase.webp",
@@ -357,6 +372,15 @@ function getRouteCriticalAssets(to) {
   return routeCriticalAssets[pathname] || getRouteAssets(pathname).slice(0, 2);
 }
 
+function getRouteReadyAssets(to) {
+  const pathname = getPathname(to);
+  if (!pathname) return [];
+  return compactUnique([
+    ...getRouteCriticalAssets(pathname),
+    ...getRouteAssets(pathname),
+  ]);
+}
+
 async function waitForCriticalImages(sources, options = {}) {
   const {
     priority = "high",
@@ -383,7 +407,7 @@ async function waitForCriticalImages(sources, options = {}) {
 async function waitForTransitionReadiness({ assets = [], route = "", minDelay = TRANSITION_DELAY_MS, timeout = CRITICAL_ASSET_TIMEOUT_MS } = {}) {
   const criticalAssets = compactUnique([
     ...assets,
-    ...(route ? getRouteCriticalAssets(route) : []),
+    ...(route ? getRouteReadyAssets(route) : []),
   ]);
 
   await Promise.all([
@@ -400,7 +424,7 @@ export function waitForRouteAssets(to, options = {}) {
   } = options;
   const criticalAssets = compactUnique([
     ...assets,
-    ...getRouteCriticalAssets(to),
+    ...getRouteReadyAssets(to),
   ]);
 
   return waitForCriticalImages(criticalAssets, { priority, timeout });
