@@ -4,7 +4,6 @@ import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { PageSectionDivider } from "../../components/PageSections.jsx";
 import {
-  IconClipboard,
   IconDollar,
   IconGrid,
   IconStar,
@@ -29,7 +28,6 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 
 const POS_SECTIONS = [
   { id: "features", label: "Advantages", icon: IconStar, color: POS_ACCENT },
-  { id: "workflow", label: "Setup Flow", icon: IconClipboard, color: POS_ACCENT },
   { id: "editions", label: "Backend", icon: IconDatabase, color: POS_NAVY },
   { id: "frontend", label: "Front End", icon: IconRegister, color: POS_NAVY },
   { id: "why-ksl", label: "Why Choose Us", icon: IconTrophy, color: POS_ACCENT },
@@ -58,24 +56,7 @@ const FEATURES = [
   },
 ];
 
-const WORKFLOW = [
-  {
-    title: "Outlet discovery",
-    desc: "We map your counters, account books, stock flow, hardware, users, and e-invoice requirements before quoting.",
-  },
-  {
-    title: "License and module setup",
-    desc: "POS edition, network users, backend modules, and front-end counters are configured around your actual operation.",
-  },
-  {
-    title: "Hardware and data readiness",
-    desc: "Barcode scanner, receipt printer, cash drawer, local database, item master, and account integration are checked before go-live.",
-  },
-  {
-    title: "Training and support",
-    desc: "Your team receives guided training, launch support, and practical troubleshooting after the system goes live.",
-  },
-];
+
 
 const WHY_KSL_POINTS = [
   {
@@ -385,19 +366,7 @@ function SectionIntro({ eyebrow, title, text }) {
   );
 }
 
-function WorkflowGrid() {
-  return (
-    <div className="pos-workflow-grid">
-      {WORKFLOW.map((item, index) => (
-        <article key={item.title} className="pos-workflow-card">
-          <span>{String(index + 1).padStart(2, "0")}</span>
-          <h3>{item.title}</h3>
-          <p>{item.desc}</p>
-        </article>
-      ))}
-    </div>
-  );
-}
+
 
 function NotesPanel({ title, items }) {
   return (
@@ -858,26 +827,11 @@ export default function AutoCountPOSPage({ onContact }) {
           <FeatureShowcase features={FEATURES} wrapper />
         </div>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-          <PageSectionDivider sections={POS_SECTIONS} id="workflow" />
-        </div>
-
-        <section id="workflow" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
-          <div className="content-wrap">
-            <SectionIntro
-              eyebrow="Setup Flow"
-              title="A cleaner rollout from quotation to go-live"
-              text="POS projects work best when license, counter hardware, stock flow, and accounting integration are planned together."
-            />
-            <WorkflowGrid />
-          </div>
-        </section>
-
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-ice)", marginTop: "-1.5rem" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="editions" />
         </div>
 
-        <section id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-warm" style={{ overflow: "visible" }}>
+        <section id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-from-paper product-app-section-to-warm" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
               eyebrow="Editions, Pricing & Backend Modules"
