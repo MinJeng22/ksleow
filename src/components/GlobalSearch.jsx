@@ -187,15 +187,17 @@ export default function GlobalSearch({ open, onClose }) {
           transform: translateY(-1px);
         }
         .search-result-icon {
-          width: 40px;
-          height: 40px;
-          border-radius: 14px;
-          background: rgba(47,49,90,0.06);
-          box-shadow: inset 0 0 0 1px rgba(47,49,90,0.04);
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: #ffffff;
+          box-shadow: 0 4px 12px rgba(47,49,90,0.05), inset 0 0 0 1px rgba(47,49,90,0.08);
           display: flex;
           align-items: center;
           justify-content: center;
           color: #2f315a;
+          flex-shrink: 0;
+          overflow: hidden;
         }
         .search-result-text {
           flex: 1;
