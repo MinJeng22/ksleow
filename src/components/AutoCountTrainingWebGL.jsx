@@ -35,26 +35,71 @@ const APPLE_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 const TABLET_SHADOW = '0 24px 60px rgba(15,17,40,0.2), inset 0 0 0 2px #2a2a2a, inset 0 0 12px rgba(0,0,0,1)';
 const VIDEO_SHADOW = '0 24px 64px rgba(15,17,40,0.14)';
 const thumbnailDecodeCache = new Map();
+const thumbnailUrlCache = new Map();
+const THUMBNAIL_VARIANTS = ['maxresdefault', 'hq720', 'sddefault', 'hqdefault', 'mqdefault'];
 
-const getThumbnailUrl = (videoId) => `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+const getThumbnailUrl = (videoId, variant = 'hqdefault') => `https://i.ytimg.com/vi/${videoId}/${variant}.jpg`;
+const getInitialThumbnailUrl = (videoId) => getThumbnailUrl(videoId, 'hqdefault');
+const getThumbnailCandidates = (videoId) => THUMBNAIL_VARIANTS.map(variant => getThumbnailUrl(videoId, variant));
 
-function preloadImage(src) {
-  if (typeof window === 'undefined') return Promise.resolve();
+function loadImageMeta(src) {
+  if (typeof window === 'undefined') {
+    return Promise.resolve({ src, ok: true, width: 0, height: 0 });
+  }
+
   if (thumbnailDecodeCache.has(src)) return thumbnailDecodeCache.get(src);
 
   const image = new Image();
   image.crossOrigin = 'anonymous';
   image.decoding = 'async';
   image.loading = 'eager';
+
+  const loadPromise = new Promise(resolve => {
+    image.onload = async () => {
+      if (image.decode) {
+        await image.decode().catch(() => undefined);
+      }
+
+      const width = image.naturalWidth || 0;
+      const height = image.naturalHeight || 0;
+      resolve({
+        src,
+        width,
+        height,
+        ok: width >= 320 && height >= 180,
+      });
+    };
+    image.onerror = () => resolve({ src, ok: false, width: 0, height: 0 });
+  });
+
   image.src = src;
-  const decodePromise = (image.decode ? image.decode() : Promise.resolve())
-    .catch(() => undefined);
-  thumbnailDecodeCache.set(src, decodePromise);
-  return decodePromise;
+  thumbnailDecodeCache.set(src, loadPromise);
+  return loadPromise;
 }
 
-function warmMorphImage(videoId) {
-  const decodePromise = preloadImage(getThumbnailUrl(videoId));
+async function resolveThumbnailUrl(videoId) {
+  if (thumbnailUrlCache.has(videoId)) return thumbnailUrlCache.get(videoId);
+
+  for (const src of getThumbnailCandidates(videoId)) {
+    const result = await loadImageMeta(src);
+    if (result.ok) {
+      thumbnailUrlCache.set(videoId, src);
+      return src;
+    }
+  }
+
+  const fallback = getInitialThumbnailUrl(videoId);
+  thumbnailUrlCache.set(videoId, fallback);
+  return fallback;
+}
+
+function preloadImage(src) {
+  if (typeof window === 'undefined') return Promise.resolve();
+  return loadImageMeta(src).catch(() => undefined);
+}
+
+function warmMorphImage(videoId, thumbnailUrl) {
+  const decodePromise = preloadImage(thumbnailUrl || getInitialThumbnailUrl(videoId));
   const maxWait = new Promise(resolve => window.setTimeout(resolve, 90));
   return Promise.race([decodePromise, maxWait]);
 }
@@ -132,7 +177,7 @@ function getTabletScreenRadius(rect) {
   return isDesktopTabletRect(rect) ? 10 : 10;
 }
 
-function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onComplete, isSettling, playIconColor = '#2f315a' }) {
+function MorphingTutorialPreview({ direction, videoId, thumbnailUrl, startRect, endRect, onComplete, isSettling, playIconColor = '#2f315a' }) {
   const [active, setActive] = useState(false);
   const completedRef = useRef(false);
   const duration = direction === 'open' ? MORPH_OPEN_MS : MORPH_CLOSE_MS;
@@ -250,7 +295,7 @@ function MorphingTutorialPreview({ direction, videoId, startRect, endRect, onCom
           >
             <img
               className="tutorial-morph-image"
-              src={getThumbnailUrl(videoId)}
+              src={thumbnailUrl || getInitialThumbnailUrl(videoId)}
               alt=""
               decoding="async"
               loading="eager"
@@ -284,6 +329,9 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   const [shadowIn, setShadowIn] = useState(false);
   const [closingHandoff, setClosingHandoff] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [thumbnailUrls, setThumbnailUrls] = useState(() => (
+    Object.fromEntries(videos.map(video => [video.id, getInitialThumbnailUrl(video.id)]))
+  ));
   const tabletRef = useRef(null);
   const openTargetRef = useRef(null);
   const collapseTargetRef = useRef(null);
@@ -301,6 +349,11 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   const lastClosedStageHeightRef = useRef(null);
   const preparingMorphRef = useRef(false);
 
+  const getResolvedThumbnail = useCallback(
+    videoId => thumbnailUrls[videoId] || getInitialThumbnailUrl(videoId),
+    [thumbnailUrls]
+  );
+
   useEffect(() => {
     const handleResize = () => setIsMobileView(window.innerWidth <= 900);
     handleResize();
@@ -309,14 +362,23 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   }, []);
 
   useEffect(() => {
+    let cancelled = false;
     videos.forEach(video => {
-      preloadImage(getThumbnailUrl(video.id));
+      resolveThumbnailUrl(video.id).then(url => {
+        if (cancelled) return;
+        setThumbnailUrls(current => (
+          current[video.id] === url ? current : { ...current, [video.id]: url }
+        ));
+      });
     });
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [videos]);
 
   useEffect(() => {
-    preloadImage(getThumbnailUrl(activeVideo));
-  }, [activeVideo]);
+    preloadImage(getResolvedThumbnail(activeVideo));
+  }, [activeVideo, getResolvedThumbnail]);
 
   useEffect(() => () => {
     window.clearTimeout(iframeReadyTimerRef.current);
@@ -518,7 +580,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
       top: endRect.top - openingScrollPlan.scrollDelta,
     };
     lastClosedStageHeightRef.current = currentStageHeight;
-    await warmMorphImage(activeVideo);
+    await warmMorphImage(activeVideo, getResolvedThumbnail(activeVideo));
     window.clearTimeout(iframeReadyTimerRef.current);
     animateStageHeight(currentStageHeight, nextStageHeight, MORPH_OPEN_MS);
     followOpeningScroll(openingScrollPlan);
@@ -569,7 +631,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
     const nextStageHeight = lastClosedStageHeightRef.current || currentStageHeight;
 
     window.clearTimeout(iframeReadyTimerRef.current);
-    await warmMorphImage(activeVideo);
+    await warmMorphImage(activeVideo, getResolvedThumbnail(activeVideo));
     setClosingHandoff(true);
     await wait(120);
     setMorph({ direction: 'close', videoId: activeVideo, startRect, endRect });
@@ -628,7 +690,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
 
         <div className={`tutorial-video-cover${iframeReady && !closingHandoff ? ' is-hidden' : ''}${closingHandoff ? ' is-closing-handoff' : ''}`}>
           <img
-            src={getThumbnailUrl(activeVideo)}
+            src={getResolvedThumbnail(activeVideo)}
             alt=""
             decoding="async"
             loading="eager"
@@ -1029,7 +1091,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
                 >
                   <div className="tutorial-tablet-screen">
                     <img
-                      src={getThumbnailUrl(activeVideo)}
+                      src={getResolvedThumbnail(activeVideo)}
                       alt="AutoCount Tutorial"
                       loading="eager"
                       fetchpriority="high"
@@ -1131,6 +1193,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
           key={`${morph.direction}-${morph.videoId}`}
           direction={morph.direction}
           videoId={morph.videoId}
+          thumbnailUrl={getResolvedThumbnail(morph.videoId)}
           startRect={morph.startRect}
           endRect={morph.endRect}
           onComplete={completeMorph}
