@@ -1,5 +1,5 @@
 import { useState, useEffect, useLayoutEffect, useRef } from "react";
-import { BrowserRouter, Routes, Route, useLocation, useNavigationType } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigationType } from "react-router-dom";
 
 import ContactModal  from "./components/ContactModal";
 import BackToTop     from "./components/BackToTop";
@@ -49,6 +49,7 @@ function SiteRoutes({ openContact, displayLocation }) {
       <Route path={routePath["ks-omni"]} element={<KSOmniPage onContact={openContact} />} />
       <Route path={routePath.quotation} element={<QuotationViewerPage />} />
       <Route path={routePath.gallery} element={<GalleryPage />} />
+      <Route path="*" element={<Navigate to={routePath.home} replace />} />
     </Routes>
   );
 }
