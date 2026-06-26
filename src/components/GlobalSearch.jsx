@@ -33,7 +33,7 @@ const SEARCH_INDEX = [
     title: "AutoCount POS",
     path: "/products/autocount-pos",
     keywords: "autocount pos, point of sale, cashier, retail, f&b, counter, barcode, receipt, inventory",
-    icon: <img src="/images/products/autocountpos.webp" alt="AutoCount POS" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
+    icon: <img src="/images/products/autocount-pos.webp" alt="AutoCount POS" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "FeedMe POS",

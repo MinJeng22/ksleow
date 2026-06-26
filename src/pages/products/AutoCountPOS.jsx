@@ -25,7 +25,7 @@ import { CopyReleaseButton, HighlightText, ReleaseNumber, ShareLinkButton, write
 const POS_ACCENT = "#e49e25";
 const POS_NAVY = "#2f315a";
 const POS_HERO = "/images/products/autocount-pos-showcase.webp";
-const POS_ICON = "/images/products/autocountpos.webp";
+const POS_ICON = "/images/products/autocount-pos.webp";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "Hi KS Support Team, I am interested in AutoCount POS. I would like to arrange a demo or get a quotation. Thank you."
@@ -507,6 +507,7 @@ function POSReleaseNotesSection({ search, setSearch, expanded, setExpanded, visi
           <div className="pos-release-search">
             <input
               type="search"
+              style={{ outline: "none" }}
               value={search}
               onChange={(event) => {
                 setSearch(event.target.value);
@@ -530,7 +531,7 @@ function POSReleaseNotesSection({ search, setSearch, expanded, setExpanded, visi
               <POSReleaseCard
                 key={release.version}
                 release={release}
-                expanded={expanded === release.version}
+                expanded={expanded === release.version || search.trim() !== ""}
                 onToggle={() => setExpanded(expanded === release.version ? null : release.version)}
                 search={search}
               />
