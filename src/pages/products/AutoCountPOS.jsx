@@ -999,7 +999,8 @@ export default function AutoCountPOSPage({ onContact }) {
         checklist={[
           <>Confirm whether you run a <strong>Retail</strong> or <strong>F&B</strong> business.</>,
           <>Install or prepare <strong>AnyDesk</strong> / <strong>UltraViewer</strong> for remote access.</>,
-          <>Reserve around <strong>45 minutes</strong> for POS setup and basic checking.</>
+          <>Reserve around <strong>45 minutes</strong> for POS setup and basic checking.</>,
+          <>Message our Support Team to arrange a suitable installation time.</>
         ]}
       />
     </div>
