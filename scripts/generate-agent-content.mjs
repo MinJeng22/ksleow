@@ -16,6 +16,15 @@ function plain(value) {
     .trim();
 }
 
+function xmlEscape(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
 function summarizeRelease(release) {
   if (!release) return null;
   return {
@@ -122,7 +131,7 @@ async function main() {
       description: routeById.home.description,
       route: routeById.home.route,
       category: routeById.home.category,
-      image: `${siteUrl}/images/branding/ksl-logo-circle.webp`,
+      image: `${siteUrl}/images/branding/ksleow-search-card.webp`,
       keywords: [
         "K.S. Leow Group",
         "Business solutions Malaysia",
@@ -355,6 +364,7 @@ async function main() {
     category: document.category,
     changefreq: routeById[document.id]?.changefreq || "weekly",
     priority: routeById[document.id]?.priority || "0.7",
+    image: document.image || "",
     kbJson: `${siteUrl}/kb/${document.id}.json`,
     kbText: `${siteUrl}/kb/${document.id}.txt`,
   }));
@@ -368,9 +378,12 @@ async function main() {
 
   const sitemap = [
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
-    "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
-    ...index.map((item) => `  <url><loc>${item.url}</loc><changefreq>${item.changefreq}</changefreq><priority>${item.priority}</priority></url>`),
-    `  <url><loc>${siteUrl}/kb/index.json</loc><changefreq>daily</changefreq><priority>0.7</priority></url>`,
+    "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\">",
+    ...index.map((item) => {
+      const imageTag = item.image ? `<image:image><image:loc>${xmlEscape(item.image)}</image:loc><image:title>${xmlEscape(item.title)}</image:title></image:image>` : "";
+      return `  <url><loc>${xmlEscape(item.url)}</loc><changefreq>${item.changefreq}</changefreq><priority>${item.priority}</priority>${imageTag}</url>`;
+    }),
+    `  <url><loc>${xmlEscape(`${siteUrl}/kb/index.json`)}</loc><changefreq>daily</changefreq><priority>0.7</priority></url>`,
     "</urlset>",
   ].join("\n");
 

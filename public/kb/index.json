@@ -8,6 +8,7 @@
     "category": "Company",
     "changefreq": "weekly",
     "priority": "1.0",
+    "image": "https://ksleow.com.my/images/branding/ksleow-search-card.webp",
     "kbJson": "https://ksleow.com.my/kb/home.json",
     "kbText": "https://ksleow.com.my/kb/home.txt"
   },
@@ -20,6 +21,7 @@
     "category": "Product",
     "changefreq": "weekly",
     "priority": "0.8",
+    "image": "",
     "kbJson": "https://ksleow.com.my/kb/autocount-accounting.json",
     "kbText": "https://ksleow.com.my/kb/autocount-accounting.txt"
   },
@@ -32,6 +34,7 @@
     "category": "Product",
     "changefreq": "weekly",
     "priority": "0.8",
+    "image": "",
     "kbJson": "https://ksleow.com.my/kb/autocount-cloud-accounting.json",
     "kbText": "https://ksleow.com.my/kb/autocount-cloud-accounting.txt"
   },
@@ -44,6 +47,7 @@
     "category": "Product",
     "changefreq": "weekly",
     "priority": "0.8",
+    "image": "https://ksleow.com.my/images/products/autocount-pos-showcase.webp",
     "kbJson": "https://ksleow.com.my/kb/autocount-pos.json",
     "kbText": "https://ksleow.com.my/kb/autocount-pos.txt"
   },
@@ -56,6 +60,7 @@
     "category": "Product",
     "changefreq": "weekly",
     "priority": "0.8",
+    "image": "",
     "kbJson": "https://ksleow.com.my/kb/feedme-pos.json",
     "kbText": "https://ksleow.com.my/kb/feedme-pos.txt"
   },
@@ -68,6 +73,7 @@
     "category": "App",
     "changefreq": "weekly",
     "priority": "0.8",
+    "image": "",
     "kbJson": "https://ksleow.com.my/kb/autocount-plugin.json",
     "kbText": "https://ksleow.com.my/kb/autocount-plugin.txt"
   },
@@ -80,6 +86,7 @@
     "category": "App",
     "changefreq": "weekly",
     "priority": "0.8",
+    "image": "",
     "kbJson": "https://ksleow.com.my/kb/sales2do.json",
     "kbText": "https://ksleow.com.my/kb/sales2do.txt"
   },
@@ -92,6 +99,7 @@
     "category": "AI Assistant",
     "changefreq": "weekly",
     "priority": "0.7",
+    "image": "",
     "kbJson": "https://ksleow.com.my/kb/ks-omni.json",
     "kbText": "https://ksleow.com.my/kb/ks-omni.txt"
   },
@@ -104,6 +112,7 @@
     "category": "Company",
     "changefreq": "monthly",
     "priority": "0.6",
+    "image": "",
     "kbJson": "https://ksleow.com.my/kb/gallery.json",
     "kbText": "https://ksleow.com.my/kb/gallery.txt"
   },
@@ -116,6 +125,7 @@
     "category": "Utility",
     "changefreq": "monthly",
     "priority": "0.4",
+    "image": "",
     "kbJson": "https://ksleow.com.my/kb/quotation.json",
     "kbText": "https://ksleow.com.my/kb/quotation.txt"
   }
