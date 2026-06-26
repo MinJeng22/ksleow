@@ -500,9 +500,7 @@ function POSReleaseNotesSection({ search, setSearch, expanded, setExpanded, visi
       <div className="content-wrap">
         <div className="pos-release-toolbar">
           <div>
-            <div className="ks-eyebrow" style={{ color: POS_ACCENT }}>Official Release Notes</div>
-            <h2>AutoCount POS 5.2 Release Notes</h2>
-            <p>{POS_RELEASES.length} releases - {highlightCount} with highlight PDFs - {POS_RELEASES.at(-1)?.version} to {latest?.version} - Newest first</p>
+            <h2>Official Release Notes</h2>
           </div>
           <div className="pos-release-search">
             <input
@@ -1194,9 +1192,7 @@ export default function AutoCountPOSPage({ onContact }) {
         <section id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-from-paper product-app-section-to-warm" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
-              eyebrow="Backend Editions, Pricing & Modules"
-              title="POS Basic and POS Standard"
-              text="Start with the edition that fits your outlet, then add backend accounting modules, users, or e-invoice items when required."
+              title="Backend Editions, Pricing & Modules"
             />
             
             <div className="pos-legend">
@@ -1230,9 +1226,7 @@ export default function AutoCountPOSPage({ onContact }) {
         <section id="frontend" className="ac-section-tight product-app-section product-app-section-warm product-app-section-to-paper" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
-              eyebrow="Front End & Counter"
-              title="Counter licenses and front-end add-ons"
-              text="Plan your cashier counters together with branch sync, mobile ordering, and standalone applications."
+              title="Front End & Counter"
             />
             
             <NotesPanel title="POS module notes" items={POS_MODULE_NOTES} />
