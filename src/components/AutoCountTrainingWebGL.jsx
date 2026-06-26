@@ -177,10 +177,12 @@ function getTabletScreenRadius(rect) {
   return isDesktopTabletRect(rect) ? 10 : 10;
 }
 
-function MorphingTutorialPreview({ direction, videoId, thumbnailUrl, startRect, endRect, onComplete, isSettling, playIconColor = '#2f315a' }) {
+function MorphingTutorialPreview({ direction, videoId, thumbnailUrl, thumbnailCropScale = 1, thumbnailObjectPosition = 'center center', startRect, endRect, onComplete, isSettling, playIconColor = '#2f315a' }) {
   const [active, setActive] = useState(false);
   const completedRef = useRef(false);
   const duration = direction === 'open' ? MORPH_OPEN_MS : MORPH_CLOSE_MS;
+  const thumbnailStartScale = Math.max(1, thumbnailCropScale * 1.025);
+  const thumbnailEndScale = Math.max(1, thumbnailCropScale);
   const startCenterX = startRect.left + startRect.width / 2;
   const startCenterY = startRect.top + startRect.height / 2;
   const endCenterX = endRect.left + endRect.width / 2;
@@ -301,6 +303,11 @@ function MorphingTutorialPreview({ direction, videoId, thumbnailUrl, startRect, 
               loading="eager"
               fetchpriority="high"
               crossOrigin="anonymous"
+              style={{
+                '--thumbnail-morph-start-scale': thumbnailStartScale,
+                '--thumbnail-morph-end-scale': thumbnailEndScale,
+                '--thumbnail-position': thumbnailObjectPosition,
+              }}
             />
             <div className="tutorial-morph-dim" />
             <div className="tutorial-morph-play tutorial-play-button">
@@ -656,6 +663,8 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   };
 
   const activeVideoMeta = videos.find(video => video.id === activeVideo) || videos[0];
+  const activeThumbnailCropScale = Math.max(1, activeVideoMeta.thumbnailCropScale || 1);
+  const activeThumbnailPosition = activeVideoMeta.thumbnailObjectPosition || 'center center';
 
   const renderPlayerShell = () => (
     <div ref={videoRef} className="tutorial-player-shell">
@@ -696,6 +705,10 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
             loading="eager"
             fetchpriority="high"
             crossOrigin="anonymous"
+            style={{
+              objectPosition: activeThumbnailPosition,
+              transform: `scale(${activeThumbnailCropScale})`,
+            }}
           />
         </div>
       </div>
@@ -799,6 +812,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
           height: 100%;
           object-fit: cover;
           display: block;
+          transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
         }
         .tutorial-video-cover::after {
           content: "";
@@ -979,13 +993,14 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transform: translateZ(0) scale(1.025);
+          object-position: var(--thumbnail-position, center center);
+          transform: translateZ(0) scale(var(--thumbnail-morph-start-scale, 1.025));
           backface-visibility: hidden;
           will-change: transform;
           transition: transform var(--morph-duration, 4200ms) cubic-bezier(0.22, 1, 0.36, 1);
         }
         .tutorial-morph-shell[data-active="true"] .tutorial-morph-image {
-          transform: translateZ(0) scale(1);
+          transform: translateZ(0) scale(var(--thumbnail-morph-end-scale, 1));
         }
         .tutorial-morph-dim {
           position: absolute;
@@ -1097,7 +1112,14 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
                       fetchpriority="high"
                       crossOrigin="anonymous"
                       decoding="async"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: activeThumbnailPosition,
+                        display: 'block',
+                        transform: `scale(${activeThumbnailCropScale})`,
+                      }}
                     />
                     <div className="tutorial-tablet-dim">
                       <div className="tutorial-play-button">
@@ -1194,6 +1216,8 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
           direction={morph.direction}
           videoId={morph.videoId}
           thumbnailUrl={getResolvedThumbnail(morph.videoId)}
+          thumbnailCropScale={Math.max(1, (videos.find(video => video.id === morph.videoId) || activeVideoMeta).thumbnailCropScale || 1)}
+          thumbnailObjectPosition={(videos.find(video => video.id === morph.videoId) || activeVideoMeta).thumbnailObjectPosition || 'center center'}
           startRect={morph.startRect}
           endRect={morph.endRect}
           onComplete={completeMorph}

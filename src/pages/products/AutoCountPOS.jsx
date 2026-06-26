@@ -51,6 +51,7 @@ const POS_TUTORIAL_VIDEOS = [
     label: "POS Tutorial",
     description: "Follow AutoCount POS training videos for front-end cashier flow, backend setup, item and stock handling, and the practical steps your outlet team needs before going live.",
     note: "POS Guide",
+    thumbnailCropScale: 1.34,
     icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5" /><path d="M8 20v2h8v-2" /><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none" /></svg>,
   },
 ];
