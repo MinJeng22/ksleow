@@ -220,15 +220,6 @@ const FRONTEND_NOTES = [
   "POS Dongle is suitable for users facing internet connection issues.",
 ];
 
-const EXCLUDED_REBATE_ITEMS = [
-  "Hardware, Service & Customize",
-  "SQL Runtime license",
-  "Unicart Plugin, AOTG",
-  "3rd Party Product",
-  "E-Invoice Module",
-  "Other than Malaysia License",
-];
-
 function POSMarker({ value, price = false }) {
   if (price) {
     return <span className="pos-price-value">{value}</span>;
@@ -1215,7 +1206,6 @@ export default function AutoCountPOSPage({ onContact }) {
             </p>
             <div style={{ height: "2.5rem" }} />
             <AddOnGrid />
-            <NotesPanel title="Excluded products from rebate scheme" items={EXCLUDED_REBATE_ITEMS} />
           </div>
         </section>
 
