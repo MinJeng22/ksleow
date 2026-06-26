@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
-import { PageSectionDivider } from "../../components/PageSections.jsx";
+import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
 import { IconLayers, IconLink, IconHandshake, IconStar } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
+import useFavicon from "../../hooks/useFavicon.js";
 
 /* FeedMe POS page — product-aware WhatsApp link to Sales Agent Elise */
 const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
@@ -134,6 +135,7 @@ function Spotlight({ eyebrow, title, body, bullets, imageSide = "right" }) {
  * Page
  * ══════════════════════════════════════════════════════════════ */
 export default function FeedMePOSPage() {
+  useFavicon(FEEDME_LOGO);
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, []);
 
   return (

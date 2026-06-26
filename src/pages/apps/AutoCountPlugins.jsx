@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import pluginContent from "../../content/autocountPlugins.json";
 import acPluginIcon from "../../assets/images/apps/ac-plugin-icon.webp";
+import useFavicon from "../../hooks/useFavicon.js";
 import { navigateWithRouteFeedback, preloadRouteAssets } from "../../utils/routeTransitions.js";
 
 const SUPPORT_WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -152,6 +153,7 @@ function PluginCard({ plugin }) {
 }
 
 export default function AutoCountPluginsPage() {
+  useFavicon(acPluginIcon);
   const sections = pluginContent.sections || [];
   const plugins = useMemo(() => sections.flatMap((section) => section.items || []), [sections]);
 

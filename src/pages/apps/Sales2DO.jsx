@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
+import useFavicon from "../../hooks/useFavicon.js";
 import ProductHero from "../../components/ProductHero.jsx";
 import { PageSectionDivider } from "../../components/PageSections.jsx";
 import CarouselProgress from "../../components/CarouselProgress.jsx";
@@ -518,7 +519,7 @@ function VideoGuide() {
               ) : (
                 /* enter-fullscreen — outward-facing corner brackets */
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 9V5a2 2 0 0 1 2-2h4M21 9V5a2 2 0 0 0-2-2h-4M3 15v4a2 2 0 0 0 2 2h4M21 15v4a2 2 0 0 1-2 2h-4"/>
+                  <path d="M3 9V5a2 2 0 0 1 2-2h4M21 9V5a2 2 0 0 0-2-2h-4M3 15v4a2 2 0 0 0 2 2h4M21 15v4a2 2 0 0 1 2 2h-4"/>
                 </svg>
               )}
             </button>
@@ -567,6 +568,7 @@ function VideoGuide() {
  * Page
  * ══════════════════════════════════════════════════════════════ */
 export default function Sales2DOPage({ onContact }) {
+  useFavicon(acPluginIcon);
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, []);
   const [licenseTab, setLicenseTab] = useState("online");
   const {

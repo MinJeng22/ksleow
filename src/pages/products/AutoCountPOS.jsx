@@ -17,6 +17,7 @@ import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import { CompareFeatureCell } from "../../components/CompareTable.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
+import useFavicon from "../../hooks/useFavicon.js";
 import { runWithProgressFeedback } from "../../utils/routeTransitions.js";
 import posReleases from "../../content/autocountPosReleases.json";
 import { CopyReleaseButton, HighlightText, ReleaseNumber, ShareLinkButton, writeClipboard } from "../../components/ReleaseTools.jsx";
@@ -370,12 +371,208 @@ function NotesPanel({ title, items }) {
   );
 }
 
+const posReleaseCode = (release) => String(release.version || "").replace(/\./g, "-");
+
+function copyPosRelease(release, type) {
+  const label = type === "fixes" ? "Bug Fixes" : "Enhancements";
+  const items = release[type] || [];
+  const text = [
+    `AutoCount POS ${release.version} - ${label}`,
+    release.date ? `Release Date: ${release.date}` : "",
+    "",
+    ...items.map((item, index) => `${index + 1}. ${item}`),
+    "",
+    release.releasePdfUrl ? `Official PDF: ${release.releasePdfUrl}` : "",
+  ].filter(Boolean).join("\n");
+  writeClipboard(text);
+}
+
+function POSReleaseList({ title, items, type, release, search }) {
+  const isFix = type === "fixes";
+  return (
+    <div className="pos-release-list">
+      <div className="pos-release-list-head">
+        <h4>{title}</h4>
+        {items.length > 0 && (
+          <CopyReleaseButton variant="button" gold={isFix} onClick={() => copyPosRelease(release, type)} />
+        )}
+      </div>
+      {items.length === 0 ? (
+        <p className="pos-release-empty">No items listed in this official note.</p>
+      ) : (
+        <div className="pos-release-items">
+          {items.map((item, index) => (
+            <div key={`${release.version}-${type}-${index}`} className="pos-release-item">
+              <ReleaseNumber number={index + 1} type={isFix ? "fix" : "feature"} fixColor={POS_ACCENT} fixBg="rgba(228, 158, 37, 0.13)" />
+              <span className="ks-list-text"><HighlightText text={item} search={search} /></span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function POSReleaseCard({ release, expanded, onToggle, search }) {
+  const isLatest = release === POS_RELEASES[0];
+  const releaseId = `pos-release-${posReleaseCode(release)}`;
+  const hasHighlights = !!release.highlightsUrl;
+  const meta = [
+    release.dbVer && `Backend DB ${release.dbVer.replace(/\.$/, "")}`,
+    release.posDbVer && `POS DB ${release.posDbVer.replace(/\.$/, "")}`,
+    release.frontendDbVer && `Frontend DB ${release.frontendDbVer.replace(/\.$/, "")}`,
+    release.server && `Server ${release.server.replace(/\.$/, "")}`,
+  ].filter(Boolean);
+
+  return (
+    <article id={releaseId} className={`pos-release-card${expanded ? " is-expanded" : ""}`}>
+      <button type="button" className="pos-release-card-head" onClick={onToggle}>
+        <span className="pos-release-main">
+          <span className="pos-release-title-row">
+            <strong>{release.version}</strong>
+            <em>{release.rev}</em>
+            {isLatest && <i>Latest</i>}
+            {hasHighlights && <i className="is-highlight">Highlights</i>}
+          </span>
+          <span className="pos-release-meta">
+            Released {release.date || "from official release note"}
+            {release.lastModified ? ` - Updated ${release.lastModified}` : ""}
+          </span>
+        </span>
+        <span className="pos-release-counts" aria-label="Release note item counts">
+          <b>{release.features.length} Enhancements</b>
+          <b>{release.fixes.length} Fixes</b>
+        </span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+
+      {expanded && (
+        <div className="pos-release-detail">
+          <div className="pos-release-actions">
+            {release.releasePdfUrl && <a href={release.releasePdfUrl} target="_blank" rel="noreferrer">Official PDF</a>}
+            {hasHighlights && <a href={release.highlightsUrl} target="_blank" rel="noreferrer">Highlight PDF</a>}
+            <ShareLinkButton variant="button" compact hash={`#${releaseId}`} params={{ pr: posReleaseCode(release) }} title="Copy a shareable link to this POS release note" />
+          </div>
+
+          {meta.length > 0 && (
+            <div className="pos-release-meta-grid">
+              {meta.map((item) => <span key={item}>{item}</span>)}
+            </div>
+          )}
+
+          <div className="pos-release-detail-grid">
+            <POSReleaseList title="Enhancements" items={release.features} type="features" release={release} search={search} />
+            <POSReleaseList title="Bug Fixes" items={release.fixes} type="fixes" release={release} search={search} />
+          </div>
+        </div>
+      )}
+    </article>
+  );
+}
+
+function POSReleaseNotesSection({ search, setSearch, expanded, setExpanded, visibleLimit, setVisibleLimit }) {
+  const query = search.trim().toLowerCase();
+  const filtered = query
+    ? POS_RELEASES.filter((release) => {
+        const haystack = [
+          release.version,
+          release.rev,
+          release.date,
+          release.lastModified,
+          release.dbVer,
+          release.posDbVer,
+          release.frontendDbVer,
+          release.server,
+          ...(release.features || []),
+          ...(release.fixes || []),
+        ].join(" ").toLowerCase();
+        return haystack.includes(query);
+      })
+    : POS_RELEASES;
+  const shown = filtered.slice(0, visibleLimit);
+  const latest = POS_RELEASES[0];
+  const highlightCount = POS_RELEASES.filter((release) => release.highlightsUrl).length;
+
+  return (
+    <section id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-to-paper">
+      <div className="content-wrap">
+        <div className="pos-release-toolbar">
+          <div>
+            <div className="ks-eyebrow" style={{ color: POS_ACCENT }}>Official Release Notes</div>
+            <h2>AutoCount POS 5.2 Release Notes</h2>
+            <p>{POS_RELEASES.length} releases - {highlightCount} with highlight PDFs - {POS_RELEASES.at(-1)?.version} to {latest?.version} - Newest first</p>
+          </div>
+          <div className="pos-release-search">
+            <input
+              type="search"
+              value={search}
+              onChange={(event) => {
+                setSearch(event.target.value);
+                setVisibleLimit(5);
+              }}
+              placeholder="Search POS release notes..."
+              aria-label="Search AutoCount POS release notes"
+            />
+          </div>
+        </div>
+
+        <div className="pos-release-source">
+          Source: <a href="https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note" target="_blank" rel="noreferrer">AutoCount POS 5.2 official release note category</a>
+        </div>
+
+        {shown.length === 0 ? (
+          <div className="pos-release-empty-panel">No POS releases match "{search}".</div>
+        ) : (
+          <div className="pos-release-stack">
+            {shown.map((release) => (
+              <POSReleaseCard
+                key={release.version}
+                release={release}
+                expanded={expanded === release.version}
+                onToggle={() => setExpanded(expanded === release.version ? null : release.version)}
+                search={search}
+              />
+            ))}
+          </div>
+        )}
+
+        {filtered.length > visibleLimit && (
+          <button type="button" className="ks-btn ks-btn-muted pos-release-more" onClick={() => setVisibleLimit((limit) => limit + 5)}>
+            View more releases
+          </button>
+        )}
+      </div>
+    </section>
+  );
+}
+
 
 export default function AutoCountPOSPage({ onContact }) {
+  useFavicon(POS_ICON);
   const [trialOpen, setTrialOpen] = useState(false);
+  const [releaseSearch, setReleaseSearch] = useState("");
+  const [expandedRelease, setExpandedRelease] = useState(null);
+  const [releaseVisibleLimit, setReleaseVisibleLimit] = useState(5);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const sharedRelease = POS_RELEASES.find((release) => posReleaseCode(release) === params.get("pr"));
+    if (sharedRelease) {
+      setExpandedRelease(sharedRelease.version);
+    }
+
+    const scrollTarget = window.location.hash || (sharedRelease ? `#pos-release-${posReleaseCode(sharedRelease)}` : "");
+    if (scrollTarget) {
+      const timer = window.setTimeout(() => {
+        const el = document.querySelector(scrollTarget);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 90);
+      return () => window.clearTimeout(timer);
+    }
     window.scrollTo({ top: 0, behavior: "instant" });
+    return undefined;
   }, []);
 
   const handleContact = () => {
@@ -555,6 +752,219 @@ export default function AutoCountPOSPage({ onContact }) {
           font-size: 0.82rem;
           margin: -0.75rem 0 1.5rem;
         }
+        #page-autocount-pos .pos-release-toolbar {
+          align-items: flex-end;
+          display: flex;
+          gap: 1.25rem;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+        }
+        #page-autocount-pos .pos-release-toolbar h2 {
+          color: var(--pos-navy);
+          font-size: clamp(1.45rem, 2.7vw, 2.15rem);
+          font-weight: 780;
+          line-height: 1.18;
+          margin: 0.45rem 0 0.45rem;
+        }
+        #page-autocount-pos .pos-release-toolbar p,
+        #page-autocount-pos .pos-release-source {
+          color: #6b6f91;
+          font-size: 0.86rem;
+          line-height: 1.6;
+          margin: 0;
+        }
+        #page-autocount-pos .pos-release-source {
+          margin-bottom: 1.25rem;
+        }
+        #page-autocount-pos .pos-release-source a,
+        #page-autocount-pos .pos-release-actions a {
+          color: var(--pos-accent);
+          font-weight: 780;
+          text-decoration: none;
+        }
+        #page-autocount-pos .pos-release-search {
+          flex: 0 1 360px;
+        }
+        #page-autocount-pos .pos-release-search input {
+          background: #ffffff;
+          border: 1px solid rgba(47, 49, 90, 0.13);
+          border-radius: 999px;
+          color: var(--pos-navy);
+          font: inherit;
+          min-height: 46px;
+          outline: none;
+          padding: 0 1rem;
+          width: 100%;
+        }
+        #page-autocount-pos .pos-release-search input:focus {
+          border-color: rgba(228, 158, 37, 0.65);
+          box-shadow: 0 0 0 4px rgba(228, 158, 37, 0.12);
+        }
+        #page-autocount-pos .pos-release-stack {
+          display: grid;
+          gap: 0.85rem;
+        }
+        #page-autocount-pos .pos-release-card {
+          background: #ffffff;
+          border: 1px solid rgba(47, 49, 90, 0.1);
+          border-radius: 14px;
+          box-shadow: 0 18px 45px rgba(47, 49, 90, 0.06);
+          overflow: hidden;
+          scroll-margin-top: 28px;
+        }
+        #page-autocount-pos .pos-release-card.is-expanded {
+          border-color: rgba(228, 158, 37, 0.42);
+        }
+        #page-autocount-pos .pos-release-card-head {
+          align-items: center;
+          background: transparent;
+          border: 0;
+          color: inherit;
+          cursor: pointer;
+          display: flex;
+          font: inherit;
+          gap: 1rem;
+          padding: 1.05rem 1.25rem;
+          text-align: left;
+          width: 100%;
+        }
+        #page-autocount-pos .pos-release-card.is-expanded .pos-release-card-head {
+          background: #fffaf0;
+        }
+        #page-autocount-pos .pos-release-card-head svg {
+          color: #a8abcc;
+          flex-shrink: 0;
+          transform: rotate(0);
+          transition: transform 0.2s ease;
+        }
+        #page-autocount-pos .pos-release-card.is-expanded .pos-release-card-head svg {
+          transform: rotate(180deg);
+        }
+        #page-autocount-pos .pos-release-main {
+          flex: 1 1 auto;
+          min-width: 0;
+        }
+        #page-autocount-pos .pos-release-title-row,
+        #page-autocount-pos .pos-release-actions,
+        #page-autocount-pos .pos-release-meta-grid {
+          align-items: center;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.55rem;
+        }
+        #page-autocount-pos .pos-release-title-row strong {
+          color: var(--pos-navy);
+          font-size: 0.98rem;
+          font-weight: 850;
+        }
+        #page-autocount-pos .pos-release-title-row em {
+          color: #a8abcc;
+          font-size: 0.72rem;
+          font-style: normal;
+          font-weight: 780;
+        }
+        #page-autocount-pos .pos-release-title-row i {
+          background: var(--pos-navy);
+          border-radius: 999px;
+          color: #ffffff;
+          font-size: 0.6rem;
+          font-style: normal;
+          font-weight: 850;
+          letter-spacing: 0.08em;
+          padding: 0.18rem 0.58rem;
+          text-transform: uppercase;
+        }
+        #page-autocount-pos .pos-release-title-row i.is-highlight {
+          background: rgba(228, 158, 37, 0.15);
+          color: #b97812;
+        }
+        #page-autocount-pos .pos-release-meta {
+          color: #8b8fa7;
+          display: block;
+          font-size: 0.78rem;
+          margin-top: 0.25rem;
+        }
+        #page-autocount-pos .pos-release-counts {
+          display: flex;
+          flex-shrink: 0;
+          gap: 0.65rem;
+        }
+        #page-autocount-pos .pos-release-counts b {
+          color: var(--pos-navy);
+          font-size: 0.72rem;
+          font-weight: 780;
+          white-space: nowrap;
+        }
+        #page-autocount-pos .pos-release-detail {
+          border-top: 1px solid rgba(47, 49, 90, 0.08);
+          padding: 1rem 1.25rem 1.3rem;
+        }
+        #page-autocount-pos .pos-release-actions {
+          margin-bottom: 0.9rem;
+        }
+        #page-autocount-pos .pos-release-actions a {
+          background: rgba(228, 158, 37, 0.1);
+          border-radius: 999px;
+          font-size: 0.74rem;
+          padding: 0.45rem 0.75rem;
+        }
+        #page-autocount-pos .pos-release-meta-grid {
+          margin-bottom: 1rem;
+        }
+        #page-autocount-pos .pos-release-meta-grid span {
+          background: rgba(47, 49, 90, 0.055);
+          border-radius: 999px;
+          color: #5f647d;
+          font-size: 0.72rem;
+          font-weight: 760;
+          padding: 0.36rem 0.68rem;
+        }
+        #page-autocount-pos .pos-release-detail-grid {
+          display: grid;
+          gap: 1.25rem;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        #page-autocount-pos .pos-release-list-head {
+          align-items: center;
+          display: flex;
+          gap: 0.75rem;
+          justify-content: space-between;
+          margin-bottom: 0.8rem;
+        }
+        #page-autocount-pos .pos-release-list-head h4 {
+          color: var(--pos-navy);
+          font-size: 0.82rem;
+          font-weight: 850;
+          letter-spacing: 0.08em;
+          margin: 0;
+          text-transform: uppercase;
+        }
+        #page-autocount-pos .pos-release-items {
+          display: grid;
+          gap: 0.55rem;
+        }
+        #page-autocount-pos .pos-release-item {
+          align-items: flex-start;
+          display: flex;
+          gap: 0.55rem;
+        }
+        #page-autocount-pos .pos-release-empty,
+        #page-autocount-pos .pos-release-empty-panel {
+          color: #9a9eb5;
+          font-size: 0.86rem;
+          line-height: 1.6;
+          margin: 0;
+        }
+        #page-autocount-pos .pos-release-empty-panel {
+          background: #ffffff;
+          border: 1px solid rgba(47, 49, 90, 0.08);
+          border-radius: 12px;
+          padding: 1rem;
+        }
+        #page-autocount-pos .pos-release-more {
+          display: flex;
+          margin: 1.35rem auto 0;
+        }
         #page-autocount-pos .pos-why-ksl {
           background:
             radial-gradient(circle at 14% 20%, rgba(228, 158, 37, 0.15), transparent 30%),
@@ -702,6 +1112,20 @@ export default function AutoCountPOSPage({ onContact }) {
           #page-autocount-pos .pos-note-panel ul {
             grid-template-columns: 1fr;
           }
+          #page-autocount-pos .pos-release-toolbar,
+          #page-autocount-pos .pos-release-card-head,
+          #page-autocount-pos .pos-release-detail-grid {
+            align-items: stretch;
+            flex-direction: column;
+            grid-template-columns: 1fr;
+          }
+          #page-autocount-pos .pos-release-search {
+            flex-basis: auto;
+            width: 100%;
+          }
+          #page-autocount-pos .pos-release-counts {
+            flex-wrap: wrap;
+          }
           #page-autocount-pos .pos-why-layout,
           #page-autocount-pos .pos-why-cards {
             grid-template-columns: 1fr;
@@ -834,7 +1258,20 @@ export default function AutoCountPOSPage({ onContact }) {
           </div>
         </section>
 
-        <WhyChooseUs section={getSection(POS_SECTIONS, "why-ksl")} sectionFrom="var(--ks-page-warm)" sectionTo="var(--ks-page-paper)" />
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-warm)", "--section-to": "var(--ks-page-cloud)" }}>
+          <PageSectionDivider sections={POS_SECTIONS} id="releases" />
+        </div>
+
+        <POSReleaseNotesSection
+          search={releaseSearch}
+          setSearch={setReleaseSearch}
+          expanded={expandedRelease}
+          setExpanded={setExpandedRelease}
+          visibleLimit={releaseVisibleLimit}
+          setVisibleLimit={setReleaseVisibleLimit}
+        />
+
+        <WhyChooseUs section={getSection(POS_SECTIONS, "why-ksl")} sectionFrom="var(--ks-page-cloud)" sectionTo="var(--ks-page-paper)" />
 
         <EnquireNowCTA
           heading="Ready to build your POS setup?"

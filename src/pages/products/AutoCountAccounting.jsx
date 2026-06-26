@@ -16,6 +16,7 @@ import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
 import { CopyReleaseButton, ReleaseNumber, ShareLinkButton, HighlightText } from "../../components/ReleaseTools.jsx";
 import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
+import useFavicon from "../../hooks/useFavicon.js";
 import { runWithProgressFeedback } from "../../utils/routeTransitions.js";
 /* AutoCount Accounting page — product-aware WhatsApp link to KS Support Team */
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -555,6 +556,7 @@ const AC_SECTIONS = [
 ];
 
 export default function AutoCountAccountingPage({ onContact }) {
+  useFavicon(PRODUCT_IMAGES.autocountAccountingIcon);
   const navigate = useNavigate();
 
   const [expanded, setExpanded] = useState(null);   /* all closed by default */

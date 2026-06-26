@@ -12,6 +12,7 @@ import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx"
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
+import useFavicon from "../../hooks/useFavicon.js";
 import { CompareRevBadge, CopyReleaseButton, ReleaseNumber, ShareLinkButton, HighlightText } from "../../components/ReleaseTools.jsx";
 import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
 
@@ -447,6 +448,7 @@ function ReleaseList({ title, items, type, copy, search }) {
 }
 
 export default function AutoCountCloudAccountingPage() {
+  useFavicon("/images/products/cloudaccounting-icon.webp");
   const [editionCompareMode, setEditionCompareMode] = useState(false);
   const [editionA, setEditionA] = useState(EDITIONS[0]);
   const [editionB, setEditionB] = useState(EDITIONS[3]);
