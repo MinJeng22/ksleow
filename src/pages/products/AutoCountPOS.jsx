@@ -59,17 +59,17 @@ const POS_TUTORIAL_VIDEOS = [
 
 const FEATURES = [
   {
-    icon: "/images/icons/feature-device.svg",
+    icon: "/images/icons/feature-device-orange.svg",
     title: "Counter-ready POS operation",
     desc: "Built for day-to-day cashier work with fast billing, barcode scanning, receipt printing, cash drawer support, and clear end-of-day closing.",
   },
   {
-    icon: "/images/icons/feature-integration.svg",
+    icon: "/images/icons/feature-integration-orange.svg",
     title: "Connected to AutoCount Accounting",
     desc: "Sales, stock movement, payment collections, and outlet reports stay aligned with your backend accounting workflow.",
   },
   {
-    icon: "/images/icons/feature-bank.svg",
+    icon: "/images/icons/feature-bank-orange.svg",
     title: "Retail, branch, and F&B options",
     desc: "Choose the right counter license and add POS modules such as branch sync, POS stock, POS account, price checker, and eWaiter apps.",
   },
