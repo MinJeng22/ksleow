@@ -262,3 +262,24 @@ export const IconTrophy = (
     <path d="M18 2H6v7c0 3.31 2.69 6 6 6s6-2.69 6-6V2z" stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1" />
   </svg>
 );
+
+export const IconDatabase = (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <ellipse cx="12" cy="5" rx="9" ry="3" stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1" />
+    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" stroke="currentColor" strokeWidth="1.8" opacity="0.6" />
+    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" stroke="currentColor" strokeWidth="1.8" />
+  </svg>
+);
+
+export const IconRegister = (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="4" y="4" width="16" height="6" rx="1" stroke="currentColor" strokeWidth="1.8" fill="currentColor" fillOpacity="0.1" />
+    <path d="M4 10L3 20H21L20 10" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M12 14H12.01" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M8 14H8.01" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M16 14H16.01" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M12 17H12.01" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M8 17H8.01" stroke="currentColor" strokeWidth="1.8" />
+    <path d="M16 17H16.01" stroke="currentColor" strokeWidth="1.8" />
+  </svg>
+);

@@ -7,9 +7,10 @@ import {
   IconClipboard,
   IconDollar,
   IconGrid,
-  IconLayers,
   IconStar,
   IconTrophy,
+  IconDatabase,
+  IconRegister,
 } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
@@ -29,8 +30,8 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 const POS_SECTIONS = [
   { id: "features", label: "Advantages", icon: IconStar, color: POS_ACCENT },
   { id: "workflow", label: "Setup Flow", icon: IconClipboard, color: POS_ACCENT },
-  { id: "editions", label: "Editions", icon: IconDollar, color: POS_NAVY },
-  { id: "frontend", label: "Front End", icon: IconGrid, color: POS_NAVY },
+  { id: "editions", label: "Backend", icon: IconDatabase, color: POS_NAVY },
+  { id: "frontend", label: "Front End", icon: IconRegister, color: POS_NAVY },
   { id: "why-ksl", label: "Why Choose Us", icon: IconTrophy, color: POS_ACCENT },
 ];
 
