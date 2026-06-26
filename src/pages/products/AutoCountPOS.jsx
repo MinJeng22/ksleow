@@ -992,14 +992,13 @@ export default function AutoCountPOSPage({ onContact }) {
         productName="AutoCount POS"
         supportMessage="HI KS Support Team, I would like to start the AutoCount POS Free Trial and schedule an installation session. I can prepare AnyDesk / UltraViewer."
         stats={[
-          { label: "Trial Limit", value: "30 Days / 500 Tx" },
+          { label: "Trial Limit", value: "200 transactions limitation" },
           { label: "Setup Time", value: "~45 Minutes" },
           { label: "Support", value: "Remote Install" },
         ]}
         checklist={[
           <>Confirm whether you run a <strong>Retail</strong> or <strong>F&B</strong> business.</>,
           <>Install or prepare <strong>AnyDesk</strong> / <strong>UltraViewer</strong> for remote access.</>,
-          <>Have your <strong>AutoCount Accounting</strong> database ready (if you want integration testing).</>,
           <>Reserve around <strong>45 minutes</strong> for POS setup and basic checking.</>
         ]}
       />
