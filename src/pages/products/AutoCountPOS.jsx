@@ -1220,7 +1220,7 @@ export default function AutoCountPOSPage({ onContact }) {
         <section id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-from-paper product-app-section-to-warm" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
-              title="Backend Editions, Pricing & Modules"
+              title="POS Backend Editions"
               shareHash="#editions"
             />
             
@@ -1253,7 +1253,7 @@ export default function AutoCountPOSPage({ onContact }) {
         <section id="frontend" className="ac-section-tight product-app-section product-app-section-warm product-app-section-to-paper" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
-              title="Front End (Counter)"
+              title="POS Front End Editions"
             />
 
             <div style={{ height: "2.5rem" }} />
