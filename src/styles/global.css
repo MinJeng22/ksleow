@@ -940,7 +940,7 @@ textarea {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(circle at 0% 50%, rgba(122,179,23,0.18), transparent 45%),
+    radial-gradient(circle at 0% 50%, var(--feature-gradient-color, rgba(122,179,23,0.18)), transparent 45%),
     radial-gradient(circle at 100% 10%, rgba(47,49,90,0.06), transparent 34%);
 }
 

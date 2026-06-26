@@ -35,6 +35,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 
 const POS_SECTIONS = [
   { id: "features", label: "Advantages", icon: IconStar, color: POS_ACCENT },
+  { id: "system", label: "POS System", icon: IconGrid, color: POS_ACCENT },
   { id: "training", label: "Tutorial Guide", icon: IconVideo, color: POS_ACCENT },
   { id: "editions", label: "Backend", icon: IconDatabase, color: POS_NAVY },
   { id: "frontend", label: "Front End", icon: IconRegister, color: POS_NAVY },
@@ -369,6 +370,68 @@ function NotesPanel({ title, items }) {
         ))}
       </ul>
     </aside>
+  );
+}
+
+function POSSystemExplainer() {
+  return (
+    <div className="content-wrap">
+      <SectionIntro
+        eyebrow="Backend + Frontend"
+        title="Understand AutoCount POS Backend and Frontend"
+        text="AutoCount POS works as a connected system: the backend computer controls business data and reporting, while the frontend register counter handles cashier operations."
+      />
+
+      <div className="pos-system-layout">
+        <article className="pos-system-card">
+          <div className="pos-system-visual pos-system-computer" aria-hidden="true">
+            <div className="pos-monitor">
+              <div className="pos-monitor-bar"><span /><span /><span /></div>
+              <div className="pos-monitor-content">
+                <div className="pos-monitor-chart"><span /><span /><span /><span /></div>
+                <div className="pos-monitor-list"><i /><i /><i /></div>
+              </div>
+            </div>
+            <div className="pos-monitor-stand" />
+          </div>
+          <div className="pos-system-copy">
+            <span>Backend Computer</span>
+            <h3>Used by owners, supervisors, and admin teams.</h3>
+            <p>
+              The backend is the control center for item setup, pricing, users, stock movement, outlet settings, reports, e-invoice preparation, and integration back to AutoCount Accounting.
+            </p>
+            <ul>
+              <li>Manage items, prices, customers, users, and outlets.</li>
+              <li>Review sales, closing reports, stock, and sync status.</li>
+              <li>Keep POS data aligned with accounting and management control.</li>
+            </ul>
+          </div>
+        </article>
+
+        <div className="pos-system-sync" aria-hidden="true">Sync</div>
+
+        <article className="pos-system-card">
+          <div className="pos-system-visual pos-system-register" aria-hidden="true">
+            <div className="pos-register-screen"><span /><span /><span /><span /></div>
+            <div className="pos-register-neck" />
+            <div className="pos-register-base"><span /><span /><span /></div>
+            <div className="pos-register-receipt" />
+          </div>
+          <div className="pos-system-copy">
+            <span>Frontend Register Counter</span>
+            <h3>Used by cashiers for daily counter transactions.</h3>
+            <p>
+              The frontend is the POS counter experience for fast billing, barcode scanning, payment collection, receipt printing, cash drawer handling, and branch or outlet sales.
+            </p>
+            <ul>
+              <li>Create bills, cash sales, returns, and counter payments.</li>
+              <li>Work with scanner, receipt printer, cash drawer, and payment devices.</li>
+              <li>Send daily sales and stock movement back to the backend.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
   );
 }
 
@@ -1199,6 +1262,7 @@ export default function AutoCountPOSPage({ onContact }) {
           style={{
             "--feature-strip-bg": "linear-gradient(180deg, #f0ad32 0%, #d68b16 100%)",
             "--feature-strip-shadow": "0 0 16px rgba(228, 158, 37, 0.36)",
+            "--feature-gradient-color": "rgba(240, 173, 50, 0.18)",
           }}
         >
           <FeatureShowcase features={FEATURES} wrapper />
