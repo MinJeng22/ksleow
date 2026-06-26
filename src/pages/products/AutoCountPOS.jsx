@@ -72,6 +72,7 @@ const EDITION_COLUMNS = ["POS Basic", "POS Standard"];
 const EDITION_ROWS = [
   { label: "One-Time Payment", values: ["RM 2,300", "RM 3,100"], type: "price" },
   { label: "Software", values: ["Included", "Included"] },
+  { label: "POS Counter A", values: ["1 Included", "1 Included"] },
   { label: "Default Account Book", values: ["-", "3"] },
   { label: "Default E-Invoice Account Book", values: ["-", "1"] },
   { label: "No. of Concurrent Network User", values: ["-", "1 Full"] },
@@ -1202,7 +1203,7 @@ export default function AutoCountPOSPage({ onContact }) {
               mobileWidth={760}
             />
             <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
-              *Prices exclude 8% SST. 1 POS Counter A is included for any POS Edition purchase.
+              *Prices exclude 8% SST.
             </p>
             <div style={{ height: "2.5rem" }} />
             <AddOnGrid />
