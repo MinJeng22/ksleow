@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
@@ -14,6 +14,8 @@ import {
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import { CompareFeatureCell } from "../../components/CompareTable.jsx";
+import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
+import { runWithProgressFeedback } from "../../utils/routeTransitions.js";
 
 const POS_ACCENT = "#e49e25";
 const POS_NAVY = "#2f315a";
@@ -470,6 +472,8 @@ function POSWhyKSL({ onContact }) {
 }
 
 export default function AutoCountPOSPage({ onContact }) {
+  const [trialOpen, setTrialOpen] = useState(false);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
@@ -841,7 +845,7 @@ export default function AutoCountPOSPage({ onContact }) {
           iconSrc={POS_ICON}
           iconAlt="AutoCount POS"
           backgroundImage={POS_HERO}
-          primaryCta={{ label: "Start Free Trial", onClick: handleContact }}
+          primaryCta={{ label: "Start Free Trial", onClick: () => runWithProgressFeedback(() => setTrialOpen(true), { assets: ["/images/branding/ksleow-gold.webp"] }) }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
         />
       </div>
@@ -981,6 +985,24 @@ export default function AutoCountPOSPage({ onContact }) {
 
         <Footer />
       </main>
+
+      <AutoCountTrialModal
+        open={trialOpen}
+        onClose={() => setTrialOpen(false)}
+        productName="AutoCount POS"
+        supportMessage="HI KS Support Team, I would like to start the AutoCount POS Free Trial and schedule an installation session. I can prepare AnyDesk / UltraViewer."
+        stats={[
+          { label: "Trial Limit", value: "30 Days / 500 Tx" },
+          { label: "Setup Time", value: "~45 Minutes" },
+          { label: "Support", value: "Remote Install" },
+        ]}
+        checklist={[
+          <>Confirm whether you run a <strong>Retail</strong> or <strong>F&B</strong> business.</>,
+          <>Install or prepare <strong>AnyDesk</strong> / <strong>UltraViewer</strong> for remote access.</>,
+          <>Have your <strong>AutoCount Accounting</strong> database ready (if you want integration testing).</>,
+          <>Reserve around <strong>45 minutes</strong> for POS setup and basic checking.</>
+        ]}
+      />
     </div>
   );
 }

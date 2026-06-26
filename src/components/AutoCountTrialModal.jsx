@@ -25,7 +25,23 @@ const WhatsAppIcon = () => (
 
 import { useEffect } from "react";
 
-export default function AutoCountTrialModal({ open, onClose }) {
+export default function AutoCountTrialModal({
+  open,
+  onClose,
+  productName = "AutoCount Accounting 2.2",
+  supportMessage = "HI KS Support Team, I would like to start the AutoCount Accounting 2.2 Free Trial and schedule an installation session. I can prepare AnyDesk / UltraViewer. I want to try ... edition.",
+  stats = [
+    { label: "Trial Limit", value: "500 Transactions" },
+    { label: "Setup Time", value: "~30 Minutes" },
+    { label: "Support", value: "Remote Install" },
+  ],
+  checklist = [
+    <>Confirm which <strong>edition</strong> you want to try.</>,
+    <>Install or prepare <strong>AnyDesk</strong> / <strong>UltraViewer</strong> for remote access.</>,
+    <>Reserve around <strong>30 minutes</strong> for setup and basic checking.</>,
+    <>Message our Support Team to arrange a suitable installation time.</>
+  ]
+}) {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -41,6 +57,8 @@ export default function AutoCountTrialModal({ open, onClose }) {
   }, [open]);
 
   if (!open) return null;
+
+  const SUPPORT_WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(supportMessage)}`;
 
   return (
     <div
@@ -178,7 +196,7 @@ export default function AutoCountTrialModal({ open, onClose }) {
         }}>
           <img className="trial-modal-logo" src={LOGO} alt="K.S. Leow Group" loading="eager" decoding="async" fetchpriority="high" style={{ height: 64, objectFit: "contain", display: "block", margin: "0 auto 1.35rem" }} />
           <div className="ks-eyebrow" style={{ color: "#e8c97a", textAlign: "left" }}>
-            AutoCount Accounting 2.2
+            {productName}
           </div>
           <h2 className="ks-section-title" style={{ color: "#ffffff", lineHeight: 1.13, marginBottom: 0, textAlign: "left" }}>
             Start your Free Trial
@@ -188,13 +206,13 @@ export default function AutoCountTrialModal({ open, onClose }) {
         <div className="trial-modal-body" style={{ padding: "1.6rem 2rem 2rem", background: "#ffffff", borderRadius: "0 0 26px 26px", overflowY: "auto", minHeight: 0 }}>
           <div className="trial-modal-stats" style={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gridTemplateColumns: `repeat(${stats.length}, minmax(0, 1fr))`,
             gap: "0.75rem",
             marginBottom: "1.35rem",
           }}>
-            <InfoTile label="Trial Limit" value="500 Transactions" />
-            <InfoTile label="Setup Time" value="~30 Minutes" />
-            <InfoTile label="Support" value="Remote Install" />
+            {stats.map((stat, i) => (
+              <InfoTile key={i} label={stat.label} value={stat.value} />
+            ))}
           </div>
 
           <div style={{
@@ -207,10 +225,9 @@ export default function AutoCountTrialModal({ open, onClose }) {
             <div style={{ fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase", color: "#2f315a", marginBottom: "0.75rem" }}>
               Please prepare before installation
             </div>
-            <ChecklistItem>Confirm which <strong>edition</strong> you want to try.</ChecklistItem>
-            <ChecklistItem>Install or prepare <strong>AnyDesk</strong> / <strong>UltraViewer</strong> for remote access.</ChecklistItem>
-            <ChecklistItem>Reserve around <strong>30 minutes</strong> for setup and basic checking.</ChecklistItem>
-            <ChecklistItem>Message our Support Team to arrange a suitable installation time.</ChecklistItem>
+            {checklist.map((item, i) => (
+              <ChecklistItem key={i}>{item}</ChecklistItem>
+            ))}
           </div>
 
           <a
