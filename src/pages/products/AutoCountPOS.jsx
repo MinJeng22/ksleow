@@ -103,10 +103,6 @@ const EDITION_ROWS = [
   { label: "Default Account Book", values: ["-", "3"] },
   { label: "Default E-Invoice Account Book", values: ["-", "1"] },
   { label: "No. of Concurrent Network User", values: ["-", "1 Full"] },
-  { label: "Training Fee", values: ["Included", "Included"] },
-  { label: "1 Year Support Fee", values: ["Included", "Included"] },
-  { label: "Training Section", values: ["1", "1"] },
-  { label: "Maximum Training Hours", values: ["3", "5"] },
 ];
 
 const ADDON_GROUPS = [
@@ -898,7 +894,7 @@ export default function AutoCountPOSPage({ onContact }) {
               columns={EDITION_COLUMNS}
               leftLabel="Edition / Module"
               rows={EDITION_ROWS}
-              sections={ACCOUNTING_MODULE_SECTIONS}
+              sections={[...POS_MODULE_SECTIONS, ...ACCOUNTING_MODULE_SECTIONS]}
               accent={POS_ACCENT}
               inlinePrice
               mobileWidth={760}
@@ -920,17 +916,10 @@ export default function AutoCountPOSPage({ onContact }) {
           <div className="content-wrap">
             <SectionIntro
               eyebrow="Front End & Counter"
-              title="Counter licenses, POS backend, and front-end add-ons"
-              text="Plan your cashier counters together with POS backend modules, branch sync, mobile ordering, and standalone applications."
+              title="Counter licenses and front-end add-ons"
+              text="Plan your cashier counters together with branch sync, mobile ordering, and standalone applications."
             />
-            <POSCompareTable
-              columns={["POS Basic", "POS Standard"]}
-              leftLabel="POS Modules"
-              sections={POS_MODULE_SECTIONS}
-              accent={POS_ACCENT}
-              inlinePrice
-              mobileWidth={720}
-            />
+            
             <NotesPanel title="POS module notes" items={POS_MODULE_NOTES} />
 
             <div style={{ height: "2.5rem" }} />
