@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
+import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
 import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
@@ -514,7 +515,7 @@ export default function AutoCountCloudAccountingPage() {
     <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
       <SectionSidebar sections={CLOUD_SECTIONS} themeColor="#16a14b" />
 
-      <div className="pinned-hero-stage">
+      <PinnedHeroStage>
         <ProductHero
           eyebrow="Cloud Accounting"
           title="AutoCount CloudAccounting"
@@ -525,7 +526,7 @@ export default function AutoCountCloudAccountingPage() {
           primaryCta={{ label: "Start Free Trial", href: FREE_TRIAL_URL, target: "_blank", className: "ks-btn-cloud" }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
         />
-      </div>
+      </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
       {/* ── Feature highlights ── */}

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
+import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
 import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
 import { IconLayers, IconLink, IconHandshake, IconStar } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
@@ -144,7 +145,7 @@ export default function FeedMePOSPage() {
       <SectionSidebar sections={FEEDME_SECTIONS} themeColor="#c9a84c" />
 
       {/* ── Hero ── */}
-      <div className="pinned-hero-stage">
+      <PinnedHeroStage>
         <div className="product-hero" style={{ background: "#2f315a", paddingTop: "7rem", paddingBottom: "5rem" }}>
           <div className="content-wrap">
           <div className="product-hero-row" style={{ display: "flex", alignItems: "center", gap: "2.5rem", flexWrap: "wrap" }}>
@@ -200,7 +201,7 @@ export default function FeedMePOSPage() {
           </div>
           </div>
         </div>
-      </div>
+      </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
       {/* ── Key Features ── */}

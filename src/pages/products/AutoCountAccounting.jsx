@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
+import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
 import WhyChooseUs from "../../components/WhyChooseUs.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
@@ -685,7 +686,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       <SectionSidebar sections={AC_SECTIONS} themeColor="#80c31e" />
 
       {/* ── Hero banner — shared ProductHero component ── */}
-      <div className="pinned-hero-stage">
+      <PinnedHeroStage>
         <ProductHero
           eyebrow="Software We Specialize In"
           title="AutoCount Accounting 2.2"
@@ -695,7 +696,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           primaryCta={{ label: "Start Free Trial", onClick: () => runWithProgressFeedback(() => setTrialOpen(true), { assets: ["/images/branding/ksleow-gold.webp"] }) }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
         />
-      </div>
+      </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
 

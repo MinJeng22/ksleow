@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 import ProductHero from "../../components/ProductHero.jsx";
+import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
 import { PageSectionDivider } from "../../components/PageSections.jsx";
 import CarouselProgress from "../../components/CarouselProgress.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
@@ -587,7 +588,7 @@ export default function Sales2DOPage({ onContact }) {
       <SectionSidebar sections={S2D_SECTIONS} themeColor="#c9a84c" />
 
       {/* ── Hero banner — shared ProductHero component (same look as AutoCount) ── */}
-      <div className="pinned-hero-stage">
+      <PinnedHeroStage>
         <ProductHero
           eyebrow={hero.eyebrow}
           title={hero.title}
@@ -597,7 +598,7 @@ export default function Sales2DOPage({ onContact }) {
           primaryCta={{ label: hero.primaryLabel, href: hero.primaryHref, download: hero.primaryHref?.split("/").pop() }}
           secondaryCta={{ label: hero.secondaryLabel, href: WA_LINK, target: "_blank" }}
         />
-      </div>
+      </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
 

@@ -331,6 +331,7 @@ export default function OtherServices({ onContact }) {
         onOpen={openService}
         onPreload={preloadService}
         className="other-services-carousel"
+        reveal
       />
 
       {otherServicesContent.ctaLabel && (

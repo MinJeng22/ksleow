@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
+import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
 import pluginContent from "../../content/autocountPlugins.json";
 import acPluginIcon from "../../assets/images/apps/ac-plugin-icon.webp";
 import useFavicon from "../../hooks/useFavicon.js";
@@ -163,7 +164,7 @@ export default function AutoCountPluginsPage() {
 
   return (
     <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
-      <div className="pinned-hero-stage">
+      <PinnedHeroStage>
         <ProductHero
           eyebrow={pluginContent.hero?.eyebrow}
           title={pluginContent.hero?.title}
@@ -173,7 +174,7 @@ export default function AutoCountPluginsPage() {
           primaryCta={{ label: pluginContent.hero?.primaryLabel || "Browse Plugins", href: "#plugin-library" }}
           secondaryCta={{ label: pluginContent.hero?.secondaryLabel || "WhatsApp Support", href: SUPPORT_WA_LINK, target: "_blank" }}
         />
-      </div>
+      </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
         <section id="plugin-library" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-cloud">

@@ -175,12 +175,15 @@ export function BentoCarousel({
   onPreload,
   className = "",
   controlsLabel = "Browse items",
+  reveal = false,
 }) {
   const trackRef = useRef(null);
+  const rootRef = useRef(null);
   const animationRef = useRef(null);
   const slideTimerRef = useRef(null);
   const suppressClickRef = useRef(0);
   const [slideDirection, setSlideDirection] = useState("");
+  const [isRevealed, setIsRevealed] = useState(!reveal);
   const displayItems = normalizeBentoItems(items, minItems);
   const slides = chunkBentoItems(displayItems, minItems);
   const isOtherServices = className.split(/\s+/).includes("other-services-carousel");
@@ -189,6 +192,25 @@ export function BentoCarousel({
     if (animationRef.current) cancelAnimationFrame(animationRef.current);
     if (slideTimerRef.current) window.clearTimeout(slideTimerRef.current);
   }, []);
+
+  useEffect(() => {
+    if (!reveal || isRevealed) return undefined;
+    const node = rootRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") {
+      setIsRevealed(true);
+      return undefined;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        setIsRevealed(true);
+        observer.disconnect();
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -12% 0px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [isRevealed, reveal]);
 
   const getMobileCardStep = (track) => {
     const card = track.querySelector(".ks-bento-card");
@@ -273,6 +295,7 @@ export function BentoCarousel({
 
   return (
     <div
+      ref={rootRef}
       className={`ks-bento-carousel${className ? ` ${className}` : ""}${slideDirection ? ` is-sliding-${slideDirection}` : ""}`}
       onClickCapture={handleClickCapture}
     >
@@ -289,6 +312,9 @@ export function BentoCarousel({
                   key={item.key || `${slideIndex}-${index}`}
                   item={item}
                   index={index}
+                  revealIndex={slideIndex * minItems + index}
+                  reveal={reveal}
+                  revealed={isRevealed}
                   layoutClass={LAYOUT_CLASSES[index] || ""}
                   image={imageFor ? imageFor(item) : item?.image}
                   onOpen={onOpen}
@@ -336,7 +362,7 @@ function ArrowIcon({ direction }) {
   );
 }
 
-export function BentoCard({ item, index, layoutClass = "", image, onOpen, onPreload, variant = "grid" }) {
+export function BentoCard({ item, index, revealIndex = index, reveal = false, revealed = true, layoutClass = "", image, onOpen, onPreload, variant = "grid" }) {
   const isEmpty = item?.isEmpty;
   const linkHref = item?.route || item?.href || item?.cta?.href;
   const linkTarget = item?.target || item?.cta?.target || "_self";
@@ -371,7 +397,8 @@ export function BentoCard({ item, index, layoutClass = "", image, onOpen, onPrel
   return (
     <CardTag
       id={item?.modal ? `${item.modal}-card` : undefined}
-      className={`ks-bento-card ${layoutClass}${shapeClass}${clickable ? " is-clickable" : ""}${isEmpty ? " is-empty" : ""}`}
+      className={`ks-bento-card ${layoutClass}${shapeClass}${clickable ? " is-clickable" : ""}${isEmpty ? " is-empty" : ""}${reveal ? " ks-bento-card-reveal" : ""}${revealed ? " is-revealed" : ""}`}
+      style={reveal ? { "--bento-reveal-delay": `${Math.min(revealIndex * 105, 735)}ms` } : undefined}
       onClick={clickable ? handleOpen : undefined}
       onPointerEnter={clickable ? () => handlePreload("low") : undefined}
       onPointerDown={clickable ? () => handlePreload("high") : undefined}

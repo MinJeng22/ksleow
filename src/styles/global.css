@@ -2329,14 +2329,33 @@ a.contact-directory-value:hover {
   animation-delay: var(--service-reveal-delay, 0ms);
 }
 
+.ks-bento-card-reveal {
+  opacity: 0;
+  transform: translate3d(-26px, 18px, 0) scale(0.986);
+  will-change: opacity, transform;
+}
+
+.ks-bento-card-reveal.is-revealed {
+  animation: serviceCardReveal 880ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--bento-reveal-delay, 0ms);
+}
+
 @media (max-width: 640px) {
   #services .service-card-reveal {
     transform: translate3d(0, 26px, 0) scale(0.99);
   }
 
+  .ks-bento-card-reveal {
+    transform: translate3d(-18px, 16px, 0) scale(0.99);
+  }
+
   #services .service-card-reveal.is-in-view {
     animation-duration: 760ms;
     animation-delay: 0ms;
+  }
+
+  .ks-bento-card-reveal.is-revealed {
+    animation-duration: 760ms;
   }
 }
 
@@ -2411,7 +2430,8 @@ a.contact-directory-value:hover {
   .js-reveal-ready .ks-section-title,
   .js-reveal-ready .ks-eyebrow,
   .js-reveal-ready .ks-section-eyebrow,
-  #services .service-card-reveal {
+  #services .service-card-reveal,
+  .ks-bento-card-reveal {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;

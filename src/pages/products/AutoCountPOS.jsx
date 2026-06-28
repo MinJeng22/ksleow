@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
+import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
 import WhyChooseUs from "../../components/WhyChooseUs.jsx";
@@ -1387,7 +1388,7 @@ export default function AutoCountPOSPage({ onContact }) {
 
       <SectionSidebar sections={POS_SECTIONS} themeColor={POS_ACCENT} />
 
-      <div className="pinned-hero-stage">
+      <PinnedHeroStage>
         <ProductHero
           eyebrow="Software We Specialize In"
           title="AutoCount POS"
@@ -1398,7 +1399,7 @@ export default function AutoCountPOSPage({ onContact }) {
           primaryCta={{ label: "Start Free Trial", onClick: () => runWithProgressFeedback(() => setTrialOpen(true), { assets: ["/images/branding/ksleow-gold.webp"] }) }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
         />
-      </div>
+      </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
         <div
