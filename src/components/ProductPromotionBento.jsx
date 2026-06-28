@@ -212,7 +212,7 @@ export default function ProductPromotionBento({
 
       <div className="product-promo-head">
         <div>
-          <h2 className="product-promo-title">{title}</h2>
+          <h2 className="product-promo-title ks-section-title">{title}</h2>
         </div>
       </div>
 

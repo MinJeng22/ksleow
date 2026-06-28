@@ -376,7 +376,7 @@ function SectionIntro({ eyebrow, title, text, shareHash }) {
         </div>
       )}
       <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {title}
+        <span className="ks-section-title ks-section-title-inherit">{title}</span>
         {shareHash && <ShareLinkButton variant="icon" hash={shareHash} />}
       </h2>
       {text && <p>{text}</p>}
@@ -406,7 +406,7 @@ function POSSeoContent() {
         <div className="ks-eyebrow" style={{ color: POS_ACCENT }}>
           AutoCount POS Malaysia
         </div>
-        <h2>POS software for Malaysian retail, F&B, and branch operations.</h2>
+        <h2 className="ks-section-title ks-section-title-inherit">POS software for Malaysian retail, F&B, and branch operations.</h2>
         <p>
           AutoCount POS helps outlets run faster counter sales while keeping sales, stock movement, payments, and reports connected to AutoCount Accounting. It is a practical fit for retail shops, F&B counters, branch outlets, and businesses that need reliable daily closing.
         </p>
@@ -627,7 +627,7 @@ function POSReleaseNotesSection({ search, setSearch, expanded, setExpanded, visi
       <div className="content-wrap">
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
           <div>
-            <h2 style={{ fontSize: "clamp(1.45rem, 2.7vw, 2.15rem)", fontWeight: 780, color: "var(--pos-navy)", margin: 0 }}>
+            <h2 className="ks-section-title ks-section-title-inherit" style={{ fontSize: "clamp(1.45rem, 2.7vw, 2.15rem)", fontWeight: 780, color: "var(--pos-navy)", margin: 0 }}>
               Official Release Notes
             </h2>
             <p style={{ fontSize: "0.86rem", color: "#6b6f91", margin: "0.45rem 0 0" }}>

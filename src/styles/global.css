@@ -1072,15 +1072,6 @@ textarea {
   text-transform: uppercase;
 }
 
-.ks-section-title {
-  color: var(--brand);
-  font-size: var(--heading-lg);
-  font-weight: 800;
-  letter-spacing: 0;
-  line-height: 1.18;
-  margin-bottom: 0.75rem;
-}
-
 .ks-section-intro {
   color: var(--muted);
   font-size: var(--text-body);
@@ -2305,6 +2296,13 @@ a.contact-directory-value:hover {
 }
 
 .ks-section-title-lg { font-size: var(--heading-lg); }
+
+.ks-section-title-inherit {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
 
 @keyframes serviceCardReveal {
   0% {

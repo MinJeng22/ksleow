@@ -1054,7 +1054,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
       `}</style>
       <div className="content-wrap" ref={contentWrapRef}>
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <h2 style={{
+          <h2 className="ks-section-title ks-section-title-inherit" style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 700,
             color: '#2f315a', lineHeight: 1.2, margin: 0,
           }}>

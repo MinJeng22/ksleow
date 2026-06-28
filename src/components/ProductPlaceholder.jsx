@@ -10,7 +10,7 @@ export default function ProductPlaceholder({ title }) {
       background: "var(--white)",
       minHeight: "40vh",
     }}>
-      <h2 style={{
+      <h2 className="ks-section-title ks-section-title-inherit" style={{
         fontSize: "2rem",
         fontWeight: 600,
         color: "var(--brand)",

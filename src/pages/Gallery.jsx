@@ -94,7 +94,7 @@ export default function GalleryPage() {
         <div className="gallery-grid-head">
           <div>
             <p className="section-eyebrow">Albums</p>
-            <h2 id="gallery-heading">Company Activities & Team Building</h2>
+            <h2 id="gallery-heading" className="ks-section-title ks-section-title-inherit">Company Activities & Team Building</h2>
           </div>
           <span>{visibleItems.length} album{visibleItems.length === 1 ? "" : "s"}</span>
         </div>

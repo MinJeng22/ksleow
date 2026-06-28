@@ -219,7 +219,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
           }
         `}</style>
         <div className="content-wrap" style={{ textAlign: "center" }}>
-          <h2 style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>Why Choose Us?</h2>
+          <h2 className="ks-section-title ks-section-title-inherit" style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>Why Choose Us?</h2>
           
           <p style={{
             textAlign: "center", fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.15em",

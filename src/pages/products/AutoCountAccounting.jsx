@@ -746,7 +746,7 @@ export default function AutoCountAccountingPage({ onContact }) {
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
 
-            <h2 style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem" }}>
+            <h2 className="ks-section-title ks-section-title-inherit" style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem" }}>
               Comparing 6 Editions of Accounting 2.2
             </h2>
             <div style={{ display: "inline-flex", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center", fontSize: "0.78rem", color: "#6b6f91" }}>
@@ -869,7 +869,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
             <div>
 
-              <h2 style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontWeight: 700, color: "#2f315a" }}>
+              <h2 className="ks-section-title ks-section-title-inherit" style={{ fontSize: "clamp(1.4rem, 2.5vw, 2rem)", fontWeight: 700, color: "#2f315a" }}>
                 Release Notes — Ver 2.2
               </h2>
               <p style={{ fontSize: "0.85rem", color: "#6b6f91", marginTop: "0.35rem" }}>

@@ -511,7 +511,7 @@ export default function OurTeam() {
         <div className="team-gallery-panel">
           <div className="team-copy">
             <p className="section-eyebrow">People Behind Every Solution</p>
-            <h2 id="our-team-title">Our Team</h2>
+            <h2 id="our-team-title" className="ks-section-title ks-section-title-inherit">Our Team</h2>
             <p>
               Practical teams. Clear support. Reliable follow-through.
             </p>

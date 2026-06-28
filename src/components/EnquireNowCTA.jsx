@@ -14,7 +14,7 @@ export default function EnquireNowCTA({
         paused={false}
       />
       <div className="enquire-now-content content-wrap">
-        <h2 className="enquire-now-heading">{heading}</h2>
+        <h2 className="enquire-now-heading ks-section-title">{heading}</h2>
         <p className="enquire-now-body">{body}</p>
         {buttons.length > 0 && (
           <div className="enquire-now-actions">
