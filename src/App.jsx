@@ -67,6 +67,7 @@ function useSectionTitleReveal() {
 
       node.dataset.ksTitleOriginal = originalText;
       node.dataset.ksTitleSplit = "true";
+      node.classList.add("ks-title-split");
       node.setAttribute("aria-label", originalText);
       node.textContent = "";
 
