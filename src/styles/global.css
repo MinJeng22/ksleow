@@ -2306,6 +2306,50 @@ a.contact-directory-value:hover {
 
 .ks-section-title-lg { font-size: var(--heading-lg); }
 
+@keyframes ksTitleReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0) scale(0.985);
+    filter: blur(8px);
+  }
+  58% {
+    opacity: 1;
+    filter: blur(1.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.js-reveal-ready .ks-section-title:not(.ks-title-in-view),
+.js-reveal-ready .ks-eyebrow:not(.ks-title-in-view),
+.js-reveal-ready .ks-section-eyebrow:not(.ks-title-in-view) {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0) scale(0.985);
+  filter: blur(8px);
+}
+
+.js-reveal-ready .ks-section-title.ks-title-in-view,
+.js-reveal-ready .ks-eyebrow.ks-title-in-view,
+.js-reveal-ready .ks-section-eyebrow.ks-title-in-view {
+  animation: ksTitleReveal 920ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--ks-title-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal-ready .ks-section-title,
+  .js-reveal-ready .ks-eyebrow,
+  .js-reveal-ready .ks-section-eyebrow {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
 .ks-hero-title {
   color: #ffffff;
   font-size: var(--hero-title);

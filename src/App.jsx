@@ -39,6 +39,61 @@ function wait(ms) {
   return new Promise((resolve) => window.setTimeout(resolve, ms));
 }
 
+function useSectionTitleReveal() {
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    document.documentElement.classList.add("js-reveal-ready");
+
+    const selector = ".ks-section-title, .ks-eyebrow, .ks-section-eyebrow";
+    const observed = new WeakSet();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("ks-title-in-view");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    const watchTitle = (node) => {
+      if (!(node instanceof Element) || observed.has(node)) return;
+      node.classList.add("ks-title-reveal");
+      node.style.setProperty(
+        "--ks-title-delay",
+        node.classList.contains("ks-section-title") ? "100ms" : "30ms"
+      );
+      observed.add(node);
+      observer.observe(node);
+    };
+
+    const scanTitles = (root) => {
+      if (!(root instanceof Element) && root !== document) return;
+      if (root instanceof Element && root.matches(selector)) {
+        watchTitle(root);
+      }
+      root.querySelectorAll?.(selector).forEach(watchTitle);
+    };
+
+    const frame = window.requestAnimationFrame(() => scanTitles(document));
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => scanTitles(node));
+      });
+    });
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      mutationObserver.disconnect();
+      observer.disconnect();
+    };
+  }, []);
+}
+
 function SiteRoutes({ openContact, displayLocation }) {
   return (
     <Routes location={displayLocation}>
@@ -121,6 +176,7 @@ export function AppContent() {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
+  useSectionTitleReveal();
 
   useEffect(() => {
     if (typeof window === "undefined" || !("scrollRestoration" in window.history)) return undefined;

@@ -572,12 +572,10 @@ function ContactLine({ icon, label, isSingleItem }) {
 
 export default function Services() {
   const gridRef = useRef(null);
-  const [revealReady, setRevealReady] = useState(false);
   const [cardsInView, setCardsInView] = useState(false);
 
   useEffect(() => {
     const node = gridRef.current;
-    setRevealReady(true);
 
     if (!node || typeof IntersectionObserver === "undefined") {
       setCardsInView(true);
@@ -612,9 +610,6 @@ export default function Services() {
           54% {
             opacity: 1;
           }
-          78% {
-            transform: translate3d(0, -3px, 0) scale(1.002);
-          }
           100% {
             opacity: 1;
             transform: translate3d(0, 0, 0) scale(1);
@@ -628,7 +623,7 @@ export default function Services() {
           will-change: opacity, transform, filter;
         }
         #services .service-cards-reveal.is-in-view .service-card-shell {
-          animation: serviceCardReveal 1200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+          animation: serviceCardReveal 1080ms cubic-bezier(0.16, 1, 0.3, 1) both;
           animation-delay: var(--service-reveal-delay, 0ms);
         }
         #services .services-bg-fade {
@@ -703,7 +698,7 @@ export default function Services() {
           </p>
           <div
             ref={gridRef}
-            className={`services-grid${revealReady ? " service-cards-reveal" : ""}${cardsInView ? " is-in-view" : ""}`}
+            className={`services-grid service-cards-reveal${cardsInView ? " is-in-view" : ""}`}
             style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 500px))", justifyContent: "center", gap: "1.1rem" }}
           >
             {SERVICES.map((s, index) => (
