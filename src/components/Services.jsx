@@ -213,7 +213,8 @@ function ServiceCard({ service, index = 0 }) {
         style={{
           perspective: "1200px",
           height: 290,
-          "--service-reveal-delay": `${Math.min(index * 130, 780)}ms`,
+          "--service-reveal-delay": `${Math.min(index * 120, 720)}ms`,
+          "--service-reveal-mobile-delay": `${Math.min(index * 230, 1380)}ms`,
         }}
       >
       <div style={{
@@ -601,31 +602,6 @@ export default function Services() {
     <>
       <style>{`
         @keyframes cardFlip { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes serviceCardReveal {
-          0% {
-            opacity: 0;
-            transform: translate3d(0, 42px, 0) scale(0.975);
-            filter: blur(10px);
-          }
-          54% {
-            opacity: 1;
-          }
-          100% {
-            opacity: 1;
-            transform: translate3d(0, 0, 0) scale(1);
-            filter: blur(0);
-          }
-        }
-        #services .service-cards-reveal .service-card-shell {
-          opacity: 0;
-          transform: translate3d(0, 42px, 0) scale(0.975);
-          filter: blur(10px);
-          will-change: opacity, transform, filter;
-        }
-        #services .service-cards-reveal.is-in-view .service-card-shell {
-          animation: serviceCardReveal 1080ms cubic-bezier(0.16, 1, 0.3, 1) both;
-          animation-delay: var(--service-reveal-delay, 0ms);
-        }
         #services .services-bg-fade {
           background: linear-gradient(
             to bottom,
@@ -649,19 +625,6 @@ export default function Services() {
               rgba(245,245,248,0) 43%,
               rgba(245,245,248,0) 100%
             );
-          }
-        }
-        @media (max-width: 640px) {
-          #services .service-cards-reveal .service-card-shell {
-            transform: translate3d(0, 34px, 0) scale(0.985);
-          }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          #services .service-cards-reveal .service-card-shell {
-            opacity: 1;
-            transform: none;
-            filter: none;
-            transition: none;
           }
         }
       `}</style>

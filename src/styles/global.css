@@ -2306,6 +2306,46 @@ a.contact-directory-value:hover {
 
 .ks-section-title-lg { font-size: var(--heading-lg); }
 
+@keyframes serviceCardReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 42px, 0) scale(0.975);
+    filter: blur(10px);
+  }
+  52% {
+    opacity: 1;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+#services .service-cards-reveal .service-card-shell {
+  opacity: 0;
+  transform: translate3d(0, 42px, 0) scale(0.975);
+  filter: blur(10px);
+  will-change: opacity, transform, filter;
+}
+
+#services .service-cards-reveal.is-in-view .service-card-shell {
+  animation: serviceCardReveal 1080ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--service-reveal-delay, 0ms);
+}
+
+@media (max-width: 640px) {
+  #services .service-cards-reveal .service-card-shell {
+    transform: translate3d(0, 34px, 0) scale(0.985);
+  }
+
+  #services .service-cards-reveal.is-in-view .service-card-shell {
+    animation-duration: 980ms;
+    animation-delay: var(--service-reveal-mobile-delay, var(--service-reveal-delay, 0ms));
+  }
+}
+
 @keyframes ksTitleReveal {
   0% {
     opacity: 0;
@@ -2342,7 +2382,8 @@ a.contact-directory-value:hover {
 @media (prefers-reduced-motion: reduce) {
   .js-reveal-ready .ks-section-title,
   .js-reveal-ready .ks-eyebrow,
-  .js-reveal-ready .ks-section-eyebrow {
+  .js-reveal-ready .ks-section-eyebrow,
+  #services .service-cards-reveal .service-card-shell {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
