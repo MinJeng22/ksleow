@@ -4,7 +4,13 @@
       "key": "ksl_bs",
       "name": "KSL BUSINESS SOLUTIONS SDN. BHD.",
       "tagline": "Software, Hardware & IT Solutions",
-      "logo": ""
+      "logo": "",
+      "emails": [
+        {
+          "email": "support@ksleow.com.my"
+        }
+      ],
+      "facebook": "https://www.facebook.com/ksleowbs/"
     },
     {
       "key": "ksl_tax",
