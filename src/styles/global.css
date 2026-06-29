@@ -2351,7 +2351,7 @@ a.contact-directory-value:hover {
 
   #services .service-card-reveal.is-in-view {
     animation-duration: 760ms;
-    animation-delay: 0ms;
+    animation-delay: min(var(--service-reveal-delay, 0ms), 180ms);
   }
 
   .ks-bento-card-reveal.is-revealed {

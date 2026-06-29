@@ -186,7 +186,7 @@ function ServiceCard({ service, index = 0 }) {
       },
       {
         threshold: 0.01,
-        rootMargin: mql.matches ? "0px 0px 85% 0px" : "0px 0px 22% 0px",
+        rootMargin: mql.matches ? "0px 0px 28% 0px" : "0px 0px 22% 0px",
       }
     );
     observer.observe(node);
