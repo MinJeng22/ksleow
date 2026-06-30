@@ -54,8 +54,10 @@ html.is-immersive-home body {
 
 .is-immersive-home .home-stats-services-panel > .stats-section {
   border-bottom: 0 !important;
-  flex-basis: clamp(118px, 18vh, 178px);
+  flex-basis: clamp(86px, 12vh, 122px);
   justify-content: center;
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
 }
 
 .is-immersive-home .home-stats-services-panel > #services {
@@ -64,6 +66,45 @@ html.is-immersive-home body {
 
 .is-immersive-home .home-stats-services-panel > .stats-section .stats-grid {
   align-items: stretch;
+  height: 100%;
+}
+
+.is-immersive-home .home-stats-services-panel > .stats-section .stats-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: clamp(0.85rem, 1.7vh, 1.3rem) !important;
+  padding-top: clamp(0.85rem, 1.7vh, 1.3rem) !important;
+}
+
+.is-immersive-home .home-stats-services-panel > .stats-section .stats-item > div:first-child {
+  font-size: clamp(1.65rem, 2.35vw, 2.05rem) !important;
+}
+
+.is-immersive-home .home-stats-services-panel > .stats-section .stats-item > div:last-child {
+  font-size: clamp(0.58rem, 0.75vw, 0.68rem) !important;
+  margin-top: 0.35rem !important;
+}
+
+.is-immersive-home .home-stats-services-panel > #services {
+  padding-bottom: clamp(1rem, 2vh, 1.5rem) !important;
+  padding-top: clamp(1rem, 2vh, 1.5rem) !important;
+}
+
+.is-immersive-home .home-stats-services-panel > #services .ks-eyebrow {
+  margin-bottom: 0.45rem !important;
+}
+
+.is-immersive-home .home-stats-services-panel > #services .ks-section-title {
+  margin-bottom: 0.45rem !important;
+}
+
+.is-immersive-home .home-stats-services-panel > #services .ks-body-text {
+  margin-bottom: clamp(1rem, 2.2vh, 1.5rem) !important;
+}
+
+.is-immersive-home .home-stats-services-panel > #services .services-grid {
+  gap: clamp(0.65rem, 1.35vh, 0.95rem) !important;
 }
 
 .is-immersive-home .home-content-layer > .home-section > .content-wrap,
@@ -135,7 +176,7 @@ html.is-immersive-home body {
 
 @media (min-width: 1025px) {
   .is-immersive-home #services .services-grid > div {
-    height: clamp(230px, 27vh, 300px) !important;
+    height: clamp(174px, 21vh, 218px) !important;
   }
 
   .is-immersive-home .products-section {
