@@ -118,7 +118,13 @@
     {
       "hideBadge": true,
       "officeKey": null,
-      "logos": [],
+      "logos": [
+        {
+          "h": 60,
+          "src": "/images/services/hrdf.webp",
+          "alt": "hrdf"
+        }
+      ],
       "backgroundImage": "/images/services/webinar.webp",
       "badgeLabel": "",
       "desc": "Live webinars and on‑demand training on accounting, tax, and business software.",
