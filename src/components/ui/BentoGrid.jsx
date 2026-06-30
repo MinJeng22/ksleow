@@ -94,7 +94,7 @@ const BENTO_CAROUSEL_STYLES = `
       display: contents;
     }
     .other-services-carousel .ks-bento-card {
-      flex: 0 0 85%;
+      flex: 0 0 85vw;
       max-width: 340px;
       display: flex !important;
       flex-direction: column !important;

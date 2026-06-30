@@ -181,7 +181,7 @@ export default function ProductPromotionBento({
 
         .promo-lightbox-frame {
           position: relative;
-          max-width: 95%;
+          max-width: 95vw;
           max-height: 95vh;
           border-radius: 20px;
           display: inline-flex;

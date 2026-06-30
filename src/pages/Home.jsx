@@ -16,7 +16,7 @@ function useImmersiveHomeScroll() {
     root.classList.add("is-immersive-home");
 
     const panels = Array.from(document.querySelectorAll(
-      ".home-hero-layer, .home-content-layer > .home-section"
+      ".home-hero-layer, .home-content-layer > .home-section, .home-footer-snap-panel"
     ));
 
     panels.forEach((panel) => panel.classList.add("home-immersive-panel"));
@@ -66,17 +66,15 @@ export default function Home({ onContact }) {
           <Hero onContact={onContact} />
         </div>
         <main className="home-content-layer">
-          <section className="home-section home-combined-panel home-stats-services-panel">
-            <Stats />
-            <Services />
-          </section>
+          <Stats />
+          <Services />
           <Products onContact={onContact} />
           <OtherServices onContact={onContact} />
           {/* <OurTeam /> */}
-          <section className="home-section home-combined-panel home-careers-footer-panel">
-            <Careers />
+          <Careers />
+          <div className="home-footer-snap-panel">
             <Footer />
-          </section>
+          </div>
         </main>
       </div>
     </>
