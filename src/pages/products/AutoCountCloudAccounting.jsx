@@ -24,6 +24,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 const OFFICIAL_PRODUCT_URL = "https://www.autocountsoft.com/pro-cloud-acc.html";
 const OFFICIAL_RELEASE_URL = "https://help.accounting.autocountcloud.com/support/discussions/forums/69000107078";
 const FREE_TRIAL_URL = "https://auth.autocountcloud.com/identity/account/register/accounting?dealerCode=SYNS6037";
+const CLOUD_LOGIN_URL = "https://accounting.autocountcloud.com";
 const TRAINING_URL = "https://youtu.be/zHstLv2-ATw?si=tSfLxwPCw1YvYKSg";
 
 const CLOUD_VIDEOS = [
@@ -525,6 +526,7 @@ export default function AutoCountCloudAccountingPage() {
           backgroundImage="/images/products/autocount-cloudaccounting-hero.webp"
           primaryCta={{ label: "Start Free Trial", href: FREE_TRIAL_URL, target: "_blank", className: "ks-btn-cloud" }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
+          tertiaryCta={{ label: "Login", href: CLOUD_LOGIN_URL, target: "_blank" }}
         />
       </PinnedHeroStage>
 
