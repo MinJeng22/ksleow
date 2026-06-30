@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import HomeImagePreloader from "../components/HomeImagePreloader";
 import Hero from "../components/Hero";
 import Stats from "../components/Stats";
@@ -7,8 +8,56 @@ import OtherServices from "../components/OtherServices";
 // import OurTeam from "../components/OurTeam";
 import Careers from "../components/Careers";
 import Footer from "../components/Footer";
+import "../styles/homeImmersive.css";
+
+function useImmersiveHomeScroll() {
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.add("is-immersive-home");
+
+    const panels = Array.from(document.querySelectorAll(
+      ".home-hero-layer, .home-content-layer > .home-section, .home-footer-snap-panel"
+    ));
+
+    panels.forEach((panel) => panel.classList.add("home-immersive-panel"));
+
+    if (typeof IntersectionObserver === "undefined") {
+      panels.forEach((panel) => panel.classList.add("is-visible"));
+      return () => {
+        root.classList.remove("is-immersive-home");
+        panels.forEach((panel) => {
+          panel.classList.remove("home-immersive-panel", "is-visible");
+        });
+      };
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0.48,
+        rootMargin: "-10% 0px -10% 0px",
+      }
+    );
+
+    panels.forEach((panel) => observer.observe(panel));
+
+    return () => {
+      observer.disconnect();
+      root.classList.remove("is-immersive-home");
+      panels.forEach((panel) => {
+        panel.classList.remove("home-immersive-panel", "is-visible");
+      });
+    };
+  }, []);
+}
 
 export default function Home({ onContact }) {
+  useImmersiveHomeScroll();
+
   return (
     <>
       <HomeImagePreloader />
@@ -23,7 +72,9 @@ export default function Home({ onContact }) {
           <OtherServices onContact={onContact} />
           {/* <OurTeam /> */}
           <Careers />
-          <Footer />
+          <div className="home-footer-snap-panel">
+            <Footer />
+          </div>
         </main>
       </div>
     </>
