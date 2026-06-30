@@ -143,6 +143,19 @@
     "kbText": "https://ksleow.com.my/kb/ks-omni.txt"
   },
   {
+    "id": "multi-tenant-erp-demo",
+    "title": "Multi-Tenant ERP CRM Demo",
+    "description": "Responsive B2B SaaS ERP demo with multi-provider authentication, tenant switching, CRM customer records, and Malaysia LHDN e-Invoice profile context.",
+    "url": "https://ksleow.com.my/demo/multi-tenant-erp/",
+    "route": "/demo/multi-tenant-erp",
+    "category": "Demo",
+    "changefreq": "monthly",
+    "priority": "0.5",
+    "image": "",
+    "kbJson": "https://ksleow.com.my/kb/multi-tenant-erp-demo.json",
+    "kbText": "https://ksleow.com.my/kb/multi-tenant-erp-demo.txt"
+  },
+  {
     "id": "gallery",
     "title": "Company Gallery",
     "description": "K.S. Leow Group activity and team building photo gallery for company events, training days, celebrations, and team moments.",

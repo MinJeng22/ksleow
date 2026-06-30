@@ -20,6 +20,7 @@ import Sales2DOPage            from "./pages/apps/Sales2DO";
 import KSOmniPage              from "./pages/KSOmni";
 import QuotationViewerPage     from "./pages/QuotationViewer";
 import GalleryPage             from "./pages/Gallery";
+import MultiTenantErpDemoPage  from "./pages/demo/MultiTenantErpDemo";
 import siteRoutes from "./content/siteRoutes.json";
 import {
   consumeRouteFeedbackPopNavigation,
@@ -154,6 +155,7 @@ function SiteRoutes({ openContact, displayLocation }) {
       <Route path={routePath["autocount-plugin"]} element={<AutoCountPluginsPage />} />
       <Route path={routePath.sales2do} element={<Sales2DOPage onContact={openContact} />} />
       <Route path={routePath["ks-omni"]} element={<KSOmniPage onContact={openContact} />} />
+      <Route path={routePath["multi-tenant-erp-demo"]} element={<MultiTenantErpDemoPage />} />
       <Route path={routePath.quotation} element={<QuotationViewerPage />} />
       <Route path={routePath.gallery} element={<GalleryPage />} />
       <Route path="*" element={<Navigate to={routePath.home} replace />} />

@@ -72,6 +72,15 @@
     "changefreq": "weekly"
   },
   {
+    "id": "multi-tenant-erp-demo",
+    "route": "/demo/multi-tenant-erp",
+    "title": "Multi-Tenant ERP CRM Demo",
+    "description": "Responsive B2B SaaS ERP demo with multi-provider authentication, tenant switching, CRM customer records, and Malaysia LHDN e-Invoice profile context.",
+    "category": "Demo",
+    "priority": "0.5",
+    "changefreq": "monthly"
+  },
+  {
     "id": "quotation",
     "route": "/quotation",
     "title": "Quotation PDF Viewer",

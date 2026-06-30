@@ -347,6 +347,35 @@ async function main() {
       ],
     }),
     doc({
+      slug: "multi-tenant-erp-demo",
+      title: routeById["multi-tenant-erp-demo"].title,
+      description: routeById["multi-tenant-erp-demo"].description,
+      route: routeById["multi-tenant-erp-demo"].route,
+      category: routeById["multi-tenant-erp-demo"].category,
+      keywords: [
+        "multi-tenant ERP demo",
+        "Malaysia LHDN e-Invoice CRM",
+        "B2B SaaS dashboard",
+        "tenant switching dashboard",
+        "CRM customer list",
+      ],
+      facts: {
+        schemaEntities: [
+          "AuditableEntity base with soft deletion and optimistic concurrency",
+          "User and UserExternalLogin for email plus Google and Microsoft SSO",
+          "Company as tenant workspace with LHDN tax profile",
+          "CompanyUser pivot for Admin, Standard, and ReadOnly roles",
+          "Customer CRM entity scoped by CompanyId",
+          "B2BNetworkLink for cross-tenant handshake",
+        ],
+      },
+      sections: [
+        { heading: "Dashboard shell", body: "The demo shows a post-login multi-tenant dashboard with an active workspace company selector, tenant-specific tax profile, RBAC role, and responsive navigation." },
+        { heading: "CRM customer list", body: "The CRM table displays Registered Name, BRN, TIN, Phone, and Status with responsive scaling from desktop data table to mobile cards." },
+        { heading: "Authentication", body: "The authentication panel demonstrates Google SSO, Microsoft SSO, and traditional company email registration." },
+      ],
+    }),
+    doc({
       slug: "gallery",
       title: routeById.gallery.title,
       description: routeById.gallery.description,

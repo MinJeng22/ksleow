@@ -11,6 +11,7 @@
   <url><loc>https://ksleow.com.my/apps/autocount-plugin/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ksleow.com.my/apps/sales2do/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ksleow.com.my/omni/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ksleow.com.my/demo/multi-tenant-erp/</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://ksleow.com.my/gallery/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ksleow.com.my/quotation/</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
   <url><loc>https://ksleow.com.my/kb/index.json</loc><changefreq>daily</changefreq><priority>0.7</priority></url>

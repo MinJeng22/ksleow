@@ -15,6 +15,7 @@ This website provides information about K.S. Leow Group one-stop business and te
 - AutoCount Plugin: https://ksleow.com.my/kb/autocount-plugin.txt
 - Sales2DO AutoCount Plugin: https://ksleow.com.my/kb/sales2do.txt
 - KS Omni AI Assistant: https://ksleow.com.my/kb/ks-omni.txt
+- Multi-Tenant ERP CRM Demo: https://ksleow.com.my/kb/multi-tenant-erp-demo.txt
 - Company Gallery: https://ksleow.com.my/kb/gallery.txt
 - Quotation PDF Viewer: https://ksleow.com.my/kb/quotation.txt
 
