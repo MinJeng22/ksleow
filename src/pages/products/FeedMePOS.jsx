@@ -15,7 +15,7 @@ const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
 
 /* Hero photo + brand logo — already in /public/images/products/ */
 const HERO_PHOTO = "/images/products/feedme-pos-showcase.webp";
-const FEEDME_LOGO = "/images/logos/feedme-logo.webp";
+const FEEDME_LOGO = "/images/products/feedme-icon.webp";
 
 /* Sidebar anchors */
 const FEEDME_SECTIONS = [
