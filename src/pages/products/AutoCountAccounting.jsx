@@ -690,7 +690,7 @@ export default function AutoCountAccountingPage({ onContact }) {
         <ProductHero
           eyebrow="Software We Specialize In"
           title="AutoCount Accounting 2.2"
-          body="Malaysia's leading SME accounting software — cloud‑connected, SST & e‑Invoice compliant, and deeply integrated with AutoCount POS and Payroll. As an authorized dealer, KSL Business Solutions provides full installation, configuration, training, and ongoing support."
+          body="Malaysia's leading SME accounting software — cloud‑connected, SST & e‑Invoice compliant, and deeply integrated with AutoCount POS and Payroll. As an authorized dealer, KS Support Team provides full installation, configuration, training, and ongoing support."
           iconSrc={PRODUCT_IMAGES.autocountAccountingIcon}
           iconAlt="AutoCount Accounting"
           primaryCta={{ label: "Start Free Trial", onClick: () => runWithProgressFeedback(() => setTrialOpen(true), { assets: ["/images/branding/ksleow-gold.webp"] }) }}

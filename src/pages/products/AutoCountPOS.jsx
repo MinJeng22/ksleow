@@ -412,7 +412,7 @@ function POSSeoContent() {
           AutoCount POS helps outlets run faster counter sales while keeping sales, stock movement, payments, and reports connected to AutoCount Accounting. It is a practical fit for retail shops, F&B counters, branch outlets, and businesses that need reliable daily closing.
         </p>
         <p>
-          KSL Business Solutions supports Malaysian SMEs with POS edition advice, front-end counter setup, backend configuration, barcode scanner and receipt printer planning, staff training, and ongoing AutoCount support.
+          KS Support Team supports Malaysian SMEs with POS edition advice, front-end counter setup, backend configuration, barcode scanner and receipt printer planning, staff training, and ongoing AutoCount support.
         </p>
       </div>
 

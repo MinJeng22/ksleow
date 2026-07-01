@@ -312,7 +312,7 @@ export default function FeedMePOSPage({ onContact }) {
           <div className="ks-eyebrow">Why Partner With KSL</div>
           <h2 className="ks-section-title" style={{ marginBottom: "0.75rem" }}>Local Installation, Local Support</h2>
           <p className="ks-body-text" style={{ marginBottom: "2rem", maxWidth: 720 }}>
-            FeedMe is the software. KSL Business Solutions is the hands that install it,
+            FeedMe is the software. KS Support Team is the hands that install it,
             train your team, and pick up the phone when something stops working at 9pm on a Saturday.
           </p>
 
