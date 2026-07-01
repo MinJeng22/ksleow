@@ -353,11 +353,12 @@ async function main() {
       route: routeById["multi-tenant-erp-demo"].route,
       category: routeById["multi-tenant-erp-demo"].category,
       keywords: [
-        "multi-tenant ERP demo",
+        "multi-tenant ERP prototype",
         "Malaysia LHDN e-Invoice CRM",
         "B2B SaaS dashboard",
         "tenant switching dashboard",
         "CRM customer list",
+        "customer CRUD ERP",
       ],
       facts: {
         schemaEntities: [
@@ -370,9 +371,10 @@ async function main() {
         ],
       },
       sections: [
-        { heading: "Dashboard shell", body: "The demo shows a post-login multi-tenant dashboard with an active workspace company selector, tenant-specific tax profile, RBAC role, and responsive navigation." },
-        { heading: "CRM customer list", body: "The CRM table displays Registered Name, BRN, TIN, Phone, and Status with responsive scaling from desktop data table to mobile cards." },
-        { heading: "Authentication", body: "The authentication panel demonstrates Google SSO, Microsoft SSO, and traditional company email registration." },
+        { heading: "Dashboard shell", body: "The prototype opens into a working multi-tenant dashboard after sign-in, with an active workspace company selector, tenant-specific tax profile, RBAC role, and responsive navigation." },
+        { heading: "CRM customer list", body: "The CRM module supports searchable customer records, add/edit forms, soft deletion, restore actions, Registered Name, BRN, TIN, Phone, Status, and responsive scaling from desktop data table to mobile cards." },
+        { heading: "Authentication", body: "The authentication panel supports simulated Google SSO, Microsoft SSO, and company email registration for a frontend-only ERP workflow." },
+        { heading: "Operational modules", body: "The prototype includes customer LHDN readiness checks, B2B network link accept/reject actions, and an audit log persisted in browser localStorage." },
       ],
     }),
     doc({

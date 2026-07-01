@@ -1,17 +1,20 @@
-Multi-Tenant ERP CRM Demo
-Responsive B2B SaaS ERP demo with multi-provider authentication, tenant switching, CRM customer records, and Malaysia LHDN e-Invoice profile context.
+Multi-Tenant ERP CRM Prototype
+Interactive browser-based ERP prototype with login, tenant switching, CRM customer CRUD, soft deletion, audit log, B2B network links, and Malaysia LHDN e-Invoice profile checks.
 URL: https://ksleow.com.my/demo/multi-tenant-erp/
 Category: Demo
 Keywords
-multi-tenant ERP demo
+multi-tenant ERP prototype
 Malaysia LHDN e-Invoice CRM
 B2B SaaS dashboard
 tenant switching dashboard
 CRM customer list
+customer CRUD ERP
 schemaEntities: AuditableEntity base with soft deletion and optimistic concurrency; User and UserExternalLogin for email plus Google and Microsoft SSO; Company as tenant workspace with LHDN tax profile; CompanyUser pivot for Admin, Standard, and ReadOnly roles; Customer CRM entity scoped by CompanyId; B2BNetworkLink for cross-tenant handshake
 Dashboard shell
-The demo shows a post-login multi-tenant dashboard with an active workspace company selector, tenant-specific tax profile, RBAC role, and responsive navigation.
+The prototype opens into a working multi-tenant dashboard after sign-in, with an active workspace company selector, tenant-specific tax profile, RBAC role, and responsive navigation.
 CRM customer list
-The CRM table displays Registered Name, BRN, TIN, Phone, and Status with responsive scaling from desktop data table to mobile cards.
+The CRM module supports searchable customer records, add/edit forms, soft deletion, restore actions, Registered Name, BRN, TIN, Phone, Status, and responsive scaling from desktop data table to mobile cards.
 Authentication
-The authentication panel demonstrates Google SSO, Microsoft SSO, and traditional company email registration.
+The authentication panel supports simulated Google SSO, Microsoft SSO, and company email registration for a frontend-only ERP workflow.
+Operational modules
+The prototype includes customer LHDN readiness checks, B2B network link accept/reject actions, and an audit log persisted in browser localStorage.

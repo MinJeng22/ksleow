@@ -144,8 +144,8 @@
   },
   {
     "id": "multi-tenant-erp-demo",
-    "title": "Multi-Tenant ERP CRM Demo",
-    "description": "Responsive B2B SaaS ERP demo with multi-provider authentication, tenant switching, CRM customer records, and Malaysia LHDN e-Invoice profile context.",
+    "title": "Multi-Tenant ERP CRM Prototype",
+    "description": "Interactive browser-based ERP prototype with login, tenant switching, CRM customer CRUD, soft deletion, audit log, B2B network links, and Malaysia LHDN e-Invoice profile checks.",
     "url": "https://ksleow.com.my/demo/multi-tenant-erp/",
     "route": "/demo/multi-tenant-erp",
     "category": "Demo",

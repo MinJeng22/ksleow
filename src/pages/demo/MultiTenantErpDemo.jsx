@@ -208,8 +208,8 @@ const initialState = {
   customers: seedCustomers,
   networkLinks: seedNetworkLinks,
   auditLog: [
-    auditSeed("System seed created", "Workspace demo initialized", "u-elise"),
-    auditSeed("Customer updated", "Aurora Retail LHDN profile verified", "u-elise"),
+    auditSeed("audit-seed-created", "System seed created", "Workspace prototype initialized", "u-elise", "2026-06-30T09:00:00.000Z"),
+    auditSeed("audit-seed-customer", "Customer updated", "Aurora Retail LHDN profile verified", "u-elise", "2026-06-30T09:12:00.000Z"),
   ],
   session: null,
 };
@@ -257,13 +257,13 @@ function customerSeed(overrides) {
   };
 }
 
-function auditSeed(action, detail, userId) {
+function auditSeed(id, action, detail, userId, at) {
   return {
-    id: `audit-${action.toLowerCase().replace(/[^a-z0-9]+/g, "-")}-${Date.now()}`,
+    id,
     action,
     detail,
     userId,
-    at: "2026-06-30T09:00:00.000Z",
+    at,
   };
 }
 
@@ -843,7 +843,7 @@ function NetworkPanel({ erp, activeCompany, currentUser, setErp }) {
         {links.map((link) => (
           <article key={link.id}>
             <div>
-              <strong>{getCompanyName(erp.companies, link.initiatorCompanyId)} -> {getCompanyName(erp.companies, link.targetCompanyId)}</strong>
+              <strong>{getCompanyName(erp.companies, link.initiatorCompanyId)} {"->"} {getCompanyName(erp.companies, link.targetCompanyId)}</strong>
               <span>Linked customer: {erp.customers.find((item) => item.id === link.linkedCustomerId)?.registeredName || "Not found"}</span>
             </div>
             <span className={statusClass(link.status)}>{link.status}</span>
