@@ -2266,11 +2266,6 @@ a.contact-directory-value:hover {
 
   .products-section .products-grid-carousel {
     grid-template-columns: repeat(var(--products-render-count, 3), var(--products-card-width)) !important;
-    min-height: 380px !important;
-  }
-
-  .products-section .products-grid-carousel > * {
-    min-height: 380px !important;
   }
 }
 .editions-table-wrap { overflow-x: auto; overflow-y: auto; max-height: 80vh; } 
@@ -3323,22 +3318,4 @@ body.has-active-modal .back-to-top-glass {
 .products-section .product-card-media {
   isolation: isolate;
   padding-bottom: 56%;
-}
-
-/* Responsive padding for Product Cards on mobile/tablet to prevent logos from appearing too large */
-@media (max-width: 900px) {
-  .product-card {
-    --card-logo-padding: 22%;
-  }
-  .products-section .product-card-media {
-    padding-bottom: 46%;
-  }
-}
-@media (max-width: 640px) {
-  .product-card {
-    --card-logo-padding: 26%;
-  }
-  .products-section .product-card-media {
-    padding-bottom: 38%;
-  }
 }
