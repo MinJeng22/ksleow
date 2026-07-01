@@ -11,7 +11,15 @@
         }
       ],
       "facebook": "https://www.facebook.com/ksleowbs/",
-      "phones": []
+      "phones": [],
+      "addresses": [
+        {
+          "address": "Pusat Komersial Batu 3, 25150 Kuantan."
+        },
+        {
+          "address": "   Skypark One City, 47650 Subang Jaya, Selangor."
+        }
+      ]
     },
     {
       "key": "ksl_tax",
