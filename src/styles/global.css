@@ -3318,3 +3318,15 @@ body.has-active-modal .back-to-top-glass {
   position: relative;
   z-index: 1;
 }
+
+/* Responsive padding for Product Cards on mobile/tablet to prevent logos from appearing too large */
+@media (max-width: 900px) {
+  .product-card {
+    --card-logo-padding: 22%;
+  }
+}
+@media (max-width: 640px) {
+  .product-card {
+    --card-logo-padding: 26%;
+  }
+}

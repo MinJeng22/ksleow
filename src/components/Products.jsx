@@ -183,7 +183,7 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
             style={{
               position: "absolute", inset: 0,
               width: "100%", height: "100%",
-              objectFit: "contain", padding: "12%", zIndex: 2,
+              objectFit: "contain", padding: "var(--card-logo-padding, 12%)", zIndex: 2,
               opacity: revealed ? 1 : 0,
               transform: revealed
                 ? isHov 
