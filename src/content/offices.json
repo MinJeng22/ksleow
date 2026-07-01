@@ -14,10 +14,13 @@
       "phones": [],
       "addresses": [
         {
-          "address": "Pusat Komersial Batu 3, 25150 Kuantan."
+          "address": "Pusat Komersial Batu 3, Kuantan, Pahang."
         },
         {
-          "address": "Skypark One City, 47650 Subang Jaya, Selangor."
+          "address": "Skypark One City, Subang Jaya, Selangor."
+        },
+        {
+          "address": "Taman Zabidin, Mentakab, Pahang."
         }
       ]
     },
