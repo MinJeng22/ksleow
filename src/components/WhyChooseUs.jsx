@@ -53,11 +53,11 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
       <div className="product-app-divider" style={{ "--section-from": sectionFrom, "--section-to": sectionTo }}>
         <SectionDivider section={section || { id: "why-ksl", icon: IconTrophy }} />
       </div>
-      <div id="why-ksl" className="product-app-section product-app-section-warm" style={{ padding: "3.4rem 0", scrollMarginTop: 24 }}>
+      <div id="why-ksl" className="product-app-section product-app-section-warm" style={{ padding: "clamp(2rem, 4vw, 3.4rem) 0", scrollMarginTop: 24 }}>
         <style>{`
           .ac-awards-container-new {
-            margin-top: 1.5rem;
-            padding: 2.2rem 0;
+            margin-top: clamp(0.5rem, 2vw, 1.5rem);
+            padding: clamp(1rem, 3vw, 2.2rem) 0;
             mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
           }
