@@ -141,70 +141,73 @@ function ProductCard({ product, productIndex, order, hovered, revealed, animateR
           : "inset 0 0 0 1px rgba(47,49,90,0.1), 0 0 0 1px rgba(255,255,255,0.24)",
         transition: "border-color 0.26s, box-shadow 0.26s",
       }} />
+      {/* Wrapper to isolate flex container percentage bugs */}
+      <div style={{ width: "100%", display: "block", flexShrink: 0 }}>
         <div
           className="product-card-media"
           style={{
             position: "relative",
             overflow: "hidden",
-          outline: (product.img || product.background) ? "none" : "2px dashed rgba(255,255,255,0.15)",
-          outlineOffset: -6,
-          perspective: "800px",
-          transformStyle: "preserve-3d",
-        }}
-      >
-        <div style={{
-          position: "absolute", inset: -4,
-          background: product.gradient,
-          transform: isHov 
-            ? `translate3d(${mousePos.x * -1.5}px, ${mousePos.y * -1.5}px, 0px)` 
-            : "translate3d(0px, 0px, 0px)",
-          transition: isHov ? "transform 0.15s ease-out" : "transform 0.35s ease",
-          zIndex: 0,
-        }}>
-          {product.background && (
-            <>
-              <Img
-                src={product.background}
-                alt=""
-                priority
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              />
-              <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.55)" }} />
-            </>
+            outline: (product.img || product.background) ? "none" : "2px dashed rgba(255,255,255,0.15)",
+            outlineOffset: -6,
+            perspective: "800px",
+            transformStyle: "preserve-3d",
+          }}
+        >
+          <div style={{
+            position: "absolute", inset: -4,
+            background: product.gradient,
+            transform: isHov 
+              ? `translate3d(${mousePos.x * -1.5}px, ${mousePos.y * -1.5}px, 0px)` 
+              : "translate3d(0px, 0px, 0px)",
+            transition: isHov ? "transform 0.15s ease-out" : "transform 0.35s ease",
+            zIndex: 0,
+          }}>
+            {product.background && (
+              <>
+                <Img
+                  src={product.background}
+                  alt=""
+                  priority
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+                <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.55)" }} />
+              </>
+            )}
+          </div>
+
+          {product.img ? (
+            <Img
+              src={product.img}
+              alt={product.name}
+              priority
+              style={{
+                position: "absolute", inset: 0,
+                width: "100%", height: "100%",
+                objectFit: "contain", padding: "var(--card-logo-padding, 12%)", zIndex: 2,
+                opacity: revealed ? 1 : 0,
+                transform: revealed
+                  ? isHov 
+                    ? `translate3d(${mousePos.x * 3}px, ${mousePos.y * 3}px, 10px) scale(1.02) rotateX(${mousePos.y * -1.5}deg) rotateY(${mousePos.x * 1.5}deg)`
+                    : "translate3d(0px, 0px, 0px) scale(1) rotateX(0deg) rotateY(0deg)"
+                  : "translate3d(0px, 16px, 0px) scale(0.96) rotateX(0deg) rotateY(0deg)",
+                transition: (!revealed) 
+                  ? "none" 
+                  : animateReveal && !isHov
+                    ? `opacity 0.55s cubic-bezier(0.25, 0.1, 0.25, 1) ${order * 0.06}s, transform 0.6s cubic-bezier(0.22, 0.68, 0.35, 1) ${order * 0.06}s`
+                    : isHov ? "transform 0.15s ease-out, filter 0.15s ease-out" : "transform 0.35s ease, filter 0.35s ease",
+                filter: isHov 
+                  ? `drop-shadow(${mousePos.x * -2}px ${mousePos.y * -2 + 4}px 6px rgba(0,0,0,0.15))` 
+                  : "drop-shadow(0px 2px 4px rgba(0,0,0,0.06))",
+              }}
+            />
+          ) : (
+            <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, zIndex: 2 }}>
+              <span style={{ fontSize: "2.6rem", opacity: 0.75 }}>{product.placeholder}</span>
+              <span style={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.3)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Upload logo</span>
+            </div>
           )}
         </div>
-
-        {product.img ? (
-          <Img
-            src={product.img}
-            alt={product.name}
-            priority
-            style={{
-              position: "absolute", inset: 0,
-              width: "100%", height: "100%",
-              objectFit: "contain", padding: "var(--card-logo-padding, 12%)", zIndex: 2,
-              opacity: revealed ? 1 : 0,
-              transform: revealed
-                ? isHov 
-                  ? `translate3d(${mousePos.x * 3}px, ${mousePos.y * 3}px, 10px) scale(1.02) rotateX(${mousePos.y * -1.5}deg) rotateY(${mousePos.x * 1.5}deg)`
-                  : "translate3d(0px, 0px, 0px) scale(1) rotateX(0deg) rotateY(0deg)"
-                : "translate3d(0px, 16px, 0px) scale(0.96) rotateX(0deg) rotateY(0deg)",
-              transition: (!revealed) 
-                ? "none" 
-                : animateReveal && !isHov
-                  ? `opacity 0.55s cubic-bezier(0.25, 0.1, 0.25, 1) ${order * 0.06}s, transform 0.6s cubic-bezier(0.22, 0.68, 0.35, 1) ${order * 0.06}s`
-                  : isHov ? "transform 0.15s ease-out, filter 0.15s ease-out" : "transform 0.35s ease, filter 0.35s ease",
-              filter: isHov 
-                ? `drop-shadow(${mousePos.x * -2}px ${mousePos.y * -2 + 4}px 6px rgba(0,0,0,0.15))` 
-                : "drop-shadow(0px 2px 4px rgba(0,0,0,0.06))",
-            }}
-          />
-        ) : (
-          <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, zIndex: 2 }}>
-            <span style={{ fontSize: "2.6rem", opacity: 0.75 }}>{product.placeholder}</span>
-            <span style={{ fontSize: "0.6rem", color: "rgba(255,255,255,0.3)", letterSpacing: "0.08em", textTransform: "uppercase" }}>Upload logo</span>
-          </div>
-        )}
       </div>
 
       <div className="site-card-body" style={{ flex: 1, display: "flex", flexDirection: "column" }}>
