@@ -42,6 +42,24 @@ const SEARCH_INDEX = [
     icon: <img src="/images/products/feedme-icon.webp" alt="FeedMe POS" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
+    title: "ServerLink",
+    path: "/products/serverlink",
+    keywords: "serverlink, remote, access, server, connection, work from home",
+    icon: <img src="/images/products/serverlink-icon.png" alt="ServerLink" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
+  },
+  {
+    title: "AutoCount Cloud Payroll",
+    path: "/products/autocount-hrms",
+    keywords: "autocount hrms, hr, payroll, human resource, leave, claim, attendance, payslip",
+    icon: <img src="/images/products/hrms-icon.webp" alt="AutoCount Cloud Payroll" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
+  },
+  {
+    title: "AutoCount OneSale",
+    path: "/products/autocount-onesale",
+    keywords: "autocount onesale, one sales, marketplace, shopee, lazada, tiktok, ecommerce, sync",
+    icon: <img src="/images/products/onesales-icon.webp" alt="AutoCount OneSale" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
+  },
+  {
     title: "AutoCount Plugins",
     path: "/apps/autocount-plugin",
     keywords: "plugins, extensions, add-on, customize, autocount, app",
