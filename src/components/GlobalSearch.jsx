@@ -39,7 +39,7 @@ const SEARCH_INDEX = [
     title: "FeedMe POS",
     path: "/products/feedme-pos",
     keywords: "feedme pos, f&b pos, restaurant, cafe, point of sale, order, receipt",
-    icon: <img src="/images/logos/feedme-logo.webp" alt="FeedMe POS" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
+    icon: <img src="/images/products/feedme-icon.webp" alt="FeedMe POS" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "AutoCount Plugins",
