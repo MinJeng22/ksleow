@@ -10,7 +10,8 @@
           "email": "support@ksleow.com.my"
         }
       ],
-      "facebook": "https://www.facebook.com/ksleowbs/"
+      "facebook": "https://www.facebook.com/ksleowbs/",
+      "phones": []
     },
     {
       "key": "ksl_tax",
@@ -61,7 +62,17 @@
       "name": "Kim & Co Chartered Accountants",
       "tagline": "Auditing",
       "logo": "",
-      "facebook": "https://www.facebook.com/kcgroup.biz"
+      "facebook": "https://www.facebook.com/kcgroup.biz",
+      "emails": [
+        {
+          "email": " audit1@ksleow.com.my"
+        }
+      ],
+      "phones": [
+        {
+          "number": "09-275 0337"
+        }
+      ]
     }
   ]
 }
