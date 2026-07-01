@@ -526,7 +526,6 @@ export default function AutoCountCloudAccountingPage() {
           backgroundImage="/images/products/autocount-cloudaccounting-hero.webp"
           primaryCta={{ label: "Start Free Trial", href: FREE_TRIAL_URL, target: "_blank", className: "ks-btn-cloud" }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
-          tertiaryCta={{ label: "Login", href: CLOUD_LOGIN_URL, target: "_blank" }}
         />
       </PinnedHeroStage>
 

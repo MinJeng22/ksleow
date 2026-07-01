@@ -93,8 +93,8 @@ function BadgeRow({ badge, onImage = false, forceWhiteLabel = false }) {
 
 /* ── Flip card ── */
 function ServiceCard({ service, index = 0 }) {
-  const [flipped, setFlipped] = useState(false);
-  const [flipDirection, setFlipDirection] = useState(1);
+  const [rotation, setRotation] = useState(0);
+  const isFlipped = Math.abs(rotation % 360) === 180;
   const [isHovered, setIsHovered] = useState(false);
   const [isDelayedHover, setIsDelayedHover] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -183,7 +183,7 @@ function ServiceCard({ service, index = 0 }) {
           if (entry.isIntersecting) {
             setHasRevealed(true);
           } else {
-            setFlipped(false);
+            setRotation(0);
           }
         });
       },
@@ -236,7 +236,7 @@ function ServiceCard({ service, index = 0 }) {
         transformStyle: "preserve-3d",
         WebkitTransformStyle: "preserve-3d",
         transition: "transform 0.48s cubic-bezier(0.22, 1, 0.36, 1)",
-        transform: flipped ? `rotateY(${180 * flipDirection}deg)` : "rotateY(0deg)",
+        transform: `rotateY(${rotation}deg)`,
         willChange: "transform",
       }}>
 
@@ -246,8 +246,7 @@ function ServiceCard({ service, index = 0 }) {
             const rect = e.currentTarget.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const isLeft = clickX < rect.width / 2;
-            setFlipDirection(isLeft ? -1 : 1);
-            setFlipped(true);
+            setRotation(r => r + (isLeft ? -180 : 180));
           }}
           style={{
             position: "absolute", inset: 0,
@@ -262,7 +261,7 @@ function ServiceCard({ service, index = 0 }) {
             padding: "1.4rem",
             display: "flex", flexDirection: "column",
             overflow: "hidden",
-            pointerEvents: flipped ? "none" : "auto",
+            pointerEvents: isFlipped ? "none" : "auto",
             cursor: "pointer",
             transition: "border-color 0.2s, box-shadow 0.2s",
           }}
@@ -357,7 +356,14 @@ function ServiceCard({ service, index = 0 }) {
          * Click anywhere on the back to flip; CTAs and QR stop propagation.
          * ══════════════════════════════════════════════════════════════ */}
         <div
-          onClick={() => setFlipped(false)}
+          onClick={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            // On the back, clicking the left side of the screen should rotate the card to the left
+            // Just like on the front. So -180 for left, +180 for right.
+            const isLeft = clickX < rect.width / 2;
+            setRotation(r => r + (isLeft ? -180 : 180));
+          }}
           style={{
             position: "absolute", inset: 0,
             backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden",
@@ -369,7 +375,7 @@ function ServiceCard({ service, index = 0 }) {
             background: "#20255a",
             border: "none",
             display: "flex", flexDirection: "column",
-            pointerEvents: flipped ? "auto" : "none",
+            pointerEvents: isFlipped ? "auto" : "none",
             color: "#ffffff",
             boxShadow: "0 10px 32px rgba(15,17,40,0.22)",
           }}
