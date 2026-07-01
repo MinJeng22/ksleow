@@ -118,6 +118,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               margin-left: auto;
               margin-right: auto;
               overflow: visible;
+              container-type: inline-size;
             }
             .ac-awards-marquee-track {
               display: grid;
@@ -131,8 +132,9 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               display: none;
             }
             .ac-awards-year {
-              gap: clamp(0.35rem, 0.85vw, 1rem);
+              gap: clamp(0.2rem, 1cqw, 0.8rem);
               justify-content: center;
+              min-width: 0;
             }
             .ac-awards-year:first-child {
               justify-content: flex-start;
@@ -141,10 +143,11 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               justify-content: flex-end;
             }
             .ac-awards-item {
-              flex: 0 0 auto;
-              height: clamp(72px, 8.8vw, 168px);
+              flex: 0 1 auto;
+              height: clamp(50px, 10.5cqw, 168px);
               padding: 0;
               margin-right: -0.2rem;
+              min-width: 0;
             }
             .ac-awards-item-trophy {
               width: auto;
@@ -170,10 +173,10 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               padding-bottom: 1.45rem;
             }
             .ac-awards-marquee-track {
-              column-gap: clamp(0.55rem, 0.8vw, 1rem);
+              column-gap: clamp(0.55rem, 0.8cqw, 1rem);
             }
             .ac-awards-item {
-              height: clamp(140px, 8.8vw, 185px);
+              height: clamp(140px, 10.5cqw, 185px);
             }
           }
           @media (min-width: 1900px) {
@@ -181,7 +184,7 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               max-width: min(1680px, calc(100% - clamp(10rem, 14vw, 22rem)));
             }
             .ac-awards-item {
-              height: clamp(160px, 8.8vw, 195px);
+              height: clamp(160px, 10.5cqw, 195px);
             }
           }
           @media (min-width: 2400px) {
