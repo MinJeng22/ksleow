@@ -103,10 +103,10 @@ collections:
                   - { name: email, label: Email Address, widget: string }
               - { name: facebook, label: Facebook Link (Optional), widget: string, required: false }
               - name: addresses
-                label: Addresses (Optional, up to 2)
+                label: Addresses (Optional, up to 3)
                 widget: list
                 required: false
-                max: 2
+                max: 3
                 fields:
                   - { name: address, label: Address, widget: string }
 
