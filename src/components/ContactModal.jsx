@@ -22,6 +22,13 @@ const MailIcon = () => (
   </svg>
 );
 
+const ExternalLinkIcon = () => (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: "0.3rem", opacity: 0.5, flexShrink: 0 }}>
+    <line x1="7" y1="17" x2="17" y2="7" />
+    <polyline points="7 7 17 7 17 17" />
+  </svg>
+);
+
 const normalisePhoneForHref = (phone) => phone.replace(/\([^)]*\)/g, "").replace(/[^\d+]/g, "");
 
 const officeContacts = (officesContent.items || []).map((office) => {
@@ -53,8 +60,8 @@ function ContactGroup({ icon, items, getHref }) {
       <span className="contact-directory-icon">{icon}</span>
       <div className="contact-directory-values">
         {items.map((item) => (
-          <a className="contact-directory-value" href={getHref(item)} key={item}>
-            {item}
+          <a className="contact-directory-value" href={getHref(item)} key={item} style={{ display: "inline-flex", alignItems: "center" }}>
+            {item} <ExternalLinkIcon />
           </a>
         ))}
       </div>
