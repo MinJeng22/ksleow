@@ -56,6 +56,13 @@ const YoutubeIcon = ({ size = 14 }) => (
   </svg>
 );
 
+const ExternalLinkIcon = () => (
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: "0.3rem", opacity: 0.5, flexShrink: 0 }}>
+    <line x1="7" y1="17" x2="17" y2="7" />
+    <polyline points="7 7 17 7 17 17" />
+  </svg>
+);
+
 /* Unified subitem row — same colour, font-size, and line-height whether the
  * row is clickable (renders as <a> with gold hover) or not (renders as <div>
  * with no hover). Icon is optional — pass `icon={null}` for a bullet-free row. */
@@ -76,7 +83,9 @@ function ContactRow({ icon, iconNode, href, label, external }) {
       onMouseEnter={() => href && setHov(true)} onMouseLeave={() => href && setHov(false)}
     >
       {iconNode ? iconNode : (icon && <Icon d={icon} />)}
-      <span>{label}</span>
+      <span style={{ display: "inline-flex", alignItems: "center" }}>
+        {label} {external && <ExternalLinkIcon />}
+      </span>
     </Tag>
   );
 }
@@ -109,7 +118,7 @@ export default function Footer() {
               <ContactRow icon={IC.phone}  href={`tel:${CONTACT.phone}`}    label={CONTACT.phone} />
               <ContactRow icon={IC.mail}   href={`mailto:${CONTACT.email}`} label={CONTACT.email} />
               <ContactRow icon={IC.clock}  label={CONTACT.hours} />
-              <ContactRow icon={IC.clock}  label={CONTACT.weekend} />
+
             </div>
 
             {/* Office / Services */}
