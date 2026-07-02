@@ -38,6 +38,13 @@ const InstagramIcon = ({ size = 14 }) => (
   </svg>
 );
 
+const XiaohongshuIcon = ({ size = 14 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" style={{ flexShrink: 0, marginTop: 4.5 }}>
+    <rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke="currentColor" strokeWidth="2" />
+    <text x="12" y="16.5" fontSize="9" fontWeight="800" textAnchor="middle" fill="currentColor">RED</text>
+  </svg>
+);
+
 const WhatsappIcon = ({ size = 14 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
     strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 4.5 }}>
