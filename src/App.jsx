@@ -104,6 +104,14 @@ function useSectionTitleReveal() {
 
     const watchTitle = (node) => {
       if (!(node instanceof Element) || observed.has(node)) return;
+
+      const style = window.getComputedStyle(node);
+      if (style.textAlign === "center") {
+        node.classList.add("ks-no-reveal");
+        observed.add(node);
+        return;
+      }
+
       node.classList.add("ks-title-reveal");
       if (node.matches(titleSelector)) {
         splitTitle(node);
@@ -248,6 +256,12 @@ export function AppContent() {
     { assets: ["/images/icons/favicon.webp", "/images/branding/service-card-back.webp"] }
   );
   const openSearch = () => setSearchOpen(true);
+
+  useEffect(() => {
+    if (location.hash === "#contact") {
+      openContact();
+    }
+  }, [location.hash]);
 
   useEffect(() => {
     if (modalOpen || searchOpen) {

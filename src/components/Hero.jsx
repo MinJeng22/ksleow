@@ -205,12 +205,17 @@ export default function Hero({ onContact }) {
 
           {/* Buttons — always side-by-side */}
           <div className="hero-btns" style={{ display: "flex", gap: "0.85rem", flexWrap: "nowrap" }}>
-            <button
+            <a
+              href="#contact"
               className="hero-primary-cta"
-              onClick={onContact}
+              onClick={(e) => {
+                e.preventDefault();
+                window.history.pushState(null, "", "#contact");
+                onContact();
+              }}
             >
               {hero.primaryButton}
-            </button>
+            </a>
             <button
               className="btn-ghost-base btn-ghost-light"
               onClick={(e) => {

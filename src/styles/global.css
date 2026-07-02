@@ -2410,6 +2410,12 @@ a.contact-directory-value:hover {
   opacity: 0;
 }
 
+.js-reveal-ready .ks-no-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
 .ks-section-title.ks-title-split {
   opacity: 1;
 }
