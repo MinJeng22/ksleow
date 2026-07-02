@@ -103,30 +103,27 @@ export default function ContactModal({ open, onClose }) {
             </p>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          <div className="contact-directory-grid">
             {CONTACT_DIRECTORY.map((company, index) => (
-              <div key={company.name}>
-                {index > 0 && <hr style={{ border: 0, borderTop: "1px solid rgba(47,49,90,0.15)", margin: "0 0 1.5rem 0" }} />}
-                <article style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                  <div>
-                    <h3>{company.name}</h3>
-                    {company.tagline && <p>{company.tagline}</p>}
-                  </div>
+              <article key={company.name} className="contact-directory-item">
+                <div className="contact-directory-item-header">
+                  <h3>{company.name}</h3>
+                  {company.tagline && <p>{company.tagline}</p>}
+                </div>
   
-                  <div className="contact-directory-list">
-                    <ContactGroup
-                      icon={<PhoneIcon />}
-                      items={company.phones}
-                      getHref={(phone) => `tel:${normalisePhoneForHref(phone)}`}
-                    />
-                    <ContactGroup
-                      icon={<MailIcon />}
-                      items={company.emails}
-                      getHref={(email) => `mailto:${email}`}
-                    />
-                  </div>
-                </article>
-              </div>
+                <div className="contact-directory-list">
+                  <ContactGroup
+                    icon={<PhoneIcon />}
+                    items={company.phones}
+                    getHref={(phone) => `tel:${normalisePhoneForHref(phone)}`}
+                  />
+                  <ContactGroup
+                    icon={<MailIcon />}
+                    items={company.emails}
+                    getHref={(email) => `mailto:${email}`}
+                  />
+                </div>
+              </article>
             ))}
           </div>
         </div>

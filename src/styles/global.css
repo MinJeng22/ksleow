@@ -1937,32 +1937,31 @@ body.partner-modal-open .mobile-float-bar {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.contact-directory-card {
-  background: rgba(255,255,255,0.72);
-  border: 1px solid rgba(47,49,90,0.1);
-  border-radius: 18px;
+.contact-directory-item {
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(47,49,90,0.08);
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  min-height: 150px;
-  padding: 0.9rem;
+  padding: 0.8rem;
 }
 
-.contact-directory-card h3 {
+.contact-directory-item h3 {
   color: #2f315a;
-  font-size: 0.92rem;
+  font-size: 0.85rem;
   font-weight: 850;
   letter-spacing: 0.015em;
-  line-height: 1.35;
+  line-height: 1.3;
   margin: 0;
 }
 
-.contact-directory-card p {
+.contact-directory-item p {
   color: rgba(47,49,90,0.62);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 650;
-  line-height: 1.45;
-  margin: 0.25rem 0 0;
+  line-height: 1.4;
+  margin: 0.2rem 0 0;
 }
 
 .contact-directory-list {
@@ -2106,13 +2105,21 @@ a.contact-directory-value:hover {
     max-height: 92vh;
   }
 
-  .contact-directory-grid {
-    grid-template-columns: 1fr;
+  .contact-directory-item {
+    padding: 0.65rem;
+    gap: 0.6rem;
   }
 
-  .contact-directory-card {
-    min-height: 0;
-    padding: 0.9rem;
+  .contact-directory-item h3 {
+    font-size: 0.75rem;
+  }
+
+  .contact-directory-item p {
+    font-size: 0.65rem;
+  }
+
+  .contact-directory-group .contact-directory-text {
+    font-size: 0.65rem;
   }
 }
 
