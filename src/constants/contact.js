@@ -16,6 +16,7 @@ export const CONTACT = {
   whatsapp: "60179052323",
   facebook:  "https://www.facebook.com/ksleowbs",
   instagram: "https://www.instagram.com/ks.grocer/",
+  xiaohongshu: "",
   youtube:   "https://www.youtube.com/@ksleowbs",
   linkedin:  "",
   mapsUrl:   "https://maps.app.goo.gl/9WmvATAcFRusdXZb8",
