@@ -220,7 +220,12 @@ export function AppShell({ openContact, openSearch, modalOpen, setModalOpen, sea
 
       <DelayedRoutes openContact={openContact} />
 
-      <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      <ContactModal open={modalOpen} onClose={() => {
+        setModalOpen(false);
+        if (typeof window !== "undefined" && window.location.hash === "#contact") {
+          window.history.pushState(null, "", window.location.pathname + window.location.search);
+        }
+      }} />
       <GlobalSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
       <BackToTop hideBar={modalOpen || searchOpen} />
       <MenuButton onOpenSearch={openSearch} hideBar={modalOpen || searchOpen} />
@@ -244,6 +249,10 @@ export function AppContent() {
   }, []);
 
   useEffect(() => {
+    document.body.classList.remove("partner-modal-open", "has-active-modal");
+    setModalOpen(false);
+    setSearchOpen(false);
+
     const currentRoute = siteRoutes.find((r) => r.route === location.pathname);
     if (currentRoute) {
       document.title = currentRoute.route === "/"
@@ -251,10 +260,16 @@ export function AppContent() {
         : `${currentRoute.title} | K.S. Leow Group`;
     }
   }, [location.pathname]);
-  const openContact = () => runWithProgressFeedback(
-    () => setModalOpen(true),
-    { assets: ["/images/icons/favicon.webp", "/images/branding/service-card-back.webp"] }
-  );
+
+  const openContact = () => {
+    if (typeof window !== "undefined" && window.location.hash !== "#contact") {
+      window.history.pushState(null, "", window.location.pathname + window.location.search + "#contact");
+    }
+    runWithProgressFeedback(
+      () => setModalOpen(true),
+      { assets: ["/images/icons/favicon.webp", "/images/branding/service-card-back.webp"] }
+    );
+  };
   const openSearch = () => setSearchOpen(true);
 
   useEffect(() => {

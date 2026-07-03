@@ -301,13 +301,12 @@ textarea {
 }
 
 .hero-primary-cta:active {
-  transform: translate3d(0, 0, 0) scale(0.985);
+  transform: scale(0.985);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .hero-primary-cta:hover {
     background: #d4b35d;
-    transform: translate3d(0, -1px, 0);
   }
 }
 
@@ -2423,6 +2422,8 @@ a.contact-directory-value:hover {
 .ks-title-word {
   display: inline-flex;
   overflow: hidden;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
   vertical-align: baseline;
   white-space: nowrap;
 }
@@ -2431,8 +2432,8 @@ a.contact-directory-value:hover {
   display: inline-block;
   line-height: 1.18;
   overflow: hidden;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
 }
 
 .ks-title-letter {
