@@ -5,25 +5,26 @@ import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent("Hi KS Support Team, I would like to learn more about ServerLink. Thank you.")}`;
-const STORE_BUNDLE_URL = "https://store.serverlink.com.my/bundle";
-const STORE_UPGRADE_URL = "https://store.serverlink.com.my/serverlink_upgrades";
 
 const BUNDLE_PLANS = [
-  { users: "01 User", price: "RM1,192.32", href: "https://store.serverlink.com.my/bundle/serverlink01-bundle" },
-  { users: "03 Users", price: "RM2,235.60", href: "https://store.serverlink.com.my/bundle/serverlink03-user-bundle" },
-  { users: "05 Users", price: "RM2,980.80", href: "https://store.serverlink.com.my/bundle/serverlink05-user-bundle", featured: true },
-  { users: "10 Users", price: "RM4,173.12", href: "https://store.serverlink.com.my/bundle/serverlink10-user-bundle" },
-  { users: "20 Users", price: "RM6,557.76", href: "https://store.serverlink.com.my/bundle/serverlink20-user-bundle" },
-  { users: "30 Users", price: "RM9,240.48", href: "https://store.serverlink.com.my/bundle/serverlink30-user-bundle" },
-  { users: "40 Users", price: "RM10,432.80", href: "https://store.serverlink.com.my/bundle/serverlink40-user-bundle" },
-  { users: "Unlimited Users", price: "RM17,884.80", href: "https://store.serverlink.com.my/bundle/serverlink-unlimited-user-bundle" },
+  { users: "01 User", price: "RM1,104.00", value: 1104 },
+  { users: "03 Users", price: "RM2,070.00", value: 2070 },
+  { users: "05 Users", price: "RM2,760.00", value: 2760, featured: true },
+  { users: "10 Users", price: "RM3,864.00", value: 3864 },
+  { users: "20 Users", price: "RM6,072.00", value: 6072 },
+  { users: "30 Users", price: "RM8,556.00", value: 8556 },
+  { users: "40 Users", price: "RM9,660.00", value: 9660 },
+  { users: "Unlimited Users", price: "RM16,560.00", value: 16560 },
 ];
 
-const UPGRADE_PLANS = [
-  { users: "+1 User", price: "RM1,209.60", href: "https://store.serverlink.com.my/serverlink_upgrades/serverlink-additional-1-user" },
-  { users: "+3 Users", price: "RM2,079.00", href: "https://store.serverlink.com.my/serverlink_upgrades/serverlink-additional-3-users" },
-  { users: "+5 Users", price: "RM2,700.00", href: "https://store.serverlink.com.my/serverlink_upgrades/serverlink-additional-5-users" },
-  { users: "+10 Users", price: "RM3,693.60", href: "https://store.serverlink.com.my/serverlink_upgrades/serverlink-additional-10-users" },
+const UPGRADE_TABS = [
+  { label: "From 1 user", baseValue: 1104, targets: [1, 2, 3, 4, 5, 6, 7] },
+  { label: "From 3 users", baseValue: 2070, targets: [2, 3, 4, 5, 6, 7] },
+  { label: "From 5 users", baseValue: 2760, targets: [3, 4, 5, 6, 7] },
+  { label: "From 10 users", baseValue: 3864, targets: [4, 5, 6, 7] },
+  { label: "From 20 users", baseValue: 6072, targets: [5, 6, 7] },
+  { label: "From 30 users", baseValue: 8556, targets: [6, 7] },
+  { label: "From 40 users", baseValue: 9660, targets: [7] }
 ];
 
 function ArrowIcon() {
@@ -35,7 +36,7 @@ function ArrowIcon() {
   );
 }
 
-function PricingCard({ plan }) {
+function PricingCard({ plan, onContact }) {
   return (
     <article className={`serverlink-price-card${plan.featured ? " is-featured" : ""}`}>
       {plan.featured && <span className="serverlink-price-badge">Popular</span>}
@@ -46,41 +47,64 @@ function PricingCard({ plan }) {
       </div>
       <div className="serverlink-price-row">
         <strong>{plan.price}</strong>
-        <span>One-time bundle</span>
+        <span>One-time bundle (Exclude 8% SST)</span>
       </div>
-      <a className="serverlink-price-link" href={plan.href} target="_blank" rel="noreferrer">
-        View in ServerLink Store <ArrowIcon />
-      </a>
+      <button className="serverlink-price-link" onClick={onContact}>
+        Contact Us <ArrowIcon />
+      </button>
     </article>
   );
 }
 
-function UpgradeTable() {
+function UpgradeTable({ onContact }) {
+  const [activeTab, setActiveTab] = useState(0);
+  const activeData = UPGRADE_TABS[activeTab];
+
+  const formatPrice = (value) => {
+    return new Intl.NumberFormat('en-MY', { style: 'currency', currency: 'MYR' }).format(value).replace('MYR', 'RM');
+  };
+
   return (
     <div className="serverlink-upgrade-table-wrap">
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
+        {UPGRADE_TABS.map((tab, i) => (
+          <button 
+            key={tab.label}
+            onClick={() => setActiveTab(i)}
+            className={`ks-btn ${activeTab === i ? 'ks-btn-serverlink' : 'btn-ghost-base btn-ghost-dark'}`}
+            style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
       <table className="serverlink-upgrade-table">
         <thead>
           <tr>
-            <th>Upgrade Option</th>
-            <th>Price</th>
-            <th>Store</th>
+            <th>Upgrade To</th>
+            <th>Price (Exclude 8% SST)</th>
+            <th>Contact</th>
           </tr>
         </thead>
         <tbody>
-          {UPGRADE_PLANS.map((plan) => (
-            <tr key={plan.users}>
-              <td>
-                <strong>{plan.users}</strong>
-                <span>Additional user upgrade, without support license</span>
-              </td>
-              <td>{plan.price}</td>
-              <td>
-                <a href={plan.href} target="_blank" rel="noreferrer">
-                  View <ArrowIcon />
-                </a>
-              </td>
-            </tr>
-          ))}
+          {activeData.targets.map((targetIndex) => {
+            const targetPlan = BUNDLE_PLANS[targetIndex];
+            const upgradeValue = targetPlan.value - activeData.baseValue;
+            return (
+              <tr key={targetPlan.users}>
+                <td>
+                  <strong>{targetPlan.users}</strong>
+                  <span>Additional user upgrade, without support license</span>
+                </td>
+                <td>{formatPrice(upgradeValue)}</td>
+                <td>
+                  <button className="ks-btn ks-btn-serverlink" onClick={onContact} style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', minHeight: 'auto' }}>
+                    Contact Us <ArrowIcon />
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -91,6 +115,11 @@ export default function ServerLinkPage({ onContact }) {
   const [trialOpen, setTrialOpen] = useState(false);
   useFavicon("/images/products/serverlink-icon.png");
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, []);
+
+  const openContact = () => {
+    // If the modal isn't passed, we trigger the prop onContact which opens the Contact form.
+    if (onContact) onContact();
+  };
 
   return (
     <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
@@ -115,22 +144,18 @@ export default function ServerLinkPage({ onContact }) {
                 <h2 className="ks-section-title">ServerLink Remote Access Pricing</h2>
                 <p className="ks-body-text">
                   Choose a ready bundle for a new remote access setup, or add more users when your team grows.
-                  Prices are referenced from the official ServerLink store.
                 </p>
               </div>
               <div className="serverlink-pricing-actions">
-                <a className="ks-btn ks-btn-serverlink" href={STORE_BUNDLE_URL} target="_blank" rel="noreferrer">
-                  View Bundle Store <ArrowIcon />
-                </a>
-                <a className="btn-ghost-base btn-ghost-dark" href={STORE_UPGRADE_URL} target="_blank" rel="noreferrer">
-                  View Upgrades <ArrowIcon />
-                </a>
+                <button className="ks-btn ks-btn-serverlink" onClick={openContact}>
+                  Contact Us <ArrowIcon />
+                </button>
               </div>
             </div>
 
             <div className="serverlink-price-grid">
               {BUNDLE_PLANS.map((plan) => (
-                <PricingCard key={plan.users} plan={plan} />
+                <PricingCard key={plan.users} plan={plan} onContact={openContact} />
               ))}
             </div>
 
@@ -153,7 +178,7 @@ export default function ServerLinkPage({ onContact }) {
                   support license. We can help you confirm the best upgrade path before checkout.
                 </p>
               </div>
-              <UpgradeTable />
+              <UpgradeTable onContact={openContact} />
             </div>
           </div>
         </section>
