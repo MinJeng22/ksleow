@@ -3352,3 +3352,284 @@ body.has-active-modal .back-to-top-glass {
   isolation: isolate;
   padding-bottom: 56%;
 }
+
+/* ServerLink pricing */
+.serverlink-pricing-section {
+  --serverlink-blue: #00a9ef;
+  --serverlink-blue-deep: #0877b5;
+}
+
+.serverlink-pricing-head {
+  align-items: flex-end;
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-bottom: clamp(1.8rem, 4vw, 3rem);
+}
+
+.serverlink-pricing-head .ks-body-text {
+  margin: 0;
+  max-width: 760px;
+}
+
+.serverlink-pricing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.serverlink-price-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.serverlink-price-card {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 255, 0.94));
+  border: 1px solid rgba(47, 49, 90, 0.1);
+  border-radius: 18px;
+  box-shadow: 0 18px 46px rgba(25, 31, 68, 0.08);
+  color: var(--brand);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  min-height: 250px;
+  overflow: hidden;
+  padding: 1.25rem;
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.serverlink-price-card::before {
+  background: linear-gradient(90deg, var(--serverlink-blue), rgba(0, 179, 254, 0.08));
+  content: "";
+  height: 3px;
+  inset: 0 0 auto;
+  position: absolute;
+}
+
+.serverlink-price-card:hover {
+  border-color: rgba(0, 179, 254, 0.38);
+  box-shadow: 0 24px 62px rgba(25, 31, 68, 0.13);
+  transform: translateY(-3px);
+}
+
+.serverlink-price-card.is-featured {
+  border-color: rgba(0, 179, 254, 0.52);
+  box-shadow:
+    0 24px 68px rgba(0, 179, 254, 0.14),
+    0 18px 46px rgba(25, 31, 68, 0.08);
+}
+
+.serverlink-price-badge {
+  align-self: flex-start;
+  background: rgba(0, 179, 254, 0.1);
+  border: 1px solid rgba(0, 179, 254, 0.22);
+  border-radius: 999px;
+  color: var(--serverlink-blue-deep);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0.45rem 0.65rem;
+  text-transform: uppercase;
+}
+
+.serverlink-price-kicker {
+  color: rgba(47, 49, 90, 0.52);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+}
+
+.serverlink-price-card h3 {
+  color: var(--brand);
+  font-size: clamp(1.2rem, 1.6vw, 1.55rem);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.serverlink-price-desc {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  margin: 0.5rem 0 0;
+}
+
+.serverlink-price-row {
+  margin-top: auto;
+}
+
+.serverlink-price-row strong {
+  color: var(--serverlink-blue-deep);
+  display: block;
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem);
+  line-height: 1.1;
+}
+
+.serverlink-price-row span {
+  color: rgba(47, 49, 90, 0.52);
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  margin-top: 0.35rem;
+  text-transform: uppercase;
+}
+
+.serverlink-price-link,
+.serverlink-upgrade-table a {
+  align-items: center;
+  color: var(--serverlink-blue-deep);
+  display: inline-flex;
+  font-size: var(--text-sm);
+  font-weight: 800;
+  gap: 0.35rem;
+  text-decoration: none;
+}
+
+.serverlink-price-link:hover,
+.serverlink-upgrade-table a:hover {
+  color: #005b94;
+}
+
+.serverlink-pricing-note {
+  background: rgba(0, 179, 254, 0.07);
+  border: 1px solid rgba(0, 179, 254, 0.16);
+  border-radius: 16px;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  margin-top: 1.25rem;
+  padding: 1rem 1.15rem;
+}
+
+.serverlink-pricing-note strong {
+  color: var(--brand);
+}
+
+.serverlink-upgrade-layout {
+  align-items: start;
+  display: grid;
+  gap: clamp(1.6rem, 4vw, 3rem);
+  grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
+}
+
+.serverlink-upgrade-layout .ks-body-text {
+  margin: 0;
+}
+
+.serverlink-upgrade-table-wrap {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(47, 49, 90, 0.1);
+  border-radius: 18px;
+  box-shadow: 0 18px 48px rgba(25, 31, 68, 0.08);
+  overflow: hidden;
+}
+
+.serverlink-upgrade-table {
+  border-collapse: collapse;
+  color: var(--brand);
+  font-size: var(--text-sm);
+  width: 100%;
+}
+
+.serverlink-upgrade-table th,
+.serverlink-upgrade-table td {
+  border-bottom: 1px solid rgba(47, 49, 90, 0.08);
+  padding: 1rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.serverlink-upgrade-table th {
+  background: rgba(0, 179, 254, 0.09);
+  color: var(--brand);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.serverlink-upgrade-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.serverlink-upgrade-table td:first-child strong {
+  display: block;
+  font-size: 0.98rem;
+}
+
+.serverlink-upgrade-table td:first-child span {
+  color: var(--muted);
+  display: block;
+  line-height: 1.55;
+  margin-top: 0.22rem;
+}
+
+.serverlink-upgrade-table td:nth-child(2) {
+  color: var(--serverlink-blue-deep);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+@media (max-width: 1180px) {
+  .serverlink-price-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .serverlink-pricing-head,
+  .serverlink-upgrade-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .serverlink-pricing-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 620px) {
+  .serverlink-price-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .serverlink-price-card {
+    min-height: 0;
+  }
+
+  .serverlink-pricing-actions .ks-btn,
+  .serverlink-pricing-actions .btn-ghost-base {
+    width: 100%;
+  }
+
+  .serverlink-upgrade-table,
+  .serverlink-upgrade-table tbody,
+  .serverlink-upgrade-table tr,
+  .serverlink-upgrade-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .serverlink-upgrade-table thead {
+    display: none;
+  }
+
+  .serverlink-upgrade-table tr {
+    border-bottom: 1px solid rgba(47, 49, 90, 0.09);
+    padding: 0.9rem 1rem;
+  }
+
+  .serverlink-upgrade-table tr:last-child {
+    border-bottom: 0;
+  }
+
+  .serverlink-upgrade-table td {
+    border-bottom: 0;
+    padding: 0.25rem 0;
+  }
+}
