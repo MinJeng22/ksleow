@@ -1047,12 +1047,6 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
                   <span className="menu-sub-icon"><NavIcon name={item.icon} size={14} /></span>
                   <span className="menu-sub-label" style={{ display: "inline-flex", alignItems: "center" }}>
                     {item.label}
-                    {item.path && (
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: "0.35rem", opacity: 0.45, flexShrink: 0, marginTop: "0.1rem" }}>
-                        <line x1="7" y1="17" x2="17" y2="7" />
-                        <polyline points="7 7 17 7 17 17" />
-                      </svg>
-                    )}
                   </span>
                 </a>
               ))}
