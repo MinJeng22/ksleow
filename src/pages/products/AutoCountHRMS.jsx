@@ -19,7 +19,7 @@ export default function AutoCountHRMSPage({ onContact }) {
           body="Automated payroll compliant with EPF, SOCSO, PCB, and EIS. Payslips in minutes."
           iconSrc="/images/products/hrms-icon.webp"
           backgroundImage="/images/products/autocount-hrms.webp"
-          primaryCta={{ label: "Start Free Trial", onClick: onContact, className: "ks-btn-hrms" }}
+          primaryCta={{ label: "Start Free Trial", href: "https://auth.autocountcloud.com/identity/account/register/payroll?dealerCode=SYNS6037", target: "_blank", className: "ks-btn-hrms" }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
         />
       </div>
