@@ -18,13 +18,30 @@ const BUNDLE_PLANS = [
 ];
 
 const UPGRADE_TABS = [
-  { label: "From 1 user", baseValue: 1104, targets: [1, 2, 3, 4, 5, 6, 7] },
-  { label: "From 3 users", baseValue: 2070, targets: [2, 3, 4, 5, 6, 7] },
-  { label: "From 5 users", baseValue: 2760, targets: [3, 4, 5, 6, 7] },
-  { label: "From 10 users", baseValue: 3864, targets: [4, 5, 6, 7] },
-  { label: "From 20 users", baseValue: 6072, targets: [5, 6, 7] },
-  { label: "From 30 users", baseValue: 8556, targets: [6, 7] },
-  { label: "From 40 users", baseValue: 9660, targets: [7] }
+  { label: "From 1 user", targets: [
+      { index: 1, price: 1250 }, { index: 2, price: 1940 }, { index: 3, price: 3044 }, 
+      { index: 4, price: 5252 }, { index: 5, price: 7736 }, { index: 6, price: 8840 }, { index: 7, price: 15740 }
+  ]},
+  { label: "From 3 users", targets: [
+      { index: 2, price: 1035 }, { index: 3, price: 2139 }, { index: 4, price: 4347 }, 
+      { index: 5, price: 6831 }, { index: 6, price: 7935 }, { index: 7, price: 14835 }
+  ]},
+  { label: "From 5 users", targets: [
+      { index: 3, price: 1564 }, { index: 4, price: 3772 }, { index: 5, price: 6256 }, 
+      { index: 6, price: 7360 }, { index: 7, price: 14260 }
+  ]},
+  { label: "From 10 users", targets: [
+      { index: 4, price: 2852 }, { index: 5, price: 5336 }, { index: 6, price: 6440 }, { index: 7, price: 13340 }
+  ]},
+  { label: "From 20 users", targets: [
+      { index: 5, price: 3496 }, { index: 6, price: 4600 }, { index: 7, price: 11500 }
+  ]},
+  { label: "From 30 users", targets: [
+      { index: 6, price: 2530 }, { index: 7, price: 9430 }
+  ]},
+  { label: "From 40 users", targets: [
+      { index: 7, price: 8510 }
+  ]}
 ];
 
 function ArrowIcon() {
@@ -87,16 +104,15 @@ function UpgradeTable({ onContact }) {
           </tr>
         </thead>
         <tbody>
-          {activeData.targets.map((targetIndex) => {
-            const targetPlan = BUNDLE_PLANS[targetIndex];
-            const upgradeValue = targetPlan.value - activeData.baseValue;
+          {activeData.targets.map((targetInfo) => {
+            const targetPlan = BUNDLE_PLANS[targetInfo.index];
             return (
               <tr key={targetPlan.users}>
                 <td>
                   <strong>{targetPlan.users}</strong>
                   <span>Additional user upgrade, without support license</span>
                 </td>
-                <td>{formatPrice(upgradeValue)}</td>
+                <td>{formatPrice(targetInfo.price)}</td>
                 <td>
                   <button className="ks-btn ks-btn-serverlink" onClick={onContact} style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', minHeight: 'auto' }}>
                     Contact Us <ArrowIcon />
