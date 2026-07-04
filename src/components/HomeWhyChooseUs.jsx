@@ -67,10 +67,10 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
     <section
       ref={sectionRef}
       id="why-ksl"
+      className="home-section"
       style={{
         position: "relative",
         overflow: "hidden",
-        minHeight: "clamp(520px, 70vh, 820px)",
         display: "flex",
         alignItems: "center",
         scrollMarginTop: 24,
@@ -102,7 +102,7 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
       }} />
 
       {/* ── Content ── */}
-      <div className="content-wrap" style={{ position: "relative", zIndex: 2, width: "100%", padding: "clamp(3.5rem,7vw,6rem) 0" }}>
+      <div className="content-wrap" style={{ position: "relative", zIndex: 2, width: "100%" }}>
 
         {/* Eye-brow */}
         <div style={{
