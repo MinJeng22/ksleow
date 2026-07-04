@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import HomeImagePreloader from "../components/HomeImagePreloader";
 import Hero from "../components/Hero";
-import Stats from "../components/Stats";
-import WhyChooseUs from "../components/WhyChooseUs";
-import { IconTrophy } from "../components/SectionDivider";
+import HomeWhyChooseUs from "../components/HomeWhyChooseUs";
 import Services from "../components/Services";
 import Products from "../components/Products";
 import OtherServices from "../components/OtherServices";
@@ -12,12 +10,7 @@ import Careers from "../components/Careers";
 import Footer from "../components/Footer";
 import "../styles/homeImmersive.css";
 
-const HOME_WHY_SECTION = {
-  id: "home-why-ksl",
-  label: "Why Choose Us",
-  icon: IconTrophy,
-  color: "#c9a84c",
-};
+
 
 function useImmersiveHomeScroll() {
   useEffect(() => {
@@ -73,10 +66,7 @@ export default function Home({ onContact }) {
           <Hero onContact={onContact} />
         </div>
         <main className="home-content-layer">
-          <section className="home-snap-panel home-snap-panel-scroll home-combined-panel home-stats-why-panel" aria-label="Stats and Why Choose Us">
-            <Stats />
-            <WhyChooseUs section={HOME_WHY_SECTION} sectionFrom="var(--ks-page-paper)" sectionTo="var(--ks-page-warm)" />
-          </section>
+          <HomeWhyChooseUs />
           <Services />
           <Products onContact={onContact} />
           <OtherServices onContact={onContact} />
