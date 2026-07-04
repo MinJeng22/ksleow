@@ -42,7 +42,6 @@ html.is-immersive-home body {
 .is-immersive-home .home-snap-panel-scroll {
   overflow-x: hidden;
   overflow-y: auto;
-  overscroll-behavior: contain;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
 }
