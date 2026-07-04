@@ -1,6 +1,5 @@
 /* Immersive homepage snap sections */
 html.is-immersive-home {
-  scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
   overscroll-behavior-y: contain;
 }
@@ -19,7 +18,7 @@ html.is-immersive-home body {
   min-height: 100svh;
   overflow: hidden;
   scroll-snap-align: start;
-  scroll-snap-stop: always;
+  scroll-snap-stop: normal;
 }
 
 .is-immersive-home .home-hero-layer #hero {
