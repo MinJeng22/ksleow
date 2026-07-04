@@ -1,0 +1,276 @@
+/* Immersive homepage snap sections */
+html.is-immersive-home {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior-y: contain;
+}
+
+html.is-immersive-home body {
+  overscroll-behavior-y: contain;
+}
+
+.is-immersive-home .home-hero-layer,
+.is-immersive-home .home-content-layer > .home-snap-panel,
+.is-immersive-home .home-content-layer > .home-section {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  height: 100svh;
+  min-height: 100svh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.is-immersive-home .home-hero-layer #hero {
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+}
+
+.is-immersive-home .home-content-layer > .home-section,
+.is-immersive-home .home-content-layer > .home-snap-panel {
+  padding-bottom: clamp(2.25rem, 5.5vh, 4.5rem) !important;
+  padding-top: clamp(2.25rem, 5.5vh, 4.5rem) !important;
+}
+
+.is-immersive-home .home-combined-panel {
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0 !important;
+}
+
+.is-immersive-home .home-snap-panel-scroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.is-immersive-home .home-snap-panel-scroll::-webkit-scrollbar {
+  width: 7px;
+}
+
+.is-immersive-home .home-snap-panel-scroll::-webkit-scrollbar-thumb {
+  background: rgba(47, 49, 90, 0.22);
+  border-radius: 999px;
+}
+
+.is-immersive-home .home-combined-panel > .home-section,
+.is-immersive-home .home-combined-panel > .product-app-section,
+.is-immersive-home .home-combined-panel > .product-app-divider {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  min-height: 0 !important;
+  overflow: visible;
+  width: 100%;
+}
+
+.is-immersive-home .home-stats-why-panel {
+  background: linear-gradient(180deg, #f5f5f8 0%, #fff8e8 100%);
+}
+
+.is-immersive-home .home-stats-why-panel > .stats-section {
+  border-bottom: 0 !important;
+  flex: 0 0 auto;
+  padding: 0 !important;
+}
+
+.is-immersive-home .home-stats-why-panel > .stats-section .stats-item {
+  padding-bottom: clamp(0.9rem, 1.8vh, 1.35rem) !important;
+  padding-top: clamp(0.9rem, 1.8vh, 1.35rem) !important;
+}
+
+.is-immersive-home .home-stats-why-panel > .stats-section .stats-item > div:first-child {
+  font-size: clamp(1.65rem, 2.35vw, 2.1rem) !important;
+}
+
+.is-immersive-home .home-stats-why-panel > .stats-section .stats-item > div:last-child {
+  font-size: clamp(0.58rem, 0.75vw, 0.68rem) !important;
+  margin-top: 0.35rem !important;
+}
+
+.is-immersive-home .home-stats-why-panel > #why-ksl {
+  background: transparent !important;
+  padding-bottom: clamp(1.6rem, 3.8vh, 3rem) !important;
+  padding-top: clamp(1.2rem, 3vh, 2.4rem) !important;
+}
+
+.is-immersive-home .home-stats-why-panel .product-app-divider {
+  background: transparent !important;
+  flex: 0 0 0;
+  height: 0;
+  min-height: 0 !important;
+  padding: 0 !important;
+}
+
+.is-immersive-home .home-stats-why-panel .section-divider {
+  min-height: 0 !important;
+}
+
+.is-immersive-home .home-stats-why-panel .ac-awards-container-new {
+  margin-top: clamp(0.35rem, 1.2vh, 0.9rem) !important;
+  padding-bottom: clamp(0.5rem, 1.4vh, 1rem) !important;
+  padding-top: clamp(0.5rem, 1.4vh, 1rem) !important;
+}
+
+.is-immersive-home .home-stats-why-panel #why-ksl .content-wrap > p {
+  margin-bottom: clamp(1rem, 2vh, 1.8rem) !important;
+}
+
+.is-immersive-home .home-careers-footer-panel {
+  background: #1a1c35;
+  justify-content: flex-start;
+}
+
+.is-immersive-home .home-careers-footer-panel > .home-section {
+  background: #f4f6fb !important;
+  flex: 1 0 auto;
+}
+
+.is-immersive-home .home-careers-footer-panel footer {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  margin-top: 0 !important;
+  padding-bottom: clamp(1.6rem, 3.8vh, 3rem) !important;
+  padding-top: clamp(1.6rem, 3.8vh, 3rem) !important;
+  width: 100%;
+}
+
+.is-immersive-home .home-content-layer > .home-section > .content-wrap,
+.is-immersive-home .home-combined-panel > .home-section > .content-wrap,
+.is-immersive-home .home-combined-panel > .product-app-section > .content-wrap,
+.is-immersive-home .home-careers-footer-panel footer .content-wrap {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 760ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 760ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.is-immersive-home .home-immersive-panel.is-visible > .content-wrap,
+.is-immersive-home .home-immersive-panel.is-visible > .home-section > .content-wrap,
+.is-immersive-home .home-immersive-panel.is-visible > .product-app-section > .content-wrap,
+.is-immersive-home .home-careers-footer-panel.is-visible footer .content-wrap {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (min-width: 1025px) {
+  .is-immersive-home #services .services-grid > div {
+    height: clamp(174px, 21vh, 218px) !important;
+  }
+
+  .is-immersive-home .products-section {
+    --products-carousel-h: min(430px, 47vh);
+  }
+
+  .is-immersive-home .other-services-section .ks-bento-carousel-slide {
+    max-height: min(540px, 58vh);
+  }
+}
+
+@media (max-width: 1024px) {
+  .is-immersive-home .home-content-layer > .home-section,
+  .is-immersive-home .home-content-layer > .home-snap-panel {
+    padding-bottom: clamp(1.7rem, 4.2vh, 3.15rem) !important;
+    padding-top: clamp(1.7rem, 4.2vh, 3.15rem) !important;
+  }
+
+  .is-immersive-home #services .services-grid {
+    gap: 0.75rem !important;
+  }
+
+  .is-immersive-home #services .services-grid > div {
+    height: clamp(190px, 23vh, 250px) !important;
+  }
+}
+
+@media (max-width: 767px) {
+  html.is-immersive-home {
+    scroll-snap-type: y proximity;
+    overscroll-behavior-y: auto;
+  }
+
+  html.is-immersive-home body {
+    overscroll-behavior-y: auto;
+  }
+
+  .is-immersive-home .home-hero-layer,
+  .is-immersive-home .home-content-layer > .home-snap-panel,
+  .is-immersive-home .home-content-layer > .home-section {
+    min-height: 100svh;
+    scroll-snap-stop: normal;
+  }
+
+  .is-immersive-home .home-hero-layer #hero {
+    min-height: 100svh;
+  }
+
+  .is-immersive-home .home-content-layer > .home-section,
+  .is-immersive-home .home-content-layer > .home-snap-panel {
+    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)) !important;
+    padding-top: calc(1.25rem + env(safe-area-inset-top, 0px)) !important;
+  }
+
+  .is-immersive-home .home-stats-why-panel > .stats-section .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .is-immersive-home .home-stats-why-panel > .stats-section .stats-item {
+    border-right: 0 !important;
+  }
+
+  .is-immersive-home .home-stats-why-panel > #why-ksl {
+    padding-top: 1rem !important;
+  }
+
+  .is-immersive-home .home-stats-why-panel .ac-awards-item {
+    height: 112px !important;
+  }
+
+  .is-immersive-home .ks-section-title-lg {
+    font-size: clamp(1.32rem, 5vw, 1.86rem) !important;
+  }
+
+  .is-immersive-home .ks-body-text {
+    font-size: 0.84rem !important;
+    line-height: 1.58 !important;
+  }
+
+  .is-immersive-home #services .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.8rem !important;
+  }
+
+  .is-immersive-home #services .services-grid > div {
+    height: 250px !important;
+  }
+
+  .is-immersive-home .products-section {
+    --products-carousel-h: min(340px, 43svh);
+  }
+
+  .is-immersive-home .home-careers-footer-panel footer {
+    padding-bottom: 4.5rem !important;
+    padding-top: 4.5rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.is-immersive-home {
+    scroll-behavior: auto;
+  }
+
+  .is-immersive-home .home-content-layer > .home-section > .content-wrap,
+  .is-immersive-home .home-combined-panel > .home-section > .content-wrap,
+  .is-immersive-home .home-combined-panel > .product-app-section > .content-wrap,
+  .is-immersive-home .home-careers-footer-panel footer .content-wrap {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
