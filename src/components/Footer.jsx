@@ -72,8 +72,9 @@ const ExternalLinkIcon = () => (
 
 /* Unified subitem row — same colour, font-size, and line-height whether the
  * row is clickable (renders as <a> with gold hover) or not (renders as <div>
- * with no hover). Icon is optional — pass `icon={null}` for a bullet-free row. */
-function ContactRow({ icon, iconNode, href, label, external }) {
+ * with no hover). Icon is optional — pass `icon={null}` for a bullet-free row.
+ * For address rows, the external-link icon appears at the end of the text. */
+function ContactRow({ icon, iconNode, href, label, external, iconAtEnd }) {
   const [hov, setHov] = useState(false);
   const Tag = href ? "a" : "div";
   const lp = href ? { href, ...(external ? { target: "_blank", rel: "noreferrer" } : {}) } : {};
@@ -89,10 +90,11 @@ function ContactRow({ icon, iconNode, href, label, external }) {
       }}
       onMouseEnter={() => href && setHov(true)} onMouseLeave={() => href && setHov(false)}
     >
-      {iconNode ? iconNode : (icon && <Icon d={icon} />)}
-      <span style={{ display: "inline-flex", alignItems: "center" }}>
+      {!iconAtEnd && (iconNode ? iconNode : (icon && <Icon d={icon} />))}
+      <span style={{ display: "inline-flex", alignItems: "center", flexWrap: "wrap" }}>
         {label} {external && <ExternalLinkIcon />}
       </span>
+      {iconAtEnd && (iconNode ? iconNode : (icon && <Icon d={icon} />))}
     </Tag>
   );
 }
@@ -121,7 +123,7 @@ export default function Footer() {
             {/* Contact */}
             <div>
               <h4 style={H4}>{footer.contactHeading}</h4>
-              <ContactRow icon={IC.mapPin} href={CONTACT.mapsUrl} external label={CONTACT.address} />
+              <ContactRow icon={IC.mapPin} href={CONTACT.mapsUrl} external label={CONTACT.address} iconAtEnd />
               <ContactRow icon={IC.phone}  href={`tel:${CONTACT.phone}`}    label={CONTACT.phone} />
               <ContactRow icon={IC.mail}   href={`mailto:${CONTACT.email}`} label={CONTACT.email} />
               <ContactRow icon={IC.clock}  label={CONTACT.hours} />
@@ -155,7 +157,7 @@ export default function Footer() {
               <h4 style={H4}>{footer.followHeading}</h4>
               <ContactRow icon={IC.facebook} href={CONTACT.facebook}  label="Facebook"  external />
               <ContactRow iconNode={<InstagramIcon />} href={CONTACT.instagram} label="Instagram" external />
-              <ContactRow iconNode={<XiaohongshuIcon />} href={CONTACT.xiaohongshu} label="小红书 (RED)" external />
+              <ContactRow iconNode={<XiaohongshuIcon />} href={CONTACT.xiaohongshu} label="小红书 (Rednote)" external />
               <ContactRow iconNode={<WhatsappIcon />} href={WA_LINK}           label="WhatsApp"  external />
             </div>
 
@@ -164,8 +166,8 @@ export default function Footer() {
       </footer>
 
       <div style={{ background: "#13142a", padding: "0.45rem 0 0.55rem", textAlign: "center", fontSize: "0.75rem", color: "#55587a", lineHeight: 1.55 }}>
-        <div>© {COPYRIGHT_YEAR} {footer.copyrightLine}</div>
-        <div>{footer.locationLine}</div>
+        <div style={{ display: "block" }}>© {COPYRIGHT_YEAR} {footer.copyrightLine}</div>
+        <div style={{ display: "block" }}>{footer.locationLine}</div>
       </div>
     </>
   );
