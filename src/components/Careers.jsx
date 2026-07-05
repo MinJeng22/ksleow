@@ -100,14 +100,14 @@ export default function Careers() {
         style={{
           position: "relative",
           zIndex: 1,
-          display: "flex",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gap: "3rem",
           alignItems: "center",
-          justifyContent: "space-between",
-          gap: "2rem",
-          flexWrap: "wrap",
         }}
       >
-        <div ref={ref} style={{ maxWidth: 720, flex: "1 1 480px" }}>
+        {/* Left Column: Text & Buttons */}
+        <div>
           <div
             style={{
               fontSize: "0.72rem",
@@ -159,7 +159,7 @@ export default function Careers() {
             </span>
           </h2>
 
-          <p style={{ color: "#6b6f91", fontSize: "0.95rem", lineHeight: 1.75 }}>
+          <p style={{ color: "#6b6f91", fontSize: "0.95rem", lineHeight: 1.75, maxWidth: "540px" }}>
             <AnimatedWords
               text={careers.body}
               startDelay={bodyStart}
@@ -167,58 +167,81 @@ export default function Careers() {
               visible={visible}
             />
           </p>
+
+          <div
+            className="careers-btns"
+            style={{
+              display: "flex",
+              gap: "0.85rem",
+              flexWrap: "wrap",
+              marginTop: "2.2rem",
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(8px)",
+              transition: "opacity 0.5s ease, transform 0.5s ease",
+              transitionDelay: visible ? `${buttonsStart}ms` : "0ms",
+              pointerEvents: buttonsClickable ? undefined : "none",
+            }}
+          >
+            <a
+              href={`mailto:${CONTACT.email}?subject=Career Enquiry`}
+              style={{
+                background: "#2f315a",
+                color: "#ffffff",
+                padding: "0.82rem 2.2rem",
+                borderRadius: 50,
+                fontSize: "0.9rem",
+                fontWeight: 600,
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+                transition: "background 0.2s",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+              }}
+              onMouseOver={(event) => { event.currentTarget.style.background = "#3d4075"; }}
+              onMouseOut={(event) => { event.currentTarget.style.background = "#2f315a"; }}
+            >
+              {careers.careerButtonLabel || careers.buttonLabel || "Join Our Team"}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M7 17 17 7" />
+                <path d="M9 7h8v8" />
+              </svg>
+            </a>
+
+            <a
+              href={`mailto:${careers.partnerEmail || CONTACT.email}?subject=Partnership Enquiry`}
+              className="btn-ghost-base btn-ghost-dark"
+              style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
+            >
+              {careers.partnerButtonLabel || "Partner with Us"}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M7 17 17 7" />
+                <path d="M9 7h8v8" />
+              </svg>
+            </a>
+          </div>
         </div>
 
+        {/* Right Column: Video Placeholder */}
         <div
-          className="careers-btns"
           style={{
+            width: "100%",
+            aspectRatio: "16 / 9",
+            background: "rgba(47, 49, 90, 0.04)",
+            border: "1px dashed rgba(47, 49, 90, 0.2)",
+            borderRadius: "16px",
             display: "flex",
-            gap: "0.85rem",
-            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "center",
             opacity: visible ? 1 : 0,
-            transform: visible ? "translateY(0)" : "translateY(8px)",
-            transition: "opacity 0.5s ease, transform 0.5s ease",
-            transitionDelay: visible ? `${buttonsStart}ms` : "0ms",
-            pointerEvents: buttonsClickable ? undefined : "none",
+            transform: visible ? "translateY(0)" : "translateY(12px)",
+            transition: "opacity 0.6s ease, transform 0.6s ease",
+            transitionDelay: visible ? `${buttonsStart + 200}ms` : "0ms",
           }}
         >
-          <a
-            href={`mailto:${CONTACT.email}?subject=Career Enquiry`}
-            style={{
-              background: "#2f315a",
-              color: "#ffffff",
-              padding: "0.82rem 2.2rem",
-              borderRadius: 50,
-              fontSize: "0.9rem",
-              fontWeight: 600,
-              textDecoration: "none",
-              whiteSpace: "nowrap",
-              transition: "background 0.2s",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.4rem",
-            }}
-            onMouseOver={(event) => { event.currentTarget.style.background = "#3d4075"; }}
-            onMouseOut={(event) => { event.currentTarget.style.background = "#2f315a"; }}
-          >
-            {careers.careerButtonLabel || careers.buttonLabel || "Join Our Team"}
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M7 17 17 7" />
-              <path d="M9 7h8v8" />
-            </svg>
-          </a>
-
-          <a
-            href={`mailto:${careers.partnerEmail || CONTACT.email}?subject=Partnership Enquiry`}
-            className="btn-ghost-base btn-ghost-dark"
-            style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
-          >
-            {careers.partnerButtonLabel || "Partner with Us"}
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M7 17 17 7" />
-              <path d="M9 7h8v8" />
-            </svg>
-          </a>
+          <span style={{ color: "rgba(47, 49, 90, 0.4)", fontSize: "0.9rem", fontWeight: 600 }}>
+            Video Placeholder
+          </span>
         </div>
       </div>
     </div>
