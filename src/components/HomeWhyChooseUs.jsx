@@ -92,7 +92,7 @@ function StatCounter({ targetValue, suffix, duration = 2000 }) {
   );
 }
 
-export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-placeholder.png?v=2" }) {
+export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-placeholder.webp?v=2" }) {
   return (
     <section
       id="why-ksl"
