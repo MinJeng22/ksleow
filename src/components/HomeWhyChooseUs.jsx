@@ -16,6 +16,11 @@ const PRINCIPLES = [
     title: "Our values",
     desc: "Efficiency, continuous innovation, and quiet precision. We build long-term trust through honest work without the hard-sell.",
   },
+  {
+    roman: "IV",
+    title: "Our standard",
+    desc: "Experience since 1981 paired with modern software, keeping clients compliant, organized, and ready to grow.",
+  },
 ];
 
 const STATS = (stats.items || []).map((item) => ({
@@ -42,7 +47,7 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
 
       <div className="content-wrap home-why-editorial-content">
         <header className="home-why-editorial-header">
-          <p className="home-why-editorial-kicker">Why Choose Us</p>
+          <p className="ks-eyebrow home-why-editorial-eyebrow">Why Choose Us</p>
           <h2 id="home-why-heading" className="ks-section-title ks-section-title-lg">Our Vision, Mission and Values</h2>
         </header>
 
