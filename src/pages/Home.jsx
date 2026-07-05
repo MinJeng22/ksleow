@@ -52,7 +52,7 @@ function useImmersiveHomeScroll() {
     // CSS scroll-behavior:smooth + scroll-snap-type:mandatory are unreliable
     // in Chrome/Edge — the browser picks one and ignores the other.
     // We intercept wheel + keyboard on desktop (≥768px) and animate ourselves.
-    const isMobile = () => window.innerWidth < 768;
+    const isMobile = () => window.innerWidth <= 1024;
 
     let isAnimating = false;
 

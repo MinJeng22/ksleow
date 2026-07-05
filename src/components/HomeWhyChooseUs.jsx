@@ -4,22 +4,17 @@ const PRINCIPLES = [
   {
     roman: "I",
     title: "Our vision",
-    desc: "Help Malaysian SMEs run with confidence through clearer compliance, practical systems and steady support.",
+    desc: "To be the leading business solutions partner in Pahang, driving digital transformation and sustainable growth for every client.",
   },
   {
     roman: "II",
     title: "Our mission",
-    desc: "Deliver true end-to-end execution across registration, tax, audit, accounting, POS and IT.",
+    desc: "To deliver precise, end-to-end accounting and IT systems with unwavering integrity, allowing business owners to focus on moving faster.",
   },
   {
     roman: "III",
     title: "Our values",
-    desc: "Sincerity, precision and professionalism. No hard-selling, just careful long-term partnership.",
-  },
-  {
-    roman: "IV",
-    title: "Our standard",
-    desc: "Experience since 1981 paired with modern software, keeping clients compliant and ready to grow.",
+    desc: "Efficiency, continuous innovation, and quiet precision. We build long-term trust through honest work without the hard-sell.",
   },
 ];
 
@@ -48,10 +43,7 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
       <div className="content-wrap home-why-editorial-content">
         <header className="home-why-editorial-header">
           <p className="home-why-editorial-kicker">Why Choose Us</p>
-          <h2 id="home-why-heading">Our vision, mission and values</h2>
-          <p className="home-why-editorial-lede">
-            Four decades of practical, judgement-led support for Malaysian SMEs.
-          </p>
+          <h2 id="home-why-heading">Our Vision, Mission and Values</h2>
         </header>
 
         <div className="home-why-editorial-grid" aria-label="K.S. Leow Group principles">

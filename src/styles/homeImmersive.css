@@ -926,3 +926,20 @@ html.is-immersive-home body {
     transition: none !important;
   }
 }
+
+/* Disable immersive snap and fixed heights on tablet and mobile */
+@media (max-width: 1024px) {
+  html.is-immersive-home {
+    scroll-snap-type: none !important;
+  }
+  .is-immersive-home .home-hero-layer,
+  .is-immersive-home .home-content-layer > .home-snap-panel,
+  .is-immersive-home .home-content-layer > .home-section {
+    height: auto !important;
+    min-height: auto !important;
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal !important;
+    overflow: visible !important;
+  }
+}
+
