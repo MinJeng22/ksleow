@@ -2057,6 +2057,18 @@ a.contact-directory-value:hover {
   }
 }
 
+@media (min-width: 641px) and (max-width: 1024px) {
+  .partner-modal-shell {
+    height: 400px;
+    width: min(680px, 88%);
+  }
+
+  .partner-modal-shell.contact-directory-shell {
+    height: 400px;
+    width: min(680px, 88%);
+  }
+}
+
 @media (max-width: 640px) {
   .partner-modal-backdrop {
     align-items: center;
