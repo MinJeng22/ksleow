@@ -360,6 +360,12 @@ html.is-immersive-home body {
 }
 
 .is-immersive-home .home-content-layer > .home-careers-footer-panel {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  scroll-snap-align: start;
   background: #13142a;
   justify-content: flex-start;
   height: auto !important;

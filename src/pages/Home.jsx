@@ -20,7 +20,7 @@ function useImmersiveHomeScroll() {
     root.classList.add("is-immersive-home");
 
     const panels = Array.from(document.querySelectorAll(
-      ".home-hero-layer, .home-content-layer > .home-snap-panel, .home-content-layer > .home-section"
+      ".home-hero-layer, .home-content-layer > .home-snap-panel, .home-content-layer > .home-section, .home-careers-footer-panel"
     ));
 
     panels.forEach((panel) => panel.classList.add("home-immersive-panel"));
@@ -173,7 +173,7 @@ export default function Home({ onContact }) {
           <Products onContact={onContact} />
           <OtherServices onContact={onContact} />
           {/* <OurTeam /> */}
-          <section className="home-snap-panel home-snap-panel-scroll home-combined-panel home-careers-footer-panel" aria-label="Join Us and Footer">
+          <section className="home-combined-panel home-careers-footer-panel" aria-label="Join Us and Footer">
             <Careers />
             <Footer />
           </section>
