@@ -57,7 +57,12 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
               <span className="home-why-editorial-roman" aria-hidden="true">
                 {item.roman}
               </span>
-              <h3>{item.title}</h3>
+              <h3>
+                <span className="home-why-editorial-title-roman" aria-hidden="true">
+                  {item.roman}
+                </span>
+                {item.title}
+              </h3>
               <p>{item.desc}</p>
             </article>
           ))}
