@@ -50,7 +50,6 @@ function StatCounter({ targetValue, suffix, duration = 2000 }) {
     let observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          observer.disconnect();
           let startTime = null;
           const step = (timestamp) => {
             if (!startTime) startTime = timestamp;
