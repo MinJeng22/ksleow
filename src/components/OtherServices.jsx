@@ -271,6 +271,9 @@ export default function OtherServices({ onContact }) {
       if (event.key === "Escape") {
         setPartnerOpen(false);
         setSitegiantOpen(false);
+        if (typeof window !== "undefined" && (window.location.hash === "#supaprintz-card" || window.location.hash === "#sitegiant-card")) {
+          window.history.pushState(null, "", window.location.pathname + window.location.search);
+        }
       }
     };
     window.addEventListener("keydown", onKeyDown);
@@ -282,8 +285,14 @@ export default function OtherServices({ onContact }) {
 
   const openPartnerModal = (modal) => {
     if (modal === "supaprintz") {
+      if (typeof window !== "undefined" && window.location.hash !== "#supaprintz-card") {
+        window.history.pushState(null, "", window.location.pathname + window.location.search + "#supaprintz-card");
+      }
       runWithProgressFeedback(() => setPartnerOpen(true), { assets: SUPAPRINTZ_MODAL_IMAGES });
     } else if (modal === "sitegiant") {
+      if (typeof window !== "undefined" && window.location.hash !== "#sitegiant-card") {
+        window.history.pushState(null, "", window.location.pathname + window.location.search + "#sitegiant-card");
+      }
       runWithProgressFeedback(() => setSitegiantOpen(true), { assets: [SITEGIANT_PARTNER.image] });
     }
   };
@@ -346,8 +355,18 @@ export default function OtherServices({ onContact }) {
       )}
     </div>
     </section>
-    <SupaprintzPartnerModal open={partnerOpen} onClose={() => setPartnerOpen(false)} />
-    <SitegiantPartnerModal open={sitegiantOpen} onClose={() => setSitegiantOpen(false)} />
+    <SupaprintzPartnerModal open={partnerOpen} onClose={() => {
+      setPartnerOpen(false);
+      if (typeof window !== "undefined" && window.location.hash === "#supaprintz-card") {
+        window.history.pushState(null, "", window.location.pathname + window.location.search);
+      }
+    }} />
+    <SitegiantPartnerModal open={sitegiantOpen} onClose={() => {
+      setSitegiantOpen(false);
+      if (typeof window !== "undefined" && window.location.hash === "#sitegiant-card") {
+        window.history.pushState(null, "", window.location.pathname + window.location.search);
+      }
+    }} />
     </>
   );
 }
