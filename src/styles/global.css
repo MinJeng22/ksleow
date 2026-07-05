@@ -43,7 +43,7 @@
   --ks-page-ink: #2f315a;
 
   /* Desktop: moderate padding */
-  --px: clamp(80px, 8%, 140px);
+  --px: clamp(40px, 4%, 80px);
   --content-max-w: 1440px;
 }
 
@@ -511,7 +511,7 @@ textarea {
 
 @media (min-width: 768px) and (max-width: 1200px) {
   :root {
-    --px: clamp(4.5rem, 10%, 8rem);
+    --px: clamp(2.5rem, 5%, 4.5rem);
     --section-py: 5rem;
     --section-py-sm: 3.5rem;
   }
@@ -525,7 +525,7 @@ textarea {
 @media (min-width: 1600px) {
   :root {
     --content-max-w: 1560px;
-    --px: clamp(120px, 9%, 180px);
+    --px: clamp(60px, 5%, 100px);
     --section-py: 6.8rem;
     --section-py-sm: 4.6rem;
   }
@@ -556,7 +556,7 @@ textarea {
 @media (min-width: 1900px) {
   :root {
     --content-max-w: 1880px;
-    --px: clamp(140px, 10%, 200px);
+    --px: clamp(80px, 6%, 120px);
     --section-py: 6.4rem;
     --section-py-sm: 4.5rem;
   }
@@ -1299,7 +1299,7 @@ textarea {
 /* ── Tablet (768–1024) — moderate side breathing room without wasting space ── */
 @media (max-width: 1024px) {
   :root {
-    --px: clamp(50px, 8%, 80px);
+    --px: clamp(24px, 4%, 48px);
     --text-xs: 0.70rem;
     --text-sm: 0.80rem;
     --text-base: 0.90rem;
@@ -1351,7 +1351,7 @@ textarea {
 /* ── Small tablet (640–900) ── */
 @media (max-width: 900px) {
   :root {
-    --px: clamp(40px, 7%, 64px);
+    --px: clamp(20px, 3.5%, 32px);
     --text-body: 0.9rem;
     --section-py: 3rem;
     --section-py-sm: 2rem;
@@ -1447,7 +1447,7 @@ textarea {
 
 /* ── Mobile (< 640) ── */
 @media (max-width: 640px) {
-  :root { --px: 20px; }
+  :root { --px: 16px; }
   :root {
     --text-xs: 0.62rem;
     --text-sm: 0.80rem;
