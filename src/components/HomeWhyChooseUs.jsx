@@ -1,196 +1,85 @@
-import { useRef, useEffect, useState } from "react";
 import stats from "../content/stats.json";
 
-const PILLARS = [
+const PRINCIPLES = [
   {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="4" />
-        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-      </svg>
-    ),
-    title: "Our Vision",
-    desc: "To help Malaysian SMEs run with confidence through clearer compliance, stronger systems, and business support that feels practical, not complicated.",
+    roman: "I",
+    title: "Our vision",
+    desc: "Help Malaysian SMEs run with confidence through clearer compliance, practical systems and steady support.",
   },
   {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5z" />
-        <path d="M2 17l10 5 10-5" />
-        <path d="M2 12l10 5 10-5" />
-      </svg>
-    ),
-    title: "Our Mission",
-    desc: "To deliver true end-to-end execution across company registration, tax, audit, accounting, POS, IT infrastructure, and digital workflows.",
+    roman: "II",
+    title: "Our mission",
+    desc: "Deliver true end-to-end execution across registration, tax, audit, accounting, POS and IT.",
   },
   {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-      </svg>
-    ),
-    title: "Our Values",
-    desc: "We work with sincerity, precision, and professionalism. No hard-selling, no empty advice - just careful work and long-term partnership.",
+    roman: "III",
+    title: "Our values",
+    desc: "Sincerity, precision and professionalism. No hard-selling, just careful long-term partnership.",
   },
   {
-    icon: (
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="9 11 12 14 22 4" />
-        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
-      </svg>
-    ),
-    title: "Our Standard",
-    desc: "We combine business experience dating back to 1981 with modern software and IT capability, helping clients stay compliant, organized, and ready to grow.",
+    roman: "IV",
+    title: "Our standard",
+    desc: "Experience since 1981 paired with modern software, keeping clients compliant and ready to grow.",
   },
 ];
 
-const STATS = (stats.items || []).map(item => ({
-  number: item.num,
-  label: item.label
+const STATS = (stats.items || []).map((item) => ({
+  number: String(item.num || ""),
+  label: item.label,
 }));
 
+function splitStatNumber(value) {
+  const match = value.match(/^(.*?)(\+)$/);
+  return match ? { value: match[1], suffix: match[2] } : { value, suffix: "" };
+}
+
 export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-placeholder.jpg" }) {
-  const sectionRef = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.12 });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       id="why-ksl"
-      className="home-section"
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "center",
-        scrollMarginTop: 24,
-      }}
+      className="home-section home-snap-panel-scroll home-why-section home-why-editorial"
+      aria-labelledby="home-why-heading"
     >
-      {/* -- Background photo -- */}
-      <div style={{
-        position: "absolute", inset: 0,
-        backgroundImage: `url(${teamPhoto})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center 30%",
-        transform: visible ? "scale(1)" : "scale(1.06)",
-        transition: "transform 1.4s cubic-bezier(0.16,1,0.3,1)",
-        willChange: "transform",
-      }} />
+      <div className="home-why-bg" aria-hidden="true">
+        <img src={teamPhoto} alt="" loading="lazy" decoding="async" />
+      </div>
+      <div className="home-why-editorial-overlay" aria-hidden="true" />
 
-      {/* -- Dark + brand gradient overlay -- */}
-      <div style={{
-        position: "absolute", inset: 0,
-        background: "linear-gradient(135deg, rgba(26,28,56,0.88) 0%, rgba(47,49,90,0.80) 45%, rgba(26,28,56,0.75) 100%)",
-      }} />
+      <div className="content-wrap home-why-editorial-content">
+        <header className="home-why-editorial-header">
+          <p className="home-why-editorial-kicker">Why Choose Us</p>
+          <h2 id="home-why-heading">Our vision, mission and values</h2>
+          <p className="home-why-editorial-lede">
+            Four decades of practical, judgement-led support for Malaysian SMEs.
+          </p>
+        </header>
 
-      {/* -- Gold accent glow top-left -- */}
-      <div style={{
-        position: "absolute", top: "-10%", left: "-5%",
-        width: "45%", height: "70%",
-        background: "radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 70%)",
-        pointerEvents: "none",
-      }} />
-
-      {/* -- Content -- */}
-      <div className="content-wrap" style={{ position: "relative", zIndex: 2, width: "100%" }}>
-
-        {/* Eye-brow */}
-        <div style={{
-          display: "flex", alignItems: "center", gap: "0.7rem",
-          marginBottom: "0.95rem",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(18px)",
-          transition: "opacity 0.76s cubic-bezier(0.16,1,0.3,1) 0.08s, transform 0.76s cubic-bezier(0.16,1,0.3,1) 0.08s",
-        }}>
-          <div style={{ height: 2, width: 36, background: "#c9a84c", borderRadius: 2 }} />
-          <span style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.18em", color: "#c9a84c", textTransform: "uppercase" }}>
-            Why Choose Us
-          </span>
-        </div>
-
-        {/* Headline */}
-        <h2 className="ks-section-title ks-section-title-lg" style={{
-          color: "#ffffff",
-          maxWidth: "820px",
-          marginBottom: "clamp(2rem,4vw,3.2rem)",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(22px)",
-          transition: "opacity 0.82s cubic-bezier(0.16,1,0.3,1) 0.18s, transform 0.82s cubic-bezier(0.16,1,0.3,1) 0.18s",
-        }}>
-          Our Vision, Mission and Values
-        </h2>
-
-        {/* Pillar cards */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "clamp(0.8rem,2vw,1.2rem)",
-          marginBottom: "clamp(2rem,4vw,3rem)",
-        }}>
-          {PILLARS.map((p, i) => (
-            <div
-              key={i}
-              style={{
-                background: "rgba(255,255,255,0.07)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                borderRadius: "14px",
-                padding: "clamp(1.1rem,2.5vw,1.6rem)",
-                display: "flex",
-                flexDirection: "column",
-                gap: "0.75rem",
-                opacity: visible ? 1 : 0,
-                transform: visible ? "translateY(0)" : "translateY(28px)",
-                transition: `opacity 0.78s cubic-bezier(0.16,1,0.3,1) ${0.3 + i * 0.09}s, transform 0.78s cubic-bezier(0.16,1,0.3,1) ${0.3 + i * 0.09}s`,
-              }}
-            >
-              <div style={{
-                width: 48, height: 48, borderRadius: 12,
-                background: "rgba(201,168,76,0.15)",
-                border: "1px solid rgba(201,168,76,0.3)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                color: "#c9a84c",
-                flexShrink: 0,
-              }}>
-                {p.icon}
-              </div>
-              <div>
-                <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "#ffffff", marginBottom: "0.35rem" }}>{p.title}</div>
-                <div style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.62)", lineHeight: 1.55 }}>{p.desc}</div>
-              </div>
-            </div>
+        <div className="home-why-editorial-grid" aria-label="K.S. Leow Group principles">
+          {PRINCIPLES.map((item) => (
+            <article className="home-why-editorial-item" key={item.roman}>
+              <span className="home-why-editorial-roman" aria-hidden="true">
+                {item.roman}
+              </span>
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </article>
           ))}
         </div>
 
-        {/* Stats strip */}
-        <div style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "clamp(1.2rem,3vw,2.5rem)",
-          paddingTop: "clamp(1.2rem,2.5vw,1.8rem)",
-          borderTop: "1px solid rgba(255,255,255,0.12)",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(16px)",
-          transition: "opacity 0.7s ease 0.78s, transform 0.7s ease 0.78s",
-        }}>
-          {STATS.map((s, i) => (
-            <div key={i} style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
-              <span style={{ fontSize: "clamp(1.5rem,3vw,2.2rem)", fontWeight: 800, color: "#c9a84c", lineHeight: 1 }}>{s.number}</span>
-              <span style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.55)", letterSpacing: "0.04em" }}>{s.label}</span>
-            </div>
-          ))}
+        <div className="home-why-editorial-stats" aria-label="K.S. Leow Group key statistics">
+          {STATS.map((item) => {
+            const stat = splitStatNumber(item.number);
+            return (
+              <div className="home-why-editorial-stat" key={item.label}>
+                <strong>
+                  {stat.value}
+                  {stat.suffix ? <span>{stat.suffix}</span> : null}
+                </strong>
+                <small>{item.label}</small>
+              </div>
+            );
+          })}
         </div>
-
       </div>
     </section>
   );
