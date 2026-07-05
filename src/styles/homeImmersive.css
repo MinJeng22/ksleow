@@ -926,3 +926,16 @@ html.is-immersive-home body {
   }
 }
 
+
+/* Ensure footer panel never gets padding from any media query */
+.is-immersive-home .home-content-layer > .home-careers-footer-panel {
+  padding: 0 !important;
+}
+
+
+@media (max-width: 1024px) {
+  .careers-content-col .careers-line2 {
+    margin-left: 0 !important;
+  }
+}
+
