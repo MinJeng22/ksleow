@@ -107,7 +107,7 @@ export default function Careers() {
         }}
       >
         {/* Left Column: Text & Buttons */}
-        <div>
+        <div ref={ref}>
           <div
             style={{
               fontSize: "0.72rem",
