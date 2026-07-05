@@ -394,7 +394,7 @@ html.is-immersive-home body {
 .is-immersive-home .home-immersive-panel.is-visible > .content-wrap,
 .is-immersive-home .home-immersive-panel.is-visible > .home-section > .content-wrap,
 .is-immersive-home .home-immersive-panel.is-visible > .product-app-section > .content-wrap,
-.is-immersive-home .home-careers-footer-panel.is-visible footer .content-wrap {
+.is-immersive-home .home-careers-footer-panel.is-visible .footer-wrapper .content-wrap {
   opacity: 1;
   transform: translate3d(0, 0, 0);
 }

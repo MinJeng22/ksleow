@@ -41,8 +41,8 @@ function useImmersiveHomeScroll() {
         });
       },
       {
-        threshold: 0.42,
-        rootMargin: "-8% 0px -8% 0px",
+        threshold: 0.15,
+        rootMargin: "-5% 0px -5% 0px",
       }
     );
 
