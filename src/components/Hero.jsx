@@ -283,18 +283,21 @@ export default function Hero({ onContact }) {
         ref={hintRef}
         className="hero-scroll-hint lg-glass lg-glass-btn lg-glass-pill"
         onClick={() => {
-          const distance = window.innerHeight * 0.9;
-          const duration = 900;
-          const startY = window.scrollY;
-          const t0 = performance.now();
-          const easeInOut = (t) =>
-            t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-          const tick = (now) => {
-            const p = Math.min((now - t0) / duration, 1);
-            window.scrollTo(0, startY + distance * easeInOut(p));
-            if (p < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
+          const nextSection = document.querySelector("#why-ksl");
+          if (nextSection) {
+            const distance = nextSection.getBoundingClientRect().top;
+            const duration = 900;
+            const startY = window.scrollY;
+            const t0 = performance.now();
+            const easeInOut = (t) =>
+              t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+            const tick = (now) => {
+              const p = Math.min((now - t0) / duration, 1);
+              window.scrollTo(0, startY + distance * easeInOut(p));
+              if (p < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+          }
         }}
         aria-label="Scroll for more"
         style={{
