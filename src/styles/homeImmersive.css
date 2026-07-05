@@ -369,7 +369,7 @@ html.is-immersive-home body {
   flex: 1 0 auto;
 }
 
-.is-immersive-home .home-careers-footer-panel footer {
+.is-immersive-home .home-careers-footer-panel .footer-wrapper {
   align-items: center;
   display: flex;
   flex: 0 0 auto;
@@ -382,7 +382,7 @@ html.is-immersive-home body {
 .is-immersive-home .home-content-layer > .home-section > .content-wrap,
 .is-immersive-home .home-combined-panel > .home-section > .content-wrap,
 .is-immersive-home .home-combined-panel > .product-app-section > .content-wrap,
-.is-immersive-home .home-careers-footer-panel footer .content-wrap {
+.is-immersive-home .home-careers-footer-panel .footer-wrapper .content-wrap {
   opacity: 0;
   transform: translate3d(0, 28px, 0);
   transition:
@@ -571,7 +571,7 @@ html.is-immersive-home body {
     --products-carousel-h: min(340px, 43svh);
   }
 
-  .is-immersive-home .home-careers-footer-panel footer {
+  .is-immersive-home .home-careers-footer-panel .footer-wrapper {
     padding-bottom: 4.5rem !important;
     padding-top: 4.5rem !important;
   }
@@ -585,7 +585,7 @@ html.is-immersive-home body {
   .is-immersive-home .home-content-layer > .home-section > .content-wrap,
   .is-immersive-home .home-combined-panel > .home-section > .content-wrap,
   .is-immersive-home .home-combined-panel > .product-app-section > .content-wrap,
-  .is-immersive-home .home-careers-footer-panel footer .content-wrap {
+  .is-immersive-home .home-careers-footer-panel .footer-wrapper .content-wrap {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;

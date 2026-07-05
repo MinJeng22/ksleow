@@ -93,10 +93,10 @@ function ContactRow({ icon, iconNode, href, label, external }) {
       <div style={{ flexShrink: 0 }}>
         {iconNode ? iconNode : (icon && <Icon d={icon} />)}
       </div>
-      <span style={{ display: "inline-flex", alignItems: "center", flexWrap: "wrap", flex: 1 }}>
+      <span style={{ display: "inline-flex", alignItems: "center", flexWrap: "wrap" }}>
         {label}
       </span>
-      {external && <div style={{ flexShrink: 0, marginLeft: "auto", display: "flex", alignItems: "center", height: "24px" }}><ExternalLinkIcon /></div>}
+      {external && <div style={{ flexShrink: 0, marginLeft: "0.2rem", display: "flex", alignItems: "center", height: "24px" }}><ExternalLinkIcon /></div>}
     </Tag>
   );
 }
@@ -105,7 +105,7 @@ const H4 = { fontSize: "0.7rem", fontWeight: 600, color: "#c9a84c", textTransfor
 
 export default function Footer() {
   return (
-    <div style={{ width: "100%" }}>
+    <div className="footer-wrapper" style={{ width: "100%", display: "flex", flexDirection: "column" }}>
       <footer style={{ background: "#1a1c35", paddingTop: "4.5rem", paddingBottom: "1.4rem", marginTop: "auto", width: "100%" }}>
         <div className="content-wrap">
           <div className="footer-grid">
