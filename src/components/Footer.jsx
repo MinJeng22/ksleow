@@ -93,10 +93,14 @@ function ContactRow({ icon, iconNode, href, label, external }) {
       <div style={{ flexShrink: 0 }}>
         {iconNode ? iconNode : (icon && <Icon d={icon} />)}
       </div>
-      <span style={{ display: "inline-flex", alignItems: "center", flexWrap: "wrap" }}>
+      <span style={{ display: "inline-block", flex: 1, whiteSpace: "pre-wrap" }}>
         {label}
+        {external && (
+          <span style={{ display: "inline-flex", alignItems: "center", marginLeft: "0.3rem", verticalAlign: "middle", height: "1em" }}>
+            <ExternalLinkIcon />
+          </span>
+        )}
       </span>
-      {external && <div style={{ flexShrink: 0, marginLeft: "0.2rem", display: "flex", alignItems: "center", height: "24px" }}><ExternalLinkIcon /></div>}
     </Tag>
   );
 }

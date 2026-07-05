@@ -362,6 +362,9 @@ html.is-immersive-home body {
 .is-immersive-home .home-careers-footer-panel {
   background: #13142a;
   justify-content: flex-start;
+  height: auto !important;
+  min-height: auto !important;
+  padding: 0 !important;
 }
 
 .is-immersive-home .home-careers-footer-panel > .home-section {
@@ -374,8 +377,8 @@ html.is-immersive-home body {
   display: flex;
   flex: 0 0 auto;
   margin-top: 0 !important;
-  padding-bottom: clamp(1.6rem, 3.8vh, 3rem) !important;
-  padding-top: clamp(1.6rem, 3.8vh, 3rem) !important;
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
   width: 100%;
 }
 
@@ -604,14 +607,14 @@ html.is-immersive-home body {
   color: var(--why-cream);
   font-family: "Inter", "Poppins", system-ui, sans-serif;
   min-height: 100svh;
-  padding: clamp(3.5rem, 6vw, 6.25rem) 0;
+  padding: var(--section-py) 0;
 }
 
 .home-why-editorial .home-why-bg img {
-  filter: saturate(0.46) contrast(1.08) brightness(0.44);
+  filter: saturate(0.62) contrast(1.08) brightness(0.48);
   height: 100%;
   object-fit: cover;
-  object-position: center 34%;
+  object-position: center 36%;
   opacity: 0.62;
   transform: scale(1.035);
   transition: transform 1600ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -640,36 +643,19 @@ html.is-immersive-home body {
 
 .home-why-editorial-content {
   display: grid;
-  gap: clamp(2.1rem, 4vw, 4rem);
+  gap: clamp(1.7rem, 3vw, 3rem);
   position: relative;
   width: 100%;
   z-index: 2;
 }
 
 .home-why-editorial-header {
-  max-width: 840px;
+  max-width: 760px;
 }
 
-.home-why-editorial-kicker {
-  align-items: center;
+.home-why-editorial-eyebrow {
   color: var(--why-gold);
-  display: inline-flex;
-  font-family: "Inter", "Poppins", system-ui, sans-serif;
-  font-size: clamp(0.72rem, 0.9vw, 0.9rem);
-  font-weight: 400;
-  gap: 1.05rem;
-  letter-spacing: 0.52em;
-  line-height: 1;
-  margin: 0 0 clamp(2rem, 3.4vw, 3.1rem);
-  text-transform: uppercase;
-}
-
-.home-why-editorial-kicker::before {
-  background: var(--why-gold);
-  content: "";
-  height: 2.75rem;
-  opacity: 0.95;
-  width: 1px;
+  margin-bottom: 0.75rem;
 }
 
 .home-why-editorial .ks-section-title {
@@ -695,9 +681,9 @@ html.is-immersive-home body {
 }
 
 .home-why-editorial-item {
-  min-height: clamp(18rem, 25vw, 26.4rem);
+  min-height: clamp(13rem, 18vw, 18rem);
   opacity: 0;
-  padding: clamp(2.2rem, 4vw, 4rem) clamp(1.55rem, 3.1vw, 3.1rem);
+  padding: clamp(1.55rem, 3vw, 2.5rem) clamp(1.25rem, 2.6vw, 2.25rem);
   transform: translate3d(0, 22px, 0);
   transition:
     opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -717,7 +703,7 @@ html.is-immersive-home body {
   font-weight: 300;
   letter-spacing: -0.03em;
   line-height: 1;
-  margin-bottom: clamp(2.1rem, 4vw, 3.5rem);
+  margin-bottom: clamp(1.25rem, 2.4vw, 2.1rem);
 }
 
 .home-why-editorial-item h3 {
@@ -846,7 +832,7 @@ html.is-immersive-home body {
 @media (max-width: 760px) {
   .home-why-editorial {
     align-items: flex-start !important;
-    padding: clamp(2.35rem, 8vw, 3.4rem) 0;
+    padding: var(--section-py) 0;
   }
 
   .home-why-editorial-overlay {
@@ -859,13 +845,8 @@ html.is-immersive-home body {
     gap: 2rem;
   }
 
-  .home-why-editorial-kicker {
-    letter-spacing: 0.34em;
-    margin-bottom: 1.55rem;
-  }
-
-  .home-why-editorial-kicker::before {
-    height: 2rem;
+  .home-why-editorial-eyebrow {
+    margin-bottom: 0.75rem;
   }
 
   .home-why-editorial .ks-section-title {
