@@ -753,7 +753,7 @@ html.is-immersive-home body {
 .home-why-editorial-stats {
   display: grid;
   gap: clamp(1.35rem, 3.4vw, 3.75rem);
-  grid-template-columns: repeat(4, minmax(92px, max-content));
+  grid-template-columns: repeat(4, 1fr);
   justify-content: end;
   margin-left: auto;
   max-width: min(100%, 820px);
@@ -840,7 +840,7 @@ html.is-immersive-home body {
 
   .home-why-editorial-stats {
     gap: 1.4rem 2.1rem;
-    grid-template-columns: repeat(4, minmax(80px, max-content));
+    grid-template-columns: repeat(4, 1fr);
     justify-content: end;
     max-width: 100%;
   }
@@ -898,7 +898,7 @@ html.is-immersive-home body {
 
   .home-why-editorial-stats {
     gap: 1.35rem 1.6rem;
-    grid-template-columns: repeat(2, minmax(96px, max-content));
+    grid-template-columns: repeat(2, 1fr);
     justify-content: end;
   }
 

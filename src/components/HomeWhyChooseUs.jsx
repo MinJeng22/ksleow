@@ -6,7 +6,7 @@ const PRINCIPLES = [
   {
     roman: "I",
     title: "Our Vision",
-    desc: "Connect any dots of your success. To empower Malaysian SMEs by making your business operations simpler, fully compliant, and highly profitable.",
+    desc: "Connect Every Dot of Your Success. To empower Malaysian SMEs by making your business operations simpler, fully compliant, and highly profitable.",
   },
   {
     roman: "II",
@@ -114,9 +114,6 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
         <div className="home-why-editorial-grid" aria-label="K.S. Leow Group principles">
           {PRINCIPLES.map((item) => (
             <article className="home-why-editorial-item" key={item.roman}>
-              <span className="home-why-editorial-roman" aria-hidden="true">
-                {item.roman}
-              </span>
               <h3>
                 <span className="home-why-editorial-title-roman" aria-hidden="true">
                   {item.roman}
