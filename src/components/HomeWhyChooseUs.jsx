@@ -5,23 +5,23 @@ import stats from "../content/stats.json";
 const PRINCIPLES = [
   {
     roman: "I",
-    title: "Our vision",
-    desc: "To be the leading business solutions partner in Pahang, driving digital transformation and sustainable growth for every client.",
+    title: "Our Vision",
+    desc: "Connect any dots of your success. To empower Malaysian SMEs by making your business operations simpler, fully compliant, and highly profitable.",
   },
   {
     roman: "II",
-    title: "Our mission",
-    desc: "To deliver precise, end-to-end accounting and IT systems with unwavering integrity, allowing business owners to focus on moving faster.",
+    title: "Our Mission",
+    desc: "Doers, Not Just Advisors. We deliver complete, ground-up execution—handling everything from your company registration and tax audits to Accounting & POS systems and website development.",
   },
   {
     roman: "III",
-    title: "Our values",
-    desc: "Efficiency, continuous innovation, and quiet precision. We build long-term trust through honest work without the hard-sell.",
+    title: "Our Values",
+    desc: "Sincere Partnerships. We are efficient, detail-oriented, and firmly against hard-selling. Our focus is on building long-term, trust-based relationships with our clients.",
   },
   {
     roman: "IV",
-    title: "Our standard",
-    desc: "Experience since 1981 paired with modern software, keeping clients compliant, organized, and ready to grow.",
+    title: "Our Standard",
+    desc: "Legacy Meets Innovation. Backed by industry experience since 1981, we combine a deep mastery of Malaysian business compliance with powerful, modern IT solutions.",
   },
 ];
 
