@@ -836,6 +836,10 @@ html.is-immersive-home body {
     margin-right: 0.62rem;
   }
 
+  .home-why-editorial-item p {
+    max-width: 100%;
+  }
+
   .home-why-editorial-stats {
     gap: 1.4rem 2.1rem;
     grid-template-columns: repeat(4, minmax(80px, max-content));
