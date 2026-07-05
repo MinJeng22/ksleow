@@ -43,7 +43,7 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
         <div className="home-why-hero">
           <div className="home-why-copy">
             <div className="ks-eyebrow-chip home-why-eyebrow">Why Choose Us</div>
-            <h2 id="home-why-title" className="ks-section-title home-why-title">
+            <h2 id="home-why-title" className="ks-section-title ks-section-title-lg home-why-title">
               Practical business support, delivered with quiet precision.
             </h2>
             <p className="home-why-lede">
