@@ -171,7 +171,7 @@ export default function Footer() {
         </div>
       </footer>
 
-      <div style={{ background: "#13142a", padding: "0.45rem 0 0.55rem", textAlign: "center", fontSize: "0.75rem", color: "#55587a", lineHeight: 1.55, width: "100%" }}>
+      <div style={{ background: "#13142a", paddingTop: "0.45rem", paddingBottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))", textAlign: "center", fontSize: "0.75rem", color: "#55587a", lineHeight: 1.55, width: "100%" }}>
         <div style={{ display: "block" }}>© {COPYRIGHT_YEAR} {footer.copyrightLine}</div>
         <div style={{ display: "block" }}>{footer.locationLine}</div>
       </div>
