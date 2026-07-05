@@ -103,6 +103,7 @@ function useImmersiveHomeScroll() {
     // Wheel handler — one panel per gesture, accumulated delta threshold
     let wheelAccum = 0;
     let wheelTimer = null;
+    let isScrollLocked = false;
 
     const onWheel = (e) => {
       if (isMobile()) return;
@@ -117,14 +118,29 @@ function useImmersiveHomeScroll() {
 
       e.preventDefault();
 
+      // If we are currently animating or locked from a recent scroll,
+      // just renew the timer and ignore the wheel event to absorb inertia.
+      if (isAnimating || isScrollLocked) {
+        clearTimeout(wheelTimer);
+        wheelTimer = setTimeout(() => {
+          wheelAccum = 0;
+          isScrollLocked = false;
+        }, 80);
+        return;
+      }
+
       wheelAccum += e.deltaY;
       clearTimeout(wheelTimer);
-      wheelTimer = setTimeout(() => { wheelAccum = 0; }, 80);
+      wheelTimer = setTimeout(() => { 
+        wheelAccum = 0;
+        isScrollLocked = false;
+      }, 80);
 
       if (Math.abs(wheelAccum) < 40) return;
 
       const direction = wheelAccum > 0 ? 1 : -1;
       wheelAccum = 0;
+      isScrollLocked = true; // Lock until they stop scrolling
 
       const idx = getCurrentIndex();
       scrollToPanel(idx + direction);
