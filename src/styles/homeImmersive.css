@@ -159,7 +159,7 @@ html.is-immersive-home body {
 
 @media (min-width: 1025px) {
   .is-immersive-home #services .services-grid > div {
-    height: clamp(174px, 21vh, 218px) !important;
+    height: clamp(280px, 32vh, 340px) !important;
   }
 
   .is-immersive-home .products-section {
@@ -183,7 +183,7 @@ html.is-immersive-home body {
   }
 
   .is-immersive-home #services .services-grid > div {
-    height: clamp(190px, 23vh, 250px) !important;
+    height: clamp(260px, 28vh, 300px) !important;
   }
 }
 
@@ -245,7 +245,7 @@ html.is-immersive-home body {
   }
 
   .is-immersive-home #services .services-grid > div {
-    height: 250px !important;
+    height: 290px !important;
   }
 
   .is-immersive-home .products-section {
