@@ -210,7 +210,7 @@ export default function Careers() {
             </a>
 
             <a
-              href={`mailto:${careers.partnerEmail || CONTACT.email}?subject=Partnership Enquiry`}
+              href="mailto:support@ksleow.com.my?subject=Partnership Enquiry"
               className="btn-ghost-base btn-ghost-dark"
               style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
             >

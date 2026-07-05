@@ -625,6 +625,10 @@ html.is-immersive-home body {
   width: 100%;
 }
 
+.home-why-editorial .home-why-bg {
+  z-index: 0;
+}
+
 .home-why-editorial.is-visible .home-why-bg img,
 .home-immersive-panel.is-visible .home-why-editorial .home-why-bg img {
   transform: scale(1);
@@ -643,7 +647,7 @@ html.is-immersive-home body {
   inset: 0;
   pointer-events: none;
   position: absolute;
-  z-index: -3;
+  z-index: 1;
 }
 
 .home-why-editorial-content {

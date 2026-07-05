@@ -160,7 +160,7 @@ function SupaprintzPartnerModal({ open, onClose }) {
       }}
       actions={[
         {
-          label: "Chat on WhatsApp",
+          label: "WhatsApp",
           href: SUPAPRINTZ_PARTNER.whatsappUrl,
           kind: "whatsapp",
           icon: <WhatsAppIcon />,
@@ -210,13 +210,13 @@ function SitegiantPartnerModal({ open, onClose }) {
       }}
       actions={[
         {
-          label: "Chat on WhatsApp",
+          label: "WhatsApp",
           href: SITEGIANT_PARTNER.whatsappUrl,
           kind: "whatsapp",
           icon: <WhatsAppIcon />,
         },
         {
-          label: "Visit Sitegiant Website",
+          label: "Visit Website",
           href: SITEGIANT_PARTNER.websiteUrl,
           kind: "secondary",
           icon: <ExternalLinkIcon />,
