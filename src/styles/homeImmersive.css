@@ -34,15 +34,15 @@ html.is-immersive-home body {
   padding-top: clamp(2.25rem, 5.5vh, 4.5rem) !important;
 }
 
-.is-immersive-home .home-combined-panel {
+.is-immersive-home .home-content-layer > .home-combined-panel {
   flex-direction: column;
   justify-content: flex-start;
   padding: 0 !important;
 }
 
 .is-immersive-home .home-snap-panel-scroll {
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
   scrollbar-width: thin;
   -webkit-overflow-scrolling: touch;
 }
@@ -360,13 +360,13 @@ html.is-immersive-home body {
 }
 
 .is-immersive-home .home-careers-footer-panel {
-  background: #1a1c35;
+  background: #13142a;
   justify-content: flex-start;
 }
 
 .is-immersive-home .home-careers-footer-panel > .home-section {
   background: #f4f6fb !important;
-  flex: 1 0 auto;
+  flex: 0 0 auto;
 }
 
 .is-immersive-home .home-careers-footer-panel .footer-wrapper {
