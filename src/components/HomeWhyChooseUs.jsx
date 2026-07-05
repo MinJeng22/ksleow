@@ -1,4 +1,6 @@
+import { useEffect, useRef, useState } from "react";
 import stats from "../content/stats.json";
+
 
 const PRINCIPLES = [
   {
@@ -31,6 +33,64 @@ const STATS = (stats.items || []).map((item) => ({
 function splitStatNumber(value) {
   const match = value.match(/^(.*?)(\+)$/);
   return match ? { value: match[1], suffix: match[2] } : { value, suffix: "" };
+}
+
+function StatCounter({ targetValue, suffix, duration = 2000 }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  
+  // Parse numeric part. If it fails, fallback to 0
+  const target = parseFloat(targetValue.replace(/,/g, '')) || 0;
+  const isFloat = !Number.isInteger(target);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || target === 0) return;
+
+    let observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          observer.disconnect();
+          let startTime = null;
+          const step = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            // ease-out cubic
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const current = easeOut * target;
+            setCount(current);
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            } else {
+              setCount(target);
+            }
+          };
+          requestAnimationFrame(step);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target, duration]);
+
+  if (target === 0) {
+    return (
+      <strong>
+        {targetValue}
+        {suffix ? <span>{suffix}</span> : null}
+      </strong>
+    );
+  }
+
+  const displayValue = isFloat ? count.toFixed(1) : Math.floor(count).toLocaleString();
+
+  return (
+    <strong ref={ref}>
+      {displayValue}
+      {suffix ? <span>{suffix}</span> : null}
+    </strong>
+  );
 }
 
 export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-placeholder.jpg" }) {
@@ -73,10 +133,7 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
             const stat = splitStatNumber(item.number);
             return (
               <div className="home-why-editorial-stat" key={item.label}>
-                <strong>
-                  {stat.value}
-                  {stat.suffix ? <span>{stat.suffix}</span> : null}
-                </strong>
+                <StatCounter targetValue={stat.value} suffix={stat.suffix} duration={1500} />
                 <small>{item.label}</small>
               </div>
             );
