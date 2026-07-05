@@ -919,6 +919,10 @@ html.is-immersive-home body {
 @media (max-width: 1024px) {
   html.is-immersive-home {
     scroll-snap-type: none !important;
+    overscroll-behavior-y: auto !important;
+  }
+  html.is-immersive-home body {
+    overscroll-behavior-y: auto !important;
   }
   .is-immersive-home .home-hero-layer,
   .is-immersive-home .home-content-layer > .home-snap-panel,

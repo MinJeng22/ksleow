@@ -222,14 +222,14 @@ export default function Careers() {
           </div>
         </div>
 
-        {/* Right Column: Video Placeholder */}
+        {/* Right Column: Video */}
         <div
           style={{
             width: "100%",
             aspectRatio: "16 / 9",
-            background: "rgba(47, 49, 90, 0.04)",
-            border: "1px dashed rgba(47, 49, 90, 0.2)",
+            background: "#13142a",
             borderRadius: "16px",
+            overflow: "hidden",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -237,11 +237,19 @@ export default function Careers() {
             transform: visible ? "translateY(0)" : "translateY(12px)",
             transition: "opacity 0.6s ease, transform 0.6s ease",
             transitionDelay: visible ? `${buttonsStart + 200}ms` : "0ms",
+            boxShadow: "0 10px 30px rgba(47, 49, 90, 0.15)",
           }}
         >
-          <span style={{ color: "rgba(47, 49, 90, 0.4)", fontSize: "0.9rem", fontWeight: 600 }}>
-            Video Placeholder
-          </span>
+          <video
+            controls
+            playsInline
+            preload="metadata"
+            poster="/images/careers-video-poster.webp"
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          >
+            <source src={careers.videoUrl || "/videos/careers.mp4"} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
     </div>
