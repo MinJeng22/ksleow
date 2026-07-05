@@ -55,6 +55,7 @@ function useImmersiveHomeScroll() {
     const isMobile = () => window.innerWidth <= 1024;
 
     let isAnimating = false;
+    let animationFrame = 0;
 
     // Find which panel is currently closest to viewport top
     function getCurrentIndex() {
@@ -81,23 +82,25 @@ function useImmersiveHomeScroll() {
 
       isAnimating = true;
 
-      const duration = 750; // ms
+      const duration = 660; // ms
       const t0 = performance.now();
 
-      // Cubic ease-in-out
-      const ease = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      // Smooth but decisive, so the page does not feel stuck between panels.
+      const ease = (t) => 1 - Math.pow(1 - t, 4);
 
       const tick = (now) => {
         const p = Math.min((now - t0) / duration, 1);
         window.scrollTo(0, startY + distance * ease(p));
         if (p < 1) {
-          requestAnimationFrame(tick);
+          animationFrame = requestAnimationFrame(tick);
         } else {
+          animationFrame = 0;
           isAnimating = false;
+          window.dispatchEvent(new Event("ks-glass-tone:refresh"));
         }
       };
 
-      requestAnimationFrame(tick);
+      animationFrame = requestAnimationFrame(tick);
     }
 
     // Wheel handler — one panel per gesture, accumulated delta threshold
@@ -111,9 +114,10 @@ function useImmersiveHomeScroll() {
       // Allow native scroll inside the inner-scrollable careers+footer panel
       const scrollPanel = e.target.closest(".home-snap-panel-scroll");
       if (scrollPanel) {
+        const canScrollInside = scrollPanel.scrollHeight > scrollPanel.clientHeight + 4;
         const atTop = scrollPanel.scrollTop <= 0;
         const atBottom = scrollPanel.scrollTop + scrollPanel.clientHeight >= scrollPanel.scrollHeight - 2;
-        if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) return;
+        if (canScrollInside && ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom))) return;
       }
 
       e.preventDefault();
@@ -125,7 +129,7 @@ function useImmersiveHomeScroll() {
         wheelTimer = setTimeout(() => {
           wheelAccum = 0;
           isScrollLocked = false;
-        }, 80);
+        }, 140);
         return;
       }
 
@@ -134,9 +138,9 @@ function useImmersiveHomeScroll() {
       wheelTimer = setTimeout(() => { 
         wheelAccum = 0;
         isScrollLocked = false;
-      }, 80);
+      }, 140);
 
-      if (Math.abs(wheelAccum) < 40) return;
+      if (Math.abs(wheelAccum) < 56) return;
 
       const direction = wheelAccum > 0 ? 1 : -1;
       wheelAccum = 0;
@@ -169,6 +173,7 @@ function useImmersiveHomeScroll() {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKeyDown);
       clearTimeout(wheelTimer);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
     };
   }, []);
 }

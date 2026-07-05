@@ -1,7 +1,7 @@
 /* Immersive homepage snap sections */
 html.is-immersive-home {
   scroll-behavior: auto;
-  scroll-snap-type: y proximity;
+  scroll-snap-type: none;
   overscroll-behavior-y: contain;
 }
 

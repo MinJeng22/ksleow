@@ -627,6 +627,7 @@ export default function Services() {
       <section
         id="services"
         className="home-section"
+        data-glass-tone="light"
         style={{ position: "relative", overflow: "hidden", background: "#f5f5f8", padding: "var(--section-py) 0" }}
       >
         <div style={{

@@ -82,6 +82,7 @@ export default function Hero({ onContact }) {
   return (
     <section
       id="hero"
+      data-glass-tone="dark"
       style={{
         position: "relative",
         minHeight: "100svh",

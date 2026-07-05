@@ -81,6 +81,7 @@ export default function Careers() {
   return (
     <div
       className="home-section"
+      data-glass-tone="light"
       style={{
         position: "relative",
         overflow: "hidden",

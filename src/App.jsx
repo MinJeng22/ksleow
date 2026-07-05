@@ -207,6 +207,9 @@ function DelayedRoutes({ openContact }) {
   useIsomorphicLayoutEffect(() => {
     if (typeof window === "undefined") return undefined;
     flushPostRouteRenderEffects();
+    window.dispatchEvent(new Event("ks-glass-tone:refresh"));
+    window.setTimeout(() => window.dispatchEvent(new Event("ks-glass-tone:refresh")), 180);
+    window.setTimeout(() => window.dispatchEvent(new Event("ks-glass-tone:refresh")), 640);
     return undefined;
   }, [displayLocation.key]);
 

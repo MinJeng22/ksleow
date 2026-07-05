@@ -63,7 +63,7 @@ export default function ProductHero({
 }) {
 
   return (
-    <div className="product-hero" style={{
+    <div className="product-hero" data-glass-tone="dark" style={{
       position: "sticky",
       top: 0,
       zIndex: 0,

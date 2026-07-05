@@ -394,6 +394,7 @@ export default function Products({ onContact }) {
     <section
       id="products"
       className="home-section products-section"
+      data-glass-tone="dark"
       style={{
         position: "relative",
         overflow: "hidden",
