@@ -107,7 +107,7 @@ export default function Careers() {
         }}
       >
         {/* Left Column: Text & Buttons */}
-        <div ref={ref} style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+        <div ref={ref} className="careers-content-col" style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
               fontSize: "0.72rem",
@@ -172,7 +172,6 @@ export default function Careers() {
             className="careers-btns"
             style={{
               display: "flex",
-              justifyContent: "center",
               gap: "0.85rem",
               flexWrap: "wrap",
               marginTop: "2.2rem",

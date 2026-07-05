@@ -359,7 +359,7 @@ html.is-immersive-home body {
   transition-delay: 390ms;
 }
 
-.is-immersive-home .home-careers-footer-panel {
+.is-immersive-home .home-content-layer > .home-careers-footer-panel {
   background: #13142a;
   justify-content: flex-start;
   height: auto !important;
@@ -920,6 +920,17 @@ html.is-immersive-home body {
     scroll-snap-align: none !important;
     scroll-snap-stop: normal !important;
     overflow: visible !important;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .careers-content-col {
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .careers-content-col .careers-btns {
+    justify-content: center !important;
   }
 }
 
