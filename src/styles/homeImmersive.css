@@ -672,15 +672,10 @@ html.is-immersive-home body {
   width: 1px;
 }
 
-.home-why-editorial h2 {
+.home-why-editorial .ks-section-title {
   color: var(--why-cream);
-  font-family: "Fraunces", "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(3rem, 6.8vw, 6.55rem);
-  font-weight: 300;
-  letter-spacing: 0;
-  line-height: 1.04;
   margin: 0;
-  max-width: 860px;
+  max-width: 760px;
 }
 
 .home-why-editorial-lede {
@@ -774,12 +769,15 @@ html.is-immersive-home body {
 
 .home-why-editorial-stats {
   display: grid;
-  gap: clamp(1.5rem, 4vw, 4rem);
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.35rem, 3.4vw, 3.75rem);
+  grid-template-columns: repeat(4, minmax(92px, max-content));
+  justify-content: start;
+  max-width: min(100%, 820px);
   padding-top: clamp(0.45rem, 1vw, 1rem);
 }
 
 .home-why-editorial-stat {
+  min-width: 0;
   opacity: 0;
   transform: translate3d(0, 16px, 0);
   transition:
@@ -798,7 +796,7 @@ html.is-immersive-home body {
   color: var(--why-cream);
   display: block;
   font-family: "Fraunces", "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  font-size: clamp(2.25rem, 3.7vw, 3.55rem);
   font-weight: 300;
   letter-spacing: -0.035em;
   line-height: 0.95;
@@ -818,6 +816,7 @@ html.is-immersive-home body {
   letter-spacing: 0.34em;
   line-height: 1.5;
   margin-top: 1.05rem;
+  max-width: 12rem;
   text-transform: uppercase;
 }
 
@@ -839,7 +838,8 @@ html.is-immersive-home body {
   }
 
   .home-why-editorial-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.7rem 2.35rem;
+    grid-template-columns: repeat(2, minmax(92px, max-content));
   }
 }
 
@@ -868,9 +868,8 @@ html.is-immersive-home body {
     height: 2rem;
   }
 
-  .home-why-editorial h2 {
-    font-size: clamp(2.55rem, 13.8vw, 4.6rem);
-    max-width: 11ch;
+  .home-why-editorial .ks-section-title {
+    max-width: 13ch;
   }
 
   .home-why-editorial-lede {
@@ -907,8 +906,8 @@ html.is-immersive-home body {
   }
 
   .home-why-editorial-stats {
-    gap: 1.45rem 1.2rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.35rem 1.6rem;
+    grid-template-columns: repeat(2, minmax(96px, max-content));
   }
 
   .home-why-editorial-stat small {

@@ -43,7 +43,7 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
       <div className="content-wrap home-why-editorial-content">
         <header className="home-why-editorial-header">
           <p className="home-why-editorial-kicker">Why Choose Us</p>
-          <h2 id="home-why-heading">Our Vision, Mission and Values</h2>
+          <h2 id="home-why-heading" className="ks-section-title ks-section-title-lg">Our Vision, Mission and Values</h2>
         </header>
 
         <div className="home-why-editorial-grid" aria-label="K.S. Leow Group principles">
