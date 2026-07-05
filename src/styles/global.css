@@ -1328,7 +1328,7 @@ textarea {
   .products-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .products-grid-carousel { min-height: var(--products-carousel-h) !important; height: auto !important; }
   .products-section .product-card { min-height: 320px !important; }
-  #services .services-grid > div { height: 260px !important; }
+  #services .services-grid > div { height: 300px !important; }
   .cases-grid    { grid-template-columns: repeat(2, 1fr) !important; }
   .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
   /* Product pages: tighten vertical rhythm so data-heavy sections fit more on screen */
@@ -1364,7 +1364,7 @@ textarea {
   }
   .products-grid-carousel { min-height: var(--products-carousel-h) !important; height: auto !important; }
   .products-section .product-card { min-height: 310px !important; }
-  #services .services-grid > div { height: 250px !important; }
+  #services .services-grid > div { height: 290px !important; }
   .products-section { --products-grid-min-h: 310px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .ac-features-showcase {
