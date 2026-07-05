@@ -9,8 +9,8 @@ const PILLARS = [
         <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
       </svg>
     ),
-    title: "Precision Without the Pitch",
-    desc: "We work efficiently and meticulously, without hard-selling. Our focus is long-term trust built through sincerity.",
+    title: "Our Vision",
+    desc: "To help Malaysian SMEs run with confidence through clearer compliance, stronger systems, and business support that feels practical, not complicated.",
   },
   {
     icon: (
@@ -20,8 +20,8 @@ const PILLARS = [
         <path d="M2 12l10 5 10-5" />
       </svg>
     ),
-    title: "Doers, Not Just Advisors",
-    desc: "From company registration to Accounting, POS, and IT systems, we handle the work end to end so you can move faster.",
+    title: "Our Mission",
+    desc: "To deliver true end-to-end execution across company registration, tax, audit, accounting, POS, IT infrastructure, and digital workflows.",
   },
   {
     icon: (
@@ -30,8 +30,8 @@ const PILLARS = [
         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
       </svg>
     ),
-    title: "Simplifying Your Success",
-    desc: "We help owners standardize operations, reduce manual work, and make everyday business decisions clearer and simpler.",
+    title: "Our Values",
+    desc: "We work with sincerity, precision, and professionalism. No hard-selling, no empty advice - just careful work and long-term partnership.",
   },
   {
     icon: (
@@ -40,8 +40,8 @@ const PILLARS = [
         <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
       </svg>
     ),
-    title: "Legacy Meets Innovation",
-    desc: "With experience since 1981, we understand compliance deeply while delivering modern IT systems that keep evolving.",
+    title: "Our Standard",
+    desc: "We combine business experience dating back to 1981 with modern software and IT capability, helping clients stay compliant, organized, and ready to grow.",
   },
 ];
 
@@ -106,10 +106,10 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
         {/* Eye-brow */}
         <div style={{
           display: "flex", alignItems: "center", gap: "0.7rem",
-          marginBottom: "1.2rem",
+          marginBottom: "0.95rem",
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(18px)",
-          transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
+          transition: "opacity 0.76s cubic-bezier(0.16,1,0.3,1) 0.08s, transform 0.76s cubic-bezier(0.16,1,0.3,1) 0.08s",
         }}>
           <div style={{ height: 2, width: 36, background: "#c9a84c", borderRadius: 2 }} />
           <span style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.18em", color: "#c9a84c", textTransform: "uppercase" }}>
@@ -121,27 +121,13 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
         <h2 className="ks-section-title ks-section-title-lg" style={{
           color: "#ffffff",
           maxWidth: "820px",
-          marginBottom: "1.1rem",
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(22px)",
-          transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
-        }}>
-          Practical business support, delivered with quiet precision.
-        </h2>
-
-        {/* Sub-headline */}
-        <p style={{
-          fontSize: "clamp(1rem, 1.6vw, 1.2rem)",
-          color: "rgba(255,255,255,0.75)",
-          maxWidth: "640px",
-          lineHeight: 1.65,
           marginBottom: "clamp(2rem,4vw,3.2rem)",
           opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(18px)",
-          transition: "opacity 0.7s ease 0.32s, transform 0.7s ease 0.32s",
+          transform: visible ? "translateY(0)" : "translateY(22px)",
+          transition: "opacity 0.82s cubic-bezier(0.16,1,0.3,1) 0.18s, transform 0.82s cubic-bezier(0.16,1,0.3,1) 0.18s",
         }}>
-          Top AutoCount Dealer in Pahang State for 6 award-winning years, empowering your business with proven expertise, prompt on-site support, and dedicated training.
-        </p>
+          Our Vision, Mission and Values
+        </h2>
 
         {/* Pillar cards */}
         <div style={{
@@ -165,7 +151,7 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
                 gap: "0.75rem",
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateY(0)" : "translateY(28px)",
-                transition: `opacity 0.65s ease ${0.38 + i * 0.1}s, transform 0.65s ease ${0.38 + i * 0.1}s`,
+                transition: `opacity 0.78s cubic-bezier(0.16,1,0.3,1) ${0.3 + i * 0.09}s, transform 0.78s cubic-bezier(0.16,1,0.3,1) ${0.3 + i * 0.09}s`,
               }}
             >
               <div style={{
