@@ -227,7 +227,7 @@ function ServiceCard({ service, index = 0 }) {
         className={`service-card-shell service-card-reveal${hasRevealed ? " is-in-view" : ""}`}
         style={{
           perspective: "1200px",
-          height: 340,
+          height: isMobile ? 285 : 340,
           "--service-reveal-delay": `${Math.min(index * 95, 570)}ms`,
         }}
       >
