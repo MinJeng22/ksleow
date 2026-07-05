@@ -11,7 +11,7 @@ const PRINCIPLES = [
   {
     roman: "II",
     title: "Our Mission",
-    desc: "Doers, Not Just Advisors. We deliver complete, ground-up execution—handling everything from your company registration and tax audits to Accounting & POS systems and website development.",
+    desc: "Experts, Not Just Advisors. We deliver complete, ground-up execution—handling everything from your company registration and tax audits to Accounting & POS systems and website development.",
   },
   {
     roman: "III",
@@ -92,7 +92,7 @@ function StatCounter({ targetValue, suffix, duration = 2000 }) {
   );
 }
 
-export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-placeholder.jpg" }) {
+export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-placeholder.png" }) {
   return (
     <section
       id="why-ksl"
