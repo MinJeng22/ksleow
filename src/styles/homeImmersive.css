@@ -754,7 +754,8 @@ html.is-immersive-home body {
   display: grid;
   gap: clamp(1.35rem, 3.4vw, 3.75rem);
   grid-template-columns: repeat(4, minmax(92px, max-content));
-  justify-content: start;
+  justify-content: end;
+  margin-left: auto;
   max-width: min(100%, 820px);
   padding-top: clamp(0.45rem, 1vw, 1rem);
 }
@@ -820,9 +821,25 @@ html.is-immersive-home body {
     border-top: 1px solid rgba(246, 242, 234, 0.13);
   }
 
+  .home-why-editorial-roman {
+    display: none;
+  }
+
+  .home-why-editorial-title-roman {
+    color: var(--why-gold);
+    display: inline-block;
+    font-family: "Fraunces", "Cormorant Garamond", Georgia, serif;
+    font-size: 1.22em;
+    font-style: italic;
+    font-weight: 300;
+    margin-right: 0.62rem;
+  }
+
   .home-why-editorial-stats {
-    gap: 1.7rem 2.35rem;
-    grid-template-columns: repeat(2, minmax(92px, max-content));
+    gap: 1.4rem 2.1rem;
+    grid-template-columns: repeat(4, minmax(80px, max-content));
+    justify-content: end;
+    max-width: 100%;
   }
 }
 
@@ -866,17 +883,9 @@ html.is-immersive-home body {
     padding: 1.55rem 0.2rem 1.7rem;
   }
 
-  .home-why-editorial-roman {
-    display: none;
-  }
-
   .home-why-editorial-title-roman {
-    color: var(--why-gold);
-    display: inline-block;
-    font-family: "Fraunces", "Cormorant Garamond", Georgia, serif;
-    font-style: italic;
-    font-weight: 300;
-    margin-right: 0.55rem;
+    font-size: 1.28em;
+    margin-right: 0.58rem;
   }
 
   .home-why-editorial-item p {
@@ -887,6 +896,7 @@ html.is-immersive-home body {
   .home-why-editorial-stats {
     gap: 1.35rem 1.6rem;
     grid-template-columns: repeat(2, minmax(96px, max-content));
+    justify-content: end;
   }
 
   .home-why-editorial-stat small {
