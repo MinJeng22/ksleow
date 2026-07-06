@@ -64,6 +64,8 @@ const routeAssets = {
   "/products/autocount-pos": [
     "/images/products/autocount-pos-showcase.webp",
     "/images/products/autocount-pos.webp",
+    "/images/products/autocount-pos-backend.webp",
+    "/images/products/autocount-pos-frontend.webp",
     ...(productAssetsByRoute["/products/autocount-pos"] || []),
     "/images/icons/feature-device.svg",
     "/images/icons/feature-integration.svg",

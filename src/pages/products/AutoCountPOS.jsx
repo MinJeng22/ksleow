@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
@@ -29,6 +29,8 @@ const POS_ACCENT = "#e49e25";
 const POS_NAVY = "#2f315a";
 const POS_HERO = "/images/products/autocount-pos-showcase.webp";
 const POS_ICON = "/images/products/autocount-pos.webp";
+const POS_BACKEND_IMAGE = "/images/products/autocount-pos-backend.webp";
+const POS_FRONTEND_IMAGE = "/images/products/autocount-pos-frontend.webp";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "Hi KS Support Team, I am interested in AutoCount POS. I would like to arrange a demo or get a quotation. Thank you."
@@ -373,8 +375,29 @@ function NotesPanel({ title, items }) {
 }
 
 function POSSystemExplainer() {
+  const sectionRef = useRef(null);
+  const [isLit, setIsLit] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsLit(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.28, rootMargin: "0px 0px -12% 0px" }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="content-wrap">
+    <div ref={sectionRef} className={`content-wrap pos-system-wrap ${isLit ? "is-lit" : ""}`}>
       <SectionIntro
         eyebrow="Backend + Frontend"
         title="Understand AutoCount POS Backend and Frontend"
@@ -383,21 +406,15 @@ function POSSystemExplainer() {
 
       <div className="pos-system-layout">
         <article className="pos-system-card">
-          <div className="pos-system-visual pos-system-computer" aria-hidden="true">
-            <div className="pos-monitor">
-              <div className="pos-monitor-bar"><span /><span /><span /></div>
-              <div className="pos-monitor-content">
-                <div className="pos-monitor-chart"><span /><span /><span /><span /></div>
-                <div className="pos-monitor-list"><i /><i /><i /></div>
-              </div>
-            </div>
-            <div className="pos-monitor-stand" />
+          <div className="pos-system-visual">
+            <img src={POS_BACKEND_IMAGE} alt="AutoCount POS backend management screen" loading="lazy" />
+            <span className="pos-system-power">Backend online</span>
           </div>
           <div className="pos-system-copy">
             <span>Backend Computer</span>
-            <h3>Used by owners, supervisors, and admin teams.</h3>
+            <h3>For owners, supervisors, and admin teams.</h3>
             <p>
-              The backend is the control center for item setup, pricing, users, stock movement, outlet settings, reports, e-invoice preparation, and integration back to AutoCount Accounting.
+              The backend is the control center for product setup, pricing, users, stock movement, outlet settings, reports, e-invoice preparation, and integration back to AutoCount Accounting.
             </p>
             <ul>
               <li>Manage items, prices, customers, users, and outlets.</li>
@@ -407,18 +424,18 @@ function POSSystemExplainer() {
           </div>
         </article>
 
-        <div className="pos-system-sync" aria-hidden="true">Sync</div>
+        <div className="pos-system-divider" aria-hidden="true">
+          <span>sync</span>
+        </div>
 
         <article className="pos-system-card">
-          <div className="pos-system-visual pos-system-register" aria-hidden="true">
-            <div className="pos-register-screen"><span /><span /><span /><span /></div>
-            <div className="pos-register-neck" />
-            <div className="pos-register-base"><span /><span /><span /></div>
-            <div className="pos-register-receipt" />
+          <div className="pos-system-visual">
+            <img src={POS_FRONTEND_IMAGE} alt="AutoCount POS frontend cashier terminal" loading="lazy" />
+            <span className="pos-system-power">Frontend online</span>
           </div>
           <div className="pos-system-copy">
             <span>Frontend Register Counter</span>
-            <h3>Used by cashiers for daily counter transactions.</h3>
+            <h3>For cashiers and outlet counter operation.</h3>
             <p>
               The frontend is the POS counter experience for fast billing, barcode scanning, payment collection, receipt printing, cash drawer handling, and branch or outlet sales.
             </p>
@@ -430,6 +447,13 @@ function POSSystemExplainer() {
           </div>
         </article>
       </div>
+
+      <aside className="pos-system-callout">
+        <strong>Single-PC setup is possible.</strong>
+        <span>
+          Backend and Frontend can run on the same computer if you do not want to split them into two machines, but the PC specification should be stronger for smoother cashier, sync, reporting, and backup performance.
+        </span>
+      </aside>
     </div>
   );
 }
@@ -698,6 +722,251 @@ export default function AutoCountPOSPage({ onContact }) {
           color: #6b6f91;
           font-size: 0.98rem;
           line-height: 1.75;
+        }
+        #page-autocount-pos .pos-system-wrap {
+          max-width: 1240px;
+        }
+        #page-autocount-pos .pos-system-layout {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+          gap: clamp(1rem, 2vw, 1.35rem);
+          align-items: stretch;
+        }
+        #page-autocount-pos .pos-system-card {
+          position: relative;
+          overflow: hidden;
+          border: 1px solid rgba(47, 49, 90, 0.1);
+          border-radius: 8px;
+          background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.76)),
+            radial-gradient(circle at 50% 0%, rgba(228, 158, 37, 0.13), transparent 42%);
+          box-shadow: 0 18px 48px rgba(47, 49, 90, 0.08);
+          transform: translateY(14px);
+          opacity: 0.82;
+          transition:
+            transform 900ms cubic-bezier(0.19, 1, 0.22, 1),
+            opacity 800ms ease,
+            box-shadow 900ms ease,
+            border-color 900ms ease;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-card {
+          transform: translateY(0);
+          opacity: 1;
+          border-color: rgba(228, 158, 37, 0.22);
+          box-shadow: 0 22px 70px rgba(47, 49, 90, 0.1);
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-card:nth-child(3) {
+          transition-delay: 120ms;
+        }
+        #page-autocount-pos .pos-system-visual {
+          position: relative;
+          aspect-ratio: 16 / 10.5;
+          overflow: hidden;
+          background: #101221;
+          isolation: isolate;
+        }
+        #page-autocount-pos .pos-system-visual::before,
+        #page-autocount-pos .pos-system-visual::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          pointer-events: none;
+          transition: opacity 1200ms cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        #page-autocount-pos .pos-system-visual::before {
+          background:
+            radial-gradient(circle at 50% 48%, rgba(228, 158, 37, 0.24), transparent 34%),
+            linear-gradient(180deg, rgba(11, 12, 20, 0.58), rgba(11, 12, 20, 0.76));
+          opacity: 1;
+        }
+        #page-autocount-pos .pos-system-visual::after {
+          inset: auto 12% -18% 12%;
+          height: 42%;
+          border-radius: 999px;
+          background: rgba(228, 158, 37, 0.34);
+          filter: blur(34px);
+          opacity: 0;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-visual::before {
+          opacity: 0;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-visual::after {
+          opacity: 1;
+        }
+        #page-autocount-pos .pos-system-visual img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          transform: scale(1.02);
+          filter: brightness(0.32) saturate(0.45) contrast(0.98);
+          transition:
+            filter 1250ms cubic-bezier(0.19, 1, 0.22, 1),
+            transform 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-visual img {
+          transform: scale(1);
+          filter: brightness(1) saturate(1.03) contrast(1.01);
+        }
+        #page-autocount-pos .pos-system-power {
+          position: absolute;
+          right: 1rem;
+          bottom: 1rem;
+          z-index: 3;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.45rem;
+          border: 1px solid rgba(255, 255, 255, 0.26);
+          border-radius: 999px;
+          padding: 0.45rem 0.7rem;
+          background: rgba(12, 14, 26, 0.58);
+          color: rgba(255, 255, 255, 0.72);
+          font-size: 0.72rem;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          opacity: 0.62;
+          transition:
+            opacity 900ms ease,
+            color 900ms ease,
+            background 900ms ease,
+            border-color 900ms ease;
+        }
+        #page-autocount-pos .pos-system-power::before {
+          content: "";
+          width: 0.5rem;
+          height: 0.5rem;
+          border-radius: 999px;
+          background: #687084;
+          box-shadow: 0 0 0 rgba(228, 158, 37, 0);
+          transition:
+            background 900ms ease,
+            box-shadow 900ms ease;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-power {
+          opacity: 1;
+          color: #ffffff;
+          background: rgba(18, 20, 35, 0.7);
+          border-color: rgba(228, 158, 37, 0.36);
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-power::before {
+          background: var(--pos-accent);
+          box-shadow: 0 0 18px rgba(228, 158, 37, 0.95);
+        }
+        #page-autocount-pos .pos-system-copy {
+          padding: clamp(1.1rem, 2.2vw, 1.55rem);
+        }
+        #page-autocount-pos .pos-system-copy > span {
+          color: var(--pos-accent);
+          font-size: 0.76rem;
+          font-weight: 840;
+          letter-spacing: 0.13em;
+          text-transform: uppercase;
+        }
+        #page-autocount-pos .pos-system-copy h3 {
+          margin: 0.55rem 0 0;
+          color: var(--pos-navy);
+          font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+          line-height: 1.26;
+        }
+        #page-autocount-pos .pos-system-copy p {
+          margin: 0.8rem 0 0;
+          color: #626789;
+          font-size: 0.94rem;
+          line-height: 1.72;
+        }
+        #page-autocount-pos .pos-system-copy ul {
+          display: grid;
+          gap: 0.55rem;
+          margin: 1rem 0 0;
+          padding: 0;
+          list-style: none;
+        }
+        #page-autocount-pos .pos-system-copy li {
+          position: relative;
+          padding-left: 1.1rem;
+          color: #525779;
+          font-size: 0.88rem;
+          line-height: 1.55;
+        }
+        #page-autocount-pos .pos-system-copy li::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0.62em;
+          width: 0.42rem;
+          height: 0.42rem;
+          border-radius: 999px;
+          background: var(--pos-accent);
+          box-shadow: 0 0 0 4px rgba(228, 158, 37, 0.12);
+        }
+        #page-autocount-pos .pos-system-divider {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 4.25rem;
+        }
+        #page-autocount-pos .pos-system-divider::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 50%;
+          border-left: 1px dashed rgba(47, 49, 90, 0.24);
+        }
+        #page-autocount-pos .pos-system-divider span {
+          position: relative;
+          z-index: 1;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 3.15rem;
+          height: 3.15rem;
+          border: 1px dashed rgba(228, 158, 37, 0.48);
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.92);
+          color: var(--pos-accent);
+          font-size: 0.68rem;
+          font-weight: 880;
+          letter-spacing: 0.11em;
+          text-transform: uppercase;
+          box-shadow: 0 14px 32px rgba(47, 49, 90, 0.09);
+        }
+        #page-autocount-pos .pos-system-callout {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.8rem;
+          max-width: 980px;
+          margin: clamp(1rem, 2.5vw, 1.5rem) auto 0;
+          border: 1px solid rgba(228, 158, 37, 0.24);
+          border-radius: 8px;
+          padding: 1rem 1.1rem;
+          background:
+            linear-gradient(135deg, rgba(228, 158, 37, 0.12), rgba(255, 255, 255, 0.8)),
+            rgba(255, 255, 255, 0.9);
+          color: #555a78;
+          box-shadow: 0 16px 42px rgba(47, 49, 90, 0.06);
+          opacity: 0;
+          transform: translateY(10px);
+          transition:
+            opacity 850ms ease 240ms,
+            transform 900ms cubic-bezier(0.19, 1, 0.22, 1) 240ms;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-callout {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        #page-autocount-pos .pos-system-callout strong {
+          flex: 0 0 auto;
+          color: var(--pos-navy);
+          font-weight: 840;
+        }
+        #page-autocount-pos .pos-system-callout span {
+          line-height: 1.65;
         }
         #page-autocount-pos .pos-seo-content {
           display: grid;
@@ -1265,6 +1534,21 @@ export default function AutoCountPOSPage({ onContact }) {
           margin: 0;
         }
         @media (max-width: 980px) {
+          #page-autocount-pos .pos-system-layout {
+            grid-template-columns: 1fr;
+          }
+          #page-autocount-pos .pos-system-divider {
+            min-height: 4.25rem;
+            min-width: 0;
+          }
+          #page-autocount-pos .pos-system-divider::before {
+            top: 50%;
+            right: 0;
+            bottom: auto;
+            left: 0;
+            border-top: 1px dashed rgba(47, 49, 90, 0.24);
+            border-left: 0;
+          }
           #page-autocount-pos .pos-seo-content,
           #page-autocount-pos .pos-faq-grid {
             grid-template-columns: 1fr;
@@ -1298,6 +1582,20 @@ export default function AutoCountPOSPage({ onContact }) {
           }
         }
         @media (max-width: 640px) {
+          #page-autocount-pos .pos-system-visual {
+            aspect-ratio: 4 / 3;
+          }
+          #page-autocount-pos .pos-system-visual img {
+            object-position: center;
+          }
+          #page-autocount-pos .pos-system-power {
+            right: 0.75rem;
+            bottom: 0.75rem;
+            font-size: 0.64rem;
+          }
+          #page-autocount-pos .pos-system-callout {
+            flex-direction: column;
+          }
           #page-autocount-pos .pos-workflow-grid {
             grid-template-columns: 1fr;
           }
