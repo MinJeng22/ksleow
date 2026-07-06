@@ -337,7 +337,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   const [closingHandoff, setClosingHandoff] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
   const [thumbnailUrls, setThumbnailUrls] = useState(() => (
-    Object.fromEntries(videos.map(video => [video.id, getInitialThumbnailUrl(video.id)]))
+    Object.fromEntries(videos.map(video => [video.id, video.customThumbnail || getInitialThumbnailUrl(video.id)]))
   ));
   const tabletRef = useRef(null);
   const openTargetRef = useRef(null);
@@ -371,6 +371,14 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   useEffect(() => {
     let cancelled = false;
     videos.forEach(video => {
+      if (video.customThumbnail) {
+        if (!cancelled) {
+          setThumbnailUrls(current => (
+            current[video.id] === video.customThumbnail ? current : { ...current, [video.id]: video.customThumbnail }
+          ));
+        }
+        return;
+      }
       resolveThumbnailUrl(video.id).then(url => {
         if (cancelled) return;
         setThumbnailUrls(current => (

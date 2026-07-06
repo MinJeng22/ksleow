@@ -53,7 +53,8 @@ const POS_TUTORIAL_VIDEOS = [
     label: "POS Tutorial",
     description: "Follow AutoCount POS training videos for front-end cashier flow, backend setup, item and stock handling, and the practical steps your outlet team needs before going live.",
     note: "POS Guide",
-    thumbnailCropScale: 1.34,
+    customThumbnail: "/images/products/pos-tutorial-thumb.png",
+    thumbnailCropScale: 1.0,
     icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5" /><path d="M8 20v2h8v-2" /><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none" /></svg>,
   },
 ];
@@ -80,35 +81,6 @@ const FEATURES = [
     desc: "We help with setup planning, hardware readiness, module selection, user training, and post-live support for your cashier team.",
   },
 ];
-
-const POS_SEO_CHIPS = [
-  "AutoCount POS Malaysia",
-  "Retail POS system",
-  "F&B POS system",
-  "Barcode scanner",
-  "Receipt printer",
-  "Cash drawer",
-  "Branch outlet sync",
-  "AutoCount Accounting integration",
-];
-
-const POS_FAQS = [
-  {
-    question: "What is AutoCount POS used for?",
-    answer: "AutoCount POS is used for front counter billing, cashier checkout, barcode scanning, receipt printing, payment collection, stock control, and syncing sales data back to AutoCount Accounting.",
-  },
-  {
-    question: "Is AutoCount POS suitable for retail and F&B businesses in Malaysia?",
-    answer: "Yes. It is suitable for retail shops, F&B outlets, and branch counters that need practical cashier workflows with backend inventory, accounting, and reporting.",
-  },
-  {
-    question: "Can KSL help install and configure AutoCount POS?",
-    answer: "Yes. KSL can help you choose the right POS backend, front-end counter license, add-on modules, and implementation plan for your outlet operations.",
-  },
-];
-
-
-
 
 
 const EDITION_COLUMNS = ["POS Basic", "POS Standard"];
@@ -397,43 +369,6 @@ function NotesPanel({ title, items }) {
         ))}
       </ul>
     </aside>
-  );
-}
-
-function POSSeoContent() {
-  return (
-    <div className="content-wrap pos-seo-content">
-      <div className="pos-seo-copy">
-        <div className="ks-eyebrow" style={{ color: POS_ACCENT }}>
-          AutoCount POS Malaysia
-        </div>
-        <h2 className="ks-section-title ks-section-title-inherit">POS software for Malaysian retail, F&B, and branch operations.</h2>
-        <p>
-          AutoCount POS helps outlets run faster counter sales while keeping sales, stock movement, payments, and reports connected to AutoCount Accounting. It is a practical fit for retail shops, F&B counters, branch outlets, and businesses that need reliable daily closing.
-        </p>
-        <p>
-          KS Support Team supports Malaysian SMEs with POS edition advice, front-end counter setup, backend configuration, barcode scanner and receipt printer planning, staff training, and ongoing AutoCount support.
-        </p>
-      </div>
-
-      <div className="pos-seo-panel" aria-label="AutoCount POS search topics">
-        <h3>Common POS needs we help with</h3>
-        <div className="pos-seo-chips">
-          {POS_SEO_CHIPS.map((chip) => (
-            <span key={chip}>{chip}</span>
-          ))}
-        </div>
-      </div>
-
-      <div className="pos-faq-grid" aria-label="AutoCount POS frequently asked questions">
-        {POS_FAQS.map((item) => (
-          <article key={item.question} className="pos-faq-card">
-            <h3>{item.question}</h3>
-            <p>{item.answer}</p>
-          </article>
-        ))}
-      </div>
-    </div>
   );
 }
 
@@ -1419,7 +1354,7 @@ export default function AutoCountPOSPage({ onContact }) {
         </div>
 
         <section id="system" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-mist">
-          <POSSeoContent />
+
           <POSSystemExplainer />
         </section>
 
