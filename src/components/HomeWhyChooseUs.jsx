@@ -96,7 +96,7 @@ export default function HomeWhyChooseUs({ teamPhoto = "/images/team/group-photo-
   return (
     <section
       id="why-ksl"
-      className="home-section home-snap-panel-scroll home-why-section home-why-editorial"
+      className="home-section home-why-section home-why-editorial"
       aria-labelledby="home-why-heading"
     >
       <div className="home-why-bg" aria-hidden="true">

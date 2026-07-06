@@ -189,8 +189,8 @@ export default function Home({ onContact }) {
           <Hero onContact={onContact} />
         </div>
         <main className="home-content-layer">
-          <HomeWhyChooseUs />
           <Services />
+          <HomeWhyChooseUs />
           <Products onContact={onContact} />
           <OtherServices onContact={onContact} />
           {/* <OurTeam /> */}
