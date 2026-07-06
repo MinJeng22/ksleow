@@ -1327,7 +1327,7 @@ export default function AutoCountPOSPage({ onContact }) {
         <ProductHero
           eyebrow="Software We Specialize In"
           title="AutoCount POS"
-          body="AutoCount POS Malaysia for retail counters, F&B outlets, and branch operations. KSL helps you connect cashier work with AutoCount Accounting, inventory, e-invoice, barcode scanners, receipt printers, and practical outlet reporting."
+          body="AutoCount POS Malaysia for retail counters, F&B outlets, and branch operations. KS Support Team helps you connect cashier work with AutoCount Accounting, inventory, e-invoice, barcode scanners, receipt printers, and practical outlet reporting."
           iconSrc={POS_ICON}
           iconAlt="AutoCount POS"
           backgroundImage={POS_HERO}
