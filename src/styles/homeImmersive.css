@@ -415,7 +415,7 @@ html.is-immersive-home body {
   }
 
   .is-immersive-home .products-section {
-    --products-carousel-h: min(430px, 47vh);
+    --products-carousel-h: min(490px, 51vh);
   }
 
   .is-immersive-home .other-services-section .ks-bento-carousel-slide {
@@ -578,7 +578,7 @@ html.is-immersive-home body {
   }
 
   .is-immersive-home .products-section {
-    --products-carousel-h: min(340px, 43svh);
+    --products-carousel-h: min(400px, 47svh);
   }
 
 }

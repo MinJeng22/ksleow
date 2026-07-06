@@ -11,7 +11,7 @@ const PRINCIPLES = [
   {
     roman: "II",
     title: "Our Mission",
-    desc: "Experts, Not Just Advisors. We deliver complete, ground-up execution—handling everything from your company registration and tax audits to Accounting & POS systems and website development.",
+    desc: "Experts, Not Just Advisors. We deliver complete, ground-up execution—handling everything from your company registration and tax audits to Accounting & POS systems.",
   },
   {
     roman: "III",

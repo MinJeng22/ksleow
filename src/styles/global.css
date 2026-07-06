@@ -1323,11 +1323,11 @@ textarea {
     --site-card-title: 0.88rem;
     --site-card-copy: 0.76rem;
     --carousel-btn-size: 40px;
-    --products-carousel-h: 350px;
+    --products-carousel-h: 410px;
   }
   .products-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .products-grid-carousel { min-height: var(--products-carousel-h) !important; height: auto !important; }
-  .products-section .product-card { min-height: 320px !important; }
+  .products-section .product-card { min-height: 380px !important; }
   #services .services-grid > div { height: 300px !important; }
   .cases-grid    { grid-template-columns: repeat(2, 1fr) !important; }
   .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
@@ -1345,7 +1345,7 @@ textarea {
   .stats-section .content-wrap > * { padding-top: 1.85rem !important; padding-bottom: 1.85rem !important; }
   /* Products section: smaller cards on tablet */
   .products-section h2 { font-size: var(--heading-md) !important; }
-  .products-section { --products-gap: 0.95rem; --products-grid-min-h: 320px; }
+  .products-section { --products-gap: 0.95rem; --products-grid-min-h: 380px; }
 }
 
 /* ── Small tablet (640–900) ── */
@@ -1360,12 +1360,12 @@ textarea {
     --icon-lg: 60px;
     --site-card-title: 0.88rem;
     --site-card-copy: 0.76rem;
-    --products-carousel-h: 330px;
+    --products-carousel-h: 390px;
   }
   .products-grid-carousel { min-height: var(--products-carousel-h) !important; height: auto !important; }
-  .products-section .product-card { min-height: 310px !important; }
+  .products-section .product-card { min-height: 370px !important; }
   #services .services-grid > div { height: 290px !important; }
-  .products-section { --products-grid-min-h: 310px; }
+  .products-section { --products-grid-min-h: 370px; }
   .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .ac-features-showcase {
     padding: 0 0 2.75rem !important;
@@ -1470,7 +1470,7 @@ textarea {
     --site-card-title: 0.9rem;
     --site-card-copy: 0.79rem;
     --carousel-btn-size: 38px;
-    --products-carousel-h: 340px;
+    --products-carousel-h: 400px;
   }
   .services-grid { grid-template-columns: 1fr !important; }
   .ac-features-grid { grid-template-columns: 1fr !important; }
