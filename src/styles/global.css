@@ -3495,11 +3495,16 @@ body.has-active-modal .back-to-top-glass {
 .serverlink-price-link,
 .serverlink-upgrade-table a {
   align-items: center;
+  background: transparent;
+  border: 0;
   color: var(--serverlink-blue-deep);
+  cursor: pointer;
   display: inline-flex;
+  font-family: inherit;
   font-size: var(--text-sm);
   font-weight: 800;
   gap: 0.35rem;
+  padding: 0;
   text-decoration: none;
 }
 
@@ -3540,6 +3545,63 @@ body.has-active-modal .back-to-top-glass {
   border-radius: 18px;
   box-shadow: 0 18px 48px rgba(25, 31, 68, 0.08);
   overflow: hidden;
+}
+
+.serverlink-upgrade-tabs {
+  background:
+    linear-gradient(135deg, rgba(0, 179, 254, 0.1), rgba(47, 49, 90, 0.035));
+  border-bottom: 1px solid rgba(47, 49, 90, 0.08);
+  display: grid;
+  gap: 0.55rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 1rem;
+}
+
+.serverlink-upgrade-tab {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(47, 49, 90, 0.1);
+  border-radius: 999px;
+  color: rgba(47, 49, 90, 0.72);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 800;
+  gap: 0.48rem;
+  justify-content: space-between;
+  min-height: 38px;
+  padding: 0.35rem 0.48rem 0.35rem 0.82rem;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.serverlink-upgrade-tab:hover {
+  border-color: rgba(0, 179, 254, 0.32);
+  color: var(--brand);
+  transform: translateY(-1px);
+}
+
+.serverlink-upgrade-tab.is-active {
+  background: linear-gradient(135deg, var(--serverlink-blue), #0b82c5);
+  border-color: rgba(0, 179, 254, 0.52);
+  box-shadow: 0 12px 28px rgba(0, 179, 254, 0.2);
+  color: #ffffff;
+}
+
+.serverlink-upgrade-tab strong {
+  align-items: center;
+  background: rgba(47, 49, 90, 0.08);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 0.72rem;
+  height: 24px;
+  justify-content: center;
+  min-width: 24px;
+  padding: 0 0.42rem;
+}
+
+.serverlink-upgrade-tab.is-active strong {
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .serverlink-upgrade-table {
@@ -3588,9 +3650,48 @@ body.has-active-modal .back-to-top-glass {
   white-space: nowrap;
 }
 
+.serverlink-table-contact {
+  align-items: center;
+  background: rgba(0, 179, 254, 0.08);
+  border: 1px solid rgba(0, 179, 254, 0.18);
+  border-radius: 999px;
+  color: var(--serverlink-blue-deep);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  gap: 0.35rem;
+  min-height: 34px;
+  padding: 0 0.78rem;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.serverlink-table-contact:hover {
+  background: rgba(0, 179, 254, 0.14);
+  border-color: rgba(0, 179, 254, 0.34);
+  color: #005b94;
+}
+
+.serverlink-table-note {
+  border-top: 1px solid rgba(47, 49, 90, 0.08);
+  color: rgba(47, 49, 90, 0.58);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  text-transform: uppercase;
+}
+
 @media (max-width: 1180px) {
   .serverlink-price-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .serverlink-upgrade-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -3602,6 +3703,10 @@ body.has-active-modal .back-to-top-glass {
 
   .serverlink-pricing-actions {
     justify-content: flex-start;
+  }
+
+  .serverlink-upgrade-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -3617,6 +3722,19 @@ body.has-active-modal .back-to-top-glass {
   .serverlink-pricing-actions .ks-btn,
   .serverlink-pricing-actions .btn-ghost-base {
     width: 100%;
+  }
+
+  .serverlink-upgrade-tabs {
+    display: flex;
+    gap: 0.45rem;
+    overflow-x: auto;
+    padding: 0.85rem;
+    scroll-snap-type: x proximity;
+  }
+
+  .serverlink-upgrade-tab {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
   }
 
   .serverlink-upgrade-table,
@@ -3643,5 +3761,9 @@ body.has-active-modal .back-to-top-glass {
   .serverlink-upgrade-table td {
     border-bottom: 0;
     padding: 0.25rem 0;
+  }
+
+  .serverlink-table-contact {
+    margin-top: 0.35rem;
   }
 }

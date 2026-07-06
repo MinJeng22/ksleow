@@ -7,14 +7,14 @@ import useFavicon from "../../hooks/useFavicon.js";
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent("Hi KS Support Team, I would like to learn more about ServerLink. Thank you.")}`;
 
 const BUNDLE_PLANS = [
-  { users: "01 User", price: "RM1,104.00", value: 1104 },
-  { users: "03 Users", price: "RM2,070.00", value: 2070 },
-  { users: "05 Users", price: "RM2,760.00", value: 2760, featured: true },
-  { users: "10 Users", price: "RM3,864.00", value: 3864 },
-  { users: "20 Users", price: "RM6,072.00", value: 6072 },
-  { users: "30 Users", price: "RM8,556.00", value: 8556 },
-  { users: "40 Users", price: "RM9,660.00", value: 9660 },
-  { users: "Unlimited Users", price: "RM16,560.00", value: 16560 },
+  { users: "01 User", price: "RM1,104.00" },
+  { users: "03 Users", price: "RM2,070.00" },
+  { users: "05 Users", price: "RM2,760.00", featured: true },
+  { users: "10 Users", price: "RM3,864.00" },
+  { users: "20 Users", price: "RM6,072.00" },
+  { users: "30 Users", price: "RM8,556.00" },
+  { users: "40 Users", price: "RM9,660.00" },
+  { users: "Unlimited Users", price: "RM16,560.00" },
 ];
 
 const UPGRADE_TABS = [
@@ -64,9 +64,9 @@ function PricingCard({ plan, onContact }) {
       </div>
       <div className="serverlink-price-row">
         <strong>{plan.price}</strong>
-        <span>One-time bundle (Exclude 8% SST)</span>
+        <span>One-time bundle</span>
       </div>
-      <button className="serverlink-price-link" onClick={onContact}>
+      <button className="serverlink-price-link" onClick={onContact} type="button">
         Contact Us <ArrowIcon />
       </button>
     </article>
@@ -77,21 +77,22 @@ function UpgradeTable({ onContact }) {
   const [activeTab, setActiveTab] = useState(0);
   const activeData = UPGRADE_TABS[activeTab];
 
-  const formatPrice = (value) => {
-    return new Intl.NumberFormat('en-MY', { style: 'currency', currency: 'MYR' }).format(value).replace('MYR', 'RM');
-  };
+  const formatPrice = (value) => `RM${value.toLocaleString("en-MY", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
   return (
     <div className="serverlink-upgrade-table-wrap">
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
+      <div className="serverlink-upgrade-tabs" role="tablist" aria-label="ServerLink upgrade starting user count">
         {UPGRADE_TABS.map((tab, i) => (
           <button 
             key={tab.label}
+            type="button"
+            role="tab"
+            aria-selected={activeTab === i}
             onClick={() => setActiveTab(i)}
-            className={`ks-btn ${activeTab === i ? 'ks-btn-serverlink' : 'btn-ghost-base btn-ghost-dark'}`}
-            style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }}
+            className={`serverlink-upgrade-tab${activeTab === i ? " is-active" : ""}`}
           >
-            {tab.label}
+            <span>{tab.label}</span>
+            <strong>{tab.targets.length}</strong>
           </button>
         ))}
       </div>
@@ -99,7 +100,7 @@ function UpgradeTable({ onContact }) {
         <thead>
           <tr>
             <th>Upgrade To</th>
-            <th>Price (Exclude 8% SST)</th>
+            <th>Price</th>
             <th>Contact</th>
           </tr>
         </thead>
@@ -114,7 +115,7 @@ function UpgradeTable({ onContact }) {
                 </td>
                 <td>{formatPrice(targetInfo.price)}</td>
                 <td>
-                  <button className="ks-btn ks-btn-serverlink" onClick={onContact} style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem', minHeight: 'auto' }}>
+                  <button className="serverlink-table-contact" onClick={onContact} type="button">
                     Contact Us <ArrowIcon />
                   </button>
                 </td>
@@ -123,6 +124,7 @@ function UpgradeTable({ onContact }) {
           })}
         </tbody>
       </table>
+      <p className="serverlink-table-note">Prices exclude 8% SST.</p>
     </div>
   );
 }
@@ -160,6 +162,7 @@ export default function ServerLinkPage({ onContact }) {
                 <h2 className="ks-section-title">ServerLink Remote Access Pricing</h2>
                 <p className="ks-body-text">
                   Choose a ready bundle for a new remote access setup, or add more users when your team grows.
+                  Prices exclude 8% SST.
                 </p>
               </div>
               <div className="serverlink-pricing-actions">
@@ -178,7 +181,7 @@ export default function ServerLinkPage({ onContact }) {
             <div className="serverlink-pricing-note">
               <strong>Bundle includes:</strong> ServerLink Remote Access with 12 months support license.
               For Windows edition requirements, trial setup, server readiness, and installation planning,
-              please contact KS Support Team before purchase.
+              please contact KS Support Team before purchase. Prices exclude 8% SST.
             </div>
           </div>
         </section>
