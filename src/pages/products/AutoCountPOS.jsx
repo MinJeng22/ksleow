@@ -693,18 +693,12 @@ export default function AutoCountPOSPage({ onContact }) {
         }
         #page-autocount-pos .pos-system-visual {
           position: relative;
-          aspect-ratio: 16 / 8.8;
-          overflow: hidden;
           isolation: isolate;
         }
         #page-autocount-pos .pos-system-visual img {
           width: 100%;
-          height: 100%;
+          height: auto;
           display: block;
-          object-fit: cover;
-          border-radius: 8px;
-          border: 1px solid rgba(0, 0, 0, 0.05);
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
         #page-autocount-pos .pos-system-copy {
           padding: clamp(1.35rem, 2.4vw, 1.75rem) 0 0;
@@ -1438,12 +1432,6 @@ export default function AutoCountPOSPage({ onContact }) {
           }
         }
         @media (max-width: 640px) {
-          #page-autocount-pos .pos-system-visual {
-            aspect-ratio: 4 / 3;
-          }
-          #page-autocount-pos .pos-system-visual img {
-            object-position: center;
-          }
           #page-autocount-pos .pos-system-power {
             right: 0.75rem;
             bottom: 0.75rem;
