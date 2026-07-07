@@ -370,7 +370,7 @@ function POSSystemExplainer() {
         <article className="pos-system-card">
           <div className="pos-system-visual pos-system-visual-backend">
             <img src={POS_BACKEND_IMAGE} alt="AutoCount POS backend management screen" loading="lazy" />
-            <span className="pos-screen-dark" aria-hidden="true" />
+            <span className="pos-screen-dark pos-screen-dark--backend" aria-hidden="true" />
           </div>
           <div className="pos-system-copy">
             <span>Backend Computer</span>
@@ -397,7 +397,7 @@ function POSSystemExplainer() {
         <article className="pos-system-card">
           <div className="pos-system-visual pos-system-visual-frontend">
             <img src={POS_FRONTEND_IMAGE} alt="AutoCount POS frontend cashier terminal" loading="lazy" />
-            <span className="pos-screen-dark" aria-hidden="true" />
+            <span className="pos-screen-dark pos-screen-dark--frontend" aria-hidden="true" />
           </div>
           <div className="pos-system-copy">
             <span>Frontend Register Counter</span>
@@ -727,7 +727,7 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos .pos-system-visual-backend img {
           width: 78%;
         }
-        /* Black screen overlay that fades away on is-lit */
+        /* Black screen overlay — only covers the monitor screen area via clip-path */
         #page-autocount-pos .pos-screen-dark {
           position: absolute;
           inset: 0;
@@ -735,8 +735,16 @@ export default function AutoCountPOSPage({ onContact }) {
           background: #000;
           opacity: 1;
           transition: opacity 1400ms cubic-bezier(0.16, 1, 0.3, 1) 200ms;
-          border-radius: 4px;
           pointer-events: none;
+          border-radius: 0;
+        }
+        /* Backend: image is 78% wide centered (11% each side), screen = top 0–64%, sides within image bounds */
+        #page-autocount-pos .pos-screen-dark--backend {
+          clip-path: inset(1% 11% 36% 11%);
+        }
+        /* Frontend: monitor is upper-center within the hardware photo */
+        #page-autocount-pos .pos-screen-dark--frontend {
+          clip-path: inset(4% 22% 43% 26%);
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-screen-dark {
           opacity: 0;
@@ -789,13 +797,13 @@ export default function AutoCountPOSPage({ onContact }) {
           background: var(--pos-accent);
           box-shadow: none;
         }
-        /* Divider column: full-height dashed line with Sync chip centered on image */
+        /* Divider column: full-height dashed line, Sync chip floated at image midpoint */
         #page-autocount-pos .pos-system-divider {
           position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
           min-width: clamp(3rem, 5vw, 5rem);
         }
         #page-autocount-pos .pos-system-divider::before {
@@ -826,7 +834,9 @@ export default function AutoCountPOSPage({ onContact }) {
           );
         }
         #page-autocount-pos .pos-system-divider-chip {
-          position: relative;
+          position: absolute;
+          top: 22%;
+          transform: translateY(-50%);
           z-index: 2;
           display: inline-flex;
           align-items: center;
@@ -843,7 +853,6 @@ export default function AutoCountPOSPage({ onContact }) {
           white-space: nowrap;
           box-shadow: 0 2px 14px rgba(228, 158, 37, 0.08);
           transition: border-color 900ms ease, box-shadow 900ms ease;
-          margin-top: -30%;
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider-chip {
           border-color: rgba(228, 158, 37, 0.72);
@@ -1482,7 +1491,8 @@ export default function AutoCountPOSPage({ onContact }) {
             height: 1px;
           }
           #page-autocount-pos .pos-system-divider-chip {
-            margin-top: 0;
+            position: static;
+            transform: none;
           }
           #page-autocount-pos .pos-system-callout {
             grid-template-columns: 1fr;
