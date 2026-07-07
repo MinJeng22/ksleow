@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import AutoCountTrialModal from "../components/AutoCountTrialModal.jsx";
 import HomeImagePreloader from "../components/HomeImagePreloader";
 import Hero from "../components/Hero";
 import HomeWhyChooseUs from "../components/HomeWhyChooseUs";
@@ -11,6 +12,55 @@ import Footer from "../components/Footer";
 import "../styles/homeImmersive.css";
 
 
+
+const KSL_CONTACT_MODAL_HASHES = new Set(["#ksl-contact", "#contact-ksl", "#qr-contact"]);
+
+const KSL_CONTACT_MESSAGE =
+  "Hi KSL Business Solutions, I scanned your QR code and would like to know more about your POS, hardware, or business software services.";
+
+function shouldOpenKslContactModal() {
+  if (typeof window === "undefined") return false;
+  const params = new URLSearchParams(window.location.search);
+  return (
+    KSL_CONTACT_MODAL_HASHES.has(window.location.hash) ||
+    params.get("modal") === "ksl-contact" ||
+    params.get("contact") === "ksl"
+  );
+}
+
+function clearKslContactModalUrl() {
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  url.searchParams.delete("modal");
+  url.searchParams.delete("contact");
+  if (KSL_CONTACT_MODAL_HASHES.has(url.hash)) url.hash = "";
+  window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+}
+
+function useKslContactDeepLink() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const syncFromUrl = () => setOpen(shouldOpenKslContactModal());
+    syncFromUrl();
+
+    window.addEventListener("hashchange", syncFromUrl);
+    window.addEventListener("popstate", syncFromUrl);
+    return () => {
+      window.removeEventListener("hashchange", syncFromUrl);
+      window.removeEventListener("popstate", syncFromUrl);
+    };
+  }, []);
+
+  const close = () => {
+    setOpen(false);
+    clearKslContactModalUrl();
+  };
+
+  return [open, close];
+}
 
 function useImmersiveHomeScroll() {
   useEffect(() => {
@@ -180,6 +230,7 @@ function useImmersiveHomeScroll() {
 
 export default function Home({ onContact }) {
   useImmersiveHomeScroll();
+  const [kslContactOpen, closeKslContact] = useKslContactDeepLink();
 
   return (
     <>
@@ -200,6 +251,26 @@ export default function Home({ onContact }) {
           </section>
         </main>
       </div>
+      <AutoCountTrialModal
+        open={kslContactOpen}
+        onClose={closeKslContact}
+        productName="KSL Business Solutions"
+        title="Let us help your business run smoother"
+        panelTitle="How KSL can help"
+        whatsappLabel="Chat on WhatsApp"
+        supportMessage={KSL_CONTACT_MESSAGE}
+        stats={[
+          { label: "WhatsApp", value: "017-905 2323" },
+          { label: "Email", value: "support@ksleow.com.my" },
+          { label: "Office", value: "Mentakab, Pahang" },
+        ]}
+        checklist={[
+          <>AutoCount POS, Accounting, CloudAccounting, payroll, and business apps consultation.</>,
+          <>POS hardware, computers, printers, barcode scanners, networking, and technical support.</>,
+          <>SiteGiant integration, AutoCount plugin setup, training, and after-sales service.</>,
+          <>Tell us your outlet, software, or hardware requirement and our team will guide the next step.</>,
+        ]}
+      />
     </>
   );
 }

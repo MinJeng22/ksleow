@@ -29,6 +29,9 @@ export default function AutoCountTrialModal({
   open,
   onClose,
   productName = "AutoCount Accounting 2.2",
+  title = "Start your Free Trial",
+  panelTitle = "Please prepare before installation",
+  whatsappLabel = "WhatsApp Our Support Team",
   supportMessage = "HI KS Support Team, I would like to start the AutoCount Accounting 2.2 Free Trial and schedule an installation session. I can prepare AnyDesk / UltraViewer. I want to try ... edition.",
   stats = [
     { label: "Trial Limit", value: "500 Transactions" },
@@ -199,7 +202,7 @@ export default function AutoCountTrialModal({
             {productName}
           </div>
           <h2 className="ks-section-title" style={{ color: "#ffffff", lineHeight: 1.13, marginBottom: 0, textAlign: "left" }}>
-            Start your Free Trial
+            {title}
           </h2>
         </div>
 
@@ -223,7 +226,7 @@ export default function AutoCountTrialModal({
             marginBottom: "1.25rem",
           }}>
             <div style={{ fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase", color: "#2f315a", marginBottom: "0.75rem" }}>
-              Please prepare before installation
+              {panelTitle}
             </div>
             {checklist.map((item, i) => (
               <ChecklistItem key={i}>{item}</ChecklistItem>
@@ -241,7 +244,7 @@ export default function AutoCountTrialModal({
             }}
           >
             <WhatsAppIcon />
-            WhatsApp Our Support Team
+            {whatsappLabel}
           </a>
         </div>
       </div>
