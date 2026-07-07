@@ -534,7 +534,7 @@ function POSReleaseNotesSection({ search, setSearch, expanded, setExpanded, visi
   const highlightCount = POS_RELEASES.filter((release) => release.highlightsUrl).length;
 
   return (
-    <section id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-to-paper">
+    <section id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-to-warm">
       <div className="content-wrap">
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
           <div>
@@ -631,17 +631,7 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos {
           --pos-accent: ${POS_ACCENT};
           --pos-navy: ${POS_NAVY};
-          background:
-            linear-gradient(
-              180deg,
-              var(--ks-page-paper) 0%,
-              var(--ks-page-paper) 18%,
-              var(--ks-page-mist) 34%,
-              var(--ks-page-ice) 52%,
-              var(--ks-page-cloud) 70%,
-              var(--ks-page-warm) 86%,
-              var(--ks-page-paper) 100%
-            );
+          background: var(--ks-page-paper);
         }
         #page-autocount-pos .ks-btn-primary {
           background: var(--pos-accent) !important;
@@ -1638,16 +1628,16 @@ export default function AutoCountPOSPage({ onContact }) {
           <PageSectionDivider sections={POS_SECTIONS} id="system" />
         </div>
 
-        <section id="system" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-mist">
+        <section id="system" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
 
           <POSSystemExplainer />
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="training" />
         </div>
 
-        <section className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
+        <section className="product-app-section product-app-section-ice product-app-section-from-mist product-app-section-to-cloud">
           <div id="training">
             <AutoCountTrainingWebGL
               customVideos={POS_TUTORIAL_VIDEOS}
@@ -1661,11 +1651,11 @@ export default function AutoCountPOSPage({ onContact }) {
           </div>
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-cloud)" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="editions" />
         </div>
 
-        <section id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-from-paper product-app-section-to-warm" style={{ overflow: "visible" }}>
+        <section id="editions" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-from-ice product-app-section-to-warm" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
               title="POS Backend Editions"
@@ -1692,11 +1682,11 @@ export default function AutoCountPOSPage({ onContact }) {
           </div>
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-warm)" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-cloud)", "--section-to": "var(--ks-page-warm)" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="frontend" />
         </div>
 
-        <section id="frontend" className="ac-section-tight product-app-section product-app-section-warm product-app-section-to-paper" style={{ overflow: "visible" }}>
+        <section id="frontend" className="ac-section-tight product-app-section product-app-section-warm product-app-section-from-cloud product-app-section-to-cloud" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
               title="POS Front End Editions"
@@ -1730,7 +1720,7 @@ export default function AutoCountPOSPage({ onContact }) {
           setVisibleLimit={setReleaseVisibleLimit}
         />
 
-        <WhyChooseUs section={getSection(POS_SECTIONS, "why-ksl")} sectionFrom="var(--ks-page-cloud)" sectionTo="var(--ks-page-paper)" />
+        <WhyChooseUs section={getSection(POS_SECTIONS, "why-ksl")} sectionFrom="var(--ks-page-cloud)" sectionTo="var(--ks-page-warm)" />
 
         <EnquireNowCTA
           heading="Ready to build your POS setup?"
