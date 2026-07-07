@@ -19,7 +19,15 @@ import {
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
-import { getCloudPromotions, getAccountingPromotions } from "../../data/promotions.js";
+const POS_PROMOTIONS = [
+  { image: "" },
+  {
+    title: "Earn rewards when you refer AutoCount users",
+    image: "/images/promotions/ksl-referral-program.webp",
+    cta: { href: `https://wa.me/60179052323?text=${encodeURIComponent("Hi, I'm interested in AutoCount POS. Can you share more details?")}`, target: "_blank", label: "WhatsApp Us" },
+  },
+  { image: "" },
+];
 import { CompareFeatureCell } from "../../components/CompareTable.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
@@ -378,7 +386,13 @@ function POSSystemExplainer() {
         </article>
 
         <div className="pos-system-divider" aria-hidden="true">
-          <span>sync</span>
+          <div className="pos-system-divider-line pos-system-divider-line-left" />
+          <div className="pos-system-divider-chip">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="5 12 3 12 12 3 21 12 19 12" /><polyline points="5 12 3 12 12 21 21 12 19 12" style={{display:"none"}} /></svg>
+            <span>sync</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="19 12 21 12 12 21 3 12 5 12" /></svg>
+          </div>
+          <div className="pos-system-divider-line pos-system-divider-line-right" />
         </div>
 
         <article className="pos-system-card">
@@ -401,10 +415,15 @@ function POSSystemExplainer() {
       </div>
 
       <aside className="pos-system-callout">
-        <strong>Single-PC setup is possible.</strong>
-        <span>
-          Backend and Frontend can run on the same computer if you do not want to split them into two machines, but the PC specification should be stronger for smoother cashier, sync, reporting, and backup performance.
-        </span>
+        <div className="pos-system-callout-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div className="pos-system-callout-body">
+          <strong>Single-PC setup is possible.</strong>
+          <span>
+            Backend and Frontend can run on the same computer — but the PC should have stronger specs for smooth cashier, sync, reporting, and backup performance.
+          </span>
+        </div>
       </aside>
     </div>
   );
@@ -749,68 +768,106 @@ export default function AutoCountPOSPage({ onContact }) {
           box-shadow: none;
         }
         #page-autocount-pos .pos-system-divider {
-          position: relative;
           display: flex;
-          align-items: flex-start;
-          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 0;
           min-width: clamp(3rem, 5vw, 5rem);
           padding-top: clamp(3.7rem, 6.1vw, 5.3rem);
         }
-        #page-autocount-pos .pos-system-divider::before {
-          content: "";
-          position: absolute;
-          top: clamp(4.95rem, 6.1vw, 6.25rem);
-          right: -0.75rem;
-          left: -0.75rem;
-          border-top: 1px dashed rgba(0, 0, 0, 0.15);
-          transition: border-color 900ms ease, filter 900ms ease;
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider::before {
-          border-color: rgba(228, 158, 37, 0.4);
-          filter: drop-shadow(0 0 8px rgba(228, 158, 37, 0.12));
-        }
-        #page-autocount-pos .pos-system-divider span {
+        #page-autocount-pos .pos-system-divider-chip {
           position: relative;
-          z-index: 1;
+          z-index: 2;
           display: inline-flex;
           align-items: center;
-          justify-content: center;
-          width: 3.15rem;
-          height: 3.15rem;
-          border: 1px dashed rgba(228, 158, 37, 0.48);
+          gap: 0.3rem;
+          padding: 0.52rem 0.88rem;
+          border: 1.5px dashed rgba(228, 158, 37, 0.55);
           border-radius: 999px;
           background: #fff;
           color: var(--pos-accent);
-          font-size: 0.68rem;
+          font-size: 0.63rem;
           font-weight: 880;
-          letter-spacing: 0.11em;
+          letter-spacing: 0.13em;
           text-transform: uppercase;
+          white-space: nowrap;
+          box-shadow: 0 2px 14px rgba(228, 158, 37, 0.08);
+          transition: border-color 900ms ease, box-shadow 900ms ease;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider-chip {
+          border-color: rgba(228, 158, 37, 0.72);
+          box-shadow: 0 2px 18px rgba(228, 158, 37, 0.18);
+        }
+        #page-autocount-pos .pos-system-divider-line-left,
+        #page-autocount-pos .pos-system-divider-line-right {
+          flex: 1;
+          width: 1px;
+          background: repeating-linear-gradient(
+            to bottom,
+            rgba(228, 158, 37, 0.18) 0px,
+            rgba(228, 158, 37, 0.18) 5px,
+            transparent 5px,
+            transparent 10px
+          );
+          min-height: 1.5rem;
+          transition: background 900ms ease;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider-line-left,
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider-line-right {
+          background: repeating-linear-gradient(
+            to bottom,
+            rgba(228, 158, 37, 0.52) 0px,
+            rgba(228, 158, 37, 0.52) 5px,
+            transparent 5px,
+            transparent 10px
+          );
         }
         #page-autocount-pos .pos-system-callout {
-          display: grid;
-          grid-template-columns: minmax(180px, 0.78fr) minmax(0, 1.22fr);
-          align-items: start;
-          gap: clamp(1.2rem, 3vw, 2.4rem);
+          display: flex;
+          align-items: center;
+          gap: clamp(1rem, 2.5vw, 1.5rem);
           margin: clamp(2rem, 4vw, 3rem) 0 0;
-          border: 1px solid rgba(228, 158, 37, 0.32);
-          padding: clamp(1.1rem, 2.5vw, 1.55rem);
-          background: #fff;
-          border-radius: 8px;
+          border: 1.5px solid rgba(228, 158, 37, 0.28);
+          padding: clamp(1rem, 2.2vw, 1.4rem) clamp(1.1rem, 2.5vw, 1.6rem);
+          background: linear-gradient(135deg, rgba(255, 248, 230, 0.9), #fff 60%);
+          border-radius: 12px;
+          box-shadow: 0 4px 24px rgba(228, 158, 37, 0.07);
           opacity: 0;
-          transform: translateY(10px);
+          transform: translateY(12px);
           transition:
-            opacity 850ms ease 240ms,
-            transform 900ms cubic-bezier(0.19, 1, 0.22, 1) 240ms;
+            opacity 850ms ease 360ms,
+            transform 900ms cubic-bezier(0.19, 1, 0.22, 1) 360ms;
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-callout {
           opacity: 1;
           transform: translateY(0);
         }
+        #page-autocount-pos .pos-system-callout-icon {
+          flex-shrink: 0;
+          width: 2.5rem;
+          height: 2.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 10px;
+          background: rgba(228, 158, 37, 0.1);
+          color: var(--pos-accent);
+        }
+        #page-autocount-pos .pos-system-callout-body {
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+        }
         #page-autocount-pos .pos-system-callout strong {
-          font-size: 1rem;
-          line-height: 1.35;
+          color: var(--pos-navy);
+          font-size: 0.95rem;
+          font-weight: 760;
+          line-height: 1.3;
         }
         #page-autocount-pos .pos-system-callout span {
+          color: #626783;
+          font-size: 0.88rem;
           line-height: 1.7;
         }
         #page-autocount-pos .pos-seo-content {
@@ -1499,7 +1556,7 @@ export default function AutoCountPOSPage({ onContact }) {
           <ProductPromotionBento
             title="Current AutoCount POS Offers"
             accent="#80c31e"
-            items={getAccountingPromotions(WA_LINK)}
+            items={POS_PROMOTIONS}
           />
         </div>
 
