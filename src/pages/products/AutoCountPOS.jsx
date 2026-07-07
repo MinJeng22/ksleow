@@ -228,7 +228,6 @@ const POS_MODULE_SECTIONS = [
 const COUNTER_COLUMNS = ["A", "B", "Branch"];
 const COUNTER_ROWS = [
   { label: "Software", values: ["RM 2,300", "RM 1,300", "RM 2,900"], type: "price" },
-  { label: "Support", values: ["1 Year", "1 Year", "1 Year"] },
   { label: "Local Database", values: ["Included", "-", "Included"] },
 ];
 
