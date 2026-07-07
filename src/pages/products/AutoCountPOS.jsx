@@ -297,7 +297,7 @@ function POSCompareTable({
                   renderRow({
                     label,
                     meta: inlinePrice ? values[0] : null,
-                    values: inlinePrice ? values.slice(1) : values,
+                    values: values.slice(1),
                     type: label === "Software" ? "price" : undefined,
                   })
                 )}
@@ -446,14 +446,14 @@ function POSSystemExplainer() {
           onClick={() => setLightboxImage(null)} 
           style={{ zIndex: 99999, animation: "promo-lightbox-fade 0.2s ease forwards", cursor: "zoom-out" }}
         >
-          <div className="promo-lightbox-frame" onClick={(e) => e.stopPropagation()} style={{ cursor: "default" }}>
+          <div className="promo-lightbox-frame" onClick={(e) => e.stopPropagation()} style={{ cursor: "default", maxWidth: "80vw", maxHeight: "85vh" }}>
             <button className="partner-modal-close" onClick={() => setLightboxImage(null)} aria-label="Close" style={{ top: 16, right: 16 }}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
             </button>
-            <img src={lightboxImage} alt="Fullscreen UI" className="promo-lightbox-img" loading="eager" decoding="async" fetchpriority="high" />
+            <img src={lightboxImage} alt="Fullscreen UI" className="promo-lightbox-img" style={{ maxWidth: "100%", maxHeight: "85vh" }} loading="eager" decoding="async" fetchpriority="high" />
           </div>
         </div>,
         document.body
@@ -771,7 +771,7 @@ export default function AutoCountPOSPage({ onContact }) {
           z-index: 2;
           opacity: 0;
           pointer-events: none;
-          transition: opacity 1400ms cubic-bezier(0.16, 1, 0.3, 1) 200ms;
+          transition: opacity 2800ms cubic-bezier(0.16, 1, 0.3, 1) 300ms;
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-img-overlay {
           opacity: 1;
