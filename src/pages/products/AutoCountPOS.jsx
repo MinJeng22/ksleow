@@ -41,7 +41,9 @@ const POS_NAVY = "#2f315a";
 const POS_HERO = "/images/products/autocount-pos-showcase.webp";
 const POS_ICON = "/images/products/autocount-pos.webp";
 const POS_BACKEND_IMAGE = "/images/products/autocount-pos-backend.png";
+const POS_BACKEND_IMAGE_BLACK = "/images/products/autocount-pos-backend-black.png";
 const POS_FRONTEND_IMAGE = "/images/products/autocount-pos-frontend.png";
+const POS_FRONTEND_IMAGE_BLACK = "/images/products/autocount-pos-frontend-black.png";
 const FREE_TRIAL_URL = "https://auth.autocountcloud.com/identity/account/register/accounting?dealerCode=SYNS6037";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -369,8 +371,8 @@ function POSSystemExplainer() {
       <div className="pos-system-layout">
         <article className="pos-system-card">
           <div className="pos-system-visual pos-system-visual-backend">
-            <img src={POS_BACKEND_IMAGE} alt="AutoCount POS backend management screen" loading="lazy" />
-            <span className="pos-screen-dark pos-screen-dark--backend" aria-hidden="true" />
+            <img src={POS_BACKEND_IMAGE_BLACK} alt="AutoCount POS backend management screen" loading="lazy" className="pos-img-base" />
+            <img src={POS_BACKEND_IMAGE} alt="" aria-hidden="true" className="pos-img-overlay" />
           </div>
           <div className="pos-system-copy">
             <span>Backend Computer</span>
@@ -396,8 +398,8 @@ function POSSystemExplainer() {
 
         <article className="pos-system-card">
           <div className="pos-system-visual pos-system-visual-frontend">
-            <img src={POS_FRONTEND_IMAGE} alt="AutoCount POS frontend cashier terminal" loading="lazy" />
-            <span className="pos-screen-dark pos-screen-dark--frontend" aria-hidden="true" />
+            <img src={POS_FRONTEND_IMAGE_BLACK} alt="AutoCount POS frontend cashier terminal" loading="lazy" className="pos-img-base" />
+            <img src={POS_FRONTEND_IMAGE} alt="" aria-hidden="true" className="pos-img-overlay" />
           </div>
           <div className="pos-system-copy">
             <span>Frontend Register Counter</span>
@@ -722,33 +724,26 @@ export default function AutoCountPOSPage({ onContact }) {
           width: 100%;
           height: auto;
           display: block;
-          position: relative;
-          z-index: 1;
         }
         #page-autocount-pos .pos-system-visual-backend img {
           width: 78%;
         }
-        /* Black screen overlay — only covers the monitor screen area via clip-path */
-        #page-autocount-pos .pos-screen-dark {
+        #page-autocount-pos .pos-img-base {
+          position: relative;
+          z-index: 1;
+        }
+        #page-autocount-pos .pos-img-overlay {
           position: absolute;
-          inset: 0;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
           z-index: 2;
-          background: #000;
-          opacity: 1;
-          transition: opacity 1400ms cubic-bezier(0.16, 1, 0.3, 1) 200ms;
-          pointer-events: none;
-          border-radius: 0;
-        }
-        /* Backend: image is 78% wide centered (11% each side), screen = top 0–64%, sides within image bounds */
-        #page-autocount-pos .pos-screen-dark--backend {
-          clip-path: inset(1% 11% 36% 11%);
-        }
-        /* Frontend: monitor is upper-center within the hardware photo */
-        #page-autocount-pos .pos-screen-dark--frontend {
-          clip-path: inset(4% 22% 43% 26%);
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-screen-dark {
           opacity: 0;
+          pointer-events: none;
+          transition: opacity 1400ms cubic-bezier(0.16, 1, 0.3, 1) 200ms;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-img-overlay {
+          opacity: 1;
         }
         #page-autocount-pos .pos-system-copy {
           padding: clamp(1.35rem, 2.4vw, 1.75rem) 0 0;
