@@ -370,6 +370,7 @@ function POSSystemExplainer() {
         <article className="pos-system-card">
           <div className="pos-system-visual pos-system-visual-backend">
             <img src={POS_BACKEND_IMAGE} alt="AutoCount POS backend management screen" loading="lazy" />
+            <span className="pos-screen-dark" aria-hidden="true" />
           </div>
           <div className="pos-system-copy">
             <span>Backend Computer</span>
@@ -386,18 +387,17 @@ function POSSystemExplainer() {
         </article>
 
         <div className="pos-system-divider" aria-hidden="true">
-          <div className="pos-system-divider-line pos-system-divider-line-left" />
           <div className="pos-system-divider-chip">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="5 12 3 12 12 3 21 12 19 12" /><polyline points="5 12 3 12 12 21 21 12 19 12" style={{display:"none"}} /></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="5 12 3 12 12 3 21 12 19 12" /></svg>
             <span>sync</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="19 12 21 12 12 21 3 12 5 12" /></svg>
           </div>
-          <div className="pos-system-divider-line pos-system-divider-line-right" />
         </div>
 
         <article className="pos-system-card">
           <div className="pos-system-visual pos-system-visual-frontend">
             <img src={POS_FRONTEND_IMAGE} alt="AutoCount POS frontend cashier terminal" loading="lazy" />
+            <span className="pos-screen-dark" aria-hidden="true" />
           </div>
           <div className="pos-system-copy">
             <span>Frontend Register Counter</span>
@@ -721,9 +721,25 @@ export default function AutoCountPOSPage({ onContact }) {
           width: 100%;
           height: auto;
           display: block;
+          position: relative;
+          z-index: 1;
         }
         #page-autocount-pos .pos-system-visual-backend img {
           width: 78%;
+        }
+        /* Black screen overlay that fades away on is-lit */
+        #page-autocount-pos .pos-screen-dark {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          background: #000;
+          opacity: 1;
+          transition: opacity 1400ms cubic-bezier(0.16, 1, 0.3, 1) 200ms;
+          border-radius: 4px;
+          pointer-events: none;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-screen-dark {
+          opacity: 0;
         }
         #page-autocount-pos .pos-system-copy {
           padding: clamp(1.35rem, 2.4vw, 1.75rem) 0 0;
@@ -773,14 +789,41 @@ export default function AutoCountPOSPage({ onContact }) {
           background: var(--pos-accent);
           box-shadow: none;
         }
+        /* Divider column: full-height dashed line with Sync chip centered on image */
         #page-autocount-pos .pos-system-divider {
+          position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: flex-start;
-          gap: 0;
+          justify-content: center;
           min-width: clamp(3rem, 5vw, 5rem);
-          padding-top: clamp(3.7rem, 6.1vw, 5.3rem);
+        }
+        #page-autocount-pos .pos-system-divider::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 1px;
+          background: repeating-linear-gradient(
+            to bottom,
+            rgba(228, 158, 37, 0.18) 0px,
+            rgba(228, 158, 37, 0.18) 5px,
+            transparent 5px,
+            transparent 10px
+          );
+          transition: background 900ms ease;
+          z-index: 0;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider::before {
+          background: repeating-linear-gradient(
+            to bottom,
+            rgba(228, 158, 37, 0.52) 0px,
+            rgba(228, 158, 37, 0.52) 5px,
+            transparent 5px,
+            transparent 10px
+          );
         }
         #page-autocount-pos .pos-system-divider-chip {
           position: relative;
@@ -800,34 +843,11 @@ export default function AutoCountPOSPage({ onContact }) {
           white-space: nowrap;
           box-shadow: 0 2px 14px rgba(228, 158, 37, 0.08);
           transition: border-color 900ms ease, box-shadow 900ms ease;
+          margin-top: -30%;
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider-chip {
           border-color: rgba(228, 158, 37, 0.72);
           box-shadow: 0 2px 18px rgba(228, 158, 37, 0.18);
-        }
-        #page-autocount-pos .pos-system-divider-line-left,
-        #page-autocount-pos .pos-system-divider-line-right {
-          flex: 1;
-          width: 1px;
-          background: repeating-linear-gradient(
-            to bottom,
-            rgba(228, 158, 37, 0.18) 0px,
-            rgba(228, 158, 37, 0.18) 5px,
-            transparent 5px,
-            transparent 10px
-          );
-          min-height: 1.5rem;
-          transition: background 900ms ease;
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider-line-left,
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider-line-right {
-          background: repeating-linear-gradient(
-            to bottom,
-            rgba(228, 158, 37, 0.52) 0px,
-            rgba(228, 158, 37, 0.52) 5px,
-            transparent 5px,
-            transparent 10px
-          );
         }
         #page-autocount-pos .pos-system-callout {
           display: flex;
@@ -1458,6 +1478,11 @@ export default function AutoCountPOSPage({ onContact }) {
             left: 0;
             border-top: 1px dashed rgba(247, 244, 235, 0.24);
             border-left: 0;
+            width: 100%;
+            height: 1px;
+          }
+          #page-autocount-pos .pos-system-divider-chip {
+            margin-top: 0;
           }
           #page-autocount-pos .pos-system-callout {
             grid-template-columns: 1fr;
