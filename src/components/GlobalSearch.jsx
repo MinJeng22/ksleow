@@ -45,7 +45,7 @@ const SEARCH_INDEX = [
     title: "ServerLink",
     path: "/products/serverlink",
     keywords: "serverlink, remote, access, server, connection, work from home",
-    icon: <img src="/images/products/serverlink-icon.png" alt="ServerLink" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
+    icon: <img src="/images/products/serverlink-icon.webp" alt="ServerLink" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
     title: "AutoCount Cloud Payroll",

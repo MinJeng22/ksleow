@@ -41,12 +41,12 @@ const POS_ACCENT = "#e49e25";
 const POS_NAVY = "#2f315a";
 const POS_HERO = "/images/products/autocount-pos-showcase.webp";
 const POS_ICON = "/images/products/autocount-pos.webp";
-const POS_BACKEND_IMAGE = "/images/products/autocount-pos-backend.png";
-const POS_BACKEND_IMAGE_BLACK = "/images/products/autocount-pos-backend-black.png";
-const POS_BACKEND_UI = "/images/products/autocount-pos-backend-ui.png";
-const POS_FRONTEND_IMAGE = "/images/products/autocount-pos-frontend.png";
-const POS_FRONTEND_IMAGE_BLACK = "/images/products/autocount-pos-frontend-black.png";
-const POS_FRONTEND_UI = "/images/products/autocount-pos-frontend-ui.png";
+const POS_BACKEND_IMAGE = "/images/products/autocount-pos-backend.webp";
+const POS_BACKEND_IMAGE_BLACK = "/images/products/autocount-pos-backend-black.webp";
+const POS_BACKEND_UI = "/images/products/autocount-pos-backend-ui.webp";
+const POS_FRONTEND_IMAGE = "/images/products/autocount-pos-frontend.webp";
+const POS_FRONTEND_IMAGE_BLACK = "/images/products/autocount-pos-frontend-black.webp";
+const POS_FRONTEND_UI = "/images/products/autocount-pos-frontend-ui.webp";
 const FREE_TRIAL_URL = "https://auth.autocountcloud.com/identity/account/register/accounting?dealerCode=SYNS6037";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -73,7 +73,7 @@ const POS_TUTORIAL_VIDEOS = [
     label: "POS Tutorial",
     description: "Follow AutoCount POS training videos for front-end cashier flow, backend setup, item and stock handling, and the practical steps your outlet team needs before going live.",
     note: "POS Guide",
-    customThumbnail: "/images/products/pos-tutorial-thumb.png",
+    customThumbnail: "/images/products/pos-tutorial-thumb.webp",
     thumbnailCropScale: 1.0,
     icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5" /><path d="M8 20v2h8v-2" /><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none" /></svg>,
   },

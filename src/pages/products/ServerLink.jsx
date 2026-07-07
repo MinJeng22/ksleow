@@ -131,7 +131,7 @@ function UpgradeTable({ onContact }) {
 
 export default function ServerLinkPage({ onContact }) {
   const [trialOpen, setTrialOpen] = useState(false);
-  useFavicon("/images/products/serverlink-icon.png");
+  useFavicon("/images/products/serverlink-icon.webp");
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, []);
 
   const openContact = () => {
@@ -146,7 +146,7 @@ export default function ServerLinkPage({ onContact }) {
           eyebrow="Remote Access Solution"
           title="ServerLink"
           body="Secure, fast, and reliable remote access solution for your business software."
-          iconSrc="/images/products/serverlink-icon.png"
+          iconSrc="/images/products/serverlink-icon.webp"
           backgroundImage="/images/products/serverlink-showcase.webp"
           primaryCta={{ label: "Start Free Trial", onClick: () => setTrialOpen(true), className: "ks-btn-serverlink" }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
