@@ -665,13 +665,7 @@ export default function AutoCountPOSPage({ onContact }) {
           font-size: 0.98rem;
           line-height: 1.75;
         }
-        #page-autocount-pos .pos-system-section {
-          --product-section-bg: #1b211e;
-          --product-section-from: #1b211e;
-          --product-section-to: #1b211e;
-          --product-section-glow: 0;
-          background: #1b211e;
-        }
+
         #page-autocount-pos .pos-system-wrap {
           max-width: 1180px;
         }
@@ -1515,14 +1509,7 @@ export default function AutoCountPOSPage({ onContact }) {
 
         <div className="product-app-section product-app-section-paper product-app-section-clean">
           <ProductPromotionBento
-            id="promotions"
-            title="CloudAccounting Subscription Offers"
-            accent="#16a14b"
-            items={getCloudPromotions(FREE_TRIAL_URL)}
-          />
-          <div style={{ height: "4rem" }} />
-          <ProductPromotionBento
-            title="Current AutoCount Accounting Offers"
+            title="Current AutoCount POS Offers"
             accent="#80c31e"
             items={getAccountingPromotions(WA_LINK)}
           />
