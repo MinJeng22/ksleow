@@ -713,11 +713,17 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos .pos-system-visual {
           position: relative;
           isolation: isolate;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         #page-autocount-pos .pos-system-visual img {
           width: 100%;
           height: auto;
           display: block;
+        }
+        #page-autocount-pos .pos-system-visual-backend img {
+          width: 78%;
         }
         #page-autocount-pos .pos-system-copy {
           padding: clamp(1.35rem, 2.4vw, 1.75rem) 0 0;
