@@ -13,7 +13,7 @@ import "../styles/homeImmersive.css";
 
 
 
-const KSL_CONTACT_MODAL_HASHES = new Set(["#ksl-contact", "#contact-ksl", "#qr-contact"]);
+const KSL_CONTACT_MODAL_HASHES = new Set(["#kslbs", "#contact-kslbs", "#qr-contact"]);
 
 const KSL_CONTACT_MESSAGE =
   "Hi KSL Business Solutions, I scanned your QR code and would like to know more about your POS, hardware, or business software services.";
@@ -23,8 +23,8 @@ function shouldOpenKslContactModal() {
   const params = new URLSearchParams(window.location.search);
   return (
     KSL_CONTACT_MODAL_HASHES.has(window.location.hash) ||
-    params.get("modal") === "ksl-contact" ||
-    params.get("contact") === "ksl"
+    params.get("modal") === "kslbs" ||
+    params.get("contact") === "kslbs"
   );
 }
 
