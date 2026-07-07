@@ -407,9 +407,7 @@ function POSSystemExplainer() {
   return (
     <div ref={sectionRef} className={`content-wrap pos-system-wrap ${isLit ? "is-lit" : ""}`}>
       <SectionIntro
-        eyebrow="Backend + Frontend"
         title="Understand AutoCount POS Backend and Frontend"
-        text="AutoCount POS works as a connected system: the backend computer controls business data and reporting, while the frontend register counter handles cashier operations."
       />
 
       <div className="pos-system-layout">
