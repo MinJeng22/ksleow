@@ -1,6 +1,8 @@
 export const getAccountingPromotions = (waLink) => [
   {
-    image: "",
+    title: "AutoCount 1 Account Plus 1 Promo",
+    image: "/images/promotions/autocount-1accountplus-1.webp",
+    cta: { href: waLink, target: "_blank", label: "WhatsApp Us" },
   },
   {
     title: "Earn rewards when you refer AutoCount users",
@@ -8,13 +10,17 @@ export const getAccountingPromotions = (waLink) => [
     cta: { href: waLink, target: "_blank", label: "WhatsApp Us" },
   },
   {
-    image: "",
+    title: "Buy AutoCount Accounting & Enjoy Free Training",
+    image: "/images/promotions/autocountaccounting-free.webp",
+    cta: { href: waLink, target: "_blank", label: "WhatsApp Us" },
   },
 ];
 
 export const getCloudPromotions = (freeTrialUrl) => [
   {
-    image: "",
+    title: "24 Months Subscription with 75% Off",
+    image: "/images/promotions/autocount-cloudaccounting-75-promo.webp",
+    cta: { href: freeTrialUrl, target: "_blank", label: "Start Free Trial" },
   },
   {
     title: "Earn rewards when you refer AutoCount users",
@@ -22,6 +28,8 @@ export const getCloudPromotions = (freeTrialUrl) => [
     cta: { href: freeTrialUrl, target: "_blank", label: "Start Free Trial" },
   },
   {
-    image: "",
+    title: "CloudAccounting 65 Promo",
+    image: "/images/promotions/autocount-cloudaccounting-65-promo.webp",
+    cta: { href: freeTrialUrl, target: "_blank", label: "Start Free Trial" },
   },
 ];
