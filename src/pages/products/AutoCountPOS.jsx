@@ -664,70 +664,50 @@ export default function AutoCountPOSPage({ onContact }) {
           font-size: 0.98rem;
           line-height: 1.75;
         }
+        #page-autocount-pos .pos-system-section {
+          --product-section-bg: #1b211e;
+          --product-section-from: #1b211e;
+          --product-section-to: #1b211e;
+          --product-section-glow: 0;
+          background: #1b211e;
+        }
         #page-autocount-pos .pos-system-wrap {
-          max-width: 1240px;
+          max-width: 1180px;
+          color: rgba(247, 244, 235, 0.9);
+        }
+        #page-autocount-pos .pos-system-wrap .pos-section-intro {
+          margin-bottom: clamp(2rem, 4vw, 3.1rem);
+        }
+        #page-autocount-pos .pos-system-wrap .pos-section-intro h2 {
+          justify-content: flex-start !important;
+        }
+        #page-autocount-pos .pos-system-wrap .ks-section-title {
+          color: #f5f1e8;
+        }
+        #page-autocount-pos .pos-system-wrap .pos-section-intro p {
+          margin-left: 0;
+          margin-right: 0;
+          color: rgba(247, 244, 235, 0.58);
         }
         #page-autocount-pos .pos-system-layout {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-          gap: clamp(1rem, 2vw, 1.35rem);
+          grid-template-columns: minmax(0, 1fr) minmax(3rem, 6vw) minmax(0, 1fr);
+          gap: clamp(1.35rem, 3.2vw, 2.6rem);
           align-items: stretch;
         }
         #page-autocount-pos .pos-system-card {
           position: relative;
-          overflow: hidden;
-          border: 1px solid rgba(47, 49, 90, 0.1);
-          border-radius: 8px;
-          background:
-            linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.76)),
-            radial-gradient(circle at 50% 0%, rgba(228, 158, 37, 0.13), transparent 42%);
-          box-shadow: 0 18px 48px rgba(47, 49, 90, 0.08);
-          transform: translateY(0);
-          opacity: 1;
-          transition:
-            box-shadow 900ms ease,
-            border-color 900ms ease;
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-card {
-          border-color: rgba(228, 158, 37, 0.22);
-          box-shadow: 0 22px 70px rgba(47, 49, 90, 0.1);
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
         }
         #page-autocount-pos .pos-system-visual {
           position: relative;
-          aspect-ratio: 16 / 10.5;
+          aspect-ratio: 16 / 8.8;
           overflow: hidden;
-          background: #101221;
+          border: 1px solid rgba(247, 244, 235, 0.18);
+          background: #151915;
           isolation: isolate;
-        }
-        #page-autocount-pos .pos-system-visual::before,
-        #page-autocount-pos .pos-system-visual::after {
-          content: "";
-          position: absolute;
-          z-index: 2;
-          pointer-events: none;
-        }
-        #page-autocount-pos .pos-system-visual::before {
-          inset: 0;
-          background:
-            radial-gradient(circle at 50% 55%, rgba(228, 158, 37, 0.12), transparent 38%),
-            linear-gradient(180deg, rgba(8, 9, 16, 0.12), rgba(8, 9, 16, 0.08));
-          opacity: 0.24;
-          transition: opacity 900ms ease;
-        }
-        #page-autocount-pos .pos-system-visual::after {
-          inset: auto 12% -18% 12%;
-          height: 42%;
-          border-radius: 999px;
-          background: rgba(228, 158, 37, 0.34);
-          filter: blur(34px);
-          opacity: 0;
-          transition: opacity 1100ms cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-visual::before {
-          opacity: 0.08;
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-visual::after {
-          opacity: 1;
         }
         #page-autocount-pos .pos-system-visual img {
           width: 100%;
@@ -735,12 +715,12 @@ export default function AutoCountPOSPage({ onContact }) {
           display: block;
           object-fit: cover;
           transform: scale(1);
-          filter: brightness(0.96) saturate(0.98) contrast(1);
+          filter: brightness(0.94) saturate(0.96) contrast(1);
           transition:
             filter 900ms ease;
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-visual img {
-          filter: brightness(1) saturate(1.02) contrast(1.01);
+          filter: brightness(1) saturate(1) contrast(1);
         }
         #page-autocount-pos .pos-system-screen-cover {
           position: absolute;
@@ -748,15 +728,12 @@ export default function AutoCountPOSPage({ onContact }) {
           display: block;
           border: 1px solid rgba(255, 255, 255, 0.08);
           background:
-            radial-gradient(circle at 50% 45%, rgba(228, 158, 37, 0.08), transparent 36%),
             linear-gradient(180deg, #05060a 0%, #0c0e16 100%);
           box-shadow:
-            inset 0 0 42px rgba(0, 0, 0, 0.78),
-            0 0 0 rgba(228, 158, 37, 0);
+            inset 0 0 42px rgba(0, 0, 0, 0.78);
           opacity: 0.96;
           transition:
-            opacity 1250ms cubic-bezier(0.19, 1, 0.22, 1),
-            box-shadow 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+            opacity 1250ms cubic-bezier(0.19, 1, 0.22, 1);
         }
         #page-autocount-pos .pos-system-visual-backend .pos-system-screen-cover {
           top: 4.5%;
@@ -774,42 +751,30 @@ export default function AutoCountPOSPage({ onContact }) {
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-screen-cover {
           opacity: 0;
-          box-shadow:
-            inset 0 0 0 rgba(0, 0, 0, 0),
-            0 0 44px rgba(228, 158, 37, 0.55);
+          box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
         }
         #page-autocount-pos .pos-system-power {
-          position: absolute;
-          right: 1rem;
-          bottom: 1rem;
-          z-index: 4;
+          position: static;
           display: inline-flex;
           align-items: center;
           gap: 0.45rem;
-          border: 1px solid rgba(255, 255, 255, 0.26);
-          border-radius: 999px;
-          padding: 0.45rem 0.7rem;
-          background: rgba(12, 14, 26, 0.58);
-          color: rgba(255, 255, 255, 0.72);
-          font-size: 0.72rem;
-          font-weight: 800;
-          letter-spacing: 0.08em;
+          margin-top: 1rem;
+          color: rgba(247, 244, 235, 0.66);
+          font-size: 0.68rem;
+          font-weight: 760;
+          letter-spacing: 0.28em;
           text-transform: uppercase;
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
-          opacity: 0.62;
+          opacity: 0.78;
           transition:
             opacity 900ms ease,
-            color 900ms ease,
-            background 900ms ease,
-            border-color 900ms ease;
+            color 900ms ease;
         }
         #page-autocount-pos .pos-system-power::before {
           content: "";
-          width: 0.5rem;
-          height: 0.5rem;
+          width: 0.34rem;
+          height: 0.34rem;
           border-radius: 999px;
-          background: #687084;
+          background: rgba(228, 158, 37, 0.42);
           box-shadow: 0 0 0 rgba(228, 158, 37, 0);
           transition:
             background 900ms ease,
@@ -817,76 +782,77 @@ export default function AutoCountPOSPage({ onContact }) {
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-power {
           opacity: 1;
-          color: #ffffff;
-          background: rgba(18, 20, 35, 0.7);
-          border-color: rgba(228, 158, 37, 0.36);
+          color: rgba(247, 244, 235, 0.82);
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-power::before {
           background: var(--pos-accent);
-          box-shadow: 0 0 18px rgba(228, 158, 37, 0.95);
+          box-shadow: 0 0 14px rgba(228, 158, 37, 0.72);
         }
         #page-autocount-pos .pos-system-copy {
-          padding: clamp(1.1rem, 2.2vw, 1.55rem);
+          padding: clamp(1.35rem, 2.4vw, 1.75rem) 0 0;
         }
         #page-autocount-pos .pos-system-copy > span {
           color: var(--pos-accent);
-          font-size: 0.76rem;
-          font-weight: 840;
-          letter-spacing: 0.13em;
+          font-size: 0.7rem;
+          font-weight: 760;
+          letter-spacing: 0.24em;
           text-transform: uppercase;
         }
         #page-autocount-pos .pos-system-copy h3 {
-          margin: 0.55rem 0 0;
-          color: var(--pos-navy);
-          font-size: clamp(1.1rem, 1.8vw, 1.35rem);
-          line-height: 1.26;
+          margin: 0.8rem 0 0;
+          color: #f6f1e8;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: clamp(1.25rem, 2vw, 1.7rem);
+          font-weight: 640;
+          line-height: 1.18;
+          letter-spacing: -0.015em;
         }
         #page-autocount-pos .pos-system-copy p {
           margin: 0.8rem 0 0;
-          color: #626789;
-          font-size: 0.94rem;
-          line-height: 1.72;
+          color: rgba(247, 244, 235, 0.56);
+          font-size: 0.9rem;
+          line-height: 1.8;
         }
         #page-autocount-pos .pos-system-copy ul {
           display: grid;
-          gap: 0.55rem;
-          margin: 1rem 0 0;
-          padding: 0;
+          gap: 0.78rem;
+          margin: 1.45rem 0 0;
+          border-top: 1px solid rgba(247, 244, 235, 0.14);
+          padding: 1.2rem 0 0;
           list-style: none;
         }
         #page-autocount-pos .pos-system-copy li {
           position: relative;
-          padding-left: 1.1rem;
-          color: #525779;
-          font-size: 0.88rem;
-          line-height: 1.55;
+          padding-left: 1.45rem;
+          color: rgba(247, 244, 235, 0.72);
+          font-size: 0.86rem;
+          line-height: 1.58;
         }
         #page-autocount-pos .pos-system-copy li::before {
           content: "";
           position: absolute;
           left: 0;
-          top: 0.62em;
-          width: 0.42rem;
-          height: 0.42rem;
-          border-radius: 999px;
+          top: 0.75em;
+          width: 0.58rem;
+          height: 1px;
           background: var(--pos-accent);
-          box-shadow: 0 0 0 4px rgba(228, 158, 37, 0.12);
+          box-shadow: none;
         }
         #page-autocount-pos .pos-system-divider {
           position: relative;
           display: flex;
           align-items: flex-start;
           justify-content: center;
-          min-width: clamp(3.2rem, 4vw, 4.75rem);
-          padding-top: clamp(5.8rem, 9vw, 8rem);
+          min-width: clamp(3rem, 5vw, 5rem);
+          padding-top: clamp(3.7rem, 6.1vw, 5.3rem);
         }
         #page-autocount-pos .pos-system-divider::before {
           content: "";
           position: absolute;
-          top: clamp(7.35rem, 9vw, 9rem);
-          right: -0.45rem;
-          left: -0.45rem;
-          border-top: 1px dashed rgba(47, 49, 90, 0.32);
+          top: clamp(4.95rem, 6.1vw, 6.25rem);
+          right: -0.75rem;
+          left: -0.75rem;
+          border-top: 1px dashed rgba(247, 244, 235, 0.26);
           transition: border-color 900ms ease, filter 900ms ease;
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider::before {
@@ -903,28 +869,23 @@ export default function AutoCountPOSPage({ onContact }) {
           height: 3.15rem;
           border: 1px dashed rgba(228, 158, 37, 0.48);
           border-radius: 999px;
-          background: rgba(255, 255, 255, 0.92);
+          background: #1b211e;
           color: var(--pos-accent);
           font-size: 0.68rem;
           font-weight: 880;
           letter-spacing: 0.11em;
           text-transform: uppercase;
-          box-shadow: 0 14px 32px rgba(47, 49, 90, 0.09);
         }
         #page-autocount-pos .pos-system-callout {
-          display: flex;
-          align-items: flex-start;
-          gap: 0.8rem;
-          max-width: 980px;
-          margin: clamp(1rem, 2.5vw, 1.5rem) auto 0;
-          border: 1px solid rgba(228, 158, 37, 0.24);
-          border-radius: 8px;
-          padding: 1rem 1.1rem;
-          background:
-            linear-gradient(135deg, rgba(228, 158, 37, 0.12), rgba(255, 255, 255, 0.8)),
-            rgba(255, 255, 255, 0.9);
-          color: #555a78;
-          box-shadow: 0 16px 42px rgba(47, 49, 90, 0.06);
+          display: grid;
+          grid-template-columns: minmax(180px, 0.78fr) minmax(0, 1.22fr);
+          align-items: start;
+          gap: clamp(1.2rem, 3vw, 2.4rem);
+          margin: clamp(2rem, 4vw, 3rem) 0 0;
+          border: 1px solid rgba(228, 158, 37, 0.32);
+          padding: clamp(1.1rem, 2.5vw, 1.55rem);
+          background: rgba(255, 255, 255, 0.015);
+          color: rgba(247, 244, 235, 0.6);
           opacity: 0;
           transform: translateY(10px);
           transition:
@@ -936,12 +897,13 @@ export default function AutoCountPOSPage({ onContact }) {
           transform: translateY(0);
         }
         #page-autocount-pos .pos-system-callout strong {
-          flex: 0 0 auto;
-          color: var(--pos-navy);
-          font-weight: 840;
+          color: #f6f1e8;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: 1rem;
+          line-height: 1.35;
         }
         #page-autocount-pos .pos-system-callout span {
-          line-height: 1.65;
+          line-height: 1.7;
         }
         #page-autocount-pos .pos-seo-content {
           display: grid;
@@ -1523,8 +1485,11 @@ export default function AutoCountPOSPage({ onContact }) {
             right: 0;
             bottom: auto;
             left: 0;
-            border-top: 1px dashed rgba(47, 49, 90, 0.24);
+            border-top: 1px dashed rgba(247, 244, 235, 0.24);
             border-left: 0;
+          }
+          #page-autocount-pos .pos-system-callout {
+            grid-template-columns: 1fr;
           }
           #page-autocount-pos .pos-seo-content,
           #page-autocount-pos .pos-faq-grid {
@@ -1628,7 +1593,7 @@ export default function AutoCountPOSPage({ onContact }) {
           <PageSectionDivider sections={POS_SECTIONS} id="system" />
         </div>
 
-        <section id="system" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
+        <section id="system" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice pos-system-section">
 
           <POSSystemExplainer />
         </section>
