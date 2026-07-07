@@ -12,6 +12,7 @@ import { IconLedger, IconVideo, IconGrid, IconStar, IconTrophy, IconRocket } fro
 import { Img } from "../../components/Media.jsx";
 import autocountReleases from "../../content/autocountReleases.json";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
+import { getAccountingPromotions } from "../../data/promotions.js";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
@@ -508,23 +509,6 @@ const FEATURES = [
   },
 ];
 
-const ACCOUNTING_PROMOTIONS = [
-  {
-    title: "AutoCount 1 Account Plus 1 Promo",
-    image: "/images/promotions/autocount-1accountplus-1.webp",
-    cta: { href: WA_LINK, target: "_blank" },
-  },
-  {
-    title: "Earn rewards when you refer AutoCount users",
-    image: "/images/promotions/ksl-referral-program.webp",
-    cta: { href: WA_LINK, target: "_blank" },
-  },
-  {
-    title: "Buy AutoCount Accounting & Enjoy Free Training",
-    image: "/images/promotions/autocountaccounting-free.webp",
-    cta: { href: WA_LINK, target: "_blank" },
-  },
-];
 
 const BRAND_LOGOS = [
   "/images/brands/ac-brand-1.webp",
@@ -719,7 +703,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           id="promotions"
           title="Current AutoCount Accounting Offers"
           accent="#80c31e"
-          items={ACCOUNTING_PROMOTIONS}
+          items={getAccountingPromotions(WA_LINK)}
         />
       </div>
 

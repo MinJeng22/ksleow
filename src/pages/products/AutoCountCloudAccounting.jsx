@@ -12,6 +12,7 @@ import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
+import { getCloudPromotions } from "../../data/promotions.js";
 import { SegmentedControl, SelectField } from "../../components/FormControls.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 import { CompareRevBadge, CopyReleaseButton, ReleaseNumber, ShareLinkButton, HighlightText } from "../../components/ReleaseTools.jsx";
@@ -85,23 +86,7 @@ const FEATURES = [
   },
 ];
 
-const CLOUD_PROMOTIONS = [
-  {
-    title: "24 Months Subscription with 75% Off",
-    image: "/images/promotions/autocount-cloudaccounting-75-promo.webp",
-    cta: { href: FREE_TRIAL_URL, target: "_blank" },
-  },
-  {
-    title: "Earn rewards when you refer AutoCount users",
-    image: "/images/promotions/ksl-referral-program.webp",
-    cta: { href: FREE_TRIAL_URL, target: "_blank" },
-  },
-  {
-    title: "CloudAccounting 65 Promo",
-    image: "/images/promotions/autocount-cloudaccounting-65-promo.webp",
-    cta: { href: FREE_TRIAL_URL, target: "_blank" },
-  },
-];
+
 
 const EDITIONS = ["Lite", "Basic", "Plus", "Pro", "Accountant"];
 const EDITION_CODE = {
@@ -544,7 +529,7 @@ export default function AutoCountCloudAccountingPage() {
           id="promotions"
           title="CloudAccounting Subscription Offers"
           accent="#16a14b"
-          items={CLOUD_PROMOTIONS}
+          items={getCloudPromotions(FREE_TRIAL_URL)}
         />
       </div>
 

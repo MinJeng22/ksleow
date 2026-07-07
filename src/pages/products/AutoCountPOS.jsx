@@ -14,9 +14,12 @@ import {
   IconVideo,
   IconDatabase,
   IconRegister,
+  IconRocket,
 } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
+import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
+import { getCloudPromotions, getAccountingPromotions } from "../../data/promotions.js";
 import { CompareFeatureCell } from "../../components/CompareTable.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
@@ -31,6 +34,7 @@ const POS_HERO = "/images/products/autocount-pos-showcase.webp";
 const POS_ICON = "/images/products/autocount-pos.webp";
 const POS_BACKEND_IMAGE = "/images/products/autocount-pos-backend.webp";
 const POS_FRONTEND_IMAGE = "/images/products/autocount-pos-frontend.webp";
+const FREE_TRIAL_URL = "https://auth.autocountcloud.com/identity/account/register/accounting?dealerCode=SYNS6037";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "Hi KS Support Team, I am interested in AutoCount POS. I would like to arrange a demo or get a quotation. Thank you."
@@ -38,6 +42,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 
 const POS_SECTIONS = [
   { id: "features", label: "Advantages", icon: IconStar, color: POS_ACCENT },
+  { id: "promotions", label: "Promotions", icon: IconRocket, color: POS_ACCENT },
   { id: "system", label: "POS System", icon: IconGrid, color: POS_ACCENT },
   { id: "training", label: "Tutorial Guide", icon: IconVideo, color: POS_ACCENT },
   { id: "editions", label: "Backend", icon: IconDatabase, color: POS_NAVY },
@@ -357,12 +362,10 @@ function POSSystemExplainer() {
         <article className="pos-system-card">
           <div className="pos-system-visual pos-system-visual-backend">
             <img src={POS_BACKEND_IMAGE} alt="AutoCount POS backend management screen" loading="lazy" />
-            <span className="pos-system-screen-cover" aria-hidden="true" />
-            <span className="pos-system-power">Backend online</span>
           </div>
           <div className="pos-system-copy">
             <span>Backend Computer</span>
-            <h3>For owners, supervisors, and admin teams.</h3>
+            <h3>For Owners</h3>
             <p>
               The backend is the control center for product setup, pricing, users, stock movement, outlet settings, reports, e-invoice preparation, and integration back to AutoCount Accounting.
             </p>
@@ -381,12 +384,10 @@ function POSSystemExplainer() {
         <article className="pos-system-card">
           <div className="pos-system-visual pos-system-visual-frontend">
             <img src={POS_FRONTEND_IMAGE} alt="AutoCount POS frontend cashier terminal" loading="lazy" />
-            <span className="pos-system-screen-cover" aria-hidden="true" />
-            <span className="pos-system-power">Frontend online</span>
           </div>
           <div className="pos-system-copy">
             <span>Frontend Register Counter</span>
-            <h3>For cashiers and outlet counter operation.</h3>
+            <h3>For Cashiers</h3>
             <p>
               The frontend is the POS counter experience for fast billing, barcode scanning, payment collection, receipt printing, cash drawer handling, and branch or outlet sales.
             </p>
@@ -673,7 +674,6 @@ export default function AutoCountPOSPage({ onContact }) {
         }
         #page-autocount-pos .pos-system-wrap {
           max-width: 1180px;
-          color: rgba(247, 244, 235, 0.9);
         }
         #page-autocount-pos .pos-system-wrap .pos-section-intro {
           margin-bottom: clamp(2rem, 4vw, 3.1rem);
@@ -681,13 +681,9 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos .pos-system-wrap .pos-section-intro h2 {
           justify-content: flex-start !important;
         }
-        #page-autocount-pos .pos-system-wrap .ks-section-title {
-          color: #f5f1e8;
-        }
         #page-autocount-pos .pos-system-wrap .pos-section-intro p {
           margin-left: 0;
           margin-right: 0;
-          color: rgba(247, 244, 235, 0.58);
         }
         #page-autocount-pos .pos-system-layout {
           display: grid;
@@ -705,8 +701,6 @@ export default function AutoCountPOSPage({ onContact }) {
           position: relative;
           aspect-ratio: 16 / 8.8;
           overflow: hidden;
-          border: 1px solid rgba(247, 244, 235, 0.18);
-          background: #151915;
           isolation: isolate;
         }
         #page-autocount-pos .pos-system-visual img {
@@ -714,79 +708,9 @@ export default function AutoCountPOSPage({ onContact }) {
           height: 100%;
           display: block;
           object-fit: cover;
-          transform: scale(1);
-          filter: brightness(0.94) saturate(0.96) contrast(1);
-          transition:
-            filter 900ms ease;
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-visual img {
-          filter: brightness(1) saturate(1) contrast(1);
-        }
-        #page-autocount-pos .pos-system-screen-cover {
-          position: absolute;
-          z-index: 3;
-          display: block;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          background:
-            linear-gradient(180deg, #05060a 0%, #0c0e16 100%);
-          box-shadow:
-            inset 0 0 42px rgba(0, 0, 0, 0.78);
-          opacity: 0.96;
-          transition:
-            opacity 1250ms cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        #page-autocount-pos .pos-system-visual-backend .pos-system-screen-cover {
-          top: 4.5%;
-          right: 3.7%;
-          bottom: 24.8%;
-          left: 3.7%;
-          border-radius: 4px;
-        }
-        #page-autocount-pos .pos-system-visual-frontend .pos-system-screen-cover {
-          top: 8.2%;
-          right: 20.4%;
-          bottom: 37.2%;
-          left: 26.4%;
-          border-radius: 3px;
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-screen-cover {
-          opacity: 0;
-          box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
-        }
-        #page-autocount-pos .pos-system-power {
-          position: static;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.45rem;
-          margin-top: 1rem;
-          color: rgba(247, 244, 235, 0.66);
-          font-size: 0.68rem;
-          font-weight: 760;
-          letter-spacing: 0.28em;
-          text-transform: uppercase;
-          opacity: 0.78;
-          transition:
-            opacity 900ms ease,
-            color 900ms ease;
-        }
-        #page-autocount-pos .pos-system-power::before {
-          content: "";
-          width: 0.34rem;
-          height: 0.34rem;
-          border-radius: 999px;
-          background: rgba(228, 158, 37, 0.42);
-          box-shadow: 0 0 0 rgba(228, 158, 37, 0);
-          transition:
-            background 900ms ease,
-            box-shadow 900ms ease;
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-power {
-          opacity: 1;
-          color: rgba(247, 244, 235, 0.82);
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-power::before {
-          background: var(--pos-accent);
-          box-shadow: 0 0 14px rgba(228, 158, 37, 0.72);
+          border-radius: 8px;
+          border: 1px solid rgba(0, 0, 0, 0.05);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
         #page-autocount-pos .pos-system-copy {
           padding: clamp(1.35rem, 2.4vw, 1.75rem) 0 0;
@@ -800,8 +724,6 @@ export default function AutoCountPOSPage({ onContact }) {
         }
         #page-autocount-pos .pos-system-copy h3 {
           margin: 0.8rem 0 0;
-          color: #f6f1e8;
-          font-family: Georgia, "Times New Roman", serif;
           font-size: clamp(1.25rem, 2vw, 1.7rem);
           font-weight: 640;
           line-height: 1.18;
@@ -809,24 +731,24 @@ export default function AutoCountPOSPage({ onContact }) {
         }
         #page-autocount-pos .pos-system-copy p {
           margin: 0.8rem 0 0;
-          color: rgba(247, 244, 235, 0.56);
           font-size: 0.9rem;
           line-height: 1.8;
+          opacity: 0.8;
         }
         #page-autocount-pos .pos-system-copy ul {
           display: grid;
           gap: 0.78rem;
           margin: 1.45rem 0 0;
-          border-top: 1px solid rgba(247, 244, 235, 0.14);
+          border-top: 1px solid rgba(0, 0, 0, 0.08);
           padding: 1.2rem 0 0;
           list-style: none;
         }
         #page-autocount-pos .pos-system-copy li {
           position: relative;
           padding-left: 1.45rem;
-          color: rgba(247, 244, 235, 0.72);
           font-size: 0.86rem;
           line-height: 1.58;
+          opacity: 0.85;
         }
         #page-autocount-pos .pos-system-copy li::before {
           content: "";
@@ -852,12 +774,12 @@ export default function AutoCountPOSPage({ onContact }) {
           top: clamp(4.95rem, 6.1vw, 6.25rem);
           right: -0.75rem;
           left: -0.75rem;
-          border-top: 1px dashed rgba(247, 244, 235, 0.26);
+          border-top: 1px dashed rgba(0, 0, 0, 0.15);
           transition: border-color 900ms ease, filter 900ms ease;
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider::before {
-          border-color: rgba(228, 158, 37, 0.7);
-          filter: drop-shadow(0 0 8px rgba(228, 158, 37, 0.32));
+          border-color: rgba(228, 158, 37, 0.4);
+          filter: drop-shadow(0 0 8px rgba(228, 158, 37, 0.12));
         }
         #page-autocount-pos .pos-system-divider span {
           position: relative;
@@ -869,7 +791,7 @@ export default function AutoCountPOSPage({ onContact }) {
           height: 3.15rem;
           border: 1px dashed rgba(228, 158, 37, 0.48);
           border-radius: 999px;
-          background: #1b211e;
+          background: #fff;
           color: var(--pos-accent);
           font-size: 0.68rem;
           font-weight: 880;
@@ -884,8 +806,8 @@ export default function AutoCountPOSPage({ onContact }) {
           margin: clamp(2rem, 4vw, 3rem) 0 0;
           border: 1px solid rgba(228, 158, 37, 0.32);
           padding: clamp(1.1rem, 2.5vw, 1.55rem);
-          background: rgba(255, 255, 255, 0.015);
-          color: rgba(247, 244, 235, 0.6);
+          background: #fff;
+          border-radius: 8px;
           opacity: 0;
           transform: translateY(10px);
           transition:
@@ -897,8 +819,6 @@ export default function AutoCountPOSPage({ onContact }) {
           transform: translateY(0);
         }
         #page-autocount-pos .pos-system-callout strong {
-          color: #f6f1e8;
-          font-family: Georgia, "Times New Roman", serif;
           font-size: 1rem;
           line-height: 1.35;
         }
@@ -1587,6 +1507,25 @@ export default function AutoCountPOSPage({ onContact }) {
           }}
         >
           <FeatureShowcase features={FEATURES} wrapper />
+        </div>
+
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+          <PageSectionDivider sections={POS_SECTIONS} id="promotions" />
+        </div>
+
+        <div className="product-app-section product-app-section-paper product-app-section-clean">
+          <ProductPromotionBento
+            id="promotions"
+            title="CloudAccounting Subscription Offers"
+            accent="#16a14b"
+            items={getCloudPromotions(FREE_TRIAL_URL)}
+          />
+          <div style={{ height: "4rem" }} />
+          <ProductPromotionBento
+            title="Current AutoCount Accounting Offers"
+            accent="#80c31e"
+            items={getAccountingPromotions(WA_LINK)}
+          />
         </div>
 
         <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
