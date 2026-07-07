@@ -390,9 +390,11 @@ function POSSystemExplainer() {
 
         <div className="pos-system-divider" aria-hidden="true">
           <div className="pos-system-divider-chip">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="5 12 3 12 12 3 21 12 19 12" /></svg>
+            <svg className="pos-sync-icon-desktop" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="12 5 12 3 3 12 12 21 12 19" /></svg>
+            <svg className="pos-sync-icon-mobile" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="5 12 3 12 12 3 21 12 19 12" /></svg>
             <span>sync</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="19 12 21 12 12 21 3 12 5 12" /></svg>
+            <svg className="pos-sync-icon-mobile" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="19 12 21 12 12 21 3 12 5 12" /></svg>
+            <svg className="pos-sync-icon-desktop" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="12 5 12 3 21 12 12 21 12 19" /></svg>
           </div>
         </div>
 
@@ -852,7 +854,10 @@ export default function AutoCountPOSPage({ onContact }) {
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider-chip {
           border-color: rgba(228, 158, 37, 0.72);
-          box-shadow: 0 2px 18px rgba(228, 158, 37, 0.18);
+          box-shadow: 0 4px 20px rgba(228, 158, 37, 0.15);
+        }
+        #page-autocount-pos .pos-sync-icon-mobile {
+          display: none;
         }
         #page-autocount-pos .pos-system-callout {
           display: flex;
@@ -1489,6 +1494,12 @@ export default function AutoCountPOSPage({ onContact }) {
           #page-autocount-pos .pos-system-divider-chip {
             position: static;
             transform: none;
+          }
+          #page-autocount-pos .pos-sync-icon-desktop {
+            display: none;
+          }
+          #page-autocount-pos .pos-sync-icon-mobile {
+            display: block;
           }
           #page-autocount-pos .pos-system-callout {
             grid-template-columns: 1fr;
