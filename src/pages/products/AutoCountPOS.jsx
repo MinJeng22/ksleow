@@ -88,40 +88,70 @@ const FEATURES = [
 const EDITION_COLUMNS = ["POS Basic", "POS Standard"];
 const EDITION_ROWS = [
   { label: "One-Time Payment", values: ["RM 2,300", "RM 3,100"], type: "price" },
+
+const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
+  "Hi KS Support Team, I am interested in AutoCount POS. I would like to arrange a demo or get a quotation. Thank you."
+)}`;
+
+const POS_SECTIONS = [
+  { id: "features", label: "Advantages", icon: IconStar, color: POS_ACCENT },
+  { id: "system", label: "POS System", icon: IconGrid, color: POS_ACCENT },
+  { id: "training", label: "Tutorial Guide", icon: IconVideo, color: POS_ACCENT },
+  { id: "editions", label: "Backend", icon: IconDatabase, color: POS_NAVY },
+  { id: "frontend", label: "Front End", icon: IconRegister, color: POS_NAVY },
+  { id: "releases", label: "Release Notes", icon: IconLedger, color: "#b97812" },
+  { id: "why-ksl", label: "Why Choose Us", icon: IconTrophy, color: POS_ACCENT },
+];
+
+const POS_RELEASES = posReleases;
+
+const POS_TUTORIAL_VIDEOS = [
+  {
+    id: "YGjATcKe_A0",
+    playlistId: "PLY0HF8flL30zq_OkKerTe_D6q-E5KV911",
+    label: "POS Tutorial",
+    description: "Follow AutoCount POS training videos for front-end cashier flow, backend setup, item and stock handling, and the practical steps your outlet team needs before going live.",
+    note: "POS Guide",
+    customThumbnail: "/images/products/pos-tutorial-thumb.png",
+    thumbnailCropScale: 1.0,
+    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5" /><path d="M8 20v2h8v-2" /><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none" /></svg>,
+  },
+];
+
+const FEATURES = [
+  {
+    icon: "/images/icons/feature-device-orange.svg",
+    title: "Counter-ready POS operation",
+    desc: "Built for day-to-day cashier work with fast billing, barcode scanning, receipt printing, cash drawer support, and clear end-of-day closing.",
+  },
+  {
+    icon: "/images/icons/feature-integration-orange.svg",
+    title: "Connected to AutoCount Accounting",
+    desc: "Sales, stock movement, payment collections, and outlet reports stay aligned with your backend accounting workflow.",
+  },
+  {
+    icon: "/images/icons/feature-bank-orange.svg",
+    title: "Retail, branch, and F&B options",
+    desc: "Choose the right counter license and add POS modules such as branch sync, POS stock, POS account, price checker, and eWaiter apps.",
+  },
+  {
+    icon: "/images/branding/ksl-logo-circle.webp",
+    title: "KSL implementation support",
+    desc: "We help with setup planning, hardware readiness, module selection, user training, and post-live support for your cashier team.",
+  },
+];
+
+
+const EDITION_COLUMNS = ["POS Basic", "POS Standard"];
+const EDITION_ROWS = [
+  { label: "One-Time Payment", values: ["RM 2,300", "RM 3,100"], type: "price" },
   { label: "POS Counter A", values: ["1", "1"] },
   { label: "Default Account Book", values: ["-", "3"] },
   { label: "Default E-Invoice Account Book", values: ["-", "1"] },
   { label: "No. of Concurrent Network User", values: ["1", "1"] },
 ];
 
-const ADDON_GROUPS = [
-  {
-    title: "Additional Network User",
-    rows: [
-      ["1 Full Network User", "RM 800"],
-      ["1 Account Network User", "RM 400"],
-      ["1 Stock Network User", "RM 600"],
-    ],
-  },
-  {
-    title: "Account Books & Dongle",
-    rows: [
-      ["Unlimited account book", "RM 3,000"],
-      ["Account Book", "RM 300"],
-      ["All in one Dongle", "RM 400"],
-    ],
-    note: "Dongle is suitable for users facing internet connection issues.",
-  },
-  {
-    title: "E-Invoice",
-    rows: [
-      ["1 Account Book", "RM 900"],
-      ["1 Account Book (INT) USD", "RM 200"],
-      ["1 Account Book Cash Sales QR2E per Year", "RM 240"],
-      ["1 Counter POS QR2E per Year", "RM 180"],
-    ],
-  },
-];
+
 
 const ACCOUNTING_MODULE_SECTIONS = [
   {
@@ -317,27 +347,6 @@ function POSCompareTable({
           </tbody>
         </table>
       </div>
-    </div>
-  );
-}
-
-function AddOnGrid() {
-  return (
-    <div className="pos-addon-grid">
-      {ADDON_GROUPS.map((group) => (
-        <article key={group.title} className="pos-addon-card">
-          <h3>{group.title}</h3>
-          <div className="pos-addon-rows">
-            {group.rows.map(([label, value]) => (
-              <div key={label} className="pos-addon-row">
-                <span>{label}</span>
-                <strong>{value}</strong>
-              </div>
-            ))}
-          </div>
-          {group.note && <p>{group.note}</p>}
-        </article>
-      ))}
     </div>
   );
 }
@@ -879,7 +888,7 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-power {
           opacity: 1;
           color: #ffffff;
-          background: rgba(18, 20, 35, 0.7);
+          background: rgba(12, 14, 26, 0.7);
           border-color: rgba(228, 158, 37, 0.36);
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-power::before {
@@ -1087,18 +1096,7 @@ export default function AutoCountPOSPage({ onContact }) {
           grid-template-columns: repeat(4, minmax(0, 1fr));
           gap: 1rem;
         }
-        #page-autocount-pos .pos-addon-grid {
-          display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
-          gap: 1.5rem;
-        }
-        #page-autocount-pos .pos-addon-grid > .pos-addon-card {
-          flex: 1 1 300px;
-          max-width: 380px;
-        }
         #page-autocount-pos .pos-workflow-card,
-        #page-autocount-pos .pos-addon-card,
         #page-autocount-pos .pos-note-panel {
           border: 1px solid rgba(47, 49, 90, 0.1);
           border-radius: 8px;
@@ -1121,7 +1119,6 @@ export default function AutoCountPOSPage({ onContact }) {
           font-weight: 800;
         }
         #page-autocount-pos .pos-workflow-card h3,
-        #page-autocount-pos .pos-addon-card h3,
         #page-autocount-pos .pos-note-panel h3 {
           margin: 1rem 0 0.55rem;
           color: var(--pos-navy);
@@ -1129,32 +1126,10 @@ export default function AutoCountPOSPage({ onContact }) {
           line-height: 1.3;
         }
         #page-autocount-pos .pos-workflow-card p,
-        #page-autocount-pos .pos-addon-card p,
         #page-autocount-pos .pos-note-panel li {
           color: #6b6f91;
           font-size: 0.9rem;
           line-height: 1.65;
-        }
-        #page-autocount-pos .pos-addon-card {
-          padding: 1.15rem;
-        }
-        #page-autocount-pos .pos-addon-card h3 {
-          margin-top: 0;
-          color: var(--pos-accent);
-        }
-        #page-autocount-pos .pos-addon-rows {
-          display: grid;
-          gap: 0.55rem;
-        }
-        #page-autocount-pos .pos-addon-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-          border-top: 1px solid rgba(47, 49, 90, 0.08);
-          padding-top: 0.55rem;
-          color: #4f536f;
-          font-size: 0.9rem;
         }
         #page-autocount-pos .pos-addon-row strong,
         #page-autocount-pos .pos-price-value {
@@ -1637,117 +1612,6 @@ export default function AutoCountPOSPage({ onContact }) {
           #page-autocount-pos .pos-workflow-grid {
             grid-template-columns: 1fr;
           }
-          #page-autocount-pos .pos-section-intro {
-            text-align: left;
-          }
-          #page-autocount-pos .pos-why-ksl {
-            padding: 3.5rem 0;
-          }
-          #page-autocount-pos .pos-why-stats,
-          #page-autocount-pos .pos-why-flow {
-            grid-template-columns: 1fr;
-          }
-          #page-autocount-pos .pos-why-flow span {
-            align-items: center;
-            flex-direction: row;
-            justify-content: flex-start;
-            min-height: 52px;
-            padding: 0 0.8rem;
-          }
-        }
-      `}</style>
-
-      <SectionSidebar sections={POS_SECTIONS} themeColor={POS_ACCENT} />
-
-      <PinnedHeroStage>
-        <ProductHero
-          eyebrow="Software We Specialize In"
-          title="AutoCount POS"
-          body="AutoCount POS Malaysia for retail counters, F&B outlets, and branch operations. KS Support Team helps you connect cashier work with AutoCount Accounting, inventory, e-invoice, barcode scanners, receipt printers, and practical outlet reporting."
-          iconSrc={POS_ICON}
-          iconAlt="AutoCount POS"
-          backgroundImage={POS_HERO}
-          primaryCta={{ label: "Start Free Trial", onClick: () => runWithProgressFeedback(() => setTrialOpen(true), { assets: ["/images/branding/ksleow-gold.webp"] }) }}
-          secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
-        />
-      </PinnedHeroStage>
-
-      <main className="pinned-page-content product-app-content">
-        <div
-          id="features"
-          className="product-app-section product-app-section-paper product-app-section-clean"
-          style={{
-            "--feature-strip-bg": "linear-gradient(180deg, #f0ad32 0%, #d68b16 100%)",
-            "--feature-strip-shadow": "0 0 16px rgba(228, 158, 37, 0.36)",
-            "--feature-gradient-color": "rgba(240, 173, 50, 0.18)",
-          }}
-        >
-          <FeatureShowcase features={FEATURES} wrapper />
-        </div>
-
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-          <PageSectionDivider sections={POS_SECTIONS} id="system" />
-        </div>
-
-        <section id="system" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-mist">
-
-          <POSSystemExplainer />
-        </section>
-
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
-          <PageSectionDivider sections={POS_SECTIONS} id="training" />
-        </div>
-
-        <section className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
-          <div id="training">
-            <AutoCountTrainingWebGL
-              customVideos={POS_TUTORIAL_VIDEOS}
-              title="AutoCount POS Tutorial Guide"
-              themeColor={POS_ACCENT}
-              themeHoverColor="#f0ad32"
-              activeTabBg={POS_NAVY}
-              playIconColor={POS_NAVY}
-              playBtnBg="#f0c36f"
-            />
-          </div>
-        </section>
-
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)" }}>
-          <PageSectionDivider sections={POS_SECTIONS} id="editions" />
-        </div>
-
-        <section id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-from-paper product-app-section-to-warm" style={{ overflow: "visible" }}>
-          <div className="content-wrap">
-            <SectionIntro
-              title="POS Backend Editions"
-              shareHash="#editions"
-            />
-            
-            <div className="pos-legend">
-              <span><POSMarker value="+" /> optional add-on</span>
-              <span><POSMarker value="-" /> not available</span>
-            </div>
-            
-            <POSCompareTable
-              columns={EDITION_COLUMNS}
-              leftLabel="Module"
-              rows={EDITION_ROWS}
-              sections={[...POS_MODULE_SECTIONS, ...ACCOUNTING_MODULE_SECTIONS]}
-              accent={POS_ACCENT}
-              inlinePrice
-              mobileWidth={760}
-            />
-            <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
-              *Prices exclude 8% SST.
-            </p>
-            <div style={{ height: "2.5rem" }} />
-            <AddOnGrid />
-          </div>
-        </section>
-
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-warm)" }}>
-          <PageSectionDivider sections={POS_SECTIONS} id="frontend" />
-        </div>
 
         <section id="frontend" className="ac-section-tight product-app-section product-app-section-warm product-app-section-to-paper" style={{ overflow: "visible" }}>
           <div className="content-wrap">
