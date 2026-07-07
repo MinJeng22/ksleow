@@ -306,7 +306,7 @@ function POSCompareTable({
 }
 
 
-function SectionIntro({ eyebrow, title, text, shareHash }) {
+function SectionIntro({ eyebrow, title, text, shareHash, onClick }) {
   return (
     <div className="pos-section-intro">
       {eyebrow && (
@@ -314,7 +314,7 @@ function SectionIntro({ eyebrow, title, text, shareHash }) {
           {eyebrow}
         </div>
       )}
-      <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center', userSelect: onClick ? 'none' : 'auto' }} onClick={onClick}>
         <span className="ks-section-title ks-section-title-inherit">{title}</span>
         {shareHash && <ShareLinkButton variant="icon" hash={shareHash} />}
       </h2>
@@ -618,6 +618,7 @@ function POSReleaseNotesSection({ search, setSearch, expanded, setExpanded, visi
 export default function AutoCountPOSPage({ onContact }) {
   useFavicon(POS_ICON);
   const [trialOpen, setTrialOpen] = useState(false);
+  const [titleClicks, setTitleClicks] = useState(0);
   const [releaseSearch, setReleaseSearch] = useState("");
   const [expandedRelease, setExpandedRelease] = useState(null);
   const [releaseVisibleLimit, setReleaseVisibleLimit] = useState(5);
@@ -1637,6 +1638,7 @@ export default function AutoCountPOSPage({ onContact }) {
             <SectionIntro
               title="POS Backend Editions"
               shareHash="#editions"
+              onClick={() => setTitleClicks(prev => prev + 1)}
             />
             
             <div className="pos-legend">
@@ -1650,7 +1652,7 @@ export default function AutoCountPOSPage({ onContact }) {
               rows={EDITION_ROWS}
               sections={[...POS_MODULE_SECTIONS, ...ACCOUNTING_MODULE_SECTIONS]}
               accent={POS_ACCENT}
-              inlinePrice
+              inlinePrice={titleClicks >= 5}
               mobileWidth={760}
             />
             <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
@@ -1668,6 +1670,7 @@ export default function AutoCountPOSPage({ onContact }) {
             <SectionIntro
               title="POS Front End Editions"
               shareHash="#frontend"
+              onClick={() => setTitleClicks(prev => prev + 1)}
             />
 
             <div style={{ height: "2.5rem" }} />
@@ -1678,7 +1681,7 @@ export default function AutoCountPOSPage({ onContact }) {
               rows={COUNTER_ROWS}
               sections={FRONTEND_MODULE_SECTIONS}
               accent={POS_NAVY}
-              inlinePrice
+              inlinePrice={titleClicks >= 5}
               mobileWidth={820}
             />
           </div>

@@ -557,8 +557,7 @@ export default function AutoCountAccountingPage({ onContact }) {
   const [editionA, setEditionA] = useState(EDITIONS[0]);                  /* Account Plus */
   const [editionB, setEditionB] = useState(EDITIONS[EDITIONS.length - 1]); /* Premium */
   const [editionDiffOnly, setEditionDiffOnly] = useState(false);
-  const [browseClicks, setBrowseClicks] = useState(0);
-  const [compareClicks, setCompareClicks] = useState(0);
+  const [titleClicks, setTitleClicks] = useState(0);
   
 
 
@@ -731,7 +730,11 @@ export default function AutoCountAccountingPage({ onContact }) {
         <div className="content-wrap">
           <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
 
-            <h2 className="ks-section-title ks-section-title-inherit" style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem" }}>
+            <h2 
+              className="ks-section-title ks-section-title-inherit" 
+              style={{ fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem", userSelect: "none" }}
+              onClick={() => setTitleClicks(prev => prev + 1)}
+            >
               Comparing 6 Editions of Accounting 2.2
             </h2>
             <div style={{ display: "inline-flex", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center", fontSize: "0.78rem", color: "#6b6f91" }}>
@@ -757,13 +760,6 @@ export default function AutoCountAccountingPage({ onContact }) {
               value={editionCompareMode ? "compare" : "browse"}
               onChange={(mode) => {
                 setEditionCompareMode(mode === "compare");
-                if (mode === "browse") {
-                  setBrowseClicks(prev => prev + 1);
-                  setCompareClicks(0);
-                } else {
-                  setCompareClicks(prev => prev + 1);
-                  setBrowseClicks(0);
-                }
               }}
               options={[
                 { value: "browse", label: "Browse All Editions" },
@@ -834,7 +830,7 @@ export default function AutoCountAccountingPage({ onContact }) {
           <EditionsTable
             selected={editionCompareMode ? [editionA, editionB] : null}
             diffOnly={editionCompareMode && editionA !== editionB && editionDiffOnly}
-            showPrices={browseClicks >= 5 || compareClicks >= 5}
+            showPrices={titleClicks >= 5}
           />
           <p className="ks-card-text" style={{ margin: "1rem 0 0", fontWeight: 700, textAlign: "left" }}>
             *Prices exclude 8% SST.
