@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
@@ -42,8 +43,10 @@ const POS_HERO = "/images/products/autocount-pos-showcase.webp";
 const POS_ICON = "/images/products/autocount-pos.webp";
 const POS_BACKEND_IMAGE = "/images/products/autocount-pos-backend.png";
 const POS_BACKEND_IMAGE_BLACK = "/images/products/autocount-pos-backend-black.png";
+const POS_BACKEND_UI = "/images/products/autocount-pos-backend-ui.png";
 const POS_FRONTEND_IMAGE = "/images/products/autocount-pos-frontend.png";
 const POS_FRONTEND_IMAGE_BLACK = "/images/products/autocount-pos-frontend-black.png";
+const POS_FRONTEND_UI = "/images/products/autocount-pos-frontend-ui.png";
 const FREE_TRIAL_URL = "https://auth.autocountcloud.com/identity/account/register/accounting?dealerCode=SYNS6037";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -343,6 +346,16 @@ function NotesPanel({ title, items }) {
 function POSSystemExplainer() {
   const sectionRef = useRef(null);
   const [isLit, setIsLit] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState(null);
+
+  useEffect(() => {
+    if (lightboxImage) {
+      document.body.classList.add("partner-modal-open");
+    } else {
+      document.body.classList.remove("partner-modal-open");
+    }
+    return () => document.body.classList.remove("partner-modal-open");
+  }, [lightboxImage]);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -350,10 +363,7 @@ function POSSystemExplainer() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsLit(true);
-          observer.disconnect();
-        }
+        setIsLit(entry.isIntersecting);
       },
       { threshold: 0.28, rootMargin: "0px 0px -12% 0px" }
     );
@@ -370,7 +380,7 @@ function POSSystemExplainer() {
 
       <div className="pos-system-layout">
         <article className="pos-system-card">
-          <div className="pos-system-visual pos-system-visual-backend">
+          <div className="pos-system-visual pos-system-visual-backend" style={{ cursor: "zoom-in" }} onClick={() => setLightboxImage(POS_BACKEND_UI)}>
             <img src={POS_BACKEND_IMAGE_BLACK} alt="AutoCount POS backend management screen" loading="lazy" className="pos-img-base" />
             <img src={POS_BACKEND_IMAGE} alt="" aria-hidden="true" className="pos-img-overlay" />
           </div>
@@ -399,7 +409,7 @@ function POSSystemExplainer() {
         </div>
 
         <article className="pos-system-card">
-          <div className="pos-system-visual pos-system-visual-frontend">
+          <div className="pos-system-visual pos-system-visual-frontend" style={{ cursor: "zoom-in" }} onClick={() => setLightboxImage(POS_FRONTEND_UI)}>
             <img src={POS_FRONTEND_IMAGE_BLACK} alt="AutoCount POS frontend cashier terminal" loading="lazy" className="pos-img-base" />
             <img src={POS_FRONTEND_IMAGE} alt="" aria-hidden="true" className="pos-img-overlay" />
           </div>
@@ -429,6 +439,25 @@ function POSSystemExplainer() {
           </span>
         </div>
       </aside>
+
+      {lightboxImage && typeof document !== "undefined" && createPortal(
+        <div 
+          className="partner-modal-backdrop" 
+          onClick={() => setLightboxImage(null)} 
+          style={{ zIndex: 99999, animation: "promo-lightbox-fade 0.2s ease forwards", cursor: "zoom-out" }}
+        >
+          <div className="promo-lightbox-frame" onClick={(e) => e.stopPropagation()} style={{ cursor: "default" }}>
+            <button className="partner-modal-close" onClick={() => setLightboxImage(null)} aria-label="Close" style={{ top: 16, right: 16 }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+            <img src={lightboxImage} alt="Fullscreen UI" className="promo-lightbox-img" loading="eager" decoding="async" fetchpriority="high" />
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
