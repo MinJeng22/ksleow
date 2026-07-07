@@ -344,8 +344,10 @@ function NotesPanel({ title, items }) {
 }
 
 function POSSystemExplainer() {
-  const sectionRef = useRef(null);
-  const [isLit, setIsLit] = useState(false);
+  const backendRef = useRef(null);
+  const frontendRef = useRef(null);
+  const [isBackendLit, setIsBackendLit] = useState(false);
+  const [isFrontendLit, setIsFrontendLit] = useState(false);
   const [lightboxImage, setLightboxImage] = useState(null);
 
   useEffect(() => {
@@ -358,28 +360,29 @@ function POSSystemExplainer() {
   }, [lightboxImage]);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return undefined;
-
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsLit(entry.isIntersecting);
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.target === backendRef.current) setIsBackendLit(entry.isIntersecting);
+          if (entry.target === frontendRef.current) setIsFrontendLit(entry.isIntersecting);
+        });
       },
       { threshold: 0.28, rootMargin: "0px 0px -12% 0px" }
     );
 
-    observer.observe(section);
+    if (backendRef.current) observer.observe(backendRef.current);
+    if (frontendRef.current) observer.observe(frontendRef.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <div ref={sectionRef} className={`content-wrap pos-system-wrap ${isLit ? "is-lit" : ""}`}>
+    <div className="content-wrap pos-system-wrap">
       <SectionIntro
         title="Understand AutoCount POS Backend and Frontend"
       />
 
       <div className="pos-system-layout">
-        <article className="pos-system-card">
+        <article ref={backendRef} className={`pos-system-card ${isBackendLit ? "is-lit" : ""}`}>
           <div className="pos-system-visual pos-system-visual-backend" style={{ cursor: "zoom-in" }} onClick={() => setLightboxImage(POS_BACKEND_UI)}>
             <img src={POS_BACKEND_IMAGE_BLACK} alt="AutoCount POS backend management screen" loading="lazy" className="pos-img-base" />
             <img src={POS_BACKEND_IMAGE} alt="" aria-hidden="true" className="pos-img-overlay" />
@@ -408,7 +411,7 @@ function POSSystemExplainer() {
           </div>
         </div>
 
-        <article className="pos-system-card">
+        <article ref={frontendRef} className={`pos-system-card ${isFrontendLit ? "is-lit" : ""}`}>
           <div className="pos-system-visual pos-system-visual-frontend" style={{ cursor: "zoom-in" }} onClick={() => setLightboxImage(POS_FRONTEND_UI)}>
             <img src={POS_FRONTEND_IMAGE_BLACK} alt="AutoCount POS frontend cashier terminal" loading="lazy" className="pos-img-base" />
             <img src={POS_FRONTEND_IMAGE} alt="" aria-hidden="true" className="pos-img-overlay" />
@@ -773,7 +776,7 @@ export default function AutoCountPOSPage({ onContact }) {
           pointer-events: none;
           transition: opacity 2800ms cubic-bezier(0.16, 1, 0.3, 1) 300ms;
         }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-img-overlay {
+        #page-autocount-pos .pos-system-card.is-lit .pos-img-overlay {
           opacity: 1;
         }
         #page-autocount-pos .pos-system-copy {
