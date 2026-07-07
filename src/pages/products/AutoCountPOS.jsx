@@ -406,8 +406,9 @@ function POSSystemExplainer() {
 
       <div className="pos-system-layout">
         <article className="pos-system-card">
-          <div className="pos-system-visual">
+          <div className="pos-system-visual pos-system-visual-backend">
             <img src={POS_BACKEND_IMAGE} alt="AutoCount POS backend management screen" loading="lazy" />
+            <span className="pos-system-screen-cover" aria-hidden="true" />
             <span className="pos-system-power">Backend online</span>
           </div>
           <div className="pos-system-copy">
@@ -429,8 +430,9 @@ function POSSystemExplainer() {
         </div>
 
         <article className="pos-system-card">
-          <div className="pos-system-visual">
+          <div className="pos-system-visual pos-system-visual-frontend">
             <img src={POS_FRONTEND_IMAGE} alt="AutoCount POS frontend cashier terminal" loading="lazy" />
+            <span className="pos-system-screen-cover" aria-hidden="true" />
             <span className="pos-system-power">Frontend online</span>
           </div>
           <div className="pos-system-copy">
@@ -741,22 +743,15 @@ export default function AutoCountPOSPage({ onContact }) {
             linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.76)),
             radial-gradient(circle at 50% 0%, rgba(228, 158, 37, 0.13), transparent 42%);
           box-shadow: 0 18px 48px rgba(47, 49, 90, 0.08);
-          transform: translateY(14px);
-          opacity: 0.82;
+          transform: translateY(0);
+          opacity: 1;
           transition:
-            transform 900ms cubic-bezier(0.19, 1, 0.22, 1),
-            opacity 800ms ease,
             box-shadow 900ms ease,
             border-color 900ms ease;
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-card {
-          transform: translateY(0);
-          opacity: 1;
           border-color: rgba(228, 158, 37, 0.22);
           box-shadow: 0 22px 70px rgba(47, 49, 90, 0.1);
-        }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-card:nth-child(3) {
-          transition-delay: 120ms;
         }
         #page-autocount-pos .pos-system-visual {
           position: relative;
@@ -769,16 +764,16 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos .pos-system-visual::after {
           content: "";
           position: absolute;
-          inset: 0;
           z-index: 2;
           pointer-events: none;
-          transition: opacity 1200ms cubic-bezier(0.19, 1, 0.22, 1);
         }
         #page-autocount-pos .pos-system-visual::before {
+          inset: 0;
           background:
-            radial-gradient(circle at 50% 48%, rgba(228, 158, 37, 0.24), transparent 34%),
-            linear-gradient(180deg, rgba(11, 12, 20, 0.58), rgba(11, 12, 20, 0.76));
-          opacity: 1;
+            radial-gradient(circle at 50% 55%, rgba(228, 158, 37, 0.12), transparent 38%),
+            linear-gradient(180deg, rgba(8, 9, 16, 0.12), rgba(8, 9, 16, 0.08));
+          opacity: 0.24;
+          transition: opacity 900ms ease;
         }
         #page-autocount-pos .pos-system-visual::after {
           inset: auto 12% -18% 12%;
@@ -787,9 +782,10 @@ export default function AutoCountPOSPage({ onContact }) {
           background: rgba(228, 158, 37, 0.34);
           filter: blur(34px);
           opacity: 0;
+          transition: opacity 1100ms cubic-bezier(0.19, 1, 0.22, 1);
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-visual::before {
-          opacity: 0;
+          opacity: 0.08;
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-visual::after {
           opacity: 1;
@@ -799,21 +795,55 @@ export default function AutoCountPOSPage({ onContact }) {
           height: 100%;
           display: block;
           object-fit: cover;
-          transform: scale(1.02);
-          filter: brightness(0.32) saturate(0.45) contrast(0.98);
+          transform: scale(1);
+          filter: brightness(0.96) saturate(0.98) contrast(1);
           transition:
-            filter 1250ms cubic-bezier(0.19, 1, 0.22, 1),
-            transform 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+            filter 900ms ease;
         }
         #page-autocount-pos .pos-system-wrap.is-lit .pos-system-visual img {
-          transform: scale(1);
-          filter: brightness(1) saturate(1.03) contrast(1.01);
+          filter: brightness(1) saturate(1.02) contrast(1.01);
+        }
+        #page-autocount-pos .pos-system-screen-cover {
+          position: absolute;
+          z-index: 3;
+          display: block;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          background:
+            radial-gradient(circle at 50% 45%, rgba(228, 158, 37, 0.08), transparent 36%),
+            linear-gradient(180deg, #05060a 0%, #0c0e16 100%);
+          box-shadow:
+            inset 0 0 42px rgba(0, 0, 0, 0.78),
+            0 0 0 rgba(228, 158, 37, 0);
+          opacity: 0.96;
+          transition:
+            opacity 1250ms cubic-bezier(0.19, 1, 0.22, 1),
+            box-shadow 1250ms cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        #page-autocount-pos .pos-system-visual-backend .pos-system-screen-cover {
+          top: 4.5%;
+          right: 3.7%;
+          bottom: 24.8%;
+          left: 3.7%;
+          border-radius: 4px;
+        }
+        #page-autocount-pos .pos-system-visual-frontend .pos-system-screen-cover {
+          top: 8.2%;
+          right: 20.4%;
+          bottom: 37.2%;
+          left: 26.4%;
+          border-radius: 3px;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-screen-cover {
+          opacity: 0;
+          box-shadow:
+            inset 0 0 0 rgba(0, 0, 0, 0),
+            0 0 44px rgba(228, 158, 37, 0.55);
         }
         #page-autocount-pos .pos-system-power {
           position: absolute;
           right: 1rem;
           bottom: 1rem;
-          z-index: 3;
+          z-index: 4;
           display: inline-flex;
           align-items: center;
           gap: 0.45rem;
@@ -906,17 +936,23 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos .pos-system-divider {
           position: relative;
           display: flex;
-          align-items: center;
+          align-items: flex-start;
           justify-content: center;
-          min-width: 4.25rem;
+          min-width: clamp(3.2rem, 4vw, 4.75rem);
+          padding-top: clamp(5.8rem, 9vw, 8rem);
         }
         #page-autocount-pos .pos-system-divider::before {
           content: "";
           position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 50%;
-          border-left: 1px dashed rgba(47, 49, 90, 0.24);
+          top: clamp(7.35rem, 9vw, 9rem);
+          right: -0.45rem;
+          left: -0.45rem;
+          border-top: 1px dashed rgba(47, 49, 90, 0.32);
+          transition: border-color 900ms ease, filter 900ms ease;
+        }
+        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-divider::before {
+          border-color: rgba(228, 158, 37, 0.7);
+          filter: drop-shadow(0 0 8px rgba(228, 158, 37, 0.32));
         }
         #page-autocount-pos .pos-system-divider span {
           position: relative;
@@ -1540,6 +1576,8 @@ export default function AutoCountPOSPage({ onContact }) {
           #page-autocount-pos .pos-system-divider {
             min-height: 4.25rem;
             min-width: 0;
+            padding-top: 0;
+            align-items: center;
           }
           #page-autocount-pos .pos-system-divider::before {
             top: 50%;
