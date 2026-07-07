@@ -41,7 +41,7 @@ const POS_NAVY = "#2f315a";
 const POS_HERO = "/images/products/autocount-pos-showcase.webp";
 const POS_ICON = "/images/products/autocount-pos.webp";
 const POS_BACKEND_IMAGE = "/images/products/autocount-pos-backend.png";
-const POS_FRONTEND_IMAGE = "/images/products/autocount-pos-frontend.webp";
+const POS_FRONTEND_IMAGE = "/images/products/autocount-pos-frontend.png";
 const FREE_TRIAL_URL = "https://auth.autocountcloud.com/identity/account/register/accounting?dealerCode=SYNS6037";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
