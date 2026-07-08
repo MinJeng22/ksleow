@@ -431,7 +431,7 @@ function POSSystemExplainer() {
         </article>
       </div>
 
-      <aside className="pos-system-callout">
+      <aside className={`pos-system-callout ${(isBackendLit || isFrontendLit) ? "is-lit" : ""}`}>
         <div className="pos-system-callout-icon" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
@@ -907,7 +907,7 @@ export default function AutoCountPOSPage({ onContact }) {
             opacity 850ms ease 360ms,
             transform 900ms cubic-bezier(0.19, 1, 0.22, 1) 360ms;
         }
-        #page-autocount-pos .pos-system-wrap.is-lit .pos-system-callout {
+        #page-autocount-pos .pos-system-callout.is-lit {
           opacity: 1;
           transform: translateY(0);
         }
