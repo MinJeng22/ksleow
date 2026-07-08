@@ -262,7 +262,6 @@ export default function Home({ onContact }) {
         stats={[
           { label: "WhatsApp", value: "017-905 2323" },
           { label: "Email", value: "support@ksleow.com.my" },
-          { label: "Office", value: "Mentakab, Pahang" },
         ]}
         checklist={[
           <>AutoCount POS, Accounting, CloudAccounting, payroll, and business apps consultation.</>,
