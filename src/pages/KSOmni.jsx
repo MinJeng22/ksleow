@@ -9,7 +9,7 @@ import {
 import { BackIcon, MenuGlyph } from "../components/icons.jsx";
 import { navigateBackWithRouteFeedback, navigateWithRouteFeedback, runWithProgressFeedback } from "../utils/routeTransitions.js";
 
-const DEFAULT_OMNI_ORIGIN = "https://ksleow.vercel.app";
+const DEFAULT_OMNI_ORIGIN = "https://ksleow.com.my";
 const SSR_SESSION_ID = "pending-session";
 
 function getOmniPageUrl(machineId, origin = DEFAULT_OMNI_ORIGIN) {

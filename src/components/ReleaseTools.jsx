@@ -42,7 +42,7 @@ export function copyShareUrl({ params, hash }) {
     }
   });
   const queryText = query.toString();
-  const url = `${window.location.origin}${window.location.pathname}${queryText ? `?${queryText}` : ""}${hash || ""}`;
+  const url = `https://ksleow.com.my${window.location.pathname}${queryText ? `?${queryText}` : ""}${hash || ""}`;
   const fallback = () => {
     const textarea = document.createElement("textarea");
     textarea.value = url;

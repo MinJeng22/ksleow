@@ -167,7 +167,7 @@ async function fetchStoredQuotation(quoteId, token) {
 
 function getRequestOrigin(req) {
   const protocol = getHeader(req.headers || {}, "x-forwarded-proto") || "https";
-  const host = getHeader(req.headers || {}, "host") || "ksleow.vercel.app";
+  const host = getHeader(req.headers || {}, "host") || "ksleow.com.my";
   return `${protocol}://${host}`;
 }
 
