@@ -255,20 +255,15 @@ export default function Home({ onContact }) {
         open={kslContactOpen}
         onClose={closeKslContact}
         productName="KSL Business Solutions"
-        title="Let us help your business run smoother"
-        panelTitle="How KSL can help"
+        title=""
+        panelTitle=""
         whatsappLabel="Chat on WhatsApp"
         supportMessage={KSL_CONTACT_MESSAGE}
         stats={[
           { label: "WhatsApp", value: "017-905 2323" },
           { label: "Email", value: "support@ksleow.com.my" },
         ]}
-        checklist={[
-          <>AutoCount POS, Accounting, CloudAccounting, payroll, and business apps consultation.</>,
-          <>POS hardware, computers, printers, barcode scanners, networking, and technical support.</>,
-          <>SiteGiant integration, AutoCount plugin setup, training, and after-sales service.</>,
-          <>Tell us your outlet, software, or hardware requirement and our team will guide the next step.</>,
-        ]}
+        checklist={[]}
       />
     </>
   );

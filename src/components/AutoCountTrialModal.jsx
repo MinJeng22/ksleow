@@ -201,9 +201,11 @@ export default function AutoCountTrialModal({
           <div className="ks-eyebrow" style={{ color: "#e8c97a", textAlign: "left" }}>
             {productName}
           </div>
-          <h2 className="ks-section-title" style={{ color: "#ffffff", lineHeight: 1.13, marginBottom: 0, textAlign: "left" }}>
-            {title}
-          </h2>
+          {title && (
+            <h2 className="ks-section-title" style={{ color: "#ffffff", lineHeight: 1.13, marginBottom: 0, textAlign: "left" }}>
+              {title}
+            </h2>
+          )}
         </div>
 
         <div className="trial-modal-body" style={{ padding: "1.6rem 2rem 2rem", background: "#ffffff", borderRadius: "0 0 26px 26px", overflowY: "auto", minHeight: 0 }}>
@@ -218,20 +220,24 @@ export default function AutoCountTrialModal({
             ))}
           </div>
 
-          <div style={{
-            border: "1px solid rgba(47,49,90,0.1)",
-            borderRadius: 18,
-            padding: "1.05rem",
-            background: "#f8f8fb",
-            marginBottom: "1.25rem",
-          }}>
-            <div style={{ fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase", color: "#2f315a", marginBottom: "0.75rem" }}>
-              {panelTitle}
+          {checklist && checklist.length > 0 && (
+            <div style={{
+              border: "1px solid rgba(47,49,90,0.1)",
+              borderRadius: 18,
+              padding: "1.05rem",
+              background: "#f8f8fb",
+              marginBottom: "1.25rem",
+            }}>
+              {panelTitle && (
+                <div style={{ fontSize: "0.78rem", fontWeight: 800, letterSpacing: "0.08em", textTransform: "uppercase", color: "#2f315a", marginBottom: "0.75rem" }}>
+                  {panelTitle}
+                </div>
+              )}
+              {checklist.map((item, i) => (
+                <ChecklistItem key={i}>{item}</ChecklistItem>
+              ))}
             </div>
-            {checklist.map((item, i) => (
-              <ChecklistItem key={i}>{item}</ChecklistItem>
-            ))}
-          </div>
+          )}
 
           <a
             href={SUPPORT_WA_LINK}
