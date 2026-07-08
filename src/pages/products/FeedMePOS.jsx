@@ -31,7 +31,7 @@ const S = {
   h2:      { fontSize: "clamp(1.4rem, 2.6vw, 2rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.2, marginBottom: "1rem" },
   h3:      { fontSize: "1.05rem", fontWeight: 700, color: "#2f315a", marginBottom: "0.55rem" },
   body:    { fontSize: "var(--text-body)", color: "#555", lineHeight: 1.82 },
-  section: { padding: "4rem 0" },
+  section: {},
 };
 
 /* ── Inline SVG icon set ── */
