@@ -9,7 +9,7 @@ import useFavicon from "../../hooks/useFavicon.js";
 const HRMS_EDITIONS = ["Express", "Premium", "Accountant"];
 const HRMS_EDITION_TABLE = {
   topRows: [
-    ["Price", ["RM 720 /year*", "RM 44 /month*", "RM 840 /year*"]],
+    ["Price", ["RM 720 /year*", "Free for 3 headcounts (Then RM 44 /month*)", "RM 840 /year*"]],
     ["Best for", [
       "Company which only needs the Payroll process without eLeave, eClaim, and eAttendance.",
       "Company who wants a complete HR solution, including Payroll, eLeave, eClaim, and eAttendance",
@@ -27,8 +27,8 @@ const HRMS_EDITION_TABLE = {
     {
       name: "FEATURES",
       rows: [
-        ["eLeave & eClaim", ["", "+", ""]],
-        ["eAttendance", ["", "+", ""]],
+        ["eLeave & eClaim", ["", "+ (Free for 10 headcounts)", ""]],
+        ["eAttendance", ["", "+ (Free for 10 headcounts)", ""]],
         ["e-Approval Setting", ["", "Multiple", ""]],
         ["Employee Download Own Payslip", ["", "+", "+"]],
         ["Employee Profile Maintenance", ["+", "+", "+"]],
