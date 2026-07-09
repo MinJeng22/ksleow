@@ -37,9 +37,11 @@ jobs:
         run: npm run build:fast
 
       - name: Commit and push if updated
+        id: commit_push
         run: |
           if git diff --quiet -- src/content/autocountReleases.json src/content/autocountCloudReleases.json; then
             echo "AutoCount release notes are already up to date."
+            echo "updated=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
@@ -48,3 +50,18 @@ jobs:
           git add src/content/autocountReleases.json src/content/autocountCloudReleases.json
           git commit -m "chore: sync AutoCount release notes"
           git push
+          echo "updated=true" >> $GITHUB_OUTPUT
+
+      - name: Send email notification
+        if: steps.commit_push.outputs.updated == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "AutoCount Release Notes Updated!"
+          to: "your-email@example.com"
+          from: "GitHub Actions"
+          body: "AutoCount release notes have been successfully synced and updated on the KSL website repository."
