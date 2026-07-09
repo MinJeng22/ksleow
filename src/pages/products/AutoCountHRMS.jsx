@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero";
 import ProductPlaceholder from "../../components/ProductPlaceholder";
 import SharedEditionsTable from "../../components/SharedEditionsTable";
+import HRMSCalculator from "../../components/HRMSCalculator";
 import useFavicon from "../../hooks/useFavicon.js";
 
 const HRMS_EDITIONS = ["Express", "Premium", "Accountant"];
@@ -98,6 +99,13 @@ export default function AutoCountHRMSPage({ onContact }) {
             </div>
           </div>
         </div>
+        
+        <div id="calculator" className="product-app-section product-app-section-mist" style={{ padding: "4rem 0" }}>
+          <div className="content-wrap">
+            <HRMSCalculator />
+          </div>
+        </div>
+
         <ProductPlaceholder title="AutoCount HRMS" />
         <Footer />
       </main>
