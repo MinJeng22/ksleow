@@ -3,7 +3,18 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero";
 import ProductPlaceholder from "../../components/ProductPlaceholder";
 import SharedEditionsTable from "../../components/SharedEditionsTable";
+import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
+
+const ONESALE_VIDEOS = [
+  {
+    id: 'knMftBS_mAE',
+    label: 'Introducing AutoCount OneSales',
+    description: 'A quick overview of AutoCount OneSales — see how it connects your Shopee and Lazada stores to AutoCount for streamlined marketplace management.',
+    note: 'Introduction',
+    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+  }
+];
 
 const ONESALE_EDITIONS = ["M1000", "M3000", "M6000", "M10000"];
 const ONESALE_EDITION_TABLE = {
@@ -88,6 +99,19 @@ export default function AutoCountOneSalePage({ onContact }) {
               <div style={{ marginBottom: "0.5rem" }}>Free trial for up to three months with unlimited order downloads</div>
               <div>** Free Trial is subject to terms and conditions.</div>
             </div>
+          </div>
+        </div>
+        <div className="product-app-section product-app-section-mist product-app-section-from-paper">
+          <div id="training">
+            <AutoCountTrainingWebGL
+              customVideos={ONESALE_VIDEOS}
+              title="AutoCount OneSale Quick‑Start Guide"
+              themeColor="#ff5a3b"
+              themeHoverColor="#ff7a5f"
+              activeTabBg="#2f315a"
+              playBtnBg="#ff5a3b"
+              playIconColor="#ffffff"
+            />
           </div>
         </div>
         <ProductPlaceholder title="AutoCount OneSale" />
