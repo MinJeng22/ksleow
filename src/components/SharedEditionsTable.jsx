@@ -1,5 +1,7 @@
 import React from "react";
 
+/* ── Helpers (same logic as Accounting / CloudAccounting pages) ──── */
+
 function getEditionColumnIndexes(allEditions, selected) {
   if (!selected || selected.length === 0) return allEditions.map((_, i) => i);
   return selected.map(e => allEditions.indexOf(e)).filter(i => i >= 0);
@@ -15,26 +17,38 @@ function editionRowDiffers(values, colIndexes) {
   return new Set(filtered).size > 1;
 }
 
-function RenderValue({ value }) {
+/* ── Value renderer — matches the premium look of Accounting tables ── */
+
+function RenderValue({ value, accentColor }) {
   if (value === "-" || value === "") {
-    return <span style={{ color: "#9aa", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>-</span>;
+    return <span style={{ color: "#c8c8d0", fontWeight: 400, fontSize: "1rem", lineHeight: 1 }}>—</span>;
   }
   if (value === "+") {
-    return <span style={{ color: "#80c31e", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>+</span>;
+    return <span style={{ display: "inline-block", width: 11, height: 11, borderRadius: "50%", background: accentColor }} />;
   }
-  // For "+ (something)"
+  // "+ (note)" pattern — green dot with subtext
   if (typeof value === "string" && value.startsWith("+ ")) {
     return (
-      <span style={{ display: "inline-flex", flexDirection: "column", alignItems: "center" }}>
-        <span style={{ color: "#80c31e", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>+</span>
-        <span style={{ fontSize: "0.75rem", color: "#6b6f91", marginTop: 4 }}>{value.replace("+ ", "")}</span>
+      <span style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+        <span style={{ display: "inline-block", width: 11, height: 11, borderRadius: "50%", background: accentColor }} />
+        <span style={{ fontSize: "0.72rem", color: "#6b6f91", lineHeight: 1.3 }}>{value.slice(2)}</span>
       </span>
     );
   }
-  return <span style={{ fontSize: "0.85rem", color: "#2f315a" }}>{value}</span>;
+  return <span>{value}</span>;
 }
 
-export default function SharedEditionsTable({ editions, topRows = [], sections = [], selected = null, diffOnly = false, thColor = "#80c31e", thIcon = null }) {
+/* ── Main component ────────────────────────────────────────────── */
+
+export default function SharedEditionsTable({
+  editions,
+  topRows = [],
+  sections = [],
+  selected = null,
+  diffOnly = false,
+  thColor = "#80c31e",
+  featureColumnLabel = "Feature",
+}) {
   const cols = (selected && selected.length > 0) ? selected : editions;
   const colIdx = getEditionColumnIndexes(editions, selected);
   const filterRow = (values) => filterEditionValues(values, colIdx);
@@ -51,9 +65,9 @@ export default function SharedEditionsTable({ editions, topRows = [], sections =
   };
 
   return (
-    <div className="ks-compare-panel" style={{ maxWidth: cols.length <= 4 ? 1180 : 'none', margin: cols.length <= 4 ? '0 auto' : '0' }}>
+    <div className="ks-compare-panel" style={{ maxWidth: cols.length <= 4 ? 1180 : "none", margin: cols.length <= 4 ? "0 auto" : "0" }}>
       <div className="ks-compare-wrap">
-        <table className="ks-compare-table" style={{ 
+        <table className="ks-compare-table" style={{
           "--edition-count": cols.length,
           "--mobile-table-width": cols.length > 3 ? `${cols.length * 75}px` : "100%"
         }}>
@@ -63,12 +77,11 @@ export default function SharedEditionsTable({ editions, topRows = [], sections =
               <col key={edition} className="ks-compare-col-edition" width={`${69 / cols.length}%`} />
             ))}
           </colgroup>
+
+          {/* ── Header ── */}
           <thead className="ks-compare-thead" ref={theadRef} onScroll={handleHeadScroll}>
             <tr style={{ "--th-bg": thColor }}>
-              <th className="ks-compare-th ks-compare-th-left">
-                {thIcon && <span style={{ marginRight: 6 }}>{thIcon}</span>}
-                Compare Plans
-              </th>
+              <th className="ks-compare-th ks-compare-th-left">{featureColumnLabel}</th>
               {cols.map(e => (
                 <th key={e} className="ks-compare-th">
                   <span className="ks-compare-edition-name">{e}</span>
@@ -76,7 +89,11 @@ export default function SharedEditionsTable({ editions, topRows = [], sections =
               ))}
             </tr>
           </thead>
+
+          {/* ── Body ── */}
           <tbody className="ks-compare-tbody" ref={tbodyRef} onScroll={handleBodyScroll}>
+
+            {/* Top rows (pricing, best-for, etc.) */}
             {topRows.map((row, rIdx) => {
               if (diffOnly && !rowDiffers(row[1])) return null;
               return (
@@ -85,38 +102,46 @@ export default function SharedEditionsTable({ editions, topRows = [], sections =
                     {row[0]}
                   </td>
                   {filterRow(row[1]).map((v, i) => (
-                    <td key={i} className="ks-compare-td-book" style={{ textAlign: "center" }}>
-                      <RenderValue value={v} />
+                    <td key={i} className="ks-compare-td-book">
+                      <RenderValue value={v} accentColor={thColor} />
                     </td>
                   ))}
                 </tr>
               );
             })}
 
-            {sections.map(section => (
-              <React.Fragment key={section.name}>
-                {(!diffOnly || section.rows.some(r => rowDiffers(r[1]))) && (
+            {/* Section groups */}
+            {sections.map(section => {
+              const rows = diffOnly
+                ? section.rows.filter(([, values]) => rowDiffers(values))
+                : section.rows;
+              if (rows.length === 0) return null;
+
+              return (
+                <React.Fragment key={section.name}>
                   <tr className="ks-compare-tr-section">
                     <td colSpan={cols.length + 1} className="ks-compare-td-section">
                       {section.name}
                     </td>
                   </tr>
-                )}
-                {section.rows.map((row, rIdx) => {
-                  if (diffOnly && !rowDiffers(row[1])) return null;
-                  return (
-                    <tr key={`${section.name}-${rIdx}`} className="ks-compare-tr-feature">
-                      <td className="ks-compare-td-left">{row[0]}</td>
-                      {filterRow(row[1]).map((v, i) => (
-                        <td key={i} className="ks-compare-td-check">
-                          <RenderValue value={v} />
+                  {rows.map(([rowName, values], rIdx) => {
+                    const visibleVals = filterRow(values);
+                    return (
+                      <tr key={`${section.name}-${rIdx}`} className="ks-compare-tr-data">
+                        <td className="ks-compare-td-left ks-compare-td-data" style={{ fontWeight: 500 }}>
+                          {rowName}
                         </td>
-                      ))}
-                    </tr>
-                  );
-                })}
-              </React.Fragment>
-            ))}
+                        {visibleVals.map((v, vi) => (
+                          <td key={vi} className="ks-compare-td-data">
+                            <RenderValue value={v} accentColor={thColor} />
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </React.Fragment>
+              );
+            })}
           </tbody>
         </table>
       </div>
