@@ -3,7 +3,7 @@
     "version": "1.1.81",
     "rev": "Release 81",
     "date": "2026-07-07",
-    "postedLabel": "3 minutes ago",
+    "postedLabel": "1 day ago",
     "features": [
       "Added AUD System Currency selection to Singapore Account Book.",
       "Support importing Bank Statement PDF and update CSV File at Bank Transactions.",
@@ -801,7 +801,7 @@
     "version": "1.1.48",
     "rev": "Release 48",
     "date": "2024-04-08",
-    "postedLabel": "about 2 years ago",
+    "postedLabel": "over 2 years ago",
     "features": [
       "Add new report option at Stock Card - Print Stock Transaction only. This is to print a list of transactions within the inquiry period in stock card result. Read more",
       "Add new report option at Trial Balance, Profit and Loss Statement and Balance Sheet Statement - Show Report Header. This is to print company profile header if tick this option. Read more",
