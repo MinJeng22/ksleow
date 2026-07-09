@@ -1,5 +1,5 @@
 ServerLink
-Secure, fast, and reliable remote access solution for your business software.
+Transform your desktop accounting software into a web-accessible private cloud with ServerLink—an affordable, all-in-one remote access solution that leverages your existing infrastructure for seamless remote and branch connectivity.
 URL: https://ksleow.com.my/products/serverlink/
 Category: Product
 Target market

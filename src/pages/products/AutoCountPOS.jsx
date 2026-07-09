@@ -311,14 +311,9 @@ function POSCompareTable({
 }
 
 
-function SectionIntro({ eyebrow, title, text, shareHash, onClick }) {
+function SectionIntro({ title, text, shareHash, onClick }) {
   return (
     <div className="pos-section-intro">
-      {eyebrow && (
-        <div className="ks-eyebrow" style={{ color: POS_ACCENT }}>
-          {eyebrow}
-        </div>
-      )}
       <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center', userSelect: onClick ? 'none' : 'auto' }} onClick={onClick}>
         <span className="ks-section-title ks-section-title-inherit">{title}</span>
         {shareHash && <ShareLinkButton variant="icon" hash={shareHash} />}
@@ -716,7 +711,7 @@ export default function AutoCountPOSPage({ onContact }) {
         }
         #page-autocount-pos .pos-section-intro p {
           margin: 0.9rem auto 0;
-          max-width: 680px;
+          max-width: none;
           color: #6b6f91;
           font-size: 0.98rem;
           line-height: 1.75;

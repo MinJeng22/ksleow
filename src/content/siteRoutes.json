@@ -102,7 +102,7 @@
     "id": "serverlink",
     "route": "/products/serverlink",
     "title": "ServerLink",
-    "description": "Secure, fast, and reliable remote access solution for your business software.",
+    "description": "Transform your desktop accounting software into a web-accessible private cloud with ServerLink—an affordable, all-in-one remote access solution that leverages your existing infrastructure for seamless remote and branch connectivity.",
     "category": "Product",
     "priority": "0.6",
     "changefreq": "monthly"

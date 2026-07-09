@@ -3381,7 +3381,7 @@ body.has-active-modal .back-to-top-glass {
 
 .serverlink-pricing-head .ks-body-text {
   margin: 0;
-  max-width: 760px;
+  max-width: none;
 }
 
 .serverlink-pricing-actions {
@@ -3532,7 +3532,7 @@ body.has-active-modal .back-to-top-glass {
   align-items: start;
   display: grid;
   gap: clamp(1.6rem, 4vw, 3rem);
-  grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
+  grid-template-columns: 1fr;
 }
 
 .serverlink-upgrade-layout .ks-body-text {

@@ -145,7 +145,7 @@ export default function ServerLinkPage({ onContact }) {
         <ProductHero
           eyebrow="Remote Access Solution"
           title="ServerLink"
-          body="Secure, fast, and reliable remote access solution for your business software."
+          body="Transform your desktop accounting software into a web-accessible private cloud with ServerLink—an affordable, all-in-one remote access solution that leverages your existing infrastructure for seamless remote and branch connectivity."
           iconSrc="/images/products/serverlink-icon.webp"
           backgroundImage="/images/products/serverlink-showcase.webp"
           primaryCta={{ label: "Start Free Trial", onClick: () => setTrialOpen(true), className: "ks-btn-serverlink" }}
@@ -158,7 +158,6 @@ export default function ServerLinkPage({ onContact }) {
           <div className="content-wrap">
             <div className="serverlink-pricing-head">
               <div>
-                <div className="ks-eyebrow">Pricing</div>
                 <h2 className="ks-section-title">ServerLink Remote Access Pricing</h2>
                 <p className="ks-body-text">
                   Choose a ready bundle for a new remote access setup, or add more users when your team grows.
@@ -190,7 +189,6 @@ export default function ServerLinkPage({ onContact }) {
           <div className="content-wrap">
             <div className="serverlink-upgrade-layout">
               <div>
-                <div className="ks-eyebrow">Upgrade</div>
                 <h2 className="ks-section-title">Add More Remote Users</h2>
                 <p className="ks-body-text">
                   Already using ServerLink? These upgrade options add extra concurrent users without

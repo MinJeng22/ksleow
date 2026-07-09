@@ -162,9 +162,8 @@ export default function FeedMePOSPage({ onContact }) {
       {/* ── Key Features ── */}
       <div id="features" className="product-app-section product-app-section-paper product-app-section-clean">
         <div className="content-wrap">
-          <div className="ks-eyebrow">What's Inside</div>
           <h2 className="ks-section-title" style={{ marginBottom: "0.75rem" }}>Everything an F&amp;B Outlet Needs</h2>
-          <p className="ks-body-text" style={{ marginBottom: "2.25rem", maxWidth: 720 }}>
+          <p className="ks-body-text" style={{ marginBottom: "2.25rem", maxWidth: "none" }}>
             Six core modules that run on iPad, Android tablet, or Windows touchscreen — and stay
             in sync across every device, every outlet, in real time.
           </p>
@@ -205,9 +204,8 @@ export default function FeedMePOSPage({ onContact }) {
       {/* ── Module spotlight ── */}
       <div id="modules" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice">
         <div className="content-wrap">
-          <div className="ks-eyebrow">How It Flows</div>
           <h2 className="ks-section-title" style={{ marginBottom: "0.75rem" }}>One Order, End-to-End</h2>
-          <p className="ks-body-text" style={{ marginBottom: "0.5rem", maxWidth: 720 }}>
+          <p className="ks-body-text" style={{ marginBottom: "0.5rem", maxWidth: "none" }}>
             From the moment a guest sits down to the moment numbers land in your accountant's inbox,
             FeedMe POS handles every step on the same platform.
           </p>
@@ -274,7 +272,6 @@ export default function FeedMePOSPage({ onContact }) {
       <div id="integration" className="product-app-section product-app-section-ice product-app-section-to-warm">
         <div className="content-wrap" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2.5rem", alignItems: "center" }}>
           <div>
-            <div className="ks-eyebrow">Built to Work Together</div>
             <h2 className="ks-section-title">Syncs Straight to AutoCount Accounting</h2>
             <p className="ks-body-text" style={{ marginBottom: "1rem" }}>
               Daily sales, payment breakdown, GST/SST, and even cost-of-goods post automatically
@@ -309,9 +306,8 @@ export default function FeedMePOSPage({ onContact }) {
       {/* ── Why partner with KSL ── */}
       <div id="why-ksl" className="product-app-section product-app-section-warm">
         <div className="content-wrap">
-          <div className="ks-eyebrow">Why Partner With KSL</div>
           <h2 className="ks-section-title" style={{ marginBottom: "0.75rem" }}>Local Installation, Local Support</h2>
-          <p className="ks-body-text" style={{ marginBottom: "2rem", maxWidth: 720 }}>
+          <p className="ks-body-text" style={{ marginBottom: "2rem", maxWidth: "none" }}>
             FeedMe is the software. KS Support Team is the hands that install it,
             train your team, and pick up the phone when something stops working at 9pm on a Saturday.
           </p>
