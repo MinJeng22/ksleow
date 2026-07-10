@@ -21,13 +21,13 @@ import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 const POS_PROMOTIONS = [
-  { image: "" },
+  { image: "/images/promotions/autocount-pos-promo.webp" },
   {
     title: "Earn rewards when you refer AutoCount users",
     image: "/images/promotions/ksl-referral-program.webp",
     cta: { href: `https://wa.me/60179052323?text=${encodeURIComponent("Hi, I'm interested in AutoCount POS. Can you share more details?")}`, target: "_blank", label: "WhatsApp Us" },
   },
-  { image: "/images/promotions/autocount-pos-promo.webp" },
+  { image: "/images/promotions/pos-promo-temp.webp" },
 ];
 import { CompareFeatureCell } from "../../components/CompareTable.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
