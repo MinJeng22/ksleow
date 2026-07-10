@@ -1718,7 +1718,7 @@ export default function AutoCountPOSPage({ onContact }) {
               mobileWidth={820}
             />
             <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
-              *必须要有 POS Backend 或者 AutoCount Accounting 才能加。<br />
+              *Frontend requires a POS Backend or AutoCount Accounting.<br />
               *Prices exclude 8% SST.
             </p>
           </div>
