@@ -4,7 +4,55 @@ import ProductHero from "../../components/ProductHero";
 import ProductPlaceholder from "../../components/ProductPlaceholder";
 import SharedEditionsTable from "../../components/SharedEditionsTable";
 import HRMSCalculator from "../../components/HRMSCalculator";
+import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
+
+const TutorialPlayIcon = (
+  <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="10" />
+    <polygon points="10 8 16 12 10 16 10 8" />
+  </svg>
+);
+
+const TutorialScreenIcon = (
+  <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+    <line x1="8" y1="21" x2="16" y2="21" />
+    <line x1="12" y1="17" x2="12" y2="21" />
+  </svg>
+);
+
+const TutorialPremiumIcon = (
+  <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M12 3l2.7 5.47 6.03.88-4.36 4.25 1.03 6.01L12 16.77 6.6 19.61l1.03-6.01-4.36-4.25 6.03-.88L12 3z" />
+  </svg>
+);
+
+const HRMS_VIDEOS = [
+  {
+    id: "fTLWEGZXApY",
+    label: "Introduction",
+    description: "Start with a quick AutoCount HRMS overview before comparing plans, payroll workflows, employee self-service, and the cloud HR tools available for your team.",
+    note: "Introduction",
+    icon: TutorialPlayIcon,
+  },
+  {
+    id: "CeLVteZ4Wtk",
+    playlistId: "PLuc8uVTiaUHMW6DZRNxl1XF94l90mYO6R",
+    label: "General Tutorial",
+    description: "Follow the general HRMS training playlist for payroll setup, employee records, statutory settings, payroll processing, and daily HR administration.",
+    note: "General Training",
+    icon: TutorialScreenIcon,
+  },
+  {
+    id: "0GvMf9_az3U",
+    playlistId: "PLuc8uVTiaUHN8kaFtKB5ZWQVtDAtmLFOs",
+    label: "Premium Plan Training",
+    description: "Learn the Premium plan workflow, including eLeave, eClaim, eAttendance, approvals, and the additional HR tools for growing teams.",
+    note: "Premium Guide",
+    icon: TutorialPremiumIcon,
+  },
+];
 
 const HRMS_EDITIONS = ["Express", "Premium", "Accountant"];
 const HRMS_EDITION_TABLE = {
@@ -103,6 +151,20 @@ export default function AutoCountHRMSPage({ onContact }) {
         <div id="calculator" className="product-app-section product-app-section-mist" style={{ padding: "4rem 0" }}>
           <div className="content-wrap">
             <HRMSCalculator />
+          </div>
+        </div>
+
+        <div className="product-app-section product-app-section-ice product-app-section-from-mist product-app-section-to-cloud">
+          <div id="training">
+            <AutoCountTrainingWebGL
+              customVideos={HRMS_VIDEOS}
+              title="AutoCount HRMS Quick-Start Guide"
+              themeColor="#3069b8"
+              themeHoverColor="#3d7bd1"
+              activeTabBg="#2f315a"
+              playBtnBg="#3069b8"
+              playIconColor="#ffffff"
+            />
           </div>
         </div>
 
