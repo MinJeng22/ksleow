@@ -3366,7 +3366,9 @@ body.has-active-modal .back-to-top-glass {
 }
 
 /* ServerLink pricing */
-.serverlink-pricing-section {
+.serverlink-advantages-section,
+.serverlink-pricing-section,
+.serverlink-upgrade-section {
   --serverlink-blue: #00a9ef;
   --serverlink-blue-deep: #0877b5;
 }
@@ -3748,6 +3750,15 @@ body.has-active-modal .back-to-top-glass {
   transform: translateY(-1px);
 }
 
+.serverlink-upgrade-tab:focus {
+  outline: none;
+}
+
+.serverlink-upgrade-tab:focus-visible {
+  border-color: rgba(0, 179, 254, 0.58);
+  box-shadow: 0 0 0 4px rgba(0, 179, 254, 0.16);
+}
+
 .serverlink-upgrade-tab.is-active {
   background: linear-gradient(135deg, var(--serverlink-blue), #0b82c5);
   border-color: rgba(0, 179, 254, 0.52);
@@ -3768,7 +3779,8 @@ body.has-active-modal .back-to-top-glass {
 }
 
 .serverlink-upgrade-tab.is-active strong {
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--serverlink-blue-deep);
 }
 
 .serverlink-upgrade-table {
