@@ -7,12 +7,13 @@ import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { PageSectionDivider } from "../../components/PageSections.jsx";
 import { IconChart, IconCloud, IconDollar } from "../../components/SectionDivider.jsx";
+import FeatureShowcase from "../../components/FeatureShowcase.jsx";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent("Hi KS Support Team, I would like to learn more about ServerLink. Thank you.")}`;
 const SERVERLINK_ACCENT = "#00b3fe";
 
 const SERVERLINK_SECTIONS = [
-  { id: "advantages", label: "Advantages", icon: IconCloud, color: SERVERLINK_ACCENT },
+  { id: "advantages", label: "Features", icon: IconCloud, color: SERVERLINK_ACCENT },
   { id: "pricing", label: "Pricing", icon: IconDollar, color: SERVERLINK_ACCENT },
   { id: "upgrades", label: "Add Users", icon: IconChart, color: SERVERLINK_ACCENT },
 ];
@@ -57,24 +58,24 @@ const UPGRADE_TABS = [
 
 const ADVANTAGES = [
   {
-    label: "Private Cloud Access",
+    icon: "/images/products/serverlink-icon.webp",
     title: "Use desktop software from anywhere",
-    body: "Access your existing accounting or business software remotely without moving everything to a public cloud platform.",
+    desc: "Access your existing accounting or business software remotely without moving everything to a public cloud platform.",
   },
   {
-    label: "Branch Ready",
+    icon: "/images/icons/feature-device.svg",
     title: "Connect HQ and outlets",
-    body: "Let multiple branches work with the same server data while keeping user access controlled and easier to support.",
+    desc: "Let multiple branches work with the same server data while keeping user access controlled and easier to support.",
   },
   {
-    label: "Cost Effective",
+    icon: "/images/icons/feature-integration.svg",
     title: "Keep your current infrastructure",
-    body: "ServerLink helps extend your current server, software, and workflow instead of forcing a full system replacement.",
+    desc: "ServerLink helps extend your current server, software, and workflow instead of forcing a full system replacement.",
   },
   {
-    label: "KS Support",
+    icon: "/images/branding/ksl-logo-circle.webp",
     title: "Setup guided by our team",
-    body: "We help check Windows edition, server readiness, remote access tools, user count, and installation planning before rollout.",
+    desc: "We help check Windows edition, server readiness, remote access tools, user count, and installation planning before rollout.",
   },
 ];
 
@@ -168,26 +169,21 @@ function AdvantagesSection() {
       <div className="content-wrap">
         <div className="serverlink-section-head">
           <div>
-            <div className="ks-eyebrow">Advantages</div>
             <h2 className="ks-section-title">Remote Access Without Rebuilding Your Workflow</h2>
+            <p className="ks-body-text">
+              ServerLink is a practical remote access layer for companies that want branch, home, or travelling access
+              while keeping their familiar desktop software and server-based operation.
+            </p>
           </div>
-          <p className="ks-body-text">
-            ServerLink is a practical remote access layer for companies that want branch, home, or travelling access
-            while keeping their familiar desktop software and server-based operation.
-          </p>
-        </div>
-
-        <div className="serverlink-advantages-grid">
-          {ADVANTAGES.map((item, index) => (
-            <article className="serverlink-advantage-card" key={item.title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <p>{item.label}</p>
-              <h3>{item.title}</h3>
-              <div>{item.body}</div>
-            </article>
-          ))}
         </div>
       </div>
+
+      <FeatureShowcase
+        features={ADVANTAGES}
+        id="serverlink-features"
+        className="serverlink-feature-showcase"
+        sectionStyle={{ padding: 0 }}
+      />
     </section>
   );
 }
@@ -229,13 +225,12 @@ export default function ServerLinkPage({ onContact }) {
           <div className="content-wrap">
             <div className="serverlink-section-head serverlink-pricing-head">
               <div>
-                <div className="ks-eyebrow">Pricing</div>
                 <h2 className="ks-section-title">ServerLink Remote Access Pricing</h2>
+                <p className="ks-body-text">
+                  Choose a ready bundle for a new remote access setup, or add more users when your team grows.
+                  Prices exclude 8% SST.
+                </p>
               </div>
-              <p className="ks-body-text">
-                Choose a ready bundle for a new remote access setup, or add more users when your team grows.
-                Prices exclude 8% SST.
-              </p>
             </div>
 
             <div className="serverlink-price-grid">
@@ -260,13 +255,12 @@ export default function ServerLinkPage({ onContact }) {
           <div className="content-wrap">
             <div className="serverlink-section-head">
               <div>
-                <div className="ks-eyebrow">Add Users</div>
                 <h2 className="ks-section-title">Add More Remote Users</h2>
+                <p className="ks-body-text">
+                  Already using ServerLink? Pick your current user count and compare the available upgrade paths.
+                  We can help confirm the right upgrade before checkout.
+                </p>
               </div>
-              <p className="ks-body-text">
-                Already using ServerLink? Pick your current user count and compare the available upgrade paths.
-                We can help confirm the right upgrade before checkout.
-              </p>
             </div>
 
             <div className="serverlink-upgrade-layout">
