@@ -4,8 +4,18 @@ import ProductHero from "../../components/ProductHero";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
+import SectionSidebar from "../../components/SectionSidebar.jsx";
+import { PageSectionDivider } from "../../components/PageSections.jsx";
+import { IconChart, IconCloud, IconDollar } from "../../components/SectionDivider.jsx";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent("Hi KS Support Team, I would like to learn more about ServerLink. Thank you.")}`;
+const SERVERLINK_ACCENT = "#00b3fe";
+
+const SERVERLINK_SECTIONS = [
+  { id: "advantages", label: "Advantages", icon: IconCloud, color: SERVERLINK_ACCENT },
+  { id: "pricing", label: "Pricing", icon: IconDollar, color: SERVERLINK_ACCENT },
+  { id: "upgrades", label: "Add Users", icon: IconChart, color: SERVERLINK_ACCENT },
+];
 
 const BUNDLE_PLANS = [
   { users: "01 User", price: "RM1,104.00" },
@@ -45,6 +55,29 @@ const UPGRADE_TABS = [
   ]}
 ];
 
+const ADVANTAGES = [
+  {
+    label: "Private Cloud Access",
+    title: "Use desktop software from anywhere",
+    body: "Access your existing accounting or business software remotely without moving everything to a public cloud platform.",
+  },
+  {
+    label: "Branch Ready",
+    title: "Connect HQ and outlets",
+    body: "Let multiple branches work with the same server data while keeping user access controlled and easier to support.",
+  },
+  {
+    label: "Cost Effective",
+    title: "Keep your current infrastructure",
+    body: "ServerLink helps extend your current server, software, and workflow instead of forcing a full system replacement.",
+  },
+  {
+    label: "KS Support",
+    title: "Setup guided by our team",
+    body: "We help check Windows edition, server readiness, remote access tools, user count, and installation planning before rollout.",
+  },
+];
+
 function ArrowIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -79,6 +112,14 @@ function UpgradeTable() {
 
   return (
     <div className="serverlink-upgrade-table-wrap">
+      <div className="serverlink-upgrade-panel-head">
+        <div>
+          <span>Upgrade path</span>
+          <h3>{activeData.label}</h3>
+        </div>
+        <p>{activeData.targets.length} available upgrade options</p>
+      </div>
+
       <div className="serverlink-upgrade-tabs" role="tablist" aria-label="ServerLink upgrade starting user count">
         {UPGRADE_TABS.map((tab, i) => (
           <button 
@@ -107,8 +148,8 @@ function UpgradeTable() {
             return (
               <tr key={targetPlan.users}>
                 <td>
-                  <strong>{targetPlan.users}</strong>
-                  <span>Additional user upgrade, without support license</span>
+                  <strong>{activeData.label} to {targetPlan.users}</strong>
+                  <span>Upgrade with 12 months support license</span>
                 </td>
                 <td>{formatPrice(targetInfo.price)}</td>
               </tr>
@@ -118,6 +159,36 @@ function UpgradeTable() {
       </table>
       <p className="serverlink-table-note">Prices exclude 8% SST.</p>
     </div>
+  );
+}
+
+function AdvantagesSection() {
+  return (
+    <section id="advantages" className="serverlink-advantages-section product-app-section product-app-section-paper product-app-section-clean">
+      <div className="content-wrap">
+        <div className="serverlink-section-head">
+          <div>
+            <div className="ks-eyebrow">Advantages</div>
+            <h2 className="ks-section-title">Remote Access Without Rebuilding Your Workflow</h2>
+          </div>
+          <p className="ks-body-text">
+            ServerLink is a practical remote access layer for companies that want branch, home, or travelling access
+            while keeping their familiar desktop software and server-based operation.
+          </p>
+        </div>
+
+        <div className="serverlink-advantages-grid">
+          {ADVANTAGES.map((item, index) => (
+            <article className="serverlink-advantage-card" key={item.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <p>{item.label}</p>
+              <h3>{item.title}</h3>
+              <div>{item.body}</div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -133,6 +204,8 @@ export default function ServerLinkPage({ onContact }) {
 
   return (
     <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
+      <SectionSidebar sections={SERVERLINK_SECTIONS} themeColor={SERVERLINK_ACCENT} />
+
       <div className="pinned-hero-stage">
         <ProductHero
           eyebrow="Remote Access Solution"
@@ -146,16 +219,23 @@ export default function ServerLinkPage({ onContact }) {
       </div>
 
       <main className="pinned-page-content product-app-content">
-        <section className="serverlink-pricing-section product-app-section product-app-section-ice">
+        <AdvantagesSection />
+
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-ice)" }}>
+          <PageSectionDivider sections={SERVERLINK_SECTIONS} id="pricing" />
+        </div>
+
+        <section id="pricing" className="serverlink-pricing-section product-app-section product-app-section-ice product-app-section-from-paper product-app-section-to-mist">
           <div className="content-wrap">
-            <div className="serverlink-pricing-head">
+            <div className="serverlink-section-head serverlink-pricing-head">
               <div>
+                <div className="ks-eyebrow">Pricing</div>
                 <h2 className="ks-section-title">ServerLink Remote Access Pricing</h2>
-                <p className="ks-body-text">
-                  Choose a ready bundle for a new remote access setup, or add more users when your team grows.
-                  Prices exclude 8% SST.
-                </p>
               </div>
+              <p className="ks-body-text">
+                Choose a ready bundle for a new remote access setup, or add more users when your team grows.
+                Prices exclude 8% SST.
+              </p>
             </div>
 
             <div className="serverlink-price-grid">
@@ -172,16 +252,36 @@ export default function ServerLinkPage({ onContact }) {
           </div>
         </section>
 
-        <section className="serverlink-upgrade-section product-app-section product-app-section-paper product-app-section-from-ice">
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-mist)" }}>
+          <PageSectionDivider sections={SERVERLINK_SECTIONS} id="upgrades" />
+        </div>
+
+        <section id="upgrades" className="serverlink-upgrade-section product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-cloud">
           <div className="content-wrap">
-            <div className="serverlink-upgrade-layout">
+            <div className="serverlink-section-head">
               <div>
+                <div className="ks-eyebrow">Add Users</div>
                 <h2 className="ks-section-title">Add More Remote Users</h2>
-                <p className="ks-body-text">
-                  Already using ServerLink? These upgrade options add extra concurrent users without
-                  support license. We can help you confirm the best upgrade path before checkout.
-                </p>
               </div>
+              <p className="ks-body-text">
+                Already using ServerLink? Pick your current user count and compare the available upgrade paths.
+                We can help confirm the right upgrade before checkout.
+              </p>
+            </div>
+
+            <div className="serverlink-upgrade-layout">
+              <aside className="serverlink-upgrade-copy">
+                <span>Upgrade guidance</span>
+                <h3>Start from your current license</h3>
+                <p className="ks-body-text">
+                  Every path is grouped by your existing ServerLink user count, so your team can expand without reading a long flat price list.
+                </p>
+                <ul>
+                  <li>Support license included in upgrade paths.</li>
+                  <li>Prices exclude 8% SST.</li>
+                  <li>Contact KS Support Team before upgrading server access.</li>
+                </ul>
+              </aside>
               <UpgradeTable />
             </div>
           </div>
