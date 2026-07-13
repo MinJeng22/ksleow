@@ -207,7 +207,7 @@ export default function ServerLinkPage({ onContact }) {
           { label: "Users", value: "5 Users" },
         ]}
         checklist={[
-          <>ServerLink host <strong>DO NOT</strong> support Windows 10 & Windows 11 Home Edition as host.</>,
+          <>ServerLink host <strong>ONLY</strong> support Windows 10 & Windows 11 Pro Edition as host.</>,
           <>Install or prepare <strong>AnyDesk</strong> / <strong>UltraViewer</strong> for remote access.</>,
           <>Reserve around <strong>30 minutes</strong> for setup and basic checking.</>,
           <>Message our Support Team to arrange a suitable installation time.</>
