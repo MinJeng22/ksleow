@@ -428,11 +428,8 @@ function POSSystemExplainer() {
             <ul>
               <li>Scan items and process sales, returns, and payments.</li>
               <li>Print receipts and customize receipt formats.</li>
-              <li>Customize report designs based on business needs.</li>
               <li>Submit e-Invoices directly from the counter.</li>
               <li>Connect with barcode scanners, receipt printers, cash drawers, and payment devices.</li>
-              <li>Continue operating even when the internet connection is unavailable.</li>
-              <li>Add register counters anytime according to your business size.</li>
               <li>Sync sales and stock movements with the backend.</li>
             </ul>
           </div>
