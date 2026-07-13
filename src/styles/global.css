@@ -3372,23 +3372,12 @@ body.has-active-modal .back-to-top-glass {
 }
 
 .serverlink-pricing-head {
-  align-items: flex-end;
-  display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  grid-template-columns: minmax(0, 1fr) auto;
   margin-bottom: clamp(1.8rem, 4vw, 3rem);
 }
 
 .serverlink-pricing-head .ks-body-text {
   margin: 0;
   max-width: none;
-}
-
-.serverlink-pricing-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: flex-end;
 }
 
 .serverlink-price-grid {
@@ -3407,7 +3396,7 @@ body.has-active-modal .back-to-top-glass {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
-  min-height: 250px;
+  min-height: 180px;
   overflow: hidden;
   padding: 1.25rem;
   position: relative;
@@ -3492,7 +3481,6 @@ body.has-active-modal .back-to-top-glass {
   text-transform: uppercase;
 }
 
-.serverlink-price-link,
 .serverlink-upgrade-table a {
   align-items: center;
   background: transparent;
@@ -3508,7 +3496,6 @@ body.has-active-modal .back-to-top-glass {
   text-decoration: none;
 }
 
-.serverlink-price-link:hover,
 .serverlink-upgrade-table a:hover {
   color: #005b94;
 }
@@ -3650,29 +3637,6 @@ body.has-active-modal .back-to-top-glass {
   white-space: nowrap;
 }
 
-.serverlink-table-contact {
-  align-items: center;
-  background: rgba(0, 179, 254, 0.08);
-  border: 1px solid rgba(0, 179, 254, 0.18);
-  border-radius: 999px;
-  color: var(--serverlink-blue-deep);
-  cursor: pointer;
-  display: inline-flex;
-  font-family: inherit;
-  font-size: 0.78rem;
-  font-weight: 800;
-  gap: 0.35rem;
-  min-height: 34px;
-  padding: 0 0.78rem;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-  white-space: nowrap;
-}
-
-.serverlink-table-contact:hover {
-  background: rgba(0, 179, 254, 0.14);
-  border-color: rgba(0, 179, 254, 0.34);
-  color: #005b94;
-}
 
 .serverlink-table-note {
   border-top: 1px solid rgba(47, 49, 90, 0.08);

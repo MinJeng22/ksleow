@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
+import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent("Hi KS Support Team, I would like to learn more about ServerLink. Thank you.")}`;
 
@@ -53,7 +54,7 @@ function ArrowIcon() {
   );
 }
 
-function PricingCard({ plan, onContact }) {
+function PricingCard({ plan }) {
   return (
     <article className={`serverlink-price-card${plan.featured ? " is-featured" : ""}`}>
       {plan.featured && <span className="serverlink-price-badge">Popular</span>}
@@ -66,14 +67,11 @@ function PricingCard({ plan, onContact }) {
         <strong>{plan.price}</strong>
         <span>One-time bundle</span>
       </div>
-      <button className="serverlink-price-link" onClick={onContact} type="button">
-        Contact Us <ArrowIcon />
-      </button>
     </article>
   );
 }
 
-function UpgradeTable({ onContact }) {
+function UpgradeTable() {
   const [activeTab, setActiveTab] = useState(0);
   const activeData = UPGRADE_TABS[activeTab];
 
@@ -101,7 +99,6 @@ function UpgradeTable({ onContact }) {
           <tr>
             <th>Upgrade To</th>
             <th>Price</th>
-            <th>Contact</th>
           </tr>
         </thead>
         <tbody>
@@ -114,11 +111,6 @@ function UpgradeTable({ onContact }) {
                   <span>Additional user upgrade, without support license</span>
                 </td>
                 <td>{formatPrice(targetInfo.price)}</td>
-                <td>
-                  <button className="serverlink-table-contact" onClick={onContact} type="button">
-                    Contact Us <ArrowIcon />
-                  </button>
-                </td>
               </tr>
             );
           })}
@@ -164,16 +156,11 @@ export default function ServerLinkPage({ onContact }) {
                   Prices exclude 8% SST.
                 </p>
               </div>
-              <div className="serverlink-pricing-actions">
-                <button className="ks-btn ks-btn-serverlink" onClick={openContact}>
-                  Contact Us <ArrowIcon />
-                </button>
-              </div>
             </div>
 
             <div className="serverlink-price-grid">
               {BUNDLE_PLANS.map((plan) => (
-                <PricingCard key={plan.users} plan={plan} onContact={openContact} />
+                <PricingCard key={plan.users} plan={plan} />
               ))}
             </div>
 
@@ -195,10 +182,17 @@ export default function ServerLinkPage({ onContact }) {
                   support license. We can help you confirm the best upgrade path before checkout.
                 </p>
               </div>
-              <UpgradeTable onContact={openContact} />
+              <UpgradeTable />
             </div>
           </div>
         </section>
+
+        <EnquireNowCTA
+          heading="Ready to set up ServerLink?"
+          body="Talk to KS Support Team for a quotation, trial setup, and server readiness check."
+          buttons={[{ label: "Contact Sales", href: WA_LINK, className: "btn-ghost-base btn-ghost-dark" }]}
+        />
+
         <Footer />
       </main>
 
