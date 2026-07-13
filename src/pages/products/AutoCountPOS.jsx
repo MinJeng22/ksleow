@@ -436,7 +436,7 @@ function POSSystemExplainer() {
         </article>
       </div>
 
-      <aside className={`pos-system-callout ${(isBackendLit || isFrontendLit) ? "is-lit" : ""}`}>
+      <aside className="pos-system-callout">
         <div className="pos-system-callout-icon" aria-hidden="true">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
@@ -448,7 +448,7 @@ function POSSystemExplainer() {
         </div>
       </aside>
 
-      <aside className={`pos-system-callout ${(isBackendLit || isFrontendLit) ? "is-lit" : ""}`} style={{ marginTop: "1rem" }}>
+      <aside className="pos-system-callout" style={{ marginTop: "1rem" }}>
         <div className="pos-system-callout-icon" aria-hidden="true" style={{ background: "rgba(128, 195, 30, 0.15)", color: "#669c1a" }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -458,7 +458,7 @@ function POSSystemExplainer() {
         <div className="pos-system-callout-body">
           <strong>Already using AutoCount Accounting?</strong>
           <span>
-            You can seamlessly add AutoCount POS Frontend registers to your existing accounting system—no separate POS Backend required.
+            You can seamlessly add AutoCount POS Frontend registers to your existing accounting system.
           </span>
         </div>
       </aside>
@@ -938,15 +938,6 @@ export default function AutoCountPOSPage({ onContact }) {
           background: linear-gradient(135deg, rgba(255, 248, 230, 0.9), #fff 60%);
           border-radius: 12px;
           box-shadow: 0 4px 24px rgba(228, 158, 37, 0.07);
-          opacity: 0;
-          transform: translateY(12px);
-          transition:
-            opacity 850ms ease 360ms,
-            transform 900ms cubic-bezier(0.19, 1, 0.22, 1) 360ms;
-        }
-        #page-autocount-pos .pos-system-callout.is-lit {
-          opacity: 1;
-          transform: translateY(0);
         }
         #page-autocount-pos .pos-system-callout-icon {
           flex-shrink: 0;
