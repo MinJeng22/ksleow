@@ -398,7 +398,8 @@ export default function Products({ onContact }) {
       style={{
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "#0f1128",
+        background:
+          "radial-gradient(circle at 16% 18%, rgba(201, 168, 76, 0.18), transparent 32%), radial-gradient(circle at 82% 16%, rgba(62, 112, 190, 0.18), transparent 34%), linear-gradient(145deg, #171a32 0%, #101428 46%, #090d1e 100%)",
         padding: "var(--section-py) 0",
       }}
     >

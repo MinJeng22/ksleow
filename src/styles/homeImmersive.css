@@ -755,12 +755,13 @@ html.is-immersive-home body {
 
 .home-why-editorial-stats {
   display: grid;
-  gap: clamp(1.35rem, 3.4vw, 3.75rem);
-  grid-template-columns: repeat(4, minmax(92px, max-content));
+  gap: clamp(1rem, 2.2vw, 2.6rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   justify-content: end;
   margin-left: auto;
-  max-width: min(100%, 820px);
+  max-width: min(100%, 860px);
   padding-top: clamp(0.45rem, 1vw, 1rem);
+  width: min(100%, 860px);
 }
 
 .home-why-editorial-stat {
@@ -785,8 +786,14 @@ html.is-immersive-home body {
   display: block;
   font-size: clamp(2.25rem, 3.7vw, 3.55rem);
   font-weight: 500;
-  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.045em;
   line-height: 0.95;
+  white-space: nowrap;
+}
+
+.home-why-editorial-stat:first-child strong {
+  font-size: clamp(2.05rem, 3.35vw, 3.25rem);
 }
 
 .home-why-editorial-stat strong span {
@@ -832,9 +839,10 @@ html.is-immersive-home body {
 
   .home-why-editorial-stats {
     gap: 1.4rem 2.1rem;
-    grid-template-columns: repeat(4, minmax(80px, max-content));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     justify-content: end;
     max-width: 100%;
+    width: 100%;
   }
 }
 
