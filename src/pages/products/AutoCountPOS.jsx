@@ -383,21 +383,20 @@ function POSSystemExplainer() {
             <img src={POS_BACKEND_IMAGE} alt="" aria-hidden="true" className="pos-img-overlay" />
           </div>
           <div className="pos-system-copy">
-            <span>Backend Computer</span>
+            <span>Backend Management System</span>
             <h3>For Owners and Management</h3>
             <p>
-              Manage your POS operations, cashier access rights, products, pricing, users, outlets, and reports from one central system.
+              Manage POS operations, products, pricing, cashier access rights, outlets, stock, and reports from one central system.
             </p>
             <p>
-              With selected modules added, AutoCount POS Backend can also handle cash sales, accounting, e-Invoices, customer and supplier transactions, and financial reporting—offering capabilities comparable to AutoCount Accounting.
+              With selected modules, AutoCount POS Backend can also support cash sales, accounting, e-Invoices, customer and supplier transactions, and financial reporting.
             </p>
             <ul>
               <li>Manage products, pricing, customers, users, outlets, and cashier access rights.</li>
-              <li>Review sales, stock, closing reports, and sync status.</li>
-              <li>Handle accounting, cash sales, and e-Invoices with selected modules.</li>
+              <li>Set prices, discounts, and promotions.</li>
+              <li>Review sales, stock, closing reports, audit trails, and sync status.</li>
+              <li>Handle cash sales, accounting, and e-Invoices with selected modules.</li>
               <li>Centralize POS and accounting data in one system.</li>
-              <li>Manage Prices, Discount & Promotions.</li>
-              <li>Audit Trail and tracking.</li>
             </ul>
           </div>
         </article>
@@ -421,14 +420,17 @@ function POSSystemExplainer() {
             <span>Frontend Register Counter</span>
             <h3>For Cashiers</h3>
             <p>
-              Built for fast and efficient daily checkout operations.
+              Manage daily checkout operations, sales, returns, payments, receipts, and e-Invoice submissions from one easy-to-use counter system.
+            </p>
+            <p>
+              AutoCount POS Frontend is designed for fast and efficient transactions while staying connected to the backend for sales, stock, and outlet data synchronization.
             </p>
             <ul>
-              <li>Scan items and process sales or returns.</li>
-              <li>Accept payments and print receipts.</li>
-              <li>Connect with scanners, printers, cash drawers, and payment devices.</li>
+              <li>Scan items and process sales, returns, and payments.</li>
+              <li>Print receipts and customize receipt formats.</li>
+              <li>Submit e-Invoices directly from the counter.</li>
+              <li>Connect with barcode scanners, receipt printers, cash drawers, and payment devices.</li>
               <li>Sync sales and stock movements with the backend.</li>
-              <li>Submit e-Invoice and customize receipt format.</li>
             </ul>
           </div>
         </article>
@@ -743,7 +745,7 @@ export default function AutoCountPOSPage({ onContact }) {
         }
 
         #page-autocount-pos .pos-system-wrap {
-          max-width: 1180px;
+          max-width: 1380px;
         }
         #page-autocount-pos .pos-system-wrap .pos-section-intro {
           margin-bottom: clamp(2rem, 4vw, 3.1rem);
