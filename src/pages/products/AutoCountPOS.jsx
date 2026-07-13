@@ -384,14 +384,18 @@ function POSSystemExplainer() {
           </div>
           <div className="pos-system-copy">
             <span>Backend Computer</span>
-            <h3>For Owners</h3>
+            <h3>For Owners and Management</h3>
             <p>
-              The backend is the control center for product setup, pricing, users, stock movement, outlet settings, reports, e-invoice preparation, and integration back to AutoCount Accounting.
+              Manage your POS operations, cashier access rights, products, pricing, users, outlets, and reports from one central system.
+            </p>
+            <p>
+              With selected modules added, AutoCount POS Backend can also handle cash sales, accounting, e-Invoices, customer and supplier transactions, and financial reporting—offering capabilities comparable to AutoCount Accounting.
             </p>
             <ul>
-              <li>Manage items, prices, customers, users, and outlets.</li>
-              <li>Review sales, closing reports, stock, and sync status.</li>
-              <li>Keep POS data aligned with accounting and management control.</li>
+              <li>Manage products, pricing, customers, users, outlets, and cashier access rights.</li>
+              <li>Review sales, stock, closing reports, and sync status.</li>
+              <li>Handle accounting, cash sales, and e-Invoices with selected modules.</li>
+              <li>Centralize POS and accounting data in one system.</li>
             </ul>
           </div>
         </article>
@@ -415,12 +419,13 @@ function POSSystemExplainer() {
             <span>Frontend Register Counter</span>
             <h3>For Cashiers</h3>
             <p>
-              The frontend is the POS counter experience for fast billing, barcode scanning, payment collection, receipt printing, cash drawer handling, and branch or outlet sales.
+              Built for fast and efficient daily checkout operations.
             </p>
             <ul>
-              <li>Create bills, cash sales, returns, and counter payments.</li>
-              <li>Work with scanner, receipt printer, cash drawer, and payment devices.</li>
-              <li>Send daily sales and stock movement back to the backend.</li>
+              <li>Scan items and process sales or returns.</li>
+              <li>Accept payments and print receipts.</li>
+              <li>Connect with scanners, printers, cash drawers, and payment devices.</li>
+              <li>Sync sales and stock movements with the backend.</li>
             </ul>
           </div>
         </article>
