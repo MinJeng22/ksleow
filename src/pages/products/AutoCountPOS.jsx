@@ -420,16 +420,19 @@ function POSSystemExplainer() {
             <span>Frontend Register Counter</span>
             <h3>For Cashiers</h3>
             <p>
-              Manage daily checkout operations, sales, returns, payments, receipts, and e-Invoice submissions from one easy-to-use counter system.
+              Manage daily sales, returns, payments, receipts, and e-Invoice submissions through a fast and user-friendly checkout system.
             </p>
             <p>
-              AutoCount POS Frontend is designed for fast and efficient transactions while staying connected to the backend for sales, stock, and outlet data synchronization.
+              Add more register counters anytime as your business grows. Each counter can operate without an internet connection and supports customizable receipt and report designs to meet different business requirements.
             </p>
             <ul>
               <li>Scan items and process sales, returns, and payments.</li>
               <li>Print receipts and customize receipt formats.</li>
+              <li>Customize report designs based on business needs.</li>
               <li>Submit e-Invoices directly from the counter.</li>
               <li>Connect with barcode scanners, receipt printers, cash drawers, and payment devices.</li>
+              <li>Continue operating even when the internet connection is unavailable.</li>
+              <li>Add register counters anytime according to your business size.</li>
               <li>Sync sales and stock movements with the backend.</li>
             </ul>
           </div>
