@@ -688,7 +688,24 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos {
           --pos-accent: ${POS_ACCENT};
           --pos-navy: ${POS_NAVY};
-          background: var(--ks-page-paper);
+          --ks-page-paper: #fbfaf7;
+          --ks-page-mist: #f6f5f0;
+          --ks-page-ice: #f8fafb;
+          --ks-page-cloud: #eef3f6;
+          --ks-page-warm: #fff6e7;
+          background:
+            linear-gradient(180deg, var(--ks-page-mist) 0%, var(--ks-page-paper) 36%, var(--ks-page-cloud) 100%);
+        }
+        #page-autocount-pos .product-app-section {
+          --product-section-start: 16%;
+          --product-section-end: 84%;
+          --product-section-glow: 0.48;
+        }
+        #page-autocount-pos .product-app-section::before {
+          background:
+            radial-gradient(circle at 12% 8%, rgba(228, 158, 37, 0.055), transparent 34%),
+            radial-gradient(circle at 86% 12%, rgba(47, 49, 90, 0.038), transparent 38%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
         }
         #page-autocount-pos .ks-btn-primary {
           background: var(--pos-accent) !important;
@@ -1366,9 +1383,9 @@ export default function AutoCountPOSPage({ onContact }) {
         }
         #page-autocount-pos .pos-why-ksl {
           background:
-            radial-gradient(circle at 14% 20%, rgba(228, 158, 37, 0.15), transparent 30%),
-            radial-gradient(circle at 86% 18%, rgba(47, 49, 90, 0.08), transparent 32%),
-            linear-gradient(180deg, #fff9ed 0%, #fffdf8 48%, #fff7e7 100%);
+            radial-gradient(circle at 14% 20%, rgba(228, 158, 37, 0.1), transparent 36%),
+            radial-gradient(circle at 86% 18%, rgba(47, 49, 90, 0.055), transparent 38%),
+            linear-gradient(180deg, var(--ks-page-cloud) 0%, var(--ks-page-warm) 42%, #fffaf1 100%);
           overflow: hidden;
           padding: clamp(4rem, 7vw, 6.25rem) 0;
           position: relative;
