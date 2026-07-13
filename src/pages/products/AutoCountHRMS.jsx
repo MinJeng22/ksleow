@@ -7,6 +7,18 @@ import HRMSCalculator from "../../components/HRMSCalculator";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 
+import { PageSectionDivider } from "../../components/PageSections.jsx";
+import SectionSidebar from "../../components/SectionSidebar.jsx";
+import { IconChart, IconGrid, IconVideo } from "../../components/SectionDivider.jsx";
+
+const HRMS_ACCENT = "#3069b8";
+
+const HRMS_SECTIONS = [
+  { id: "training", label: "Quick-Start Guide", icon: IconVideo, color: HRMS_ACCENT },
+  { id: "compare", label: "Compare Plans", icon: IconGrid, color: HRMS_ACCENT },
+  { id: "calculator", label: "Service Fee", icon: IconChart, color: HRMS_ACCENT },
+];
+
 const TutorialPlayIcon = (
   <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <circle cx="12" cy="12" r="10" />
@@ -115,6 +127,8 @@ export default function AutoCountHRMSPage({ onContact }) {
 
   return (
     <div className="pinned-hero-page product-app-page" style={{ minHeight: "100vh" }}>
+      <SectionSidebar sections={HRMS_SECTIONS} themeColor={HRMS_ACCENT} />
+
       <div className="pinned-hero-stage">
         <ProductHero
           eyebrow="Cloud Payroll & HR"
@@ -128,7 +142,25 @@ export default function AutoCountHRMSPage({ onContact }) {
       </div>
 
       <main className="pinned-page-content product-app-content">
-        <div id="compare" className="product-app-section product-app-section-paper">
+        <div className="product-app-section product-app-section-paper">
+          <div id="training">
+            <AutoCountTrainingWebGL
+              customVideos={HRMS_VIDEOS}
+              title="AutoCount HRMS Quick-Start Guide"
+              themeColor={HRMS_ACCENT}
+              themeHoverColor="#3d7bd1"
+              activeTabBg="#2f315a"
+              playBtnBg={HRMS_ACCENT}
+              playIconColor="#ffffff"
+            />
+          </div>
+        </div>
+
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-ice)" }}>
+          <PageSectionDivider sections={HRMS_SECTIONS} id="compare" />
+        </div>
+
+        <div id="compare" className="product-app-section product-app-section-ice product-app-section-from-paper product-app-section-to-mist">
           <div className="content-wrap">
             <div style={{ textAlign: "center", marginBottom: "2rem" }}>
               <h2 className="ks-section-title">Compare Plans & Features</h2>
@@ -148,23 +180,16 @@ export default function AutoCountHRMSPage({ onContact }) {
           </div>
         </div>
         
-        <div id="calculator" className="product-app-section product-app-section-mist" style={{ padding: "4rem 0" }}>
-          <div className="content-wrap">
-            <HRMSCalculator />
-          </div>
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-mist)" }}>
+          <PageSectionDivider sections={HRMS_SECTIONS} id="calculator" />
         </div>
 
-        <div className="product-app-section product-app-section-ice product-app-section-from-mist product-app-section-to-cloud">
-          <div id="training">
-            <AutoCountTrainingWebGL
-              customVideos={HRMS_VIDEOS}
-              title="AutoCount HRMS Quick-Start Guide"
-              themeColor="#3069b8"
-              themeHoverColor="#3d7bd1"
-              activeTabBg="#2f315a"
-              playBtnBg="#3069b8"
-              playIconColor="#ffffff"
-            />
+        <div id="calculator" className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-cloud" style={{ padding: "4rem 0" }}>
+          <div className="content-wrap">
+            <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+              <h2 className="ks-section-title">Service Fee Calculator</h2>
+            </div>
+            <HRMSCalculator />
           </div>
         </div>
 
