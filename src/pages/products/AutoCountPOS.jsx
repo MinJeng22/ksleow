@@ -18,7 +18,7 @@ import {
   IconRocket,
 } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
-import FeatureShowcase from "../../components/FeatureShowcase.jsx";
+import HexFeatures from "../../components/HexFeatures.jsx";
 import ProductPromotionBento from "../../components/ProductPromotionBento.jsx";
 const POS_PROMOTIONS = [
   { image: "/images/promotions/autocount-pos-promo.webp" },
@@ -79,26 +79,78 @@ const POS_TUTORIAL_VIDEOS = [
   },
 ];
 
-const FEATURES = [
+const HEX_FEATURES = [
   {
-    icon: "/images/icons/feature-device-orange.svg",
-    title: "Counter-ready POS operation",
-    desc: "Built for day-to-day cashier work with fast billing, barcode scanning, receipt printing, cash drawer support, and clear end-of-day closing.",
+    title: "SST-Compliant POS",
+    desc: "Fully SST-ready with tax-inclusive pricing, GST migration support, and government-compliant receipt formatting built into every transaction.",
+    color: "#e74c3c",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.8" />
+        <polyline points="9,12 11,14 15,10" stroke="currentColor" strokeWidth="2" />
+      </svg>
+    ),
   },
   {
-    icon: "/images/icons/feature-integration-orange.svg",
-    title: "Connected to AutoCount Accounting",
-    desc: "Sales, stock movement, payment collections, and outlet reports stay aligned with your backend accounting workflow.",
+    title: "Integrated with Accounting",
+    desc: "POS sales, stock movements, payment collections, and daily reports sync directly to AutoCount Accounting — no duplicate data entry required.",
+    color: "#f0ad32",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+    ),
   },
   {
-    icon: "/images/icons/feature-bank-orange.svg",
-    title: "Retail, branch, and F&B options",
-    desc: "Choose the right counter license and add POS modules such as branch sync, POS stock, POS account, price checker, and eWaiter apps.",
+    title: "Built for Your Business",
+    desc: "Built-in report designer, plugin support, customisable grid layout, user-defined fields, scripting, and Web API for software integration.",
+    color: "#2ecc71",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+    ),
   },
   {
-    icon: "/images/branding/ksl-logo-circle.webp",
-    title: "KSL implementation support",
-    desc: "We help with setup planning, hardware readiness, module selection, user training, and post-live support for your cashier team.",
+    title: "LHDN e-Invoice Ready",
+    desc: "Submit, validate, and manage LHDN-compliant e-Invoices directly from the POS counter — integrated with MyInvois for seamless compliance.",
+    color: "#3498db",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" strokeWidth="1.8" />
+        <polyline points="14 2 14 8 20 8" stroke="currentColor" strokeWidth="1.8" />
+        <line x1="9" y1="13" x2="15" y2="13" stroke="currentColor" strokeWidth="1.6" />
+        <line x1="9" y1="17" x2="13" y2="17" stroke="currentColor" strokeWidth="1.6" />
+      </svg>
+    ),
+  },
+  {
+    title: "Scalable for Any Size",
+    desc: "From a single counter to multi-branch outlets — add counters, branches, and users as your business grows without replacing your system.",
+    color: "#9b59b6",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" stroke="currentColor" strokeWidth="1.8" />
+        <line x1="6" y1="12" x2="6.01" y2="12" stroke="currentColor" strokeWidth="2" />
+        <line x1="18" y1="12" x2="18.01" y2="12" stroke="currentColor" strokeWidth="2" />
+      </svg>
+    ),
+  },
+  {
+    title: "Real-Time Control",
+    desc: "Monitor live sales, track stock levels, manage cash flow, and view outlet performance from anywhere with real-time dashboard and reporting.",
+    color: "#1abc9c",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" strokeWidth="1.8" />
+        <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" strokeWidth="1.8" />
+        <polyline points="7,10 10,8 13,11 17,7" stroke="currentColor" strokeWidth="1.8" />
+      </svg>
+    ),
   },
 ];
 
@@ -1647,13 +1699,12 @@ export default function AutoCountPOSPage({ onContact }) {
         <div
           id="features"
           className="product-app-section product-app-section-paper product-app-section-clean"
-          style={{
-            "--feature-strip-bg": "linear-gradient(180deg, #f0ad32 0%, #d68b16 100%)",
-            "--feature-strip-shadow": "0 0 16px rgba(228, 158, 37, 0.36)",
-            "--feature-gradient-color": "rgba(240, 173, 50, 0.18)",
-          }}
         >
-          <FeatureShowcase features={FEATURES} wrapper />
+          <HexFeatures
+            title="It's Not Just a POS"
+            subtitle="AutoCount POS goes beyond a cashier counter — it's a fully integrated retail and F&B management system."
+            features={HEX_FEATURES}
+          />
         </div>
 
         <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>

@@ -9,39 +9,39 @@
   "facts": {
     "whatsapp": "+60 17-905 2323",
     "latestRelease": {
-      "version": "2.2.29.41",
-      "rev": "Rev 41",
-      "date": "2026-05-05",
+      "version": "2.2.31.44",
+      "rev": "Rev 44",
+      "date": "2026-07-13",
       "features": [
-        "Enhance Financial Report to support search Project and Department at the selection section",
-        "Enhance Recalculate Stock Costing - Option to calculate Active Item only",
-        "Enhance Tax Entity for Malaysia when choose MyKad Identity Type TIN should start with IG Prefix",
-        "Enhance Find Debtor / Creditor add IsActive Filter",
-        "Support to allow edit Valid status document through Find Form (Edit Master Data and Edit)",
-        "Preset new account book to default untick \"Allow Duplicate Supplier Document Number\" option",
-        "Enhance to add \"Do Not Submit e-Invoice\" column at Debtor Command Form",
-        "Manual Create Consolidated e-Invoice to support select Consolidate Document Type",
-        "Enhance Self-Bill e-Invoice to support Copy from POS (Trade in transaction only)",
-        "Support an option to split Serial Number to multiple lines instead of by range when the serial number imported is detected in continuous numbers",
-        "Enhance Tax Entity Maintenance to Trim TIN number and BRN/Identity Number during save",
-        "Enhance to show Tax Entity Info at Journal Entry Form detail grid’s column chooser"
+        "Amend all sales reports to display business date instead of created date for POS transaction",
+        "Add \"Our Invoice No.\" column at A/R Credit Note 'Our Invoice No.' grid",
+        "Support to cache SMTP From Name and From Email by each Database and each User ID",
+        "Enhance DocNo to support up till 50 characters",
+        "Extend Sales Exemption No field at transaction detail level to 300 characters",
+        "Add 'From Email' column in the server mailing list.",
+        "Enhancement Purchase Request to Support Unit Price, Currency Code, Total Amount, and Reference Attachments",
+        "Enhance auto detect and assign issue date for e-Invoice submission",
+        "Remove Phone Validation at transaction level",
+        "Enhance Server Mailing List to with Summary Footer",
+        "Support to allow edit Tax Entity fields even if already submitted e-Invoice transactions",
+        "Support function to change old BRN to new BRN and update e-Invoice License accommodating latest LHDN updates"
       ],
       "fixes": [
-        "Fix Available stock status where AO Quantity will have outstanding qty if Stock Assembly has negative variance",
-        "Fix Debtor aging column caption missing 'Day'",
-        "Fix Import Member unable to import UDF in RichText Type",
-        "Fix Import Excel for Debtors did not include 'IsCashSaleDebtor' field.",
-        "Fix AR Credit Note edit AccNo unable to save if the AR Credit Note had been Consolidated",
-        "Fix Copy Item will also copy the display of balance quantity",
-        "Fix Self-Bill Invoice when highlight multiple detail lines and delete will only delete 1 line",
-        "Fix Purchase Invoice Annexure tab fields overlapping",
-        "Fix Serial numbers that were already partial transferred to Consignment Return still appear when performing Transfer to Invoice",
-        "Fix Journal will prompt error \"Journal Entry not balance by posting date or detail tax date\" when computer regional setting and language is not set to English",
-        "Fix AP Invoice may not have self-billed DocNo because PI \"post to GL\" was done after copy to self billed",
-        "Fix Activate e-Invoice dialog did not display \"&\" character at Company Name"
+        "Fix Drill down cannot show transaction in Financial Report when Multi Select with Filter Null project",
+        "Fix Budget Maintenance and Year To Date Maintenance filter for All Project and All Department does not return any results",
+        "Fix \"Show Origin Currency\" missing in Basic Options of Profit and Loss of Document Report",
+        "Fix Item Package Sales Report will prompt SQL error when filter by range on Sales Location combined with another filter on Debtor or Package code",
+        "Fix System will display voided documents in the \"Post to G/L\" function",
+        "Fix Edit Invoice or Purchase Invoice and add a new payment, the OR/PV numbering will skip one number even if the 'Payment from IV/PI follows IV/PI No.' option is enabled",
+        "Fix when Using \"Copy Whole Document\" from Invoice with Batch No to Sales Order which does not have Batch No wrongly will automatically insert Batch No of the Invoice when Sales Order transfer to Invoice",
+        "Fix when deleting sales agent or purchase agent does not check whether it is referenced in User Maintenance's 'Filter by Agent'",
+        "Fix Print Cash Transaction Listing drill down to ARAP document will open as normal Cash Book and copy to new will copy as Cash Book instead of ARAP Payment",
+        "Fix system does not automatically prompt the user to update detail location after changing the master location in a Purchase Request",
+        "Fix Change Tax Code did not consider Consignment Return and Purchase Consignment Return and will cause error",
+        "Fix Incorrect AO Qty for Raw Material in Instant Info and not match with the actual Available Quantity"
       ],
       "highlights": [],
-      "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.29.41"
+      "sourceUrl": "https://wiki.autocountsoft.com/wiki/Release_Note_2.2.31.44"
     },
     "officialReleaseNote": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Accounting_2.2:Release_Note"
   },
@@ -58,7 +58,7 @@
     {
       "heading": "Latest release note summary",
       "body": [
-        "2.2.29.41 Rev 41 Date: 2026-05-05 Features: Enhance Financial Report to support search Project and Department at the selection section; Enhance Recalculate Stock Costing - Option to calculate Active Item only; Enhance Tax Entity for Malaysia when choose MyKad Identity Type TIN should start with IG Prefix; Enhance Find Debtor / Creditor add IsActive Filter; Support to allow edit Valid status document through Find Form (Edit Master Data and Edit); Preset new account book to default untick \"Allow Duplicate Supplier Document Number\" option; Enhance to add \"Do Not Submit e-Invoice\" column at Debtor Command Form; Manual Create Consolidated e-Invoice to support select Consolidate Document Type; Enhance Self-Bill e-Invoice to support Copy from POS (Trade in transaction only); Support an option to split Serial Number to multiple lines instead of by range when the serial number imported is detected in continuous numbers; Enhance Tax Entity Maintenance to Trim TIN number and BRN/Identity Number during save; Enhance to show Tax Entity Info at Journal Entry Form detail grid’s column chooser Fixes: Fix Available stock status where AO Quantity will have outstanding qty if Stock Assembly has negative variance; Fix Debtor aging column caption missing 'Day'; Fix Import Member unable to import UDF in RichText Type; Fix Import Excel for Debtors did not include 'IsCashSaleDebtor' field.; Fix AR Credit Note edit AccNo unable to save if the AR Credit Note had been Consolidated; Fix Copy Item will also copy the display of balance quantity; Fix Self-Bill Invoice when highlight multiple detail lines and delete will only delete 1 line; Fix Purchase Invoice Annexure tab fields overlapping; Fix Serial numbers that were already partial transferred to Consignment Return still appear when performing Transfer to Invoice; Fix Journal will prompt error \"Journal Entry not balance by posting date or detail tax date\" when computer regional setting and language is not set to English; Fix AP Invoice may not have self-billed DocNo because PI \"post to GL\" was done after copy to self billed; Fix Activate e-Invoice dialog did not display \"&\" character at Company Name Source: https://wiki.autocountsoft.com/wiki/Release_Note_2.2.29.41"
+        "2.2.31.44 Rev 44 Date: 2026-07-13 Features: Amend all sales reports to display business date instead of created date for POS transaction; Add \"Our Invoice No.\" column at A/R Credit Note 'Our Invoice No.' grid; Support to cache SMTP From Name and From Email by each Database and each User ID; Enhance DocNo to support up till 50 characters; Extend Sales Exemption No field at transaction detail level to 300 characters; Add 'From Email' column in the server mailing list.; Enhancement Purchase Request to Support Unit Price, Currency Code, Total Amount, and Reference Attachments; Enhance auto detect and assign issue date for e-Invoice submission; Remove Phone Validation at transaction level; Enhance Server Mailing List to with Summary Footer; Support to allow edit Tax Entity fields even if already submitted e-Invoice transactions; Support function to change old BRN to new BRN and update e-Invoice License accommodating latest LHDN updates Fixes: Fix Drill down cannot show transaction in Financial Report when Multi Select with Filter Null project; Fix Budget Maintenance and Year To Date Maintenance filter for All Project and All Department does not return any results; Fix \"Show Origin Currency\" missing in Basic Options of Profit and Loss of Document Report; Fix Item Package Sales Report will prompt SQL error when filter by range on Sales Location combined with another filter on Debtor or Package code; Fix System will display voided documents in the \"Post to G/L\" function; Fix Edit Invoice or Purchase Invoice and add a new payment, the OR/PV numbering will skip one number even if the 'Payment from IV/PI follows IV/PI No.' option is enabled; Fix when Using \"Copy Whole Document\" from Invoice with Batch No to Sales Order which does not have Batch No wrongly will automatically insert Batch No of the Invoice when Sales Order transfer to Invoice; Fix when deleting sales agent or purchase agent does not check whether it is referenced in User Maintenance's 'Filter by Agent'; Fix Print Cash Transaction Listing drill down to ARAP document will open as normal Cash Book and copy to new will copy as Cash Book instead of ARAP Payment; Fix system does not automatically prompt the user to update detail location after changing the master location in a Purchase Request; Fix Change Tax Code did not consider Consignment Return and Purchase Consignment Return and will cause error; Fix Incorrect AO Qty for Raw Material in Instant Info and not match with the actual Available Quantity Source: https://wiki.autocountsoft.com/wiki/Release_Note_2.2.31.44"
       ]
     }
   ]
