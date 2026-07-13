@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Img } from "./Media.jsx";
 import { preloadImages, runWithProgressFeedback } from "../utils/routeTransitions.js";
+import { WhatsAppIcon } from "./ProductHero.jsx";
 
 export default function ProductPromotionBento({
   id = "promotions",
@@ -239,16 +240,21 @@ export default function ProductPromotionBento({
                   {item.badge && <span className="product-promo-badge">{item.badge}</span>}
                   <h3 className="product-promo-card-title">{item.title}</h3>
                   {item.description && <p className="product-promo-copy">{item.description}</p>}
-                  {item.cta && (
-                    <a
-                      href={item.cta.href}
-                      target={item.cta.target}
-                      rel={item.cta.target === "_blank" ? "noreferrer" : undefined}
-                      className="product-promo-link"
-                    >
-                      {item.cta.label}
-                    </a>
-                  )}
+                  {item.cta && (() => {
+                    const isWhatsApp = item.cta.href?.includes("wa.me") || item.cta.label?.includes("WhatsApp");
+                    return (
+                      <a
+                        href={item.cta.href}
+                        target={item.cta.target}
+                        rel={item.cta.target === "_blank" ? "noreferrer" : undefined}
+                        className="product-promo-link"
+                        style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem" }}
+                      >
+                        {isWhatsApp && <WhatsAppIcon />}
+                        {item.cta.label}
+                      </a>
+                    );
+                  })()}
                 </div>
               )}
             </article>

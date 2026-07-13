@@ -1033,7 +1033,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
                 <a
                   key={ii}
                   href={item.path || (item.scrollTo ? `/${item.scrollTo}` : '#')}
-                  className={`menu-sub-item${item.path === pathname ? " is-active" : ""}`}
+                  className={`menu-sub-item${(item.path && pathname && item.path.replace(/\/$/, "") === pathname.replace(/\/$/, "")) ? " is-active" : ""}`}
                   onClick={(e) => {
                     e.preventDefault();
                     handleMenuAction(item);
