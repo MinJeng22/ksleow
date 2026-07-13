@@ -448,6 +448,21 @@ function POSSystemExplainer() {
         </div>
       </aside>
 
+      <aside className={`pos-system-callout ${(isBackendLit || isFrontendLit) ? "is-lit" : ""}`} style={{ marginTop: "1rem" }}>
+        <div className="pos-system-callout-icon" aria-hidden="true" style={{ background: "rgba(128, 195, 30, 0.15)", color: "#669c1a" }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+          </svg>
+        </div>
+        <div className="pos-system-callout-body">
+          <strong>Already using AutoCount Accounting?</strong>
+          <span>
+            You can seamlessly add AutoCount POS Frontend registers to your existing accounting system—no separate POS Backend required.
+          </span>
+        </div>
+      </aside>
+
       {lightboxImage && typeof document !== "undefined" && createPortal(
         <div 
           className="partner-modal-backdrop" 
