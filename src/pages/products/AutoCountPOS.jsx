@@ -396,6 +396,8 @@ function POSSystemExplainer() {
               <li>Review sales, stock, closing reports, and sync status.</li>
               <li>Handle accounting, cash sales, and e-Invoices with selected modules.</li>
               <li>Centralize POS and accounting data in one system.</li>
+              <li>Manage Prices, Discount & Promotions.</li>
+              <li>Audit Trail and tracking.</li>
             </ul>
           </div>
         </article>
@@ -426,6 +428,7 @@ function POSSystemExplainer() {
               <li>Accept payments and print receipts.</li>
               <li>Connect with scanners, printers, cash drawers, and payment devices.</li>
               <li>Sync sales and stock movements with the backend.</li>
+              <li>Submit e-Invoice and customize receipt format.</li>
             </ul>
           </div>
         </article>
