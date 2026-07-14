@@ -1,5 +1,20 @@
 [
   {
+    "version": "5.2.17.39",
+    "rev": "Release 39",
+    "date": "14/07/2026",
+    "lastModified": "14/07/2026",
+    "dbVer": "",
+    "posDbVer": "",
+    "frontendDbVer": "",
+    "server": "",
+    "features": [],
+    "fixes": [],
+    "highlightsUrl": "https://static.wikitide.net/autocountwiki/5/5f/POS_Release_Note_5.2.17.39_Highlight.pdf",
+    "releasePdfUrl": "https://static.wikitide.net/autocountwiki/c/c3/POS_Release_Note_5.2.17.39.pdf",
+    "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
+  },
+  {
     "version": "5.2.16.33",
     "rev": "Release 33",
     "date": "05/05/2026",
@@ -128,7 +143,7 @@
       "Fix A920 cache issue that will auto save 2nd transaction."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/7/7d/POS_Release_Note_5.2.11.27.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
@@ -181,7 +196,7 @@
       "Fix Price Plan will generate null value.",
       "Fix could not view IPHIST in POS transaction."
     ],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/a/a8/POS_Release_Note_5.2.10.24.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
@@ -222,7 +237,7 @@
   {
     "version": "5.2.8.22",
     "rev": "Release 22",
-    "date": "",
+    "date": "19/06/2025",
     "lastModified": "19th June 2025",
     "dbVer": "",
     "posDbVer": "",
@@ -242,14 +257,14 @@
       "Fix POS Transaction Find Form, clicking 'View' prompts a 'Not allowed to edit' message, whereas the POS Transaction Viewer opens the transaction without issue. POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:21418 Support GHL Credit Card Machine and E-Wallet. GHL machine will be able to direct integrate with AutoCount POS frontend starting this version. Users now can opt to use GHL machines as well. GHL E-Wallet Setup At backend, navigate to Point Of Sales > Maintenance > E-Wallet Maintenance POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 Then, click on ‘Get EWallet Type’ to get the latest E-Wallet type. Next, click on ‘New’ and create your GHL E- Wallet payment type. An additional EWallet type is added for GHL which is GHL_EWallet and GHL_DuitNow. Click OK then sync to frontend. At frontend, to set your Merchant ID and Terminal ID, go to More Function > Configuration Settings > Device Setting 2 Merchant ID and Terminal ID will be provided by your channel sales representative. After setting it, click on OK then relog. POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page4 To select GHL payment, create a transaction, then click on Multi Payment and then select EWallet. Finally select the type of EWallet you wanna pay. POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page5 GHL Credit Card Setup At backend, navigate to Point Of Sales > Maintenance > Custom Payment Maintenance. Then add a new custom payment method and follow to configure the payment type as shown below. Payment Type: GHL Card Click OK then sync to frontend. At frontend, download the Card Payment Integration plugin. Please request the link for the plugin from your channel sales representative or support if you do not have it. Install the plugin and then proceed to More Function > Configuration Settings > GHL Configuration. POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page6 Next fill in the IP ECR Configuration merchant ID and terminal ID. After the configuration, proceed to create a transaction and then make payment. Look for GHL Card Payment at the payment button area. POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page7 Confirm the amount and then press OK to trigger your GHL machine for payment steps. GHL machine will prompt user to insert / tap / swipe card. POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page8 After scanned the card, remove the card and a receipt will be printed upon successful payment. POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page9 !! NOTE !! Before making any transactions using GHL ECR Terminal, make sure the terminal prompted ‘IP ECR connection succeeded’. Else, if connection not successful, terminate ‘PayHere ECR’ application and retry until obtained ‘IP ECR connection succeeded’ message. POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page10 ID:21601 Optimize POS Server Monitor not to show inactive outlet. In this version, POS Server monitor will now only show active sync. Inactive sync will be hidden so that it will not cause unnecessary confusion by listing everything out. This feature will improve the efficiency of monitoring your outlet sync status. POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page11 ID:21665 Add E-Invoice services checking during launch and restart button at E-Invoice Monitor. POS frontend now will perform E-Invoice services check during application launch incase window start up does not kick start the services successfully. This function is like sync services which currently we had the checking already. **POS B will not trigger this checking. Additionally, you can manual restart it at E-Invoice Monitor. POS Release Note 5.2.8.22 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page12 ID:21699 Debtor option ‘Do Not Submit E-Invoice’ to be function at POS as well. ‘Do Not Submit E-Invoice’ option now also applies to POS frontend as well. With this option, whenever you choose this debtor at frontend, E-Invoice status for the specific transaction will be turn off and that transaction will not submit to LHDN nor consolidated."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/8/86/POS_Release_Note_5.2.8.22.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.7.20",
     "rev": "Release 20",
-    "date": "",
+    "date": "23/05/2025",
     "lastModified": "22nd May 2025",
     "dbVer": "",
     "posDbVer": "",
@@ -264,14 +279,14 @@
       "Fix Full Sync Item Serial No primary key error.",
       "Fix API issue during save transaction."
     ],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/8/89/POS_Release_Note_5.2.7.20.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.7.19",
     "rev": "Release 19",
-    "date": "",
+    "date": "09/05/2025",
     "lastModified": "9th May 2025",
     "dbVer": "",
     "posDbVer": "",
@@ -289,14 +304,14 @@
       "Fix member debtor code able to copy paste text and save non exists debtor code. POS Release Note 5.2.7.19 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:21489 Merge various setting forms into a single tree list structure. To increase the user friendliness, we had optimized the UI for POS settings into a single form so that setting will be easier to maintain with lesser list to display at Point Of Sales listing. POS Release Note 5.2.7.19 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 ID:21493 Add a shortcut to view the Staff Attendance Report on the Staff Attendance screen. In this version, we added a report button to view the attendance report on the attendance screen. This feature is for supervisor or other personnel that responsible can view easily without navigating to Reports. Users can access this page at the login page Staff Attendance or Configuration Settings. **User must always enter password to access the report."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/3/31/POS_Release_Note_5.2.7.19.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.7.18",
     "rev": "Release 18",
-    "date": "",
+    "date": "09/05/2025",
     "lastModified": "11th April 2025",
     "dbVer": "",
     "posDbVer": "",
@@ -324,14 +339,14 @@
       "Fix Void/E-Invoice status will not update to BE for 2nd time if there is unsync trans. POS Release Note 5.2.7.18 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:21191 Add “Copy to New Transaction” access right control. Added access right for Copy to New Transaction to ensure users does not able to duplicate the same amount of promotion/discount which approved by supervisor to customer. POS Release Note 5.2.7.18 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 ID:21218 POS server monitor status to include compare trans for E-Invoice status. User now can compare their E-Invoice status from here to make sure their status is up to date before consolidating their E-Invoice at backend. POS Release Note 5.2.7.18 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page4 ID:21250 Enhance submit Consolidated E-Invoice at backend to be able to submit till last trans finish sync time. Consolidated E-Invoice can now be created if the date does not exceed the last trans finish sync time. Previously, users would not be able to submit if the sync is not up to date (green color) even if the date does not exceed last sync time. POS Release Note 5.2.7.18 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page5 ID:21266 Add new Credit Card Machine Vendor “Revenue (Docking)” option for credit card machine at frontend. Revenue machine for A920 and A920 pro have 2 types. 1 is by direct cable to credit card machine and another is by docking (Bluetooth) connection to credit card machine. In this version, we have added the docking method to support A920 devices that come with docking machines. POS Release Note 5.2.7.18 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page6 ID:21312 Add new option “Enforce Daily Close Counter”. The system will now force users to perform close counter if the open session date is not equivalent to today date. This feature is to ensure users properly close their daily session everyday so that their session report will be more accurate instead of cross date. ID:21331 Enhance direct submit E-Invoice field requirement. For individual direct submit, Identity field is no longer mandatory. Users can select to submit either with Identity or TIN or both. ID:21417 Remove MyInvois QR feature. MyInvois QR scan is no longer supported in this current version. It is no longer usable for earlier version of AutoCount too."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/2/27/POS_Release_Note_5.2.7.18.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.6.15",
     "rev": "Release 15",
-    "date": "",
+    "date": "06/02/2025",
     "lastModified": "6th February 2025",
     "dbVer": "",
     "posDbVer": "",
@@ -342,14 +357,14 @@
       "Fix backorder control with merge itemcode prompt return which will increase item qty."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/4/47/POS_Release_Note_5.2.6.15.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.6.14",
     "rev": "Release 14",
-    "date": "",
+    "date": "24/01/2025",
     "lastModified": "24th January 2025",
     "dbVer": "",
     "posDbVer": "",
@@ -376,14 +391,14 @@
       "Fix POS B could not submit QR E-Invoice. POS Release Note 5.2.6.14 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:20341 Enhance Top Bottom POS Sales Ranking to be able to filter by outlet, terminal, area and cashier. Previously, you can only view Top Bottom ranking for all outlets. With current version update, we have added filter by Cashier, Terminal, Outlet and Area. User now can view their Top Bottom ranking according to which outlet they wish to filter. POS Release Note 5.2.6.14 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 ID:20526 Frontend support scan MyInvois QRCode. We had added a new feature which enables users to scan customer MyInvois QRCode for immediate data entry in the E-Invoice form. This feature will be able to increase the processing speed for your transaction and accuracy in capturing customer info. POS Release Note 5.2.6.14 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page4 ID:20555 Allow to change classification code at frontend. User now can change classification code at frontend. To change go to More Function > Change Classifcation. POS Release Note 5.2.6.14 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page5 ID:20558 Cash Receipt Report: Add E-Invoice related information. Cash Receipt Report is a very popular report that the majority of the AutoCount users have been using. To enhance the friendliness of this report, we had added E-Invoice related information into this report for more details reporting experience. You can find these information at column chooser. POS Release Note 5.2.6.14 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page6 ID:20672 Enhance E-Invoice email processing flow. There are some flaws on previous versions of email processing flow for E-Invoice which cause inconvenience for the user. Therefore, we have made amendments and enhancements for better user experience. Direct Submit INVALID - will not send email to notify user, after resubmitting to VALID, send email to notify user. VALID - will send email to notify user. QR Submission INVALID - will send email to notify user INVALID, need to go back to cashier for direct submit. After resubmitting to VALID, send email to notify user. VALID - will send E-mail to notify user."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/a/ae/POS_Release_Note_5.2.6.14.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.5.12",
     "rev": "Release 12",
-    "date": "",
+    "date": "20/12/2024",
     "lastModified": "20th December 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -413,14 +428,14 @@
       "Fix tab-ing at customer info sequence issue after Identity field. POS Release Note 5.2.5.12 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:20240 Weighing scale allow to edit barcode type and hotkey. Due to some users having preset on their weighing scale for barcode type and hotkey, system will no longer lock those columns. User will be able to edit barcode type and hotkey which match their weighing scale. POS Release Note 5.2.5.12 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 ID:20422 Support edit Delivery Address at frontend. While issuing E-Invoice, customer purchasing using their company TIN with address A but they might want it to be delivered to their warehouse / location which at address B. Hence, we have added this new feature to enable user to key in customer Delivery Address. POS Release Note 5.2.5.12 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page4 ID:20543 Remove compulsory field for Government TIN. Government TIN does not require TIN number for submission. We have removed the compulsory checking on this field to ensure smoothness of your E-Invoice submission. POS Release Note 5.2.5.12 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page5 ID:20544 Change “Submit E-Invoice?” at customer info to “Direct Submit?” to avoid misunderstanding. Submit E-Invoice at customer Info is to decide whether to Direct Submit or not. Due to previous wording some users might question this checkbox is to determine whether this transaction is E-Invoice or not because More Function > Submit E-Invoice? there having the same description. POS Release Note 5.2.5.12 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park , No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan . Tel: 603-3080 8888 Fax: 603-7621 0911 Page6 ID:20546 Added Print QR Submission column in Find Bill. In the new version, Print QR Submission status is now available at column chooser. This is for user to easily determine whether this transaction submit E-Invoice via which type of submission."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/d/d1/POS_Release_Note_5.2.5.12.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.4.11",
     "rev": "Release 11",
-    "date": "",
+    "date": "25/10/2024",
     "lastModified": "25th October 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -431,14 +446,14 @@
       "Add price option to weighing scale. Enhance pos posting speed during posting. Document Prepared by Jacky POS Release Note 5.2.4.11 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:20095 OneRewards – Support Custom Point by Item. In this version, for user who use OneRewards membership, system now able to support “Calculate Points based on Item’s Quantity”. Previously, OneRewards membership points only support “Calculate Points based on Document Amount”. ID:20221 Add price option to weighing scale. User now able to export out weighing item price base on the price1 to price6, price by location or price plan. To export go to More Function > Weighing Scale > Pricing."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/4/40/POS_Release_Note_5.2.4.11.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.3.10",
     "rev": "Release 10",
-    "date": "",
+    "date": "18/10/2024",
     "lastModified": "17th October 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -454,14 +469,14 @@
       "Fix classification will null after recall bill. POS Release Note 5.2.3.10 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:19800 Sunmi credit card integration. AutoCount POS will now be able to direct integrate with credit card machine from Sunmi P1(4G). (Model – W6900) payment gateway by iPay88. To configure the credit card machine, first, the credit card machine must be connected to the same network as your POS A / POS Branch machine. Then go to More Function > Configuration Setting > Device Setting 2 and then set the credit card device IP address as shown below. POS Release Note 5.2.3.10 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 After that, relog and proceed to your transaction. During payment, you will notice there is a new payment method which is Sunmi Payment. Click on Sunmi Payment and choose your card type. POS Release Note 5.2.3.10 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page4 Next, while processing, check your Sunmi credit card device. It should prompt you to insert card / swipe card / wave card. Wait for the device to complete the process and it will print receipt. Press OK at the device and AutoCount POS will save the transaction and print receipt automatically. POS Release Note 5.2.3.10 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page5 ID:20131 Add CIDocNo column to POS Transaction Viewer. In this version, user now can pull out Consolidated Document Number column at column chooser to show which transaction falls in which consolidate document. POS Release Note 5.2.3.10 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page6 ID:20150 POS Sync Monitor – Support clear changelog records. Some companies may have long history or produce heavy transaction in a year time. Their database size will grow over time which resulted in large database size. Therefore, we had implemented a feature for users to delete their unnecessary log records (mostly changelog). To use this feature, go and open your POS Sync Monitor. Then go to File > Clear Change Log. And then input your date which you wish to clear up to and then click on Yes to clear."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/5/5e/POS_Release_Note_5.2.3.10.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.2.9",
     "rev": "Release 9",
-    "date": "",
+    "date": "04/10/2024",
     "lastModified": "4th October 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -477,14 +492,14 @@
       "OneReward - Fix removing member after assigned member will cause sync error. POS Release Note 5.2.2.9 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:19561 Support E-Invoice Sales Order Deposit Function. Please refer to POS 5.2 E-Invoice Guide v3. https://static.miraheze.org/autocountwiki/3/3d/POS_5.2_E-Invoice_Guide_v3.pdf POS Release Note 5.2.2.9 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 ID:20024 Enhance E-Invoice monitor to show Pending Upload and Pending Email transaction. In this version, user can now view their pending upload documents (transaction that haven’t upload to MyInvois) and pending email to customers (transaction that haven’t sent out) with a click of a button. POS Release Note 5.2.2.9 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page4."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/9/9f/POS_Release_Note_5.2.2.9.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.2.7",
     "rev": "Release 7",
-    "date": "",
+    "date": "05/09/2024",
     "lastModified": "5th September 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -496,14 +511,14 @@
       "Fix change serial number does not change for serial number that had been used at Frontend.",
       "Fix footer sum amount will not recalculate depending on the filter at Cash Receipt Report."
     ],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/7/77/POS_Release_Note_5.2.2.7.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.2.6",
     "rev": "Release 6",
-    "date": "",
+    "date": "05/09/2024",
     "lastModified": "29th August 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -515,14 +530,14 @@
       "Fix point payment will not revert when transaction voided at Point Transaction Listing.",
       "Fix point payment account can’t be null, posting will prompt error."
     ],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/4/4b/POS_Release_Note_5.2.2.6.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.2.5",
     "rev": "Release 5",
-    "date": "",
+    "date": "16/08/2024",
     "lastModified": "16th August 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -538,14 +553,14 @@
       "Fix to include item pricing v2 during return. POS Release Note 5.2.2.5 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:19530 Pos Tax Entity Integration. User can now save customer TIN into our POS TIN server. To save customer TIN, tick on the bottom checkbox to agree to save info into POS TIN server. POS Release Note 5.2.2.5 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 User must validate customer email if they want to save into POS TIN server for the first time. After saved, user can load customer TIN info anytime by clicking at the search icon on top right. Below are the required criteria for searching:- Search Individual by ID – Fill in MyKAD, MyPR, MyKAS, Army, Passport and Phone then click search. [Info must be exactly match during register] Search Individual by TIN – Fill in TIN and Phone then click search. [Info must be match during register] Search Business/Government by Name – Fill in Name then click search. [Name can be partial, if multiple same value detected, a selection menu will appear for user to select] Search Business/Government by TIN – Fill in TIN then click search. [Info must be exactly match during register]."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/9/95/POS_Release_Note_5.2.2.5.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.1.4",
     "rev": "Release 4",
-    "date": "",
+    "date": "02/08/2024",
     "lastModified": "2nd August 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -555,14 +570,14 @@
     "fixes": [
       "Fix error prompt during preview report at frontend."
     ],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/a/a4/POS_Release_Note_5.2.1.4.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.1.3",
     "rev": "Release 3",
-    "date": "",
+    "date": "02/08/2024",
     "lastModified": "1st August 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -574,14 +589,14 @@
       "Fix not able to void transaction after consolidated at backend. POS Release Note 5.2.1.3 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:19549 Support E-Invoice issue date when submit E-Invoice. Some customers may want to submit E-Invoice after a certain period. They might come back and request for E- Invoice. Thus, we have added a new field to record E-Invoice issue date for those customers who wish to submit past invoice (within this month). POS Release Note 5.2.1.3 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 ID:19552 Allow to choose E-Invoice report format when email to customer. In this version, user can set customize report for E-Receipt. To do so, go to More Function > E-Invoice Monitor > File > E-Invoice Receipt. Then set your report format."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/3/3f/POS_Release_Note_5.2.1.3.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.0.2",
     "rev": "Release 2",
-    "date": "",
+    "date": "29/07/2024",
     "lastModified": "29th July 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -594,14 +609,14 @@
       "Fix frontend upgrade from 5.1 version could not launch. POS Release Note 5.2.0.2 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:19525 Show TIN number field at buyer information for individual submission. Added TIN for individual buyer information due to customer might want to submit their individual TIN number instead of using general TIN for individual. POS Release Note 5.2.0.2 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 ID:19544 Find transaction search button to auto trigger refresh E-Invoice status. By clicking on the search button, system will trigger to refresh E-Invoice status for all transaction instead of waiting for E-Invoice services to auto refresh every minute. Some customers may not patience enough to wait for the system to validate the transaction. Also this is to ensure the system always up to date for E-Invoice status whenever you search for transaction. POS Release Note 5.2.0.2 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page4 ID:19555 Use AIP server base on backend setting. User no longer needed to add the PosConfig file into the ProgramData folder anymore. Frontend now will get the AIP server base on the backend settings. POS Release Note 5.2.0.2 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page5 User can check their Frontend AIP server at E-Invoice monitor."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/f/f7/POS_Release_Note_5.2.0.2.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   },
   {
     "version": "5.2.0.1",
     "rev": "Release 1",
-    "date": "",
+    "date": "26/07/2024",
     "lastModified": "24th July 2024",
     "dbVer": "",
     "posDbVer": "",
@@ -612,7 +627,7 @@
       "POS Philippines Localization Update June 2024 E-Invoice Support E-Invoice submission for frontend. E-Invoice Add E-Receipt automated mail feature for QR submission. E-Invoice Added E-Invoice Monitor for frontend. E-Invoice Redesigned official receipt to cater for E-Invoice submission. Document Prepared by Jacky POS Release Note 5.2.0.1 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page2 ID:15389 Allow to change payment method at Pos Transaction Viewer. User can now change the payment method after saved a transaction. This is due to user may input the wrong payment type at the system and they only realize during close counter when print close counter report. To do so, go to More Function > Reports > Pos Transaction Viewer. POS Release Note 5.2.0.1 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page3 Search for the transaction that you wish to edit and double click it. Then click on “Edit Pos Payment Data”. POS Release Note 5.2.0.1 Auto Count Sdn Bhd (751600-A) www.autocountsoft.com B2-3A-01, Level 3A, Block B2, Meritus @ Oasis Corporate Park, No.2, Jalan PJU 1A/2, Ara Damansara, 47301 Petaling Jaya, Selangor Darul Ehsan. Tel: 603-3080 8888 Fax: 603-7621 0911 Page4 Then user can change their payment method from here. After that click save and sync back to backend. Backend transaction will update to the new payment method."
     ],
     "fixes": [],
-    "highlightsUrl": null,
+    "highlightsUrl": "",
     "releasePdfUrl": "https://static.wikitide.net/autocountwiki/e/eb/POS_Release_Note_5.2.0.1.pdf",
     "sourceUrl": "https://wiki.autocountsoft.com/wiki/Category:AutoCount_Pos_5.2:_Release_Note"
   }

@@ -11,7 +11,8 @@
     "convert:images:webp": "node scripts/convert-images-to-webp.mjs",
     "preview": "vite preview",
     "sync:autocount-releases": "node scripts/update-autocount-releases.mjs",
-    "sync:autocount-cloud-releases": "node scripts/update-autocount-cloud-releases.mjs"
+    "sync:autocount-cloud-releases": "node scripts/update-autocount-cloud-releases.mjs",
+    "sync:autocount-pos-releases": "node scripts/update-autocount-pos-releases.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
