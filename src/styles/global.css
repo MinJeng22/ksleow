@@ -3983,7 +3983,8 @@ body.has-active-modal .back-to-top-glass {
 .hex-features-text-col {
   display: flex;
   flex-direction: column;
-  gap: clamp(1.6rem, 3vw, 2.8rem);
+  justify-content: center;
+  gap: clamp(1rem, 2.2vw, 1.6rem);
 }
 
 .hex-features-text-left {
@@ -4148,3 +4149,12 @@ body.has-active-modal .back-to-top-glass {
     gap: 1.8rem;
   }
 }
+
+/* Ensure Section title descriptions do not line-break early if space allows */
+.ks-section-header .ks-section-intro,
+.ks-section-header .ks-body-text,
+[class*="-section-head"] .ks-body-text,
+[class*="-pricing-head"] .ks-body-text {
+  max-width: none !important;
+}
+

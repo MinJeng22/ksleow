@@ -19,14 +19,14 @@ const SERVERLINK_SECTIONS = [
 ];
 
 const BUNDLE_PLANS = [
-  { users: "01 User", price: "RM1,104.00" },
-  { users: "03 Users", price: "RM2,070.00" },
-  { users: "05 Users", price: "RM2,760.00", featured: true },
-  { users: "10 Users", price: "RM3,864.00" },
-  { users: "20 Users", price: "RM6,072.00" },
-  { users: "30 Users", price: "RM8,556.00" },
-  { users: "40 Users", price: "RM9,660.00" },
-  { users: "Unlimited Users", price: "RM16,560.00" },
+  { users: "01 User", price: "RM1,104.00 + 8%SST" },
+  { users: "03 Users", price: "RM2,070.00 + 8%SST" },
+  { users: "05 Users", price: "RM2,760.00 + 8%SST", featured: true },
+  { users: "10 Users", price: "RM3,864.00 + 8%SST" },
+  { users: "20 Users", price: "RM6,072.00 + 8%SST" },
+  { users: "30 Users", price: "RM8,556.00 + 8%SST" },
+  { users: "40 Users", price: "RM9,660.00 + 8%SST" },
+  { users: "Unlimited Users", price: "RM16,560.00 + 8%SST" },
 ];
 
 const UPGRADE_TABS = [
@@ -166,17 +166,7 @@ function UpgradeTable() {
 function AdvantagesSection() {
   return (
     <section id="advantages" className="serverlink-advantages-section product-app-section product-app-section-paper product-app-section-clean">
-      <div className="content-wrap">
-        <div className="serverlink-section-head">
-          <div>
-            <h2 className="ks-section-title">Remote Access Without Rebuilding Your Workflow</h2>
-            <p className="ks-body-text">
-              ServerLink is a practical remote access layer for companies that want branch, home, or travelling access
-              while keeping their familiar desktop software and server-based operation.
-            </p>
-          </div>
-        </div>
-      </div>
+
 
       <FeatureShowcase
         features={ADVANTAGES}

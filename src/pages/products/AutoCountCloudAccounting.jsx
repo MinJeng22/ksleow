@@ -102,9 +102,9 @@ const CODE_TO_EDITION = Object.fromEntries(
 
 const CLOUD_EDITION_TABLE = {
   topRows: [
-    ["Monthly Price", ["RM 70 /mo", "RM 100 /mo", "RM 140 /mo", "RM 180 /mo", "RM 10 /mo"]],
-    ["12 Months Price (65% off)", ["RM 294", "RM 420", "RM 588", "RM 756", "RM 120"]],
-    ["24 Months Price (75% off)", ["RM 420", "RM 600", "RM 840", "RM 1,080", "RM 240"]],
+    ["Monthly Price", ["RM 70 + 8%SST /mo", "RM 100 + 8%SST /mo", "RM 140 + 8%SST /mo", "RM 180 + 8%SST /mo", "RM 10 + 8%SST /mo"]],
+    ["12 Months Price (65% off)", ["RM 294 + 8%SST", "RM 420 + 8%SST", "RM 588 + 8%SST", "RM 756 + 8%SST", "RM 120 + 8%SST"]],
+    ["24 Months Price (75% off)", ["RM 420 + 8%SST", "RM 600 + 8%SST", "RM 840 + 8%SST", "RM 1,080 + 8%SST", "RM 240 + 8%SST"]],
     ["Best for", ["Start-up / Micro Company", "Professional Services", "Trading of products", "Multi-warehouse", "Accounting firm"]],
     ["Included users", ["1 user", "2 users", "3 users", "3 users", "2 users"]],
     ["Accountant access", ["1 accountant", "1 accountant", "1 accountant", "1 accountant", ""]],
@@ -161,7 +161,7 @@ const CLOUD_EDITION_TABLE = {
     {
       name: "ADD-ON",
       rows: [
-        ["Add-on User", ["RM10 /month /per user", "RM10 /month /per user", "RM20 /month /per user", "RM20 /month /per user", "RM10 /month /per user"]],
+        ["Add-on User", ["RM10 + 8%SST /month /per user", "RM10 + 8%SST /month /per user", "RM20 + 8%SST /month /per user", "RM20 + 8%SST /month /per user", "RM10 + 8%SST /month /per user"]],
       ],
     },
   ],
@@ -246,7 +246,7 @@ function EditionTable({ selected = null, diffOnly = false }) {
                     <td key={i} className={isPriceRow ? "ks-compare-td-book" : "ks-compare-td-data"}>
                       {isFirst && v.includes("More info") ? (
                         <>
-                          <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" }}>RM 10 /mo</div>
+                          <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" }}>RM 10 + 8%SST /mo</div>
                           <a href="#" style={{ fontSize: "0.75rem", color: "#16a14b", textDecoration: "underline" }}>More info</a>
                         </>
                       ) : (

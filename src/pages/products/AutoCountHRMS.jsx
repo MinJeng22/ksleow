@@ -69,7 +69,7 @@ const HRMS_VIDEOS = [
 const HRMS_EDITIONS = ["Express", "Premium", "Accountant"];
 const HRMS_EDITION_TABLE = {
   topRows: [
-    ["Price", ["RM 720 /year*", "Free for 3 headcounts (Then RM 44 /month*)", "RM 840 /year*"]],
+    ["Price", ["RM 720 + 8%SST /year*", "Free for 3 headcounts (Then RM 44 + 8%SST /month*)", "RM 840 + 8%SST /year*"]],
     ["Best for", [
       "Company which only needs the Payroll process without eLeave, eClaim, and eAttendance.",
       "Company who wants a complete HR solution, including Payroll, eLeave, eClaim, and eAttendance",

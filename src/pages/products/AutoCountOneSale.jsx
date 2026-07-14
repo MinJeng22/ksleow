@@ -18,16 +18,16 @@ const ONESALE_VIDEOS = [
 
 const ONESALE_EDITIONS = ["M1000", "M3000", "M6000", "M10000"];
 const ONESALE_EDITION_TABLE = {
-  monthlyPrices: ["RM 159 /mo", "RM 209 /mo", "RM 309 /mo", "RM 509 /mo"],
-  annualPrices: ["RM 2067 /yr", "RM 2717 /yr", "RM 4017 /yr", "RM 6617 /yr"],
+  monthlyPrices: ["RM 159 + 8%SST /mo", "RM 209 + 8%SST /mo", "RM 309 + 8%SST /mo", "RM 509 + 8%SST /mo"],
+  annualPrices: ["RM 2067 + 8%SST /yr", "RM 2717 + 8%SST /yr", "RM 4017 + 8%SST /yr", "RM 6617 + 8%SST /yr"],
   topRows: [
     ["Orders per month", ["1,000", "3,000", "6,000", "10,000"]],
     ["No. of Product", ["Unlimited", "Unlimited", "Unlimited", "Unlimited"]],
     ["No. of Marketplace Store", ["2", "3", "4", "5"]],
-    ["Additional Store", ["Not Applicable", "Not Applicable", "Not Applicable", "RM20 per store/ month"]],
-    ["No. of OneSales User", ["1 User (Additional OneSales User RM20/ user/ month)", "1 User (Additional OneSales User RM20/ user/ month)", "1 User (Additional OneSales User RM20/ user/ month)", "1 User (Additional OneSales User RM20/ user/ month)"]],
+    ["Additional Store", ["Not Applicable", "Not Applicable", "Not Applicable", "RM20 + 8%SST per store/ month"]],
+    ["No. of OneSales User", ["1 User (Additional OneSales User RM20 + 8%SST/ user/ month)", "1 User (Additional OneSales User RM20 + 8%SST/ user/ month)", "1 User (Additional OneSales User RM20 + 8%SST/ user/ month)", "1 User (Additional OneSales User RM20 + 8%SST/ user/ month)"]],
     ["Supported Marketplace", ["Shopee & Lazada", "Shopee & Lazada", "Shopee & Lazada", "Shopee & Lazada"]],
-    ["Warehouse", ["*Single Warehouse (RM80 upgrade to Unlimited Warehouses)", "*Single Warehouse (RM80 upgrade to Unlimited Warehouses)", "*Single Warehouse (RM80 upgrade to Unlimited Warehouses)", "*Single Warehouse (RM80 upgrade to Unlimited Warehouses)"]],
+    ["Warehouse", ["*Single Warehouse (RM80 + 8%SST upgrade to Unlimited Warehouses)", "*Single Warehouse (RM80 + 8%SST upgrade to Unlimited Warehouses)", "*Single Warehouse (RM80 + 8%SST upgrade to Unlimited Warehouses)", "*Single Warehouse (RM80 + 8%SST upgrade to Unlimited Warehouses)"]],
     ["Product Variant", ["Included", "Included", "Included", "Included"]],
     ["Purchase Module, Inventory Control, Sales Module", ["Excluded", "Excluded", "Excluded", "Excluded"]]
   ],
