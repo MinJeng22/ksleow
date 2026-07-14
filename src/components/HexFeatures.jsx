@@ -117,26 +117,13 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
           </div>
 
           {/* Hexagonal ring */}
-          <div className="hex-features-ring">
-            <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="hex-features-svg" aria-hidden="true">
-              {segments.map((seg, segIdx) => {
-                const item = items[seg.dataIdx];
-                const [ix, iy] = pt(ICON_R, seg.iconAngle);
-                /* Clone the icon SVG element with proper size for this coordinate space */
-                const iconEl = item.icon ? cloneElement(item.icon, { width: ICON_SIZE, height: ICON_SIZE }) : null;
-                return (
-                  <g key={segIdx} className="hex-wedge" style={{ transitionDelay: inView ? `${segIdx * 80 + 120}ms` : "0ms" }}>
-                    <path d={seg.path} fill={item.color} className="hex-wedge-path" />
-                    <g
-                      transform={`translate(${ix - ICON_SIZE / 2}, ${iy - ICON_SIZE / 2})`}
-                      className="hex-wedge-icon"
-                    >
-                      {iconEl}
-                    </g>
-                  </g>
-                );
-              })}
-            </svg>
+          <div className="hex-features-ring" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img 
+              src="/images/products/pos-features-hex.png" 
+              alt="AutoCount POS Features" 
+              style={{ width: '100%', maxWidth: '420px', height: 'auto', objectFit: 'contain' }}
+              className="hex-features-img" 
+            />
           </div>
 
           {/* Right column: data items 1, 3, 5 */}
