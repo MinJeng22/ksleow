@@ -1,24 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { cloneElement, useEffect, useRef, useState } from "react";
 
 /**
- * HexFeatures — 6-segment hexagonal ring with overlapping parallelogram
- * segments, matching the "6 Market Phases" infographic style.
- *
- * Each segment is a rounded parallelogram that overlaps its neighbour,
- * creating a woven windmill effect. Icons sit inside each segment;
- * text labels are positioned in columns flanking the ring.
+ * HexFeatures — 6 overlapping rounded parallelogram segments
+ * forming a hexagonal ring, inspired by the "6 Market Phases" style.
  */
 
-/* ── SVG geometry ──────────────────────────────────────────── */
+/* ── Geometry constants ────────────────────────────────────── */
 
 const SIZE = 420;
 const CX = SIZE / 2;
 const CY = SIZE / 2;
-const OUTER_R = 178;
-const INNER_R = 98;
-const OVERLAP = 12;   // degrees each segment extends past its vertex
-const CORNER_R = 14;  // rounded corner radius (SVG units)
+const OUTER_R = 175;
+const INNER_R = 88;
+const OVERLAP = 8;       // degrees of overlap at each junction
+const CORNER_R = 26;     // heavy rounding to smooth the overlap tips
 const ICON_R = (OUTER_R + INNER_R) / 2;
+const ICON_SIZE = 34;    // icon size in SVG viewBox units
+
+/* ── Helpers ───────────────────────────────────────────────── */
 
 function pt(r, deg) {
   const rad = (Math.PI / 180) * deg;
@@ -30,7 +29,7 @@ function norm(v) {
   return l ? [v[0] / l, v[1] / l] : [0, 0];
 }
 
-/** Build a closed path with rounded corners from an array of [x,y] points */
+/** Closed path with quadratic-bezier-rounded corners. */
 function roundedPath(pts, r) {
   const n = pts.length;
   const d = [];
@@ -49,11 +48,7 @@ function roundedPath(pts, r) {
   return d.join(" ");
 }
 
-/**
- * Segment k spans from vertex k to vertex k+1 of the hexagon,
- * but extends OVERLAP degrees past each vertex to create overlap
- * with the neighbouring segments.
- */
+/** Build segment k: a rounded parallelogram with overlap extensions. */
 function segmentPath(k) {
   const s = -90 + k * 60 - OVERLAP;
   const e = -90 + (k + 1) * 60 + OVERLAP;
@@ -62,17 +57,13 @@ function segmentPath(k) {
 }
 
 /**
- * Data-to-segment mapping.
- *
- * Features are read in Z-pattern order (top-left → top-right → …),
- * but segments are numbered clockwise from the top vertex.
- *
- *   data[0] → top-left    → segment 5   (upper-left edge)
- *   data[1] → top-right   → segment 0   (upper-right edge)
- *   data[2] → mid-left    → segment 4   (left edge)
- *   data[3] → mid-right   → segment 1   (right edge)
- *   data[4] → bot-left    → segment 3   (lower-left edge)
- *   data[5] → bot-right   → segment 2   (lower-right edge)
+ * Z-pattern reading order:
+ *   data[0] → top-left    → segment 5
+ *   data[1] → top-right   → segment 0
+ *   data[2] → mid-left    → segment 4
+ *   data[3] → mid-right   → segment 1
+ *   data[4] → bot-left    → segment 3
+ *   data[5] → bot-right   → segment 2
  */
 const SEG_TO_DATA = [1, 3, 5, 4, 2, 0];
 
@@ -95,7 +86,6 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
   const items = features.slice(0, 6);
   while (items.length < 6) items.push({ title: "", desc: "", color: "#ccc" });
 
-  /* Pre-compute segment paths */
   const segments = Array.from({ length: 6 }, (_, k) => ({
     path: segmentPath(k),
     iconAngle: -90 + k * 60 + 30,
@@ -105,7 +95,6 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
   return (
     <div className="content-wrap">
       <div ref={ref} className={`hex-features${inView ? " in-view" : ""}`}>
-        {/* Heading */}
         <div className="hex-features-head">
           <h2 className="ks-section-title" style={{ textAlign: "center" }}>{title}</h2>
           {subtitle && (
@@ -116,7 +105,7 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
         </div>
 
         <div className="hex-features-layout">
-          {/* Left column: data items 0, 2, 4 (top-left, mid-left, bot-left) */}
+          {/* Left column: data items 0, 2, 4 */}
           <div className="hex-features-text-col hex-features-text-left">
             {[0, 2, 4].map((i) => (
               <div key={i} className="hex-features-item" style={{ transitionDelay: inView ? `${i * 80 + 60}ms` : "0ms" }}>
@@ -127,22 +116,22 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
             ))}
           </div>
 
-          {/* Hexagonal ring SVG */}
+          {/* Hexagonal ring */}
           <div className="hex-features-ring">
             <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="hex-features-svg" aria-hidden="true">
-              {/*
-                Draw segments 0→5 in order. Each later segment overlaps
-                the previous one at the shared vertex, creating a
-                windmill/cascade overlap effect.
-              */}
               {segments.map((seg, segIdx) => {
                 const item = items[seg.dataIdx];
                 const [ix, iy] = pt(ICON_R, seg.iconAngle);
+                /* Clone the icon SVG element with proper size for this coordinate space */
+                const iconEl = item.icon ? cloneElement(item.icon, { width: ICON_SIZE, height: ICON_SIZE }) : null;
                 return (
                   <g key={segIdx} className="hex-wedge" style={{ transitionDelay: inView ? `${segIdx * 80 + 120}ms` : "0ms" }}>
                     <path d={seg.path} fill={item.color} className="hex-wedge-path" />
-                    <g transform={`translate(${ix - 14}, ${iy - 14})`} className="hex-wedge-icon">
-                      {item.icon}
+                    <g
+                      transform={`translate(${ix - ICON_SIZE / 2}, ${iy - ICON_SIZE / 2})`}
+                      className="hex-wedge-icon"
+                    >
+                      {iconEl}
                     </g>
                   </g>
                 );
@@ -150,7 +139,7 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
             </svg>
           </div>
 
-          {/* Right column: data items 1, 3, 5 (top-right, mid-right, bot-right) */}
+          {/* Right column: data items 1, 3, 5 */}
           <div className="hex-features-text-col hex-features-text-right">
             {[1, 3, 5].map((i) => (
               <div key={i} className="hex-features-item" style={{ transitionDelay: inView ? `${i * 80 + 60}ms` : "0ms" }}>
