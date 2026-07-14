@@ -56,35 +56,65 @@ function copyCompare(items, fromVer, toVer, type) {
   navigator.clipboard.writeText(text).catch(() => { });
 }
 
-function ReleaseAssetLink({ url }) {
-  if (!url) return null;
+function ReleaseAssetLink({
+  url,
+  label = "Highlight PDF",
+  title = "Open highlights PDF",
+  disabledLabel = "No Highlight",
+}) {
   const stopHeaderToggle = (event) => {
     event.stopPropagation();
   };
+
+  const commonStyle = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "0.3rem",
+    background: "transparent",
+    border: "1px solid rgba(128,195,30,0.35)",
+    borderRadius: 50,
+    padding: "0.2rem 0.6rem",
+    fontSize: "0.62rem",
+    fontWeight: 600,
+    color: "#2f315a",
+    fontFamily: "inherit",
+    textDecoration: "none",
+    transition: "all 0.2s",
+  };
+
+  if (!url) {
+    return (
+      <span
+        title={disabledLabel}
+        aria-disabled="true"
+        onClick={stopHeaderToggle}
+        onKeyDown={stopHeaderToggle}
+        style={{
+          ...commonStyle,
+          borderColor: "rgba(47,49,90,0.1)",
+          color: "#b3b6cc",
+          cursor: "not-allowed",
+          opacity: 0.86,
+        }}
+      >
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </svg>
+        {disabledLabel}
+      </span>
+    );
+  }
+
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      title="Open highlights PDF"
+      title={title}
       onClick={stopHeaderToggle}
       onKeyDown={stopHeaderToggle}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "0.3rem",
-        background: "transparent",
-        border: "1px solid rgba(128,195,30,0.35)",
-        borderRadius: 50,
-        padding: "0.2rem 0.6rem",
-        fontSize: "0.62rem",
-        fontWeight: 600,
-        color: "#2f315a",
-        cursor: "pointer",
-        fontFamily: "inherit",
-        textDecoration: "none",
-        transition: "all 0.2s",
-      }}
+      style={{ ...commonStyle, cursor: "pointer" }}
       onMouseOver={(event) => {
         event.currentTarget.style.background = "rgba(128,195,30,0.12)";
         event.currentTarget.style.borderColor = "rgba(128,195,30,0.55)";
@@ -98,7 +128,7 @@ function ReleaseAssetLink({ url }) {
         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
         <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
       </svg>
-      Highlights
+      {label}
     </a>
   );
 }
@@ -148,6 +178,12 @@ function ReleaseCard({ r, expanded, onToggle, search }) {
                 Latest
               </span>
             )}
+            <ReleaseAssetLink
+              url={r.releasePdfUrl}
+              label="Official PDF"
+              title="Open official release PDF"
+              disabledLabel="No PDF"
+            />
             <ReleaseAssetLink url={r.highlightsUrl} />
             <ShareLinkButton
               compact

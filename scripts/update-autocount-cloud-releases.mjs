@@ -3,8 +3,8 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 const OUTPUT_FILE = path.join(ROOT, "src/content/autocountCloudReleases.json");
-const FORUM_URL = "https://help.accounting.autocountcloud.com/support/discussions/forums/69000107078";
-const HELP_ORIGIN = "https://help.accounting.autocountcloud.com";
+const FORUM_URL = "https://autocount.freshdesk.com/support/discussions/forums/69000107078";
+const HELP_ORIGIN = "https://autocount.freshdesk.com";
 const USER_AGENT = "KSL AutoCount Cloud Release Sync/1.0 (+https://ksleow.com)";
 
 async function main() {

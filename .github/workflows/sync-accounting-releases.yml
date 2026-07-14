@@ -1,4 +1,4 @@
-name: Sync AutoCount release notes
+name: sync-accounting-releases
 
 on:
   schedule:
@@ -27,11 +27,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Fetch official AutoCount release notes
+      - name: Fetch official AutoCount Accounting release notes
         run: npm run sync:autocount-releases
-
-      - name: Fetch official AutoCount Cloud release notes
-        run: npm run sync:autocount-cloud-releases
 
       - name: Build check
         run: npm run build:fast
@@ -39,16 +36,16 @@ jobs:
       - name: Commit and push if updated
         id: commit_push
         run: |
-          if git diff --quiet -- src/content/autocountReleases.json src/content/autocountCloudReleases.json; then
-            echo "AutoCount release notes are already up to date."
+          if git diff --quiet -- src/content/autocountReleases.json; then
+            echo "AutoCount Accounting release notes are already up to date."
             echo "updated=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/content/autocountReleases.json src/content/autocountCloudReleases.json
-          git commit -m "chore: sync AutoCount release notes"
+          git add src/content/autocountReleases.json
+          git commit -m "chore: sync AutoCount Accounting release notes"
           git push
           echo "updated=true" >> $GITHUB_OUTPUT
 
@@ -61,7 +58,7 @@ jobs:
           secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "AutoCount Release Notes Updated!"
+          subject: "AutoCount Accounting Release Notes Updated!"
           to: "your-email@example.com"
           from: "GitHub Actions"
-          body: "AutoCount release notes have been successfully synced and updated on the KSL website repository."
+          body: "AutoCount Accounting release notes have been successfully synced and updated on the KSL website repository."
