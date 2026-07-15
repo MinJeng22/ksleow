@@ -102,11 +102,11 @@ function PluginCard({ plugin }) {
           <div style={{ padding: "0.75rem 0.85rem", display: "flex", flexDirection: "column", gap: "0.35rem" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontSize: "0.78rem", color: "#4a5090", fontWeight: 650 }}>1st Account Book</span>
-              <span style={{ fontSize: "0.85rem", fontWeight: 750, color: "#2f315a" }}>RM 600 + 8%SST</span>
+              <span style={{ fontSize: "0.85rem", fontWeight: 750, color: "#2f315a" }}>RM 600 <span style={{ fontSize: "0.75em", fontWeight: "normal", opacity: 0.8 }}>+ 8%SST</span></span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <span style={{ fontSize: "0.78rem", color: "#6b6f91", fontWeight: 600 }}>2nd or after</span>
-              <span style={{ fontSize: "0.85rem", fontWeight: 750, color: "#2f315a" }}>RM 300 + 8%SST</span>
+              <span style={{ fontSize: "0.85rem", fontWeight: 750, color: "#2f315a" }}>RM 300 <span style={{ fontSize: "0.75em", fontWeight: "normal", opacity: 0.8 }}>+ 8%SST</span></span>
             </div>
           </div>
         </div>

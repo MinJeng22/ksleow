@@ -26,15 +26,35 @@ function RenderValue({ value, accentColor }) {
   if (value === "+") {
     return <span style={{ display: "inline-block", width: 11, height: 11, borderRadius: "50%", background: accentColor }} />;
   }
-  // "+ (note)" pattern — green dot with subtext
-  if (typeof value === "string" && value.startsWith("+ ")) {
-    return (
-      <span style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-        <span style={{ display: "inline-block", width: 11, height: 11, borderRadius: "50%", background: accentColor }} />
-        <span style={{ fontSize: "0.72rem", color: "#6b6f91", lineHeight: 1.3 }}>{value.slice(2)}</span>
-      </span>
-    );
+  if (typeof value === "string") {
+    if (value.startsWith("+ ")) {
+      return (
+        <span style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+          <span style={{ display: "inline-block", width: 11, height: 11, borderRadius: "50%", background: accentColor }} />
+          <span style={{ fontSize: "0.72rem", color: "#6b6f91", lineHeight: 1.3 }}>{value.slice(2)}</span>
+        </span>
+      );
+    }
+
+    const sstMatch = value.match(/(\s*\+\s*8%SST)/i);
+    if (sstMatch) {
+      const parts = value.split(/(\s*\+\s*8%SST)/i);
+      return (
+        <span>
+          {parts.map((part, i) =>
+            /^\s*\+\s*8%SST$/i.test(part) ? (
+              <span key={i} style={{ fontSize: "0.75em", fontWeight: "normal", opacity: 0.8, marginLeft: "0.2em" }}>
+                {part.trim()}
+              </span>
+            ) : (
+              part
+            )
+          )}
+        </span>
+      );
+    }
   }
+
   return <span>{value}</span>;
 }
 
