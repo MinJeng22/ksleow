@@ -3,7 +3,7 @@
     "version": "1.1.81",
     "rev": "Release 81",
     "date": "2026-07-07",
-    "postedLabel": "4 days ago",
+    "postedLabel": "8 days ago",
     "features": [
       "Added AUD System Currency selection to Singapore Account Book.",
       "Support importing Bank Statement PDF and update CSV File at Bank Transactions.",
@@ -34,7 +34,7 @@
       "With this option enabled, if a document is dated in the future, the system will automatically use the current date and time as the e-Invoice issue date and time when submitting for e-Invoice.",
       "4. Enhanced Invoice and Credit Note to check and block saving if the local amount exceeded RM10,000 for e-Invoice companies. "
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713365"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713365"
   },
   {
     "version": "1.1.80",
@@ -63,7 +63,7 @@
       "When using the SVR-6 tax code, the invoice will continue to display 6% SST at both the invoice line level and invoice summary.",
       "System will automatically calculate the 2% exempted service tax amount and make it available as a new field that can be displayed on the invoice."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713314"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713314"
   },
   {
     "version": "1.1.79",
@@ -81,7 +81,7 @@
       "Fix FreshChat (Livechat) send message will have error when phone number is invalid"
     ],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713309"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713309"
   },
   {
     "version": "1.1.78",
@@ -103,9 +103,12 @@
       "1. Enhanced Cash Book and Journal – Tax Entity Information Cash Book Entries and Journal Entry have been enhanced to automatically capture the Business Name and Business Registration Number when a Tax Entity is selected, ensuring more complete and accurate records.",
       "2. Improved Email Sending Security Enhanced the security of the Send Document by Email and Send Statement function to ensure safer and more reliable email delivery.",
       "3. Improved Company Blocked Error Message Updated error message from \"This Company is blocked.\" error message to \"This company is blocked. Please contact your sales representative for assistance or email us at sales@autocountsoft.com \"。This message is prompt when the users did not continue subscribe to Cloud Accounting service on that company for more than 1 years.",
-      "These enhancements were made available on 14 Jan 2025!"
+      "These enhancements were made available on 14 Jan 2025!",
+      "We use cookies to try and give you a better experience in Freshdesk.",
+      "You can learn more about what kind of cookies we use, why, and how from our Privacy Policy . If you hate cookies, or are just on a diet, you can disable them altogether too. Just note that the Freshdesk service is pretty big on some cookies (we love the choco-chip ones), and some portions of Freshdesk may not work properly if you disable cookies.",
+      "We’ll also assume you agree to the way we use cookies and are ok with it as described in our Privacy Policy , unless you choose to disable them altogether through your browser."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713288"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713288"
   },
   {
     "version": "1.1.77",
@@ -124,9 +127,12 @@
       "Here is the enhancements for v1.1.77",
       "1. Singapore InvoiceNow function.",
       "Added Singapore InvoiceNow function to support electronic invoice exchange via the Peppol network. This enables businesses to send and receive e-invoices in compliance with Singapore’s nationwide e-invoicing initiative.",
-      "These enhancements were made available on 19 December 2025!"
+      "These enhancements were made available on 19 December 2025!",
+      "We use cookies to try and give you a better experience in Freshdesk.",
+      "You can learn more about what kind of cookies we use, why, and how from our Privacy Policy . If you hate cookies, or are just on a diet, you can disable them altogether too. Just note that the Freshdesk service is pretty big on some cookies (we love the choco-chip ones), and some portions of Freshdesk may not work properly if you disable cookies.",
+      "We’ll also assume you agree to the way we use cookies and are ok with it as described in our Privacy Policy , unless you choose to disable them altogether through your browser."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713285"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713285"
   },
   {
     "version": "1.1.76",
@@ -149,13 +155,13 @@
       "3. AI Agent support added for Live Chat Support",
       "AI Agent is now available to help in Live Chat Support. Don’t worry — if it can’t solve your issue, you can still chat with our Live Agent."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713270"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713270"
   },
   {
     "version": "1.1.75",
     "rev": "Release 75",
     "date": "2025-10-29",
-    "postedLabel": "8 months ago",
+    "postedLabel": "9 months ago",
     "features": [
       "Added new tax codes and update latest SST-02 form changes",
       "Improved Knock Off Entry screen to display more rows in the knock-off section on smaller screens."
@@ -176,7 +182,7 @@
       "   d) Total Tax Value @ 8%",
       "The previous 11 d) item has been pushed to 11 e) due to this change"
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713262"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713262"
   },
   {
     "version": "1.1.74",
@@ -217,7 +223,7 @@
       "3. Enhanced Self-Billed e-Invoice to allow copying from multiple transactions into one e-Invoice document",
       "The Self-Billed e-Invoice feature now supports copying from multiple transactions, allowing you to create a consolidated self-billed e-Invoice in one go."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713257"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713257"
   },
   {
     "version": "1.1.73",
@@ -247,7 +253,7 @@
       "Previously, this information was only available after running the GST Processor, but now it can be viewed directly in Instant Info.",
       "4. Enhanced Automatic Issue Date Time setting to avoid prompting users ‘e-Invoice issuance date time is too old’ message"
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713239"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713239"
   },
   {
     "version": "1.1.72",
@@ -272,22 +278,25 @@
       "To enhance flexibility, you can now have an option to hide the Item Description in ledger report. This is useful if you wish to have a summarized ledger on your sales instead of showing each line from the invoice.",
       "These enhancements were made available on 11 August 2025!"
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713237"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713237"
   },
   {
     "version": "1.1.71",
     "rev": "Release 71",
     "date": "2025-07-31",
-    "postedLabel": "11 months ago",
+    "postedLabel": "12 months ago",
     "features": [],
     "fixes": [],
     "highlights": [
       "1. Adjusted to make Tax Exemption Number entry not mandatory when using tax codes EEM, ESP, and EDA for Malaysia e-Invoice documents.",
       "You no longer need to enter the Tax Exemption No. under ‘Document Info’ when using tax codes EEM, ESP, or EDA for e-Invoice submission!",
       "2. [SG] Optimize Singapore GST Instant Info page to load data more fluently",
-      "These enhancements were made available on 31 July 2025!"
+      "These enhancements were made available on 31 July 2025!",
+      "We use cookies to try and give you a better experience in Freshdesk.",
+      "You can learn more about what kind of cookies we use, why, and how from our Privacy Policy . If you hate cookies, or are just on a diet, you can disable them altogether too. Just note that the Freshdesk service is pretty big on some cookies (we love the choco-chip ones), and some portions of Freshdesk may not work properly if you disable cookies.",
+      "We’ll also assume you agree to the way we use cookies and are ok with it as described in our Privacy Policy , unless you choose to disable them altogether through your browser."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713235"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713235"
   },
   {
     "version": "1.1.70",
@@ -316,7 +325,7 @@
       "3. Enhanced to allow editing Tax Entity field in Customer and Supplier",
       "We understand mistakes can happen when mapping Tax Entities to customers or suppliers, we have now enhanced to allow edit so you can switch to the correct Tax Entity easily."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713231"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713231"
   },
   {
     "version": "1.1.69",
@@ -355,7 +364,7 @@
       "This enhancement helps prevent duplicate entry of the same supplier invoice in Purchase Invoice. An error prompt will appear upon saving if the same supplier invoice number is entered for the same supplier.",
       "    4. Added Save Layout function in Master Data and Product Inquiry"
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713209"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713209"
   },
   {
     "version": "1.1.68",
@@ -375,9 +384,11 @@
       "To enhance the user experience, we've introduced batch functions that allow you to perform actions in bulk — including batch approval (Invoices and Credit Notes), batch submission for approval, batch email sending, batch deletion, and batch voiding.",
       "Batch void, send email and delete",
       "Batch submit for approval and approve",
-      "The new release is available on 2 June 2025. That’s it about it today!"
+      "The new release is available on 2 June 2025. That’s it about it today!",
+      "We use cookies to try and give you a better experience in Freshdesk.",
+      "You can learn more about what kind of cookies we use, why, and how from our Privacy Policy . If you hate cookies, or are just on a diet, you can disable them altogether too. Just note that the Freshdesk service is pretty big on some cookies (we love the choco-chip ones), and some portions of Freshdesk may not work properly if you disable cookies."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713195"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713195"
   },
   {
     "version": "1.1.67",
@@ -398,7 +409,7 @@
       "Step 1: You create an invoice amounted to RM1000",
       "Step 2: Then at invoice entry, you keyed in ‘RM100’ under ‘Deposit Payment Amount’"
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713182"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713182"
   },
   {
     "version": "1.1.66",
@@ -418,15 +429,18 @@
       "v1.1.66 is here!",
       "1. Displays a short phrase indicating that status-filtered results are results for the last 365 days.",
       "We’ve added a short phrase to indicate that when filtering by status (e.g., Full Payment, Partial Payment, Pending, etc.), only transactions from the last 365 days are shown.",
-      "The new releases are available on 20 May 2025. That’s it about it today!"
+      "The new releases are available on 20 May 2025. That’s it about it today!",
+      "We use cookies to try and give you a better experience in Freshdesk.",
+      "You can learn more about what kind of cookies we use, why, and how from our Privacy Policy . If you hate cookies, or are just on a diet, you can disable them altogether too. Just note that the Freshdesk service is pretty big on some cookies (we love the choco-chip ones), and some portions of Freshdesk may not work properly if you disable cookies.",
+      "We’ll also assume you agree to the way we use cookies and are ok with it as described in our Privacy Policy , unless you choose to disable them altogether through your browser."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713181"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713181"
   },
   {
     "version": "1.1.65",
     "rev": "Release 65",
     "date": "2025-04-12",
-    "postedLabel": "about 1 year ago",
+    "postedLabel": "over 1 year ago",
     "features": [
       "Import from Excel – Limit row size for better performance",
       "Import from Excel – Error shown for wrong Excel date format",
@@ -443,7 +457,7 @@
       "2. Import from Excel – Error shown for wrong Excel date format Now it prompts the correct error message when the Date provided in the Excel column does not match with the date format chosen.",
       "The new releases are available on 9 April 2025. That’s it about it today!"
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000713127"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000713127"
   },
   {
     "version": "1.1.64",
@@ -466,9 +480,12 @@
       "For convenience, we have added ‘Supplier Invoice No.’ to the report template of the Purchase Invoice and Purchase Return Audit Trail Listing. If a Supplier Invoice No. is entered in a Purchase Invoice transaction, it will be displayed in both the Purchase Invoice and Purchase Return Audit Trail.",
       "Preview Purchase Invoice",
       "Preview Purchase Return Audit Trail Listing ",
-      "The new releases are available on 25 February 2025. That’s it about it today!"
+      "The new releases are available on 25 February 2025. That’s it about it today!",
+      "We use cookies to try and give you a better experience in Freshdesk.",
+      "You can learn more about what kind of cookies we use, why, and how from our Privacy Policy . If you hate cookies, or are just on a diet, you can disable them altogether too. Just note that the Freshdesk service is pretty big on some cookies (we love the choco-chip ones), and some portions of Freshdesk may not work properly if you disable cookies.",
+      "We’ll also assume you agree to the way we use cookies and are ok with it as described in our Privacy Policy , unless you choose to disable them altogether through your browser."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712918"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712918"
   },
   {
     "version": "1.1.63",
@@ -498,7 +515,7 @@
       "The newly added table will definitely be helpful in guiding you when importing the Chart of Account! Please remember to always check the informational Guide tab when using the import function in AutoCount Cloud Accounting!",
       "    4. Enhanced to prompt warning if there is another Paid Plan for similar company name "
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712899"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712899"
   },
   {
     "version": "1.1.62",
@@ -520,9 +537,10 @@
       "We have added ‘last day’ selection so that if you want to set the recurrence to be on last day of the month, 30 th or 31 st , you can now do so. Example, if you set last day, the invoice generated in June will 30 th , while July will be 31 st .",
       "    3. Enhance Recurring Template to support filling Date format at Description to capture billing date and year",
       "Additional enhancements have been made to Recurring Transactions. If you are creating a recurring payment voucher for monthly rental and want to include the date in the description, this is now possible. This function allows the description to be updated automatically without manual editing.",
-      "The new releases are available on 11 January 2025.That’s it about it today!"
+      "The new releases are available on 11 January 2025.That’s it about it today!",
+      "We use cookies to try and give you a better experience in Freshdesk."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712874"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712874"
   },
   {
     "version": "1.1.61",
@@ -560,7 +578,7 @@
       "    4. Support Other Country – United Kingdom",
       "If you have United Kingdom company with home currency Great British Pound (GBP), AutoCount Cloud Accounting can support your business too.     5. Improve similar name detection for Product, Customer and Supplier"
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712813"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712813"
   },
   {
     "version": "1.1.60",
@@ -581,9 +599,11 @@
       "Now our Singapore users can enjoy Seamless e-Filing in Cloud Accounting, upon clicking on the ‘Seamless e-Filing’, you will be redirected to a new tab to start performing your e-filing. You are able to submit and download your Financial Statement (in simplified XBRL format) and your Annual return to ACRA. In addition, you are able to submit your Form CS to IRAS as well as download the detailed P&L and tax computation generated.",
       "    ",
       "    2. Enhance Consolidated e-Invoice for OneSales POS transaction to group no tax and zero tax details together",
-      "The new release are available on 18 October 2024. That's it about it today !"
+      "The new release are available on 18 October 2024. That's it about it today !",
+      "We use cookies to try and give you a better experience in Freshdesk.",
+      "You can learn more about what kind of cookies we use, why, and how from our Privacy Policy . If you hate cookies, or are just on a diet, you can disable them altogether too. Just note that the Freshdesk service is pretty big on some cookies (we love the choco-chip ones), and some portions of Freshdesk may not work properly if you disable cookies."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712722"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712722"
   },
   {
     "version": "1.1.59",
@@ -610,7 +630,7 @@
       "            b. Import Cash Book Entry",
       "               "
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712719"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712719"
   },
   {
     "version": "1.1.58",
@@ -641,7 +661,7 @@
       "Submission Summary : A summary to show the numbers of documents that are valid, invalid, in progress, cancelled, consolidated and to be consolidate. This will give you an idea of how many e-invoices are valid, and most importantly, pending to be consolidated!",
       "Submitted Documents:  Shows you a list of submitted documents with details such as Document number, date, total, e-Invoice status etc."
     ],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712717"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712717"
   },
   {
     "version": "1.1.57",
@@ -660,7 +680,7 @@
       "Fix Invoice and Credit Note when filter by status, consolidated e-Invoice DocNo will not show in grid"
     ],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712692"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712692"
   },
   {
     "version": "1.1.56",
@@ -677,7 +697,7 @@
       "Fix showing incorrect caption \"Draft\" instead of \"Awaiting Approval\" at detail title dialog"
     ],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712691"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712691"
   },
   {
     "version": "1.1.55",
@@ -701,7 +721,7 @@
       "Fix running Stock Adjustment and Stock Transfer listing report not following filter by selected DocDate range"
     ],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712690"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712690"
   },
   {
     "version": "1.1.54",
@@ -718,7 +738,7 @@
       "Fix create Cash Book with Debtor and Creditor did not prompt for knock off"
     ],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712617"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712617"
   },
   {
     "version": "1.1.53",
@@ -731,7 +751,7 @@
     ],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712616"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712616"
   },
   {
     "version": "1.1.52",
@@ -748,7 +768,7 @@
     ],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712615"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712615"
   },
   {
     "version": "1.1.51",
@@ -766,7 +786,7 @@
       "Fix tax based report format did not show tax payable description amount in correct form"
     ],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712614"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712614"
   },
   {
     "version": "1.1.50",
@@ -782,7 +802,7 @@
       "[PH] Fix BIR Invoice if bill foreign currency will cause footer display amount in Peso which is not consistent with Invoice currency"
     ],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712613"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712613"
   },
   {
     "version": "1.1.49",
@@ -795,7 +815,7 @@
     ],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712612"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712612"
   },
   {
     "version": "1.1.48",
@@ -809,7 +829,7 @@
     ],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712322"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712322"
   },
   {
     "version": "1.1.46",
@@ -819,7 +839,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712275"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712275"
   },
   {
     "version": "1.1.45",
@@ -829,7 +849,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712274"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712274"
   },
   {
     "version": "1.1.44",
@@ -839,7 +859,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712273"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712273"
   },
   {
     "version": "1.1.43",
@@ -849,7 +869,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712272"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712272"
   },
   {
     "version": "1.1.42",
@@ -859,7 +879,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712271"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712271"
   },
   {
     "version": "1.1.41",
@@ -869,7 +889,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712106"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712106"
   },
   {
     "version": "1.1.39",
@@ -879,7 +899,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712058"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712058"
   },
   {
     "version": "1.1.37",
@@ -889,7 +909,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712046"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712046"
   },
   {
     "version": "1.1.36",
@@ -899,7 +919,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712045"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712045"
   },
   {
     "version": "1.1.35",
@@ -909,7 +929,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712030"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712030"
   },
   {
     "version": "1.1.33",
@@ -919,7 +939,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712011"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712011"
   },
   {
     "version": "1.1.32",
@@ -929,7 +949,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712010"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712010"
   },
   {
     "version": "1.1.31",
@@ -939,7 +959,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000712009"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000712009"
   },
   {
     "version": "1.1.29",
@@ -949,7 +969,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711968"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711968"
   },
   {
     "version": "1.1.28",
@@ -959,7 +979,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711967"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711967"
   },
   {
     "version": "1.1.27",
@@ -969,7 +989,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711966"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711966"
   },
   {
     "version": "1.1.26",
@@ -979,7 +999,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711965"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711965"
   },
   {
     "version": "1.1.25",
@@ -989,7 +1009,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711964"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711964"
   },
   {
     "version": "1.1.24",
@@ -999,7 +1019,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711963"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711963"
   },
   {
     "version": "1.1.23",
@@ -1009,7 +1029,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711962"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711962"
   },
   {
     "version": "1.1.22",
@@ -1019,7 +1039,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711872"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711872"
   },
   {
     "version": "1.1.21",
@@ -1029,7 +1049,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711871"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711871"
   },
   {
     "version": "1.1.20",
@@ -1039,7 +1059,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711848"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711848"
   },
   {
     "version": "1.1.19",
@@ -1049,7 +1069,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711847"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711847"
   },
   {
     "version": "1.1.18",
@@ -1059,7 +1079,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711823"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711823"
   },
   {
     "version": "1.1.17",
@@ -1069,7 +1089,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711822"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711822"
   },
   {
     "version": "1.1.16",
@@ -1079,7 +1099,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711821"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711821"
   },
   {
     "version": "1.1.15",
@@ -1089,7 +1109,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711820"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711820"
   },
   {
     "version": "1.1.14",
@@ -1099,7 +1119,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711819"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711819"
   },
   {
     "version": "1.1.13",
@@ -1109,7 +1129,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711818"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711818"
   },
   {
     "version": "1.1.12",
@@ -1119,7 +1139,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711817"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711817"
   },
   {
     "version": "1.1.11",
@@ -1129,7 +1149,7 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711816"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711816"
   },
   {
     "version": "1.1.10",
@@ -1139,6 +1159,6 @@
     "features": [],
     "fixes": [],
     "highlights": [],
-    "sourceUrl": "https://help.accounting.autocountcloud.com/support/discussions/topics/69000711674"
+    "sourceUrl": "https://autocount.freshdesk.com/support/discussions/topics/69000711674"
   }
 ]
