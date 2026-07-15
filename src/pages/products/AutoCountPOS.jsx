@@ -1663,6 +1663,7 @@ export default function AutoCountPOSPage({ onContact }) {
         <div
           id="features"
           className="product-app-section product-app-section-paper product-app-section-clean"
+          style={{ paddingTop: "2rem" }}
         >
           <HexFeatures
             title="It's Not Just a POS"
