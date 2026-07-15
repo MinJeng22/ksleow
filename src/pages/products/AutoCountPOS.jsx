@@ -827,7 +827,7 @@ export default function AutoCountPOSPage({ onContact }) {
           z-index: 2;
           opacity: 0;
           pointer-events: none;
-          transition: opacity 2800ms cubic-bezier(0.16, 1, 0.3, 1) 300ms;
+          transition: opacity 1200ms cubic-bezier(0.16, 1, 0.3, 1) 150ms;
         }
         #page-autocount-pos .pos-system-card.is-lit .pos-img-overlay {
           opacity: 1;
