@@ -753,6 +753,18 @@ export default function AutoCountPOSPage({ onContact }) {
             radial-gradient(circle at 86% 12%, rgba(47, 49, 90, 0.038), transparent 38%),
             linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
         }
+        #page-autocount-pos .pos-feature-section {
+          background:
+            radial-gradient(circle at 12% 8%, rgba(228, 158, 37, 0.09), transparent 32%),
+            radial-gradient(circle at 88% 22%, rgba(128, 195, 30, 0.08), transparent 36%),
+            linear-gradient(180deg, #fff8eb 0%, #fbfbf2 52%, #f7fbf0 100%);
+        }
+        #page-autocount-pos .pos-offers-section {
+          background:
+            radial-gradient(circle at 18% 14%, rgba(128, 195, 30, 0.1), transparent 34%),
+            radial-gradient(circle at 84% 18%, rgba(228, 158, 37, 0.075), transparent 34%),
+            linear-gradient(180deg, #f7fbf0 0%, #fbfaf4 54%, #f6f5f0 100%);
+        }
         #page-autocount-pos .ks-btn-primary {
           background: var(--pos-accent) !important;
           border-color: var(--pos-accent) !important;
@@ -1672,7 +1684,7 @@ export default function AutoCountPOSPage({ onContact }) {
       <main className="pinned-page-content product-app-content">
         <div
           id="features"
-          className="product-app-section product-app-section-paper product-app-section-clean"
+          className="product-app-section product-app-section-paper product-app-section-clean pos-feature-section"
           style={{ paddingTop: "2rem" }}
         >
           <HexFeatures
@@ -1682,11 +1694,11 @@ export default function AutoCountPOSPage({ onContact }) {
           />
         </div>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <div className="product-app-divider" style={{ "--section-from": "#f7fbf0", "--section-to": "#f7fbf0", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="promotions" />
         </div>
 
-        <div className="product-app-section product-app-section-paper product-app-section-clean">
+        <div className="product-app-section product-app-section-paper product-app-section-clean pos-offers-section">
           <ProductPromotionBento
             title="Current AutoCount POS Offers"
             accent="#80c31e"
@@ -1694,7 +1706,7 @@ export default function AutoCountPOSPage({ onContact }) {
           />
         </div>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <div className="product-app-divider" style={{ "--section-from": "#f6f5f0", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="system" />
         </div>
 

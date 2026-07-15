@@ -4025,10 +4025,18 @@ body.has-active-modal .back-to-top-glass {
     position: relative;
     left: 2.25rem;
   }
+  .hex-features-text-left .hex-features-item:nth-child(2) {
+    position: relative;
+    left: -1.5rem;
+  }
   .hex-features-text-right .hex-features-item:first-child,
   .hex-features-text-right .hex-features-item:last-child {
     position: relative;
     right: 2.25rem;
+  }
+  .hex-features-text-right .hex-features-item:nth-child(2) {
+    position: relative;
+    right: -1.5rem;
   }
 }
 

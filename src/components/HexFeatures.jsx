@@ -29,7 +29,7 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
         <div className="hex-features-head">
           <h2 className="ks-section-title" style={{ textAlign: "center" }}>{title}</h2>
           {subtitle && (
-            <p className="ks-body-text" style={{ textAlign: "center", maxWidth: 600, margin: "0.5rem auto 0" }}>
+            <p className="ks-body-text" style={{ textAlign: "center", maxWidth: 1000, margin: "0.5rem auto 0" }}>
               {subtitle}
             </p>
           )}
