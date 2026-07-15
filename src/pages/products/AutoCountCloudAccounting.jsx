@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
+import { formatSST } from "../../utils/formatSST";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
 import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
@@ -246,11 +247,11 @@ function EditionTable({ selected = null, diffOnly = false }) {
                     <td key={i} className={isPriceRow ? "ks-compare-td-book" : "ks-compare-td-data"}>
                       {isFirst && v.includes("More info") ? (
                         <>
-                          <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" }}>RM 10 + 8%SST /mo</div>
+                          <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" }}>RM 10 <span style={{ fontSize: "0.75em", fontWeight: "normal", opacity: 0.8 }}>+ 8%SST</span> /mo</div>
                           <a href="#" style={{ fontSize: "0.75rem", color: "#16a14b", textDecoration: "underline" }}>More info</a>
                         </>
                       ) : (
-                        <span style={isPriceRow ? { fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" } : {}}>{v}</span>
+                        <span style={isPriceRow ? { fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" } : {}}>{formatSST(v)}</span>
                       )}
                     </td>
                   ))}

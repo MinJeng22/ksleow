@@ -19,6 +19,7 @@ import { SegmentedControl, SelectField } from "../../components/FormControls.jsx
 import { CopyReleaseButton, ReleaseNumber, ShareLinkButton, HighlightText } from "../../components/ReleaseTools.jsx";
 import { CompareFeatureCell, editionRowDiffers, filterEditionValues, getEditionColumnIndexes } from "../../components/CompareTable.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
+import { formatSST } from "../../utils/formatSST.jsx";
 import { runWithProgressFeedback } from "../../utils/routeTransitions.js";
 /* AutoCount Accounting page — product-aware WhatsApp link to KS Support Team */
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
@@ -446,7 +447,10 @@ function EditionMarker({ value }) {
   if (value === "+") {
     return <span style={{ color: "#80c31e", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>+</span>;
   }
-  return <span style={{ color: "#9aa", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>−</span>;
+  if (value === "−") {
+    return <span style={{ color: "#9aa", fontWeight: 700, fontSize: "1.1rem", lineHeight: 1 }}>−</span>;
+  }
+  return <span>{formatSST(value)}</span>;
 }
 
 function EditionsTable({ selected = null, diffOnly = false, showPrices = false }) {
@@ -496,7 +500,7 @@ function EditionsTable({ selected = null, diffOnly = false, showPrices = false }
                 
               </td>
               {filterRow(EDITION_TABLE.oneTimePayment).map((v, i) => (
-                <td key={i} className="ks-compare-td-book">{v}</td>
+                <td key={i} className="ks-compare-td-book">{formatSST(v)}</td>
               ))}
             </tr>
             <tr className="ks-compare-tr-book">

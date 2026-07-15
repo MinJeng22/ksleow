@@ -33,6 +33,7 @@ import { CompareFeatureCell } from "../../components/CompareTable.jsx";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
+import { formatSST } from "../../utils/formatSST.jsx";
 import { runWithProgressFeedback } from "../../utils/routeTransitions.js";
 import posReleases from "../../content/autocountPosReleases.json";
 import { CopyReleaseButton, HighlightText, ReleaseNumber, ShareLinkButton, writeClipboard } from "../../components/ReleaseTools.jsx";
@@ -228,7 +229,7 @@ const FRONTEND_MODULE_SECTIONS = [
 
 function POSMarker({ value, price = false }) {
   if (price) {
-    return <span className="pos-price-value">{value}</span>;
+    return <span className="pos-price-value">{formatSST(value)}</span>;
   }
   if (value === "+") {
     return <span className="pos-marker pos-marker-plus">+</span>;
@@ -236,10 +237,15 @@ function POSMarker({ value, price = false }) {
   if (value === "Included") {
     return <span className="pos-marker pos-marker-included">Included</span>;
   }
+  if (value === "●") {
+    return (
+      <span className="pos-marker pos-marker-circle" />
+    );
+  }
   if (!value || value === "-") {
     return <span className="pos-marker pos-marker-muted">-</span>;
   }
-  return <span>{value}</span>;
+  return <span>{formatSST(value)}</span>;
 }
 
 function POSCompareTable({
