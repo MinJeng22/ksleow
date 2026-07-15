@@ -636,7 +636,7 @@ function POSReleaseNotesSection({ search, setSearch, expanded, setExpanded, visi
   const highlightCount = POS_RELEASES.filter((release) => release.highlightsUrl).length;
 
   return (
-    <section id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-to-warm">
+    <section id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-from-warm product-app-section-to-warm">
       <div className="content-wrap">
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
           <div>
@@ -754,16 +754,28 @@ export default function AutoCountPOSPage({ onContact }) {
             linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
         }
         #page-autocount-pos .pos-feature-section {
+          --product-section-from: #fff8eb;
+          --product-section-bg: #fbfbf2;
+          --product-section-to: #f7fbf0;
+          --product-section-glow: 0.72;
+        }
+        #page-autocount-pos .pos-feature-section::before {
           background:
             radial-gradient(circle at 12% 8%, rgba(228, 158, 37, 0.09), transparent 32%),
             radial-gradient(circle at 88% 22%, rgba(128, 195, 30, 0.08), transparent 36%),
-            linear-gradient(180deg, #fff8eb 0%, #fbfbf2 52%, #f7fbf0 100%);
+            linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0));
         }
         #page-autocount-pos .pos-offers-section {
+          --product-section-from: #f7fbf0;
+          --product-section-bg: #fbfaf4;
+          --product-section-to: var(--ks-page-mist);
+          --product-section-glow: 0.68;
+        }
+        #page-autocount-pos .pos-offers-section::before {
           background:
             radial-gradient(circle at 18% 14%, rgba(128, 195, 30, 0.1), transparent 34%),
             radial-gradient(circle at 84% 18%, rgba(228, 158, 37, 0.075), transparent 34%),
-            linear-gradient(180deg, #f7fbf0 0%, #fbfaf4 54%, #f6f5f0 100%);
+            linear-gradient(180deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0));
         }
         #page-autocount-pos .ks-btn-primary {
           background: var(--pos-accent) !important;
@@ -1710,7 +1722,7 @@ export default function AutoCountPOSPage({ onContact }) {
           <PageSectionDivider sections={POS_SECTIONS} id="system" />
         </div>
 
-        <section id="system" className="product-app-section product-app-section-mist product-app-section-from-paper product-app-section-to-ice pos-system-section">
+        <section id="system" className="product-app-section product-app-section-mist product-app-section-from-mist product-app-section-to-ice pos-system-section">
 
           <POSSystemExplainer />
         </section>
@@ -1806,7 +1818,7 @@ export default function AutoCountPOSPage({ onContact }) {
           setVisibleLimit={setReleaseVisibleLimit}
         />
 
-        <WhyChooseUs section={getSection(POS_SECTIONS, "why-ksl")} sectionFrom="var(--ks-page-cloud)" sectionTo="var(--ks-page-warm)" />
+        <WhyChooseUs section={getSection(POS_SECTIONS, "why-ksl")} sectionFrom="var(--ks-page-warm)" sectionTo="var(--ks-page-warm)" />
 
         <EnquireNowCTA
           heading="Ready to build your POS setup?"
