@@ -255,9 +255,19 @@ function POSCompareTable({
   sections,
   accent = POS_ACCENT,
   inlinePrice = false,
-  mobileWidth = 760,
 }) {
   const columnCount = columns.length;
+  const theadRef = React.useRef(null);
+  const tbodyRef = React.useRef(null);
+
+  const handleHeadScroll = (e) => {
+    if (tbodyRef.current) tbodyRef.current.scrollLeft = e.target.scrollLeft;
+  };
+  const handleBodyScroll = (e) => {
+    if (theadRef.current) theadRef.current.scrollLeft = e.target.scrollLeft;
+  };
+
+  const mobileWidth = columnCount > 3 ? `${columnCount * 75}px` : "100%";
   const renderRow = (row) => {
     const priceRow = row.type === "price";
     return (
@@ -281,7 +291,7 @@ function POSCompareTable({
           className="ks-compare-table"
           style={{
             "--edition-count": columnCount,
-            "--mobile-table-width": `${mobileWidth}px`,
+            "--mobile-table-width": mobileWidth,
           }}
         >
           <colgroup>
@@ -290,7 +300,7 @@ function POSCompareTable({
               <col key={column} className="ks-compare-col-edition" width={`${(columnCount > 2 ? 68 : 62) / columnCount}%`} />
             ))}
           </colgroup>
-          <thead className="ks-compare-thead">
+          <thead className="ks-compare-thead" ref={theadRef} onScroll={handleHeadScroll}>
             <tr style={{ "--th-bg": accent }}>
               <th className="ks-compare-th ks-compare-th-left">{leftLabel}</th>
               {columns.map((column) => (
@@ -300,7 +310,7 @@ function POSCompareTable({
               ))}
             </tr>
           </thead>
-          <tbody className="ks-compare-tbody">
+          <tbody className="ks-compare-tbody" ref={tbodyRef} onScroll={handleBodyScroll}>
             {rows?.map(renderRow)}
             {sections?.map((section) => (
               <React.Fragment key={section.name}>
@@ -1735,7 +1745,6 @@ export default function AutoCountPOSPage({ onContact }) {
               sections={[...POS_MODULE_SECTIONS, ...ACCOUNTING_MODULE_SECTIONS]}
               accent={POS_ACCENT}
               inlinePrice={titleClicks >= 5}
-              mobileWidth={760}
             />
             <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
               *Prices exclude 8% SST.
@@ -1764,7 +1773,6 @@ export default function AutoCountPOSPage({ onContact }) {
               sections={FRONTEND_MODULE_SECTIONS}
               accent={POS_NAVY}
               inlinePrice={titleClicks >= 5}
-              mobileWidth={820}
             />
             <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
               *Frontend requires a POS Backend or AutoCount Accounting.<br />
