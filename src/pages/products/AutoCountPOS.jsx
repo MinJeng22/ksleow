@@ -84,93 +84,31 @@ const HEX_FEATURES = [
     title: "SST-Compliant POS",
     desc: "Fully SST-ready with tax-inclusive pricing, GST migration support, and government-compliant receipt formatting built into every transaction.",
     color: "#a8cd2b",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M7 2h10v10.5" strokeWidth="1.8" />
-        <path d="M7 2v20l2-1.5 2 1.5 2-1.5 2 1.5 1-0.75" strokeWidth="1.8" />
-        <line x1="10" y1="7" x2="14" y2="7" strokeWidth="1.8" />
-        <line x1="10" y1="11" x2="14" y2="11" strokeWidth="1.8" />
-        <circle cx="17" cy="17" r="5" strokeWidth="1.8" />
-        <path d="M15.5 18.5l3-3" strokeWidth="1.5" />
-        <circle cx="15.5" cy="15.5" r="0.8" fill="currentColor" style={{ stroke: "none" }} />
-        <circle cx="18.5" cy="18.5" r="0.8" fill="currentColor" style={{ stroke: "none" }} />
-      </svg>
-    ),
   },
   {
     title: "Integrated with Accounting",
     desc: "POS sales, stock movements, payment collections, and daily reports sync directly to AutoCount Accounting — no duplicate data entry required.",
     color: "#f7a600",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="9" cy="9" r="3" />
-        <path d="M9 4v2M9 12v2M12.5 5.5l-1.5 1.5M7 11l-1.5 1.5M4 9h2M12 9h2M5.5 5.5l1.5 1.5M11 11l1.5 1.5" />
-        <path d="M14 14h2.5a1.5 1.5 0 0 0 0-3 1.5 1.5 0 0 1 0-3H14v-1.5a1.5 1.5 0 0 0-3 0 1.5 1.5 0 0 1-3 0V14z" style={{transform: "translate(4px, 6px)"}} />
-      </svg>
-    ),
   },
   {
     title: "Real-Time Control",
     desc: "Monitor live sales, track stock levels, manage cash flow, and view outlet performance from anywhere with real-time dashboard and reporting.",
     color: "#079c8a",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="20" height="13" rx="2" />
-        <path d="M9 21h6M12 17v4" />
-        <circle cx="8" cy="10" r="2.5" />
-        <path d="M8 7.5v2.5h2.5" />
-        <line x1="14" y1="12" x2="14" y2="8" />
-        <line x1="17" y1="12" x2="17" y2="9.5" />
-      </svg>
-    ),
   },
   {
     title: "Scalable for Any Size",
     desc: "From a single counter to multi-branch outlets — add counters, branches, and users as your business grows without replacing your system.",
     color: "#234990",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="6" y1="20" x2="6" y2="14" strokeWidth="2.5" />
-        <line x1="12" y1="20" x2="12" y2="10" strokeWidth="2.5" />
-        <line x1="18" y1="20" x2="18" y2="4" strokeWidth="2.5" />
-        <path d="M4 12l8-8 6 6" />
-        <polyline points="14 4 18 4 18 8" />
-      </svg>
-    ),
   },
   {
     title: "LHDN e-Invoice Ready",
     desc: "Submit, validate, and manage LHDN-compliant e-Invoices directly from the POS counter — integrated with MyInvois for seamless compliance.",
     color: "#7f3b77",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h6" />
-        <polyline points="14 2 14 8 20 8" />
-        <path d="M20 8v5" />
-        <line x1="8" y1="12" x2="12" y2="12" />
-        <line x1="8" y1="16" x2="10" y2="16" />
-        <circle cx="17" cy="17" r="5" />
-        <path d="M15 17l1.5 1.5 3-3" />
-        <text x="7.5" y="6.8" fontSize="3.3" fontWeight="bold" stroke="none" fill="currentColor">e-INV</text>
-      </svg>
-    ),
   },
   {
     title: "Built for Your Business",
     desc: "Built-in report designer, plugin support, customisable grid layout, user-defined fields, scripting, and Web API for software integration.",
     color: "#e0222a",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4.5 16.5A10 10 0 0 1 12 2a10 10 0 0 1 9 5" />
-        <polyline points="16 7 21 7 21 2" />
-        <path d="M19.5 7.5A10 10 0 0 1 12 22a10 10 0 0 1-9-5" />
-        <polyline points="8 17 3 17 3 22" />
-        <circle cx="10" cy="10" r="2.5" />
-        <circle cx="14" cy="14" r="2.5" />
-        <path d="M10 6.5v1M10 12.5v1M7.5 10h-1M13.5 10h-1M11.8 8.2l.7-.7M8.2 11.8l-.7.7M8.2 8.2l-.7-.7M11.8 11.8l.7.7" />
-        <path d="M14 10.5v1M14 16.5v1M11.5 14h-1M17.5 14h-1M15.8 12.2l.7-.7M12.2 15.8l-.7.7M12.2 12.2l-.7-.7M15.8 15.8l.7.7" />
-      </svg>
-    ),
   },
 ];
 

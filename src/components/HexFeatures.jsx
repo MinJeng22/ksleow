@@ -1,73 +1,9 @@
-import { cloneElement, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
- * HexFeatures — 6 overlapping rounded parallelogram segments
- * forming a hexagonal ring, inspired by the "6 Market Phases" style.
+ * HexFeatures — hexagonal feature showcase using a static image
+ * for the centre hexagon ring, with text labels flanking each side.
  */
-
-/* ── Geometry constants ────────────────────────────────────── */
-
-const SIZE = 420;
-const CX = SIZE / 2;
-const CY = SIZE / 2;
-const OUTER_R = 175;
-const INNER_R = 88;
-const OVERLAP = 8;       // degrees of overlap at each junction
-const CORNER_R = 26;     // heavy rounding to smooth the overlap tips
-const ICON_R = (OUTER_R + INNER_R) / 2;
-const ICON_SIZE = 34;    // icon size in SVG viewBox units
-
-/* ── Helpers ───────────────────────────────────────────────── */
-
-function pt(r, deg) {
-  const rad = (Math.PI / 180) * deg;
-  return [CX + r * Math.cos(rad), CY + r * Math.sin(rad)];
-}
-
-function norm(v) {
-  const l = Math.sqrt(v[0] * v[0] + v[1] * v[1]);
-  return l ? [v[0] / l, v[1] / l] : [0, 0];
-}
-
-/** Closed path with quadratic-bezier-rounded corners. */
-function roundedPath(pts, r) {
-  const n = pts.length;
-  const d = [];
-  for (let i = 0; i < n; i++) {
-    const prev = pts[(i - 1 + n) % n];
-    const curr = pts[i];
-    const next = pts[(i + 1) % n];
-    const d1 = norm([prev[0] - curr[0], prev[1] - curr[1]]);
-    const d2 = norm([next[0] - curr[0], next[1] - curr[1]]);
-    const p1 = [curr[0] + d1[0] * r, curr[1] + d1[1] * r];
-    const p2 = [curr[0] + d2[0] * r, curr[1] + d2[1] * r];
-    d.push(i === 0 ? `M${p1[0]},${p1[1]}` : `L${p1[0]},${p1[1]}`);
-    d.push(`Q${curr[0]},${curr[1]} ${p2[0]},${p2[1]}`);
-  }
-  d.push("Z");
-  return d.join(" ");
-}
-
-/** Build segment k: a rounded parallelogram with overlap extensions. */
-function segmentPath(k) {
-  const s = -90 + k * 60 - OVERLAP;
-  const e = -90 + (k + 1) * 60 + OVERLAP;
-  const corners = [pt(OUTER_R, s), pt(OUTER_R, e), pt(INNER_R, e), pt(INNER_R, s)];
-  return roundedPath(corners, CORNER_R);
-}
-
-/**
- * Z-pattern reading order:
- *   data[0] → top-left    → segment 5
- *   data[1] → top-right   → segment 0
- *   data[2] → mid-left    → segment 4
- *   data[3] → mid-right   → segment 1
- *   data[4] → bot-left    → segment 3
- *   data[5] → bot-right   → segment 2
- */
-const SEG_TO_DATA = [1, 3, 5, 4, 2, 0];
-
-/* ── Component ─────────────────────────────────────────────── */
 
 export default function HexFeatures({ title, subtitle, features = [] }) {
   const ref = useRef(null);
@@ -86,15 +22,10 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
   const items = features.slice(0, 6);
   while (items.length < 6) items.push({ title: "", desc: "", color: "#ccc" });
 
-  const segments = Array.from({ length: 6 }, (_, k) => ({
-    path: segmentPath(k),
-    iconAngle: -90 + k * 60 + 30,
-    dataIdx: SEG_TO_DATA[k],
-  }));
-
   return (
     <div className="content-wrap">
       <div ref={ref} className={`hex-features${inView ? " in-view" : ""}`}>
+        {/* Heading */}
         <div className="hex-features-head">
           <h2 className="ks-section-title" style={{ textAlign: "center" }}>{title}</h2>
           {subtitle && (
@@ -116,13 +47,15 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
             ))}
           </div>
 
-          {/* Hexagonal ring */}
-          <div className="hex-features-ring" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img 
-              src="/images/products/pos-features-hex.png" 
-              alt="AutoCount POS Features" 
-              style={{ width: '100%', maxWidth: '420px', height: 'auto', objectFit: 'contain' }}
-              className="hex-features-img" 
+          {/* Centre hexagon image */}
+          <div className="hex-features-ring">
+            <img
+              src="/images/products/pos-hex-features.png"
+              alt="AutoCount POS 6 key features hexagon"
+              className="hex-features-img"
+              width="420"
+              height="420"
+              loading="lazy"
             />
           </div>
 

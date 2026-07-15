@@ -4039,59 +4039,24 @@ body.has-active-modal .back-to-top-glass {
   margin-left: auto;
 }
 
-/* ── SVG ring ─────────────────────────────────────── */
+/* ── Hex image ────────────────────────────────────── */
 .hex-features-ring {
   width: clamp(240px, 30vw, 380px);
-  height: clamp(240px, 30vw, 380px);
   flex-shrink: 0;
 }
 
-.hex-features-svg {
+.hex-features-img {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
-}
-
-.hex-wedge {
   opacity: 0;
-  transform-origin: 50% 50%;
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transform: scale(0.92);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.hex-features.in-view .hex-wedge {
+.hex-features.in-view .hex-features-img {
   opacity: 1;
-}
-
-.hex-wedge-path {
-  transition: filter 0.3s ease;
-  cursor: default;
-}
-
-.hex-wedge:hover .hex-wedge-path {
-  filter: brightness(1.12);
-}
-
-.hex-wedge-icon {
-  color: #ffffff;
-  pointer-events: none;
-}
-
-.hex-wedge-icon svg {
-  overflow: visible;
-}
-
-.hex-wedge-icon circle,
-.hex-wedge-icon path,
-.hex-wedge-icon line,
-.hex-wedge-icon polyline,
-.hex-wedge-icon polygon,
-.hex-wedge-icon rect,
-.hex-wedge-icon ellipse {
-  stroke: #ffffff;
-}
-
-.hex-wedge-icon [fill="currentColor"] {
-  fill: #ffffff;
+  transform: scale(1);
 }
 
 /* ── Responsive ───────────────────────────────────── */
@@ -4105,7 +4070,6 @@ body.has-active-modal .back-to-top-glass {
   .hex-features-ring {
     order: -1;
     width: 260px;
-    height: 260px;
   }
 
   .hex-features-text-left,
@@ -4119,11 +4083,7 @@ body.has-active-modal .back-to-top-glass {
     margin-right: auto;
   }
 
-  .hex-features-text-left .hex-features-item-desc {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
+  .hex-features-text-left .hex-features-item-desc,
   .hex-features-text-right .hex-features-item-desc {
     margin-left: auto;
     margin-right: auto;
@@ -4139,7 +4099,6 @@ body.has-active-modal .back-to-top-glass {
 @media (max-width: 600px) {
   .hex-features-ring {
     width: 210px;
-    height: 210px;
   }
 
   .hex-features-text-col {
