@@ -253,21 +253,7 @@ export default function ServerLinkPage({ onContact }) {
               </div>
             </div>
 
-            <div className="serverlink-upgrade-layout">
-              <aside className="serverlink-upgrade-copy">
-                <span>Upgrade guidance</span>
-                <h3>Start from your current license</h3>
-                <p className="ks-body-text">
-                  Every path is grouped by your existing ServerLink user count, so your team can expand without reading a long flat price list.
-                </p>
-                <ul>
-                  <li>Support license included in upgrade paths.</li>
-                  <li>Prices exclude 8% SST.</li>
-                  <li>Contact KS Support Team before upgrading server access.</li>
-                </ul>
-              </aside>
-              <UpgradeTable />
-            </div>
+            <UpgradeTable />
           </div>
         </section>
 
