@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
@@ -7,6 +7,7 @@ import { PageSectionDivider, getSection } from "../../components/PageSections.js
 import { IconLayers, IconLink, IconHandshake, IconStar } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
+import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 
 /* FeedMe POS page — product-aware WhatsApp link to Sales Agent Elise */
 const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
@@ -137,6 +138,7 @@ function Spotlight({ eyebrow, title, body, bullets, imageSide = "right" }) {
  * Page
  * ══════════════════════════════════════════════════════════════ */
 export default function FeedMePOSPage({ onContact }) {
+  const [trialOpen, setTrialOpen] = useState(false);
   useFavicon(FEEDME_LOGO);
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, []);
 
@@ -153,7 +155,7 @@ export default function FeedMePOSPage({ onContact }) {
           body="Cloud-based F&B point-of-sale built for cafés, restaurants, and food courts. Table management, kitchen display, online ordering, and member loyalty — all in one tablet-friendly system that syncs straight to AutoCount Accounting."
           iconSrc={FEEDME_LOGO}
           backgroundImage={HERO_PHOTO}
-          primaryCta={{ label: "Start Free Trial", onClick: onContact, className: "ks-btn-feedme" }}
+          primaryCta={{ label: "Start Free Trial", onClick: () => setTrialOpen(true), className: "ks-btn-feedme" }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
         />
       </PinnedHeroStage>
@@ -337,6 +339,19 @@ export default function FeedMePOSPage({ onContact }) {
 
       <Footer />
       </main>
+
+      <AutoCountTrialModal 
+        open={trialOpen} 
+        onClose={() => setTrialOpen(false)}
+        productName="FeedMe POS"
+        supportMessage="Hi KS Support Team, I would like to start the FeedMe POS Free Trial and schedule an installation session. I can prepare AnyDesk / UltraViewer."
+        checklist={[
+          <>Confirm your F&B <strong>business requirements</strong> and number of outlets.</>,
+          <>Install or prepare <strong>AnyDesk</strong> / <strong>UltraViewer</strong> for remote setup.</>,
+          <>Reserve around <strong>30 minutes</strong> for basic setup and menu configuration.</>,
+          <>Message our Support Team to arrange a suitable installation time.</>
+        ]}
+      />
     </div>
   );
 }
