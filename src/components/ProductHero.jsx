@@ -89,6 +89,7 @@ export default function ProductHero({
   primaryCta,
   secondaryCta,
   tertiaryCta,
+  className = "",
 }) {
   const videoRef = useRef(null);
 
@@ -101,7 +102,7 @@ export default function ProductHero({
   }, [backgroundVideo]);
 
   return (
-    <div className="product-hero" data-glass-tone="dark" style={{
+    <div className={`product-hero ${className}`.trim()} data-glass-tone="dark" style={{
       position: "sticky",
       top: 0,
       zIndex: 0,

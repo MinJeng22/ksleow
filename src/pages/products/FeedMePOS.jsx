@@ -150,6 +150,7 @@ export default function FeedMePOSPage({ onContact }) {
       {/* ── Hero ── */}
       <PinnedHeroStage>
         <ProductHero
+          className="feedme-hero"
           eyebrow="Software We Specialize In"
           title="FeedMe POS"
           body="Cloud-based F&B point-of-sale built for cafés, restaurants, and food courts. Table management, kitchen display, online ordering, and member loyalty — all in one tablet-friendly system that syncs straight to AutoCount Accounting."

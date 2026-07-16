@@ -4117,6 +4117,11 @@ body.has-active-modal .back-to-top-glass {
     gap: 1.5rem;
   }
 }
+@media (min-width: 761px) {
+  .feedme-hero {
+    min-height: 85vh;
+  }
+}
 
 @media (max-width: 600px) {
   .hex-features-ring {
