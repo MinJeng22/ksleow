@@ -4,10 +4,11 @@ import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
 import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
-import { IconLayers, IconLink, IconHandshake, IconStar } from "../../components/SectionDivider.jsx";
+import { IconLayers, IconLink, IconHandshake, IconStar, IconVideo } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
+import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 
 /* FeedMe POS page — product-aware WhatsApp link to Sales Agent Elise */
 const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
@@ -30,12 +31,33 @@ const FEEDME_BRANDS = [
   "/images/feedme-brands/brand-9.webp",
 ];
 
+const FEEDME_VIDEOS = [
+  {
+    id: "aVx2GRICw8g",
+    label: "Introduction",
+    description: "Get to know FeedMe POS. Learn how our iPad and Android tablet-based F&B system helps you run your café or restaurant efficiently.",
+    note: "Overview",
+    thumbnailCropScale: 1.0,
+    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M10 8l6 4-6 4z" fill="currentColor" stroke="none" /></svg>,
+  },
+  {
+    id: "qt79qLkmLII",
+    playlistId: "PLxvuFLfmabG32EDSIPfhlhDzxzpcHNWvg",
+    label: "POS Tutorial",
+    description: "Follow the FeedMe POS training videos for step-by-step setup, order taking, table management, and menu configuration.",
+    note: "Training Series",
+    thumbnailCropScale: 1.0,
+    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5" /><path d="M8 20v2h8v-2" /><path d="M10 9l6 3-6 3V9z" fill="currentColor" stroke="none" /></svg>,
+  },
+];
+
 /* Sidebar anchors */
 const FEEDME_SECTIONS = [
-  { id: "features", label: "Features", icon: IconStar, color: "#c9a84c" },
-  { id: "modules", label: "Modules", icon: IconLayers, color: "#c9a84c" },
-  { id: "integration", label: "AutoCount Sync", icon: IconLink, color: "#c9a84c" },
-  { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: "#c9a84c" },
+  { id: "features", label: "Features", icon: IconStar, color: "#ff7823" },
+  { id: "modules", label: "Modules", icon: IconLayers, color: "#ff7823" },
+  { id: "integration", label: "AutoCount Sync", icon: IconLink, color: "#ff7823" },
+  { id: "training", label: "Quick-Start Guide", icon: IconVideo, color: "#ff7823" },
+  { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: "#ff7823" },
 ];
 
 /* ── Shared style tokens (lifted from AutoCount page for visual parity) ── */
@@ -349,11 +371,28 @@ export default function FeedMePOSPage({ onContact }) {
         </div>
       </div>
 
-      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-warm)" }}>
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <PageSectionDivider sections={FEEDME_SECTIONS} id="training" />
+      </div>
+
+      <section className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-paper">
+        <div id="training">
+          <AutoCountTrainingWebGL
+            customVideos={FEEDME_VIDEOS}
+            title="FeedMe POS Quick-Start Guide"
+            themeColor="#ff7823"
+            themeHoverColor="#e66518"
+            activeTabBg="#1f2142"
+            playIconColor="#ffffff"
+            playBtnBg="#ff7823"
+          />
+        </div>
+      </section>
+
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-warm)" }}>
         <PageSectionDivider sections={FEEDME_SECTIONS} id="why-ksl" />
       </div>
 
-      {/* ── Why partner with KSL ── */}
       <div id="why-ksl" className="product-app-section product-app-section-warm">
         <div className="content-wrap">
           <h2 className="ks-section-title" style={{ marginBottom: "0.75rem" }}>Local Installation, Local Support</h2>
