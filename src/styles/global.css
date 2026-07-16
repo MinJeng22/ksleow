@@ -2625,8 +2625,8 @@ a.contact-directory-value:hover {
 .ks-btn-onesale:hover { background: #e55845; border-color: #e55845; }
 .ks-btn-serverlink { background: #00b3fe; border-color: #00b3fe; color: #fff; }
 .ks-btn-serverlink:hover { background: #00a1e5; border-color: #00a1e5; }
-.ks-btn-feedme { background: #c9a84c; border-color: #c9a84c; color: #1e2040; }
-.ks-btn-feedme:hover { background: #b59744; border-color: #b59744; color: #1e2040; }
+.ks-btn-feedme { background: #ff7823; border-color: #ff7823; color: #ffffff; }
+.ks-btn-feedme:hover { background: #e66518; border-color: #e66518; color: #ffffff; }
 
 .ks-btn-facebook {
   background: #1877F2;

@@ -18,6 +18,18 @@ const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
 const HERO_PHOTO = "/images/products/feedme-pos-showcase.webp";
 const FEEDME_LOGO = "/images/products/feedme-icon.webp";
 
+const FEEDME_BRANDS = [
+  "/images/feedme-brands/brand-1.webp",
+  "/images/feedme-brands/brand-2.webp",
+  "/images/feedme-brands/brand-3.webp",
+  "/images/feedme-brands/brand-4.webp",
+  "/images/feedme-brands/brand-5.webp",
+  "/images/feedme-brands/brand-6.webp",
+  "/images/feedme-brands/brand-7.webp",
+  "/images/feedme-brands/brand-8.webp",
+  "/images/feedme-brands/brand-9.webp",
+];
+
 /* Sidebar anchors */
 const FEEDME_SECTIONS = [
   { id: "features", label: "Features", icon: IconStar, color: "#c9a84c" },
@@ -163,6 +175,40 @@ export default function FeedMePOSPage({ onContact }) {
       </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
+
+      {/* ── Brand Marquee ── */}
+      <div className="product-app-section product-app-section-paper product-app-section-clean" style={{ paddingBottom: 0 }}>
+        <div className="content-wrap" style={{ position: "relative" }}>
+          <p style={{
+            textAlign: "center",
+            fontSize: "0.85rem",
+            fontWeight: 700,
+            letterSpacing: "0.15em",
+            color: "#6b6f91",
+            textTransform: "uppercase",
+            marginBottom: "2.5rem",
+          }}>
+            Trusted by 10,000+ Merchants · Ideal match for every type of restaurant
+          </p>
+
+          <div
+            className="ac-brand-marquee-container"
+            style={{
+              maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+              WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+            }}
+          >
+            <div className="ac-brand-marquee">
+              {[...FEEDME_BRANDS, ...FEEDME_BRANDS, ...FEEDME_BRANDS, ...FEEDME_BRANDS].map((src, index) => (
+                <div key={`${src}-${index}`} className="ac-brand-item">
+                  <img src={src} alt="Brand logo" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── Key Features ── */}
       <div id="features" className="product-app-section product-app-section-paper product-app-section-clean">
         <div className="content-wrap">
