@@ -1,5 +1,5 @@
 import { Img } from "./Media.jsx";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* ══════════════════════════════════════════════════════════════
  * ProductHero — shared hero band used by every product / app page
@@ -92,6 +92,7 @@ export default function ProductHero({
   className = "",
 }) {
   const videoRef = useRef(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   useEffect(() => {
     if (videoRef.current && backgroundVideo) {
@@ -116,27 +117,51 @@ export default function ProductHero({
         preload scanner discovers and downloads the LCP image immediately during HTML parsing.
       */}
       {backgroundVideo ? (
-        <video
-          ref={videoRef}
-          className="product-hero-bg"
-          autoPlay
-          loop
-          muted
-          defaultMuted
-          playsInline
-          poster={backgroundImage}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center center",
-            zIndex: 0,
-          }}
-        >
-          <source src={backgroundVideo} type="video/mp4" />
-        </video>
+        <>
+          <img
+            className="product-hero-bg"
+            src={backgroundImage}
+            alt=""
+            loading="eager"
+            decoding="sync"
+            fetchpriority="high"
+            draggable={false}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center center",
+              zIndex: 0,
+              opacity: isVideoPlaying ? 0 : 1,
+              transition: "opacity 0.7s ease-in-out",
+            }}
+          />
+          <video
+            ref={videoRef}
+            className="product-hero-bg"
+            autoPlay
+            loop
+            muted
+            defaultMuted
+            playsInline
+            onPlaying={() => setIsVideoPlaying(true)}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center center",
+              zIndex: 1,
+              opacity: isVideoPlaying ? 1 : 0,
+              transition: "opacity 0.7s ease-in-out",
+            }}
+          >
+            <source src={backgroundVideo} type="video/mp4" />
+          </video>
+        </>
       ) : (
         <img
           className="product-hero-bg"
