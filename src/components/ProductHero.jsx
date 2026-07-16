@@ -1,4 +1,5 @@
 import { Img } from "./Media.jsx";
+import { useEffect, useRef } from "react";
 
 /* ══════════════════════════════════════════════════════════════
  * ProductHero — shared hero band used by every product / app page
@@ -89,6 +90,15 @@ export default function ProductHero({
   secondaryCta,
   tertiaryCta,
 }) {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current && backgroundVideo) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(e => console.warn("Autoplay prevented:", e));
+    }
+  }, [backgroundVideo]);
 
   return (
     <div className="product-hero" data-glass-tone="dark" style={{
@@ -106,10 +116,12 @@ export default function ProductHero({
       */}
       {backgroundVideo ? (
         <video
+          ref={videoRef}
           className="product-hero-bg"
           autoPlay
           loop
           muted
+          defaultMuted
           playsInline
           poster={backgroundImage}
           style={{
