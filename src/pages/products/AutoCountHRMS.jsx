@@ -96,7 +96,7 @@ const HRMS_EDITION_TABLE = {
         ["Project Setting", ["", "+", "+"]],
         ["Employee Type Setting", ["", "+", "+"]],
         ["Department Setting", ["+ (Exclude sub-dept)", "+ (Include sub-dept)", "+ (Include sub-dept)"]],
-        ["Organization Chart", ["+", "+", "+"]],
+        ["Organisation Chart", ["+", "+", "+"]],
         ["Bank Account Setting", ["Single", "Multiple", "Multiple"]],
         ["Calendar Setting", ["Single", "Multiple", "Multiple"]],
         ["Advanced Calendar Setting", ["", "+", "+"]],

@@ -146,7 +146,7 @@ const CLOUD_EDITION_TABLE = {
         ["Track Product Variant", ["", "", "+", "+", ""]],
         ["Department", ["", "", "+", "+", "+"]],
         ["Multi-Location", ["", "", "", "+", ""]],
-        ["Customize Financial Report Layout", ["", "", "", "+", "+"]],
+        ["Customise Financial Report Layout", ["", "", "", "+", "+"]],
         ["AI SmartScan *", ["+", "+", "+", "+", "+"]],
         ["Attachment", ["5GB", "5GB", "10GB", "20GB", "5GB"]],
       ],

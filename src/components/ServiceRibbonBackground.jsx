@@ -59,7 +59,7 @@ function buildPath(width, height, variant) {
         { x: 1.08 * width, y: 0.66 * height },
       ]
     : [
-        // Optimized Services curve: softer loop + broad waves only.
+        // Optimised Services curve: softer loop + broad waves only.
         // Shape: subtle teardrop loop on the left → large middle sweep → large right sweep.
         { x: -0.1 * width, y: 0.34 * height },
         { x: 0.04 * width, y: 0.26 * height },

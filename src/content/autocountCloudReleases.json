@@ -14,7 +14,7 @@
       "Enhanced the system to automatically untick \"Submit e-Invoice\" when changing the document date to a date before the e-Invoice Start Date.",
       "Supported the Payment Method Listing API.",
       "Supported Invoice Outstanding Amount in the GET Invoice and GET Invoice Listing APIs.",
-      "Optimized Stock Card loading performance."
+      "Optimised Stock Card loading performance."
     ],
     "fixes": [
       "Fixed SST Rental to include taxable amount into Box 10.",
@@ -290,7 +290,7 @@
     "highlights": [
       "1. Adjusted to make Tax Exemption Number entry not mandatory when using tax codes EEM, ESP, and EDA for Malaysia e-Invoice documents.",
       "You no longer need to enter the Tax Exemption No. under ‘Document Info’ when using tax codes EEM, ESP, or EDA for e-Invoice submission!",
-      "2. [SG] Optimize Singapore GST Instant Info page to load data more fluently",
+      "2. [SG] Optimise Singapore GST Instant Info page to load data more fluently",
       "These enhancements were made available on 31 July 2025!",
       "We use cookies to try and give you a better experience in Freshdesk.",
       "You can learn more about what kind of cookies we use, why, and how from our Privacy Policy . If you hate cookies, or are just on a diet, you can disable them altogether too. Just note that the Freshdesk service is pretty big on some cookies (we love the choco-chip ones), and some portions of Freshdesk may not work properly if you disable cookies.",
@@ -444,12 +444,12 @@
     "features": [
       "Import from Excel – Limit row size for better performance",
       "Import from Excel – Error shown for wrong Excel date format",
-      "Optimize some performance issue with Knock Off Entry form when there are too many documents available for knock off"
+      "Optimise some performance issue with Knock Off Entry form when there are too many documents available for knock off"
     ],
     "fixes": [],
     "highlights": [
       "1. Import from Excel – Limit row size for better performance",
-      "To ensure a smooth import process, we have optimized the import as outlined below.",
+      "To ensure a smooth import process, we have optimised the import as outlined below.",
       "1.1. Transactions import (Quotation, Invoice, Purchase Order, Cash Book Entries, etc)",
       "- Each import is limited to 300 records. Please note that this count refers to master records only—for example, count invoice row (master records), not invoice detail row, so you can upload up to 300 invoice rows.",
       "1.2. Master Data import (Customer, Supplier, Product, etc) - Each import is limited to 1000 records.",
@@ -558,7 +558,7 @@
       "Remove month end restriction for using “Issue Date Time” function for e-Invoicing",
       "[SG] Seamless Filling – Imported Balance Sheet Statement differ with Cloud Accounting",
       "[SG] Accounting API for SG Seamless Filling – Incorrect Revenue Balance",
-      "Optimize Consolidated e-Invoice performance",
+      "Optimise Consolidated e-Invoice performance",
       "Improve Import Chart of Account to highlight columns for easy viewing if mandatory column data is missing during import",
       "Improve Import Chart of Account when import to auto set values to uppercase for AccType, SpecialAccType, CurrencyCode and TaxCode to maintain data consistency"
     ],

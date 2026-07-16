@@ -62,7 +62,7 @@ const SEARCH_INDEX = [
   {
     title: "AutoCount Plugins",
     path: "/apps/autocount-plugin",
-    keywords: "plugins, extensions, add-on, customize, autocount, app",
+    keywords: "plugins, extensions, add-on, customise, autocount, app",
     icon: <img src={acPluginIcon} alt="AutoCount Plugins" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
