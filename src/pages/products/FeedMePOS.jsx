@@ -155,6 +155,7 @@ export default function FeedMePOSPage({ onContact }) {
           body="Cloud-based F&B point-of-sale built for cafés, restaurants, and food courts. Table management, kitchen display, online ordering, and member loyalty — all in one tablet-friendly system that syncs straight to AutoCount Accounting."
           iconSrc={FEEDME_LOGO}
           backgroundImage={HERO_PHOTO}
+          backgroundVideo="/videos/feedme-hero.mp4"
           primaryCta={{ label: "Start Free Trial", onClick: () => setTrialOpen(true), className: "ks-btn-feedme" }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
         />

@@ -36,6 +36,7 @@ import { Img } from "./Media.jsx";
  *   iconSrc         logo chip image, omit for no chip          (string?)
  *   iconAlt         alt text for the logo chip                 (string?)
  *   backgroundImage hero photo URL                             (string?)
+ *   backgroundVideo hero video URL (takes precedence)          (string?)
  *   overlayOpacity  0–1, defaults to 0.6                       (number?)
  *   primaryCta      { label, href?, onClick?, disabled?, download?, icon? }
  *   secondaryCta    { label, href, target? }
@@ -82,6 +83,7 @@ export default function ProductHero({
   iconSrc,
   iconAlt = "",
   backgroundImage = DEFAULT_BG,
+  backgroundVideo,
   overlayOpacity = 0.6,
   primaryCta,
   secondaryCta,
@@ -102,24 +104,46 @@ export default function ProductHero({
         Using an actual <img> tag instead of CSS backgroundImage ensures the browser's
         preload scanner discovers and downloads the LCP image immediately during HTML parsing.
       */}
-      <img
-        className="product-hero-bg"
-        src={backgroundImage}
-        alt=""
-        loading="eager"
-        decoding="sync"
-        fetchpriority="high"
-        draggable={false}
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center center",
-          zIndex: 0,
-        }}
-      />
+      {backgroundVideo ? (
+        <video
+          className="product-hero-bg"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={backgroundImage}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center center",
+            zIndex: 0,
+          }}
+        >
+          <source src={backgroundVideo} type="video/mp4" />
+        </video>
+      ) : (
+        <img
+          className="product-hero-bg"
+          src={backgroundImage}
+          alt=""
+          loading="eager"
+          decoding="sync"
+          fetchpriority="high"
+          draggable={false}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center center",
+            zIndex: 0,
+          }}
+        />
+      )}
 
       {/* Mobile-only bump: shift the hero photo to the right so the
        * laptop / monitor scene stays in frame at narrow widths. Desktop
