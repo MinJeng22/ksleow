@@ -187,7 +187,7 @@ export default function FeedMePOSPage({ onContact }) {
           className="feedme-hero"
           eyebrow="Software We Specialize In"
           title="FeedMe POS"
-          body="Cloud-based F&B point-of-sale built for cafés, restaurants, and food courts. Table management, kitchen display, online ordering, and member loyalty — all in one tablet-friendly system that syncs straight to AutoCount Accounting."
+          body="Empowering restaurant growth with an all-in-one, cloud-based F&B point-of-sale. From table management and kitchen displays to online ordering and member loyalty, FeedMe delivers a tablet-friendly system built to transform café and restaurant operations across Southeast Asia."
           iconSrc={FEEDME_LOGO}
           backgroundImage={HERO_PHOTO}
           backgroundVideo="/videos/feedme-hero.mp4"
