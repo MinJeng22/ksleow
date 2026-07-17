@@ -14,8 +14,10 @@ const DEFAULT_PRODUCT_HERO = "/images/products/autocount-accounting-hero.webp";
 const TRANSITION_DELAY_MS = 500;
 const CRITICAL_ASSET_TIMEOUT_MS = 3400;
 const warmedImages = new Map();
+const warmedVideos = new Map();
 const preloadLinks = new Set();
 const imageReadyPromises = new Map();
+const videoReadyPromises = new Map();
 let pendingNavigationTimer = null;
 let pendingFeedbackTimer = null;
 let pendingNavigationRun = 0;
@@ -73,9 +75,8 @@ const routeAssets = {
     "/images/branding/ksl-logo-circle.webp",
   ],
   "/products/feedme-pos": [
-    "/images/products/feedme-pos-showcase.webp",
-    "/images/logos/feedme-logo.webp",
-    "/images/products/feedme-white-logo.webp",
+    "/images/products/feedme-icon.webp",
+    "/videos/feedme-hero.mp4",
   ],
   "/apps/autocount-plugin": [
     DEFAULT_PRODUCT_HERO,
@@ -114,8 +115,8 @@ const routeCriticalAssets = {
     "/images/products/autocount-pos.webp",
   ],
   "/products/feedme-pos": [
-    "/images/products/feedme-pos-showcase.webp",
-    "/images/logos/feedme-logo.webp",
+    "/images/products/feedme-icon.webp",
+    "/videos/feedme-hero.mp4",
   ],
   "/apps/autocount-plugin": [
     DEFAULT_PRODUCT_HERO,
@@ -152,6 +153,18 @@ function addImagePreloadLink(src, priority) {
   document.head.appendChild(link);
 }
 
+function addVideoPreloadLink(src, priority) {
+  if (priority !== "high" || typeof document === "undefined" || preloadLinks.has(src)) return;
+
+  preloadLinks.add(src);
+  const link = document.createElement("link");
+  link.rel = "preload";
+  link.as = "video";
+  link.href = src;
+  link.fetchPriority = "high";
+  document.head.appendChild(link);
+}
+
 function wait(ms) {
   return new Promise((resolve) => {
     if (typeof window === "undefined") {
@@ -160,6 +173,10 @@ function wait(ms) {
     }
     window.setTimeout(resolve, Math.max(0, ms));
   });
+}
+
+function isVideoSource(src) {
+  return /\.(mp4|webm|mov)(?:[?#].*)?$/i.test(src);
 }
 
 function requestImage(src, priority = "low") {
@@ -210,6 +227,57 @@ function requestImage(src, priority = "low") {
   return promise;
 }
 
+function requestVideo(src, priority = "low") {
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    return Promise.resolve({ src, loaded: false });
+  }
+
+  const rank = getPriorityRank(priority);
+  const previousRank = warmedVideos.get(src) || 0;
+  if (previousRank < rank) {
+    warmedVideos.set(src, rank);
+    addVideoPreloadLink(src, priority);
+  }
+
+  if (videoReadyPromises.has(src)) {
+    return videoReadyPromises.get(src);
+  }
+
+  const promise = new Promise((resolve) => {
+    const video = document.createElement("video");
+    let settled = false;
+
+    const finish = (loaded) => {
+      if (settled) return;
+      settled = true;
+      video.removeAttribute("src");
+      video.load();
+      resolve({ src, loaded });
+    };
+
+    video.preload = "auto";
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.onloadeddata = () => finish(true);
+    video.oncanplay = () => finish(true);
+    video.onerror = () => finish(false);
+    video.src = src;
+    video.load();
+
+    if (video.readyState >= 2) {
+      finish(true);
+    }
+  });
+
+  videoReadyPromises.set(src, promise);
+  return promise;
+}
+
+function requestAsset(src, priority = "low") {
+  return isVideoSource(src) ? requestVideo(src, priority) : requestImage(src, priority);
+}
+
 function getPathname(to) {
   if (!to || typeof to !== "string") return "";
   try {
@@ -220,10 +288,10 @@ function getPathname(to) {
 }
 
 export function preloadImages(sources, priority = "low") {
-  if (typeof window === "undefined" || typeof Image === "undefined") return;
+  if (typeof window === "undefined") return;
 
   compactUnique(sources).forEach((src) => {
-    requestImage(src, priority);
+    requestAsset(src, priority);
   });
 }
 
@@ -391,7 +459,7 @@ async function waitForCriticalImages(sources, options = {}) {
   const assets = compactUnique(sources);
   if (assets.length === 0) return { total: 0, loaded: 0, timedOut: false };
 
-  const loadPromise = Promise.allSettled(assets.map((src) => requestImage(src, priority))).then((results) => ({
+  const loadPromise = Promise.allSettled(assets.map((src) => requestAsset(src, priority))).then((results) => ({
     total: assets.length,
     loaded: results.filter((result) => result.status === "fulfilled" && result.value?.loaded).length,
     timedOut: false,

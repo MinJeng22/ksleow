@@ -85,6 +85,7 @@ export default function ProductHero({
   iconAlt = "",
   backgroundImage = DEFAULT_BG,
   backgroundVideo,
+  showVideoFallback = true,
   overlayOpacity = 0.6,
   primaryCta,
   secondaryCta,
@@ -93,6 +94,7 @@ export default function ProductHero({
 }) {
   const videoRef = useRef(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const shouldRenderVideoFallback = Boolean(backgroundVideo && showVideoFallback && backgroundImage);
 
   useEffect(() => {
     if (videoRef.current && backgroundVideo) {
@@ -118,32 +120,35 @@ export default function ProductHero({
       */}
       {backgroundVideo ? (
         <>
-          <img
-            className="product-hero-bg"
-            src={backgroundImage}
-            alt=""
-            loading="eager"
-            decoding="sync"
-            fetchpriority="high"
-            draggable={false}
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center center",
-              zIndex: 0,
-              opacity: isVideoPlaying ? 0 : 1,
-              transition: "opacity 0.7s ease-in-out",
-            }}
-          />
+          {shouldRenderVideoFallback && (
+            <img
+              className="product-hero-bg"
+              src={backgroundImage}
+              alt=""
+              loading="eager"
+              decoding="sync"
+              fetchpriority="high"
+              draggable={false}
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center center",
+                zIndex: 0,
+                opacity: isVideoPlaying ? 0 : 1,
+                transition: "opacity 0.7s ease-in-out",
+              }}
+            />
+          )}
           <video
             ref={videoRef}
             className="product-hero-bg"
             autoPlay
             loop
             muted
+            preload="auto"
             playsInline
             onPlaying={() => setIsVideoPlaying(true)}
             style={{
@@ -153,9 +158,9 @@ export default function ProductHero({
               height: "100%",
               objectFit: "cover",
               objectPosition: "center center",
-              zIndex: 1,
-              opacity: isVideoPlaying ? 1 : 0,
-              transition: "opacity 0.7s ease-in-out",
+              zIndex: shouldRenderVideoFallback ? 1 : 0,
+              opacity: shouldRenderVideoFallback ? (isVideoPlaying ? 1 : 0) : 1,
+              transition: shouldRenderVideoFallback ? "opacity 0.7s ease-in-out" : "none",
             }}
           >
             <source src={backgroundVideo} type="video/mp4" />

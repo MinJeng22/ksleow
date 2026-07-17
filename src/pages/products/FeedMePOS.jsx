@@ -678,6 +678,7 @@ export default function FeedMePOSPage() {
           iconAlt="FeedMe POS"
           backgroundImage={HERO_PHOTO}
           backgroundVideo="/videos/feedme-hero.mp4"
+          showVideoFallback={false}
           overlayOpacity={0.5}
           primaryCta={{ label: "Start Free Trial", onClick: () => runWithProgressFeedback(() => setTrialOpen(true), { assets: [FEEDME_LOGO] }), className: "ks-btn-feedme" }}
           secondaryCta={{ label: "WhatsApp Us", href: WA_LINK, target: "_blank" }}
