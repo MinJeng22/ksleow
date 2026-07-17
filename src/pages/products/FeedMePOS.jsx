@@ -341,32 +341,65 @@ export default function FeedMePOSPage() {
           color: transparent;
         }
         #page-feedme-pos .feedme-trust-strip {
-          align-items: center;
           display: grid;
-          gap: clamp(1rem, 2vw, 1.7rem);
-          grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
+          gap: clamp(1.4rem, 2.4vw, 2rem);
+          justify-items: center;
+          text-align: center;
         }
         #page-feedme-pos .feedme-trust-copy {
-          background: var(--feedme-truffle);
-          border-radius: 24px;
-          box-shadow: 0 24px 70px rgba(85, 82, 74, 0.18);
-          color: #fff;
-          padding: clamp(1.4rem, 3vw, 2.2rem);
+          color: var(--feedme-truffle);
+          display: grid;
+          gap: 0.8rem;
+          justify-items: center;
         }
         #page-feedme-pos .feedme-trust-copy strong {
-          color: #fff;
-          display: block;
-          font-size: clamp(2rem, 4vw, 3.5rem);
-          line-height: 0.95;
+          color: var(--feedme-truffle);
+          display: inline;
+          font-size: clamp(2.2rem, 5vw, 4rem);
+          font-weight: 900;
+          letter-spacing: 0;
+          line-height: 1;
         }
         #page-feedme-pos .feedme-trust-copy span {
-          color: rgba(255, 255, 255, 0.72);
+          color: var(--feedme-orange);
+          display: inline;
+        }
+        #page-feedme-pos .feedme-trust-copy p {
+          color: rgba(85, 82, 74, 0.86);
+          font-size: clamp(1rem, 1.8vw, 1.3rem);
+          font-weight: 700;
+          line-height: 1.45;
+          margin: 0;
+        }
+        #page-feedme-pos .feedme-brand-panel {
+          background: #ffffff;
+          border: 1px solid rgba(85, 82, 74, 0.06);
+          border-radius: 26px;
+          box-shadow: none;
+          max-width: 1080px;
+          overflow: hidden;
+          padding: clamp(1.4rem, 3.4vw, 3rem);
+          width: 100%;
+        }
+        #page-feedme-pos .feedme-brand-grid {
+          align-items: center;
+          display: grid;
+          gap: clamp(1.5rem, 3vw, 3rem) clamp(1.8rem, 4vw, 4.5rem);
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+        #page-feedme-pos .feedme-brand-item {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          min-height: 72px;
+        }
+        #page-feedme-pos .feedme-brand-item img {
           display: block;
-          font-size: 0.8rem;
-          font-weight: 800;
-          letter-spacing: 0.1em;
-          margin-top: 0.75rem;
-          text-transform: uppercase;
+          height: auto;
+          max-height: 72px;
+          max-width: 150px;
+          object-fit: contain;
+          width: 100%;
         }
         #page-feedme-pos .feedme-feature-grid,
         #page-feedme-pos .feedme-plans-grid,
@@ -652,6 +685,9 @@ export default function FeedMePOSPage() {
           #page-feedme-pos .feedme-plan-card.is-popular {
             transform: none;
           }
+          #page-feedme-pos .feedme-brand-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
         }
         @media (max-width: 640px) {
           #page-feedme-pos .feedme-feature-card,
@@ -662,6 +698,21 @@ export default function FeedMePOSPage() {
           }
           #page-feedme-pos .feedme-section-title.is-centered {
             text-align: left;
+          }
+          #page-feedme-pos .feedme-brand-panel {
+            border-radius: 18px;
+            padding: 1.2rem;
+          }
+          #page-feedme-pos .feedme-brand-grid {
+            gap: 1rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+          #page-feedme-pos .feedme-brand-item {
+            min-height: 58px;
+          }
+          #page-feedme-pos .feedme-brand-item img {
+            max-height: 54px;
+            max-width: 124px;
           }
         }
       `}</style>
@@ -686,27 +737,20 @@ export default function FeedMePOSPage() {
       </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
-        <section className="product-app-section product-app-section-paper product-app-section-clean" style={{ paddingBottom: 0 }}>
+        <section className="product-app-section feedme-section-oat product-app-section-clean" style={{ paddingBottom: 0 }}>
           <div className="content-wrap feedme-trust-strip">
             <div className="feedme-trust-copy">
-              <strong>10,000++</strong>
-              <span>Merchants trust FeedMe</span>
-              <p style={{ color: "rgba(255,255,255,0.76)", lineHeight: 1.7, margin: "1rem 0 0" }}>
-                Official FeedMe positions the platform for every type of restaurant. KSL brings the setup, training, and support closer to your outlet.
+              <strong>Trusted by <span>10,000++ Merchants</span></strong>
+              <p>
+                Ideal match for every type of restaurant.
               </p>
             </div>
 
-            <div
-              className="ac-brand-marquee-container"
-              style={{
-                maskImage: "linear-gradient(to right, transparent, black 14%, black 86%, transparent)",
-                WebkitMaskImage: "linear-gradient(to right, transparent, black 14%, black 86%, transparent)",
-              }}
-            >
-              <div className="ac-brand-marquee">
-                {[...FEEDME_BRANDS, ...FEEDME_BRANDS, ...FEEDME_BRANDS, ...FEEDME_BRANDS].map((src, index) => (
-                  <div key={`${src}-${index}`} className="ac-brand-item">
-                    <img src={src} alt="FeedMe merchant logo" loading="lazy" decoding="async" />
+            <div className="feedme-brand-panel">
+              <div className="feedme-brand-grid">
+                {FEEDME_BRANDS.slice(0, 10).map((src, index) => (
+                  <div key={`${src}-${index}`} className="feedme-brand-item">
+                    <img src={src} alt="FeedMe merchant brand" loading="lazy" decoding="async" />
                   </div>
                 ))}
               </div>
