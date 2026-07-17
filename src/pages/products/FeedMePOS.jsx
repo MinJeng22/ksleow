@@ -447,23 +447,21 @@ export default function FeedMePOSPage() {
         }
         #page-feedme-pos .feedme-brand-grid {
           align-items: center;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: clamp(1.7rem, 3vw, 3.35rem) clamp(2.2rem, 4vw, 4.8rem);
+          display: grid;
+          gap: 1.5rem;
+          grid-template-columns: repeat(5, minmax(0, 1fr));
         }
         #page-feedme-pos .feedme-brand-item {
           align-items: center;
           display: flex;
           justify-content: center;
-          flex: 0 0 auto;
-          min-height: 200px;
+          min-height: 180px;
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 200px;
-          max-width: 400px;
+          max-height: 160px;
+          max-width: 320px;
           object-fit: contain;
           width: 100%;
         }
@@ -912,7 +910,7 @@ export default function FeedMePOSPage() {
       </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
-        <section className="product-app-section feedme-section-oat product-app-section-clean" style={{ paddingBottom: 0 }}>
+        <section className="product-app-section feedme-section-oat product-app-section-clean">
           <div className="content-wrap feedme-trust-strip">
             <div className="feedme-trust-copy">
               <h2 className="ks-section-title feedme-trust-title">Trusted by <span>10,000++ Merchants</span></h2>
