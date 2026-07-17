@@ -138,8 +138,8 @@ const WORKFLOW_STEPS = [
 function SectionTitle({ eyebrow, title, body, centered = false }) {
   return (
     <div className={`feedme-section-title${centered ? " is-centered" : ""}`}>
-      {eyebrow && <span>{eyebrow}</span>}
-      <h2>{title}</h2>
+      {eyebrow && <span className="ks-eyebrow">{eyebrow}</span>}
+      <h2 className="ks-section-title">{title}</h2>
       {body && <p>{body}</p>}
     </div>
   );
@@ -329,21 +329,13 @@ export default function FeedMePOSPage() {
           margin-right: auto;
           text-align: center;
         }
-        #page-feedme-pos .feedme-section-title span {
+        #page-feedme-pos .feedme-section-title .ks-eyebrow {
           display: inline-flex;
           color: var(--feedme-orange);
-          font-size: 0.72rem;
-          font-weight: 850;
-          letter-spacing: 0.13em;
           margin-bottom: 0.7rem;
-          text-transform: uppercase;
         }
-        #page-feedme-pos .feedme-section-title h2 {
+        #page-feedme-pos .feedme-section-title .ks-section-title {
           color: var(--feedme-truffle);
-          font-size: clamp(1.8rem, 4vw, 3.2rem);
-          font-weight: 850;
-          letter-spacing: 0;
-          line-height: 1.04;
           margin: 0;
           text-wrap: balance;
         }
@@ -393,7 +385,7 @@ export default function FeedMePOSPage() {
           border: 1px solid rgba(85, 82, 74, 0.06);
           border-radius: 22px;
           box-shadow: none;
-          max-width: 1120px;
+          max-width: 1200px;
           overflow: hidden;
           padding: clamp(1.6rem, 3.8vw, 3.35rem);
           width: 100%;
@@ -401,20 +393,20 @@ export default function FeedMePOSPage() {
         #page-feedme-pos .feedme-brand-grid {
           align-items: center;
           display: grid;
-          gap: clamp(1.6rem, 3.1vw, 3.2rem) clamp(2rem, 4vw, 4.6rem);
+          gap: clamp(1.7rem, 3vw, 3.35rem) clamp(2.2rem, 4vw, 4.8rem);
           grid-template-columns: repeat(5, minmax(0, 1fr));
         }
         #page-feedme-pos .feedme-brand-item {
           align-items: center;
           display: flex;
           justify-content: center;
-          min-height: 104px;
+          min-height: 122px;
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 104px;
-          max-width: 210px;
+          max-height: 124px;
+          max-width: 250px;
           object-fit: contain;
           width: 100%;
         }
@@ -709,10 +701,8 @@ export default function FeedMePOSPage() {
           color: #fff;
           padding: clamp(1.4rem, 3vw, 2.4rem);
         }
-        #page-feedme-pos .feedme-workflow-panel h2 {
+        #page-feedme-pos .feedme-workflow-panel .ks-section-title {
           color: #fff;
-          font-size: clamp(1.9rem, 4vw, 3.4rem);
-          line-height: 1.02;
           margin: 0;
         }
         #page-feedme-pos .feedme-workflow-panel p {
@@ -813,11 +803,11 @@ export default function FeedMePOSPage() {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
           #page-feedme-pos .feedme-brand-item {
-            min-height: 70px;
+            min-height: 82px;
           }
           #page-feedme-pos .feedme-brand-item img {
-            max-height: 66px;
-            max-width: 148px;
+            max-height: 78px;
+            max-width: 170px;
           }
           #page-feedme-pos .feedme-pricing-table .ks-compare-th:not(.ks-compare-th-left) {
             color: var(--feedme-truffle);
@@ -886,6 +876,10 @@ export default function FeedMePOSPage() {
           </div>
         </section>
 
+        <div className="product-app-divider" style={{ "--section-from": "#fef6ed", "--section-to": "#fff4e8" }}>
+          <PageSectionDivider sections={FEEDME_SECTIONS} id="plans" />
+        </div>
+
         <section id="plans" className="product-app-section feedme-section-plans">
           <div className="content-wrap">
             <SectionTitle
@@ -926,7 +920,7 @@ export default function FeedMePOSPage() {
         <section id="integration" className="product-app-section feedme-section-integration">
           <div className="content-wrap feedme-workflow">
             <div className="feedme-workflow-panel">
-              <h2>One order, connected from table to report.</h2>
+              <h2 className="ks-section-title">One order, connected from table to report.</h2>
               <p>
                 FeedMe is not just a cashier screen. Orders can move from QR code to kitchen display, payment, invoice, reporting, and accounting integration without rebuilding the same data again.
               </p>
