@@ -60,11 +60,52 @@ const FEEDME_VIDEOS = [
 ];
 
 const FEEDME_SECTIONS = [
+  { id: "advantages", label: "Advantages", icon: IconStar, color: FEEDME_ORANGE },
   { id: "plans", label: "Plans", icon: IconRocket, color: FEEDME_ORANGE },
   { id: "tools", label: "Premium Tools", icon: IconLayers, color: FEEDME_BLUE },
   { id: "integration", label: "Integrations", icon: IconLink, color: FEEDME_ORANGE },
   { id: "training", label: "Quick-Start Guide", icon: IconVideo, color: FEEDME_ORANGE },
   { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: FEEDME_ORANGE },
+];
+
+
+const FEATURE_CARDS = [
+  {
+    title: "Point of Sales",
+    tone: "orange",
+    text: "A fast tablet POS for dine-in, takeaway, table service, discounts, payments, invoices, and cashier flow.",
+    tags: ["POS", "Table", "Invoice"],
+  },
+  {
+    title: "AI Recommendations",
+    tone: "plum",
+    text: "Use smarter prompts for upselling and menu decisions, helping teams lift average order value without slowing service.",
+    tags: ["AI", "Upsell", "Menu"],
+  },
+  {
+    title: "QR Code Ordering",
+    tone: "mint",
+    text: "Guests can browse menus and place table orders from their own phone while staff keep control from the POS.",
+    tags: ["QR", "Dine-in", "Self-order"],
+  },
+  {
+    title: "Kitchen Display System",
+    tone: "blue",
+    text: "Route orders to kitchen stations, reduce paper chits, and keep preparation status visible to the front team.",
+    tags: ["KDS", "Station", "Ready"],
+  },
+  {
+    title: "Delivery & Mall Integration",
+    tone: "salmon",
+    text: "Connect sales channels and outlet environments without splitting restaurant operations across separate tools.",
+    tags: ["Delivery", "Mall", "Outlet"],
+  },
+  {
+    title: "Preset Reports",
+    tone: "truffle",
+    text: "Track sales, payments, menu performance, and outlet activity with owner-friendly operational reports.",
+    tags: ["Report", "Sales", "Outlet"],
+  },
 ];
 
 const FEEDME_PLAN_COLUMNS = ["Lite", "Standard", "Premium"];
@@ -249,6 +290,20 @@ function FeedMePricingTable() {
   );
 }
 
+
+function FeatureCard({ item }) {
+  return (
+    <article className={`feedme-feature-card tone-${item.tone}`}>
+      <div className="feedme-feature-orb" aria-hidden="true" />
+      <h3>{item.title}</h3>
+      <p>{item.text}</p>
+      <div>
+        {item.tags.map((tag) => <b key={tag}>{tag}</b>)}
+      </div>
+    </article>
+  );
+}
+
 function PremiumToolCard({ tool }) {
   return (
     <article className="feedme-tool-card" style={{ "--tool-color": tool.color }}>
@@ -385,7 +440,7 @@ export default function FeedMePOSPage() {
           border: 1px solid rgba(85, 82, 74, 0.06);
           border-radius: 22px;
           box-shadow: none;
-          max-width: 1200px;
+          max-width: 1400px;
           overflow: hidden;
           padding: clamp(1.6rem, 3.8vw, 3.35rem);
           width: 100%;
@@ -400,13 +455,13 @@ export default function FeedMePOSPage() {
           align-items: center;
           display: flex;
           justify-content: center;
-          min-height: 122px;
+          min-height: 160px;
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 124px;
-          max-width: 250px;
+          max-height: 160px;
+          max-width: 280px;
           object-fit: contain;
           width: 100%;
         }
@@ -803,11 +858,11 @@ export default function FeedMePOSPage() {
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
           #page-feedme-pos .feedme-brand-item {
-            min-height: 82px;
+            min-height: 120px;
           }
           #page-feedme-pos .feedme-brand-item img {
-            max-height: 78px;
-            max-width: 170px;
+            max-height: 110px;
+            max-width: 200px;
           }
           #page-feedme-pos .feedme-pricing-table .ks-compare-th:not(.ks-compare-th-left) {
             color: var(--feedme-truffle);
