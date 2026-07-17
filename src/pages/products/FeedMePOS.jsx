@@ -4,7 +4,7 @@ import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
 import { PageSectionDivider } from "../../components/PageSections.jsx";
-import { IconLayers, IconLink, IconHandshake, IconVideo, IconRocket } from "../../components/SectionDivider.jsx";
+import { IconLayers, IconLink, IconHandshake, IconVideo, IconRocket, IconStar } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
@@ -440,28 +440,30 @@ export default function FeedMePOSPage() {
           border: 1px solid rgba(85, 82, 74, 0.06);
           border-radius: 22px;
           box-shadow: none;
-          max-width: 1400px;
+          max-width: 1600px;
           overflow: hidden;
           padding: clamp(1.6rem, 3.8vw, 3.35rem);
           width: 100%;
         }
         #page-feedme-pos .feedme-brand-grid {
           align-items: center;
-          display: grid;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
           gap: clamp(1.7rem, 3vw, 3.35rem) clamp(2.2rem, 4vw, 4.8rem);
-          grid-template-columns: repeat(5, minmax(0, 1fr));
         }
         #page-feedme-pos .feedme-brand-item {
           align-items: center;
           display: flex;
           justify-content: center;
-          min-height: 160px;
+          flex: 0 0 auto;
+          min-height: 200px;
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 160px;
-          max-width: 280px;
+          max-height: 200px;
+          max-width: 400px;
           object-fit: contain;
           width: 100%;
         }
