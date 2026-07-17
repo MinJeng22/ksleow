@@ -159,7 +159,7 @@ export default function SectionSidebar({ items, sections, theme = "gold", themeC
                 e.currentTarget.style.background = "transparent";
                 e.currentTarget.style.color = isDark ? "#ffffff" : "#6b6f91";
                 const iconEl = e.currentTarget.querySelector("svg");
-                if (iconEl) iconEl.style.color = isDark ? "rgba(255,255,255,0.6)" : "#cfd0e0";
+                if (iconEl) iconEl.style.color = isDark ? "rgba(255,255,255,0.6)" : "#8b8fa3";
               }
             }}
           >
@@ -168,7 +168,7 @@ export default function SectionSidebar({ items, sections, theme = "gold", themeC
                 width: 16, height: 16,
                 style: {
                   flexShrink: 0,
-                  color: isActive ? activeColor : (isDark ? "rgba(255,255,255,0.6)" : "#cfd0e0"),
+                  color: isActive ? activeColor : (isDark ? "rgba(255,255,255,0.6)" : "#8b8fa3"),
                   transition: "color 0.18s, transform 0.18s",
                   transform: isActive ? "translateX(2px)" : "translateX(0)",
                 }
@@ -176,7 +176,7 @@ export default function SectionSidebar({ items, sections, theme = "gold", themeC
             ) : (
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{
                 flexShrink: 0,
-                color: isActive ? activeColor : (isDark ? "rgba(255,255,255,0.6)" : "#cfd0e0"),
+                color: isActive ? activeColor : (isDark ? "rgba(255,255,255,0.6)" : "#8b8fa3"),
                 transition: "color 0.18s, transform 0.18s",
                 transform: isActive ? "translateX(2px)" : "translateX(0)",
               }}>
