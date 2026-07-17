@@ -263,7 +263,7 @@
       "Hide “Get TIN from AIP Server” button when Cash Sale Debtor is enabled",
       "Add e-Invoice QR Request function in Cash Sales for Cash Sale Debtors",
       "New function Sync e-Invoice Reject Request from MyInvois Portal",
-      "Optimise performance for Cash Flow Forecast when there are many Debtors/Creditors and more than five columns are set",
+      "Optimize performance for Cash Flow Forecast when there are many Debtors/Creditors and more than five columns are set",
       "Move Withholding Tax Option page into Country & Tax as a tab",
       "Update SST-02 Form latest format and added new Tax Codes",
       "Add Delete Price History table (IPHIST) function under Rebuild IPHIST function",
@@ -346,7 +346,7 @@
     "server": "",
     "features": [
       "[SG] SG Invoice Now - Submit Order",
-      "Optimise the performance of Stock Aging Report when filter by multiple item groups",
+      "Optimize the performance of Stock Aging Report when filter by multiple item groups",
       "Enhance Import Stock Item to Support Unit Code for Singapore InvoiceNow use",
       "Enhance Rebuild price history to handle Sales Order and Purchase Order that have BatchNo that does not exists in database"
     ],
@@ -374,8 +374,8 @@
       "Import Supplier e-Invoice from MyInvois Portal",
       "Reconcile Supplier e-invoice",
       "Support Clear MRU",
-      "Enhance Auto Email e-Invoice Customise Content function to standardize 2 decimal format for the parameter \"Final Total\"",
-      "Support Customise Layout features at Self-Bill Copy From Document form",
+      "Enhance Auto Email e-Invoice Customize Content function to standardize 2 decimal format for the parameter \"Final Total\"",
+      "Support Customize Layout features at Self-Bill Copy From Document form",
       "New auto update version mechanism",
       "[SG] Add InvoiceNow Info to Invoice, Credit Note, Purchase Invoice and Purchase Return",
       "Support Document Status Filter at Print Purchase Request Listing and Print Purchase Request Detail Listing",
@@ -386,7 +386,7 @@
       "Support drill down to Self-Billed document when click on Self-Bill DocNo at related command form such as PI, CB etc",
       "Add Merge Tax Entity access right",
       "Support Export to Excel XLSX format in Multi-dimensional Sales, Purchase, Ledger Analysis",
-      "Optimise Account Maintenance loading speed when have high numbers of GL Account"
+      "Optimize Account Maintenance loading speed when have high numbers of GL Account"
     ],
     "fixes": [
       "Fix Option allow to edit or delete AR AP documents posted from other source not functioning when delete or void document",
@@ -426,7 +426,7 @@
     "dbVer": "2.2.86",
     "server": "",
     "features": [
-      "Enhance Self-billed view source document to support customised layout",
+      "Enhance Self-billed view source document to support customized layout",
       "Remove characters checking control for Annexure fields",
       "Enhance Invoice to support cash sale debtor to select Tax Entity",
       "Enhance Consolidated e-Invoice to support manual create",
@@ -545,7 +545,7 @@
       "[PH] Updated Year Format in Philippines Cash Book Cheque Report from 2 to 4-Digit Display",
       "Add Search TIN function at Tax Entity",
       "Increased Annexure Field Length for E-Invoice to compatible with LHDN latest field length requirements",
-      "Optimised Item Location Price Maintenance and Entry overall performance and Location Filter can be applied to maintenance inquiry",
+      "Optimized Item Location Price Maintenance and Entry overall performance and Location Filter can be applied to maintenance inquiry",
       "Redefine Posting Withholding Tax logic for GL Trans, Bank Trans and Withholding Tax Trans",
       "Add Merge Tax Entity function",
       "Add new option to Auto assign approve date as e-Invoice Issue Date"
@@ -620,7 +620,7 @@
       "Increase data length for Annexure related fields for Malaysia e-Invoice",
       "Enhance Company Profile to show company e-Invoice status if is connected",
       "Add Refresh button to update latest Debtor / Creditor TIN into transaction",
-      "Optimise Change Item UOM Rate to generate smaller changelog if there is imbalance of StockDTL and ItemBatchBalQty"
+      "Optimize Change Item UOM Rate to generate smaller changelog if there is imbalance of StockDTL and ItemBatchBalQty"
     ],
     "fixes": [
       "Fix Change User-Defined Data Type Size change AccNo, ProjNo or DeptNo will fail and hit error",
@@ -663,21 +663,21 @@
       "Enhance show Draft Document record in Invoice Listing and Detail Listing report",
       "Support e-Invoice in ARCN document",
       "Support Consolidated e-Invoice for ARCN document",
-      "Optimise saving transactions related to GL to reduce deadlock frequency",
-      "Optimise Consolidated Financial Report performance",
+      "Optimize saving transactions related to GL to reduce deadlock frequency",
+      "Optimize Consolidated Financial Report performance",
       "Enhance Self-Billed to support copy from AP Invoice",
-      "Optimise saving transactions that will update settings to reduce deadlock frequency",
+      "Optimize saving transactions that will update settings to reduce deadlock frequency",
       "Add UI for AutoCount Server Configuration on Accounting",
       "Enhance Self-Billed to support copy from Cash Purchase",
       "Add BI Dashboard - Sales Overview under Sales Menu (Only for Basic Edition and above) | Refer BI Dashboard features",
       "Enhance Consolidated e-Invoice support rounding adjustment",
-      "Optimise Auto Generate Item Code performance",
+      "Optimize Auto Generate Item Code performance",
       "Remove Stock Item Inquiry's Stock Level tab right click \"Show Zero Qty Stock Level\"",
       "Add Always check if the database exists in the Scheduled Backup option",
       "Remove Imported Goods Document function for other country other than Malaysia",
       "Support new Country / Currency - Rwanda",
       "Enhance e-Invoice related document Detail Listing to add Classification Code",
-      "Optimise Year End with many Project & Department Closing Account Balance slow performance",
+      "Optimize Year End with many Project & Department Closing Account Balance slow performance",
       "Enhance Intelligent Costing slow to update the stock document cost",
       "Add new Import QR Code for Tax Entity record"
     ],
@@ -822,7 +822,7 @@
       "Fix Self Billed command form right click grid header layout show duplicate button",
       "Fix Consolidated e-Invoice - Print Listing performance issue",
       "Fix Journal Entry Copy from other Journal Entry form right click grid header layout show duplicate button",
-      "Fix Stock Item Inquiry (New) missing Stock Card in Customise Layout",
+      "Fix Stock Item Inquiry (New) missing Stock Card in Customize Layout",
       "Fix Annexure info for freight allowance charge amount and freight allowance charge reason did not submit to LHDN if did not assign shipping recipient tax entity",
       "Fix SST Processor and SST Instant Info calculate wrong tax amount if transaction has payment basis tax code and withholding tax",
       "Fix timeout error when login account book that set huge logo at Company Profile",
