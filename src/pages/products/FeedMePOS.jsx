@@ -4,12 +4,13 @@ import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
 import { PageSectionDivider } from "../../components/PageSections.jsx";
-import { IconLayers, IconLink, IconHandshake, IconStar, IconVideo, IconRocket } from "../../components/SectionDivider.jsx";
+import { IconLayers, IconLink, IconHandshake, IconVideo, IconRocket } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 import { runWithProgressFeedback } from "../../utils/routeTransitions.js";
+import { CompareFeatureCell } from "../../components/CompareTable.jsx";
 
 const FEEDME_ORANGE = "#ff7823";
 const FEEDME_TRUFFLE = "#55524a";
@@ -66,48 +67,42 @@ const FEEDME_SECTIONS = [
   { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: FEEDME_ORANGE },
 ];
 
-const PLAN_CARDS = [
+const FEEDME_PLAN_COLUMNS = ["Lite", "Standard", "Premium"];
+
+const FEEDME_PRICING_ROWS = [
+  { label: "Price", values: ["RM0 per month", "RM90 per month", "RM129 per month"], type: "price" },
+  { label: "Menu Management", values: ["yes", "yes", "yes"] },
+  { label: "Table Management", values: ["yes", "yes", "yes"] },
+  { label: "Invoice Management (e-Invoice, Feedback)", values: ["yes", "yes", "yes"] },
   {
-    name: "Lite",
-    price: "RM 0",
-    subtitle: "Essential features for small businesses.",
-    color: FEEDME_ORANGE,
-    features: [
-      "Point-of-Sales",
-      "Menu Management",
-      "Table Management",
-      "Invoice Management",
-      "Payment Integration (Offline)",
-      "Preset Report",
+    label: "Payment Type",
+    values: [
+      "Cash only. Integrate e-payment to enable other payment methods",
+      "Cash, default payment types and custom payment type",
+      "Cash, default payment types and custom payment type",
     ],
   },
-  {
-    name: "Standard",
-    price: "RM 90",
-    subtitle: "Advanced tools for growing businesses.",
-    color: FEEDME_ORANGE,
-    features: [
-      "Everything in Lite Plan",
-      "QR Code Ordering",
-      "Payment Integration (Online & Offline)",
-      "Accounting Software Integration",
-    ],
-  },
-  {
-    name: "Premium",
-    price: "RM 129",
-    subtitle: "Comprehensive solutions for large-scale operations.",
-    color: FEEDME_BLUE,
-    popular: true,
-    features: [
-      "Everything in Standard Plan",
-      "Sub POS (Unlimited)",
-      "Delivery Integration",
-      "Order Display System",
-      "Kitchen Display System",
-      "Mall Integration",
-    ],
-  },
+  { label: "Payment Integration (E-Payment, SoftPos, Terminal)", values: ["Offline", "Online & Offline", "Online & Offline"] },
+  { label: "Printer", values: ["1", "Unlimited", "Unlimited"] },
+  { label: "Mobile Ordering (Table QR, Pickup, In-house Delivery, FeedMe Express)", values: ["no", "yes", "yes"] },
+  { label: "Sub POS", values: ["0", "2", "Unlimited"] },
+  { label: "Location", values: ["1", "Unlimited", "Unlimited"] },
+  { label: "KDS + ODS", values: ["no", "no", "yes"] },
+  { label: "Mall Integration", values: ["no", "no", "yes"] },
+  { label: "Delivery Integration (Grab Food, foodpanda, ShopeeFood)", values: ["no", "no", "DPI fees apply on foodpanda"], markPremium: true },
+  { label: "Queue", values: ["no", "no", "yes"] },
+  { label: "Link to Food Court", values: ["yes", "yes", "yes"] },
+  { label: "Kiosk", values: ["no", "Add-on charges apply", "Add-on charges apply"] },
+  { label: "Mobile Ordering AI (Beta)", values: ["no", "yes", "yes"] },
+  { label: "Connect", values: ["no", "Eligible for Connect Standard Plan", "Eligible for Connect Standard Plan"] },
+  { label: "Inventory", values: ["no", "Eligible for Inventory Standard Plan", "Eligible for Inventory Standard Plan"] },
+  { label: "Mini Program", values: ["no", "Eligible for Mini Program Standard Plan", "Eligible for Mini Program Standard Plan"] },
+  { label: "Preset Report", values: ["yes", "yes", "yes"] },
+  { label: "Custom Report", values: ["no", "yes", "yes"] },
+  { label: "Accounting Integration", values: ["no", "yes", "yes"] },
+  { label: "Team - Authentication", values: ["yes", "yes", "yes"] },
+  { label: "Team - Role", values: ["1", "yes", "yes"] },
+  { label: "Team - Timesheet", values: ["1", "yes", "yes"] },
 ];
 
 const PREMIUM_TOOLS = [
@@ -174,6 +169,83 @@ function PlanCard({ plan }) {
         ))}
       </ul>
     </article>
+  );
+}
+
+function FeedMePlanValue({ value, price = false, marked = false }) {
+  if (price) {
+    return <span className="feedme-compare-price">{value}</span>;
+  }
+  if (value === "yes") {
+    return <span className="feedme-compare-mark is-yes" aria-label="Included" />;
+  }
+  if (value === "no") {
+    return <span className="feedme-compare-mark is-no" aria-label="Not included" />;
+  }
+  if (marked) {
+    return (
+      <span className="feedme-compare-note is-marked">
+        <span className="feedme-compare-mark is-yes" aria-hidden="true" />
+        <span>{value}</span>
+      </span>
+    );
+  }
+  return <span className="feedme-compare-note">{value}</span>;
+}
+
+function FeedMePricingTable() {
+  return (
+    <div className="ks-compare-panel feedme-pricing-panel">
+      <div className="ks-compare-wrap">
+        <table
+          className="ks-compare-table feedme-pricing-table"
+          style={{
+            "--edition-count": FEEDME_PLAN_COLUMNS.length,
+            "--mobile-table-width": "100%",
+          }}
+        >
+          <colgroup>
+            <col className="ks-compare-col-feature" width="40%" />
+            {FEEDME_PLAN_COLUMNS.map((column) => (
+              <col key={column} className="ks-compare-col-edition" width="20%" />
+            ))}
+          </colgroup>
+          <thead className="ks-compare-thead">
+            <tr>
+              <th className="ks-compare-th ks-compare-th-left">POS Plan</th>
+              {FEEDME_PLAN_COLUMNS.map((column) => (
+                <th key={column} className="ks-compare-th">
+                  <span className="ks-compare-edition-name">{column}</span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="ks-compare-tbody">
+            {FEEDME_PRICING_ROWS.map((row) => {
+              const priceRow = row.type === "price";
+              return (
+                <tr key={row.label} className={priceRow ? "ks-compare-tr-book" : "ks-compare-tr-data"}>
+                  <CompareFeatureCell
+                    className={priceRow ? "ks-compare-td-book" : "ks-compare-td-data"}
+                    style={{ fontWeight: priceRow ? 800 : 650 }}
+                  >
+                    {row.label}
+                  </CompareFeatureCell>
+                  {row.values.map((value, index) => (
+                    <td
+                      key={`${row.label}-${FEEDME_PLAN_COLUMNS[index]}`}
+                      className={priceRow ? "ks-compare-td-book" : "ks-compare-td-data"}
+                    >
+                      <FeedMePlanValue value={value} price={priceRow} marked={row.markPremium && index === 2} />
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
 
@@ -510,6 +582,94 @@ export default function FeedMePOSPage() {
           color: var(--feedme-orange);
           font-weight: 900;
         }
+        #page-feedme-pos .feedme-pricing-panel {
+          border-color: rgba(85, 82, 74, 0.08);
+          border-radius: 22px;
+          box-shadow: 0 18px 55px rgba(85, 82, 74, 0.08);
+          overflow: hidden;
+        }
+        #page-feedme-pos .feedme-pricing-table {
+          font-size: 0.94rem;
+        }
+        #page-feedme-pos .feedme-pricing-table .ks-compare-th {
+          background: #ffffff;
+          border-bottom: 1px solid rgba(85, 82, 74, 0.08);
+          color: var(--feedme-truffle);
+          font-size: 0.88rem;
+          padding: 1rem 1.4rem;
+          text-transform: uppercase;
+        }
+        #page-feedme-pos .feedme-pricing-table .ks-compare-th-left {
+          color: var(--feedme-truffle);
+          font-size: 1rem;
+          font-weight: 850;
+        }
+        #page-feedme-pos .feedme-pricing-table .ks-compare-edition-name {
+          min-height: auto;
+        }
+        #page-feedme-pos .feedme-pricing-table .ks-compare-tr-book {
+          background: rgba(254, 246, 237, 0.7);
+        }
+        #page-feedme-pos .feedme-pricing-table .ks-compare-tr-data:nth-child(even),
+        #page-feedme-pos .feedme-pricing-table .ks-compare-tr-data:nth-child(odd) {
+          background: #ffffff;
+        }
+        #page-feedme-pos .feedme-pricing-table .ks-compare-tr-data,
+        #page-feedme-pos .feedme-pricing-table .ks-compare-tr-book {
+          border-bottom: 1px solid rgba(85, 82, 74, 0.055);
+        }
+        #page-feedme-pos .feedme-pricing-table .ks-compare-td-data,
+        #page-feedme-pos .feedme-pricing-table .ks-compare-td-book {
+          color: var(--feedme-truffle);
+          padding: 1.05rem 1.4rem;
+          vertical-align: middle;
+        }
+        #page-feedme-pos .feedme-pricing-table .ks-compare-td-left {
+          color: var(--feedme-truffle);
+          font-size: 1rem;
+          line-height: 1.35;
+        }
+        #page-feedme-pos .feedme-compare-price {
+          color: var(--feedme-truffle);
+          font-weight: 850;
+          white-space: nowrap;
+        }
+        #page-feedme-pos .feedme-compare-mark {
+          align-items: center;
+          display: inline-flex;
+          font-size: 1.35rem;
+          font-weight: 900;
+          justify-content: center;
+          line-height: 1;
+          min-height: 1.35rem;
+          min-width: 1.35rem;
+        }
+        #page-feedme-pos .feedme-compare-mark.is-yes {
+          color: #48c983;
+        }
+        #page-feedme-pos .feedme-compare-mark.is-yes::before {
+          content: "\\2713";
+        }
+        #page-feedme-pos .feedme-compare-mark.is-no {
+          color: #f25578;
+        }
+        #page-feedme-pos .feedme-compare-mark.is-no::before {
+          content: "\\00d7";
+        }
+        #page-feedme-pos .feedme-compare-note {
+          color: rgba(85, 82, 74, 0.92);
+          display: inline-flex;
+          font-size: 0.92rem;
+          font-weight: 650;
+          justify-content: center;
+          line-height: 1.32;
+          max-width: 220px;
+          text-align: center;
+        }
+        #page-feedme-pos .feedme-compare-note.is-marked {
+          align-items: center;
+          gap: 0.45rem;
+        }
         #page-feedme-pos .feedme-tools-grid {
           grid-template-columns: repeat(4, minmax(0, 1fr));
         }
@@ -659,6 +819,29 @@ export default function FeedMePOSPage() {
             max-height: 66px;
             max-width: 148px;
           }
+          #page-feedme-pos .feedme-pricing-table .ks-compare-th:not(.ks-compare-th-left) {
+            color: var(--feedme-truffle);
+            font-size: 0.74rem;
+            padding: 0.65rem 0.25rem;
+          }
+          #page-feedme-pos .feedme-pricing-table .ks-compare-td-left {
+            background: rgba(254, 246, 237, 0.92) !important;
+            font-size: 0.95rem;
+            padding: 0.8rem 0.9rem;
+          }
+          #page-feedme-pos .feedme-pricing-table .ks-compare-td-data:not(.ks-compare-td-left),
+          #page-feedme-pos .feedme-pricing-table .ks-compare-td-book:not(.ks-compare-td-left) {
+            min-height: 58px;
+            padding: 0.7rem 0.45rem;
+          }
+          #page-feedme-pos .feedme-compare-note {
+            font-size: 0.78rem;
+            max-width: 128px;
+          }
+          #page-feedme-pos .feedme-compare-price {
+            font-size: 0.8rem;
+            white-space: normal;
+          }
         }
       `}</style>
 
@@ -710,9 +893,7 @@ export default function FeedMePOSPage() {
               centered
             />
 
-            <div className="feedme-plans-grid">
-              {PLAN_CARDS.map((plan) => <PlanCard key={plan.name} plan={plan} />)}
-            </div>
+            <FeedMePricingTable />
 
             <p className="feedme-card-text" style={{ textAlign: "center", marginTop: "1.25rem" }}>
               Pricing shown follows FeedMe's official monthly plan structure. Hardware, onboarding, payment terminals, and optional premium tools may be quoted separately.
