@@ -58,51 +58,11 @@ const FEEDME_VIDEOS = [
 ];
 
 const FEEDME_SECTIONS = [
-  { id: "features", label: "Features", icon: IconStar, color: FEEDME_ORANGE },
   { id: "plans", label: "Plans", icon: IconRocket, color: FEEDME_ORANGE },
   { id: "tools", label: "Premium Tools", icon: IconLayers, color: FEEDME_BLUE },
   { id: "integration", label: "Integrations", icon: IconLink, color: FEEDME_ORANGE },
   { id: "training", label: "Quick-Start Guide", icon: IconVideo, color: FEEDME_ORANGE },
   { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: FEEDME_ORANGE },
-];
-
-const FEATURE_CARDS = [
-  {
-    title: "Point of Sales",
-    tone: "orange",
-    text: "A fast tablet POS for dine-in, takeaway, table service, discounts, payments, invoices, and cashier flow.",
-    tags: ["POS", "Table", "Invoice"],
-  },
-  {
-    title: "AI Recommendations",
-    tone: "plum",
-    text: "Use smarter prompts for upselling and menu decisions, helping teams lift average order value without slowing service.",
-    tags: ["AI", "Upsell", "Menu"],
-  },
-  {
-    title: "QR Code Ordering",
-    tone: "mint",
-    text: "Guests can browse menus and place table orders from their own phone while staff keep control from the POS.",
-    tags: ["QR", "Dine-in", "Self-order"],
-  },
-  {
-    title: "Kitchen Display System",
-    tone: "blue",
-    text: "Route orders to kitchen stations, reduce paper chits, and keep preparation status visible to the front team.",
-    tags: ["KDS", "Station", "Ready"],
-  },
-  {
-    title: "Delivery & Mall Integration",
-    tone: "salmon",
-    text: "Connect sales channels and outlet environments without splitting restaurant operations across separate tools.",
-    tags: ["Delivery", "Mall", "Outlet"],
-  },
-  {
-    title: "Preset Reports",
-    tone: "truffle",
-    text: "Track sales, payments, menu performance, and outlet activity with owner-friendly operational reports.",
-    tags: ["Report", "Sales", "Outlet"],
-  },
 ];
 
 const PLAN_CARDS = [
@@ -186,19 +146,6 @@ function SectionTitle({ eyebrow, title, body, centered = false }) {
       <h2>{title}</h2>
       {body && <p>{body}</p>}
     </div>
-  );
-}
-
-function FeatureCard({ item }) {
-  return (
-    <article className={`feedme-feature-card tone-${item.tone}`}>
-      <div className="feedme-feature-orb" aria-hidden="true" />
-      <h3>{item.title}</h3>
-      <p>{item.text}</p>
-      <div>
-        {item.tags.map((tag) => <b key={tag}>{tag}</b>)}
-      </div>
-    </article>
   );
 }
 
@@ -755,31 +702,10 @@ export default function FeedMePOSPage() {
           </div>
         </section>
 
-        <section id="features" className="product-app-section feedme-section-oat">
-          <div className="content-wrap">
-            <SectionTitle
-              eyebrow="AI-driven restaurant growth"
-              title={<><span className="feedme-gradient-word">No restaurant</span> is difficult to run.</>}
-              body="FeedMe's official platform language is built around making advanced restaurant technology accessible. This page groups that into the modules a local F&B owner actually needs to compare."
-              centered
-            />
-
-            <div className="feedme-feature-grid">
-              {FEATURE_CARDS.map((item) => <FeatureCard key={item.title} item={item} />)}
-            </div>
-          </div>
-        </section>
-
-        <div className="product-app-divider" style={{ "--section-from": "#fff4e8", "--section-to": "#fffdf8" }}>
-          <PageSectionDivider sections={FEEDME_SECTIONS} id="plans" />
-        </div>
-
         <section id="plans" className="product-app-section feedme-section-plans">
           <div className="content-wrap">
             <SectionTitle
-              eyebrow="POS plans and software pricing"
-              title="Choose your path to success with FeedMe."
-              body="Official FeedMe pricing is organized into Lite, Standard, and Premium. KSL can advise which plan fits your outlet count, ordering channels, and hardware setup."
+              title="FeedMe POS Pricing Plans"
               centered
             />
 
