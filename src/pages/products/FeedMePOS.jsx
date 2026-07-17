@@ -349,20 +349,17 @@ export default function FeedMePOSPage() {
         #page-feedme-pos .feedme-trust-copy {
           color: var(--feedme-truffle);
           display: grid;
-          gap: 0.8rem;
+          gap: 0.65rem;
           justify-items: center;
         }
-        #page-feedme-pos .feedme-trust-copy strong {
+        #page-feedme-pos .feedme-trust-title {
           color: var(--feedme-truffle);
-          display: inline;
-          font-size: clamp(2.2rem, 5vw, 4rem);
-          font-weight: 900;
-          letter-spacing: 0;
-          line-height: 1;
+          margin: 0;
+          max-width: 960px;
+          text-align: center;
         }
-        #page-feedme-pos .feedme-trust-copy span {
+        #page-feedme-pos .feedme-trust-title span {
           color: var(--feedme-orange);
-          display: inline;
         }
         #page-feedme-pos .feedme-trust-copy p {
           color: rgba(85, 82, 74, 0.86);
@@ -374,30 +371,30 @@ export default function FeedMePOSPage() {
         #page-feedme-pos .feedme-brand-panel {
           background: #ffffff;
           border: 1px solid rgba(85, 82, 74, 0.06);
-          border-radius: 26px;
+          border-radius: 22px;
           box-shadow: none;
-          max-width: 1080px;
+          max-width: 1120px;
           overflow: hidden;
-          padding: clamp(1.4rem, 3.4vw, 3rem);
+          padding: clamp(1.6rem, 3.8vw, 3.35rem);
           width: 100%;
         }
         #page-feedme-pos .feedme-brand-grid {
           align-items: center;
           display: grid;
-          gap: clamp(1.5rem, 3vw, 3rem) clamp(1.8rem, 4vw, 4.5rem);
+          gap: clamp(1.6rem, 3.1vw, 3.2rem) clamp(2rem, 4vw, 4.6rem);
           grid-template-columns: repeat(5, minmax(0, 1fr));
         }
         #page-feedme-pos .feedme-brand-item {
           align-items: center;
           display: flex;
           justify-content: center;
-          min-height: 72px;
+          min-height: 92px;
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 72px;
-          max-width: 150px;
+          max-height: 92px;
+          max-width: 188px;
           object-fit: contain;
           width: 100%;
         }
@@ -700,19 +697,19 @@ export default function FeedMePOSPage() {
             text-align: left;
           }
           #page-feedme-pos .feedme-brand-panel {
-            border-radius: 18px;
-            padding: 1.2rem;
+            border-radius: 16px;
+            padding: 1.35rem;
           }
           #page-feedme-pos .feedme-brand-grid {
-            gap: 1rem;
+            gap: 1.1rem;
             grid-template-columns: repeat(2, minmax(0, 1fr));
           }
           #page-feedme-pos .feedme-brand-item {
-            min-height: 58px;
+            min-height: 70px;
           }
           #page-feedme-pos .feedme-brand-item img {
-            max-height: 54px;
-            max-width: 124px;
+            max-height: 66px;
+            max-width: 148px;
           }
         }
       `}</style>
@@ -740,7 +737,7 @@ export default function FeedMePOSPage() {
         <section className="product-app-section feedme-section-oat product-app-section-clean" style={{ paddingBottom: 0 }}>
           <div className="content-wrap feedme-trust-strip">
             <div className="feedme-trust-copy">
-              <strong>Trusted by <span>10,000++ Merchants</span></strong>
+              <h2 className="ks-section-title feedme-trust-title">Trusted by <span>10,000++ Merchants</span></h2>
               <p>
                 Ideal match for every type of restaurant.
               </p>
