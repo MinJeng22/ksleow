@@ -144,7 +144,6 @@ export default function ProductHero({
             autoPlay
             loop
             muted
-            defaultMuted
             playsInline
             onPlaying={() => setIsVideoPlaying(true)}
             style={{
