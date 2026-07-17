@@ -35,6 +35,7 @@ const FEEDME_BRANDS = [
   "/images/feedme-brands/brand-7.webp",
   "/images/feedme-brands/brand-8.webp",
   "/images/feedme-brands/brand-9.webp",
+  "/images/feedme-brands/brand-10.png",
 ];
 
 const FEEDME_VIDEOS = [
@@ -335,13 +336,13 @@ export default function FeedMePOSPage() {
           align-items: center;
           display: flex;
           justify-content: center;
-          min-height: 92px;
+          min-height: 104px;
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 92px;
-          max-width: 188px;
+          max-height: 104px;
+          max-width: 210px;
           object-fit: contain;
           width: 100%;
         }
