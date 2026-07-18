@@ -636,7 +636,7 @@
     "version": "1.1.58",
     "rev": "Release 58",
     "date": "2024-10-17",
-    "postedLabel": "over 1 year ago",
+    "postedLabel": "almost 2 years ago",
     "features": [
       "Enhance to not show \"Draft\" watermark for Invoice if print using Delivery Order format",
       "Added Document Inquiry to keep track of e-Invoice submission records",
