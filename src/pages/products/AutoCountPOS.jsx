@@ -80,7 +80,7 @@ const POS_RETAIL_PROOF = {
       name: "KS Walk In Mart",
       address: "1-27, Jalan Sudirman 6, Bandar Sri Semantan, 28000 Temerloh, Pahang",
       image: "/images/case-studies/ks-walk-in-mart-sudirman.webp",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Walk%20In%20Mart%201-27%2C%20Jalan%20Sudirman%206%2C%20Bandar%20Sri%20Semantan%2C%2028000%20Temerloh%2C%20Pahang",
+      mapUrl: "https://maps.app.goo.gl/bfL794Wv2EryAZNBA",
     },
   ],
 };
