@@ -449,7 +449,7 @@ export default function FeedMePOSPage() {
         #page-feedme-pos .feedme-brand-grid {
           align-items: center;
           display: grid;
-          gap: clamp(0.75rem, 1.5vw, 1.25rem);
+          gap: clamp(1.5rem, 4vw, 3.5rem);
           grid-template-columns: repeat(5, minmax(0, 1fr));
         }
         #page-feedme-pos .feedme-brand-item {
@@ -457,12 +457,13 @@ export default function FeedMePOSPage() {
           display: flex;
           justify-content: center;
           min-height: 180px;
+          padding: clamp(0.5rem, 1.5vw, 1.5rem);
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 160px;
-          max-width: 320px;
+          max-height: 140px;
+          max-width: 100%;
           object-fit: contain;
           width: 100%;
         }
