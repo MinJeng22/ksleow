@@ -3,7 +3,7 @@
     "version": "1.1.81",
     "rev": "Release 81",
     "date": "2026-07-07",
-    "postedLabel": "10 days ago",
+    "postedLabel": "12 days ago",
     "features": [
       "Added AUD System Currency selection to Singapore Account Book.",
       "Support importing Bank Statement PDF and update CSV File at Bank Transactions.",
