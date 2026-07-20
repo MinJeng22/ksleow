@@ -53,20 +53,19 @@ function RetailProofPanel({ proof }) {
   return (
     <section className="ac-retail-proof" aria-labelledby="ac-retail-proof-title">
       <div className="ac-retail-proof-copy">
-        <span>{proof.kicker}</span>
         <h3 id="ac-retail-proof-title">{proof.title}</h3>
         <p>{proof.body}</p>
       </div>
 
       <div className="ac-retail-proof-grid">
         {proof.branches.map((branch) => (
-          <article className="ac-retail-proof-card" key={branch.name}>
+          <a className="ac-retail-proof-card" href={branch.mapUrl} target="_blank" rel="noreferrer" key={branch.name}>
             <img src={branch.image} alt={`${branch.name} storefront`} loading="lazy" decoding="async" />
             <div>
               <h4>{branch.name}</h4>
               <p>{branch.address}</p>
             </div>
-          </article>
+          </a>
         ))}
       </div>
     </section>
@@ -247,32 +246,15 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             }
           }
           .ac-retail-proof {
-            background:
-              linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 248, 235, 0.9)),
-              #ffffff;
-            border: 1px solid rgba(47, 49, 90, 0.1);
-            border-radius: 24px;
-            box-shadow: 0 18px 55px rgba(47, 49, 90, 0.08);
-            display: grid;
             gap: clamp(1.2rem, 2.5vw, 1.8rem);
-            grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
             margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
             max-width: 1180px;
-            overflow: hidden;
-            padding: clamp(1.1rem, 2.6vw, 1.7rem);
             text-align: left;
           }
           .ac-retail-proof-copy {
-            align-self: center;
-          }
-          .ac-retail-proof-copy span {
-            color: #b97812;
-            display: inline-flex;
-            font-size: 0.78rem;
-            font-weight: 900;
-            letter-spacing: 0.14em;
-            margin-bottom: 0.45rem;
-            text-transform: uppercase;
+            margin: 0 auto clamp(1rem, 2vw, 1.4rem);
+            max-width: 860px;
+            text-align: center;
           }
           .ac-retail-proof-copy h3 {
             color: #2f315a;
@@ -293,15 +275,24 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
           .ac-retail-proof-grid {
             display: grid;
             gap: 0.85rem;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
           }
           .ac-retail-proof-card {
             background: rgba(255, 255, 255, 0.82);
             border: 1px solid rgba(47, 49, 90, 0.08);
             border-radius: 18px;
             box-shadow: 0 12px 35px rgba(47, 49, 90, 0.07);
+            color: inherit;
+            display: block;
             min-width: 0;
             overflow: hidden;
+            text-decoration: none;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+          }
+          .ac-retail-proof-card:hover {
+            border-color: rgba(228, 158, 37, 0.45);
+            box-shadow: 0 16px 42px rgba(47, 49, 90, 0.12);
+            transform: translateY(-3px);
           }
           .ac-retail-proof-card img {
             aspect-ratio: 4 / 3;
@@ -329,14 +320,11 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
             margin: 0.45rem 0 0;
           }
           @media (max-width: 980px) {
-            .ac-retail-proof {
-              grid-template-columns: 1fr;
+            .ac-retail-proof-grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
             }
           }
           @media (max-width: 680px) {
-            .ac-retail-proof {
-              border-radius: 20px;
-            }
             .ac-retail-proof-grid {
               grid-template-columns: 1fr;
             }

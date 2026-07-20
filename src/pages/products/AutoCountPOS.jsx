@@ -55,24 +55,32 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 )}`;
 
 const POS_RETAIL_PROOF = {
-  kicker: "Real Grocery Operations",
   title: "Experts, Not Just Advisors",
-  body: "Our group has 7 grocery store branches running on AutoCount Accounting + AutoCount POS. That means our POS recommendations come from real cashier flow, barcode control, branch stock movement, daily closing, and accounting experience.",
+  body: "KS Leow Group operates 5 grocery stores using AutoCount Accounting + AutoCount POS, giving us hands-on experience in cashier operations, barcode control, branch stock transfers, daily closing, and accounting.",
   branches: [
     {
       name: "KS Grocer Sdn Bhd",
       address: "F120, Jalan Tengku Ismail, 28000 Temerloh, Pahang",
       image: "/images/case-studies/ks-grocer-temerloh.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Grocer%20Sdn%20Bhd%20F120%2C%20Jalan%20Tengku%20Ismail%2C%2028000%20Temerloh%2C%20Pahang",
     },
     {
       name: "KS Walk-in Mart",
       address: "Taman Temerloh Jaya, 28000 Temerloh, Pahang",
       image: "/images/case-studies/ks-walk-in-mart-temerloh.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Walk-in%20Mart%20Taman%20Temerloh%20Jaya%2C%2028000%20Temerloh%2C%20Pahang",
     },
     {
       name: "KS Xin Mart",
       address: "13, Jalan Bahagia 7, Taman Bahagia, 28000 Temerloh, Pahang",
       image: "/images/case-studies/ks-xin-mart-temerloh.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Xin%20Mart%2013%2C%20Jalan%20Bahagia%207%2C%20Taman%20Bahagia%2C%2028000%20Temerloh%2C%20Pahang",
+    },
+    {
+      name: "KS Walk In Mart",
+      address: "1-27, Jalan Sudirman 6, Bandar Sri Semantan, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-walk-in-mart-sudirman.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Walk%20In%20Mart%201-27%2C%20Jalan%20Sudirman%206%2C%20Bandar%20Sri%20Semantan%2C%2028000%20Temerloh%2C%20Pahang",
     },
   ],
 };
