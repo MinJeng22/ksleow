@@ -56,7 +56,7 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
 
 const POS_RETAIL_PROOF = {
   title: "Experts, Not Just Advisors",
-  body: "KS Leow Group operates 5 grocery stores using AutoCount Accounting + AutoCount POS, giving us hands-on experience in cashier operations, barcode control, branch stock transfers, daily closing, and accounting.",
+  body: "KS Leow Group operates 5 grocery stores using AutoCount Accounting and AutoCount POS, giving us practical experience in cashier operations and accounting.",
   branches: [
     {
       name: "KS Grocer Sdn Bhd",
