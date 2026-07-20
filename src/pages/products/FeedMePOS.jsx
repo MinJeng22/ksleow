@@ -442,14 +442,14 @@ export default function FeedMePOSPage() {
           box-shadow: none;
           max-width: 1600px;
           overflow: hidden;
-          padding: 0;
+          padding: clamp(1rem, 2.5vw, 2rem);
           margin-bottom: clamp(3rem, 6vw, 5rem);
           width: 100%;
         }
         #page-feedme-pos .feedme-brand-grid {
           align-items: center;
           display: grid;
-          gap: 0;
+          gap: clamp(0.75rem, 1.5vw, 1.25rem);
           grid-template-columns: repeat(5, minmax(0, 1fr));
         }
         #page-feedme-pos .feedme-brand-item {
