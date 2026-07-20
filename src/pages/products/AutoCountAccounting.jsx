@@ -595,6 +595,37 @@ const BRAND_LOGOS = [
   "/images/brands/ac-brand-15.webp",
 ];
 
+const AC_ACCOUNTING_RETAIL_PROOF = {
+  title: "Experts, Not Just Advisors",
+  body: "KS Leow Group operates 5 grocery stores using AutoCount Accounting and AutoCount POS, giving us practical experience in cashier operations and accounting. All our branches use AutoCount Accounting, so our advice comes from real daily closing, branch reporting, stock movement, and account posting work.",
+  branches: [
+    {
+      name: "KS Grocer Sdn Bhd",
+      address: "F120, Jalan Tengku Ismail, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-grocer-temerloh.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Grocer%20Sdn%20Bhd%20F120%2C%20Jalan%20Tengku%20Ismail%2C%2028000%20Temerloh%2C%20Pahang",
+    },
+    {
+      name: "KS Walk-in Mart",
+      address: "Taman Temerloh Jaya, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-walk-in-mart-temerloh.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Walk-in%20Mart%20Taman%20Temerloh%20Jaya%2C%2028000%20Temerloh%2C%20Pahang",
+    },
+    {
+      name: "KS Xin Mart",
+      address: "13, Jalan Bahagia 7, Taman Bahagia, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-xin-mart-temerloh.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Xin%20Mart%2013%2C%20Jalan%20Bahagia%207%2C%20Taman%20Bahagia%2C%2028000%20Temerloh%2C%20Pahang",
+    },
+    {
+      name: "KS Walk In Mart",
+      address: "1-27, Jalan Sudirman 6, Bandar Sri Semantan, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-walk-in-mart-sudirman.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Walk%20In%20Mart%201-27%2C%20Jalan%20Sudirman%206%2C%20Bandar%20Sri%20Semantan%2C%2028000%20Temerloh%2C%20Pahang",
+    },
+  ],
+};
+
 
 
 /* AutoCount sidebar anchor items */
@@ -1102,7 +1133,7 @@ export default function AutoCountAccountingPage({ onContact }) {
       </div>
 
       {/* ── Why Choose Us ── */}
-      <WhyChooseUs section={getSection(AC_SECTIONS, "why-ksl")} />
+      <WhyChooseUs section={getSection(AC_SECTIONS, "why-ksl")} retailProof={AC_ACCOUNTING_RETAIL_PROOF} />
 
       <EnquireNowCTA
         heading="Ready to get started with AutoCount?"
@@ -1117,4 +1148,3 @@ export default function AutoCountAccountingPage({ onContact }) {
     </div>
   );
 }
-

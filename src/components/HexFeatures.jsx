@@ -40,7 +40,7 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
           <div className="hex-features-text-col hex-features-text-left">
             {[0, 2, 4].map((i) => (
               <div key={i} className="hex-features-item" style={{ transitionDelay: inView ? `${i * 80 + 60}ms` : "0ms" }}>
-                <h3 className="hex-features-item-title" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "8px" }}>
+                <h3 className="hex-features-item-title" >
                   {items[i].title}
                   <span className="hex-features-item-dot" style={{ background: items[i].color, margin: 0, flexShrink: 0 }} />
                 </h3>
@@ -65,7 +65,7 @@ export default function HexFeatures({ title, subtitle, features = [] }) {
           <div className="hex-features-text-col hex-features-text-right">
             {[1, 3, 5].map((i) => (
               <div key={i} className="hex-features-item" style={{ transitionDelay: inView ? `${i * 80 + 60}ms` : "0ms" }}>
-                <h3 className="hex-features-item-title" style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "8px" }}>
+                <h3 className="hex-features-item-title" >
                   <span className="hex-features-item-dot" style={{ background: items[i].color, margin: 0, flexShrink: 0 }} />
                   {items[i].title}
                 </h3>

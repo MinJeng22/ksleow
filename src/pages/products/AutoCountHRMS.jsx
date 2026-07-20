@@ -4,12 +4,13 @@ import ProductHero from "../../components/ProductHero";
 import ProductPlaceholder from "../../components/ProductPlaceholder";
 import SharedEditionsTable from "../../components/SharedEditionsTable";
 import HRMSCalculator from "../../components/HRMSCalculator";
+import WhyChooseUs from "../../components/WhyChooseUs.jsx";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 
-import { PageSectionDivider } from "../../components/PageSections.jsx";
+import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
-import { IconChart, IconGrid, IconVideo } from "../../components/SectionDivider.jsx";
+import { IconChart, IconGrid, IconTrophy, IconVideo } from "../../components/SectionDivider.jsx";
 
 const HRMS_ACCENT = "#3069b8";
 
@@ -17,6 +18,7 @@ const HRMS_SECTIONS = [
   { id: "training", label: "Quick-Start Guide", icon: IconVideo, color: HRMS_ACCENT },
   { id: "compare", label: "Compare Plans", icon: IconGrid, color: HRMS_ACCENT },
   { id: "calculator", label: "Service Fee", icon: IconChart, color: HRMS_ACCENT },
+  { id: "why-ksl", label: "Why Choose Us", icon: IconTrophy, color: HRMS_ACCENT },
 ];
 
 const TutorialPlayIcon = (
@@ -121,6 +123,37 @@ const HRMS_EDITION_TABLE = {
 
 const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent("Hi KS Support Team, I would like to learn more about AutoCount HRMS. Thank you.")}`;
 
+const HRMS_RETAIL_PROOF = {
+  title: "Experts, Not Just Advisors",
+  body: "KS Leow Group operates 5 grocery stores using AutoCount Accounting and AutoCount POS, giving us practical experience in cashier operations and accounting. All our branches use AutoCount Accounting, so our advice comes from real daily closing, branch reporting, stock movement, and account posting work.",
+  branches: [
+    {
+      name: "KS Grocer Sdn Bhd",
+      address: "F120, Jalan Tengku Ismail, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-grocer-temerloh.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Grocer%20Sdn%20Bhd%20F120%2C%20Jalan%20Tengku%20Ismail%2C%2028000%20Temerloh%2C%20Pahang",
+    },
+    {
+      name: "KS Walk-in Mart",
+      address: "Taman Temerloh Jaya, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-walk-in-mart-temerloh.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Walk-in%20Mart%20Taman%20Temerloh%20Jaya%2C%2028000%20Temerloh%2C%20Pahang",
+    },
+    {
+      name: "KS Xin Mart",
+      address: "13, Jalan Bahagia 7, Taman Bahagia, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-xin-mart-temerloh.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Xin%20Mart%2013%2C%20Jalan%20Bahagia%207%2C%20Taman%20Bahagia%2C%2028000%20Temerloh%2C%20Pahang",
+    },
+    {
+      name: "KS Walk In Mart",
+      address: "1-27, Jalan Sudirman 6, Bandar Sri Semantan, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-walk-in-mart-sudirman.webp",
+      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Walk%20In%20Mart%201-27%2C%20Jalan%20Sudirman%206%2C%20Bandar%20Sri%20Semantan%2C%2028000%20Temerloh%2C%20Pahang",
+    },
+  ],
+};
+
 export default function AutoCountHRMSPage({ onContact }) {
   useFavicon("/images/products/hrms-icon.webp");
   useEffect(() => { window.scrollTo({ top: 0, behavior: "instant" }); }, []);
@@ -192,6 +225,13 @@ export default function AutoCountHRMSPage({ onContact }) {
             <HRMSCalculator />
           </div>
         </div>
+
+        <WhyChooseUs
+          section={getSection(HRMS_SECTIONS, "why-ksl")}
+          sectionFrom="var(--ks-page-cloud)"
+          sectionTo="var(--ks-page-warm)"
+          retailProof={HRMS_RETAIL_PROOF}
+        />
 
         <ProductPlaceholder title="AutoCount HRMS" />
         <Footer />
