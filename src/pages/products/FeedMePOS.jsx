@@ -1042,7 +1042,7 @@ export default function FeedMePOSPage() {
         </section>
 
         <EnquireNowCTA
-          heading="Ready to run your restaurant on FeedMe?"
+          heading="Get in Touch for a 30-Days Free Trial"
           body="Talk to KSL for plan advice, pricing, hardware bundles, installation, and training for your outlet."
           buttons={[{ label: "Enquire Now", href: WA_LINK, className: "btn-ghost-base btn-ghost-dark" }]}
         />
