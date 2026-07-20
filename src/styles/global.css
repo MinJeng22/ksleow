@@ -4046,6 +4046,16 @@ body.has-active-modal .back-to-top-glass {
   font-weight: 750;
   line-height: 1.3;
   margin: 0 0 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hex-features-text-left .hex-features-item-title {
+  justify-content: flex-end;
+}
+.hex-features-text-right .hex-features-item-title {
+  justify-content: flex-start;
 }
 
 .hex-features-item-desc {
@@ -4090,25 +4100,36 @@ body.has-active-modal .back-to-top-glass {
   }
 
   .hex-features-ring {
-    order: -1;
     width: 260px;
   }
 
-  .hex-features-text-left,
+  .hex-features-text-left {
+    text-align: left;
+  }
   .hex-features-text-right {
-    text-align: center;
+    text-align: right;
   }
 
-  .hex-features-text-left .hex-features-item-dot,
-  .hex-features-text-right .hex-features-item-dot {
-    margin-left: auto;
-    margin-right: auto;
+  .hex-features-text-left .hex-features-item-title {
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+  }
+  .hex-features-text-right .hex-features-item-title {
+    justify-content: flex-start;
+    flex-direction: row-reverse;
   }
 
-  .hex-features-text-left .hex-features-item-desc,
+  .hex-features-text-left .hex-features-item-desc {
+    margin-left: 0;
+  }
   .hex-features-text-right .hex-features-item-desc {
     margin-left: auto;
-    margin-right: auto;
+  }
+  
+  .hex-features-text-left .hex-features-item-dot,
+  .hex-features-text-right .hex-features-item-dot {
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .hex-features-text-col {
