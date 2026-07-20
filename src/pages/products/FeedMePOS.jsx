@@ -4,7 +4,7 @@ import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
 import ProductHero from "../../components/ProductHero.jsx";
 import { PageSectionDivider } from "../../components/PageSections.jsx";
-import { IconLayers, IconLink, IconHandshake, IconVideo, IconRocket, IconStar } from "../../components/SectionDivider.jsx";
+import { IconLink, IconHandshake, IconVideo, IconRocket, IconStar } from "../../components/SectionDivider.jsx";
 import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
@@ -62,7 +62,6 @@ const FEEDME_VIDEOS = [
 const FEEDME_SECTIONS = [
   { id: "advantages", label: "Advantages", icon: IconStar, color: FEEDME_ORANGE },
   { id: "plans", label: "Plans", icon: IconRocket, color: FEEDME_ORANGE },
-  { id: "tools", label: "Premium Tools", icon: IconLayers, color: FEEDME_BLUE },
   { id: "integration", label: "Integrations", icon: IconLink, color: FEEDME_ORANGE },
   { id: "training", label: "Quick-Start Guide", icon: IconVideo, color: FEEDME_ORANGE },
   { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: FEEDME_ORANGE },
@@ -315,6 +314,23 @@ function PremiumToolCard({ tool }) {
   );
 }
 
+function PremiumToolsPanel() {
+  return (
+    <div className="feedme-pricing-tools-panel">
+      <div className="feedme-pricing-tools-copy">
+        <span>Premium Tools</span>
+        <h3>Add restaurant growth tools when your operation is ready.</h3>
+        <p>
+          Start with the core POS plan, then add CRM, warehouse, AI reporting, or payment capabilities when your restaurant needs them.
+        </p>
+      </div>
+      <div className="feedme-tools-grid">
+        {PREMIUM_TOOLS.map((tool) => <PremiumToolCard key={tool.title} tool={tool} />)}
+      </div>
+    </div>
+  );
+}
+
 export default function FeedMePOSPage() {
   const [trialOpen, setTrialOpen] = useState(false);
   useFavicon(FEEDME_LOGO);
@@ -363,12 +379,7 @@ export default function FeedMePOSPage() {
         #page-feedme-pos .feedme-section-plans {
           --product-section-from: #fff4e8;
           --product-section-bg: #fffdf8;
-          --product-section-to: #f7fbf3;
-        }
-        #page-feedme-pos .feedme-section-tools {
-          --product-section-from: #f7fbf3;
-          --product-section-bg: #fffdf8;
-          --product-section-to: #fef6ed;
+          --product-section-to: #fff4e8;
         }
         #page-feedme-pos .feedme-section-integration {
           --product-section-from: #fef6ed;
@@ -456,16 +467,17 @@ export default function FeedMePOSPage() {
           align-items: center;
           display: flex;
           justify-content: center;
-          min-height: 180px;
+          min-height: 130px;
           padding: clamp(0.5rem, 1.5vw, 1.5rem);
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 140px;
+          max-height: 110px;
           max-width: 100%;
           object-fit: contain;
           width: 100%;
+          mix-blend-mode: multiply;
         }
         #page-feedme-pos .feedme-feature-grid,
         #page-feedme-pos .feedme-plans-grid,
@@ -718,6 +730,45 @@ export default function FeedMePOSPage() {
         #page-feedme-pos .feedme-compare-note.is-marked {
           align-items: center;
           gap: 0.45rem;
+        }
+        #page-feedme-pos .feedme-pricing-tools-panel {
+          background:
+            linear-gradient(135deg, rgba(255, 120, 35, 0.09), rgba(140, 230, 215, 0.12)),
+            #ffffff;
+          border: 1px solid rgba(85, 82, 74, 0.08);
+          border-radius: 24px;
+          box-shadow: 0 18px 55px rgba(85, 82, 74, 0.07);
+          margin-top: clamp(1.5rem, 3vw, 2.5rem);
+          padding: clamp(1rem, 2.4vw, 1.4rem);
+        }
+        #page-feedme-pos .feedme-pricing-tools-copy {
+          margin-bottom: 1rem;
+          max-width: 760px;
+        }
+        #page-feedme-pos .feedme-pricing-tools-copy span {
+          color: var(--feedme-orange);
+          display: inline-flex;
+          font-size: 0.78rem;
+          font-weight: 900;
+          letter-spacing: 0.12em;
+          margin-bottom: 0.35rem;
+          text-transform: uppercase;
+        }
+        #page-feedme-pos .feedme-pricing-tools-copy h3 {
+          color: var(--feedme-truffle);
+          font-size: clamp(1.45rem, 2.6vw, 2.2rem);
+          font-weight: 900;
+          letter-spacing: 0;
+          line-height: 1.05;
+          margin: 0;
+          text-wrap: balance;
+        }
+        #page-feedme-pos .feedme-pricing-tools-copy p {
+          color: rgba(85, 82, 74, 0.76);
+          font-size: 0.98rem;
+          line-height: 1.65;
+          margin: 0.65rem 0 0;
+          max-width: 650px;
         }
         #page-feedme-pos .feedme-tools-grid {
           grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -985,28 +1036,12 @@ export default function FeedMePOSPage() {
             <p className="feedme-card-text" style={{ textAlign: "center", marginTop: "1.25rem" }}>
               Pricing shown follows FeedMe's official monthly plan structure. Hardware, onboarding, payment terminals, and optional premium tools may be quoted separately.
             </p>
+
+            <PremiumToolsPanel />
           </div>
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "#f7fbf3", "--section-to": "#fffdf8" }}>
-          <PageSectionDivider sections={FEEDME_SECTIONS} id="tools" />
-        </div>
-
-        <section id="tools" className="product-app-section feedme-section-tools">
-          <div className="content-wrap">
-            <SectionTitle
-              eyebrow="Premium tools"
-              title="Add restaurant growth tools when your operation is ready."
-              body="FeedMe's official pricing page separates premium tools from the core POS plan. That makes it easier to start simple, then add CRM, warehouse, AI reporting, or payment capabilities later."
-            />
-
-            <div className="feedme-tools-grid">
-              {PREMIUM_TOOLS.map((tool) => <PremiumToolCard key={tool.title} tool={tool} />)}
-            </div>
-          </div>
-        </section>
-
-        <div className="product-app-divider" style={{ "--section-from": "#fef6ed", "--section-to": "#fff4e8" }}>
+        <div className="product-app-divider" style={{ "--section-from": "#fffdf8", "--section-to": "#fff4e8" }}>
           <PageSectionDivider sections={FEEDME_SECTIONS} id="integration" />
         </div>
 
