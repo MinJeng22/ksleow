@@ -62,19 +62,19 @@ const POS_RETAIL_PROOF = {
       name: "KS Grocer Sdn Bhd",
       address: "F120, Jalan Tengku Ismail, 28000 Temerloh, Pahang",
       image: "/images/case-studies/ks-grocer-temerloh.webp",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Grocer%20Sdn%20Bhd%20F120%2C%20Jalan%20Tengku%20Ismail%2C%2028000%20Temerloh%2C%20Pahang",
+      mapUrl: "https://maps.app.goo.gl/mxev9quQPyLbjQxW9",
     },
     {
       name: "KS Walk-in Mart",
       address: "Taman Temerloh Jaya, 28000 Temerloh, Pahang",
       image: "/images/case-studies/ks-walk-in-mart-temerloh.webp",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Walk-in%20Mart%20Taman%20Temerloh%20Jaya%2C%2028000%20Temerloh%2C%20Pahang",
+      mapUrl: "https://maps.app.goo.gl/PcNwdDCwLd8VHDWs7",
     },
     {
       name: "KS Xin Mart",
       address: "13, Jalan Bahagia 7, Taman Bahagia, 28000 Temerloh, Pahang",
       image: "/images/case-studies/ks-xin-mart-temerloh.webp",
-      mapUrl: "https://www.google.com/maps/search/?api=1&query=KS%20Xin%20Mart%2013%2C%20Jalan%20Bahagia%207%2C%20Taman%20Bahagia%2C%2028000%20Temerloh%2C%20Pahang",
+      mapUrl: "https://maps.app.goo.gl/7uaeAKvjQpiencCC7",
     },
     {
       name: "KS Walk In Mart",
