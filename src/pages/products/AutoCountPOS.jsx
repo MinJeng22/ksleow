@@ -54,6 +54,29 @@ const WA_LINK = `https://wa.me/60179052323?text=${encodeURIComponent(
   "Hi KS Support Team, I am interested in AutoCount POS. I would like to arrange a demo or get a quotation. Thank you."
 )}`;
 
+const POS_RETAIL_PROOF = {
+  kicker: "Real Grocery Operations",
+  title: "Experts, Not Just Advisors",
+  body: "Our group has 7 grocery store branches running on AutoCount Accounting + AutoCount POS. That means our POS recommendations come from real cashier flow, barcode control, branch stock movement, daily closing, and accounting experience.",
+  branches: [
+    {
+      name: "KS Grocer Sdn Bhd",
+      address: "F120, Jalan Tengku Ismail, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-grocer-temerloh.webp",
+    },
+    {
+      name: "KS Walk-in Mart",
+      address: "Taman Temerloh Jaya, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-walk-in-mart-temerloh.webp",
+    },
+    {
+      name: "KS Xin Mart",
+      address: "13, Jalan Bahagia 7, Taman Bahagia, 28000 Temerloh, Pahang",
+      image: "/images/case-studies/ks-xin-mart-temerloh.webp",
+    },
+  ],
+};
+
 const POS_SECTIONS = [
   { id: "features", label: "Advantages", icon: IconStar, color: POS_ACCENT },
   { id: "promotions", label: "Promotions", icon: IconRocket, color: POS_ACCENT },
@@ -1818,7 +1841,12 @@ export default function AutoCountPOSPage({ onContact }) {
           setVisibleLimit={setReleaseVisibleLimit}
         />
 
-        <WhyChooseUs section={getSection(POS_SECTIONS, "why-ksl")} sectionFrom="var(--ks-page-warm)" sectionTo="var(--ks-page-warm)" />
+        <WhyChooseUs
+          section={getSection(POS_SECTIONS, "why-ksl")}
+          sectionFrom="var(--ks-page-warm)"
+          sectionTo="var(--ks-page-warm)"
+          retailProof={POS_RETAIL_PROOF}
+        />
 
         <EnquireNowCTA
           heading="Ready to build your POS setup?"

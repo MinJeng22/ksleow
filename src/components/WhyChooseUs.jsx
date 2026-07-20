@@ -47,7 +47,33 @@ function AwardYear({ award, duplicate = false }) {
   );
 }
 
-export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-cloud)", sectionTo = "var(--ks-page-warm)" }) {
+function RetailProofPanel({ proof }) {
+  if (!proof) return null;
+
+  return (
+    <section className="ac-retail-proof" aria-labelledby="ac-retail-proof-title">
+      <div className="ac-retail-proof-copy">
+        <span>{proof.kicker}</span>
+        <h3 id="ac-retail-proof-title">{proof.title}</h3>
+        <p>{proof.body}</p>
+      </div>
+
+      <div className="ac-retail-proof-grid">
+        {proof.branches.map((branch) => (
+          <article className="ac-retail-proof-card" key={branch.name}>
+            <img src={branch.image} alt={`${branch.name} storefront`} loading="lazy" decoding="async" />
+            <div>
+              <h4>{branch.name}</h4>
+              <p>{branch.address}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-cloud)", sectionTo = "var(--ks-page-warm)", retailProof }) {
   return (
     <>
       <div className="product-app-divider" style={{ "--section-from": sectionFrom, "--section-to": sectionTo }}>
@@ -220,6 +246,110 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               padding: 0;
             }
           }
+          .ac-retail-proof {
+            background:
+              linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 248, 235, 0.9)),
+              #ffffff;
+            border: 1px solid rgba(47, 49, 90, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 18px 55px rgba(47, 49, 90, 0.08);
+            display: grid;
+            gap: clamp(1.2rem, 2.5vw, 1.8rem);
+            grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+            margin: clamp(1.5rem, 3vw, 2.5rem) auto 0;
+            max-width: 1180px;
+            overflow: hidden;
+            padding: clamp(1.1rem, 2.6vw, 1.7rem);
+            text-align: left;
+          }
+          .ac-retail-proof-copy {
+            align-self: center;
+          }
+          .ac-retail-proof-copy span {
+            color: #b97812;
+            display: inline-flex;
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 0.14em;
+            margin-bottom: 0.45rem;
+            text-transform: uppercase;
+          }
+          .ac-retail-proof-copy h3 {
+            color: #2f315a;
+            font-size: clamp(1.55rem, 2.8vw, 2.3rem);
+            font-weight: 900;
+            letter-spacing: 0;
+            line-height: 1.05;
+            margin: 0;
+            text-wrap: balance;
+          }
+          .ac-retail-proof-copy p {
+            color: rgba(47, 49, 90, 0.76);
+            font-size: 1rem;
+            font-weight: 650;
+            line-height: 1.65;
+            margin: 0.85rem 0 0;
+          }
+          .ac-retail-proof-grid {
+            display: grid;
+            gap: 0.85rem;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
+          .ac-retail-proof-card {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(47, 49, 90, 0.08);
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(47, 49, 90, 0.07);
+            min-width: 0;
+            overflow: hidden;
+          }
+          .ac-retail-proof-card img {
+            aspect-ratio: 4 / 3;
+            display: block;
+            height: auto;
+            object-fit: cover;
+            width: 100%;
+          }
+          .ac-retail-proof-card div {
+            padding: 0.9rem;
+          }
+          .ac-retail-proof-card h4 {
+            color: #2f315a;
+            font-size: 0.98rem;
+            font-weight: 900;
+            letter-spacing: 0;
+            line-height: 1.2;
+            margin: 0;
+          }
+          .ac-retail-proof-card p {
+            color: rgba(47, 49, 90, 0.68);
+            font-size: 0.82rem;
+            font-weight: 650;
+            line-height: 1.45;
+            margin: 0.45rem 0 0;
+          }
+          @media (max-width: 980px) {
+            .ac-retail-proof {
+              grid-template-columns: 1fr;
+            }
+          }
+          @media (max-width: 680px) {
+            .ac-retail-proof {
+              border-radius: 20px;
+            }
+            .ac-retail-proof-grid {
+              grid-template-columns: 1fr;
+            }
+            .ac-retail-proof-card {
+              display: grid;
+              grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            }
+            .ac-retail-proof-card img {
+              aspect-ratio: auto;
+              height: 100%;
+              min-height: 150px;
+            }
+          }
         `}</style>
         <div className="content-wrap" style={{ textAlign: "center" }}>
           <h2 className="ks-section-title ks-section-title-inherit" style={{ fontSize: "clamp(1.8rem, 3vw, 2.4rem)", fontWeight: 700, color: "#2f315a", lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: "0.75rem" }}>Why Choose Us?</h2>
@@ -239,6 +369,8 @@ export default function WhyChooseUs({ section, sectionFrom = "var(--ks-page-clou
               ))}
             </div>
           </div>
+
+          <RetailProofPanel proof={retailProof} />
 
         </div>
       </div>
