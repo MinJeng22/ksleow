@@ -489,14 +489,6 @@ function POSPricingCards({ cards, accent = POS_ACCENT }) {
               <span className="pos-pricing-amount">{card.price}</span>
               <span className="pos-pricing-suffix">{card.priceSuffix}</span>
             </div>
-            <a
-              href={WA_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`pos-pricing-cta${card.highlight ? " pos-pricing-cta-highlight" : ""}`}
-            >
-              Get Started
-            </a>
             <div className="pos-pricing-features-title">Key Features:</div>
             <ul className="pos-pricing-features">
               {card.features.map((f) => (
@@ -1945,7 +1937,14 @@ export default function AutoCountPOSPage({ onContact }) {
                   <button
                     type="button"
                     className="ks-btn ks-btn-muted pos-release-more"
-                    onClick={() => setBackendTableOpen(false)}
+                    onClick={() => {
+                      setBackendTableOpen(false);
+                      const el = document.getElementById("editions");
+                      if (el) {
+                        const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                        window.scrollTo({ top: y, behavior: "smooth" });
+                      }
+                    }}
                   >
                     Collapse Comparison
                   </button>
@@ -1998,7 +1997,14 @@ export default function AutoCountPOSPage({ onContact }) {
                   <button
                     type="button"
                     className="ks-btn ks-btn-muted pos-release-more"
-                    onClick={() => setFrontendTableOpen(false)}
+                    onClick={() => {
+                      setFrontendTableOpen(false);
+                      const el = document.getElementById("frontend");
+                      if (el) {
+                        const y = el.getBoundingClientRect().top + window.scrollY - 100;
+                        window.scrollTo({ top: y, behavior: "smooth" });
+                      }
+                    }}
                   >
                     Collapse Comparison
                   </button>
