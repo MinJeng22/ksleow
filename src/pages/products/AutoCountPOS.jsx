@@ -776,7 +776,7 @@ function POSReleaseNotesSection({ search, setSearch, expanded, setExpanded, visi
   const highlightCount = POS_RELEASES.filter((release) => release.highlightsUrl).length;
 
   return (
-    <section id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-from-warm product-app-section-to-warm">
+    <section id="releases" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-from-warm product-app-section-to-warm pos-releases-section">
       <div className="content-wrap">
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1.75rem" }}>
           <div>
@@ -876,17 +876,25 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos {
           --pos-accent: ${POS_ACCENT};
           --pos-navy: ${POS_NAVY};
-          --ks-page-paper: #fbfaf7;
-          --ks-page-mist: #f6f5f0;
-          --ks-page-ice: #f8fafb;
-          --ks-page-cloud: #eef3f6;
-          --ks-page-warm: #fff6e7;
+          --pos-section-features: #fbfbf2;
+          --pos-section-promotions: #fff4df;
+          --pos-section-system: #f0f7ee;
+          --pos-section-training: #edf8fb;
+          --pos-section-backend: #eef3f6;
+          --pos-section-frontend: #fff6e7;
+          --pos-section-releases: #f3f0fb;
+          --pos-section-why: #fff9ed;
+          --ks-page-paper: var(--pos-section-promotions);
+          --ks-page-mist: var(--pos-section-system);
+          --ks-page-ice: var(--pos-section-training);
+          --ks-page-cloud: var(--pos-section-backend);
+          --ks-page-warm: var(--pos-section-frontend);
           background:
             linear-gradient(180deg, var(--ks-page-mist) 0%, var(--ks-page-paper) 36%, var(--ks-page-cloud) 100%);
         }
         #page-autocount-pos .product-app-section {
-          --product-section-start: 16%;
-          --product-section-end: 84%;
+          --product-section-start: 14%;
+          --product-section-end: 86%;
           --product-section-glow: 0.48;
         }
         #page-autocount-pos .product-app-section::before {
@@ -897,8 +905,8 @@ export default function AutoCountPOSPage({ onContact }) {
         }
         #page-autocount-pos .pos-feature-section {
           --product-section-from: #fff8eb;
-          --product-section-bg: #fbfbf2;
-          --product-section-to: #f7fbf0;
+          --product-section-bg: var(--pos-section-features);
+          --product-section-to: var(--pos-section-promotions);
           --product-section-glow: 0.72;
         }
         #page-autocount-pos .pos-feature-section::before {
@@ -908,9 +916,9 @@ export default function AutoCountPOSPage({ onContact }) {
             linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0));
         }
         #page-autocount-pos .pos-offers-section {
-          --product-section-from: #f7fbf0;
-          --product-section-bg: #fbfaf4;
-          --product-section-to: var(--ks-page-mist);
+          --product-section-from: var(--pos-section-features);
+          --product-section-bg: var(--pos-section-promotions);
+          --product-section-to: var(--pos-section-system);
           --product-section-glow: 0.68;
         }
         #page-autocount-pos .pos-offers-section::before {
@@ -918,6 +926,42 @@ export default function AutoCountPOSPage({ onContact }) {
             radial-gradient(circle at 18% 14%, rgba(128, 195, 30, 0.1), transparent 34%),
             radial-gradient(circle at 84% 18%, rgba(228, 158, 37, 0.075), transparent 34%),
             linear-gradient(180deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0));
+        }
+        #page-autocount-pos .pos-system-section {
+          --product-section-from: var(--pos-section-promotions);
+          --product-section-bg: var(--pos-section-system);
+          --product-section-to: var(--pos-section-training);
+        }
+        #page-autocount-pos .pos-training-section {
+          --product-section-from: var(--pos-section-system);
+          --product-section-bg: var(--pos-section-training);
+          --product-section-to: var(--pos-section-backend);
+        }
+        #page-autocount-pos .pos-backend-section {
+          --product-section-from: var(--pos-section-training);
+          --product-section-bg: var(--pos-section-backend);
+          --product-section-to: var(--pos-section-frontend);
+        }
+        #page-autocount-pos .pos-frontend-section {
+          --product-section-from: var(--pos-section-backend);
+          --product-section-bg: var(--pos-section-frontend);
+          --product-section-to: var(--pos-section-releases);
+        }
+        #page-autocount-pos .pos-releases-section {
+          --product-section-from: var(--pos-section-frontend);
+          --product-section-bg: var(--pos-section-releases);
+          --product-section-to: var(--pos-section-why);
+        }
+        #page-autocount-pos #why-ksl {
+          --product-section-from: var(--pos-section-releases);
+          --product-section-bg: var(--pos-section-why);
+          --product-section-to: var(--pos-section-why);
+        }
+        #page-autocount-pos #why-ksl::before {
+          background:
+            radial-gradient(circle at 18% 12%, rgba(228, 158, 37, 0.09), transparent 34%),
+            radial-gradient(circle at 84% 18%, rgba(47, 49, 90, 0.045), transparent 36%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0));
         }
         #page-autocount-pos .ks-btn-primary {
           background: var(--pos-accent) !important;
@@ -1848,7 +1892,7 @@ export default function AutoCountPOSPage({ onContact }) {
           />
         </div>
 
-        <div className="product-app-divider" style={{ "--section-from": "#f7fbf0", "--section-to": "#f7fbf0", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--pos-section-features)", "--section-to": "var(--pos-section-promotions)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="promotions" />
         </div>
 
@@ -1860,7 +1904,7 @@ export default function AutoCountPOSPage({ onContact }) {
           />
         </div>
 
-        <div className="product-app-divider" style={{ "--section-from": "#f6f5f0", "--section-to": "var(--ks-page-mist)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--pos-section-promotions)", "--section-to": "var(--pos-section-system)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="system" />
         </div>
 
@@ -1869,11 +1913,11 @@ export default function AutoCountPOSPage({ onContact }) {
           <POSSystemExplainer />
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "var(--ks-page-ice)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--pos-section-system)", "--section-to": "var(--pos-section-training)", marginTop: "-1.5rem", marginBottom: "-1.5rem" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="training" />
         </div>
 
-        <section className="product-app-section product-app-section-ice product-app-section-from-mist product-app-section-to-cloud">
+        <section className="product-app-section product-app-section-ice product-app-section-from-mist product-app-section-to-cloud pos-training-section">
           <div id="training">
             <AutoCountTrainingWebGL
               customVideos={POS_TUTORIAL_VIDEOS}
@@ -1887,11 +1931,11 @@ export default function AutoCountPOSPage({ onContact }) {
           </div>
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-cloud)" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--pos-section-training)", "--section-to": "var(--pos-section-backend)" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="editions" />
         </div>
 
-        <section id="editions" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-from-ice product-app-section-to-warm" style={{ overflow: "visible" }}>
+        <section id="editions" className="ac-section-tight product-app-section product-app-section-cloud product-app-section-from-ice product-app-section-to-warm pos-backend-section" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
               title="POS Backend Editions"
@@ -1951,11 +1995,11 @@ export default function AutoCountPOSPage({ onContact }) {
           </div>
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-cloud)", "--section-to": "var(--ks-page-warm)" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--pos-section-backend)", "--section-to": "var(--pos-section-frontend)" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="frontend" />
         </div>
 
-        <section id="frontend" className="ac-section-tight product-app-section product-app-section-warm product-app-section-from-cloud product-app-section-to-cloud" style={{ overflow: "visible" }}>
+        <section id="frontend" className="ac-section-tight product-app-section product-app-section-warm product-app-section-from-cloud product-app-section-to-cloud pos-frontend-section" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
               title="POS Front End Editions"
@@ -2011,7 +2055,7 @@ export default function AutoCountPOSPage({ onContact }) {
           </div>
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-warm)", "--section-to": "var(--ks-page-cloud)" }}>
+        <div className="product-app-divider" style={{ "--section-from": "var(--pos-section-frontend)", "--section-to": "var(--pos-section-releases)" }}>
           <PageSectionDivider sections={POS_SECTIONS} id="releases" />
         </div>
 
@@ -2026,8 +2070,8 @@ export default function AutoCountPOSPage({ onContact }) {
 
         <WhyChooseUs
           section={getSection(POS_SECTIONS, "why-ksl")}
-          sectionFrom="var(--ks-page-warm)"
-          sectionTo="var(--ks-page-warm)"
+          sectionFrom="var(--pos-section-releases)"
+          sectionTo="var(--pos-section-why)"
           retailProof={POS_RETAIL_PROOF}
         />
 
