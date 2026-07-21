@@ -877,12 +877,12 @@ export default function AutoCountPOSPage({ onContact }) {
           --pos-accent: ${POS_ACCENT};
           --pos-navy: ${POS_NAVY};
           --pos-section-features: #fbfbf2;
-          --pos-section-promotions: #fff4df;
-          --pos-section-system: #f0f7ee;
-          --pos-section-training: #edf8fb;
-          --pos-section-backend: #eef3f6;
-          --pos-section-frontend: #fff6e7;
-          --pos-section-releases: #f3f0fb;
+          --pos-section-promotions: #fff6e8;
+          --pos-section-system: #f4f8ee;
+          --pos-section-training: #f1f8fa;
+          --pos-section-backend: #f0f4f7;
+          --pos-section-frontend: #fff7ea;
+          --pos-section-releases: #f7f3fb;
           --pos-section-why: #fff9ed;
           --ks-page-paper: var(--pos-section-promotions);
           --ks-page-mist: var(--pos-section-system);
@@ -893,9 +893,35 @@ export default function AutoCountPOSPage({ onContact }) {
             linear-gradient(180deg, var(--ks-page-mist) 0%, var(--ks-page-paper) 36%, var(--ks-page-cloud) 100%);
         }
         #page-autocount-pos .product-app-section {
-          --product-section-start: 14%;
-          --product-section-end: 86%;
+          --product-section-start: 22%;
+          --product-section-end: 78%;
           --product-section-glow: 0.48;
+        }
+        #page-autocount-pos .product-app-divider {
+          height: clamp(4.2rem, 7vw, 7rem) !important;
+          margin: clamp(-3.5rem, -3.8vw, -2.1rem) 0 !important;
+          overflow: visible;
+          background: linear-gradient(180deg, var(--section-from) 0%, var(--section-to) 100%);
+          background:
+            linear-gradient(
+              180deg,
+              var(--section-from) 0%,
+              color-mix(in srgb, var(--section-from) 58%, var(--section-to) 42%) 45%,
+              color-mix(in srgb, var(--section-from) 28%, var(--section-to) 72%) 68%,
+              var(--section-to) 100%
+            );
+        }
+        #page-autocount-pos .product-app-divider::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background:
+            radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.26), transparent 62%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+        }
+        #page-autocount-pos .product-app-divider .section-divider {
+          top: 50%;
         }
         #page-autocount-pos .product-app-section::before {
           background:
