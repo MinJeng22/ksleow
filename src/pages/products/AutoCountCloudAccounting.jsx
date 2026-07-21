@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/Footer";
 import ProductHero from "../../components/ProductHero.jsx";
 import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
-import { formatSST } from "../../utils/formatSST";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { Img } from "../../components/Media.jsx";
 import { PageSectionDivider, getSection } from "../../components/PageSections.jsx";
@@ -103,9 +102,9 @@ const CODE_TO_EDITION = Object.fromEntries(
 
 const CLOUD_EDITION_TABLE = {
   topRows: [
-    ["Monthly Price", ["RM 70 + 8%SST /mo", "RM 100 + 8%SST /mo", "RM 140 + 8%SST /mo", "RM 180 + 8%SST /mo", "RM 10 + 8%SST /mo"]],
-    ["12 Months Price (65% off)", ["RM 294 + 8%SST", "RM 420 + 8%SST", "RM 588 + 8%SST", "RM 756 + 8%SST", "RM 120 + 8%SST"]],
-    ["24 Months Price (75% off)", ["RM 420 + 8%SST", "RM 600 + 8%SST", "RM 840 + 8%SST", "RM 1,080 + 8%SST", "RM 240 + 8%SST"]],
+    ["Monthly Price", ["RM 70 /mo", "RM 100 /mo", "RM 140 /mo", "RM 180 /mo", "RM 10 /mo"]],
+    ["12 Months Price (65% off)", ["RM 294 ", "RM 420 ", "RM 588 ", "RM 756 ", "RM 120 "]],
+    ["24 Months Price (75% off)", ["RM 420 ", "RM 600 ", "RM 840 ", "RM 1,080 ", "RM 240 "]],
     ["Best for", ["Start-up / Micro Company", "Professional Services", "Trading of products", "Multi-warehouse", "Accounting firm"]],
     ["Included users", ["1 user", "2 users", "3 users", "3 users", "2 users"]],
     ["Accountant access", ["1 accountant", "1 accountant", "1 accountant", "1 accountant", ""]],
@@ -139,7 +138,6 @@ const CLOUD_EDITION_TABLE = {
       name: "OTHERS MODULES",
       rows: [
         ["LHDN e‑Invoice", ["+", "+", "+", "+", "+"]],
-        ["SST", ["", "+", "+", "+", "+"]],
         ["Recurring Transaction", ["", "+", "+", "+", "+"]],
         ["Multi-Currency", ["", "", "+", "+", "+"]],
         ["Track Inventory", ["", "", "+", "+", ""]],
@@ -162,7 +160,7 @@ const CLOUD_EDITION_TABLE = {
     {
       name: "ADD-ON",
       rows: [
-        ["Add-on User", ["RM10 + 8%SST /month /per user", "RM10 + 8%SST /month /per user", "RM20 + 8%SST /month /per user", "RM20 + 8%SST /month /per user", "RM10 + 8%SST /month /per user"]],
+        ["Add-on User", ["RM10 /month /per user", "RM10 /month /per user", "RM20 /month /per user", "RM20 /month /per user", "RM10 /month /per user"]],
       ],
     },
   ],
@@ -247,11 +245,11 @@ function EditionTable({ selected = null, diffOnly = false }) {
                     <td key={i} className={isPriceRow ? "ks-compare-td-book" : "ks-compare-td-data"}>
                       {isFirst && v.includes("More info") ? (
                         <>
-                          <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" }}>RM 10 <span style={{ fontSize: "0.75em", fontWeight: "normal", opacity: 0.8 }}>+ 8%SST</span> /mo</div>
+                          <div style={{ fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" }}>RM 10 /mo</div>
                           <a href="#" style={{ fontSize: "0.75rem", color: "#16a14b", textDecoration: "underline" }}>More info</a>
                         </>
                       ) : (
-                        <span style={isPriceRow ? { fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" } : {}}>{formatSST(v)}</span>
+                        <span style={isPriceRow ? { fontWeight: 700, fontSize: "1.1rem", color: "#16a14b" } : {}}>{v}</span>
                       )}
                     </td>
                   ))}
@@ -643,7 +641,6 @@ export default function AutoCountCloudAccountingPage() {
             <div><strong style={{ color: "#444" }}>Stock Module:</strong> Up to 60 transactions including Stock Adjustment and Stock Transfer*</div>
             <div><strong style={{ color: "#444" }}>Accounting Module:</strong> Up to 60 transactions including Cash Book and Journal Voucher.*</div>
             <div style={{ marginTop: "0.5rem" }}>*Free Trial: use for free until any of the above modules reaches its free trial transaction limit within a calendar year.</div>
-            <div>*Prices exclude 8% SST.</div>
             <div>*All promotion offers are subject to terms and conditions.</div>
           </div>
         </div>
