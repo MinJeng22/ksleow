@@ -177,9 +177,6 @@ const BACKEND_PRICING_CARDS = [
     features: [
       "Everything in POS Basic",
       "POS Stock Module Included",
-      "3 Default Account Books",
-      "1 E-Invoice Account Book",
-      "1 Concurrent Network User",
     ],
   },
 ];
