@@ -107,8 +107,8 @@ export default function SectionSidebar({ items, sections, theme = "gold", themeC
       }}
       style={{
       position: "fixed",
-      top: "50%", right: 28,
-      transform: "translateY(-50%)",
+      bottom: 40, right: 28,
+      transform: "none",
       zIndex: 150,
       display: "flex", flexDirection: "column", gap: 4,
       alignItems: "stretch",
