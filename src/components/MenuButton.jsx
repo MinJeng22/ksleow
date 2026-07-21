@@ -313,25 +313,6 @@ const STYLES = `
   }
 }
 
-
-/* Menu Button Splits */
-@media (min-width: 1024px) {
-  .menu-btn-unified { display: none !important; }
-  .menu-btn-split { display: flex !important; }
-  
-  .menu-panel[data-menu-mode="split"] {
-    display: flex !important;
-    flex-direction: column;
-    width: auto !important;
-    min-width: 280px;
-    /* right and left are set inline */
-  }
-}
-@media (max-width: 1023px) {
-  .menu-btn-unified { display: flex !important; }
-  .menu-btn-split { display: none !important; }
-}
-
 /* ─── Menu Overlay ─────────────────────────────────────── */
 .menu-overlay-backdrop {
   position: fixed;
@@ -646,8 +627,7 @@ const STYLES = `
 /* ── Component ──────────────────────────────────────────── */
 export default function MenuButton({ onOpenSearch, hideBar }) {
   const [mounted, setMounted] = useState(false);
-  const [openMenu, setOpenMenu] = useState(null);
-  const [panelX, setPanelX] = useState(null);
+  const [open, setOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [hasHistory, setHasHistory] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState([0]);
@@ -695,21 +675,21 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   }, [pathname]);
 
   useEffect(() => {
-    const handleOpenMenu = () => setOpenMenu("all");
-    const handleToggleMenu = () => setOpenMenu(prev => prev === "all" ? null : "all");
+    const handleOpenMenu = () => setOpen(true);
+    const handleToggleMenu = () => setOpen(prev => !prev);
     const handleHoverEnter = () => {
       if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
         clearTimeout(hoverTimeoutRef.current);
-        setOpenMenu("all");
+        setOpen(true);
         window.dispatchEvent(new Event("closeOmniQR"));
       }
     };
     const handleHoverLeave = () => {
       if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
-        hoverTimeoutRef.current = setTimeout(() => setOpenMenu(null), 200);
+        hoverTimeoutRef.current = setTimeout(() => setOpen(false), 200);
       }
     };
-    const handleCloseMenu = () => setOpenMenu(null);
+    const handleCloseMenu = () => setOpen(false);
     window.addEventListener("openGlobalMenu", handleOpenMenu);
     window.addEventListener("closeGlobalMenu", handleCloseMenu);
     window.addEventListener("toggleGlobalMenu", handleToggleMenu);
@@ -725,17 +705,17 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   }, []);
 
   useEffect(() => {
-    window.dispatchEvent(new CustomEvent("globalMenuStateChange", { detail: openMenu !== null }));
-    if (openMenu !== null) {
+    window.dispatchEvent(new CustomEvent("globalMenuStateChange", { detail: open }));
+    if (open) {
       document.body.classList.add("has-mobile-menu-open");
     } else {
       document.body.classList.remove("has-mobile-menu-open");
     }
-  }, [openMenu]);
+  }, [open]);
 
   /* Close on outside click (mobile) */
   useEffect(() => {
-    if (openMenu === null) return;
+    if (!open) return;
     const handleClick = (e) => {
       if (
         panelRef.current && !panelRef.current.contains(e.target) &&
@@ -744,20 +724,20 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
         !e.target.closest(".menu-fab") &&
         !e.target.closest(".mfb-btn")
       ) {
-        setOpenMenu(null);
+        setOpen(false);
       }
     };
-    const handleEsc = (e) => { if (e.key === "Escape") setOpenMenu(null); };
+    const handleEsc = (e) => { if (e.key === "Escape") setOpen(false); };
     document.addEventListener("mousedown", handleClick);
     document.addEventListener("keydown", handleEsc);
     return () => {
       document.removeEventListener("mousedown", handleClick);
       document.removeEventListener("keydown", handleEsc);
     };
-  }, [openMenu]);
+  }, [open]);
 
   /* Close on route change */
-  useEffect(() => { setOpenMenu(null); }, [pathname]);
+  useEffect(() => { setOpen(false); }, [pathname]);
 
   /* Cleanup hover timeout */
   useEffect(() => {
@@ -768,18 +748,18 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   const handleMenuEnter = () => {
     if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
       clearTimeout(hoverTimeoutRef.current);
-      setOpenMenu("all");
+      setOpen(true);
     }
   };
   const handleMenuLeave = () => {
     if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
-      hoverTimeoutRef.current = setTimeout(() => setOpenMenu(null), 200);
+      hoverTimeoutRef.current = setTimeout(() => setOpen(false), 200);
     }
   };
 
   /* ── Menu item action handler ── */
   const handleMenuAction = (item) => {
-    setOpenMenu(null);
+    setOpen(false);
     preloadMenuItem(item, "high");
 
     if (item.path) {
@@ -884,46 +864,23 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
           <span>Search</span>
         </button>
 
-        {/* Unified menu button for Tablet only (Desktop hides this via CSS) */}
         <button
-          className="menu-fab lg-glass lg-glass-btn menu-btn-unified"
-          onMouseEnter={(e) => handleMenuEnter("all", e)}
+          className="menu-fab lg-glass lg-glass-btn"
+          onMouseEnter={handleMenuEnter}
+          onMouseLeave={handleMenuLeave}
           onClick={() => {
+            // Only toggle via click on touch devices or small screens
             if (window.innerWidth < 1024 || !window.matchMedia("(hover: hover)").matches) {
-              setOpenMenu(openMenu === "all" ? null : "all");
+              setOpen(!open);
             }
           }}
-          aria-label={openMenu === "all" ? "Close menu" : "Open menu"}
-          aria-expanded={openMenu !== null}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
           style={{ color: isDesktopDark ? "#ffffff" : "rgba(0, 0, 0, 0.6)" }}
         >
-          <MenuGlyph open={openMenu === "all"} />
+          <MenuGlyph open={open} />
           <span>Menu</span>
         </button>
-
-        {/* Desktop separate buttons */}
-        {MEGA_MENU.map((col, idx) => (
-          <button
-            key={col.title}
-            className="menu-fab lg-glass lg-glass-btn menu-btn-split"
-            onMouseEnter={(e) => handleMenuEnter(idx, e)}
-            onClick={() => {
-              if (window.matchMedia("(hover: none)").matches || window.innerWidth >= 1024) {
-                setOpenMenu(openMenu === idx ? null : idx);
-              }
-            }}
-            aria-expanded={openMenu === idx}
-            style={{ 
-              color: isDesktopDark ? "#ffffff" : "rgba(0, 0, 0, 0.6)",
-              background: openMenu === idx ? (isDesktopDark ? "rgba(255,255,255,0.15)" : "rgba(0,0,0,0.06)") : undefined
-            }}
-          >
-            <span>{col.title}</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 4, transform: openMenu === idx ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }}>
-              <path d="m6 9 6 6 6-6"/>
-            </svg>
-          </button>
-        ))}
       </div>
 
       {hasHistory && (
@@ -948,7 +905,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
       <div
         ref={mobileBarRef}
         className={`mobile-float-bar lg-glass${showScrollTop && mobileActionMode === "back" ? " has-scrolltop" : ""}`}
-        style={pathname === "/omni" ? { display: "none" } : ((hideBar || openMenu === "all") ? { opacity: 0, transform: "translateY(150%)", pointerEvents: "none" } : undefined)}
+        style={pathname === "/omni" ? { display: "none" } : ((hideBar || open) ? { opacity: 0, transform: "translateY(150%)", pointerEvents: "none" } : undefined)}
       >
         {mobileActionMode && (
           <>
@@ -1009,11 +966,11 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
 
         <button 
           className="mfb-btn" 
-          onClick={() => setOpenMenu(openMenu === "all" ? null : "all")} 
-          aria-label={openMenu === "all" ? "Close menu" : "Open menu"}
+          onClick={() => setOpen(!open)} 
+          aria-label={open ? "Close menu" : "Open menu"}
           style={{ color: isMobileDark ? "#ffffff" : "rgba(0, 0, 0, 0.55)" }}
         >
-          <MenuGlyph open={openMenu === "all"} size={15} />
+          <MenuGlyph open={open} size={15} />
           <span>Menu</span>
         </button>
 
@@ -1039,14 +996,14 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
 
       {/* ── Backdrop (mobile only) ─────────────────────── */}
       <div
-        className={`menu-overlay-backdrop${openMenu === "all" ? " is-open" : ""}`}
-        onClick={() => setOpenMenu(null)}
+        className={`menu-overlay-backdrop${open ? " is-open" : ""}`}
+        onClick={() => setOpen(false)}
       />
 
       {/* ── Mega Menu Panel ────────────────────────────── */}
       <div
         ref={panelRef}
-        className={`menu-panel ks-nav-glass-panel${openMenu !== null ? " is-open" : ""}`}
+        className={`menu-panel ks-nav-glass-panel${open ? " is-open" : ""}`}
         role="menu"
         onMouseEnter={handleMenuEnter}
         onMouseLeave={handleMenuLeave}
@@ -1100,3 +1057,4 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
     </>
   );
 }
+
