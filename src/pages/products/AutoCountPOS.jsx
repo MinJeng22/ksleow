@@ -154,6 +154,81 @@ const EDITION_ROWS = [
   { label: "No. of Concurrent Network User", values: ["1", "1"] },
 ];
 
+const BACKEND_PRICING_CARDS = [
+  {
+    name: "POS Basic",
+    price: "RM 2,300",
+    priceSuffix: "one-time",
+    description: "Essential POS for single-counter retail businesses.",
+    features: [
+      "1 POS Counter A",
+      "3 Default Account Books",
+      "1 E-Invoice Account Book",
+      "1 Concurrent Network User",
+      "Complete POS Functionality",
+    ],
+  },
+  {
+    name: "POS Standard",
+    price: "RM 3,100",
+    priceSuffix: "one-time",
+    description: "Full-featured POS with POS Stock included.",
+    highlight: true,
+    features: [
+      "Everything in POS Basic",
+      "POS Stock Module Included",
+      "3 Default Account Books",
+      "1 E-Invoice Account Book",
+      "1 Concurrent Network User",
+    ],
+  },
+];
+
+const FRONTEND_PRICING_CARDS = [
+  {
+    name: "Counter A",
+    price: "RM 2,300",
+    priceSuffix: "one-time",
+    description: "Primary counter with local database included.",
+    features: [
+      "Local Database Included",
+      "Full Frontend POS",
+      "Receipt Printing",
+      "Barcode Scanning",
+      "Cash Drawer Support",
+    ],
+  },
+  {
+    name: "Counter B",
+    price: "RM 1,300",
+    priceSuffix: "one-time",
+    description: "Additional counter for multi-register setups.",
+    features: [
+      "Connects to Counter A Database",
+      "Full Frontend POS",
+      "Receipt Printing",
+      "Barcode Scanning",
+      "Cash Drawer Support",
+    ],
+  },
+  {
+    name: "Branch",
+    price: "RM 2,900",
+    priceSuffix: "one-time",
+    highlight: true,
+    description: "Multi-outlet solution with local database & branch sync.",
+    features: [
+      "Local Database Included",
+      "Branch Sync Included",
+      "Full Frontend POS",
+      "Remote HQ Support",
+      "Multi-Location Management",
+    ],
+  },
+];
+
+
+
 
 const ACCOUNTING_MODULE_SECTIONS = [
   {
@@ -394,6 +469,51 @@ function NotesPanel({ title, items }) {
     </aside>
   );
 }
+
+function POSPricingCards({ cards, accent = POS_ACCENT }) {
+  return (
+    <div className="pos-pricing-cards">
+      {cards.map((card) => (
+        <div
+          key={card.name}
+          className={`pos-pricing-card${card.highlight ? " pos-pricing-card-highlight" : ""}`}
+          style={{ "--card-accent": card.highlight ? accent : undefined }}
+        >
+          {card.highlight && (
+            <div className="pos-pricing-badge">Most Popular</div>
+          )}
+          <div className="pos-pricing-card-inner">
+            <h3 className="pos-pricing-name">{card.name}</h3>
+            <p className="pos-pricing-desc">{card.description}</p>
+            <div className="pos-pricing-price">
+              <span className="pos-pricing-amount">{card.price}</span>
+              <span className="pos-pricing-suffix">{card.priceSuffix}</span>
+            </div>
+            <a
+              href={WA_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`pos-pricing-cta${card.highlight ? " pos-pricing-cta-highlight" : ""}`}
+            >
+              Get Started
+            </a>
+            <div className="pos-pricing-features-title">Key Features:</div>
+            <ul className="pos-pricing-features">
+              {card.features.map((f) => (
+                <li key={f}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                  {f.startsWith("Everything") ? <strong>{f}</strong> : f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+
 
 function POSSystemExplainer() {
   const backendRef = useRef(null);
@@ -735,6 +855,8 @@ export default function AutoCountPOSPage({ onContact }) {
   const [releaseSearch, setReleaseSearch] = useState("");
   const [expandedRelease, setExpandedRelease] = useState(null);
   const [releaseVisibleLimit, setReleaseVisibleLimit] = useState(5);
+  const [backendTableOpen, setBackendTableOpen] = useState(false);
+  const [frontendTableOpen, setFrontendTableOpen] = useState(false);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -1788,22 +1910,48 @@ export default function AutoCountPOSPage({ onContact }) {
               onClick={() => setTitleClicks(prev => prev + 1)}
             />
             
-            <div className="pos-legend">
-              <span><POSMarker value="+" /> optional add-on</span>
-              <span><POSMarker value="-" /> not available</span>
+            <POSPricingCards cards={BACKEND_PRICING_CARDS} accent={POS_ACCENT} />
+
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              <button
+                type="button"
+                className="ks-btn ks-btn-muted pos-release-more"
+                onClick={() => setBackendTableOpen(prev => !prev)}
+              >
+                {backendTableOpen ? "Hide Full Edition Comparison" : "Open Full Edition Comparison"}
+              </button>
             </div>
-            
-            <POSCompareTable
-              columns={EDITION_COLUMNS}
-              leftLabel="Module"
-              rows={EDITION_ROWS}
-              sections={[...POS_MODULE_SECTIONS, ...ACCOUNTING_MODULE_SECTIONS]}
-              accent={POS_ACCENT}
-              inlinePrice={titleClicks >= 5}
-            />
-            <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
-              *Prices exclude 8% SST.
-            </p>
+
+            {backendTableOpen && (
+              <div className="pos-edition-table-expandable" style={{ marginTop: "2rem" }}>
+                <div className="pos-legend">
+                  <span><POSMarker value="+" /> optional add-on</span>
+                  <span><POSMarker value="-" /> not available</span>
+                </div>
+                
+                <POSCompareTable
+                  columns={EDITION_COLUMNS}
+                  leftLabel="Module"
+                  rows={EDITION_ROWS}
+                  sections={[...POS_MODULE_SECTIONS, ...ACCOUNTING_MODULE_SECTIONS]}
+                  accent={POS_ACCENT}
+                  inlinePrice={titleClicks >= 5}
+                />
+                <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
+                  *Prices exclude 8% SST.
+                </p>
+
+                <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+                  <button
+                    type="button"
+                    className="ks-btn ks-btn-muted pos-release-more"
+                    onClick={() => setBackendTableOpen(false)}
+                  >
+                    Collapse Comparison
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
@@ -1819,20 +1967,44 @@ export default function AutoCountPOSPage({ onContact }) {
               onClick={() => setTitleClicks(prev => prev + 1)}
             />
 
-            <div style={{ height: "2.5rem" }} />
+            <POSPricingCards cards={FRONTEND_PRICING_CARDS} accent={POS_NAVY} />
 
-            <POSCompareTable
-              columns={COUNTER_COLUMNS}
-              leftLabel="POS Counter & Add-ons"
-              rows={COUNTER_ROWS}
-              sections={FRONTEND_MODULE_SECTIONS}
-              accent={POS_NAVY}
-              inlinePrice={titleClicks >= 5}
-            />
-            <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
-              *Frontend requires a POS Backend or AutoCount Accounting.<br />
-              *Prices exclude 8% SST.
-            </p>
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              <button
+                type="button"
+                className="ks-btn ks-btn-muted pos-release-more"
+                onClick={() => setFrontendTableOpen(prev => !prev)}
+              >
+                {frontendTableOpen ? "Hide Full Edition Comparison" : "Open Full Edition Comparison"}
+              </button>
+            </div>
+
+            {frontendTableOpen && (
+              <div className="pos-edition-table-expandable" style={{ marginTop: "2rem" }}>
+                <POSCompareTable
+                  columns={COUNTER_COLUMNS}
+                  leftLabel="POS Counter & Add-ons"
+                  rows={COUNTER_ROWS}
+                  sections={FRONTEND_MODULE_SECTIONS}
+                  accent={POS_NAVY}
+                  inlinePrice={titleClicks >= 5}
+                />
+                <p className="ks-card-text" style={{ maxWidth: 1180, margin: "1rem auto 0", fontWeight: 700 }}>
+                  *Frontend requires a POS Backend or AutoCount Accounting.<br />
+                  *Prices exclude 8% SST.
+                </p>
+
+                <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+                  <button
+                    type="button"
+                    className="ks-btn ks-btn-muted pos-release-more"
+                    onClick={() => setFrontendTableOpen(false)}
+                  >
+                    Collapse Comparison
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
