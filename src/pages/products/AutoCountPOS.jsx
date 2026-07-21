@@ -173,7 +173,7 @@ const BACKEND_PRICING_CARDS = [
     price: "RM 3,100",
     priceSuffix: "one-time",
     description: "Full-featured POS with POS Stock included.",
-    highlight: true,
+
     features: [
       "Everything in POS Basic",
       "POS Stock Module Included",
@@ -215,7 +215,7 @@ const FRONTEND_PRICING_CARDS = [
     name: "Branch",
     price: "RM 2,900",
     priceSuffix: "one-time",
-    highlight: true,
+
     description: "Multi-outlet solution with local database & branch sync.",
     features: [
       "Local Database Included",
