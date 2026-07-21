@@ -131,7 +131,7 @@ async function main() {
       description: routeById.home.description,
       route: routeById.home.route,
       category: routeById.home.category,
-      image: `${siteUrl}/images/branding/ksleow-search-card.webp`,
+      image: `${siteUrl}/images/branding/ksleow-search-thumb.png`,
       keywords: [
         "K.S. Leow Group",
         "Business solutions Malaysia",

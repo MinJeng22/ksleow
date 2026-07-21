@@ -97,7 +97,7 @@ function injectHead(html, doc) {
       name: siteName,
       url: siteUrl,
       logo: `${siteUrl}/images/branding/ksl-logo-circle.webp`,
-      image: `${siteUrl}/images/branding/ksleow-search-card.webp`,
+      image: `${siteUrl}/images/branding/ksleow-search-thumb.png`,
       telephone: "+60179052323",
       email: "support@ksleow.com.my",
       areaServed: {

@@ -2,13 +2,13 @@
   {
     "id": "home",
     "title": "Business Solutions | K.S. Leow Group",
-    "description": "We offer comprehensive business solutions: auditing, secretarial, taxation, IT hardware, and accounting & POS system support & training.",
+    "description": "We provide SMEs with one-stop solutions in audit, secretarial, tax, IT hardware, accounting, POS systems, support, and training.",
     "url": "https://ksleow.com.my",
     "route": "/",
     "category": "Company",
     "changefreq": "weekly",
     "priority": "1.0",
-    "image": "https://ksleow.com.my/images/branding/ksleow-search-card.webp",
+    "image": "https://ksleow.com.my/images/branding/ksleow-search-thumb.png",
     "kbJson": "https://ksleow.com.my/kb/home.json",
     "kbText": "https://ksleow.com.my/kb/home.txt"
   },
