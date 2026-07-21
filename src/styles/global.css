@@ -4163,3 +4163,196 @@ body.has-active-modal .back-to-top-glass {
   max-width: none !important;
 }
 
+
+
+/* ══════════════════════════════════════════════════════════════
+ * POS Pricing Cards
+ * ══════════════════════════════════════════════════════════════ */
+.pos-pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding: 0 1rem;
+}
+.pos-pricing-cards:has(> :nth-child(3)) {
+  max-width: 1100px;
+}
+
+.pos-pricing-card {
+  position: relative;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #fff7ed 0%, #fff1e0 100%);
+  border: 1.5px solid rgba(228, 158, 37, 0.18);
+  overflow: visible;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.pos-pricing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(228, 158, 37, 0.12);
+}
+
+.pos-pricing-card-highlight {
+  background: linear-gradient(145deg, #f8a832 0%, #e49e25 50%, #d18f1a 100%);
+  border-color: rgba(228, 158, 37, 0.4);
+  color: #fff;
+}
+.pos-pricing-card-highlight:hover {
+  box-shadow: 0 12px 40px rgba(228, 158, 37, 0.25);
+}
+
+.pos-pricing-badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 18px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+  z-index: 2;
+}
+
+.pos-pricing-card-inner {
+  padding: 2rem 1.5rem 1.75rem;
+}
+
+.pos-pricing-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0 0 0.35rem;
+  color: #e49e25;
+}
+.pos-pricing-card-highlight .pos-pricing-name {
+  color: #fff;
+}
+
+.pos-pricing-desc {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+  color: #5a5a6e;
+}
+.pos-pricing-card-highlight .pos-pricing-desc {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.pos-pricing-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.pos-pricing-amount {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2f315a;
+  letter-spacing: -0.02em;
+}
+.pos-pricing-card-highlight .pos-pricing-amount {
+  color: #fff;
+}
+.pos-pricing-suffix {
+  font-size: 0.85rem;
+  opacity: 0.65;
+  color: #5a5a6e;
+}
+.pos-pricing-card-highlight .pos-pricing-suffix {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.pos-pricing-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  border: none;
+  background: #e49e25;
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+.pos-pricing-cta:hover {
+  background: #d18f1a;
+  transform: scale(1.02);
+}
+.pos-pricing-cta-highlight {
+  background: #2f315a;
+  color: #fff;
+}
+.pos-pricing-cta-highlight:hover {
+  background: #1e2040;
+}
+
+.pos-pricing-features-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #e49e25;
+}
+.pos-pricing-card-highlight .pos-pricing-features-title {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pos-pricing-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pos-pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.84rem;
+  padding: 0.35rem 0;
+  color: #444;
+  line-height: 1.45;
+}
+.pos-pricing-card-highlight .pos-pricing-features li {
+  color: rgba(255, 255, 255, 0.92);
+}
+.pos-pricing-features li svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #e49e25;
+}
+.pos-pricing-card-highlight .pos-pricing-features li svg {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Expandable table wrapper */
+.pos-edition-table-expandable {
+  animation: posTableSlideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes posTableSlideIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .pos-pricing-cards {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding: 0;
+  }
+  .pos-pricing-card-inner {
+    padding: 1.5rem 1.25rem 1.5rem;
+  }
+  .pos-pricing-amount {
+    font-size: 1.7rem;
+  }
+}
