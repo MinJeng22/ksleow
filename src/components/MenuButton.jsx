@@ -695,18 +695,18 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   }, [pathname]);
 
   useEffect(() => {
-    const handleOpenMenu = () => setOpen(true);
-    const handleToggleMenu = () => setOpen(prev => !prev);
+    const handleOpenMenu = () => setOpenMenu("all");
+    const handleToggleMenu = () => setOpenMenu(prev => prev === "all" ? null : "all");
     const handleHoverEnter = () => {
       if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
         clearTimeout(hoverTimeoutRef.current);
-        setOpen(true);
+        setOpenMenu("all");
         window.dispatchEvent(new Event("closeOmniQR"));
       }
     };
     const handleHoverLeave = () => {
       if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
-        hoverTimeoutRef.current = setTimeout(() => setOpen(false), 200);
+        hoverTimeoutRef.current = setTimeout(() => setOpenMenu(null), 200);
       }
     };
     const handleCloseMenu = () => setOpenMenu(null);
@@ -747,7 +747,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
         setOpenMenu(null);
       }
     };
-    const handleEsc = (e) => { if (e.key === "Escape") setOpen(false); };
+    const handleEsc = (e) => { if (e.key === "Escape") setOpenMenu(null); };
     document.addEventListener("mousedown", handleClick);
     document.addEventListener("keydown", handleEsc);
     return () => {
@@ -757,7 +757,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   }, [openMenu]);
 
   /* Close on route change */
-  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => { setOpenMenu(null); }, [pathname]);
 
   /* Cleanup hover timeout */
   useEffect(() => {
@@ -768,18 +768,18 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
   const handleMenuEnter = () => {
     if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
       clearTimeout(hoverTimeoutRef.current);
-      setOpen(true);
+      setOpenMenu("all");
     }
   };
   const handleMenuLeave = () => {
     if (window.innerWidth >= 1024 && window.matchMedia("(hover: hover)").matches) {
-      hoverTimeoutRef.current = setTimeout(() => setOpen(false), 200);
+      hoverTimeoutRef.current = setTimeout(() => setOpenMenu(null), 200);
     }
   };
 
   /* ── Menu item action handler ── */
   const handleMenuAction = (item) => {
-    setOpen(false);
+    setOpenMenu(null);
     preloadMenuItem(item, "high");
 
     if (item.path) {
@@ -1040,7 +1040,7 @@ export default function MenuButton({ onOpenSearch, hideBar }) {
       {/* ── Backdrop (mobile only) ─────────────────────── */}
       <div
         className={`menu-overlay-backdrop${openMenu === "all" ? " is-open" : ""}`}
-        onClick={() => setOpen(false)}
+        onClick={() => setOpenMenu(null)}
       />
 
       {/* ── Mega Menu Panel ────────────────────────────── */}
