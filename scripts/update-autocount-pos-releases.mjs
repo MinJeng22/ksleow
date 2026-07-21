@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import pdfParse from "pdf-parse/lib/pdf-parse.js";
 
 const ROOT = process.cwd();
 const OUTPUT_FILE = path.join(ROOT, "src/content/autocountPosReleases.json");
@@ -17,19 +18,32 @@ async function main() {
   }
 
   const existingByVersion = new Map(currentReleases.map((release) => [release.version, release]));
+  const parsedByVersion = new Map();
+
+  for (const item of discovered) {
+    if (!shouldParseReleasePdf(item.release?.url)) continue;
+
+    try {
+      parsedByVersion.set(item.version, await parseReleasePdf(item.release.url));
+    } catch (error) {
+      console.warn(`Unable to parse POS release PDF ${item.version}: ${error.message}`);
+    }
+  }
+
   const releases = discovered.map((item) => {
     const current = existingByVersion.get(item.version) || {};
+    const parsed = parsedByVersion.get(item.version) || {};
     return {
       version: item.version,
       rev: current.rev || `Release ${item.version.split(".").at(-1)}`,
-      date: current.date || formatWikiDate(item.release?.timestamp),
-      lastModified: current.lastModified || formatWikiDate(item.release?.timestamp),
-      dbVer: current.dbVer || "",
-      posDbVer: current.posDbVer || "",
-      frontendDbVer: current.frontendDbVer || "",
-      server: current.server || "",
-      features: Array.isArray(current.features) ? current.features : [],
-      fixes: Array.isArray(current.fixes) ? current.fixes : [],
+      date: parsed.date || current.date || formatWikiDate(item.release?.timestamp),
+      lastModified: parsed.lastModified || current.lastModified || formatWikiDate(item.release?.timestamp),
+      dbVer: parsed.dbVer || current.dbVer || "",
+      posDbVer: parsed.posDbVer || current.posDbVer || "",
+      frontendDbVer: parsed.frontendDbVer || current.frontendDbVer || "",
+      server: parsed.server || current.server || "",
+      features: chooseReleaseItems(parsed.features, current.features),
+      fixes: chooseReleaseItems(parsed.fixes, current.fixes),
       highlightsUrl: item.highlight?.url || current.highlightsUrl || "",
       releasePdfUrl: item.release?.url || current.releasePdfUrl || "",
       sourceUrl: CATEGORY_URL,
@@ -106,6 +120,175 @@ async function collectReleaseFiles() {
   }));
 }
 
+function shouldParseReleasePdf(releasePdfUrl) {
+  return Boolean(releasePdfUrl);
+}
+
+async function parseReleasePdf(url) {
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": USER_AGENT,
+      "Accept": "application/pdf,*/*;q=0.8",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+  }
+
+  const originalWarn = console.warn;
+  console.warn = (...args) => {
+    const message = String(args[0] || "");
+    if (/^Warning: TT:/.test(message)) return;
+    originalWarn(...args);
+  };
+
+  try {
+    const data = await pdfParse(Buffer.from(await response.arrayBuffer()));
+    return parseReleasePdfText(data.text || "");
+  } finally {
+    console.warn = originalWarn;
+  }
+}
+
+function parseReleasePdfText(text) {
+  const lines = normalisePdfLines(text);
+  const joined = lines.join(" ");
+
+  const fixes = extractPdfSectionItems(lines, /^Bug Fix(?:es|ed):?$/i);
+  const lastModifiedRaw = textMatch(joined, /Last Modified\s+([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/i)
+    || textMatch(joined, /Last Modified\s+([0-9]{1,2}\s*(?:st|nd|rd|th)?\s+[A-Za-z]+\s+[0-9]{4})/i);
+
+  return {
+    date: normaliseDate(textMatch(joined, /Official Release Date:\s*([0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4})/i)),
+    lastModified: normaliseDate(lastModifiedRaw),
+    dbVer: textMatch(joined, /Database Version to\s*([0-9]+(?:\.[0-9]+)*)/i),
+    posDbVer: textMatch(joined, /POS Database\s+Version to\s*([0-9]+(?:\.[0-9]+)*)/i),
+    frontendDbVer: textMatch(joined, /frontend Database Version to\s*([0-9]+(?:\.[0-9]+)*)/i),
+    server: textMatch(joined, /AutoCount Server Version\s*([0-9]+(?:\.[0-9]+)*)/i),
+    features: extractPdfSectionItems(lines, /^Enhancements?:?$/i),
+    fixes: fixes.length ? fixes : extractOrphanBugFixItems(lines),
+  };
+}
+
+function normalisePdfLines(text) {
+  return String(text)
+    .replace(/\r/g, "\n")
+    .split("\n")
+    .map((line) => line.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+}
+
+function extractPdfSectionItems(lines, headingPattern) {
+  const start = lines.findIndex((line) => headingPattern.test(line));
+  if (start === -1) return [];
+
+  return collectPdfTableItems(lines.slice(start + 1), {
+    stopAt(line, items) {
+      if (/^(?:Bug Fix(?:es|ed)|Enhancements?):?$/i.test(line)) return true;
+      if (items.length > 0 && /^Document Prepared by\b/i.test(line)) return true;
+      return false;
+    },
+  });
+}
+
+function extractOrphanBugFixItems(lines) {
+  const bugHeadingIndex = lines.findIndex((line) => /^Bug Fix(?:es|ed):?$/i.test(line));
+  const enhancementIndex = lines.findIndex((line) => /^Enhancements?:?$/i.test(line));
+  const preparedIndex = lines.findIndex((line, index) => index > enhancementIndex && /^Document Prepared by\b/i.test(line));
+
+  if (bugHeadingIndex === -1 || enhancementIndex === -1 || preparedIndex === -1 || bugHeadingIndex > enhancementIndex) {
+    return [];
+  }
+
+  return collectPdfTableItems(lines.slice(preparedIndex + 1), {
+    stopAt(line, items) {
+      return items.length > 0 && /^POS Release Note\b/i.test(line);
+    },
+  });
+}
+
+function collectPdfTableItems(lines, options = {}) {
+  const items = [];
+  let current = null;
+
+  for (const rawLine of lines) {
+    const line = cleanPdfLine(rawLine);
+    if (!line) continue;
+    if (options.stopAt?.(line, items)) break;
+    if (isPdfTableNoise(line)) continue;
+
+    const idOnly = line.match(/^(\d{4,})$/);
+    const idWithDescription = line.match(/^(?:ID:?\s*)?(\d{4,})\s+(.+)$/i);
+
+    if (idOnly) {
+      flushPdfItem(items, current);
+      current = { id: idOnly[1], description: "" };
+      continue;
+    }
+
+    if (idWithDescription) {
+      flushPdfItem(items, current);
+      current = { id: idWithDescription[1], description: idWithDescription[2] };
+      continue;
+    }
+
+    if (current) {
+      current.description = `${current.description} ${line}`.trim();
+    }
+  }
+
+  flushPdfItem(items, current);
+  return uniqueItems(items);
+}
+
+function flushPdfItem(items, item) {
+  const description = cleanPdfDescription(item?.description || "");
+  if (description) items.push(description);
+}
+
+function cleanPdfLine(line) {
+  return String(line)
+    .replace(/[\u201c\u201d]/g, '"')
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function cleanPdfDescription(description) {
+  return cleanPdfLine(description)
+    .replace(/\s+([.,;:])/g, "$1")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+function isPdfTableNoise(line) {
+  return /^ID\s+Description$/i.test(line)
+    || /^ID$/i.test(line)
+    || /^Description$/i.test(line)
+    || /^Page$/i.test(line)
+    || (/^\d+$/.test(line) && line.length < 4)
+    || /^Auto Count Sdn Bhd\b/i.test(line)
+    || /^www\.autocountsoft\.com$/i.test(line)
+    || /^Tel:/i.test(line)
+    || /^B2-3A-01\b/i.test(line);
+}
+
+function uniqueItems(items) {
+  const seen = new Set();
+  return items.filter((item) => {
+    const key = item.toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function chooseReleaseItems(parsedItems, currentItems) {
+  if (Array.isArray(parsedItems) && parsedItems.length > 0) return parsedItems;
+  return Array.isArray(currentItems) ? currentItems : [];
+}
+
 function pushVersionedFile(map, version, file, variant) {
   const list = map.get(version) || [];
   list.push({
@@ -141,6 +324,42 @@ async function fetchWikiApi(params) {
   }
 
   return response.json();
+}
+
+function textMatch(text, regex) {
+  const match = String(text).match(regex);
+  return match?.[1]?.trim() || "";
+}
+
+function normaliseDate(value) {
+  if (!value) return "";
+  const longDate = value.match(/^([0-9]{1,2})\s*(?:st|nd|rd|th)?\s+([A-Za-z]+)\s+([0-9]{4})$/i);
+  if (longDate) {
+    const month = monthNameToNumber(longDate[2]);
+    return month ? `${longDate[1].padStart(2, "0")}/${month}/${longDate[3]}` : "";
+  }
+
+  const [day, month, year] = value.split("/");
+  return `${day.padStart(2, "0")}/${month.padStart(2, "0")}/${year}`;
+}
+
+function monthNameToNumber(value) {
+  const months = {
+    january: "01",
+    february: "02",
+    march: "03",
+    april: "04",
+    may: "05",
+    june: "06",
+    july: "07",
+    august: "08",
+    september: "09",
+    october: "10",
+    november: "11",
+    december: "12",
+  };
+
+  return months[String(value).toLowerCase()] || "";
 }
 
 function formatWikiDate(timestamp) {
