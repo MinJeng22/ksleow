@@ -150,21 +150,27 @@ const PREMIUM_TOOLS = [
     title: "Connect Premium",
     text: "Marketing, CRM, feedback, loyalty, and customer engagement in one restaurant growth layer.",
     color: "#ff5d53",
+    background: "#ffd9d6",
+    price: "RM 90",
+    period: "per month",
   },
   {
     title: "Multi-Warehouse Premium",
     text: "Create multiple warehouses for inventory across outlets and keep stock operations easier to control.",
     color: "#50be9b",
+    background: "#dff5ee",
   },
   {
     title: "AI Report Premium",
     text: "Automated business performance analysis designed to help owners make faster data-driven decisions.",
     color: "#007ba7",
+    background: "#cfe7ef",
   },
   {
     title: "Payment Premium",
     text: "Terminal-ready payment options for restaurants that need a more complete payment setup.",
     color: "#8358d4",
+    background: "#e8ddf6",
   },
 ];
 
@@ -305,11 +311,15 @@ function FeatureCard({ item }) {
 
 function PremiumToolCard({ tool }) {
   return (
-    <article className="feedme-tool-card" style={{ "--tool-color": tool.color }}>
-      <div className="feedme-tool-mark" aria-hidden="true" />
+    <article className="feedme-tool-card" style={{ "--tool-color": tool.color, "--tool-bg": tool.background }}>
       <h3>{tool.title}</h3>
       <p>{tool.text}</p>
-      <a href={WA_LINK} target="_blank" rel="noreferrer">Ask KSL</a>
+      {tool.price && (
+        <div className="feedme-tool-price">
+          <strong>{tool.price}</strong>
+          <span>{tool.period}</span>
+        </div>
+      )}
     </article>
   );
 }
@@ -318,11 +328,7 @@ function PremiumToolsPanel() {
   return (
     <div className="feedme-pricing-tools-panel">
       <div className="feedme-pricing-tools-copy">
-        <span>Premium Tools</span>
-        <h3>Add restaurant growth tools when your operation is ready.</h3>
-        <p>
-          Start with the core POS plan, then add CRM, warehouse, AI reporting, or payment capabilities when your restaurant needs them.
-        </p>
+        <h3>Premium Tools</h3>
       </div>
       <div className="feedme-tools-grid">
         {PREMIUM_TOOLS.map((tool) => <PremiumToolCard key={tool.title} tool={tool} />)}
@@ -732,70 +738,81 @@ export default function FeedMePOSPage() {
           gap: 0.45rem;
         }
         #page-feedme-pos .feedme-pricing-tools-panel {
-          background:
-            linear-gradient(135deg, rgba(255, 120, 35, 0.09), rgba(140, 230, 215, 0.12)),
-            #ffffff;
-          border: 1px solid rgba(85, 82, 74, 0.08);
-          border-radius: 24px;
-          box-shadow: 0 18px 55px rgba(85, 82, 74, 0.07);
-          margin-top: clamp(1.5rem, 3vw, 2.5rem);
-          padding: clamp(1rem, 2.4vw, 1.4rem);
+          background: var(--feedme-orange);
+          border-radius: 0;
+          margin: clamp(1.8rem, 3vw, 2.75rem) calc(50% - 50vw) 0;
+          padding: clamp(2.25rem, 5vw, 4rem) clamp(1rem, 4vw, 4.5rem);
         }
         #page-feedme-pos .feedme-pricing-tools-copy {
-          margin-bottom: 1rem;
+          margin: 0 auto clamp(1.8rem, 3.5vw, 2.9rem);
           max-width: 760px;
-        }
-        #page-feedme-pos .feedme-pricing-tools-copy span {
-          color: var(--feedme-orange);
-          display: inline-flex;
-          font-size: 0.78rem;
-          font-weight: 900;
-          letter-spacing: 0.12em;
-          margin-bottom: 0.35rem;
-          text-transform: uppercase;
+          text-align: center;
         }
         #page-feedme-pos .feedme-pricing-tools-copy h3 {
-          color: var(--feedme-truffle);
-          font-size: clamp(1.45rem, 2.6vw, 2.2rem);
+          color: #ffffff;
+          font-size: clamp(2rem, 4vw, 3.15rem);
           font-weight: 900;
           letter-spacing: 0;
-          line-height: 1.05;
+          line-height: 1;
           margin: 0;
           text-wrap: balance;
         }
-        #page-feedme-pos .feedme-pricing-tools-copy p {
-          color: rgba(85, 82, 74, 0.76);
-          font-size: 0.98rem;
-          line-height: 1.65;
-          margin: 0.65rem 0 0;
-          max-width: 650px;
-        }
         #page-feedme-pos .feedme-tools-grid {
+          display: grid;
+          gap: clamp(1rem, 2.1vw, 1.7rem);
           grid-template-columns: repeat(4, minmax(0, 1fr));
+          margin: 0 auto;
+          max-width: 1260px;
         }
         #page-feedme-pos .feedme-tool-card {
-          background: #fff;
-          border: 1px solid rgba(85, 82, 74, 0.1);
-          border-radius: 28px;
-          box-shadow: 0 18px 70px rgba(85, 82, 74, 0.08);
+          align-items: center;
+          background: var(--tool-bg);
+          border: 0;
+          border-radius: 14px;
+          box-shadow: none;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-height: clamp(190px, 18vw, 235px);
           overflow: hidden;
-          padding: 1.2rem;
+          padding: clamp(1.15rem, 2vw, 1.65rem);
           position: relative;
+          text-align: center;
         }
-        #page-feedme-pos .feedme-tool-mark {
-          background: linear-gradient(135deg, var(--tool-color), rgba(255, 255, 255, 0.4));
-          border-radius: 22px;
-          height: 84px;
-          margin-bottom: 1rem;
-          width: 100%;
-        }
-        #page-feedme-pos .feedme-tool-card a {
+        #page-feedme-pos .feedme-tool-card h3 {
           color: var(--tool-color);
-          display: inline-flex;
-          font-size: 0.86rem;
-          font-weight: 850;
-          margin-top: 1rem;
-          text-decoration: none;
+          font-size: clamp(1.3rem, 2.1vw, 1.72rem);
+          font-weight: 900;
+          letter-spacing: 0;
+          line-height: 0.95;
+          margin: 0;
+          max-width: 12rem;
+        }
+        #page-feedme-pos .feedme-tool-card p {
+          color: rgba(44, 42, 37, 0.88);
+          font-size: 0.82rem;
+          font-weight: 650;
+          line-height: 1.32;
+          margin: 0.85rem auto 0;
+          max-width: 15rem;
+        }
+        #page-feedme-pos .feedme-tool-price {
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          margin-top: 0.55rem;
+        }
+        #page-feedme-pos .feedme-tool-price strong {
+          color: #3d3a34;
+          font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+          font-weight: 900;
+          line-height: 1;
+        }
+        #page-feedme-pos .feedme-tool-price span {
+          color: rgba(61, 58, 52, 0.78);
+          font-size: 0.78rem;
+          font-weight: 750;
+          margin-top: 0.25rem;
         }
         #page-feedme-pos .feedme-workflow {
           display: grid;
@@ -879,11 +896,13 @@ export default function FeedMePOSPage() {
         @media (max-width: 980px) {
           #page-feedme-pos .feedme-feature-grid,
           #page-feedme-pos .feedme-plans-grid,
-          #page-feedme-pos .feedme-tools-grid,
           #page-feedme-pos .feedme-support-grid,
           #page-feedme-pos .feedme-trust-strip,
           #page-feedme-pos .feedme-workflow {
             grid-template-columns: 1fr;
+          }
+          #page-feedme-pos .feedme-tools-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
           }
           #page-feedme-pos .feedme-plan-card.is-popular {
             transform: none;
@@ -916,6 +935,9 @@ export default function FeedMePOSPage() {
           #page-feedme-pos .feedme-brand-item img {
             max-height: 110px;
             max-width: 200px;
+          }
+          #page-feedme-pos .feedme-tools-grid {
+            grid-template-columns: 1fr;
           }
           #page-feedme-pos .feedme-pricing-table .ks-compare-th:not(.ks-compare-th-left) {
             color: var(--feedme-truffle);
