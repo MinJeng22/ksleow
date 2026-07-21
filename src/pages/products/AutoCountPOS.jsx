@@ -893,21 +893,22 @@ export default function AutoCountPOSPage({ onContact }) {
             linear-gradient(180deg, var(--ks-page-mist) 0%, var(--ks-page-paper) 36%, var(--ks-page-cloud) 100%);
         }
         #page-autocount-pos .product-app-section {
-          --product-section-start: 22%;
-          --product-section-end: 78%;
+          --product-section-start: 0%;
+          --product-section-end: 100%;
           --product-section-glow: 0.48;
         }
         #page-autocount-pos .product-app-divider {
-          height: clamp(4.2rem, 7vw, 7rem) !important;
-          margin: clamp(-3.5rem, -3.8vw, -2.1rem) 0 !important;
+          height: clamp(6.5rem, 10vw, 10rem) !important;
+          margin: clamp(-5rem, -5.5vw, -3.25rem) 0 !important;
           overflow: visible;
           background: linear-gradient(180deg, var(--section-from) 0%, var(--section-to) 100%);
           background:
             linear-gradient(
               180deg,
               var(--section-from) 0%,
-              color-mix(in srgb, var(--section-from) 58%, var(--section-to) 42%) 45%,
-              color-mix(in srgb, var(--section-from) 28%, var(--section-to) 72%) 68%,
+              color-mix(in srgb, var(--section-from) 82%, var(--section-to) 18%) 22%,
+              color-mix(in srgb, var(--section-from) 50%, var(--section-to) 50%) 52%,
+              color-mix(in srgb, var(--section-from) 18%, var(--section-to) 82%) 78%,
               var(--section-to) 100%
             );
         }
@@ -923,6 +924,18 @@ export default function AutoCountPOSPage({ onContact }) {
         #page-autocount-pos .product-app-divider .section-divider {
           top: 50%;
         }
+        #page-autocount-pos .product-app-divider .section-divider-line {
+          height: 1px !important;
+          opacity: 0.12 !important;
+          filter: none !important;
+          background:
+            linear-gradient(
+              90deg,
+              transparent,
+              color-mix(in srgb, var(--section-from) 52%, var(--section-to) 48%),
+              transparent
+            ) !important;
+        }
         #page-autocount-pos .product-app-section::before {
           background:
             radial-gradient(circle at 12% 8%, rgba(228, 158, 37, 0.055), transparent 34%),
@@ -930,9 +943,9 @@ export default function AutoCountPOSPage({ onContact }) {
             linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
         }
         #page-autocount-pos .pos-feature-section {
-          --product-section-from: #fff8eb;
+          --product-section-from: var(--pos-section-features);
           --product-section-bg: var(--pos-section-features);
-          --product-section-to: var(--pos-section-promotions);
+          --product-section-to: var(--pos-section-features);
           --product-section-glow: 0.72;
         }
         #page-autocount-pos .pos-feature-section::before {
@@ -942,9 +955,9 @@ export default function AutoCountPOSPage({ onContact }) {
             linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0));
         }
         #page-autocount-pos .pos-offers-section {
-          --product-section-from: var(--pos-section-features);
+          --product-section-from: var(--pos-section-promotions);
           --product-section-bg: var(--pos-section-promotions);
-          --product-section-to: var(--pos-section-system);
+          --product-section-to: var(--pos-section-promotions);
           --product-section-glow: 0.68;
         }
         #page-autocount-pos .pos-offers-section::before {
@@ -954,32 +967,32 @@ export default function AutoCountPOSPage({ onContact }) {
             linear-gradient(180deg, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0));
         }
         #page-autocount-pos .pos-system-section {
-          --product-section-from: var(--pos-section-promotions);
+          --product-section-from: var(--pos-section-system);
           --product-section-bg: var(--pos-section-system);
-          --product-section-to: var(--pos-section-training);
+          --product-section-to: var(--pos-section-system);
         }
         #page-autocount-pos .pos-training-section {
-          --product-section-from: var(--pos-section-system);
+          --product-section-from: var(--pos-section-training);
           --product-section-bg: var(--pos-section-training);
-          --product-section-to: var(--pos-section-backend);
+          --product-section-to: var(--pos-section-training);
         }
         #page-autocount-pos .pos-backend-section {
-          --product-section-from: var(--pos-section-training);
+          --product-section-from: var(--pos-section-backend);
           --product-section-bg: var(--pos-section-backend);
-          --product-section-to: var(--pos-section-frontend);
+          --product-section-to: var(--pos-section-backend);
         }
         #page-autocount-pos .pos-frontend-section {
-          --product-section-from: var(--pos-section-backend);
+          --product-section-from: var(--pos-section-frontend);
           --product-section-bg: var(--pos-section-frontend);
-          --product-section-to: var(--pos-section-releases);
+          --product-section-to: var(--pos-section-frontend);
         }
         #page-autocount-pos .pos-releases-section {
-          --product-section-from: var(--pos-section-frontend);
+          --product-section-from: var(--pos-section-releases);
           --product-section-bg: var(--pos-section-releases);
-          --product-section-to: var(--pos-section-why);
+          --product-section-to: var(--pos-section-releases);
         }
         #page-autocount-pos #why-ksl {
-          --product-section-from: var(--pos-section-releases);
+          --product-section-from: var(--pos-section-why);
           --product-section-bg: var(--pos-section-why);
           --product-section-to: var(--pos-section-why);
         }
