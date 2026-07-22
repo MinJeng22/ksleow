@@ -341,7 +341,7 @@ const STYLES = `
 .menu-panel {
   position: fixed;
   z-index: 1101;
-  border-radius: 26px;
+  border-radius: 16px;
   padding: 18px;
   opacity: 0;
   transform: scale(0.92) translateY(-10px);
