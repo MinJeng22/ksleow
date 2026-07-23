@@ -3,7 +3,7 @@
     "version": "1.1.81",
     "rev": "Release 81",
     "date": "2026-07-07",
-    "postedLabel": "15 days ago",
+    "postedLabel": "16 days ago",
     "features": [
       "Added AUD System Currency selection to Singapore Account Book.",
       "Support importing Bank Statement PDF and update CSV File at Bank Transactions.",
@@ -302,7 +302,7 @@
     "version": "1.1.70",
     "rev": "Release 70",
     "date": "2025-07-22",
-    "postedLabel": "12 months ago",
+    "postedLabel": "about 1 year ago",
     "features": [
       "Support Automatic ‘Issue Date Time’ setting for Malaysia e-Invoice",
       "Support Default Classification Code for Malaysia e-Invoice",
@@ -584,7 +584,7 @@
     "version": "1.1.60",
     "rev": "Release 60",
     "date": "2024-10-22",
-    "postedLabel": "over 1 year ago",
+    "postedLabel": "almost 2 years ago",
     "features": [
       "Added Singapore Seamless e-Filling",
       "Enhance Consolidated e-Invoice for OneSales POS transaction to group no tax with zero tax details together"
