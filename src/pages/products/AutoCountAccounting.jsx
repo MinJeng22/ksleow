@@ -597,7 +597,7 @@ const BRAND_LOGOS = [
 
 const AC_ACCOUNTING_RETAIL_PROOF = {
   title: "Experts, Not Just Advisors",
-  body: "KS Leow Group operates 5 grocery stores using AutoCount Accounting and AutoCount POS, giving us practical experience in cashier operations and accounting. All our branches use AutoCount Accounting, so our advice comes from real daily closing, branch reporting, stock movement, and account posting work.",
+  body: "KS Leow Group operates 5 grocery stores using AutoCount Accounting and AutoCount POS, giving us practical experience in cashier operations and accounting.",
   branches: [
     {
       name: "KS Grocer Sdn Bhd",
