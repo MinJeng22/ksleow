@@ -203,6 +203,9 @@ export default function Sales2DOPage({ onContact }) {
       </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)" }}>
+          <PageSectionDivider sections={S2D_SECTIONS} id="overview" />
+        </div>
 
       {/* ── Overview + Video Guide ── */}
       <div id="overview" className="product-app-section product-app-section-paper product-app-section-to-mist">

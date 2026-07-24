@@ -780,6 +780,9 @@ export default function AutoCountAccountingPage({ onContact }) {
       </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)" }}>
+        <PageSectionDivider sections={AC_SECTIONS} id="features" />
+      </div>
 
       {/* ── Feature highlights ── */}
       <div className="product-app-section product-app-section-paper product-app-section-clean">

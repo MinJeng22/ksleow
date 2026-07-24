@@ -514,6 +514,9 @@ export default function AutoCountCloudAccountingPage() {
       </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
+      <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)" }}>
+        <PageSectionDivider sections={CLOUD_SECTIONS} id="features" />
+      </div>
       {/* ── Feature highlights ── */}
       <div className="product-app-section product-app-section-paper product-app-section-clean" style={{ '--feature-strip-bg': 'linear-gradient(180deg, #16a14b 0%, #0d7032 100%)', '--feature-strip-shadow': '0 0 16px rgba(22, 161, 75, 0.4)' }}>
         <FeatureShowcase features={FEATURES} />
@@ -865,4 +868,3 @@ function CompareList({ title, items, type, copy, releases }) {
     </div>
   );
 }
-

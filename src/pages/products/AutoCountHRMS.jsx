@@ -175,6 +175,9 @@ export default function AutoCountHRMSPage({ onContact }) {
       </div>
 
       <main className="pinned-page-content product-app-content">
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)" }}>
+          <PageSectionDivider sections={HRMS_SECTIONS} id="training" />
+        </div>
         <div className="product-app-section product-app-section-paper">
           <div id="training">
             <AutoCountTrainingWebGL
