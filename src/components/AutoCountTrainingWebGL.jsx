@@ -99,6 +99,7 @@ function preloadImage(src) {
 }
 
 function warmMorphImage(videoId, thumbnailUrl) {
+  if (!thumbnailUrl) return Promise.resolve();
   const decodePromise = preloadImage(thumbnailUrl || getInitialThumbnailUrl(videoId));
   const maxWait = new Promise(resolve => window.setTimeout(resolve, 90));
   return Promise.race([decodePromise, maxWait]);
@@ -177,7 +178,7 @@ function getTabletScreenRadius(rect) {
   return isDesktopTabletRect(rect) ? 10 : 10;
 }
 
-function MorphingTutorialPreview({ direction, videoId, thumbnailUrl, thumbnailCropScale = 1, thumbnailObjectPosition = 'center center', startRect, endRect, onComplete, isSettling, playIconColor = '#2f315a' }) {
+function MorphingTutorialPreview({ direction, videoId, mediaSrc, mediaType = 'image', thumbnailUrl, thumbnailCropScale = 1, thumbnailObjectPosition = 'center center', startRect, endRect, onComplete, isSettling, playIconColor = '#2f315a' }) {
   const [active, setActive] = useState(false);
   const completedRef = useRef(false);
   const duration = direction === 'open' ? MORPH_OPEN_MS : MORPH_CLOSE_MS;
@@ -295,20 +296,37 @@ function MorphingTutorialPreview({ direction, videoId, thumbnailUrl, thumbnailCr
               transitionTimingFunction: APPLE_EASE,
             }}
           >
-            <img
-              className="tutorial-morph-image"
-              src={thumbnailUrl || getInitialThumbnailUrl(videoId)}
-              alt=""
-              decoding="async"
-              loading="eager"
-              fetchpriority="high"
-              crossOrigin="anonymous"
-              style={{
-                '--thumbnail-morph-start-scale': thumbnailStartScale,
-                '--thumbnail-morph-end-scale': thumbnailEndScale,
-                '--thumbnail-position': thumbnailObjectPosition,
-              }}
-            />
+            {mediaType === 'video' ? (
+              <video
+                className="tutorial-morph-image"
+                src={mediaSrc}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                style={{
+                  '--thumbnail-morph-start-scale': thumbnailStartScale,
+                  '--thumbnail-morph-end-scale': thumbnailEndScale,
+                  '--thumbnail-position': thumbnailObjectPosition,
+                }}
+              />
+            ) : (
+              <img
+                className="tutorial-morph-image"
+                src={mediaSrc || thumbnailUrl || getInitialThumbnailUrl(videoId)}
+                alt=""
+                decoding="async"
+                loading="eager"
+                fetchpriority="high"
+                crossOrigin="anonymous"
+                style={{
+                  '--thumbnail-morph-start-scale': thumbnailStartScale,
+                  '--thumbnail-morph-end-scale': thumbnailEndScale,
+                  '--thumbnail-position': thumbnailObjectPosition,
+                }}
+              />
+            )}
             <div className="tutorial-morph-dim" />
             <div className="tutorial-morph-play tutorial-play-button">
               <svg className="tutorial-play-icon" width="24" height="24" viewBox="0 0 24 24" fill={playIconColor} aria-hidden="true">
@@ -324,6 +342,9 @@ function MorphingTutorialPreview({ direction, videoId, thumbnailUrl, thumbnailCr
 
 export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCount Accounting Quick‑Start Guide', themeColor = '#80c31e', themeHoverColor = '#8bc34a', activeTabBg = '#2f315a', playIconColor = '#2f315a', playBtnBg = '#e8c97a' }) {
   const videos = customVideos || VIDEOS;
+  const autoAdvanceMs = arguments[0]?.autoAdvanceMs || 0;
+  const actionLabel = arguments[0]?.actionLabel;
+  const actionHref = arguments[0]?.actionHref;
   const [activeVideo, setActiveVideo] = useState(videos[0].id);
   const [playerOpen, setPlayerOpen] = useState(false);
   const [iframeMounted, setIframeMounted] = useState(false);
@@ -336,8 +357,9 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   const [shadowIn, setShadowIn] = useState(false);
   const [closingHandoff, setClosingHandoff] = useState(false);
   const [isMobileView, setIsMobileView] = useState(false);
+  const [isSectionInView, setIsSectionInView] = useState(false);
   const [thumbnailUrls, setThumbnailUrls] = useState(() => (
-    Object.fromEntries(videos.map(video => [video.id, video.customThumbnail || getInitialThumbnailUrl(video.id)]))
+    Object.fromEntries(videos.map(video => [video.id, video.customThumbnail || (video.src ? '' : getInitialThumbnailUrl(video.id))]))
   ));
   const tabletRef = useRef(null);
   const openTargetRef = useRef(null);
@@ -356,9 +378,18 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   const lastClosedStageHeightRef = useRef(null);
   const preparingMorphRef = useRef(false);
 
+  const getVideoMeta = useCallback(
+    videoId => videos.find(video => video.id === videoId) || videos[0],
+    [videos]
+  );
+
   const getResolvedThumbnail = useCallback(
-    videoId => thumbnailUrls[videoId] || getInitialThumbnailUrl(videoId),
-    [thumbnailUrls]
+    videoId => {
+      const video = getVideoMeta(videoId);
+      if (video?.customThumbnail) return video.customThumbnail;
+      return thumbnailUrls[videoId] || (video?.src ? '' : getInitialThumbnailUrl(videoId));
+    },
+    [getVideoMeta, thumbnailUrls]
   );
 
   useEffect(() => {
@@ -367,6 +398,35 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setIsSectionInView(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsSectionInView(entry.isIntersecting),
+      { threshold: 0.35 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!autoAdvanceMs || videos.length <= 1 || !isSectionInView || playerOpen || morph) return undefined;
+
+    const timer = window.setTimeout(() => {
+      setActiveVideo(current => {
+        const currentIndex = videos.findIndex(video => video.id === current);
+        return videos[(currentIndex + 1) % videos.length].id;
+      });
+    }, autoAdvanceMs);
+
+    return () => window.clearTimeout(timer);
+  }, [activeVideo, autoAdvanceMs, isSectionInView, morph, playerOpen, videos]);
 
   useEffect(() => {
     let cancelled = false;
@@ -379,6 +439,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
         }
         return;
       }
+      if (video.src) return;
       resolveThumbnailUrl(video.id).then(url => {
         if (cancelled) return;
         setThumbnailUrls(current => (
@@ -392,7 +453,8 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   }, [videos]);
 
   useEffect(() => {
-    preloadImage(getResolvedThumbnail(activeVideo));
+    const thumbnail = getResolvedThumbnail(activeVideo);
+    if (thumbnail) preloadImage(thumbnail);
   }, [activeVideo, getResolvedThumbnail]);
 
   useEffect(() => () => {
@@ -671,8 +733,14 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
   };
 
   const activeVideoMeta = videos.find(video => video.id === activeVideo) || videos[0];
+  const isDirectVideo = Boolean(activeVideoMeta.src);
   const activeThumbnailCropScale = Math.max(1, activeVideoMeta.thumbnailCropScale || 1);
   const activeThumbnailPosition = activeVideoMeta.thumbnailObjectPosition || 'center center';
+  const activePreviewSrc = getResolvedThumbnail(activeVideo);
+  const activeMediaType = isDirectVideo && !activePreviewSrc ? 'video' : 'image';
+  const activeMediaSrc = activeMediaType === 'video' ? activeVideoMeta.src : activePreviewSrc;
+  const resolvedActionLabel = actionLabel || (isDirectVideo ? 'Open Video' : 'Watch on Youtube');
+  const resolvedActionHref = actionHref || (isDirectVideo ? activeVideoMeta.src : `https://www.youtube.com/watch?v=${activeVideo}`);
 
   const renderPlayerShell = () => (
     <div ref={videoRef} className="tutorial-player-shell">
@@ -696,28 +764,58 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
         </button>
 
       {iframeMounted && (
-        <iframe
-          src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0&modestbranding=1${activeVideoMeta.start ? '&start=' + activeVideoMeta.start : ''}${activeVideoMeta.playlistId ? '&list=' + activeVideoMeta.playlistId : ''}`}
-          title="AutoCount Training Video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          onLoad={handleIframeLoad}
-        />
+        isDirectVideo ? (
+          <video
+            src={activeVideoMeta.src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls
+            preload="metadata"
+            aria-label={activeVideoMeta.label}
+            onLoadedData={handleIframeLoad}
+          />
+        ) : (
+          <iframe
+            src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1&rel=0&modestbranding=1${activeVideoMeta.start ? '&start=' + activeVideoMeta.start : ''}${activeVideoMeta.playlistId ? '&list=' + activeVideoMeta.playlistId : ''}`}
+            title="AutoCount Training Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            onLoad={handleIframeLoad}
+          />
+        )
       )}
 
         <div className={`tutorial-video-cover${iframeReady && !closingHandoff ? ' is-hidden' : ''}${closingHandoff ? ' is-closing-handoff' : ''}`}>
-          <img
-            src={getResolvedThumbnail(activeVideo)}
-            alt=""
-            decoding="async"
-            loading="eager"
-            fetchpriority="high"
-            crossOrigin="anonymous"
-            style={{
-              objectPosition: activeThumbnailPosition,
-              transform: `scale(${activeThumbnailCropScale})`,
-            }}
-          />
+          {activeMediaType === 'video' ? (
+            <video
+              src={activeMediaSrc}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-hidden="true"
+              style={{
+                objectPosition: activeThumbnailPosition,
+                transform: `scale(${activeThumbnailCropScale})`,
+              }}
+            />
+          ) : (
+            <img
+              src={activeMediaSrc}
+              alt=""
+              decoding="async"
+              loading="eager"
+              fetchpriority="high"
+              crossOrigin="anonymous"
+              style={{
+                objectPosition: activeThumbnailPosition,
+                transform: `scale(${activeThumbnailCropScale})`,
+              }}
+            />
+          )}
         </div>
       </div>
     </div>
@@ -787,16 +885,19 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
         .tutorial-video-frame.shadow-in {
           box-shadow: ${VIDEO_SHADOW};
         }
-        .tutorial-video-frame iframe {
+        .tutorial-video-frame iframe,
+        .tutorial-video-frame > video {
           position: absolute;
           inset: 0;
           width: 100%;
           height: 100%;
           border: none;
+          object-fit: cover;
           opacity: 0;
           transition: opacity 820ms cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .tutorial-video-frame.is-ready iframe {
+        .tutorial-video-frame.is-ready iframe,
+        .tutorial-video-frame.is-ready > video {
           opacity: 1;
         }
         .tutorial-video-cover {
@@ -815,7 +916,8 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
           opacity: 1;
           transition-duration: 140ms;
         }
-        .tutorial-video-cover img {
+        .tutorial-video-cover img,
+        .tutorial-video-cover video {
           width: 100%;
           height: 100%;
           object-fit: cover;
@@ -1113,22 +1215,42 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
                   }}
                 >
                   <div className="tutorial-tablet-screen">
-                    <img
-                      src={getResolvedThumbnail(activeVideo)}
-                      alt="AutoCount Tutorial"
-                      loading="eager"
-                      fetchpriority="high"
-                      crossOrigin="anonymous"
-                      decoding="async"
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: activeThumbnailPosition,
-                        display: 'block',
-                        transform: `scale(${activeThumbnailCropScale})`,
-                      }}
-                    />
+                    {activeMediaType === 'video' ? (
+                      <video
+                        src={activeMediaSrc}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        aria-label={activeVideoMeta.label}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          objectPosition: activeThumbnailPosition,
+                          display: 'block',
+                          transform: `scale(${activeThumbnailCropScale})`,
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={activeMediaSrc}
+                        alt="AutoCount Tutorial"
+                        loading="eager"
+                        fetchpriority="high"
+                        crossOrigin="anonymous"
+                        decoding="async"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          objectPosition: activeThumbnailPosition,
+                          display: 'block',
+                          transform: `scale(${activeThumbnailCropScale})`,
+                        }}
+                      />
+                    )}
                     <div className="tutorial-tablet-dim">
                       <div className="tutorial-play-button">
                         <svg className="tutorial-play-icon" width="24" height="24" viewBox="0 0 24 24" fill={playIconColor} aria-hidden="true">
@@ -1186,7 +1308,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
                   </p>
                   <div className="tutorial-actions" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap', maxWidth: 480 }}>
                     <a
-                      href={`https://www.youtube.com/watch?v=${activeVideo}`}
+                      href={resolvedActionHref}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => {
@@ -1206,7 +1328,7 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
                       <svg className="tutorial-play-icon" width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
                         <polygon points="5,3 19,12 5,21" />
                       </svg>
-                      Watch on Youtube
+                      {resolvedActionLabel}
                     </a>
 
                   </div>
@@ -1223,6 +1345,8 @@ export default function AutoCountTrainingWebGL({ customVideos, title = 'AutoCoun
           key={`${morph.direction}-${morph.videoId}`}
           direction={morph.direction}
           videoId={morph.videoId}
+          mediaType={(videos.find(video => video.id === morph.videoId)?.src && !getResolvedThumbnail(morph.videoId)) ? 'video' : 'image'}
+          mediaSrc={(videos.find(video => video.id === morph.videoId)?.src && !getResolvedThumbnail(morph.videoId)) ? videos.find(video => video.id === morph.videoId)?.src : getResolvedThumbnail(morph.videoId)}
           thumbnailUrl={getResolvedThumbnail(morph.videoId)}
           thumbnailCropScale={Math.max(1, (videos.find(video => video.id === morph.videoId) || activeVideoMeta).thumbnailCropScale || 1)}
           thumbnailObjectPosition={(videos.find(video => video.id === morph.videoId) || activeVideoMeta).thumbnailObjectPosition || 'center center'}

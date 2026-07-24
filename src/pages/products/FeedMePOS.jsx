@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import SectionSidebar from "../../components/SectionSidebar.jsx";
 import { PinnedHeroStage } from "../../components/PinnedHeroPage.jsx";
@@ -125,18 +125,21 @@ const FEEDME_FEATURE_VIDEOS = [
     label: "User-Friendly Interface",
     description: "A clean POS workspace designed to help restaurant teams learn quickly, serve faster, and keep daily operations simple.",
     src: "https://pass-cors.feedme-farm.workers.dev/?target=https%3A%2F%2Fdrive.google.com%2Fuc%3Fexport%3Ddownload%26id%3D1SHFFDo663Etfi5smJ9uAhWG3yPThiiZ9",
+    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2.5" /><path d="M8 20h8" /><path d="M12 18v2" /><path d="M8 9h8" /><path d="M8 13h5" /></svg>,
   },
   {
     id: "modes",
     label: "Dark and Light Modes",
     description: "Switch between dark and light interfaces so the POS screen stays comfortable across service counters, kitchens, and different lighting conditions.",
     src: "https://pass-cors.feedme-farm.workers.dev/?target=https%3A%2F%2Fdrive.google.com%2Fuc%3Fexport%3Ddownload%26id%3D12pG7sjPCHsUCgFXCQkzEb_JoLGtR5xu5",
+    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z" /><path d="M12 3v18" /></svg>,
   },
   {
     id: "language",
     label: "Multi-Language Selection",
     description: "Support multilingual teams with quick language switching, making cashier training and day-to-day usage easier across your restaurant crew.",
     src: "https://pass-cors.feedme-farm.workers.dev/?target=https%3A%2F%2Fdrive.google.com%2Fuc%3Fexport%3Ddownload%26id%3D1GabZA6Vn7nu7wlmI1e27X8qL9NOT40UR",
+    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3c2.2 2.4 3.3 5.4 3.3 9S14.2 18.6 12 21" /><path d="M12 3c-2.2 2.4-3.3 5.4-3.3 9s1.1 6.6 3.3 9" /></svg>,
   },
 ];
 
@@ -595,91 +598,6 @@ function FeedMeOfficialOverview() {
         )}
       </div>
     </section>
-  );
-}
-
-function FeedMeFeatureVideos() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isInView, setIsInView] = useState(false);
-  const sectionRef = useRef(null);
-  const activeVideo = FEEDME_FEATURE_VIDEOS[activeIndex] || FEEDME_FEATURE_VIDEOS[0];
-
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return undefined;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.35 }
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isInView) return undefined;
-
-    const timer = window.setTimeout(() => {
-      setActiveIndex((current) => (current + 1) % FEEDME_FEATURE_VIDEOS.length);
-    }, 7500);
-
-    return () => window.clearTimeout(timer);
-  }, [activeIndex, isInView]);
-
-  return (
-    <div ref={sectionRef} className="content-wrap feedme-feature-video-wrap">
-      <SectionTitle
-        eyebrow="Official FeedMe POS Features"
-        title="Discover the Future of Transactions"
-        body="A quick look at the interface details that make FeedMe POS simple for restaurants to learn, operate, and scale."
-        centered
-      />
-
-      <div className="feedme-feature-video-stage">
-        <div className="feedme-feature-video-frame">
-          <video
-            key={activeVideo.src}
-            src={activeVideo.src}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label={activeVideo.label}
-          />
-        </div>
-
-        <div className="feedme-feature-video-copy">
-          <div className="feedme-feature-video-tabs" role="tablist" aria-label="FeedMe POS feature videos">
-            {FEEDME_FEATURE_VIDEOS.map((video, index) => {
-              const isActive = index === activeIndex;
-
-              return (
-                <button
-                  key={video.id}
-                  type="button"
-                  className={`feedme-feature-video-tab${isActive ? " is-active" : ""}`}
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setActiveIndex(index)}
-                >
-                  <span>{video.label}</span>
-                  <i className="feedme-feature-video-progress" aria-hidden="true">
-                    {isActive && <b key={video.id} />}
-                  </i>
-                </button>
-              );
-            })}
-          </div>
-
-          <p>{activeVideo.description}</p>
-          <a href={WA_LINK} target="_blank" rel="noreferrer" className="ks-btn ks-btn-feedme">
-            Ask KSL About FeedMe POS
-          </a>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -1414,110 +1332,6 @@ export default function FeedMePOSPage() {
           justify-content: center;
           width: 44px;
         }
-        #page-feedme-pos .feedme-feature-video-section {
-          background:
-            radial-gradient(circle at 18% 18%, rgba(255, 120, 35, 0.13), transparent 32%),
-            linear-gradient(180deg, #fef6ed 0%, #fff7ee 100%);
-        }
-        #page-feedme-pos .feedme-feature-video-wrap {
-          display: grid;
-          gap: clamp(1.65rem, 4vw, 2.75rem);
-        }
-        #page-feedme-pos .feedme-feature-video-stage {
-          align-items: stretch;
-          display: grid;
-          gap: clamp(1rem, 2.5vw, 1.65rem);
-          grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.75fr);
-          margin: 0 auto;
-          max-width: 1180px;
-          width: 100%;
-        }
-        #page-feedme-pos .feedme-feature-video-frame {
-          background: #111111;
-          border: 14px solid #111111;
-          border-radius: 28px;
-          box-shadow: 0 24px 60px rgba(65, 49, 35, 0.18);
-          min-height: 360px;
-          overflow: hidden;
-          position: relative;
-        }
-        #page-feedme-pos .feedme-feature-video-frame video {
-          display: block;
-          height: 100%;
-          inset: 0;
-          object-fit: cover;
-          position: absolute;
-          width: 100%;
-        }
-        #page-feedme-pos .feedme-feature-video-copy {
-          align-content: center;
-          background: rgba(255, 255, 255, 0.78);
-          border: 1px solid rgba(85, 82, 74, 0.1);
-          border-radius: 28px;
-          box-shadow: 0 18px 46px rgba(85, 82, 74, 0.08);
-          display: grid;
-          gap: 1.15rem;
-          padding: clamp(1.25rem, 2.7vw, 2rem);
-        }
-        #page-feedme-pos .feedme-feature-video-tabs {
-          display: grid;
-          gap: 0.8rem;
-        }
-        #page-feedme-pos .feedme-feature-video-tab {
-          background: #ffffff;
-          border: 1px solid rgba(85, 82, 74, 0.12);
-          border-radius: 18px;
-          color: var(--feedme-truffle);
-          display: grid;
-          gap: 0.65rem;
-          min-height: 72px;
-          padding: 0.95rem 1rem;
-          text-align: left;
-          transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-        }
-        #page-feedme-pos .feedme-feature-video-tab span {
-          font-size: 1rem;
-          font-weight: 850;
-          line-height: 1.18;
-        }
-        #page-feedme-pos .feedme-feature-video-tab.is-active {
-          border-color: rgba(255, 120, 35, 0.48);
-          box-shadow: 0 14px 28px rgba(255, 120, 35, 0.14);
-          color: var(--feedme-orange);
-          transform: translateY(-1px);
-        }
-        #page-feedme-pos .feedme-feature-video-progress {
-          background: rgba(255, 120, 35, 0.16);
-          border-radius: 999px;
-          display: block;
-          height: 5px;
-          overflow: hidden;
-          width: 100%;
-        }
-        #page-feedme-pos .feedme-feature-video-progress b {
-          animation: feedme-feature-video-progress 7.5s linear both;
-          background: var(--feedme-orange);
-          border-radius: inherit;
-          display: block;
-          height: 100%;
-          transform-origin: left center;
-          width: 100%;
-        }
-        #page-feedme-pos .feedme-feature-video-copy p {
-          color: rgba(85, 82, 74, 0.76);
-          font-size: 0.98rem;
-          font-weight: 600;
-          line-height: 1.64;
-          margin: 0;
-        }
-        @keyframes feedme-feature-video-progress {
-          from {
-            transform: scaleX(0);
-          }
-          to {
-            transform: scaleX(1);
-          }
-        }
         #page-feedme-pos .feedme-support-grid {
           display: grid;
           gap: 1rem;
@@ -1555,14 +1369,9 @@ export default function FeedMePOSPage() {
           #page-feedme-pos .feedme-feature-grid,
           #page-feedme-pos .feedme-plans-grid,
           #page-feedme-pos .feedme-support-grid,
-          #page-feedme-pos .feedme-feature-video-stage,
           #page-feedme-pos .feedme-trust-strip,
           #page-feedme-pos .feedme-workflow {
             grid-template-columns: 1fr;
-          }
-          #page-feedme-pos .feedme-feature-video-frame {
-            aspect-ratio: 16 / 10;
-            min-height: 0;
           }
           #page-feedme-pos .feedme-tools-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1601,13 +1410,6 @@ export default function FeedMePOSPage() {
           }
           #page-feedme-pos .feedme-tools-grid {
             grid-template-columns: 1fr;
-          }
-          #page-feedme-pos .feedme-feature-video-frame {
-            border-width: 9px;
-            border-radius: 22px;
-          }
-          #page-feedme-pos .feedme-feature-video-copy {
-            border-radius: 22px;
           }
           #page-feedme-pos .feedme-pricing-table .ks-compare-th:not(.ks-compare-th-left) {
             color: var(--feedme-truffle);
@@ -1832,8 +1634,19 @@ export default function FeedMePOSPage() {
         <FeedMeTrustedBrands />
         <FeedMeOfficialOverview />
 
-        <section id="features" className="product-app-section feedme-feature-video-section">
-          <FeedMeFeatureVideos />
+        <section id="features" className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-paper">
+          <AutoCountTrainingWebGL
+            customVideos={FEEDME_FEATURE_VIDEOS}
+            title="Discover the Future of Transactions"
+            themeColor={FEEDME_ORANGE}
+            themeHoverColor="#e66518"
+            activeTabBg={FEEDME_TRUFFLE}
+            playIconColor="#ffffff"
+            playBtnBg={FEEDME_ORANGE}
+            autoAdvanceMs={7500}
+            actionLabel="Ask KSL About FeedMe POS"
+            actionHref={WA_LINK}
+          />
         </section>
 
         <section className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-paper">
