@@ -407,12 +407,24 @@ function FeatureCard({ item }) {
   );
 }
 
-function PremiumToolCard({ tool }) {
+function PremiumToolCard({ tool, onOpenMiniProgram }) {
+  const isMiniProgram = tool.title === "Mini Program Premium";
   const waMsg = encodeURIComponent(`Hi KS Support Team, I am interested in ${tool.title} for FeedMe POS. Can you share more details?`);
   const waUrl = `https://wa.me/60179052323?text=${waMsg}`;
 
+  const handleClick = (e) => {
+    if (isMiniProgram) {
+      e.preventDefault();
+      onOpenMiniProgram?.();
+    }
+  };
+
   return (
-    <article className="feedme-tool-card" style={{ "--tool-color": tool.color, "--tool-bg": tool.background }}>
+    <article
+      className="feedme-tool-card"
+      style={{ "--tool-color": tool.color, "--tool-bg": tool.background, cursor: isMiniProgram ? "pointer" : "default" }}
+      onClick={isMiniProgram ? handleClick : undefined}
+    >
       <h3>{tool.title}</h3>
       <p>{tool.text}</p>
       {tool.price && (
@@ -422,18 +434,19 @@ function PremiumToolCard({ tool }) {
         </div>
       )}
       <a
-        href={waUrl}
-        target="_blank"
-        rel="noreferrer"
+        href={isMiniProgram ? "#" : waUrl}
+        target={isMiniProgram ? undefined : "_blank"}
+        rel={isMiniProgram ? undefined : "noreferrer"}
+        onClick={handleClick}
         className="feedme-tool-btn"
       >
-        {tool.buttonLabel || "Learn More"}
+        {isMiniProgram ? "View Comparison" : (tool.buttonLabel || "Learn More")}
       </a>
     </article>
   );
 }
 
-function PremiumToolsPanel() {
+function PremiumToolsPanel({ onOpenMiniProgram }) {
   return (
     <div className="feedme-tools-section" style={{ marginTop: "3.5rem" }}>
       <SectionTitle
@@ -441,7 +454,175 @@ function PremiumToolsPanel() {
         centered
       />
       <div className="feedme-tools-grid">
-        {PREMIUM_TOOLS.map((tool) => <PremiumToolCard key={tool.title} tool={tool} />)}
+        {PREMIUM_TOOLS.map((tool) => (
+          <PremiumToolCard key={tool.title} tool={tool} onOpenMiniProgram={onOpenMiniProgram} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MiniProgramModal({ open, onClose }) {
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+      document.body.classList.add("has-active-modal");
+    } else {
+      document.body.style.overflow = "";
+      document.body.classList.remove("has-active-modal");
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.classList.remove("has-active-modal");
+    };
+  }, [open]);
+
+  if (!open) return null;
+
+  const waMsg = encodeURIComponent("Hi KS Support Team, I am interested in FeedMe Mini Program Premium Plans. Could you provide more details?");
+  const waUrl = `https://wa.me/60179052323?text=${waMsg}`;
+
+  return (
+    <div
+      className="partner-modal-backdrop"
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 1100,
+        background: "rgba(10,11,24,0.68)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1.25rem",
+        backdropFilter: "blur(6px)",
+      }}
+    >
+      <div
+        className="partner-modal-shell"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "relative",
+          width: "min(880px, 96vw)",
+          maxHeight: "92vh",
+          overflowY: "auto",
+          borderRadius: 26,
+          background: "#fffdf8",
+          boxShadow: "0 36px 100px rgba(10,11,24,0.36)",
+          padding: "clamp(1.5rem, 3.5vw, 2.5rem)",
+          animation: "modalIn 0.26s cubic-bezier(0.34,1.56,0.64,1)",
+        }}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close modal"
+          style={{
+            position: "absolute",
+            top: "1.25rem",
+            right: "1.25rem",
+            width: 36,
+            height: 36,
+            borderRadius: "50%",
+            background: "#ffffff",
+            border: "1px solid rgba(85,82,74,0.15)",
+            display: "grid",
+            placeItems: "center",
+            cursor: "pointer",
+            color: "var(--feedme-truffle)",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
+            zIndex: 10,
+          }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
+        <div style={{ textAlign: "center", marginBottom: "1.8rem" }}>
+          <h2 style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.3rem)", fontWeight: 900, color: "var(--feedme-truffle)", margin: "0 0 0.4rem", letterSpacing: "-0.01em" }}>
+            <span style={{ color: "var(--feedme-orange)" }}>Mini Program</span> Pricing Plans
+          </h2>
+          <p style={{ fontSize: "0.95rem", fontWeight: 650, color: "rgba(85, 82, 74, 0.72)", margin: 0 }}>
+            Empowering Restaurant Growth
+          </p>
+        </div>
+
+        <div style={{ background: "#ffffff", borderRadius: 16, border: "1px solid rgba(85, 82, 74, 0.08)", boxShadow: "0 10px 30px rgba(47, 49, 90, 0.05)", overflowX: "auto", marginBottom: "1.5rem" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", minWidth: "620px" }}>
+            <thead>
+              <tr style={{ borderBottom: "1px solid rgba(85, 82, 74, 0.08)", background: "#faf7f2" }}>
+                <th style={{ padding: "1rem 1.25rem", fontSize: "0.88rem", fontWeight: 800, color: "#2c2a25" }}>Plan</th>
+                <th style={{ padding: "1rem 1.25rem", fontSize: "0.88rem", fontWeight: 800, color: "#6b6f91", textAlign: "center" }}>Lite</th>
+                <th style={{ padding: "1rem 1.25rem", fontSize: "0.88rem", fontWeight: 800, color: "#6b6f91", textAlign: "center" }}>Standard</th>
+                <th style={{ padding: "1rem 1.25rem", fontSize: "0.88rem", fontWeight: 800, color: "var(--feedme-orange)", textAlign: "center" }}>Premium</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style={{ borderBottom: "1px solid rgba(85, 82, 74, 0.06)" }}>
+                <td style={{ padding: "0.9rem 1.25rem", fontWeight: 800, color: "#2c2a25", fontSize: "0.88rem" }}>Price</td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "0.85rem", fontWeight: 700, color: "rgba(85, 82, 74, 0.8)" }}>Not Available</td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "0.85rem", fontWeight: 700, color: "rgba(85, 82, 74, 0.85)" }}>Available for POS User (Standard & Premium)</td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "0.85rem", fontWeight: 800, color: "#2c2a25" }}>Start from RM249 per month</td>
+              </tr>
+              <tr style={{ borderBottom: "1px solid rgba(85, 82, 74, 0.06)", background: "rgba(254, 246, 237, 0.35)" }}>
+                <td style={{ padding: "0.9rem 1.25rem", fontWeight: 700, color: "#2c2a25", fontSize: "0.88rem" }}>Built-in Template</td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#ef4e23", fontWeight: 900 }}>✕</span></td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#22c55e", fontWeight: 900 }}>✓</span></td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#22c55e", fontWeight: 900 }}>✓</span></td>
+              </tr>
+              <tr style={{ borderBottom: "1px solid rgba(85, 82, 74, 0.06)" }}>
+                <td style={{ padding: "0.9rem 1.25rem", fontWeight: 700, color: "#2c2a25", fontSize: "0.88rem" }}>Add to Home Screen</td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#ef4e23", fontWeight: 900 }}>✕</span></td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "0.85rem", color: "rgba(85, 82, 74, 0.85)", fontWeight: 650 }}>with FeedMe Logo</td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "0.85rem", fontWeight: 750, color: "#2c2a25" }}>without FeedMe Logo</td>
+              </tr>
+              <tr style={{ borderBottom: "1px solid rgba(85, 82, 74, 0.06)", background: "rgba(254, 246, 237, 0.35)" }}>
+                <td style={{ padding: "0.9rem 1.25rem", fontWeight: 700, color: "#2c2a25", fontSize: "0.88rem" }}>Link to Order and Member</td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#ef4e23", fontWeight: 900 }}>✕</span></td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#22c55e", fontWeight: 900 }}>✓</span></td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#22c55e", fontWeight: 900 }}>✓</span></td>
+              </tr>
+              <tr style={{ borderBottom: "1px solid rgba(85, 82, 74, 0.06)" }}>
+                <td style={{ padding: "0.9rem 1.25rem", fontWeight: 700, color: "#2c2a25", fontSize: "0.88rem" }}>Custom Template Builder</td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#ef4e23", fontWeight: 900 }}>✕</span></td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#ef4e23", fontWeight: 900 }}>✕</span></td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#22c55e", fontWeight: 900 }}>✓</span></td>
+              </tr>
+              <tr>
+                <td style={{ padding: "0.9rem 1.25rem", fontWeight: 700, color: "#2c2a25", fontSize: "0.88rem" }}>Additional Custom Page</td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#ef4e23", fontWeight: 900 }}>✕</span></td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#ef4e23", fontWeight: 900 }}>✕</span></td>
+                <td style={{ padding: "0.9rem 1.25rem", textAlign: "center", fontSize: "1.1rem" }}><span style={{ color: "#22c55e", fontWeight: 900 }}>✓</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style={{ textAlign: "center" }}>
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="ks-btn"
+            style={{
+              background: "var(--feedme-orange)",
+              color: "#ffffff",
+              borderRadius: 50,
+              padding: "0.75rem 2rem",
+              fontSize: "0.9rem",
+              fontWeight: 800,
+              textDecoration: "none",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              boxShadow: "0 10px 25px rgba(255, 101, 25, 0.28)",
+            }}
+          >
+            Enquire Mini Program Plans
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -450,6 +631,7 @@ function PremiumToolsPanel() {
 export default function FeedMePOSPage() {
   const [trialOpen, setTrialOpen] = useState(false);
   const [tableOpen, setTableOpen] = useState(false);
+  const [miniProgramOpen, setMiniProgramOpen] = useState(false);
   useFavicon(FEEDME_LOGO);
 
   useEffect(() => {
@@ -1223,7 +1405,7 @@ export default function FeedMePOSPage() {
               </div>
             )}
 
-            <PremiumToolsPanel />
+            <PremiumToolsPanel onOpenMiniProgram={() => setMiniProgramOpen(true)} />
           </div>
         </section>
 
@@ -1301,6 +1483,11 @@ export default function FeedMePOSPage() {
           <>Reserve around <strong>30 minutes</strong> for basic setup and menu configuration.</>,
           <>Message our Support Team to arrange a suitable installation time.</>
         ]}
+      />
+
+      <MiniProgramModal
+        open={miniProgramOpen}
+        onClose={() => setMiniProgramOpen(false)}
       />
     </div>
   );
