@@ -466,20 +466,20 @@ export default function FeedMePOSPage() {
         #page-feedme-pos .feedme-brand-grid {
           align-items: center;
           display: grid;
-          gap: clamp(1.5rem, 4vw, 3.5rem);
+          gap: clamp(1rem, 2.5vw, 2rem);
           grid-template-columns: repeat(5, minmax(0, 1fr));
         }
         #page-feedme-pos .feedme-brand-item {
           align-items: center;
           display: flex;
           justify-content: center;
-          min-height: 130px;
-          padding: clamp(0.5rem, 1.5vw, 1.5rem);
+          min-height: 90px;
+          padding: clamp(0.25rem, 1vw, 0.75rem);
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 110px;
+          max-height: 90px;
           max-width: 100%;
           object-fit: contain;
           width: 100%;
