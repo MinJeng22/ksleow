@@ -27,16 +27,16 @@ const HERO_PHOTO = "/images/products/feedme-pos-showcase.webp";
 const FEEDME_LOGO = "/images/products/feedme-icon.webp";
 
 const FEEDME_BRANDS = [
-  "/images/feedme-brands/brand-1.webp",
-  "/images/feedme-brands/brand-2.webp",
-  "/images/feedme-brands/brand-3.webp",
-  "/images/feedme-brands/brand-4.webp",
-  "/images/feedme-brands/brand-5.webp",
-  "/images/feedme-brands/brand-6.webp",
-  "/images/feedme-brands/brand-7.webp",
-  "/images/feedme-brands/brand-8.webp",
-  "/images/feedme-brands/brand-9.webp",
-  "/images/feedme-brands/brand-10.png",
+  { src: "/images/feedme-brands/brand-1.webp", alt: "PappaRoti", scale: 0.95 },
+  { src: "/images/feedme-brands/brand-2.webp", alt: "KyoChon 1991", scale: 1.0 },
+  { src: "/images/feedme-brands/brand-3.webp", alt: "Hock Kee Kopitiam", scale: 1.15 },
+  { src: "/images/feedme-brands/brand-4.webp", alt: "Mixue", scale: 1.05 },
+  { src: "/images/feedme-brands/brand-5.webp", alt: "Jom Cha", scale: 1.25 },
+  { src: "/images/feedme-brands/brand-6.webp", alt: "Palsaik Korean BBQ", scale: 1.35 },
+  { src: "/images/feedme-brands/brand-7.webp", alt: "Penang Chendul", scale: 1.55 },
+  { src: "/images/feedme-brands/brand-8.webp", alt: "The Toast", scale: 1.4 },
+  { src: "/images/feedme-brands/brand-9.webp", alt: "Sushi Plus", scale: 1.5 },
+  { src: "/images/feedme-brands/brand-10.png", alt: "Shu Guo Yin Xiang", scale: 1.55 },
 ];
 
 const FEEDME_VIDEOS = [
@@ -1149,9 +1149,15 @@ export default function FeedMePOSPage() {
 
             <div className="feedme-brand-panel">
               <div className="feedme-brand-grid">
-                {FEEDME_BRANDS.slice(0, 10).map((src, index) => (
-                  <div key={`${src}-${index}`} className="feedme-brand-item">
-                    <img src={src} alt="FeedMe merchant brand" loading="lazy" decoding="async" />
+                {FEEDME_BRANDS.map((item) => (
+                  <div key={item.src} className="feedme-brand-item">
+                    <img
+                      src={item.src}
+                      alt={item.alt || "FeedMe merchant brand"}
+                      loading="lazy"
+                      decoding="async"
+                      style={{ transform: item.scale ? `scale(${item.scale})` : undefined }}
+                    />
                   </div>
                 ))}
               </div>
