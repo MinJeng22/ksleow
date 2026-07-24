@@ -56,15 +56,6 @@
       "placeholder": "☁️",
       "gradient": "rgb(168, 198, 232)",
       "route": "/products/autocount-hrms"
-    },
-    {
-      "name": "AutoCount OneSale",
-      "desc": "Omnichannel sales management seamlessly integrated with AutoCount.",
-      "image": "/images/products/autocount-onesales.webp",
-      "background": "/images/products/autocount-onesale.webp",
-      "placeholder": "🛍️",
-      "gradient": "rgb(255, 240, 240)",
-      "route": "/products/autocount-onesale"
     }
   ]
 }

@@ -54,12 +54,6 @@ const SEARCH_INDEX = [
     icon: <img src="/images/products/hrms-icon.webp" alt="AutoCount Cloud Payroll" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
-    title: "AutoCount OneSale",
-    path: "/products/autocount-onesale",
-    keywords: "autocount onesale, one sales, marketplace, shopee, lazada, tiktok, ecommerce, sync",
-    icon: <img src="/images/products/onesales-icon.webp" alt="AutoCount OneSale" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
-  },
-  {
     title: "AutoCount Plugins",
     path: "/apps/autocount-plugin",
     keywords: "plugins, extensions, add-on, customise, autocount, app",

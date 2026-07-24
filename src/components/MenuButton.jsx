@@ -26,7 +26,6 @@ const MEGA_MENU = [
       { label: "AutoCount POS",             path: "/products/autocount-pos", icon: "cash-register" },
       { label: "ServerLink",                path: "/products/serverlink", icon: "laptop" },
       { label: "AutoCount HRMS",            path: "/products/autocount-hrms", icon: "users" },
-      { label: "AutoCount OneSale",         path: "/products/autocount-onesale", icon: "smartphone" },
     ],
   },
   {
