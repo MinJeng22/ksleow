@@ -9,6 +9,7 @@ import EnquireNowCTA from "../../components/EnquireNowCTA.jsx";
 import useFavicon from "../../hooks/useFavicon.js";
 import AutoCountTrialModal from "../../components/AutoCountTrialModal.jsx";
 import AutoCountTrainingWebGL from "../../components/AutoCountTrainingWebGL.jsx";
+import ProductVideoGuide from "../../components/ProductVideoGuide.jsx";
 import { runWithProgressFeedback } from "../../utils/routeTransitions.js";
 import { CompareFeatureCell } from "../../components/CompareTable.jsx";
 
@@ -121,25 +122,37 @@ const FEEDME_VIDEOS = [
 
 const FEEDME_FEATURE_VIDEOS = [
   {
-    id: "interface",
-    label: "User-Friendly Interface",
-    description: "A clean POS workspace designed to help restaurant teams learn quickly, serve faster, and keep daily operations simple.",
     src: "https://pass-cors.feedme-farm.workers.dev/?target=https%3A%2F%2Fdrive.google.com%2Fuc%3Fexport%3Ddownload%26id%3D1SHFFDo663Etfi5smJ9uAhWG3yPThiiZ9",
-    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2.5" /><path d="M8 20h8" /><path d="M12 18v2" /><path d="M8 9h8" /><path d="M8 13h5" /></svg>,
+    group: "User-Friendly Interface",
+    title: "User-Friendly Interface",
+    desc: "A clean POS workspace designed to help restaurant teams learn quickly, serve faster, and keep daily operations simple.",
+    steps: [
+      <span key="a">Navigate daily POS functions with a cashier-friendly screen layout.</span>,
+      <span key="b">Reduce training friction for new restaurant staff.</span>,
+      <span key="c">Keep order taking and payment flow clear during busy service hours.</span>,
+    ],
   },
   {
-    id: "modes",
-    label: "Dark and Light Modes",
-    description: "Switch between dark and light interfaces so the POS screen stays comfortable across service counters, kitchens, and different lighting conditions.",
     src: "https://pass-cors.feedme-farm.workers.dev/?target=https%3A%2F%2Fdrive.google.com%2Fuc%3Fexport%3Ddownload%26id%3D12pG7sjPCHsUCgFXCQkzEb_JoLGtR5xu5",
-    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z" /><path d="M12 3v18" /></svg>,
+    group: "Dark and Light Modes",
+    title: "Dark and Light Modes",
+    desc: "Switch between dark and light interfaces so the POS screen stays comfortable across service counters, kitchens, and different lighting conditions.",
+    steps: [
+      <span key="a">Choose the display mode that fits your outlet environment.</span>,
+      <span key="b">Keep POS screens readable across daytime, evening, and kitchen operations.</span>,
+      <span key="c">Give staff a more comfortable interface for long service shifts.</span>,
+    ],
   },
   {
-    id: "language",
-    label: "Multi-Language Selection",
-    description: "Support multilingual teams with quick language switching, making cashier training and day-to-day usage easier across your restaurant crew.",
     src: "https://pass-cors.feedme-farm.workers.dev/?target=https%3A%2F%2Fdrive.google.com%2Fuc%3Fexport%3Ddownload%26id%3D1GabZA6Vn7nu7wlmI1e27X8qL9NOT40UR",
-    icon: <svg className="tutorial-tab-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18" /><path d="M12 3c2.2 2.4 3.3 5.4 3.3 9S14.2 18.6 12 21" /><path d="M12 3c-2.2 2.4-3.3 5.4-3.3 9s1.1 6.6 3.3 9" /></svg>,
+    group: "Multi-Language Selection",
+    title: "Multi-Language Selection",
+    desc: "Support multilingual teams with quick language switching, making cashier training and day-to-day usage easier across your restaurant crew.",
+    steps: [
+      <span key="a">Switch language display quickly for different team members.</span>,
+      <span key="b">Support multilingual outlets with a more accessible POS workflow.</span>,
+      <span key="c">Make daily ordering and cashier operation easier for mixed-language teams.</span>,
+    ],
   },
 ];
 
@@ -1635,18 +1648,16 @@ export default function FeedMePOSPage() {
         <FeedMeOfficialOverview />
 
         <section id="features" className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-paper">
-          <AutoCountTrainingWebGL
-            customVideos={FEEDME_FEATURE_VIDEOS}
-            title="Discover the Future of Transactions"
-            themeColor={FEEDME_ORANGE}
-            themeHoverColor="#e66518"
-            activeTabBg={FEEDME_TRUFFLE}
-            playIconColor="#ffffff"
-            playBtnBg={FEEDME_ORANGE}
-            autoAdvanceMs={7500}
-            actionLabel="Ask KSL About FeedMe POS"
-            actionHref={WA_LINK}
-          />
+          <div className="content-wrap">
+            <div className="ks-eyebrow" style={{ color: FEEDME_ORANGE }}>Official FeedMe POS Features</div>
+            <h2 className="ks-section-title" style={{ marginBottom: "1.5rem" }}>Discover the Future of Transactions</h2>
+            <ProductVideoGuide
+              segments={FEEDME_FEATURE_VIDEOS}
+              accentColor={FEEDME_ORANGE}
+              darkColor={FEEDME_TRUFFLE}
+              autoAdvanceMs={7500}
+            />
+          </div>
         </section>
 
         <section className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-paper">
