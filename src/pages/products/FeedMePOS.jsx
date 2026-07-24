@@ -67,6 +67,45 @@ const FEEDME_SECTIONS = [
   { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: FEEDME_ORANGE },
 ];
 
+const FEEDME_PRICING_CARDS = [
+  {
+    name: "Lite",
+    subtitle: "Basic entry for single outlets",
+    price: "RM 0",
+    period: "per month",
+    features: [
+      "Menu Management",
+      "Table Management",
+      "Invoice Management",
+      "1 Printer & 1 Location"
+    ]
+  },
+  {
+    name: "Standard",
+    subtitle: "Most popular for growing outlets",
+    price: "RM 90",
+    period: "per month",
+    features: [
+      "Mobile Ordering (QR, Pickup)",
+      "2 Sub POS",
+      "Accounting Integration",
+      "Unlimited Printers & Locations"
+    ]
+  },
+  {
+    name: "Premium",
+    subtitle: "Complete control for large operations",
+    price: "RM 129",
+    period: "per month",
+    features: [
+      "KDS + ODS",
+      "Mall Integration",
+      "Unlimited Sub POS",
+      "Queue Management"
+    ]
+  }
+];
+
 
 const FEATURE_CARDS = [
   {
