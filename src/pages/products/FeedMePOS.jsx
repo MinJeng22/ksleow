@@ -525,29 +525,29 @@ export default function FeedMePOSPage() {
           border: 1px solid rgba(85, 82, 74, 0.06);
           border-radius: 22px;
           box-shadow: none;
-          max-width: 1600px;
+          max-width: 1050px;
+          margin: 0 auto clamp(3rem, 6vw, 5rem);
           overflow: hidden;
-          padding: clamp(1rem, 2.5vw, 2rem);
-          margin-bottom: clamp(3rem, 6vw, 5rem);
+          padding: clamp(1rem, 2vw, 1.75rem);
           width: 100%;
         }
         #page-feedme-pos .feedme-brand-grid {
           align-items: center;
           display: grid;
-          gap: clamp(1rem, 2.5vw, 2rem);
+          gap: 0.75rem 1.25rem;
           grid-template-columns: repeat(5, minmax(0, 1fr));
         }
         #page-feedme-pos .feedme-brand-item {
           align-items: center;
           display: flex;
           justify-content: center;
-          min-height: 90px;
-          padding: clamp(0.25rem, 1vw, 0.75rem);
+          min-height: 55px;
+          padding: 0.25rem;
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 90px;
+          max-height: 55px;
           max-width: 100%;
           object-fit: contain;
           width: 100%;
