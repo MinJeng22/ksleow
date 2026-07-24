@@ -187,29 +187,61 @@ const FEEDME_PRICING_ROWS = [
 const PREMIUM_TOOLS = [
   {
     title: "Connect Premium",
-    text: "Marketing, CRM, feedback, loyalty, and customer engagement in one restaurant growth layer.",
+    text: "Marketing, CRM, Feedback all in one!",
     color: "#ff5d53",
-    background: "#ffd9d6",
+    background: "#fde8e5",
     price: "RM 90",
     period: "per month",
+    buttonLabel: "Get Started",
   },
   {
-    title: "Multi-Warehouse Premium",
-    text: "Create multiple warehouses for inventory across outlets and keep stock operations easier to control.",
-    color: "#50be9b",
+    title: "Mini Program Premium",
+    text: "Choose between individual or business level plan.",
+    color: "#e5933d",
+    background: "#fef3e2",
+    buttonLabel: "Learn More",
+  },
+  {
+    title: "Inventory Premium",
+    text: "Real-time stock tracking, automated replenishment, discount tips & more beyond counting! Contact us for pricing.",
+    color: "#3cae89",
     background: "#dff5ee",
+    buttonLabel: "Contact Sales",
+  },
+  {
+    title: "Warehouse Premium",
+    text: "Need more than one? Create multiple warehouses for inventory across outlets. Contact us for pricing!",
+    color: "#3cae89",
+    background: "#dff5ee",
+    buttonLabel: "Learn More",
   },
   {
     title: "AI Report Premium",
-    text: "Automated business performance analysis designed to help owners make faster data-driven decisions.",
+    text: "Transform your restaurant with data-driven growth. Coming soon!",
     color: "#007ba7",
-    background: "#cfe7ef",
+    background: "#dceef5",
+    buttonLabel: "Learn More",
   },
   {
     title: "Payment Premium",
-    text: "Terminal-ready payment options for restaurants that need a more complete payment setup.",
+    text: "Terminal available for a one-time price, supporting versatile payment options. Contact us for pricing.",
     color: "#8358d4",
     background: "#e8ddf6",
+    buttonLabel: "Contact Sales",
+  },
+  {
+    title: "HRM Premium",
+    text: "Comprehensive Human Resource Management System improve workforce productivity. Coming soon!",
+    color: "#706b65",
+    background: "#eae6e1",
+    buttonLabel: "Learn More",
+  },
+  {
+    title: "Food Court Management",
+    text: "Effortlessly manage all stalls from a single platform! Contact us for pricing.",
+    color: "#ff5d53",
+    background: "#ffffff",
+    buttonLabel: "Learn More",
   },
 ];
 
@@ -377,6 +409,9 @@ function FeatureCard({ item }) {
 }
 
 function PremiumToolCard({ tool }) {
+  const waMsg = encodeURIComponent(`Hi KS Support Team, I am interested in ${tool.title} for FeedMe POS. Can you share more details?`);
+  const waUrl = `https://wa.me/60179052323?text=${waMsg}`;
+
   return (
     <article className="feedme-tool-card" style={{ "--tool-color": tool.color, "--tool-bg": tool.background }}>
       <h3>{tool.title}</h3>
@@ -387,6 +422,14 @@ function PremiumToolCard({ tool }) {
           <span>{tool.period}</span>
         </div>
       )}
+      <a
+        href={waUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="feedme-tool-btn"
+      >
+        {tool.buttonLabel || "Learn More"}
+      </a>
     </article>
   );
 }
@@ -826,61 +869,84 @@ export default function FeedMePOSPage() {
           text-wrap: balance;
         }
         #page-feedme-pos .feedme-tools-grid {
-          display: grid;
-          gap: clamp(1rem, 2.1vw, 1.7rem);
-          grid-template-columns: repeat(4, minmax(0, 1fr));
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: clamp(1rem, 2vw, 1.5rem);
           margin: 0 auto;
-          max-width: 1260px;
+          max-width: 1200px;
         }
         #page-feedme-pos .feedme-tool-card {
           align-items: center;
           background: var(--tool-bg);
           border: 0;
-          border-radius: 14px;
-          box-shadow: none;
+          border-radius: 24px;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          min-height: clamp(190px, 18vw, 235px);
+          justify-content: flex-start;
+          width: calc(33.333% - 1.2rem);
+          min-width: 260px;
+          max-width: 350px;
+          min-height: 250px;
           overflow: hidden;
-          padding: clamp(1.15rem, 2vw, 1.65rem);
+          padding: 2rem 1.4rem;
           position: relative;
           text-align: center;
+          box-sizing: border-box;
         }
         #page-feedme-pos .feedme-tool-card h3 {
           color: var(--tool-color);
-          font-size: clamp(1.3rem, 2.1vw, 1.72rem);
-          font-weight: 900;
-          letter-spacing: 0;
-          line-height: 0.95;
-          margin: 0;
-          max-width: 12rem;
+          font-size: clamp(1.35rem, 2vw, 1.65rem);
+          font-weight: 850;
+          letter-spacing: -0.01em;
+          line-height: 1.15;
+          margin: 0 0 0.65rem;
+          max-width: 14rem;
         }
         #page-feedme-pos .feedme-tool-card p {
-          color: rgba(44, 42, 37, 0.88);
-          font-size: 0.82rem;
-          font-weight: 650;
-          line-height: 1.32;
-          margin: 0.85rem auto 0;
-          max-width: 15rem;
+          color: rgba(44, 42, 37, 0.82);
+          font-size: 0.85rem;
+          font-weight: 600;
+          line-height: 1.4;
+          margin: 0 0 1rem;
+          max-width: 16rem;
         }
         #page-feedme-pos .feedme-tool-price {
           align-items: center;
           display: flex;
           flex-direction: column;
-          margin-top: 0.55rem;
+          margin-bottom: 0.75rem;
         }
         #page-feedme-pos .feedme-tool-price strong {
-          color: #3d3a34;
-          font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+          color: #2c2a25;
+          font-size: 1.6rem;
           font-weight: 900;
           line-height: 1;
         }
         #page-feedme-pos .feedme-tool-price span {
-          color: rgba(61, 58, 52, 0.78);
+          color: rgba(61, 58, 52, 0.75);
           font-size: 0.78rem;
-          font-weight: 750;
-          margin-top: 0.25rem;
+          font-weight: 700;
+          margin-top: 0.2rem;
+        }
+        #page-feedme-pos .feedme-tool-btn {
+          align-items: center;
+          background: #ff6519;
+          border-radius: 50px;
+          color: #ffffff;
+          display: inline-flex;
+          font-size: 0.88rem;
+          font-weight: 800;
+          justify-content: center;
+          margin-top: auto;
+          padding: 0.55rem 1.6rem;
+          text-decoration: none;
+          transition: transform 0.2s, background-color 0.2s;
+        }
+        #page-feedme-pos .feedme-tool-btn:hover {
+          background: #e55309;
+          transform: translateY(-1px);
         }
         #page-feedme-pos .feedme-workflow {
           display: grid;
