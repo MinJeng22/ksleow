@@ -1139,36 +1139,36 @@ export default function FeedMePOSPage() {
 
             <FeedMePricingCards cards={FEEDME_PRICING_CARDS} />
 
-            <div className={`pos-edition-table-expandable ${tableOpen ? "is-open" : ""}`}>
-              <FeedMePricingTable />
-              
-              {!tableOpen && (
-                <div className="pos-edition-table-fade-overlay">
-                  <button onClick={() => setTableOpen(true)} className="pos-edition-table-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-                    Open Full Edition Comparison
-                  </button>
-                </div>
-              )}
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              <button
+                type="button"
+                className="ks-btn ks-btn-muted pos-release-more"
+                onClick={() => setTableOpen(prev => !prev)}
+              >
+                {tableOpen ? "Collapse Comparison" : "Open Full Edition Comparison"}
+              </button>
             </div>
 
             {tableOpen && (
-              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-                <button 
-                  onClick={() => {
-                    setTableOpen(false);
-                    // smoothly scroll back up to the plans section
-                    const section = document.getElementById("plans");
-                    if (section) {
-                      const y = section.getBoundingClientRect().top + window.scrollY - 100;
-                      window.scrollTo({ top: y, behavior: "smooth" });
-                    }
-                  }} 
-                  className="pos-edition-table-btn"
-                >
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
-                  Collapse Comparison
-                </button>
+              <div className="pos-edition-table-expandable" style={{ marginTop: "2rem" }}>
+                <FeedMePricingTable />
+
+                <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+                  <button
+                    type="button"
+                    className="ks-btn ks-btn-muted pos-release-more"
+                    onClick={() => {
+                      setTableOpen(false);
+                      const section = document.getElementById("plans");
+                      if (section) {
+                        const y = section.getBoundingClientRect().top + window.scrollY - 100;
+                        window.scrollTo({ top: y, behavior: "smooth" });
+                      }
+                    }}
+                  >
+                    Collapse Comparison
+                  </button>
+                </div>
               </div>
             )}
 
