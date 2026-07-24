@@ -72,12 +72,6 @@ const SEARCH_INDEX = [
     icon: <img src={acPluginIcon} alt="Sales2DO" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
   },
   {
-    title: "KS Omni",
-    path: "/omni",
-    keywords: "ks omni, ai, chatbot, omnichannel, whatsapp, customer service, support",
-    icon: <img src="/images/branding/ksl-logo-circle.webp" alt="KS Omni" style={{ width: "100%", height: "100%", objectFit: "contain", padding: "4px" }} />
-  },
-  {
     title: "Quotation Viewer",
     path: "/quotation",
     keywords: "quotation, invoice, billing, viewer, price, pricing",
