@@ -26,17 +26,14 @@ const WA_LINK = `https://wa.me/60169902279?text=${encodeURIComponent(
 const HERO_PHOTO = "/images/products/feedme-pos-showcase.webp";
 const FEEDME_LOGO = "/images/products/feedme-icon.webp";
 
-const FEEDME_BRANDS = [
-  "/images/feedme-brands/brand-1.webp",
-  "/images/feedme-brands/brand-2.webp",
-  "/images/feedme-brands/brand-3.webp",
-  "/images/feedme-brands/brand-4.webp",
-  "/images/feedme-brands/brand-5.webp",
-  "/images/feedme-brands/brand-6.webp",
-  "/images/feedme-brands/brand-7.webp",
-  "/images/feedme-brands/brand-8.webp",
-  "/images/feedme-brands/brand-9.webp",
-  "/images/feedme-brands/brand-10.png",
+const FEEDME_OVERVIEW_TABS = [
+  { label: "POS", icon: "/images/products/feedme-overview/pos-activated.webp", active: true },
+  { label: "Connect", icon: "/images/products/feedme-overview/connect.webp" },
+  { label: "Inventory", icon: "/images/products/feedme-overview/inventory.webp" },
+  { label: "Report", icon: "/images/products/feedme-overview/report.webp" },
+  { label: "Mini Program", icon: "/images/products/feedme-overview/mini-program.webp" },
+  { label: "HRM", icon: "/images/products/feedme-overview/hrm.webp" },
+  { label: "REMY", icon: "/images/products/feedme-overview/remy.webp" },
 ];
 
 const FEEDME_VIDEOS = [
@@ -461,6 +458,40 @@ function PremiumToolsPanel({ onOpenMiniProgram }) {
   );
 }
 
+function FeedMeOfficialOverview() {
+  return (
+    <section className="feedme-official-overview-section" aria-label="FeedMe product overview">
+      <div className="feedme-official-overview relative p-8 @new_lg:pt-10 @new_lg:pb-20 relative z-1 mx-auto px-4 max-w-[1280px] @new_md:py-20">
+        <div className="feedme-overview-tabs" aria-label="FeedMe ecosystem modules">
+          {FEEDME_OVERVIEW_TABS.map((item) => (
+            <div key={item.label} className={`feedme-overview-tab${item.active ? " is-active" : ""}`}>
+              <img src={item.icon} alt="" loading="lazy" decoding="async" />
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <img
+          className="feedme-overview-feature"
+          src="/images/products/feedme-overview/pos-feature.webp"
+          alt="FeedMe POS product overview"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+
+        <p className="feedme-overview-copy">
+          Streamline restaurant operations with efficient order, sales, inventory, and payment management, powered by real-time insights and AI features for growth.
+        </p>
+
+        <a className="feedme-overview-button" href="#training">
+          Learn More About FeedMe POS
+        </a>
+      </div>
+    </section>
+  );
+}
+
 function MiniProgramModal({ open, onClose }) {
   useEffect(() => {
     if (open) {
@@ -715,67 +746,6 @@ export default function FeedMePOSPage() {
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
-        }
-        #page-feedme-pos .feedme-trust-strip {
-          display: grid;
-          gap: clamp(1.4rem, 2.4vw, 2rem);
-          justify-items: center;
-          text-align: center;
-        }
-        #page-feedme-pos .feedme-trust-copy {
-          color: var(--feedme-truffle);
-          display: grid;
-          gap: 0.65rem;
-          justify-items: center;
-        }
-        #page-feedme-pos .feedme-trust-title {
-          color: var(--feedme-truffle);
-          margin: 0;
-          max-width: 960px;
-          text-align: center;
-        }
-        #page-feedme-pos .feedme-trust-title span {
-          color: var(--feedme-orange);
-        }
-        #page-feedme-pos .feedme-trust-copy p {
-          color: rgba(85, 82, 74, 0.86);
-          font-size: clamp(1rem, 1.8vw, 1.3rem);
-          font-weight: 700;
-          line-height: 1.45;
-          margin: 0;
-        }
-        #page-feedme-pos .feedme-brand-panel {
-          background: #ffffff;
-          border: 1px solid rgba(85, 82, 74, 0.06);
-          border-radius: 22px;
-          box-shadow: none;
-          max-width: 1600px;
-          overflow: hidden;
-          padding: clamp(1rem, 2.5vw, 2rem);
-          margin-bottom: clamp(3rem, 6vw, 5rem);
-          width: 100%;
-        }
-        #page-feedme-pos .feedme-brand-grid {
-          align-items: center;
-          display: grid;
-          gap: clamp(1rem, 2.5vw, 2rem);
-          grid-template-columns: repeat(5, minmax(0, 1fr));
-        }
-        #page-feedme-pos .feedme-brand-item {
-          align-items: center;
-          display: flex;
-          justify-content: center;
-          min-height: 130px;
-          padding: clamp(0.5rem, 1.5vw, 1.5rem);
-        }
-        #page-feedme-pos .feedme-brand-item img {
-          display: block;
-          height: auto;
-          max-height: 110px;
-          max-width: 100%;
-          object-fit: contain;
-          width: 100%;
-          mix-blend-mode: multiply;
         }
         #page-feedme-pos .feedme-feature-grid,
         #page-feedme-pos .feedme-plans-grid,
@@ -1192,7 +1162,6 @@ export default function FeedMePOSPage() {
           #page-feedme-pos .feedme-feature-grid,
           #page-feedme-pos .feedme-plans-grid,
           #page-feedme-pos .feedme-support-grid,
-          #page-feedme-pos .feedme-trust-strip,
           #page-feedme-pos .feedme-workflow {
             grid-template-columns: 1fr;
           }
@@ -1201,9 +1170,6 @@ export default function FeedMePOSPage() {
           }
           #page-feedme-pos .feedme-plan-card.is-popular {
             transform: none;
-          }
-          #page-feedme-pos .feedme-brand-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
           }
         }
         @media (max-width: 640px) {
@@ -1215,21 +1181,6 @@ export default function FeedMePOSPage() {
           }
           #page-feedme-pos .feedme-section-title.is-centered {
             text-align: left;
-          }
-          #page-feedme-pos .feedme-brand-panel {
-            border-radius: 16px;
-            padding: 1.35rem;
-          }
-          #page-feedme-pos .feedme-brand-grid {
-            gap: 1.1rem;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-          }
-          #page-feedme-pos .feedme-brand-item {
-            min-height: 120px;
-          }
-          #page-feedme-pos .feedme-brand-item img {
-            max-height: 110px;
-            max-width: 200px;
           }
           #page-feedme-pos .feedme-tools-grid {
             grid-template-columns: 1fr;
@@ -1258,41 +1209,125 @@ export default function FeedMePOSPage() {
             white-space: normal;
           }
         }
-      .feedme-ecosystem-section {
-          background-color: var(--feedme-orange, #ff7823);
-          padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 3vw, 2rem);
+        #page-feedme-pos .feedme-official-overview-section {
+          background: #fbe5cb;
+          border-bottom: 3px solid var(--feedme-orange);
           position: relative;
           z-index: 1;
         }
-        .feedme-ecosystem-content {
+        #page-feedme-pos .feedme-official-overview {
           margin: 0 auto;
           max-width: 1280px;
+          padding: 4.9rem 1rem 3.65rem;
+          position: relative;
           text-align: center;
+          z-index: 1;
         }
-        .feedme-ecosystem-title {
-          color: #ffffff;
-          font-size: clamp(2rem, 4vw, 3.2rem);
-          font-weight: 800;
-          letter-spacing: -0.5px;
+        #page-feedme-pos .feedme-overview-tabs {
+          align-items: flex-start;
+          display: grid;
+          gap: clamp(1.35rem, 5.6vw, 4.4rem);
+          grid-template-columns: repeat(7, minmax(74px, auto));
+          justify-content: center;
+          margin: 0 auto;
+        }
+        #page-feedme-pos .feedme-overview-tab {
+          align-items: center;
+          color: #1f1d1b;
+          display: flex;
+          flex-direction: column;
+          font-size: 0.97rem;
+          font-weight: 500;
+          gap: 0.55rem;
           line-height: 1.2;
-          margin: 0 auto clamp(2rem, 4vw, 4rem) auto;
-          max-width: 1000px;
+          min-width: 74px;
+          position: relative;
+          white-space: nowrap;
         }
-        .feedme-ecosystem-title .ai-remy-gradient {
-          background: linear-gradient(45deg, #F09BBE 0.17%, #FEF6ED 30.5%, #FAF5ED 68.4%, #73C8E6 98.1%);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
+        #page-feedme-pos .feedme-overview-tab img {
+          display: block;
+          height: 50px;
+          object-fit: contain;
+          width: 70px;
         }
-        .feedme-ecosystem-title .highlight-blue {
-          color: #3131fc;
+        #page-feedme-pos .feedme-overview-tab.is-active {
+          color: var(--feedme-orange);
         }
-        .feedme-ecosystem-img {
+        #page-feedme-pos .feedme-overview-tab.is-active img {
+          height: 70px;
+          margin-top: -10px;
+        }
+        #page-feedme-pos .feedme-overview-tab.is-active::after {
+          background: var(--feedme-orange);
+          bottom: -0.6rem;
+          content: "";
+          height: 2px;
+          left: 50%;
+          position: absolute;
+          transform: translateX(-50%);
+          width: 48px;
+        }
+        #page-feedme-pos .feedme-overview-feature {
           display: block;
           height: auto;
-          margin: 0 auto;
-          max-width: 980px;
-          width: 100%;
+          margin: 3.9rem auto 1.25rem;
+          max-width: 720px;
+          width: min(64vw, 720px);
+        }
+        #page-feedme-pos .feedme-overview-copy {
+          color: #202020;
+          font-size: clamp(0.96rem, 1.45vw, 1.08rem);
+          font-weight: 500;
+          line-height: 1.18;
+          margin: 0 auto 0.9rem;
+          max-width: 950px;
+        }
+        #page-feedme-pos .feedme-overview-button {
+          align-items: center;
+          background: var(--feedme-orange);
+          border-radius: 11px;
+          color: #ffffff;
+          display: inline-flex;
+          font-size: 0.92rem;
+          font-weight: 800;
+          justify-content: center;
+          line-height: 1;
+          min-height: 36px;
+          padding: 0.7rem 1.03rem;
+          text-decoration: none;
+          transition: transform 0.16s ease, background 0.16s ease;
+        }
+        #page-feedme-pos .feedme-overview-button:hover {
+          background: #e66518;
+          transform: translateY(-1px);
+        }
+        #page-feedme-pos .feedme-overview-button:focus-visible {
+          outline: 3px solid rgba(255, 120, 35, 0.34);
+          outline-offset: 3px;
+        }
+        @media (max-width: 920px) {
+          #page-feedme-pos .feedme-official-overview {
+            padding-top: 3.1rem;
+          }
+          #page-feedme-pos .feedme-overview-tabs {
+            gap: 1rem;
+            grid-auto-flow: column;
+            grid-template-columns: none;
+            justify-content: flex-start;
+            overflow-x: auto;
+            padding: 0 0.15rem 0.8rem;
+            scroll-snap-type: x proximity;
+          }
+          #page-feedme-pos .feedme-overview-tab {
+            scroll-snap-align: center;
+          }
+          #page-feedme-pos .feedme-overview-feature {
+            margin-top: 2.7rem;
+            width: 100%;
+          }
+          #page-feedme-pos .feedme-overview-copy {
+            line-height: 1.35;
+          }
         }
       `}</style>
 
@@ -1316,42 +1351,7 @@ export default function FeedMePOSPage() {
       </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
-        <section className="product-app-section feedme-section-oat product-app-section-clean">
-          <div className="content-wrap feedme-trust-strip">
-            <div className="feedme-trust-copy">
-              <h2 className="ks-section-title feedme-trust-title">Trusted by <span>10,000++ Merchants</span></h2>
-              <p style={{
-                fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.15em",
-                color: "#6b6f91", textTransform: "uppercase", lineHeight: 1.6
-              }}>
-                Ideal match for every type of restaurant.
-              </p>
-            </div>
-
-            <div className="feedme-brand-panel">
-              <div className="feedme-brand-grid">
-                {FEEDME_BRANDS.slice(0, 10).map((src, index) => {
-                  const isEnlarged = index === 6 || index === 8;
-                  return (
-                    <div key={`brand-${src}-${index}`} className="feedme-brand-item">
-                      <img
-                        src={src}
-                        alt="FeedMe merchant brand"
-                        loading="lazy"
-                        decoding="async"
-                        style={isEnlarged ? { transform: "scale(1.45)" } : undefined}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="product-app-divider" style={{ "--section-from": "#fef6ed", "--section-to": "var(--ks-page-mist)" }}>
-          <PageSectionDivider sections={FEEDME_SECTIONS} id="training" />
-        </div>
+        <FeedMeOfficialOverview />
 
         <section className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-paper">
           <div id="training">

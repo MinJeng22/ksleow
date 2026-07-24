@@ -79,6 +79,14 @@ const routeAssets = {
   "/products/feedme-pos": [
     "/images/products/feedme-pos-showcase.webp",
     "/images/products/feedme-icon.webp",
+    "/images/products/feedme-overview/pos-feature.webp",
+    "/images/products/feedme-overview/pos-activated.webp",
+    "/images/products/feedme-overview/connect.webp",
+    "/images/products/feedme-overview/inventory.webp",
+    "/images/products/feedme-overview/report.webp",
+    "/images/products/feedme-overview/mini-program.webp",
+    "/images/products/feedme-overview/hrm.webp",
+    "/images/products/feedme-overview/remy.webp",
     "/videos/feedme-hero.mp4",
     ...(productAssetsByRoute["/products/feedme-pos"] || []),
   ],
@@ -121,6 +129,7 @@ const routeCriticalAssets = {
   "/products/feedme-pos": [
     "/images/products/feedme-pos-showcase.webp",
     "/images/products/feedme-icon.webp",
+    "/images/products/feedme-overview/pos-feature.webp",
     "/videos/feedme-hero.mp4",
   ],
   "/apps/autocount-plugin": [
