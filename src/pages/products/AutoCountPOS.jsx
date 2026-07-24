@@ -1851,7 +1851,7 @@ export default function AutoCountPOSPage({ onContact }) {
           <PageSectionDivider sections={POS_SECTIONS} id="editions" />
         </div>
 
-        <section id="editions" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ overflow: "visible" }}>
+        <section id="editions" className="ac-section-tight product-app-section product-app-section-ice" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
               title="POS Backend Editions"
@@ -1915,7 +1915,7 @@ export default function AutoCountPOSPage({ onContact }) {
           <PageSectionDivider sections={POS_SECTIONS} id="frontend" />
         </div>
 
-        <section id="frontend" className="ac-section-tight product-app-section product-app-section-ice product-app-section-to-cloud" style={{ overflow: "visible" }}>
+        <section id="frontend" className="ac-section-tight product-app-section product-app-section-ice" style={{ overflow: "visible" }}>
           <div className="content-wrap">
             <SectionIntro
               title="POS Front End Editions"

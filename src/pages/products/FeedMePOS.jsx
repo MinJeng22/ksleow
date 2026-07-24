@@ -494,9 +494,9 @@ export default function FeedMePOSPage() {
           --product-section-to: #fff4e8;
         }
         #page-feedme-pos .feedme-section-plans {
-          --product-section-from: #fff4e8;
+          --product-section-from: #fffdf8;
           --product-section-bg: #fffdf8;
-          --product-section-to: #fff4e8;
+          --product-section-to: #fffdf8;
         }
         #page-feedme-pos .feedme-section-integration {
           --product-section-from: #fef6ed;
