@@ -93,8 +93,47 @@ export default function ProductHero({
   className = "",
 }) {
   const videoRef = useRef(null);
+  const resolvedBackgroundImage = backgroundImage || DEFAULT_BG;
+  const [isHeroImageReady, setIsHeroImageReady] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  const shouldRenderVideoFallback = Boolean(backgroundVideo && showVideoFallback && backgroundImage);
+  const shouldRenderVideoFallback = Boolean(backgroundVideo && showVideoFallback && resolvedBackgroundImage);
+
+  useEffect(() => {
+    setIsHeroImageReady(false);
+    setIsVideoPlaying(false);
+
+    if (!resolvedBackgroundImage || typeof window === "undefined" || typeof Image === "undefined") {
+      setIsHeroImageReady(true);
+      return undefined;
+    }
+
+    let cancelled = false;
+    const img = new Image();
+
+    const markReady = () => {
+      if (!cancelled) setIsHeroImageReady(true);
+    };
+
+    img.decoding = "async";
+    img.fetchPriority = "high";
+    img.onload = () => {
+      if (typeof img.decode === "function") {
+        img.decode().then(markReady).catch(markReady);
+        return;
+      }
+      markReady();
+    };
+    img.onerror = markReady;
+    img.src = resolvedBackgroundImage;
+
+    if (img.complete) {
+      markReady();
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [resolvedBackgroundImage]);
 
   useEffect(() => {
     if (videoRef.current && backgroundVideo) {
@@ -112,7 +151,7 @@ export default function ProductHero({
       paddingTop: "7rem", paddingBottom: "5rem",
       display: "flex", alignItems: "center",
       overflow: "hidden",
-      background: "#1f2142",
+      background: "#10131a",
     }}>
       {/* 
         Using an actual <img> tag instead of CSS backgroundImage ensures the browser's
@@ -123,11 +162,13 @@ export default function ProductHero({
           {shouldRenderVideoFallback && (
             <img
               className="product-hero-bg"
-              src={backgroundImage}
+              src={resolvedBackgroundImage}
               alt=""
               loading="eager"
               decoding="sync"
               fetchpriority="high"
+              onLoad={() => setIsHeroImageReady(true)}
+              onError={() => setIsHeroImageReady(true)}
               draggable={false}
               style={{
                 position: "absolute",
@@ -137,7 +178,7 @@ export default function ProductHero({
                 objectFit: "cover",
                 objectPosition: "center center",
                 zIndex: 0,
-                opacity: isVideoPlaying ? 0 : 1,
+                opacity: isVideoPlaying ? 0 : (isHeroImageReady ? 1 : 0),
                 transition: "opacity 0.7s ease-in-out",
               }}
             />
@@ -169,11 +210,13 @@ export default function ProductHero({
       ) : (
         <img
           className="product-hero-bg"
-          src={backgroundImage}
+          src={resolvedBackgroundImage}
           alt=""
           loading="eager"
           decoding="sync"
           fetchpriority="high"
+          onLoad={() => setIsHeroImageReady(true)}
+          onError={() => setIsHeroImageReady(true)}
           draggable={false}
           style={{
             position: "absolute",
@@ -183,6 +226,8 @@ export default function ProductHero({
             objectFit: "cover",
             objectPosition: "center center",
             zIndex: 0,
+            opacity: isHeroImageReady ? 1 : 0,
+            transition: "opacity 0.35s ease-out",
           }}
         />
       )}

@@ -45,6 +45,7 @@ const homeAssets = [
 ];
 
 const routeAssets = {
+  ...productAssetsByRoute,
   "/": homeAssets,
   "/products/autocount-accounting": [
     DEFAULT_PRODUCT_HERO,
@@ -64,6 +65,7 @@ const routeAssets = {
     "/images/promotions/autocount-cloudaccounting-65-promo.webp",
   ],
   "/products/autocount-pos": [
+    "/images/products/autocount-pos-showcase.webp",
     "/images/products/autocount-pos-home.webp",
     "/images/products/autocount-pos.webp",
     "/images/products/autocount-pos-backend.webp",
@@ -75,8 +77,10 @@ const routeAssets = {
     "/images/branding/ksl-logo-circle.webp",
   ],
   "/products/feedme-pos": [
+    "/images/products/feedme-pos-showcase.webp",
     "/images/products/feedme-icon.webp",
     "/videos/feedme-hero.mp4",
+    ...(productAssetsByRoute["/products/feedme-pos"] || []),
   ],
   "/apps/autocount-plugin": [
     DEFAULT_PRODUCT_HERO,
@@ -111,10 +115,11 @@ const routeCriticalAssets = {
     "/images/products/cloudaccounting-icon.webp",
   ],
   "/products/autocount-pos": [
-    "/images/products/autocount-pos-home.webp",
+    "/images/products/autocount-pos-showcase.webp",
     "/images/products/autocount-pos.webp",
   ],
   "/products/feedme-pos": [
+    "/images/products/feedme-pos-showcase.webp",
     "/images/products/feedme-icon.webp",
     "/videos/feedme-hero.mp4",
   ],
