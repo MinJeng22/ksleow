@@ -1045,6 +1045,118 @@ export default function FeedMePOSPage() {
           </div>
         </section>
 
+        <div className="product-app-divider" style={{ "--section-from": "#fff4e8", "--section-to": "#fff4e8" }}>
+          <PageSectionDivider sections={FEEDME_SECTIONS} id="plans" />
+        </div>
+
+        <section id="plans" className="product-app-section feedme-section-plans">
+          <div className="content-wrap">
+            <SectionTitle
+              title="FeedMe POS Pricing Plans"
+              centered
+            />
+
+            <FeedMePricingTable />
+
+            <p className="feedme-card-text" style={{ textAlign: "center", marginTop: "1.25rem" }}>
+              Pricing shown follows FeedMe's official monthly plan structure. Hardware, onboarding, payment terminals, and optional premium tools may be quoted separately.
+            </p>
+
+            <PremiumToolsPanel />
+          </div>
+        </section>
+
+        <div className="product-app-divider" style={{ "--section-from": "#fffdf8", "--section-to": "#fff4e8" }}>
+          <PageSectionDivider sections={FEEDME_SECTIONS} id="integration" />
+        </div>
+
+        <section id="integration" className="product-app-section feedme-section-integration">
+          <div className="content-wrap feedme-workflow">
+            <div className="feedme-workflow-panel">
+              <h2 className="ks-section-title">One order, connected from table to report.</h2>
+              <p>
+                FeedMe is not just a cashier screen. Orders can move from QR code to kitchen display, payment, invoice, reporting, and accounting integration without rebuilding the same data again.
+              </p>
+            </div>
+            <div className="feedme-workflow-list">
+              {WORKFLOW_STEPS.map((step, index) => (
+                <article key={step.label} className="feedme-workflow-card">
+                  <b>{index + 1}</b>
+                  <div>
+                    <h3>{step.label}</h3>
+                    <p>{step.text}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <div className="product-app-divider" style={{ "--section-from": "#fef6ed", "--section-to": "var(--ks-page-mist)" }}>
+          <PageSectionDivider sections={FEEDME_SECTIONS} id="training" />
+        </div>
+
+        <section className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-paper">
+          <div id="training">
+            <AutoCountTrainingWebGL
+              customVideos={FEEDME_VIDEOS}
+              title="FeedMe POS Quick-Start Guide"
+              themeColor={FEEDME_ORANGE}
+              themeHoverColor="#e66518"
+              activeTabBg={FEEDME_TRUFFLE}
+              playIconColor="#ffffff"
+              playBtnBg={FEEDME_ORANGE}
+            />
+          </div>
+        </section>
+
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-mist)", "--section-to": "#fef6ed" }}>
+          <PageSectionDivider sections={FEEDME_SECTIONS} id="plans" />
+        </div>
+
+        <section id="plans" className="product-app-section feedme-section-plans">
+          <div className="content-wrap">
+            <SectionTitle
+              title="FeedMe POS Pricing Plans"
+              centered
+            />
+
+            <FeedMePricingTable />
+
+            <p className="feedme-card-text" style={{ textAlign: "center", marginTop: "1.25rem" }}>
+              Pricing shown follows FeedMe's official monthly plan structure. Hardware, onboarding, payment terminals, and optional premium tools may be quoted separately.
+            </p>
+
+            <PremiumToolsPanel />
+          </div>
+        </section>
+
+        <div className="product-app-divider" style={{ "--section-from": "#fffdf8", "--section-to": "#fff4e8" }}>
+          <PageSectionDivider sections={FEEDME_SECTIONS} id="integration" />
+        </div>
+
+        <section id="integration" className="product-app-section feedme-section-integration">
+          <div className="content-wrap feedme-workflow">
+            <div className="feedme-workflow-panel">
+              <h2 className="ks-section-title">One order, connected from table to report.</h2>
+              <p>
+                FeedMe is not just a cashier screen. Orders can move from QR code to kitchen display, payment, invoice, reporting, and accounting integration without rebuilding the same data again.
+              </p>
+            </div>
+            <div className="feedme-workflow-list">
+              {WORKFLOW_STEPS.map((step, index) => (
+                <article key={step.label} className="feedme-workflow-card">
+                  <b>{index + 1}</b>
+                  <div>
+                    <h3>{step.label}</h3>
+                    <p>{step.text}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <div className="product-app-divider" style={{ "--section-from": "#fef6ed", "--section-to": "#fff4e8" }}>
           <PageSectionDivider sections={FEEDME_SECTIONS} id="plans" />
         </div>
