@@ -1659,10 +1659,6 @@ export default function FeedMePOSPage() {
         <FeedMeTrustedBrands />
         <FeedMeOfficialOverview />
 
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-ice)", "--section-to": "var(--ks-page-mist)" }}>
-          <PageSectionDivider sections={FEEDME_SECTIONS} id="features" />
-        </div>
-
         <section id="features" className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-paper">
           <div className="content-wrap">
             <div className="ks-eyebrow" style={{ color: FEEDME_ORANGE }}>Official FeedMe POS Features</div>

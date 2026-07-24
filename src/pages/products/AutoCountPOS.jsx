@@ -1796,9 +1796,6 @@ export default function AutoCountPOSPage({ onContact }) {
       </PinnedHeroStage>
 
       <main className="pinned-page-content product-app-content">
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)" }}>
-          <PageSectionDivider sections={POS_SECTIONS} id="features" />
-        </div>
         <div
           id="features"
           className="product-app-section product-app-section-paper product-app-section-clean"

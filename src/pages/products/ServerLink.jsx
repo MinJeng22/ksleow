@@ -205,9 +205,6 @@ export default function ServerLinkPage({ onContact }) {
       </div>
 
       <main className="pinned-page-content product-app-content">
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-paper)" }}>
-          <PageSectionDivider sections={SERVERLINK_SECTIONS} id="advantages" />
-        </div>
         <AdvantagesSection />
 
         <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-ice)" }}>
