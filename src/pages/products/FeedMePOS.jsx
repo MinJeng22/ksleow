@@ -1159,9 +1159,7 @@ export default function FeedMePOSPage() {
               </div>
             )}
 
-            <p className="feedme-card-text" style={{ textAlign: "center", marginTop: "1.25rem" }}>
-              Pricing shown follows FeedMe's official monthly plan structure. Hardware, onboarding, payment terminals, and optional premium tools may be quoted separately.
-            </p>
+
 
             <PremiumToolsPanel />
           </div>
