@@ -1025,7 +1025,10 @@ export default function FeedMePOSPage() {
           <div className="content-wrap feedme-trust-strip">
             <div className="feedme-trust-copy">
               <h2 className="ks-section-title feedme-trust-title">Trusted by <span>10,000++ Merchants</span></h2>
-              <p>
+              <p style={{
+                fontSize: "0.85rem", fontWeight: 700, letterSpacing: "0.15em",
+                color: "#6b6f91", textTransform: "uppercase", lineHeight: 1.6
+              }}>
                 Ideal match for every type of restaurant.
               </p>
             </div>
