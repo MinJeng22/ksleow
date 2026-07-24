@@ -435,10 +435,11 @@ function PremiumToolCard({ tool }) {
 
 function PremiumToolsPanel() {
   return (
-    <div className="feedme-pricing-tools-panel">
-      <div className="feedme-pricing-tools-copy">
-        <h3>Premium Tools</h3>
-      </div>
+    <div className="feedme-tools-section" style={{ marginTop: "3.5rem" }}>
+      <SectionTitle
+        title="Premium Tools"
+        centered
+      />
       <div className="feedme-tools-grid">
         {PREMIUM_TOOLS.map((tool) => <PremiumToolCard key={tool.title} tool={tool} />)}
       </div>
@@ -847,33 +848,15 @@ export default function FeedMePOSPage() {
           align-items: center;
           gap: 0.45rem;
         }
-        #page-feedme-pos .feedme-pricing-tools-panel {
-          background: var(--feedme-orange);
-          border-radius: 0;
-          margin: clamp(1.8rem, 3vw, 2.75rem) calc(50% - 50vw) 0;
-          padding: clamp(2.25rem, 5vw, 4rem) clamp(1rem, 4vw, 4.5rem);
-        }
-        #page-feedme-pos .feedme-pricing-tools-copy {
-          margin: 0 auto clamp(1.8rem, 3.5vw, 2.9rem);
-          max-width: 760px;
-          text-align: center;
-        }
-        #page-feedme-pos .feedme-pricing-tools-copy h3 {
-          color: #ffffff;
-          font-size: clamp(2rem, 4vw, 3.15rem);
-          font-weight: 900;
-          letter-spacing: 0;
-          line-height: 1;
-          margin: 0;
-          text-wrap: balance;
+        #page-feedme-pos .feedme-tools-section {
+          margin-top: clamp(3rem, 5vw, 4.5rem);
         }
         #page-feedme-pos .feedme-tools-grid {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: clamp(1rem, 2vw, 1.5rem);
-          margin: 0 auto;
-          max-width: 1200px;
+          display: grid;
+          gap: clamp(0.75rem, 1.5vw, 1.25rem);
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          margin-top: clamp(1.5rem, 3vw, 2.5rem);
+          width: 100%;
         }
         #page-feedme-pos .feedme-tool-card {
           align-items: center;
@@ -884,15 +867,13 @@ export default function FeedMePOSPage() {
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
-          width: calc(33.333% - 1.2rem);
-          min-width: 260px;
-          max-width: 350px;
           min-height: 250px;
           overflow: hidden;
-          padding: 2rem 1.4rem;
+          padding: 1.75rem 1.15rem;
           position: relative;
           text-align: center;
           box-sizing: border-box;
+          width: 100%;
         }
         #page-feedme-pos .feedme-tool-card h3 {
           color: var(--tool-color);
