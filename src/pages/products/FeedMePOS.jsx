@@ -27,16 +27,16 @@ const HERO_PHOTO = "/images/products/feedme-pos-showcase.webp";
 const FEEDME_LOGO = "/images/products/feedme-icon.webp";
 
 const FEEDME_BRANDS = [
-  { src: "/images/feedme-brands/brand-1.webp", alt: "PappaRoti", scale: 0.95 },
-  { src: "/images/feedme-brands/brand-2.webp", alt: "KyoChon 1991", scale: 1.0 },
-  { src: "/images/feedme-brands/brand-3.webp", alt: "Hock Kee Kopitiam", scale: 1.15 },
-  { src: "/images/feedme-brands/brand-4.webp", alt: "Mixue", scale: 1.05 },
-  { src: "/images/feedme-brands/brand-5.webp", alt: "Jom Cha", scale: 1.25 },
-  { src: "/images/feedme-brands/brand-6.webp", alt: "Palsaik Korean BBQ", scale: 1.35 },
-  { src: "/images/feedme-brands/brand-7.webp", alt: "Penang Chendul", scale: 1.55 },
-  { src: "/images/feedme-brands/brand-8.webp", alt: "The Toast", scale: 1.4 },
-  { src: "/images/feedme-brands/brand-9.webp", alt: "Sushi Plus", scale: 1.5 },
-  { src: "/images/feedme-brands/brand-10.png", alt: "Shu Guo Yin Xiang", scale: 1.55 },
+  "/images/feedme-brands/brand-1.webp",
+  "/images/feedme-brands/brand-2.webp",
+  "/images/feedme-brands/brand-3.webp",
+  "/images/feedme-brands/brand-4.webp",
+  "/images/feedme-brands/brand-5.webp",
+  "/images/feedme-brands/brand-6.webp",
+  "/images/feedme-brands/brand-7.webp",
+  "/images/feedme-brands/brand-8.webp",
+  "/images/feedme-brands/brand-9.webp",
+  "/images/feedme-brands/brand-10.png",
 ];
 
 const FEEDME_VIDEOS = [
@@ -568,29 +568,29 @@ export default function FeedMePOSPage() {
           border: 1px solid rgba(85, 82, 74, 0.06);
           border-radius: 22px;
           box-shadow: none;
-          max-width: 1050px;
-          margin: 0 auto clamp(3rem, 6vw, 5rem);
+          max-width: 1600px;
           overflow: hidden;
-          padding: clamp(1rem, 2vw, 1.75rem);
+          padding: clamp(1rem, 2.5vw, 2rem);
+          margin-bottom: clamp(3rem, 6vw, 5rem);
           width: 100%;
         }
         #page-feedme-pos .feedme-brand-grid {
           align-items: center;
           display: grid;
-          gap: 0.75rem 1.25rem;
+          gap: clamp(1rem, 2.5vw, 2rem);
           grid-template-columns: repeat(5, minmax(0, 1fr));
         }
         #page-feedme-pos .feedme-brand-item {
           align-items: center;
           display: flex;
           justify-content: center;
-          min-height: 55px;
-          padding: 0.25rem;
+          min-height: 130px;
+          padding: clamp(0.5rem, 1.5vw, 1.5rem);
         }
         #page-feedme-pos .feedme-brand-item img {
           display: block;
           height: auto;
-          max-height: 55px;
+          max-height: 110px;
           max-width: 100%;
           object-fit: contain;
           width: 100%;
@@ -1149,15 +1149,9 @@ export default function FeedMePOSPage() {
 
             <div className="feedme-brand-panel">
               <div className="feedme-brand-grid">
-                {FEEDME_BRANDS.map((item) => (
-                  <div key={item.src} className="feedme-brand-item">
-                    <img
-                      src={item.src}
-                      alt={item.alt || "FeedMe merchant brand"}
-                      loading="lazy"
-                      decoding="async"
-                      style={{ transform: item.scale ? `scale(${item.scale})` : undefined }}
-                    />
+                {FEEDME_BRANDS.slice(0, 10).map((src, index) => (
+                  <div key={`brand-${src}-${index}`} className="feedme-brand-item">
+                    <img src={src} alt="FeedMe merchant brand" loading="lazy" decoding="async" />
                   </div>
                 ))}
               </div>
