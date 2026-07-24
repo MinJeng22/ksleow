@@ -45,6 +45,8 @@ const FEEDME_OVERVIEW_TABS = [
     label: "POS",
     icon: "/images/products/feedme-overview/pos.webp",
     activeIcon: "/images/products/feedme-overview/pos-activated.webp",
+    featureImage: "/images/products/feedme-overview/pos-feature.webp",
+    featureAlt: "FeedMe POS product overview",
     copy: "Streamline restaurant operations with efficient order, sales, inventory, and payment management, powered by real-time insights and AI features for growth.",
     buttonLabel: "Learn More About FeedMe POS",
   },
@@ -85,7 +87,7 @@ const FEEDME_OVERVIEW_TABS = [
     label: "HRM",
     icon: "/images/products/feedme-overview/hrm.webp",
     activeIcon: "/images/products/feedme-overview/hrm-activated.webp",
-    copy: "Streamline employee management with tools for scheduling, role, performance tracking, and more！",
+    copy: "Streamline employee management with tools for scheduling, role, performance tracking, and more!",
   },
   {
     key: "remy",
@@ -522,7 +524,6 @@ function PremiumToolsPanel({ onOpenMiniProgram }) {
 function FeedMeOfficialOverview() {
   const [activeKey, setActiveKey] = useState("pos");
   const activeItem = FEEDME_OVERVIEW_TABS.find((item) => item.key === activeKey) || FEEDME_OVERVIEW_TABS[0];
-  const isPosActive = activeItem.key === "pos";
 
   return (
     <section className="feedme-official-overview-section" aria-label="FeedMe product overview">
@@ -543,18 +544,23 @@ function FeedMeOfficialOverview() {
           ))}
         </div>
 
-        {isPosActive && (
-          <div className="feedme-overview-visual" role="tabpanel" aria-label={activeItem.label}>
+        <div className="feedme-overview-visual" role="tabpanel" aria-label={activeItem.label}>
+          {activeItem.featureImage ? (
             <img
               className="feedme-overview-feature"
-              src="/images/products/feedme-overview/pos-feature.webp"
-              alt="FeedMe POS product overview"
+              src={activeItem.featureImage}
+              alt={activeItem.featureAlt}
               loading="eager"
               decoding="async"
               fetchpriority="high"
             />
-          </div>
-        )}
+          ) : (
+            <div className="feedme-overview-module-card">
+              <img src={activeItem.activeIcon} alt="" loading="eager" decoding="async" />
+              <h3>{activeItem.label}</h3>
+            </div>
+          )}
+        </div>
 
         <p className="feedme-overview-copy">
           {activeItem.copy}
@@ -1483,6 +1489,32 @@ export default function FeedMePOSPage() {
           max-width: 720px;
           width: min(64vw, 720px);
         }
+        #page-feedme-pos .feedme-overview-module-card {
+          align-items: center;
+          background: rgba(255, 255, 255, 0.34);
+          border: 1px solid rgba(255, 120, 35, 0.14);
+          border-radius: 28px;
+          display: grid;
+          justify-items: center;
+          margin: 0 auto;
+          min-height: 378px;
+          padding: clamp(2rem, 4.6vw, 3.75rem);
+          width: min(64vw, 720px);
+        }
+        #page-feedme-pos .feedme-overview-module-card img {
+          display: block;
+          height: 112px;
+          margin-bottom: 1.25rem;
+          object-fit: contain;
+          width: 132px;
+        }
+        #page-feedme-pos .feedme-overview-module-card h3 {
+          color: var(--feedme-orange);
+          font-size: clamp(2.35rem, 5.2vw, 3.85rem);
+          font-weight: 900;
+          line-height: 0.98;
+          margin: 0;
+        }
         #page-feedme-pos .feedme-overview-copy {
           color: #202020;
           font-size: clamp(0.96rem, 1.45vw, 1.08rem);
@@ -1535,6 +1567,14 @@ export default function FeedMePOSPage() {
           }
           #page-feedme-pos .feedme-overview-feature {
             width: 100%;
+          }
+          #page-feedme-pos .feedme-overview-module-card {
+            min-height: 228px;
+            width: 100%;
+          }
+          #page-feedme-pos .feedme-overview-module-card img {
+            height: 88px;
+            width: 108px;
           }
           #page-feedme-pos .feedme-overview-visual {
             margin-top: 2.7rem;
