@@ -282,36 +282,23 @@ function FeedMePricingCards({ cards }) {
   return (
     <div className="pos-pricing-cards">
       {cards.map((card) => (
-        <div
-          key={card.name}
-          className={`pos-pricing-card${card.highlight ? " pos-pricing-card-highlight" : ""}`}
-          style={{ "--card-accent": card.highlight ? FEEDME_ORANGE : undefined }}
-        >
-          {card.highlight && (
-            <div className="pos-pricing-badge">Most Popular</div>
-          )}
-          <div className="pos-pricing-card-top">
-            <h3 className="pos-pricing-card-title">{card.name}</h3>
-            {card.subtitle && <p className="pos-pricing-card-subtitle">{card.subtitle}</p>}
-          </div>
-          <div className="pos-pricing-card-price">
-            <strong>{card.price}</strong>
-            <span>{card.period}</span>
-          </div>
-          <div className="pos-pricing-card-features">
-            <ul>
-              {card.features.map(f => (
+        <div key={card.name} className="pos-pricing-card">
+          <div className="pos-pricing-card-inner">
+            <h3 className="pos-pricing-name">{card.name}</h3>
+            {card.subtitle && <p className="pos-pricing-desc">{card.subtitle}</p>}
+            <div className="pos-pricing-price">
+              <span className="pos-pricing-amount">{card.price}</span>
+              <span className="pos-pricing-suffix">{card.period}</span>
+            </div>
+            <div className="pos-pricing-features-title">Key Features:</div>
+            <ul className="pos-pricing-features">
+              {card.features.map((f) => (
                 <li key={f}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
-                  <span>{f}</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+                  {f}
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="pos-pricing-card-action">
-            <a href={WA_LINK} target="_blank" rel="noreferrer" className="feedme-plan-button" style={{ width: '100%', margin: 0, minHeight: '44px' }}>
-              Enquire Now
-            </a>
           </div>
         </div>
       ))}
