@@ -63,7 +63,7 @@ const FEEDME_SECTIONS = [
   { id: "advantages", label: "Advantages", icon: IconStar, color: FEEDME_ORANGE },
   { id: "plans", label: "Plans", icon: IconRocket, color: FEEDME_ORANGE },
   { id: "integration", label: "Integrations", icon: IconLink, color: FEEDME_ORANGE },
-  { id: "training", label: "Quick-Start Guide", icon: IconVideo, color: FEEDME_ORANGE },
+  { id: "training", label: "Tutorial Guide", icon: IconVideo, color: FEEDME_ORANGE },
   { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: FEEDME_ORANGE },
 ];
 
@@ -1174,7 +1174,7 @@ export default function FeedMePOSPage() {
           <div id="training">
             <AutoCountTrainingWebGL
               customVideos={FEEDME_VIDEOS}
-              title="FeedMe POS Quick-Start Guide"
+              title="FeedMe POS Tutorial Guide"
               themeColor={FEEDME_ORANGE}
               themeHoverColor="#e66518"
               activeTabBg={FEEDME_TRUFFLE}
