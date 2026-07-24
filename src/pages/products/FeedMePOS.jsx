@@ -43,7 +43,8 @@ const FEEDME_OVERVIEW_TABS = [
   {
     key: "pos",
     label: "POS",
-    icon: "/images/products/feedme-overview/pos-activated.webp",
+    icon: "/images/products/feedme-overview/pos.webp",
+    activeIcon: "/images/products/feedme-overview/pos-activated.webp",
     copy: "Streamline restaurant operations with efficient order, sales, inventory, and payment management, powered by real-time insights and AI features for growth.",
     buttonLabel: "Learn More About FeedMe POS",
   },
@@ -51,42 +52,47 @@ const FEEDME_OVERVIEW_TABS = [
     key: "connect",
     label: "Connect",
     icon: "/images/products/feedme-overview/connect.webp",
-    copy: "Marketing, CRM, feedback, SMS broadcast, counter app, and customer engagement tools to create restaurant campaigns at your fingertips.",
+    activeIcon: "/images/products/feedme-overview/connect-activated.webp",
+    copy: "Marketing, CRM, Feedback, SMS Broadcast, Counter App, and more! Effortlessly create unlimited marketing campaigns at your fingertips!",
     buttonLabel: "Learn More About FeedMe Connect",
   },
   {
     key: "inventory",
     label: "Inventory",
     icon: "/images/products/feedme-overview/inventory.webp",
-    copy: "Optimize stock levels, reduce waste, and manage costs efficiently with streamlined restaurant inventory operations.",
+    activeIcon: "/images/products/feedme-overview/inventory-activated.webp",
+    copy: "Optimize stock levels, minimize waste, and manage costs efficiently for streamlined inventory operations.",
     buttonLabel: "Learn More About FeedMe Inventory",
   },
   {
     key: "report",
     label: "Report",
     icon: "/images/products/feedme-overview/report.webp",
-    copy: "Deliver automated business performance analysis so owners can make faster decisions with clearer restaurant metrics.",
+    activeIcon: "/images/products/feedme-overview/report-activated.webp",
+    copy: "Delivers automated business performance analysis, helping restaurant owners make swift, informed decisions by uncovering complex metric relationships.",
     buttonLabel: "Learn More About FeedMe Report",
   },
   {
     key: "mini-program",
     label: "Mini Program",
     icon: "/images/products/feedme-overview/mini-program.webp",
-    copy: "Customizable, user-friendly mini program widgets designed to elevate your restaurant brand in minutes.",
+    activeIcon: "/images/products/feedme-overview/mini-program-activated.webp",
+    copy: "Customizable, user-friendly widgets to elevate your brand in just 10 minutes.",
     buttonLabel: "Learn More About FeedMe Mini Program",
   },
   {
     key: "hrm",
     label: "HRM",
     icon: "/images/products/feedme-overview/hrm.webp",
-    copy: "Streamline employee management with tools for scheduling, roles, performance tracking, and restaurant workforce control.",
-    buttonLabel: "Learn More About FeedMe HRM",
+    activeIcon: "/images/products/feedme-overview/hrm-activated.webp",
+    copy: "Streamline employee management with tools for scheduling, role, performance tracking, and more！",
   },
   {
     key: "remy",
     label: "REMY",
     icon: "/images/products/feedme-overview/remy.webp",
-    copy: "AI-REMY acts as a data storyteller and strategic advisor, helping align restaurant decisions with business trends.",
+    activeIcon: "/images/products/feedme-overview/remy-activated.webp",
+    copy: "Acts as a data storyteller and strategic advisor, enhancing decisions and aligning your business with industry trends.",
     buttonLabel: "Learn More About AI-REMY",
   },
 ];
@@ -531,14 +537,14 @@ function FeedMeOfficialOverview() {
               aria-selected={item.key === activeKey}
               onClick={() => setActiveKey(item.key)}
             >
-              <img src={item.icon} alt="" loading="lazy" decoding="async" />
+              <img src={item.key === activeKey ? item.activeIcon : item.icon} alt="" loading="lazy" decoding="async" />
               <span>{item.label}</span>
             </button>
           ))}
         </div>
 
-        <div className="feedme-overview-visual" role="tabpanel" aria-label={activeItem.label}>
-          {isPosActive ? (
+        {isPosActive && (
+          <div className="feedme-overview-visual" role="tabpanel" aria-label={activeItem.label}>
             <img
               className="feedme-overview-feature"
               src="/images/products/feedme-overview/pos-feature.webp"
@@ -547,21 +553,18 @@ function FeedMeOfficialOverview() {
               decoding="async"
               fetchpriority="high"
             />
-          ) : (
-            <div className="feedme-overview-module-card">
-              <img src={activeItem.icon} alt="" loading="lazy" decoding="async" />
-              <h3>{activeItem.label}</h3>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
 
         <p className="feedme-overview-copy">
           {activeItem.copy}
         </p>
 
-        <a className="feedme-overview-button" href="#training">
-          {activeItem.buttonLabel}
-        </a>
+        {activeItem.buttonLabel && (
+          <a className="feedme-overview-button" href="#training">
+            {activeItem.buttonLabel}
+          </a>
+        )}
       </div>
     </section>
   );
@@ -1480,50 +1483,16 @@ export default function FeedMePOSPage() {
           max-width: 720px;
           width: min(64vw, 720px);
         }
-        #page-feedme-pos .feedme-overview-module-card {
-          align-items: center;
-          background:
-            radial-gradient(circle at 18% 20%, rgba(255, 120, 35, 0.18), transparent 34%),
-            radial-gradient(circle at 82% 8%, rgba(140, 230, 215, 0.22), transparent 30%),
-            rgba(255, 255, 255, 0.62);
-          border: 1px solid rgba(255, 120, 35, 0.16);
-          border-radius: 28px;
-          box-shadow: 0 24px 70px rgba(85, 82, 74, 0.1);
-          display: grid;
-          justify-items: center;
-          margin: 0 auto;
-          min-height: 378px;
-          padding: clamp(1.7rem, 4vw, 3.2rem);
-          width: min(64vw, 720px);
-        }
-        #page-feedme-pos .feedme-overview-module-card img {
-          height: 86px;
-          margin-bottom: 1.1rem;
-          object-fit: contain;
-          width: 110px;
-        }
-        #page-feedme-pos .feedme-overview-module-card h3 {
-          color: var(--feedme-orange);
-          font-size: clamp(2rem, 4vw, 3rem);
-          font-weight: 900;
-          line-height: 1;
-          margin: 0 0 0.8rem;
-        }
-        #page-feedme-pos .feedme-overview-module-card p {
-          color: #202020;
-          font-size: clamp(1rem, 1.8vw, 1.16rem);
-          font-weight: 600;
-          line-height: 1.35;
-          margin: 0;
-          max-width: 560px;
-        }
         #page-feedme-pos .feedme-overview-copy {
           color: #202020;
           font-size: clamp(0.96rem, 1.45vw, 1.08rem);
           font-weight: 500;
           line-height: 1.18;
-          margin: 0 auto 0.9rem;
+          margin: clamp(3.4rem, 7vw, 4.2rem) auto 0.9rem;
           max-width: 950px;
+        }
+        #page-feedme-pos .feedme-overview-visual + .feedme-overview-copy {
+          margin-top: 0;
         }
         #page-feedme-pos .feedme-overview-button {
           align-items: center;
@@ -1570,10 +1539,6 @@ export default function FeedMePOSPage() {
           #page-feedme-pos .feedme-overview-visual {
             margin-top: 2.7rem;
             min-height: 228px;
-          }
-          #page-feedme-pos .feedme-overview-module-card {
-            min-height: 228px;
-            width: 100%;
           }
           #page-feedme-pos .feedme-overview-copy {
             line-height: 1.35;
