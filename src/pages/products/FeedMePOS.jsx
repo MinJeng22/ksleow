@@ -60,9 +60,9 @@ const FEEDME_VIDEOS = [
 ];
 
 const FEEDME_SECTIONS = [
+  { id: "training", label: "Tutorial Guide", icon: IconVideo, color: FEEDME_ORANGE },
   { id: "plans", label: "Plans", icon: IconRocket, color: FEEDME_ORANGE },
   { id: "integration", label: "Integrations", icon: IconLink, color: FEEDME_ORANGE },
-  { id: "training", label: "Tutorial Guide", icon: IconVideo, color: FEEDME_ORANGE },
   { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: FEEDME_ORANGE },
 ];
 
@@ -1159,7 +1159,25 @@ export default function FeedMePOSPage() {
           </div>
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "#fef6ed", "--section-to": "#fff4e8" }}>
+        <div className="product-app-divider" style={{ "--section-from": "#fef6ed", "--section-to": "var(--ks-page-mist)" }}>
+          <PageSectionDivider sections={FEEDME_SECTIONS} id="training" />
+        </div>
+
+        <section className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-paper">
+          <div id="training">
+            <AutoCountTrainingWebGL
+              customVideos={FEEDME_VIDEOS}
+              title="FeedMe POS Tutorial Guide"
+              themeColor={FEEDME_ORANGE}
+              themeHoverColor="#e66518"
+              activeTabBg={FEEDME_TRUFFLE}
+              playIconColor="#ffffff"
+              playBtnBg={FEEDME_ORANGE}
+            />
+          </div>
+        </section>
+
+        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "#fff4e8" }}>
           <PageSectionDivider sections={FEEDME_SECTIONS} id="plans" />
         </div>
 
@@ -1205,8 +1223,6 @@ export default function FeedMePOSPage() {
               </div>
             )}
 
-
-
             <PremiumToolsPanel />
           </div>
         </section>
@@ -1234,24 +1250,6 @@ export default function FeedMePOSPage() {
                 </article>
               ))}
             </div>
-          </div>
-        </section>
-
-        <div className="product-app-divider" style={{ "--section-from": "#fef6ed", "--section-to": "var(--ks-page-mist)" }}>
-          <PageSectionDivider sections={FEEDME_SECTIONS} id="training" />
-        </div>
-
-        <section className="product-app-section product-app-section-mist product-app-section-from-ice product-app-section-to-paper">
-          <div id="training">
-            <AutoCountTrainingWebGL
-              customVideos={FEEDME_VIDEOS}
-              title="FeedMe POS Tutorial Guide"
-              themeColor={FEEDME_ORANGE}
-              themeHoverColor="#e66518"
-              activeTabBg={FEEDME_TRUFFLE}
-              playIconColor="#ffffff"
-              playBtnBg={FEEDME_ORANGE}
-            />
           </div>
         </section>
 
