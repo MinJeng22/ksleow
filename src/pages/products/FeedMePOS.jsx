@@ -1330,11 +1330,20 @@ export default function FeedMePOSPage() {
 
             <div className="feedme-brand-panel">
               <div className="feedme-brand-grid">
-                {FEEDME_BRANDS.slice(0, 10).map((src, index) => (
-                  <div key={`brand-${src}-${index}`} className="feedme-brand-item">
-                    <img src={src} alt="FeedMe merchant brand" loading="lazy" decoding="async" />
-                  </div>
-                ))}
+                {FEEDME_BRANDS.slice(0, 10).map((src, index) => {
+                  const isEnlarged = index === 6 || index === 8;
+                  return (
+                    <div key={`brand-${src}-${index}`} className="feedme-brand-item">
+                      <img
+                        src={src}
+                        alt="FeedMe merchant brand"
+                        loading="lazy"
+                        decoding="async"
+                        style={isEnlarged ? { transform: "scale(1.45)" } : undefined}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
