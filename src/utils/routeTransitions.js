@@ -64,7 +64,7 @@ const routeAssets = {
     "/images/promotions/autocount-cloudaccounting-65-promo.webp",
   ],
   "/products/autocount-pos": [
-    "/images/products/autocount-pos-showcase.webp",
+    "/images/products/autocount-pos-home.webp",
     "/images/products/autocount-pos.webp",
     "/images/products/autocount-pos-backend.webp",
     "/images/products/autocount-pos-frontend.webp",
@@ -111,7 +111,7 @@ const routeCriticalAssets = {
     "/images/products/cloudaccounting-icon.webp",
   ],
   "/products/autocount-pos": [
-    "/images/products/autocount-pos-showcase.webp",
+    "/images/products/autocount-pos-home.webp",
     "/images/products/autocount-pos.webp",
   ],
   "/products/feedme-pos": [
