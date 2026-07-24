@@ -575,9 +575,35 @@ function FeedMeOfficialOverview() {
   const [activeKey, setActiveKey] = useState("pos");
   const activeItem = FEEDME_OVERVIEW_TABS.find((item) => item.key === activeKey) || FEEDME_OVERVIEW_TABS[0];
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    FEEDME_OVERVIEW_TABS.forEach((item) => {
+      if (!item.featureImage) return;
+      const image = new Image();
+      image.decoding = "async";
+      image.fetchPriority = "high";
+      image.src = item.featureImage;
+    });
+  }, []);
+
   return (
     <section className="feedme-official-overview-section" aria-label="FeedMe product overview">
       <div className="feedme-official-overview relative p-8 @new_lg:pt-10 @new_lg:pb-20 relative z-1 mx-auto px-4 max-w-[1280px] @new_md:py-20">
+        <div className="feedme-overview-preload" aria-hidden="true">
+          {FEEDME_OVERVIEW_TABS.map((item) => (
+            item.featureImage ? (
+              <img
+                key={item.key}
+                src={item.featureImage}
+                alt=""
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+              />
+            ) : null
+          ))}
+        </div>
+
         <div className="feedme-overview-tabs" role="tablist" aria-label="FeedMe ecosystem modules">
           {FEEDME_OVERVIEW_TABS.map((item) => (
             <button
@@ -1473,6 +1499,20 @@ export default function FeedMePOSPage() {
           position: relative;
           text-align: center;
           z-index: 1;
+        }
+        #page-feedme-pos .feedme-overview-preload {
+          height: 1px;
+          left: 0;
+          opacity: 0;
+          overflow: hidden;
+          pointer-events: none;
+          position: absolute;
+          top: 0;
+          width: 1px;
+        }
+        #page-feedme-pos .feedme-overview-preload img {
+          height: 1px;
+          width: 1px;
         }
         #page-feedme-pos .feedme-overview-tabs {
           align-items: flex-start;
