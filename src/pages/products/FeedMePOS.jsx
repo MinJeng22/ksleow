@@ -239,6 +239,47 @@ function FeedMePlanValue({ value, price = false, marked = false }) {
   return <span className="feedme-compare-note">{value}</span>;
 }
 
+function FeedMePricingCards({ cards }) {
+  return (
+    <div className="pos-pricing-cards">
+      {cards.map((card) => (
+        <div
+          key={card.name}
+          className={`pos-pricing-card${card.highlight ? " pos-pricing-card-highlight" : ""}`}
+          style={{ "--card-accent": card.highlight ? FEEDME_ORANGE : undefined }}
+        >
+          {card.highlight && (
+            <div className="pos-pricing-badge">Most Popular</div>
+          )}
+          <div className="pos-pricing-card-top">
+            <h3 className="pos-pricing-card-title">{card.name}</h3>
+            {card.subtitle && <p className="pos-pricing-card-subtitle">{card.subtitle}</p>}
+          </div>
+          <div className="pos-pricing-card-price">
+            <strong>{card.price}</strong>
+            <span>{card.period}</span>
+          </div>
+          <div className="pos-pricing-card-features">
+            <ul>
+              {card.features.map(f => (
+                <li key={f}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="pos-pricing-card-action">
+            <a href={WA_LINK} target="_blank" rel="noreferrer" className="feedme-plan-button" style={{ width: '100%', margin: 0, minHeight: '44px' }}>
+              Enquire Now
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function FeedMePricingTable() {
   return (
     <div className="ks-compare-panel feedme-pricing-panel">
@@ -1056,7 +1097,40 @@ export default function FeedMePOSPage() {
               centered
             />
 
-            <FeedMePricingTable />
+            <FeedMePricingCards cards={FEEDME_PRICING_CARDS} />
+
+            <div className={`pos-edition-table-expandable ${tableOpen ? "is-open" : ""}`}>
+              <FeedMePricingTable />
+              
+              {!tableOpen && (
+                <div className="pos-edition-table-fade-overlay">
+                  <button onClick={() => setTableOpen(true)} className="pos-edition-table-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                    Open Full Edition Comparison
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {tableOpen && (
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+                <button 
+                  onClick={() => {
+                    setTableOpen(false);
+                    // smoothly scroll back up to the plans section
+                    const section = document.getElementById("plans");
+                    if (section) {
+                      const y = section.getBoundingClientRect().top + window.scrollY - 100;
+                      window.scrollTo({ top: y, behavior: "smooth" });
+                    }
+                  }} 
+                  className="pos-edition-table-btn"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+                  Collapse Comparison
+                </button>
+              </div>
+            )}
 
             <p className="feedme-card-text" style={{ textAlign: "center", marginTop: "1.25rem" }}>
               Pricing shown follows FeedMe's official monthly plan structure. Hardware, onboarding, payment terminals, and optional premium tools may be quoted separately.
