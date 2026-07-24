@@ -61,9 +61,8 @@ const FEEDME_VIDEOS = [
 
 const FEEDME_SECTIONS = [
   { id: "training", label: "Tutorial Guide", icon: IconVideo, color: FEEDME_ORANGE },
-  { id: "plans", label: "Plans", icon: IconRocket, color: FEEDME_ORANGE },
-  { id: "integration", label: "Integrations", icon: IconLink, color: FEEDME_ORANGE },
-  { id: "why-ksl", label: "Why KSL", icon: IconHandshake, color: FEEDME_ORANGE },
+  { id: "plans", label: "Plan Compare", icon: IconRocket, color: FEEDME_ORANGE },
+  { id: "why-ksl", label: "Why Choose Us", icon: IconHandshake, color: FEEDME_ORANGE },
 ];
 
 const FEEDME_PRICING_CARDS = [
@@ -1366,7 +1365,7 @@ export default function FeedMePOSPage() {
         <section id="plans" className="product-app-section feedme-section-plans">
           <div className="content-wrap">
             <SectionTitle
-              title="FeedMe POS Pricing Plans"
+              title="Plan Compare"
               centered
             />
 
@@ -1409,33 +1408,7 @@ export default function FeedMePOSPage() {
           </div>
         </section>
 
-        <div className="product-app-divider" style={{ "--section-from": "#fffdf8", "--section-to": "#fff4e8" }}>
-          <PageSectionDivider sections={FEEDME_SECTIONS} id="integration" />
-        </div>
-
-        <section id="integration" className="product-app-section feedme-section-integration">
-          <div className="content-wrap feedme-workflow">
-            <div className="feedme-workflow-panel">
-              <h2 className="ks-section-title">One order, connected from table to report.</h2>
-              <p>
-                FeedMe is not just a cashier screen. Orders can move from QR code to kitchen display, payment, invoice, reporting, and accounting integration without rebuilding the same data again.
-              </p>
-            </div>
-            <div className="feedme-workflow-list">
-              {WORKFLOW_STEPS.map((step, index) => (
-                <article key={step.label} className="feedme-workflow-card">
-                  <b>{index + 1}</b>
-                  <div>
-                    <h3>{step.label}</h3>
-                    <p>{step.text}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <div className="product-app-divider" style={{ "--section-from": "var(--ks-page-paper)", "--section-to": "var(--ks-page-warm)" }}>
+        <div className="product-app-divider" style={{ "--section-from": "#fffdf8", "--section-to": "var(--ks-page-warm)" }}>
           <PageSectionDivider sections={FEEDME_SECTIONS} id="why-ksl" />
         </div>
 
@@ -1443,7 +1416,7 @@ export default function FeedMePOSPage() {
           <div className="content-wrap">
             <SectionTitle
               eyebrow="Local rollout"
-              title="FeedMe software, KSL hands-on support."
+              title="Why Choose Us"
               body="KSL helps translate the official FeedMe platform into a working restaurant setup: outlet planning, menu setup, hardware, training, and support after go-live."
             />
 
