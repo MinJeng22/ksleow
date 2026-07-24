@@ -94,48 +94,11 @@ export default function ProductHero({
 }) {
   const videoRef = useRef(null);
   const resolvedBackgroundImage = backgroundImage || DEFAULT_BG;
-  const [isHeroImageReady, setIsHeroImageReady] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const shouldRenderVideoFallback = Boolean(backgroundVideo && showVideoFallback && resolvedBackgroundImage);
 
   useEffect(() => {
-    setIsHeroImageReady(false);
     setIsVideoPlaying(false);
-
-    if (!resolvedBackgroundImage || typeof window === "undefined" || typeof Image === "undefined") {
-      setIsHeroImageReady(true);
-      return undefined;
-    }
-
-    let cancelled = false;
-    const img = new Image();
-
-    const markReady = () => {
-      if (!cancelled) setIsHeroImageReady(true);
-    };
-
-    img.decoding = "async";
-    img.fetchPriority = "high";
-    img.onload = () => {
-      if (typeof img.decode === "function") {
-        img.decode().then(markReady).catch(markReady);
-        return;
-      }
-      markReady();
-    };
-    img.onerror = markReady;
-    img.src = resolvedBackgroundImage;
-
-    if (img.complete) {
-      markReady();
-    }
-
-    return () => {
-      cancelled = true;
-    };
-  }, [resolvedBackgroundImage]);
-
-  useEffect(() => {
     if (videoRef.current && backgroundVideo) {
       videoRef.current.defaultMuted = true;
       videoRef.current.muted = true;
@@ -167,8 +130,6 @@ export default function ProductHero({
               loading="eager"
               decoding="sync"
               fetchpriority="high"
-              onLoad={() => setIsHeroImageReady(true)}
-              onError={() => setIsHeroImageReady(true)}
               draggable={false}
               style={{
                 position: "absolute",
@@ -178,7 +139,7 @@ export default function ProductHero({
                 objectFit: "cover",
                 objectPosition: "center center",
                 zIndex: 0,
-                opacity: isVideoPlaying ? 0 : (isHeroImageReady ? 1 : 0),
+                opacity: isVideoPlaying ? 0 : 1,
                 transition: "opacity 0.7s ease-in-out",
               }}
             />
@@ -215,8 +176,6 @@ export default function ProductHero({
           loading="eager"
           decoding="sync"
           fetchpriority="high"
-          onLoad={() => setIsHeroImageReady(true)}
-          onError={() => setIsHeroImageReady(true)}
           draggable={false}
           style={{
             position: "absolute",
@@ -226,8 +185,6 @@ export default function ProductHero({
             objectFit: "cover",
             objectPosition: "center center",
             zIndex: 0,
-            opacity: isHeroImageReady ? 1 : 0,
-            transition: "opacity 0.35s ease-out",
           }}
         />
       )}
