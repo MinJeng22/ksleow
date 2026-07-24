@@ -1113,6 +1113,25 @@ export default function FeedMePOSPage() {
           </div>
         </section>
 
+        <div className="product-app-divider" style={{ "--section-from": "#fef6ed", "--section-to": "#fff4e8" }}>
+          <PageSectionDivider sections={FEEDME_SECTIONS} id="advantages" />
+        </div>
+
+        <section id="advantages" className="product-app-section feedme-section-advantages">
+          <div className="content-wrap">
+            <SectionTitle
+              eyebrow="Core Advantages"
+              title="Built for modern F&B outlet operations."
+              body="FeedMe connects daily cashier work with AI upselling, QR table ordering, kitchen screens, and outlet reports so restaurant teams can run smoothly without juggling disconnected tools."
+              centered
+            />
+
+            <div className="feedme-feature-grid">
+              {FEATURE_CARDS.map((card) => <FeatureCard key={card.title} item={card} />)}
+            </div>
+          </div>
+        </section>
+
         <div className="product-app-divider" style={{ "--section-from": "#fff4e8", "--section-to": "#fff4e8" }}>
           <PageSectionDivider sections={FEEDME_SECTIONS} id="plans" />
         </div>
