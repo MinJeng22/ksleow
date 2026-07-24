@@ -419,6 +419,7 @@ function PremiumToolsPanel() {
 
 export default function FeedMePOSPage() {
   const [trialOpen, setTrialOpen] = useState(false);
+  const [tableOpen, setTableOpen] = useState(false);
   useFavicon(FEEDME_LOGO);
 
   useEffect(() => {
